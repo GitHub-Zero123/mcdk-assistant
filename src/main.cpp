@@ -6,6 +6,11 @@
 #include <string>
 #include <filesystem>
 
+#ifdef _WIN32
+#define NOMINMAX
+#include <windows.h>
+#endif
+
 static std::string get_exe_dir() {
     namespace fs = std::filesystem;
 #ifdef _WIN32
@@ -15,15 +20,6 @@ static std::string get_exe_dir() {
 #else
     return fs::canonical("/proc/self/exe").parent_path().string();
 #endif
-}
-
-static std::string resolve_path(const char* compile_time_path, const std::string& fallback_name) {
-    namespace fs = std::filesystem;
-    // install 模式：优先使用 exe 同级目录
-    std::string local = get_exe_dir() + "/" + fallback_name;
-    if (fs::exists(local)) return local;
-    if (fs::exists(compile_time_path)) return compile_time_path;
-    return compile_time_path;
 }
 
 // 通用搜索工具处理函数
@@ -55,8 +51,9 @@ int main() {
     SetConsoleCP(65001);
 #endif
 
-    std::string dicts_dir     = resolve_path(MCDK_DICTS_DIR, "dicts");
-    std::string knowledge_dir = resolve_path(MCDK_KNOWLEDGE_DIR, "knowledge");
+    std::string exe_dir = get_exe_dir();
+    std::string dicts_dir     = exe_dir + "/dicts";
+    std::string knowledge_dir = exe_dir + "/knowledge";
 
     std::cout << "[MCDK] dicts: " << dicts_dir << std::endl;
     std::cout << "[MCDK] knowledge: " << knowledge_dir << std::endl;

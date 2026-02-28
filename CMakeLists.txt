@@ -61,19 +61,11 @@ if(WIN32)
     target_link_libraries(${PROJECT_NAME} PRIVATE ws2_32)
 endif()
 
-target_compile_definitions(${PROJECT_NAME} PRIVATE
-    MCDK_KNOWLEDGE_DIR="${CMAKE_CURRENT_SOURCE_DIR}/knowledge"
-    MCDK_DICTS_DIR="${CMAKE_CURRENT_SOURCE_DIR}/dicts"
-)
-
 # ── 安装 ──────────────────────────────────────────────
 
 install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION .)
 install(DIRECTORY dicts/ DESTINATION dicts)
 install(DIRECTORY knowledge/ DESTINATION knowledge)
-
-# install 构建：使用 exe 同级目录的 dicts/knowledge
-install(CODE "message(STATUS \"Installed mcdk-assistant with dicts & knowledge\")")
 
 # ── 测试 ──────────────────────────────────────────────
 
