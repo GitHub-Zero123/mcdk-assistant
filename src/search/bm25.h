@@ -5,28 +5,23 @@
 #include <unordered_map>
 #include <cmath>
 #include <algorithm>
-#include <numeric>
 
 namespace mcdk {
 
-// 一个文档片段
 struct DocFragment {
-    std::string content;     // 原始文本
-    std::string file;        // 来源文件路径
-    int         line_start;  // 起始行号
-    int         line_end;    // 结束行号
+    std::string content;
+    std::string file;
+    int         line_start;
+    int         line_end;
 };
 
-// 搜索结果
 struct SearchResult {
     const DocFragment* fragment;
     double             score;
 };
 
-// BM25 搜索引擎
 class BM25Engine {
 public:
-    // BM25 参数
     static constexpr double K1 = 1.5;
     static constexpr double B  = 0.75;
 
@@ -37,7 +32,6 @@ public:
         size_t n = fragments.size();
         if (n == 0) return;
 
-        // 计算每个文档的长度和平均长度
         doc_lengths_.resize(n);
         double total_len = 0;
         for (size_t i = 0; i < n; ++i) {
@@ -47,11 +41,9 @@ public:
         avg_dl_ = total_len / static_cast<double>(n);
         num_docs_ = n;
 
-        // 构建倒排索引: term -> [doc_id, ...]
         idf_.clear();
         inverted_index_.clear();
         for (size_t i = 0; i < n; ++i) {
-            // 统计每个文档中出现的不同词
             std::unordered_map<std::string, bool> seen;
             for (const auto& token : tokenized_docs[i]) {
                 if (!seen[token]) {
@@ -61,15 +53,14 @@ public:
             }
         }
 
-        // 计算 IDF
         for (const auto& [term, doc_ids] : inverted_index_) {
             double df = static_cast<double>(doc_ids.size());
-            // IDF = log((N - df + 0.5) / (df + 0.5) + 1)
             idf_[term] = std::log((num_docs_ - df + 0.5) / (df + 0.5) + 1.0);
         }
     }
 
-    std::vector<SearchResult> search(const std::vector<std::string>& query_tokens, int top_k = -1) const {
+    std::vector<SearchResult> search(const std::vector<std::string>& query_tokens,
+                                     int top_k = -1) const {
         if (!fragments_ || num_docs_ == 0) return {};
 
         std::vector<double> scores(num_docs_, 0.0);
@@ -83,7 +74,6 @@ public:
             if (idx_it == inverted_index_.end()) continue;
 
             for (size_t doc_id : idx_it->second) {
-                // 计算 term frequency
                 int tf = 0;
                 for (const auto& t : (*doc_tokens_)[doc_id]) {
                     if (t == qt) ++tf;
@@ -95,7 +85,6 @@ public:
             }
         }
 
-        // 收集有分数的结果
         std::vector<SearchResult> results;
         for (size_t i = 0; i < num_docs_; ++i) {
             if (scores[i] > 0.0) {
@@ -103,7 +92,6 @@ public:
             }
         }
 
-        // 按分数降序排列
         std::sort(results.begin(), results.end(),
             [](const SearchResult& a, const SearchResult& b) {
                 return a.score > b.score;
@@ -115,6 +103,8 @@ public:
 
         return results;
     }
+
+    size_t doc_count() const { return num_docs_; }
 
 private:
     const std::vector<DocFragment>*              fragments_ = nullptr;

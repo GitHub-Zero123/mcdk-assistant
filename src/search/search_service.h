@@ -8,11 +8,13 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
-#include <mutex>
+#include <unordered_set>
 
 namespace mcdk {
 
-// 文档搜索服务：加载 Markdown 知识库 + jieba 分词 + BM25 搜索
+// 文档分类（基于 ModAPI/ 下的子目录）
+enum class DocCategory { Unknown, API, Event, Enum, Beta };
+
 class SearchService {
 public:
     SearchService(const std::string& dicts_dir, const std::string& knowledge_dir)
@@ -27,36 +29,87 @@ public:
     {
         load_stop_words(dicts_dir + "/stop_words.utf8");
         load_knowledge();
-        build_index();
+        build_indices();
     }
 
-    // 搜索接口
-    std::vector<SearchResult> search(const std::string& keyword, int top_k = -1) const {
-        std::vector<std::string> query_tokens;
-        tokenize(keyword, query_tokens);
-        return engine_.search(query_tokens, top_k);
+    std::vector<SearchResult> search_api(const std::string& keyword, int top_k = -1) const {
+        return search_category(api_index_, keyword, top_k);
     }
 
-    size_t doc_count() const { return fragments_.size(); }
+    std::vector<SearchResult> search_event(const std::string& keyword, int top_k = -1) const {
+        return search_category(event_index_, keyword, top_k);
+    }
+
+    std::vector<SearchResult> search_enum(const std::string& keyword, int top_k = -1) const {
+        return search_category(enum_index_, keyword, top_k);
+    }
+
+    std::vector<SearchResult> search_all(const std::string& keyword, int top_k = -1) const {
+        auto a = search_category(api_index_, keyword, -1);
+        auto b = search_category(event_index_, keyword, -1);
+        auto c = search_category(enum_index_, keyword, -1);
+        a.insert(a.end(), b.begin(), b.end());
+        a.insert(a.end(), c.begin(), c.end());
+        std::sort(a.begin(), a.end(), [](const SearchResult& x, const SearchResult& y) {
+            return x.score > y.score;
+        });
+        if (top_k > 0 && static_cast<size_t>(top_k) < a.size()) a.resize(top_k);
+        return a;
+    }
+
+    size_t doc_count() const {
+        return api_index_.engine.doc_count() + event_index_.engine.doc_count() + enum_index_.engine.doc_count();
+    }
 
 private:
-    cppjieba::Jieba                          jieba_;
-    std::string                              knowledge_dir_;
-    std::vector<DocFragment>                 fragments_;
-    std::vector<std::vector<std::string>>    tokenized_docs_;
-    BM25Engine                               engine_;
-    std::unordered_set<std::string>          stop_words_;
+    struct CategoryIndex {
+        std::vector<DocFragment>                 fragments;
+        std::vector<std::vector<std::string>>    tokenized_docs;
+        BM25Engine                               engine;
+    };
+
+    cppjieba::Jieba                jieba_;
+    std::string                    knowledge_dir_;
+    std::unordered_set<std::string> stop_words_;
+    CategoryIndex                  api_index_;
+    CategoryIndex                  event_index_;
+    CategoryIndex                  enum_index_;
+
+    std::vector<SearchResult> search_category(const CategoryIndex& idx, const std::string& keyword, int top_k) const {
+        std::vector<std::string> query_tokens;
+        tokenize(keyword, query_tokens);
+        return idx.engine.search(query_tokens, top_k);
+    }
+
+    static DocCategory classify_path(const std::string& rel_path) {
+        if (rel_path.find("/接口/") != std::string::npos || rel_path.find("接口/") == 0)
+            return DocCategory::API;
+        if (rel_path.find("/事件/") != std::string::npos || rel_path.find("事件/") == 0)
+            return DocCategory::Event;
+        if (rel_path.find("/枚举值/") != std::string::npos || rel_path.find("枚举值/") == 0)
+            return DocCategory::Enum;
+        if (rel_path.find("/beta/") != std::string::npos || rel_path.find("beta/") == 0)
+            return DocCategory::Beta;
+        return DocCategory::Unknown;
+    }
+
+    // 返回 nullptr 表示该分类不纳入索引
+    CategoryIndex* index_for(DocCategory cat) {
+        switch (cat) {
+        case DocCategory::API:   return &api_index_;
+        case DocCategory::Event: return &event_index_;
+        case DocCategory::Enum:  return &enum_index_;
+        default:                 return nullptr;
+        }
+    }
 
     void load_stop_words(const std::string& path) {
         std::ifstream ifs(path);
         if (!ifs.is_open()) return;
         std::string line;
         while (std::getline(ifs, line)) {
-            if (!line.empty()) {
-                // 去除可能的 \r
-                if (!line.empty() && line.back() == '\r') line.pop_back();
-                stop_words_.insert(line);
-            }
+            if (!line.empty() && line.back() == '\r') line.pop_back();
+            if (!line.empty()) stop_words_.insert(line);
         }
     }
 
@@ -65,14 +118,17 @@ private:
         jieba_.CutForSearch(text, raw);
         tokens.clear();
         for (auto& w : raw) {
-            // 过滤空白和停用词
             if (w.empty() || w == " " || w == "\t" || w == "\n") continue;
             if (stop_words_.count(w)) continue;
             tokens.push_back(std::move(w));
         }
     }
 
-    // 递归加载 knowledge 目录下所有 .md 文件
+    static std::string path_to_utf8(const std::filesystem::path& p) {
+        auto u8 = p.generic_u8string();
+        return std::string(reinterpret_cast<const char*>(u8.data()), u8.size());
+    }
+
     void load_knowledge() {
         namespace fs = std::filesystem;
         if (!fs::exists(knowledge_dir_)) {
@@ -85,18 +141,20 @@ private:
             auto ext = entry.path().extension().string();
             if (ext != ".md" && ext != ".MD") continue;
 
-            std::string rel_path = fs::relative(entry.path(), knowledge_dir_).generic_string();
-            load_markdown_file(entry.path().string(), rel_path);
+            std::string rel_path = path_to_utf8(fs::relative(entry.path(), knowledge_dir_));
+            load_markdown_file(entry.path(), rel_path);
         }
 
-        std::cout << "[mcdk] loaded " << fragments_.size()
-                  << " fragments from " << knowledge_dir_ << std::endl;
+        std::cout << "[mcdk] loaded " << doc_count() << " fragments from " << knowledge_dir_ << std::endl;
     }
 
-    // 按 Markdown 标题(## / ###)分割文档为片段
-    void load_markdown_file(const std::string& abs_path, const std::string& rel_path) {
+    void load_markdown_file(const std::filesystem::path& abs_path, const std::string& rel_path) {
         std::ifstream ifs(abs_path);
         if (!ifs.is_open()) return;
+
+        DocCategory cat = classify_path(rel_path);
+        CategoryIndex* idx = index_for(cat);
+        if (!idx) return; // Unknown/Beta 不纳入索引
 
         std::string line;
         std::ostringstream current_content;
@@ -107,12 +165,7 @@ private:
         auto flush_fragment = [&]() {
             std::string content = current_content.str();
             if (!content.empty() && has_content) {
-                fragments_.push_back({
-                    std::move(content),
-                    rel_path,
-                    fragment_start,
-                    line_num
-                });
+                idx->fragments.push_back({std::move(content), rel_path, fragment_start, line_num});
             }
             current_content.str("");
             current_content.clear();
@@ -122,16 +175,12 @@ private:
 
         while (std::getline(ifs, line)) {
             ++line_num;
-            // 去除 \r
             if (!line.empty() && line.back() == '\r') line.pop_back();
 
-            // 检测标题行 (## 或 ###)，作为分割点
             if (line.size() >= 2 && line[0] == '#') {
-                // 统计 # 数量
                 size_t level = 0;
                 while (level < line.size() && line[level] == '#') ++level;
                 if (level >= 2 && level <= 4) {
-                    // 新的片段开始，先保存之前的
                     flush_fragment();
                     fragment_start = line_num;
                 }
@@ -141,17 +190,21 @@ private:
             if (!line.empty()) has_content = true;
         }
 
-        // 最后一个片段
         flush_fragment();
     }
 
-    void build_index() {
-        tokenized_docs_.resize(fragments_.size());
-        for (size_t i = 0; i < fragments_.size(); ++i) {
-            tokenize(fragments_[i].content, tokenized_docs_[i]);
-        }
-        engine_.build_index(fragments_, tokenized_docs_);
-        std::cout << "[mcdk] BM25 index built, " << fragments_.size() << " documents indexed" << std::endl;
+    void build_indices() {
+        auto build_one = [this](CategoryIndex& idx, const char* name) {
+            idx.tokenized_docs.resize(idx.fragments.size());
+            for (size_t i = 0; i < idx.fragments.size(); ++i) {
+                tokenize(idx.fragments[i].content, idx.tokenized_docs[i]);
+            }
+            idx.engine.build_index(idx.fragments, idx.tokenized_docs);
+            std::cout << "[mcdk] " << name << " index: " << idx.fragments.size() << " docs" << std::endl;
+        };
+        build_one(api_index_,   "API");
+        build_one(event_index_, "Event");
+        build_one(enum_index_,  "Enum");
     }
 };
 
