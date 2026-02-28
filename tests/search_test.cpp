@@ -27,7 +27,7 @@ static std::string truncate_content(const std::string& content, int max_lines = 
 // 搜索分发：根据前缀选择对应方法
 static std::vector<mcdk::SearchResult> dispatch_search(mcdk::SearchService& svc, const std::string& input, std::string& query) {
     struct Prefix { const char* tag; int kind; };
-    Prefix prefixes[] = {{"api:", 0}, {"event:", 1}, {"enum:", 2}, {"all:", 3}};
+    Prefix prefixes[] = {{"api:", 0}, {"event:", 1}, {"enum:", 2}, {"all:", 3}, {"wiki:", 4}, {"qumod:", 5}};
 
     for (auto& p : prefixes) {
         size_t len = std::strlen(p.tag);
@@ -38,6 +38,8 @@ static std::vector<mcdk::SearchResult> dispatch_search(mcdk::SearchService& svc,
             case 1: return svc.search_event(query);
             case 2: return svc.search_enum(query);
             case 3: return svc.search_all(query);
+            case 4: return svc.search_wiki(query);
+            case 5: return svc.search_qumod(query);
             }
         }
     }

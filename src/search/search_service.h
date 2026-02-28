@@ -48,8 +48,12 @@ public:
         auto a = search_category(api_index_, keyword, -1);
         auto b = search_category(event_index_, keyword, -1);
         auto c = search_category(enum_index_, keyword, -1);
+        auto d = search_category_en(wiki_index_, keyword, -1);
+        auto e = search_category(qumod_index_, keyword, -1);
         a.insert(a.end(), b.begin(), b.end());
         a.insert(a.end(), c.begin(), c.end());
+        a.insert(a.end(), d.begin(), d.end());
+        a.insert(a.end(), e.begin(), e.end());
         std::sort(a.begin(), a.end(), [](const SearchResult& x, const SearchResult& y) {
             return x.score > y.score;
         });
