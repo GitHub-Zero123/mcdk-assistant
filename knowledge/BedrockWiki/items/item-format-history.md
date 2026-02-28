@@ -1,0 +1,442 @@
+---
+title: Item Format History
+description: A list of all the changes to the data-driven item format over each Minecraft version.
+category: Documentation
+outline_depth: 2
+license: true
+mentions:
+    - QuazChick
+---
+
+:::info <Label color="green">Versioned</Label> CHANGES
+The file's `format_version` field must be updated for versioned changes to take effect.
+:::
+
+:::info <Tag name="experimental" /> CHANGES
+An experiment must be enabled in your world for experimental changes to take effect.
+:::
+
+## 1.26.10
+
+### Components
+
+<Label color="green">Versioned</Label>
+
+-   Updated `minecraft:block_placer`
+    -   Added `aligned_placement` parameter which determines whether the block should be placed on the block that was previously placed, on the face in the direction that the player started moving.
+        -   By default, this parameter is set to `false`{lang=json}.
+        -   Despite being introduced in version 1.26.10, this parameter is available in format versions 1.26.0 and higher.
+
+## 1.26.0
+
+### Components
+
+<Label color="green">Versioned</Label>
+
+-   Updated `minecraft:damage`
+    -   Now properly supports values over `255`{lang=json} up to a maximum of `32767`{lang=json}.
+
+## 1.21.130
+
+### Components
+
+-   Added `minecraft:kinetic_weapon`
+    -   Causes the item to damage (as well as dismount and apply knockback to) each entity that the player moves towards (or that move towards the player) while the item is being used.
+    -   Contains `delay` which determines the duration (in ticks) before kinetic damage and effects start to be applied.
+    -   Contains `hitbox_margin` which determines how close (in blocks) each target's collision needs to be to the player's view direction to be affected by the kinetic attack.
+        -   By default, there is no additional hitbox margin.
+    -   Contains `reach` which determines the range (in blocks) of how far away entities must be from the player in order to be affected by the kinetic attack.
+        -   By default, entities between 0 and 3 blocks away from the player will be affected by the kinetic attack.
+    -   Contains `creative_reach` which determines the `reach` applied when the player is in creative mode.
+        -   By default, players in creative mode will be restricted to the normal `reach` range.
+    -   Contains `damage_multiplier` which the base damage of the kinetic attack is multiplied by to obtain a multiplied damage value.
+    -   Contains `damage_modifier` which is added to the multiplied damage value to obtain a final damage value to be inflicted upon each target.
+    -   Contains `damage_conditions` which lists the conditions that need to be met for damage to be inflicted.
+    -   Contains `dismount_conditions` which lists the conditions that need to be met for each target to be dismounted from the entity it is riding by the kinetic attack.
+        -   By default, entities are never dismounted.
+    -   Contains `knockback_conditions` which lists the conditions that need to be met for each target to be receive knockback from the kinetic attack.
+        -   By default, knockback is never applied.
+-   Added `minecraft:piercing_weapon`
+    -   Causes the item to damage all entities in a straight line from the player's view direction when attacking.
+    -   If there are block collisions between the player and other entities, the damage will be blocked.
+    -   Prevents the item from being used to mine blocks.
+    -   Contains `hitbox_margin` which determines how close (in blocks) each entity's collision needs to be to the player's view direction to receive damage.
+        -   By default, there is no additional hitbox margin.
+    -   Contains `reach` which determines the range (in blocks) of how far away entities must be from the player in order to receive damage.
+        -   By default, entities between 0 and 3 blocks away from the player will receive damage.
+    -   Contains `creative_reach` which determines the `reach` applied when the player is in creative mode.
+        -   By default, players in creative mode will be restricted to the normal `reach` range.
+-   Added `minecraft:swing_sounds`
+    -   Determines the vanilla sound events triggered when a player attacks when holding the item.
+    -   Contains `attack_miss` which determines the sound event triggered when no entity is hit or no damage is dealt.
+    -   Contains `attack_hit` which determines the sound event triggered when an entity is hit and non-critical damage is dealt.
+    -   Contains `attack_critical_hit` which determines the sound event triggered when an entity is hit and critical damage is dealt.
+-   Updated `minecraft:cooldown`
+    -   Added `type` parameter which determines which of the following types of input the cooldown affects:
+        -   `use` (default) triggers when the item is used and prevents the item from being used while the cooldown is active.
+        -   `attack` triggers when the player attacks while holding the item and prevents the item from being used to attack while the cooldown is active.
+-   Updated `minecraft:use_modifiers`
+    -   Added `start_sound` parameter which determines the vanilla sound event that is triggered when the item starts to be used.
+
+## 1.21.120
+
+### Description
+
+<Label color="green">Versioned</Label>
+
+-   Updated `menu_category`
+    -   Items with no category can now be used in commands.
+    -   If `is_hidden_in_commands` is set to `true`, the item will still be invalid in commands.
+
+### Components
+
+-   Added `minecraft:swing_duration`
+    -   Determines the duration, in seconds, of the player's swing animation when mining, attacking or using the item.
+-   Updated `minecraft:use_modifiers`
+    -   Added `emit_vibrations` parameter which determines whether the item emits vibrations when it starts and stops being used.
+
+## 1.21.110
+
+### Components
+
+-   Added `minecraft:fire_resistant`
+    -   Determines whether the item cannot be destroyed by fire and lava.
+
+## 1.21.90
+
+### Components
+
+-   Updated `minecraft:wearable`
+    -   Added `hides_player_location` parameter which determines whether a player wearing the item will be hidden from the Locator Bar and Locator Maps.
+    -   By default, wearable items do not hide the player.
+
+<Label color="green">Versioned</Label>
+
+-   Removed `minecraft:custom_components`
+
+    -   Custom components should now be applied in the same way as vanilla components, as entries in the `components` object:
+
+        <CodeHeader>minecraft:block</CodeHeader>
+
+        ```json
+        "components": {
+            "minecraft:glint": true,
+            "wiki:custom_component": {
+                "parameter": "value"
+            }
+        }
+        ```
+
+## 1.21.80
+
+### Components
+
+<Tag name="experimental" />
+<Label color="red">Custom Components V2</Label>
+<Label color="green">Versioned</Label>
+
+-   Removed `minecraft:custom_components`
+    -   Custom components should now be applied in the same way as vanilla components, as entries in the `components` object.
+
+## 1.21.60
+
+### Description
+
+<Label color="green">Versioned</Label>
+
+-   Updated `menu_category`
+    -   Updated `group` parameter to require a namespace e.g. `minecraft:itemGroup.name.concrete`
+
+### Components
+
+<Label color="green">Versioned</Label>
+
+-   Added `minecraft:storage_weight_limit`
+    -   Determines the maximum allowed total weight of all items in the storage item container.
+    -   Replaces the `max_weight_limit` storage item parameter.
+-   Added `minecraft:storage_weight_modifier`
+    -   Determines the additional weight the item adds when inside a storage item.
+    -   A value of 0 means that this item is not allowed inside a storage item.
+    -   Replaces the `weight_in_storage_item` storage item parameter.
+-   Released `minecraft:compostable` from experimental
+-   Updated `minecraft:block_placer`
+    -   Released `replace_block_item` parameter from experimental
+-   Updated `minecraft:storage_item`
+    -   Removed `max_weight_limit` parameter
+    -   Removed `weight_in_storage_item` parameter
+
+## 1.21.50
+
+### Components
+
+<Tag name="experimental" />
+<Label color="blue">Upcoming Creator Features</Label>
+
+-   Added `minecraft:compostable`
+    -   Allows this item to be used in a composter.
+    -   Contains `composting_chance` which determines how likely the compost level is to increase as a percentage (0-100).
+
+## 1.21.40
+
+<Label color="green">Versioned</Label>
+
+-   Numbers can no longer be used to represent boolean values.
+-   Floats can no longer be used to represent integer values.
+
+### Components
+
+<Label color="green">Versioned</Label>
+
+-   Released `minecraft:bundle_interaction` from experimental
+-   Released `minecraft:storage_item` from experimental
+
+<Tag name="experimental" />
+<Label color="blue">Upcoming Creator Features</Label>
+
+-   Updated `minecraft:block_placer`
+    -   The specified `block` will now be used as the item's icon if the `minecraft:icon` component is not applied.
+    -   Added `replace_block_item` parameter which replaces the default item for the specified `block` with this item.
+        -   For this to function, the item and block identifiers must be the same.
+        -   Learn more about replacing block items [here](/blocks/blocks-as-items#replacing-block-items)!
+
+## 1.21.30
+
+### Components
+
+<Label color="green">Versioned</Label>
+
+-   Added `minecraft:dyeable`
+    -   Allows the item to be dyed by cauldron water.
+    -   Contains `default_color` which determines an optional color to use before the item is dyed.
+    -   Once dyed, the item will display the `dyed` texture defined in the `minecraft:icon` component rather than `default`.
+-   Added `minecraft:rarity`
+    -   Defines the base rarity of the item (displayed by the color of the item name).
+    -   Accepts the following rarity levels: `common`, `uncommon`,`rare` and `epic`.
+    -   When an item is enchanted, its rarity will increase to the next level if possible.
+    -   This component has no functional effect and can be overrided with `minecraft:hover_text_color`.
+
+<Tag name="experimental" />
+<Label color="orange">Bundles</Label>
+
+-   Added `minecraft:bundle_interaction`
+    -   Enables the bundle interface and functionality on the item.
+    -   Contains `num_viewable_slots` which
+    -   Requires the `minecraft:storage_item` component to be applied.
+-   Added `minecraft:storage_item`
+    -   Allows this item to contain other items.
+    -   Contains `allow_nesed_storage_items` which determines whether other storage items can be placed into the container.
+    -   Contains `allowed_items` which defines the items that are exclusively allowed in the container.
+        -   If empty all items are allowed in the container.
+    -   Contains `banned_items` which defines the items that are not allowed in the container.
+    -   Contains `max_slots` which defines the number of slots in the container.
+    -   Contains `max_weight_limit` which defines the maximum allowed total weight of all items in the container.
+    -   Contains `weight_in_storage_item` which defines the additional weight the item adds when inside another storage item.
+        -   A value of 0 means that this item is not allowed inside another storage item.
+
+## 1.21.20
+
+### Components
+
+<Label color="green">Versioned</Label>
+
+-   Added `minecraft:damage_absorption`
+    -   Causes the item to absorb damage that would otherwise be dealt to its wearer.
+    -   Contains `absorbable_causes` which determines a list of damage causes (such as `entity_attack` and `magma`) that can be absorbed by the item.
+    -   Requires the `minecraft:durability`and`minecraft:wearable` components.
+-   Added `minecraft:durability_sensor`
+    -   Enables an item to emit effects when it receives damage.
+    -   Contains `durability_thresholds` which determines both the durability thresholds, and the effects emitted when each threshold is met.
+
+## 1.21.10
+
+### Components
+
+<Label color="green">Versioned</Label>
+
+-   Released `minecraft:custom_components` from experimental
+
+## 1.21.0
+
+<Tag name="experimental" />
+<Label color="red">Holiday Creator Features</Label>
+<Label color="green">Versioned</Label>
+
+-   Removed `events`
+
+### Components
+
+<Tag name="experimental" />
+<Label color="yellow">Beta APIs</Label>
+
+-   Added `minecraft:custom_components`
+    -   Lists all the custom components that should be applied to this block.
+
+### Events
+
+<Tag name="experimental" />
+<Label color="red">Holiday Creator Features</Label>
+<Label color="green">Versioned</Label>
+
+-   Removed `add_mob_effect` response
+-   Removed `damage` response
+-   Removed `decrement_stack` response
+-   Removed `remove_mob_effect` response
+-   Removed `run_command` response
+-   Removed `teleport` response
+-   Removed `transform_item` response
+
+## 1.20.60
+
+### Components
+
+<Label color="green">Versioned</Label>
+
+-   Updated `minecraft:icon`
+    -   Removed `texture` parameter
+    -   Added `textures` parameter which lists the different textures the item can use in its icon, including armor trims.
+        -   Contains `default` which replaces the `texture` parameter.
+
+## 1.20.50
+
+### Components
+
+<Label color="green">Versioned</Label>
+
+-   Added `minecraft:tags`
+    -   Lists the tags applied to this item.
+    -   Replaces `tag:*` components.
+-   Added `minecraft:use_modifiers`
+    -   Contains `use_duration` which determines the length (in seconds) of a complete item use.
+        -   Replaces the `minecraft:use_duration` component.
+    -   Contains `movement_modifier` which applies a multiplier to the holder's speed when the item is being used.
+-   Removed `minecraft:use_duration`
+-   Removed the ability to apply tags using `tag:*`
+
+<Tag name="experimental" />
+<Label color="red">Holiday Creator Features</Label>
+<Label color="green">Versioned</Label>
+
+-   Removed `minecraft:chargeable`
+-   Updated `minecraft:digger`
+    -   Removed `on_dig` trigger parameter
+
+## 1.20.40
+
+### Components
+
+<Label color="green">Versioned</Label>
+
+-   Updated `minecraft:icon`
+    -   Single string values can now be used once again e.g. `"minecraft:icon": "stick"`.
+
+<Tag name="experimental" />
+<Label color="red">Holiday Creator Features</Label>
+<Label color="green">Versioned</Label>
+
+-   Removed `minecraft:on_use` trigger
+-   Removed `minecraft:on_use_on` trigger
+-   Removed `minecraft:weapon`
+
+## 1.20.30
+
+### Components
+
+<Label color="green">Versioned</Label>
+
+-   Added `minecraft:interact_button`
+    -   Enable and set text on a button that is displayed when using touch controls.
+    -   If set to `true`, the button displays "Use Item".
+-   Released `minecraft:enchantable` from experimental
+-   Released `minecraft:food` from experimental
+
+<Tag name="experimental" />
+<Label color="red">Holiday Creator Features</Label>
+<Label color="green">Versioned</Label>
+
+-   Removed `minecraft:mining_speed`
+
+## 1.20.20
+
+### Description
+
+<Label color="green">Versioned</Label>
+
+-   Added `menu_category`
+    -   Contains `category` which determines which tab the item is placed into.
+    -   Contains `group` which determines which other items the item is grouped with.
+    -   Contains `is_hidden_in_commands` which determines whether the item is treated as invalid when used in commands.
+
+### Components
+
+<Label color="green">Versioned</Label>
+
+-   Released `minecraft:allow_off_hand` from experimental
+-   Released `minecraft:damage` from experimental
+-   Released `minecraft:digger` from experimental
+-   Released `minecraft:enchantable` from experimental
+-   Released `minecraft:glint` from experimental
+-   Released `minecraft:hand_equipped` from experimental
+-   Released `minecraft:liquid_clipped` from experimental
+-   Released `minecraft:should_despawn` from experimental
+-   Released `minecraft:stacked_by_data` from experimental
+-   Released `minecraft:use_animation` from experimental
+-   Released `minecraft:use_duration` from experimental
+-   Released `minecraft:wearable` from experimental
+
+<Tag name="experimental" />
+<Label color="red">Holiday Creator Features</Label>
+<Label color="green">Versioned</Label>
+
+-   Removed `minecraft:creative_category`
+-   Renamed `minecraft:foil` to `minecraft:glint`
+-   Updated `minecraft:digger`
+    -   Removed `on_dig` trigger parameter
+
+## 1.20.10
+
+### Components
+
+<Label color="green">Versioned</Label>
+
+-   Released `minecraft:block_placer` from experimental
+-   Released `minecraft:can_destroy_in_creative` from experimental
+-   Released `minecraft:cooldown` from experimental
+-   Released `minecraft:hover_text_color` from experimental
+-   Released `minecraft:max_stack_size` from experimental
+-   Released `minecraft:projectile` from experimental
+-   Released `minecraft:record` from experimental
+-   Released `minecraft:repairable` from experimental
+-   Released `minecraft:shooter` from experimental
+-   Released `minecraft:throwable` from experimental
+
+<Tag name="experimental" />
+<Label color="red">Holiday Creator Features</Label>
+<Label color="green">Versioned</Label>
+
+-   Removed `minecraft:render_offsets`
+
+## 1.20.0
+
+### Components
+
+<Label color="green">Versioned</Label>
+
+-   Released `minecraft:display_name` from experimental
+-   Released `minecraft:durability` from experimental
+-   Released `minecraft:fuel` from experimental
+-   Released `minecraft:entity_placer` from experimental
+-   Released `minecraft:icon` from experimental
+
+<Tag name="experimental" />
+<Label color="red">Holiday Creator Features</Label>
+<Label color="green">Versioned</Label>
+
+-   Removed `minecraft:dye_powder`
+-   Updated `minecraft:repairable`
+    -   Removed `on_repaired` trigger parameter
+
+---
+
+:::danger UNDOCUMENTED
+Format changes in versions prior to `1.20.0` haven't been listed yet.
+:::

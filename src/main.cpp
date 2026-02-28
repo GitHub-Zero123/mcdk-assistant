@@ -79,6 +79,7 @@ int main() {
         {"search_event", "搜索 ModAPI 事件文档", &mcdk::SearchService::search_event},
         {"search_enum",  "搜索 ModAPI 枚举值文档", &mcdk::SearchService::search_enum},
         {"search_all",   "搜索全部 ModAPI 文档（接口+事件+枚举值）", &mcdk::SearchService::search_all},
+        {"search_wiki",  "Search Bedrock Wiki documentation (English keywords)", &mcdk::SearchService::search_wiki},
     };
 
     for (auto& td : tools) {
@@ -97,6 +98,38 @@ int main() {
             }
         );
     }
+
+    // 网易版与国际版差异说明工具
+    static const char* NETEASE_DIFF_TEXT =
+        "网易中国版基岩版与国际版基岩版的关键差异（当Wiki文档提到以下国际版路径时，请自动替换为网易版路径）：\n"
+        "\n"
+        "[行为包目录映射]\n"
+        "国际版 BP/items/        -> 网易版 BP/netease_items_beh/\n"
+        "国际版 BP/blocks/       -> 网易版 BP/netease_blocks/\n"
+        "国际版 BP/biomes/       -> 网易版 BP/netease_biomes/\n"
+        "国际版 BP/features/     -> 网易版 BP/netease_features/\n"
+        "国际版 BP/feature_rules/-> 网易版 BP/netease_feature_rules/\n"
+        "国际版 BP/recipes/      -> 网易版 BP/netease_recipes/\n"
+        "\n"
+        "[资源包目录映射]\n"
+        "国际版 RP/items/        -> 网易版 RP/netease_items_res/\n"
+        "\n"
+        "[脚本系统]\n"
+        "国际版使用 Script API（JavaScript/TypeScript），网易版使用 Mod SDK（Python2）。\n"
+        "Wiki中涉及 Script API / @minecraft/server 的内容不适用于网易版，网易版应使用 mod.server.extraServerApi / mod.client.extraClientApi。\n"
+        "\n"
+        "[开发框架]\n"
+        "如果项目中存在 QuModLibs 库，优先使用 QuModLibs 的框架模块来简化网易Mod开发。";
+
+    auto diff_tool = mcp::tool_builder("get_netease_diff")
+        .with_description("获取网易版与国际版基岩版之间的差异说明")
+        .with_read_only_hint(true)
+        .with_idempotent_hint(true)
+        .build();
+
+    srv.register_tool(diff_tool, [](const mcp::json&, const std::string&) -> mcp::json {
+        return {{"content", mcp::json::array({{{"type","text"},{"text", NETEASE_DIFF_TEXT}}})}};
+    });
 
     std::cout << "[MCDK] MCP server starting on " << conf.host << ":" << conf.port << std::endl;
     std::cout << "[MCDK] docs indexed: " << search_svc.doc_count() << std::endl;

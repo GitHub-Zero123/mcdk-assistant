@@ -13,7 +13,7 @@
 namespace mcdk {
 
 // 文档分类（基于 ModAPI/ 下的子目录）
-enum class DocCategory { Unknown, API, Event, Enum, Beta };
+enum class DocCategory { Unknown, API, Event, Enum, Beta, Wiki };
 
 class SearchService {
 public:
@@ -57,8 +57,13 @@ public:
         return a;
     }
 
+    std::vector<SearchResult> search_wiki(const std::string& keyword, int top_k = -1) const {
+        return search_category_en(wiki_index_, keyword, top_k);
+    }
+
     size_t doc_count() const {
-        return api_index_.engine.doc_count() + event_index_.engine.doc_count() + enum_index_.engine.doc_count();
+        return api_index_.engine.doc_count() + event_index_.engine.doc_count()
+             + enum_index_.engine.doc_count() + wiki_index_.engine.doc_count();
     }
 
 private:
@@ -74,6 +79,7 @@ private:
     CategoryIndex                  api_index_;
     CategoryIndex                  event_index_;
     CategoryIndex                  enum_index_;
+    CategoryIndex                  wiki_index_;
 
     std::vector<SearchResult> search_category(const CategoryIndex& idx, const std::string& keyword, int top_k) const {
         std::vector<std::string> query_tokens;
@@ -81,7 +87,15 @@ private:
         return idx.engine.search(query_tokens, top_k);
     }
 
+    std::vector<SearchResult> search_category_en(const CategoryIndex& idx, const std::string& keyword, int top_k) const {
+        std::vector<std::string> query_tokens;
+        tokenize_en(keyword, query_tokens);
+        return idx.engine.search(query_tokens, top_k);
+    }
+
     static DocCategory classify_path(const std::string& rel_path) {
+        if (rel_path.find("BedrockWiki/") == 0 || rel_path.find("/BedrockWiki/") != std::string::npos)
+            return DocCategory::Wiki;
         if (rel_path.find("/接口/") != std::string::npos || rel_path.find("接口/") == 0)
             return DocCategory::API;
         if (rel_path.find("/事件/") != std::string::npos || rel_path.find("事件/") == 0)
@@ -99,6 +113,7 @@ private:
         case DocCategory::API:   return &api_index_;
         case DocCategory::Event: return &event_index_;
         case DocCategory::Enum:  return &enum_index_;
+        case DocCategory::Wiki:  return &wiki_index_;
         default:                 return nullptr;
         }
     }
@@ -122,6 +137,21 @@ private:
             if (stop_words_.count(w)) continue;
             tokens.push_back(std::move(w));
         }
+    }
+
+    // 英文分词：按空格/标点拆分并转小写
+    static void tokenize_en(const std::string& text, std::vector<std::string>& tokens) {
+        tokens.clear();
+        std::string word;
+        for (char c : text) {
+            if (std::isalnum(static_cast<unsigned char>(c)) || c == '_') {
+                word += static_cast<char>(std::tolower(static_cast<unsigned char>(c)));
+            } else if (!word.empty()) {
+                tokens.push_back(std::move(word));
+                word.clear();
+            }
+        }
+        if (!word.empty()) tokens.push_back(std::move(word));
     }
 
     static std::string path_to_utf8(const std::filesystem::path& p) {
@@ -194,7 +224,7 @@ private:
     }
 
     void build_indices() {
-        auto build_one = [this](CategoryIndex& idx, const char* name) {
+        auto build_cn = [this](CategoryIndex& idx, const char* name) {
             idx.tokenized_docs.resize(idx.fragments.size());
             for (size_t i = 0; i < idx.fragments.size(); ++i) {
                 tokenize(idx.fragments[i].content, idx.tokenized_docs[i]);
@@ -202,9 +232,18 @@ private:
             idx.engine.build_index(idx.fragments, idx.tokenized_docs);
             std::cout << "[MCDK] " << name << " index: " << idx.fragments.size() << " docs" << std::endl;
         };
-        build_one(api_index_,   "API");
-        build_one(event_index_, "Event");
-        build_one(enum_index_,  "Enum");
+        auto build_en = [](CategoryIndex& idx, const char* name) {
+            idx.tokenized_docs.resize(idx.fragments.size());
+            for (size_t i = 0; i < idx.fragments.size(); ++i) {
+                tokenize_en(idx.fragments[i].content, idx.tokenized_docs[i]);
+            }
+            idx.engine.build_index(idx.fragments, idx.tokenized_docs);
+            std::cout << "[MCDK] " << name << " index: " << idx.fragments.size() << " docs" << std::endl;
+        };
+        build_cn(api_index_,   "API");
+        build_cn(event_index_, "Event");
+        build_cn(enum_index_,  "Enum");
+        build_en(wiki_index_,  "Wiki");
     }
 };
 
