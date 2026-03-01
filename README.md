@@ -39,8 +39,9 @@ VSCode 暂不支持直接连接 SSE，需通过 `mcp-remote` 桥接，配置在 
     "servers": {
         "minecraft_mod_assistant": {
             // 依赖nodejs环境
-            "command": "mcp-remote",
+            "command": "npx",
             "args": [
+                "mcp-remote",
                 "http://localhost:18766/sse",
                 "--transport",
                 "sse-only"
