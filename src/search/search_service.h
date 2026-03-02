@@ -330,8 +330,9 @@ private:
                     ga_idx = &game_assets_rp_;
 
                 if (ga_idx) {
-                    ga_idx->entries.push_back({assets_rel, content});
-                    ga_idx->fragments.push_back({content, assets_rel, 1, 0});
+                    std::string ga_path = "GameAssets/" + assets_rel;
+                    ga_idx->entries.push_back({ga_path, content});
+                    ga_idx->fragments.push_back({content, ga_path, 1, 0});
                 }
                 continue;
             }
