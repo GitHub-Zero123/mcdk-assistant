@@ -59,6 +59,7 @@ int main() {
 
     std::cout << "[MCDK] dicts: " << dicts_dir << std::endl;
     std::cout << "[MCDK] knowledge: " << knowledge_dir << std::endl;
+    std::cout << "[MCDK] 正在初始化知识库索引，请稍候..." << std::endl;
 
     mcdk::SearchService search_svc(dicts_dir, knowledge_dir);
 
