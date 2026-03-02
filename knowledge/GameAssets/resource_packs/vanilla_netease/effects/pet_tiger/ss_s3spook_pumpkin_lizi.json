@@ -1,0 +1,78 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "value": "Direction",
+            "min": "0.0 1.0 0.0"
+        },
+        "numparticles": {
+            "value": "4"
+        },
+        "pointFiltering": true,
+        "enabletexture": {
+            "enable": true
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "71.6%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "emissionrate": {
+            "max": "3.0",
+            "min": "4.0"
+        },
+        "emitterScaleCurve": [],
+        "layer": 2,
+        "emittersize": {
+            "value": "0.3 0.5 0.3"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "timetolive": {
+            "max": "0.5",
+            "min": "0.7"
+        },
+        "texture": {
+            "name": "textures/sfxs/pet_tiger/ss_s3spook_pumpkin_5"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.1",
+            "min": "0.1"
+        },
+        "particlesize": {
+            "max": "0.24 0.24",
+            "min": "0.16 0.16"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.68 0.68",
+                "time": "48.0%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            }
+        ]
+    }
+}

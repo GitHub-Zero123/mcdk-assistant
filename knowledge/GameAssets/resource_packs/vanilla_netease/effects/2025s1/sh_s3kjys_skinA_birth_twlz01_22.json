@@ -1,0 +1,99 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.15"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.9176 0.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.7529 0.0039 1.0000",
+                "time": "50.0%"
+            },
+            {
+                "color": "1.0000 1.0000 0.2400 0.0804",
+                "time": "100.0%"
+            }
+        ],
+        "dampingforce": {
+            "value": "5.0"
+        },
+        "delay": 0.57,
+        "depthtest": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Outwards"
+        },
+        "disorder": {
+            "increment": "2.0",
+            "interval": "0.01",
+            "max": "0.02 0.02 0.02",
+            "min": "-0.02 -0.02 -0.02"
+        },
+        "emissionrate": {
+            "max": "250.0",
+            "min": "200.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.5 0.5 0.1"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Direction"
+        },
+        "layer": 5,
+        "numparticles": {
+            "value": "100"
+        },
+        "particlesize": {
+            "max": "0.2 1.5",
+            "min": "0.75 1.0"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.0 0.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.87 0.87",
+                "time": "9.0%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s1/sh_s3kjys_skinA_birth_xian01"
+        },
+        "thickness": {
+            "value": "0.5"
+        },
+        "timetolive": {
+            "max": "0.15",
+            "min": "0.1"
+        },
+        "velocity": {
+            "max": "15.0",
+            "min": "7.0"
+        }
+    }
+}

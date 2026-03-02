@@ -1,0 +1,40 @@
+{
+    "particleeffect": {
+        "colorfade": [
+            {
+                "color": "0.9961 1.0000 0.6627 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.9294 0.5294 0.6518",
+                "time": "53.2%"
+            },
+            {
+                "color": "0.9961 1.0000 0.6627 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "5.0",
+            "min": "5.0"
+        },
+        "numparticles": {
+            "value": "5"
+        },
+        "particlesize": {
+            "max": "0.25 0.23",
+            "min": "0.25 0.23"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "name": "textures/sfxs/2025s1/sh_s3guofeng_skina_sun"
+        }
+    }
+}

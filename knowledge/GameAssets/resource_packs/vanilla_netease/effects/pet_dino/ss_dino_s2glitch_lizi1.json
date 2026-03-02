@@ -1,0 +1,86 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "value": "Direction",
+            "min": "0.0 0.0 0.0"
+        },
+        "numparticles": {
+            "value": "20"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "colorfade": [
+            {
+                "color": "0.0000 0.6667 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.6667 1.0000 0.0000 1.0000",
+                "time": "15.3%"
+            },
+            {
+                "color": "0.3333 0.0000 1.0000 1.0000",
+                "time": "19.5%"
+            },
+            {
+                "color": "1.0000 1.0000 0.4980 1.0000",
+                "time": "45.5%"
+            },
+            {
+                "color": "0.6667 0.0000 0.0000 1.0000",
+                "time": "51.3%"
+            },
+            {
+                "color": "1.0000 0.6667 1.0000 1.0000",
+                "time": "79.2%"
+            },
+            {
+                "color": "1.0000 0.3333 0.0000 1.0000",
+                "time": "85.8%"
+            },
+            {
+                "color": "0.6667 1.0000 0.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "emissionrate": {
+            "max": "1.0",
+            "min": "10.0"
+        },
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.5 0.8 0.7"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": false,
+                "name": "textures/sfxs/pet_dino/ss_dino_s2glitch_lz1",
+                "fps": "16"
+            },
+            "name": "textures/sfxs/pet_dino/ss_dino_s2glitch_lz1"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "particlesize": {
+            "max": "0.3 0.3",
+            "min": "0.3 0.3"
+        }
+    }
+}

@@ -1,0 +1,161 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "1.5"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "59.7%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.4732",
+                "time": "90.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "dampingforce": {
+            "value": "5.0"
+        },
+        "delay": 0.1,
+        "direction": {
+            "max": "0.0 0.0 1.0",
+            "min": "0.0 0.0 1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "7.0",
+            "min": "5.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterpath": [
+            {
+                "offset": "0.0 0.0 -1.4",
+                "rotation": "0.0 0.0 0.0",
+                "time": "0.0"
+            },
+            {
+                "offset": "0.0 2.8 1.4",
+                "rotation": "0.0 0.0 0.0",
+                "time": "0.2"
+            },
+            {
+                "offset": "0.0 0.1 0.9",
+                "rotation": "0.0 0.0 0.0",
+                "time": "0.4"
+            },
+            {
+                "offset": "0.0 2.4 -0.7",
+                "rotation": "0.0 0.0 0.0",
+                "time": "0.6"
+            },
+            {
+                "offset": "0.0 -0.0 -1.1",
+                "rotation": "0.0 0.0 0.0",
+                "time": "0.8"
+            },
+            {
+                "offset": "0.0 2.4 1.2",
+                "rotation": "0.0 0.0 0.0",
+                "time": "0.9"
+            },
+            {
+                "offset": "0.0 0.3 1.1",
+                "rotation": "0.0 0.0 0.0",
+                "time": "1.0"
+            },
+            {
+                "offset": "0.0 2.5 -1.0",
+                "rotation": "0.0 0.0 0.0",
+                "time": "1.2"
+            },
+            {
+                "offset": "0.0 -0.1 -1.1",
+                "rotation": "0.0 0.0 0.0",
+                "time": "1.4"
+            },
+            {
+                "offset": "0.0 2.8 1.4",
+                "rotation": "0.0 0.0 0.0",
+                "time": "1.6"
+            }
+        ],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.0 0.5 1.0"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Rotate Y"
+        },
+        "layer": 2,
+        "numparticles": {
+            "value": "4"
+        },
+        "particlesize": {
+            "max": "1.2 1.2",
+            "min": "0.5 0.5"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 20.0",
+            "min": "0.0 0.0 -5.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.4 0.4",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.04 1.04",
+                "time": "5.0%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "8.0%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "90.0%"
+            },
+            {
+                "scale": "0.9 0.9",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "14",
+                "name": "textures/sfxs/2025s2/cs_s4diaoling_zhuchengruchang_mu01",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s2/cs_s4diaoling_zhuchengruchang_mu01"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.7",
+            "min": "0.5"
+        },
+        "velocity": {
+            "max": "0.1",
+            "min": "0.0"
+        }
+    }
+}

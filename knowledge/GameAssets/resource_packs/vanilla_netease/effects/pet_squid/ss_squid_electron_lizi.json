@@ -1,0 +1,63 @@
+{
+    "particleeffect": {
+        "enablecolor": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "0.01 0.0 0.0",
+            "value": "Direction",
+            "min": "0.0 0.0 0.0"
+        },
+        "faceCameraMode": {
+            "value": "Direction Horizontal"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "emissionrate": {
+            "max": "6.0",
+            "min": "6.0"
+        },
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.6 0.4 0.55"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "timetolive": {
+            "max": "0.1",
+            "min": "0.2"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": true,
+                "name": "textures/sfxs/pet_squid/ss_carnival_guzhangtiao_01",
+                "fps": "8"
+            },
+            "name": "textures/sfxs/pet_squid/ss_carnival_guzhangtiao_01"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.1",
+            "min": "0.1"
+        },
+        "rotationRange": {
+            "max": "0.0 90.0 90.0",
+            "min": "0.0 90.0 90.0"
+        },
+        "particlesize": {
+            "max": "0.3 0.30000000000000004",
+            "min": "0.30000000000000004 0.3"
+        },
+        "numparticles": {
+            "value": "2"
+        }
+    }
+}

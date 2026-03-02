@@ -1,0 +1,75 @@
+{
+    "particleeffect": {
+        "texture": {
+            "ani": {
+                "shuffle": false,
+                "name": "textures/sfxs/s4/nihong02",
+                "fps": "15"
+            },
+            "name": "textures/sfxs/s4/nihong02"
+        },
+        "enablecolor": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "0.0 0.0 0.1",
+            "value": "Direction",
+            "min": "0.0 0.0 0.1"
+        },
+        "dampingforce": {
+            "value": "1.0"
+        },
+        "independent": false,
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.00"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.30"
+            }
+        ],
+        "emissionrate": {
+            "max": "15.0",
+            "min": "15.0"
+        },
+        "emitterScaleCurve": [],
+        "enableloop": {
+            "enable": "true"
+        },
+        "depthtest": {
+            "enable": "true"
+        },
+        "thickness": {
+            "value": "0"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "timetolive": {
+            "max": "0.3",
+            "min": "0.3"
+        },
+        "emittersize": {
+            "value": "0.5 0.0 0.0"
+        },
+        "emitterscale": [],
+        "blend": {
+            "name": "add"
+        },
+        "particlesize": {
+            "max": "0.2 0.3",
+            "min": "0.1 0.5"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "0.0%"
+            }
+        ]
+    }
+}

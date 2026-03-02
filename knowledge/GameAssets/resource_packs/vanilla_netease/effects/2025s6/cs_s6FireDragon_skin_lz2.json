@@ -1,0 +1,104 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.2500",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "20.5%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.7768",
+                "time": "78.2%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "constantforce": {
+            "value": "0.0 0.0 0.1"
+        },
+        "dampingforce": {
+            "value": "0.5"
+        },
+        "direction": {
+            "max": "0.0 1.0 1.0",
+            "min": "0.0 1.0 1.0",
+            "value": "Direction"
+        },
+        "disorder": {
+            "increment": "0.03",
+            "interval": "0.01",
+            "max": "0.03 0.03 0.03",
+            "min": "0.0 0.0 -0.1"
+        },
+        "emissionrate": {
+            "max": "15.0",
+            "min": "15.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.6 0.2 0.15"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "layer": 2,
+        "numparticles": {
+            "value": "15"
+        },
+        "particlesize": {
+            "max": "0.09 0.09",
+            "min": "0.05 0.05"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.05 0.05",
+                "time": "26.0%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "49.7%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "75.0%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s6/cs_s6FireDragon_skin_lz1"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "1.8000000000000003",
+            "min": "1.2000000000000002"
+        },
+        "velocity": {
+            "max": "0.5",
+            "min": "0.1"
+        }
+    }
+}

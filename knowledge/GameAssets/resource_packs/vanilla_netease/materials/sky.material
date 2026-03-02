@@ -1,0 +1,28 @@
+{
+    "virtual_world_sky": {
+        "vertexShader": "shaders/uv_fullscreen.vertex",
+        "vrGeometryShader": "shaders/uv.geometry",
+        "fragmentShader": "shaders/texture.fragment",
+        "states": [
+            "DisableCulling",
+            "DisableDepthWrite",
+            "DisableDepthTest"
+        ],
+        "vertexFields": [
+            {
+                "field": "Position"
+            },
+            {
+                "field": "UV0"
+            }
+        ],
+        "samplerStates": [
+            {
+                "samplerIndex": 0,
+                "textureWrap": "Clamp",
+                "textureFilter": "Point"
+            }
+        ],
+        "msaaSupport": "Both"
+    }
+}

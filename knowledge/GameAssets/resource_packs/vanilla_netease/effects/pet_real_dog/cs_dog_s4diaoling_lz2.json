@@ -1,0 +1,60 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 1.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "8.0",
+            "min": "5.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.3 0.1 0.3"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "numparticles": {
+            "value": "8"
+        },
+        "particlesize": {
+            "max": "0.08 0.08",
+            "min": "0.1 0.1"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "false"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.0 0.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.69 0.69",
+                "time": "47.0%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/pet_real_dog/cs_dog_s4diaoling_fllz"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.8",
+            "min": "0.5"
+        },
+        "velocity": {
+            "max": "0.1",
+            "min": "0.3"
+        }
+    }
+}

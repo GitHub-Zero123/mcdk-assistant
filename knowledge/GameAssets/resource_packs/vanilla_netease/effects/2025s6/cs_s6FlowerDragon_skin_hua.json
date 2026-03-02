@@ -1,0 +1,54 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.1"
+        },
+        "direction": {
+            "max": "0.0 1.0 0.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "30.0",
+            "min": "30.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.0 0.0 0.0"
+        },
+        "emittertype": {
+            "value": "Hemisphere"
+        },
+        "numparticles": {
+            "value": "1"
+        },
+        "particlesize": {
+            "max": "1.2 1.2",
+            "min": "1.2 1.2"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 20.0",
+            "min": "0.0 0.0 20.0"
+        },
+        "texture": {
+            "ani": {
+                "fps": "20",
+                "name": "textures/sfxs/2025s6/cs_s6FlowerDragon_skin_hua",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s6/cs_s6FlowerDragon_skin_hua"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

@@ -1,0 +1,94 @@
+{
+    "particleeffect": {
+        "independent": false,
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "value": "Direction",
+            "min": "0.0 0.0 0.0"
+        },
+        "activetime": {
+            "value": "0.2"
+        },
+        "particlesize": {
+            "max": "1.0 1.0",
+            "min": "1.0 1.0"
+        },
+        "numparticles": {
+            "value": "2"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 0.9333 1.0000",
+                "time": "0.00"
+            },
+            {
+                "color": "0.9882 1.0000 0.8510 1.0000",
+                "time": "0.17"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.35"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.4286",
+                "time": "0.54"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.70"
+            }
+        ],
+        "emitterScaleCurve": [],
+        "layer": 15,
+        "texture": {
+            "ani": {
+                "shuffle": false,
+                "name": "textures/sfxs/pet_dragon/ss_myth_dragon_play_kmlantern_fog",
+                "fps": "30"
+            },
+            "name": "textures/sfxs/pet_dragon/ss_myth_dragon_play_kmlantern_fog"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "delay": 0.1,
+        "timetolive": {
+            "max": "0.7",
+            "min": "0.7"
+        },
+        "depthtest": {
+            "enable": "true"
+        },
+        "emittersize": {
+            "value": "0.8 0.5 0.8"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        },
+        "emitterscale": [],
+        "dampingforce": {
+            "value": "2.8"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.0 0.0",
+                "time": "0.00"
+            },
+            {
+                "scale": "0.9 0.9",
+                "time": "0.58"
+            },
+            {
+                "scale": "1.25 1.25",
+                "time": "2.00"
+            }
+        ]
+    }
+}

@@ -1,0 +1,83 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "1.0"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "1.0",
+            "min": "10.0"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Rotate Y"
+        },
+        "inactivetime": {
+            "value": "3.0"
+        },
+        "numparticles": {
+            "value": "1"
+        },
+        "offsetInCamera": {
+            "value": "-0.2"
+        },
+        "particlesize": {
+            "max": "0.4 0.4",
+            "min": "0.4 0.4"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "-80.0 0.0 0.0",
+            "min": "-80.0 0.0 0.0"
+        },
+        "rotationSpeedRange": {
+            "max": "0.0 0.0 -222.0",
+            "min": "0.0 0.0 -333.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.35 0.35",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "11.3%"
+            },
+            {
+                "scale": "1.05 1.05",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "18",
+                "name": "textures/sfxs/2025s5/cs_s5Feng_skin_bd",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s5/cs_s5Feng_skin_bd"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

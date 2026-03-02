@@ -1,0 +1,25 @@
+{
+    "format_version": "1.16.0",
+    "minecraft:multiface_feature": {
+        "description": {
+            "identifier": "minecraft:sculk_vein_feature"
+        },
+        "search_range": 20,
+        "places_block": "minecraft:sculk_vein",
+        "can_place_on_floor": true,
+        "can_place_on_ceiling": true,
+        "can_place_on_wall": true,
+        "chance_of_spreading": 1.0,
+        "can_place_on": [
+            "minecraft:stone",
+            "minecraft:deepslate",
+            "minecraft:cobbled_deepslate",
+            "minecraft:deepslate_tiles",
+            "minecraft:cracked_deepslate_tiles",
+            "minecraft:deepslate_bricks",
+            "minecraft:cracked_deepslate_bricks",
+            "minecraft:tuff",
+            "minecraft:planks"
+        ]
+    }
+}

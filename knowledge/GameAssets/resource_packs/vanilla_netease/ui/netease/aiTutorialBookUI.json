@@ -1,0 +1,679 @@
+{
+    "aiTutorialBookMain": {
+        "controls": [
+            {
+                "panel": {
+                    "controls": [
+                        {
+                            "panel1": {
+                                "controls": [
+                                    {
+                                        "background": {
+                                            "controls": [
+                                                {
+                                                    "back": {
+                                                        "clip_direction": "left",
+                                                        "clip_ratio": 0.0,
+                                                        "layer": 1,
+                                                        "nineslice_size": [
+                                                            10.0,
+                                                            10.0,
+                                                            10.0,
+                                                            10.0
+                                                        ],
+                                                        "size": [
+                                                            "100.0%+0.0px",
+                                                            "100.0%+0.0px"
+                                                        ],
+                                                        "texture": "textures/ui/book_frame",
+                                                        "type": "image"
+                                                    }
+                                                },
+                                                {
+                                                    "back_left": {
+                                                        "anchor_from": "left_middle",
+                                                        "anchor_to": "left_middle",
+                                                        "clip_direction": "left",
+                                                        "clip_ratio": 0.0,
+                                                        "layer": 2,
+                                                        "nineslice_size": [
+                                                            37.0,
+                                                            0.0,
+                                                            0.0,
+                                                            0.0
+                                                        ],
+                                                        "offset": [
+                                                            "1.5%+0.0px",
+                                                            "0.0%+0.0px"
+                                                        ],
+                                                        "size": [
+                                                            "48.5%+0.0px",
+                                                            "92.68%+0.0px"
+                                                        ],
+                                                        "texture": "textures/ui/book_pageedge_left",
+                                                        "type": "image"
+                                                    }
+                                                },
+                                                {
+                                                    "back_right": {
+                                                        "anchor_from": "right_middle",
+                                                        "anchor_to": "right_middle",
+                                                        "clip_direction": "left",
+                                                        "clip_ratio": 0.0,
+                                                        "layer": 3,
+                                                        "nineslice_size": [
+                                                            0.0,
+                                                            0.0,
+                                                            37.0,
+                                                            0.0
+                                                        ],
+                                                        "offset": [
+                                                            "-1.5%+0.0px",
+                                                            "0.0%+0.0px"
+                                                        ],
+                                                        "size": [
+                                                            "48.5%+0.0px",
+                                                            "92.68%+0.0px"
+                                                        ],
+                                                        "texture": "textures/ui/book_pageedge_right",
+                                                        "type": "image"
+                                                    }
+                                                },
+                                                {
+                                                    "pagecrease_left": {
+                                                        "anchor_to": "right_middle",
+                                                        "clip_direction": "left",
+                                                        "clip_ratio": 0.0,
+                                                        "layer": 4,
+                                                        "nineslice_size": [
+                                                            37.0,
+                                                            5.0,
+                                                            0.0,
+                                                            10.0
+                                                        ],
+                                                        "offset": [
+                                                            "0.0%+0.0px",
+                                                            "-1.0%+0.0px"
+                                                        ],
+                                                        "size": [
+                                                            "39.0%+0.0px",
+                                                            "93.68%+0.0px"
+                                                        ],
+                                                        "texture": "textures/ui/book_pagecrease_left",
+                                                        "type": "image"
+                                                    }
+                                                },
+                                                {
+                                                    "pagecrease_right": {
+                                                        "anchor_to": "left_middle",
+                                                        "clip_direction": "left",
+                                                        "clip_ratio": 0.0,
+                                                        "layer": 5,
+                                                        "nineslice_size": [
+                                                            37.0,
+                                                            5.0,
+                                                            0.0,
+                                                            10.0
+                                                        ],
+                                                        "offset": [
+                                                            "0.0%+0.0px",
+                                                            "-1.0%+0.0px"
+                                                        ],
+                                                        "size": [
+                                                            "39.0%+0.0px",
+                                                            "93.68%+0.0px"
+                                                        ],
+                                                        "texture": "textures/ui/book_pagecrease_right",
+                                                        "type": "image"
+                                                    }
+                                                },
+                                                {
+                                                    "close": {
+                                                        "anchor_from": "top_right",
+                                                        "anchor_to": "top_right",
+                                                        "clip_direction": "left",
+                                                        "clip_ratio": 0.0,
+                                                        "layer": 6,
+                                                        "offset": [
+                                                            "-2.37%+-1.0px",
+                                                            "2.88%+-1.0px"
+                                                        ],
+                                                        "size": [
+                                                            "6.81%+-5.0px",
+                                                            "8.77%+-3.0px"
+                                                        ],
+                                                        "texture": "textures/ui/close_button_default_compact",
+                                                        "type": "image"
+                                                    }
+                                                }
+                                            ],
+                                            "layer": 1,
+                                            "size": [
+                                                "100.0%+0.0px",
+                                                "100.0%+0.0px"
+                                            ],
+                                            "type": "panel"
+                                        }
+                                    },
+                                    {
+                                        "tutorial1": {
+                                            "controls": [
+                                                {
+                                                    "left": {
+                                                        "anchor_to": "right_middle",
+                                                        "controls": [
+                                                            {
+                                                                "panel": {
+                                                                    "controls": [
+                                                                        {
+                                                                            "label": {
+                                                                                "anchor_from": "top_left",
+                                                                                "anchor_to": "top_left",
+                                                                                "color": [
+                                                                                    0.7372549019607844,
+                                                                                    0.6392156862745098,
+                                                                                    0.5294117647058824
+                                                                                ],
+                                                                                "font_type": "default",
+                                                                                "layer": 1,
+                                                                                "text": "魔法指令功能说明\n\n在主界面中点击左侧的按钮",
+                                                                                "type": "label"
+                                                                            }
+                                                                        },
+                                                                        {
+                                                                            "pic1": {
+                                                                                "anchor_from": "top_left",
+                                                                                "anchor_to": "top_left",
+                                                                                "clip_direction": "left",
+                                                                                "clip_ratio": 0.0,
+                                                                                "layer": 2,
+                                                                                "offset": [
+                                                                                    "0.0%+0.0px",
+                                                                                    "17.7%+0.0px"
+                                                                                ],
+                                                                                "size": [
+                                                                                    "11.76%+0.0px",
+                                                                                    "10.77%+0.0px"
+                                                                                ],
+                                                                                "texture": "textures/pic1",
+                                                                                "type": "image"
+                                                                            }
+                                                                        },
+                                                                        {
+                                                                            "label1": {
+                                                                                "anchor_from": "top_left",
+                                                                                "anchor_to": "top_left",
+                                                                                "color": [
+                                                                                    0.7372549019607844,
+                                                                                    0.6392156862745098,
+                                                                                    0.5294117647058824
+                                                                                ],
+                                                                                "font_type": "default",
+                                                                                "layer": 3,
+                                                                                "offset": [
+                                                                                    "0.0%+0.0px",
+                                                                                    "32.0%+0.0px"
+                                                                                ],
+                                                                                "size": [
+                                                                                    "100.0%+0.0px",
+                                                                                    "default"
+                                                                                ],
+                                                                                "text": "在文本框中输入想要实现的效果，然后点击发送",
+                                                                                "type": "label"
+                                                                            }
+                                                                        },
+                                                                        {
+                                                                            "pic2": {
+                                                                                "anchor_from": "top_left",
+                                                                                "anchor_to": "top_left",
+                                                                                "clip_direction": "left",
+                                                                                "clip_ratio": 0.0,
+                                                                                "keep_ratio": false,
+                                                                                "layer": 4,
+                                                                                "offset": [
+                                                                                    "0.0%+0.0px",
+                                                                                    "42.7%+0.0px"
+                                                                                ],
+                                                                                "size": [
+                                                                                    "91.48%+0.0px",
+                                                                                    "14.73%+0.0px"
+                                                                                ],
+                                                                                "texture": "textures/pic3",
+                                                                                "type": "image"
+                                                                            }
+                                                                        },
+                                                                        {
+                                                                            "label2": {
+                                                                                "anchor_from": "top_left",
+                                                                                "anchor_to": "top_left",
+                                                                                "color": [
+                                                                                    0.7372549019607844,
+                                                                                    0.6392156862745098,
+                                                                                    0.5294117647058824
+                                                                                ],
+                                                                                "font_type": "default",
+                                                                                "layer": 5,
+                                                                                "offset": [
+                                                                                    "0.0%+0.0px",
+                                                                                    "61.0%+0.0px"
+                                                                                ],
+                                                                                "size": [
+                                                                                    "100.0%+0.0px",
+                                                                                    "default"
+                                                                                ],
+                                                                                "text": "魔法指令会为您生成指令，并自动执行效果。",
+                                                                                "type": "label"
+                                                                            }
+                                                                        },
+                                                                        {
+                                                                            "pic3": {
+                                                                                "anchor_from": "top_left",
+                                                                                "anchor_to": "top_left",
+                                                                                "clip_direction": "left",
+                                                                                "clip_ratio": 0.0,
+                                                                                "keep_ratio": false,
+                                                                                "layer": 6,
+                                                                                "offset": [
+                                                                                    "0.0%+0.0px",
+                                                                                    "72.7%+0.0px"
+                                                                                ],
+                                                                                "size": [
+                                                                                    "52.48%+0.0px",
+                                                                                    "14.73%+0.0px"
+                                                                                ],
+                                                                                "texture": "textures/pic4",
+                                                                                "type": "image"
+                                                                            }
+                                                                        }
+                                                                    ],
+                                                                    "layer": 1,
+                                                                    "type": "panel"
+                                                                }
+                                                            }
+                                                        ],
+                                                        "layer": 1,
+                                                        "offset": [
+                                                            "-4.0%+0.0px",
+                                                            "0.0%+0.0px"
+                                                        ],
+                                                        "size": [
+                                                            "40.39%+0.0px",
+                                                            "80.83%+0.0px"
+                                                        ],
+                                                        "type": "panel"
+                                                    }
+                                                },
+                                                {
+                                                    "right": {
+                                                        "anchor_to": "left_middle",
+                                                        "controls": [
+                                                            {
+                                                                "panel": {
+                                                                    "controls": [
+                                                                        {
+                                                                            "label": {
+                                                                                "anchor_from": "top_left",
+                                                                                "anchor_to": "top_left",
+                                                                                "color": [
+                                                                                    0.7372549019607844,
+                                                                                    0.6392156862745098,
+                                                                                    0.5294117647058824
+                                                                                ],
+                                                                                "font_type": "default",
+                                                                                "layer": 1,
+                                                                                "offset": [
+                                                                                    0.0,
+                                                                                    "0.0%+0.0px"
+                                                                                ],
+                                                                                "text": "\n\n点击主界面的右侧的此按钮",
+                                                                                "type": "label"
+                                                                            }
+                                                                        },
+                                                                        {
+                                                                            "pic1": {
+                                                                                "anchor_from": "top_left",
+                                                                                "anchor_to": "top_left",
+                                                                                "clip_direction": "left",
+                                                                                "clip_ratio": 0.0,
+                                                                                "layer": 2,
+                                                                                "offset": [
+                                                                                    "0.0%+0.0px",
+                                                                                    "17.7%+0.0px"
+                                                                                ],
+                                                                                "size": [
+                                                                                    "11.76%+0.0px",
+                                                                                    "10.77%+0.0px"
+                                                                                ],
+                                                                                "texture": "textures/pic2",
+                                                                                "type": "image"
+                                                                            }
+                                                                        },
+                                                                        {
+                                                                            "label1": {
+                                                                                "anchor_from": "top_left",
+                                                                                "anchor_to": "top_left",
+                                                                                "color": [
+                                                                                    0.7372549019607844,
+                                                                                    0.6392156862745098,
+                                                                                    0.5294117647058824
+                                                                                ],
+                                                                                "font_type": "default",
+                                                                                "layer": 3,
+                                                                                "offset": [
+                                                                                    "0.0%+0.0px",
+                                                                                    "33.0%+0.0px"
+                                                                                ],
+                                                                                "size": [
+                                                                                    "100.0%+0.0px",
+                                                                                    "default"
+                                                                                ],
+                                                                                "text": "使用语音转文字功能录入你的想法。",
+                                                                                "type": "label"
+                                                                            }
+                                                                        },
+                                                                        {
+                                                                            "pic2": {
+                                                                                "anchor_from": "top_left",
+                                                                                "anchor_to": "top_left",
+                                                                                "clip_direction": "left",
+                                                                                "clip_ratio": 0.0,
+                                                                                "layer": 4,
+                                                                                "offset": [
+                                                                                    "0.0%+0.0px",
+                                                                                    "39.7%+0.0px"
+                                                                                ],
+                                                                                "size": [
+                                                                                    "48.48%+0.0px",
+                                                                                    "31.73%+0.0px"
+                                                                                ],
+                                                                                "texture": "textures/pic5",
+                                                                                "type": "image"
+                                                                            }
+                                                                        },
+                                                                        {
+                                                                            "label2": {
+                                                                                "anchor_from": "top_left",
+                                                                                "anchor_to": "top_left",
+                                                                                "color": [
+                                                                                    0.7372549019607844,
+                                                                                    0.6392156862745098,
+                                                                                    0.5294117647058824
+                                                                                ],
+                                                                                "font_type": "default",
+                                                                                "layer": 5,
+                                                                                "offset": [
+                                                                                    "0.0%+0.0px",
+                                                                                    "75.0%+0.0px"
+                                                                                ],
+                                                                                "size": [
+                                                                                    "100.0%+0.0px",
+                                                                                    "default"
+                                                                                ],
+                                                                                "text": "魔法指令会以干扰更低的形式生成并执行指令效果。",
+                                                                                "type": "label"
+                                                                            }
+                                                                        }
+                                                                    ],
+                                                                    "layer": 1,
+                                                                    "type": "panel"
+                                                                }
+                                                            }
+                                                        ],
+                                                        "layer": 9,
+                                                        "offset": [
+                                                            "4.0%+0.0px",
+                                                            "0.0%+0.0px"
+                                                        ],
+                                                        "size": [
+                                                            "40.39%+0.0px",
+                                                            "80.83%+0.0px"
+                                                        ],
+                                                        "type": "panel"
+                                                    }
+                                                }
+                                            ],
+                                            "layer": 8,
+                                            "size": [
+                                                "100.0%+0.0px",
+                                                "100.0%+0.0px"
+                                            ],
+                                            "type": "panel",
+                                            "visible": false
+                                        }
+                                    },
+                                    {
+                                        "tutorial2": {
+                                            "controls": [
+                                                {
+                                                    "left": {
+                                                        "anchor_to": "right_middle",
+                                                        "controls": [
+                                                            {
+                                                                "panel": {
+                                                                    "controls": [
+                                                                        {
+                                                                            "pic2": {
+                                                                                "anchor_from": "top_left",
+                                                                                "anchor_to": "top_left",
+                                                                                "clip_direction": "left",
+                                                                                "clip_ratio": 0.0,
+                                                                                "keep_ratio": false,
+                                                                                "layer": 1,
+                                                                                "offset": [
+                                                                                    "0.0%+0.0px",
+                                                                                    "0.0%+0.0px"
+                                                                                ],
+                                                                                "size": [
+                                                                                    "100.0%+0.0px",
+                                                                                    "80.0%+0.0px"
+                                                                                ],
+                                                                                "texture": "textures/ui/ai/aiTutorialBook1",
+                                                                                "type": "image"
+                                                                            }
+                                                                        },
+                                                                        {
+                                                                            "label2": {
+                                                                                "anchor_from": "top_left",
+                                                                                "anchor_to": "top_left",
+                                                                                "color": [
+                                                                                    0.7372549019607844,
+                                                                                    0.6392156862745098,
+                                                                                    0.5294117647058824
+                                                                                ],
+                                                                                "font_type": "default",
+                                                                                "layer": 2,
+                                                                                "offset": [
+                                                                                    "0.0%+0.0px",
+                                                                                    "82.0%+0.0px"
+                                                                                ],
+                                                                                "size": [
+                                                                                    "100.0%+0.0px",
+                                                                                    "default"
+                                                                                ],
+                                                                                "text": "在主界面中点击左侧按钮进入魔法指令的完整模式，点击右侧按钮进入快捷模式。",
+                                                                                "type": "label"
+                                                                            }
+                                                                        }
+                                                                    ],
+                                                                    "layer": 1,
+                                                                    "type": "panel"
+                                                                }
+                                                            }
+                                                        ],
+                                                        "layer": 1,
+                                                        "offset": [
+                                                            "-4.0%+0.0px",
+                                                            "0.0%+0.0px"
+                                                        ],
+                                                        "size": [
+                                                            "40.39%+0.0px",
+                                                            "80.83%+0.0px"
+                                                        ],
+                                                        "type": "panel"
+                                                    }
+                                                },
+                                                {
+                                                    "right": {
+                                                        "anchor_to": "left_middle",
+                                                        "controls": [
+                                                            {
+                                                                "panel": {
+                                                                    "controls": [
+                                                                        {
+                                                                            "pic2": {
+                                                                                "anchor_from": "top_left",
+                                                                                "anchor_to": "top_left",
+                                                                                "clip_direction": "left",
+                                                                                "clip_ratio": 0.0,
+                                                                                "keep_ratio": false,
+                                                                                "layer": 1,
+                                                                                "offset": [
+                                                                                    "0.0%+0.0px",
+                                                                                    "0.0%+0.0px"
+                                                                                ],
+                                                                                "size": [
+                                                                                    "100.0%+0.0px",
+                                                                                    "80.0%+0.0px"
+                                                                                ],
+                                                                                "texture": "textures/ui/ai/aiTutorialBook2",
+                                                                                "type": "image"
+                                                                            }
+                                                                        },
+                                                                        {
+                                                                            "label2": {
+                                                                                "anchor_from": "top_left",
+                                                                                "anchor_to": "top_left",
+                                                                                "color": [
+                                                                                    0.7372549019607844,
+                                                                                    0.6392156862745098,
+                                                                                    0.5294117647058824
+                                                                                ],
+                                                                                "font_type": "default",
+                                                                                "layer": 2,
+                                                                                "offset": [
+                                                                                    "0.0%+0.0px",
+                                                                                    "82.0%+0.0px"
+                                                                                ],
+                                                                                "size": [
+                                                                                    "100.0%+0.0px",
+                                                                                    "default"
+                                                                                ],
+                                                                                "text": "输入您的想法，魔法指令会将其转化为指令，并自动执行指令效果。",
+                                                                                "type": "label"
+                                                                            }
+                                                                        }
+                                                                    ],
+                                                                    "layer": 1,
+                                                                    "type": "panel"
+                                                                }
+                                                            }
+                                                        ],
+                                                        "layer": 5,
+                                                        "offset": [
+                                                            "4.0%+0.0px",
+                                                            "0.0%+0.0px"
+                                                        ],
+                                                        "size": [
+                                                            "40.39%+0.0px",
+                                                            "80.83%+0.0px"
+                                                        ],
+                                                        "type": "panel"
+                                                    }
+                                                }
+                                            ],
+                                            "layer": 24,
+                                            "size": [
+                                                "100.0%+0.0px",
+                                                "100.0%+0.0px"
+                                            ],
+                                            "type": "panel"
+                                        }
+                                    }
+                                ],
+                                "layer": 1,
+                                "size": [
+                                    "82.0%+0.0px",
+                                    "84.0%+0.0px"
+                                ],
+                                "type": "panel"
+                            }
+                        }
+                    ],
+                    "layer": 1,
+                    "type": "panel"
+                }
+            },
+            {
+                "close_btn@common.button": {
+                    "$control_alpha": 1.0,
+                    "$default_texture": "",
+                    "$hover_texture": "",
+                    "$is_new_nine_slice": false,
+                    "$label_color": [
+                        1,
+                        1,
+                        1
+                    ],
+                    "$label_font_scale_factor": 1.0,
+                    "$label_font_size": "large",
+                    "$label_layer": 3,
+                    "$label_offset": [
+                        0,
+                        0
+                    ],
+                    "$label_text": "",
+                    "$nine_slice_buttom": 0,
+                    "$nine_slice_left": 0,
+                    "$nine_slice_right": 0,
+                    "$nine_slice_top": 0,
+                    "$nineslice_size": [
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "$pressed_button_name": "%netease_editor_template_namespace.click",
+                    "$pressed_texture": "",
+                    "$texture_layer": 2,
+                    "bindings": [
+                        {
+                            "binding_collection_name": "",
+                            "binding_condition": "always_when_visible",
+                            "binding_type": "collection_details"
+                        }
+                    ],
+                    "button_mappings": [],
+                    "controls": [
+                        {
+                            "default@netease_editor_template_namespace.default": {}
+                        },
+                        {
+                            "hover@netease_editor_template_namespace.hover": {}
+                        },
+                        {
+                            "pressed@netease_editor_template_namespace.pressed": {}
+                        },
+                        {
+                            "button_label@netease_editor_template_namespace.button_label": {}
+                        }
+                    ],
+                    "default_control": "default",
+                    "hover_control": "hover",
+                    "is_handle_button_move_event": true,
+                    "layer": 2,
+                    "offset": [
+                        0,
+                        0
+                    ],
+                    "pressed_control": "pressed",
+                    "type": "button"
+                }
+            }
+        ],
+        "type": "screen"
+    },
+    "main@common.base_screen": {
+        "$screen_content": "aiTutorialBookUI.aiTutorialBookMain"
+    },
+    "namespace": "aiTutorialBookUI"
+}

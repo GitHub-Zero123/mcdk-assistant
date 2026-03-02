@@ -1,0 +1,81 @@
+{
+    "materials": {
+        "version": "1.0.0",
+        "billboard_base": {
+            "vertexShader": "shaders/sfx.vertex",
+            "fragmentShader": "shaders/sfx.fragment",
+            "vertexFields": [
+                {
+                    "field": "Position"
+                },
+                {
+                    "field": "UV0"
+                }
+            ],
+            "samplerStates": [
+                {
+                    "samplerIndex": 0,
+                    "textureWrap": "Clamp",
+                    "textureFilter": "Bilinear"
+                }
+            ],
+            "states": [
+                "Blending",
+                "DisableCulling",
+                "DisableDepthWrite"
+            ],
+            "msaaSupport": "Both"
+        },
+        "sequence:billboard_base": {
+            "variants": [
+                {
+                    "no_depth_test": {
+                        "+states": [
+                            "DisableDepthTest"
+                        ]
+                    }
+                },
+                {
+                    "depth_write": {
+                        "-states": [
+                            "DisableDepthWrite"
+                        ]
+                    }
+                },
+                {
+                    "alpha_test": {
+                        "+defines": [
+                            "ALPHA_TEST"
+                        ]
+                    }
+                },
+                {
+                    "depth_write.alpha_test": {
+                        "-states": [
+                            "DisableDepthWrite"
+                        ],
+                        "+defines": [
+                            "ALPHA_TEST"
+                        ]
+                    }
+                }
+            ]
+        },
+        "sequence_add:sequence": {
+            "blendSrc": "SourceAlpha",
+            "blendDst": "One"
+        },
+        "point_sequence:sequence": {
+            "samplerStates": [
+                {
+                    "samplerIndex": 0,
+                    "textureFilter": "Point"
+                }
+            ]
+        },
+        "point_sequence_add:point_sequence": {
+            "blendSrc": "SourceAlpha",
+            "blendDst": "One"
+        }
+    }
+}

@@ -1,0 +1,95 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.2"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.6339",
+                "time": "47.9%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "delay": 5.93,
+        "direction": {
+            "max": "0.0 1.0 0.0",
+            "min": "0.0 1.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "3000.0",
+            "min": "3000.0"
+        },
+        "emitterpath": [
+            {
+                "offset": "-0.30000000000000004 0.0 0.0",
+                "rotation": "0.0 0.0 0.0",
+                "time": "0.0"
+            }
+        ],
+        "enabletexture": {
+            "enable": true
+        },
+        "layer": 6,
+        "numparticles": {
+            "value": "1"
+        },
+        "particlesize": {
+            "max": "0.68 0.68",
+            "min": "0.68 0.68"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "-80.0 38.0 -75.0",
+            "min": "-80.0 38.0 -75.0"
+        },
+        "rotationSpeedRange": {
+            "max": "-10.0 -10.0 50.0",
+            "min": "-10.0 -10.0 50.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.5 1.5",
+                "time": "0.0%"
+            },
+            {
+                "scale": "2.8 2.8",
+                "time": "6.0%"
+            },
+            {
+                "scale": "3.3 3.3",
+                "time": "40.0%"
+            },
+            {
+                "scale": "3.55 3.55",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "32",
+                "name": "textures/sfxs/2025s6/cs_s6FireDragon_skin_birth_q1",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s6/cs_s6FireDragon_skin_birth_q1"
+        },
+        "timetolive": {
+            "max": "0.5",
+            "min": "0.5"
+        },
+        "velocity": {
+            "max": "0.1",
+            "min": "0.1"
+        }
+    }
+}

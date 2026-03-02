@@ -1,0 +1,121 @@
+{
+    "particleeffect": {
+        "layer": 4,
+        "faceCameraMode": {
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "100.0",
+            "min": "100.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "particlesize": {
+            "max": "0.05 0.05",
+            "min": "0.09 0.09"
+        },
+        "numparticles": {
+            "value": "12"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": true,
+                "name": "textures/sfxs/pet_dragon/ty_dragon_play_happy_xingdian_01",
+                "fps": "5"
+            },
+            "name": "textures/sfxs/pet_dragon/ty_dragon_play_happy_xingdian_01"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "delay": 2.2,
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "100.0%"
+            }
+        ],
+        "independent": false,
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "value": "Direction",
+            "min": "-1.0 -1.0 -1.0"
+        },
+        "dampingforce": {
+            "value": "12.0"
+        },
+        "material": {
+            "name": "materials/particles.materialC:\\MCStudioDownload\\work\\zcy_test_20200603@163.com\\Cpp\\Map\\76fed18bd5954715bd35f59f322cb76c\\resource_packs\\resource_pack_uFerx4WJ\\textures\\sfxs\\sg_zq_star_03.png"
+        },
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.0 0.0 0.0"
+        },
+        "emitterscale": [],
+        "rotationSpeedRange": {
+            "max": "0.0 0.0 50.0",
+            "min": "0.0 0.0 30.0"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.00"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.9911",
+                "time": "0.07"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.17"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.35"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0179",
+                "time": "0.52"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.64"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0179",
+                "time": "0.79"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.80"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.80"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.80"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.80"
+            }
+        ],
+        "depthtest": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "velocity": {
+            "max": "6.0",
+            "min": "8.0"
+        }
+    }
+}

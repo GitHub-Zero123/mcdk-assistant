@@ -1,0 +1,81 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.2"
+        },
+        "dampingforce": {
+            "value": "1.5"
+        },
+        "direction": {
+            "max": "-1.0 -1.0 -1.0",
+            "min": "1.0 1.0 1.0",
+            "value": "Direction"
+        },
+        "disorder": {
+            "increment": "0.1",
+            "interval": "0.3",
+            "max": "-0.2 -0.2 -0.2",
+            "min": "0.2 0.2 0.2"
+        },
+        "emissionrate": {
+            "max": "30.0",
+            "min": "30.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.1 0.1 0.1"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "numparticles": {
+            "value": "8"
+        },
+        "particlesize": {
+            "max": "0.35 0.35",
+            "min": "0.1 0.1"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "false"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.34 0.34",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.02 1.02",
+                "time": "14.7%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "41.0%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "0",
+                "name": "textures/sfxs/2025s5/cs_s5Fire_skin_lizi",
+                "shuffle": true
+            },
+            "name": "textures/sfxs/2025s5/cs_s5Fire_skin_lizi"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.8",
+            "min": "0.5"
+        },
+        "velocity": {
+            "max": "4.0",
+            "min": "3.0"
+        }
+    }
+}

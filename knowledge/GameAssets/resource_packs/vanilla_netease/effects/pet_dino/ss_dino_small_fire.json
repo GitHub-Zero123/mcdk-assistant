@@ -1,0 +1,71 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "value": "Direction",
+            "min": "0.0 0.0 0.0"
+        },
+        "numparticles": {
+            "value": "3"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.8510 0.0000 0.9911",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 0.0000 1.0000",
+                "time": "32.4%"
+            },
+            {
+                "color": "1.0000 0.4000 0.0000 0.8125",
+                "time": "64.7%"
+            },
+            {
+                "color": "1.0000 0.0000 0.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "emissionrate": {
+            "max": "3.0",
+            "min": "3.0"
+        },
+        "emitterScaleCurve": [],
+        "layer": 15,
+        "emittersize": {
+            "value": "0.2 0.7 0.5"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": false,
+                "name": "textures/sfxs/pet_dino/fire",
+                "fps": "16"
+            },
+            "name": "textures/sfxs/pet_dino/fire"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "particlesize": {
+            "max": "0.4 0.4",
+            "min": "0.2 0.2"
+        }
+    }
+}

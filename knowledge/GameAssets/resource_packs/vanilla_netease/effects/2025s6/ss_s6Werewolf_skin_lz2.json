@@ -1,0 +1,92 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.8"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "70.3%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "dampingforce": {
+            "value": "0.1"
+        },
+        "direction": {
+            "max": "1.0 -0.30000000000000004 0.0",
+            "min": "1.0 -0.5 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "10.0",
+            "min": "20.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.1 0.0 0.05"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Direction"
+        },
+        "inactivetime": {
+            "value": "2.5"
+        },
+        "layer": 2,
+        "particlesize": {
+            "max": "0.17 0.17",
+            "min": "0.1 0.1"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.39 0.39",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.14 1.14",
+                "time": "42.0%"
+            },
+            {
+                "scale": "1.62 1.62",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "20",
+                "name": "textures/sfxs/2025s6/ss_s6Werewolf_skin_tfh",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s6/ss_s6Werewolf_skin_tfh"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.8",
+            "min": "0.6"
+        },
+        "velocity": {
+            "max": "0.2",
+            "min": "0.1"
+        }
+    }
+}

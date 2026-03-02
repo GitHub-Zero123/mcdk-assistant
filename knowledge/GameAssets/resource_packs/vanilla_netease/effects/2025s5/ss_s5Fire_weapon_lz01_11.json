@@ -1,0 +1,97 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.2"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.8510 0.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.7490 0.0000 1.0000",
+                "time": "32.1%"
+            },
+            {
+                "color": "1.0000 0.5333 0.0000 1.0000",
+                "time": "74.5%"
+            },
+            {
+                "color": "1.0000 0.2353 0.0039 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "constantforce": {
+            "value": "0.0 0.0 2.0"
+        },
+        "dampingforce": {
+            "value": "6.0"
+        },
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "disorder": {
+            "increment": "0.3",
+            "interval": "0.1",
+            "max": "0.1 0.1 0.1",
+            "min": "-0.1 -0.1 -0.1"
+        },
+        "emissionrate": {
+            "max": "50.0",
+            "min": "50.0"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "layer": 2,
+        "offsetInCamera": {
+            "value": "1.0"
+        },
+        "particlesize": {
+            "max": "0.03 0.03",
+            "min": "0.01 0.01"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "false"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 666.0",
+            "min": "0.0 0.0 -666.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.0 0.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.25 1.25",
+                "time": "10.3%"
+            },
+            {
+                "scale": "1.9 1.9",
+                "time": "29.0%"
+            },
+            {
+                "scale": "1.9 1.9",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s5/ss_s5Fire_weapon_lizi02"
+        },
+        "timetolive": {
+            "max": "0.6",
+            "min": "0.2"
+        },
+        "velocity": {
+            "max": "3.0",
+            "min": "2.0"
+        }
+    }
+}

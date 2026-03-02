@@ -1,0 +1,68 @@
+{
+    "particleeffect": {
+        "delay": 1.0,
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "value": "Direction",
+            "min": "0.0 0.0 1.0"
+        },
+        "activetime": {
+            "value": "0.6"
+        },
+        "numparticles": {
+            "value": "5"
+        },
+        "pointFiltering": true,
+        "emissionrate": {
+            "max": "7.0",
+            "min": "5.0"
+        },
+        "emitterScaleCurve": [],
+        "layer": 0,
+        "emittersize": {
+            "value": "0.3 0.8 0.3"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "inactivetime": {
+            "value": "0.5"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": false,
+                "name": "textures/sfxs/pet_tiger/cs_tiger_s1wild_fangkuailizi",
+                "fps": "12"
+            },
+            "name": "textures/sfxs/pet_tiger/cs_tiger_s1wild_fangkuailizi"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.5",
+            "min": "0.2"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "0.0%"
+            }
+        ],
+        "blend": {
+            "name": "add"
+        },
+        "particlesize": {
+            "max": "0.05 0.05",
+            "min": "0.1 0.1"
+        },
+        "timetolive": {
+            "max": "0.8",
+            "min": "0.4"
+        }
+    }
+}

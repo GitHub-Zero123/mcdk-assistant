@@ -1,0 +1,96 @@
+{
+    "default": {
+        "is_new_nine_slice": true,
+        "layer": 1,
+        "nine_slice_buttom": "$nine_slice_buttom",
+        "nine_slice_left": "$nine_slice_left",
+        "nine_slice_right": "$nine_slice_right",
+        "nine_slice_top": "$nine_slice_top",
+        "texture": "$default_texture",
+        "type": "image"
+    },
+    "hover": {
+        "is_new_nine_slice": true,
+        "layer": 1,
+        "nine_slice_buttom": "$nine_slice_buttom",
+        "nine_slice_left": "$nine_slice_left",
+        "nine_slice_right": "$nine_slice_right",
+        "nine_slice_top": "$nine_slice_top",
+        "texture": "$hover_texture",
+        "type": "image"
+    },
+    "pressed": {
+        "is_new_nine_slice": true,
+        "layer": 1,
+        "nine_slice_buttom": "$nine_slice_buttom",
+        "nine_slice_left": "$nine_slice_left",
+        "nine_slice_right": "$nine_slice_right",
+        "nine_slice_top": "$nine_slice_top",
+        "texture": "$pressed_texture",
+        "type": "image"
+    },
+    "button_skin_transform@common.button": {
+        "$default_texture": "textures/netease/vip_transform/btn01@3x",
+        "$hover_texture": "textures/netease/vip_transform/btn01@3x",
+        "$pressed_texture": "textures/netease/vip_transform/btn01_click@3x",
+        "$pressed_button_name": "button.skin_transform",
+        "anchor_from": "top_right",
+        "anchor_to": "top_right",
+        "$nine_slice_buttom": 0,
+        "$nine_slice_left": 0,
+        "$nine_slice_right": 0,
+        "$nine_slice_top": 0,
+        "layer": 1,
+        "offset": [
+            "-30.0px",
+            "20.0px"
+        ],
+        "size": [
+            22,
+            22
+        ],
+        "type": "button",
+        "visible": false,
+        "is_handle_button_move_event": true,
+        "button_mappings": [],
+        "bindings": [
+            {
+                "binding_name": "#skin_transform_enabled",
+                "binding_name_override": "#visible"
+            }
+        ],
+        "controls": [
+            {
+                "default@skin_transform_btn.default": {}
+            },
+            {
+                "hover@skin_transform_btn.hover": {}
+            },
+            {
+                "pressed@skin_transform_btn.pressed": {}
+            },
+            {
+                "image": {
+                    "clip_direction": "left",
+                    "clip_ratio": 0.0,
+                    "layer": 2,
+                    "size": [
+                        21,
+                        21
+                    ],
+                    "texture": "textures/netease/vip_transform/icon01@3x",
+                    "type": "image"
+                }
+            }
+        ]
+    },
+    "main": {
+        "controls": [
+            {
+                "button_skin_transform@skin_transform_btn.button_skin_transform": {}
+            }
+        ],
+        "type": "screen"
+    },
+    "namespace": "skin_transform_btn"
+}

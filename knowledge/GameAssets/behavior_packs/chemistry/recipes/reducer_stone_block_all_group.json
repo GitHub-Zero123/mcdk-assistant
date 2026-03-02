@@ -1,0 +1,30 @@
+{
+   "format_version" : "1.14",
+   "minecraft:recipe_material_reduction" : {
+      "description" : {
+         "identifier" : "minecraft:stone"
+		 //Contains all stone objects:
+		 //Change "minecraft:stone" to "minecraft:stone:aux value"
+		 //Add aux values for each type of stone blocks
+		 //stone block: 0, Granite block: 1, Polished Granite block: 2
+		 //Diorite block: 3, Polished Diorite block: 4, Andesite block: 5
+		 //Polished Adnesite block: 6
+      },
+      "input" : "minecraft:stone",
+      "output" : [
+         {
+            "count" : 33,
+            "item" : "minecraft:element_14"
+         },
+         {
+            "count" : 64,
+            "item" : "minecraft:element_8"
+         },
+         {
+            "count" : 3,
+            "item" : "minecraft:element_8"
+         }
+      ],
+      "tags" : "material_reducer"
+   }
+}

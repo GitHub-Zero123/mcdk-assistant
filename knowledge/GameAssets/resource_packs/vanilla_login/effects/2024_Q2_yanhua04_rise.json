@@ -1,0 +1,110 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "1.5000000000000002"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "0.2314 1.0000 0.0000 0.0000",
+                "time": "0.00"
+            },
+            {
+                "color": "0.3843 1.0000 0.0980 1.0000",
+                "time": "0.18"
+            },
+            {
+                "color": "0.0549 1.0000 0.2745 0.6429",
+                "time": "1.19"
+            },
+            {
+                "color": "0.1882 1.0000 0.7020 0.7946",
+                "time": "1.76"
+            },
+            {
+                "color": "0.1529 1.0000 0.4627 1.0000",
+                "time": "2.00"
+            }
+        ],
+        "delay": 1.5,
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "50.0",
+            "min": "30.0"
+        },
+        "emitterpath": [
+            {
+                "offset": "0.0 -5.0 0.0",
+                "rotation": "0.0 0.0 0.0",
+                "time": "0.0"
+            },
+            {
+                "offset": "0.0 -0.9 0.0",
+                "rotation": "0.0 0.0 0.0",
+                "time": "0.6"
+            },
+            {
+                "offset": "0.0 -0.1 0.0",
+                "rotation": "0.0 0.0 0.0",
+                "time": "1.05"
+            },
+            {
+                "offset": "0.0 0.0 0.0",
+                "rotation": "0.0 0.0 0.0",
+                "time": "1.5"
+            },
+            {
+                "offset": "0.0 0.0 0.0",
+                "rotation": "0.0 0.0 0.0",
+                "time": "2.5"
+            }
+        ],
+        "faceCameraMode": {
+            "value": "Direction"
+        },
+        "inactivetime": {
+            "value": "1.0"
+        },
+        "numparticles": {
+            "value": "150"
+        },
+        "particlesize": {
+            "max": "0.1 0.1",
+            "min": "0.06 0.06"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "0.00"
+            },
+            {
+                "scale": "0.3 0.3",
+                "time": "1.01"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "1.96"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2024_Q2_fangkuai"
+        },
+        "timetolive": {
+            "max": "2.0",
+            "min": "2.0"
+        },
+        "velocity": {
+            "max": "0.2",
+            "min": "0.0"
+        }
+    }
+}

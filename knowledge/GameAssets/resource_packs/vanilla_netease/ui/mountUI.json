@@ -1,0 +1,430 @@
+{
+    "classic_mount_right_content_panel@parterner_common_toggles.common_right_panel": {
+        "controls": [
+            {
+                "right_content_panel@mountUI.common_right_content_panel": {
+                    "$paper_doll_offset": [
+                        0,
+                        -80
+                    ],
+                    "$paper_doll_scale_default": 1.0,
+                    "$parterner_name_panel_size": [
+                        "8.17%+0.0px",
+                        "3.95%+0.0px"
+                    ],
+                    "$summon_stable_label_text_scale": 0.9,
+                    "anchor_from": "top_middle",
+                    "anchor_to": "top_middle",
+                    "offset": [
+                        "0.0px",
+                        "1.13%+0.0px"
+                    ],
+                    "size": [
+                        "97.92%+0.0px",
+                        "98.88%+0.0px"
+                    ]
+                }
+            }
+        ]
+    },
+    "classsic_mount_content_panel": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "controls": [
+            {
+                "right_panel@mountUI.classic_mount_right_content_panel": {}
+            },
+            {
+                "hintPanel_1@parterner_common_toggles.hintPanel": {
+                    "anchor_from": "center",
+                    "anchor_to": "center",
+                    "size": [
+                        "50.0%+0.0px",
+                        30.0
+                    ]
+                }
+            }
+        ],
+        "layer": 10,
+        "size": [
+            "100%",
+            "100%"
+        ],
+        "type": "panel"
+    },
+    "common_right_content_panel": {
+        "$mount_func_visible": false,
+        "$paper_doll_offset": [
+            0,
+            -124
+        ],
+        "$paper_doll_scale_default": 2.0,
+        "$parterner_func_visible": false,
+        "$parterner_name_panel_size": [
+            "8.17%+0.0px",
+            "4.68%+0.0px"
+        ],
+        "$summon_stable_label_text_scale": 1.1,
+        "controls": [
+            {
+                "parterner_name_panel_1@parterner_right_common_toggles.parterner_name_panel": {
+                    "$parterner_name_panel_size|default": [
+                        0,
+                        0
+                    ],
+                    "size": "$parterner_name_panel_size"
+                }
+            },
+            {
+                "pure_black_background_1@mountUI.pure_black_background": {}
+            },
+            {
+                "common_origin_grid_panel_1@parterner_right_common_toggles.bag_grid_panel": {
+                    "visible": false
+                }
+            }
+        ],
+        "layer": 2,
+        "size": [
+            "97.71%+0.0px",
+            "98.0%+0.0px"
+        ],
+        "type": "panel"
+    },
+    "mount_content_panel": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "controls": [
+            {
+                "right_panel@mountUI.mount_right_content_panel": {}
+            },
+            {
+                "hintPanel_1@parterner_common_toggles.hintPanel": {
+                    "anchor_from": "center",
+                    "anchor_to": "center",
+                    "size": [
+                        "50.0%+0.0px",
+                        30.0
+                    ]
+                }
+            }
+        ],
+        "layer": 10,
+        "size": [
+            "100%",
+            "100%"
+        ],
+        "type": "panel"
+    },
+    "mount_right_content_panel@parterner_common_toggles.common_right_panel": {
+        "controls": [
+            {
+                "right_content_panel@mountUI.common_right_content_panel": {
+                    "$mount_func_visible": false,
+                    "$paper_doll_offset": [
+                        0,
+                        -124
+                    ]
+                }
+            }
+        ]
+    },
+    "namespace": "mountUI",
+    "paperdoll_main_panel": {
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "viewer_panel_mount@mountUI.skin_viewer_panel": {}
+            }
+        ],
+        "layer": 4,
+        "offset": [
+            "29.42%+0.0px",
+            "29.76%+0.0px"
+        ],
+        "size": [
+            "41.54%+0.0px",
+            "43.87%+0.0px"
+        ],
+        "type": "panel"
+    },
+    "pure_black_background": {
+        "anchor_from": "bottom_middle",
+        "anchor_to": "bottom_middle",
+        "clip_direction": "left",
+        "clip_ratio": 0.0,
+        "color": [
+            0.2627450980392157,
+            0.2627450980392157,
+            0.2627450980392157
+        ],
+        "controls": [
+            {
+                "paperdoll_main_panel_1@mountUI.paperdoll_main_panel": {}
+            },
+            {
+                "paperdoll_tip_panel_1@parterner_right_common_toggles.paperdoll_tip_panel": {}
+            },
+            {
+                "summon_content_panel_1@parterner_right_common_toggles.summon_content_panel": {}
+            },
+            {
+                "parterner_func_stack_panel": {
+                    "$parterner_func_visible|default": false,
+                    "anchor_from": "top_right",
+                    "anchor_to": "top_right",
+                    "controls": [
+                        {
+                            "panel_music": {
+                                "anchor_from": "top_middle",
+                                "anchor_to": "top_middle",
+                                "controls": [
+                                    {
+                                        "panel": {
+                                            "anchor_from": "top_middle",
+                                            "anchor_to": "top_middle",
+                                            "controls": [
+                                                {
+                                                    "common_icon_btn@parterner_common_toggles.common_icon_btn": {
+                                                        "$middle_icon_texture": "textures/ui/pet/parterner/icon29_2x",
+                                                        "anchor_from": "top_middle",
+                                                        "anchor_to": "top_middle",
+                                                        "size": [
+                                                            "100.0%y+0.0px",
+                                                            "100.0%+0.0px"
+                                                        ]
+                                                    }
+                                                }
+                                            ],
+                                            "layer": 1,
+                                            "size": [
+                                                "100.0%+0.0px",
+                                                "94.11%+0.0px"
+                                            ],
+                                            "type": "panel"
+                                        }
+                                    }
+                                ],
+                                "layer": 1,
+                                "size": [
+                                    "100.0%+0.0px",
+                                    "50.0%+0.0px"
+                                ],
+                                "type": "panel"
+                            }
+                        },
+                        {
+                            "panel_lock": {
+                                "anchor_from": "top_middle",
+                                "anchor_to": "top_middle",
+                                "controls": [
+                                    {
+                                        "panel": {
+                                            "controls": [
+                                                {
+                                                    "common_icon_btn@parterner_common_toggles.common_icon_btn": {
+                                                        "$middle_icon_texture": "textures/ui/pet/parterner/icon32_2x",
+                                                        "anchor_from": "top_middle",
+                                                        "anchor_to": "top_middle",
+                                                        "size": [
+                                                            "100.0%y+0.0px",
+                                                            "100.0%+0.0px"
+                                                        ]
+                                                    }
+                                                }
+                                            ],
+                                            "layer": 1,
+                                            "size": [
+                                                "100.0%+0.0px",
+                                                "94.11%+0.0px"
+                                            ],
+                                            "type": "panel"
+                                        }
+                                    }
+                                ],
+                                "layer": 1,
+                                "size": [
+                                    "100.0%+0.0px",
+                                    "50.0%+0.0px"
+                                ],
+                                "type": "panel"
+                            }
+                        }
+                    ],
+                    "layer": 1,
+                    "offset": [
+                        "-2.67%+0.0px",
+                        "3.4%+0.0px"
+                    ],
+                    "size": [
+                        "10.65%+0.0px",
+                        "30.1%+0.0px"
+                    ],
+                    "type": "stack_panel",
+                    "visible": "$parterner_func_visible"
+                }
+            },
+            {
+                "mount_func_stack_panel": {
+                    "$mount_func_visible|default": false,
+                    "anchor_from": "top_right",
+                    "anchor_to": "top_right",
+                    "controls": [
+                        {
+                            "panel_mount_visible": {
+                                "anchor_from": "top_middle",
+                                "anchor_to": "top_middle",
+                                "controls": [
+                                    {
+                                        "panel": {
+                                            "anchor_from": "top_middle",
+                                            "anchor_to": "top_middle",
+                                            "controls": [
+                                                {
+                                                    "common_icon_btn@parterner_common_toggles.common_icon_btn": {
+                                                        "$middle_icon_texture": "textures/ui/pet/parterner/icon08_3x",
+                                                        "anchor_from": "top_middle",
+                                                        "anchor_to": "top_middle",
+                                                        "size": [
+                                                            "100.0%y+0.0px",
+                                                            "100.0%+0.0px"
+                                                        ]
+                                                    }
+                                                }
+                                            ],
+                                            "layer": 1,
+                                            "size": [
+                                                "100.0%+0.0px",
+                                                "94.11%+0.0px"
+                                            ],
+                                            "type": "panel"
+                                        }
+                                    }
+                                ],
+                                "layer": 1,
+                                "size": [
+                                    "100.0%+0.0px",
+                                    "100.0%+0.0px"
+                                ],
+                                "type": "panel"
+                            }
+                        }
+                    ],
+                    "layer": 1,
+                    "offset": [
+                        "-2.67%+0.0px",
+                        "3.4%+0.0px"
+                    ],
+                    "size": [
+                        "10.65%+0.0px",
+                        "13.61%+0.0px"
+                    ],
+                    "type": "stack_panel",
+                    "visible": "$mount_func_visible"
+                }
+            }
+        ],
+        "fill": true,
+        "layer": 3,
+        "offset": [
+            0.0,
+            "-2.3%+0.0px"
+        ],
+        "size": [
+            "95.9%+0.0px",
+            "85.9%+0.0px"
+        ],
+        "texture": "textures/ui/background_image",
+        "type": "image",
+        "uv": [
+            2.0,
+            2.0
+        ],
+        "uv_size": [
+            10.0,
+            10.0
+        ]
+    },
+    "skin_viewer_panel": {
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "button_mappings": [
+            {
+                "button_up_right_of_first_refusal": true,
+                "from_button_id": "button.menu_select",
+                "mapping_type": "pressed",
+                "to_button_id": "button.turn_doll"
+            }
+        ],
+        "controls": [
+            {
+                "paper_doll_panel": {
+                    "controls": [
+                        {
+                            "paper_doll": {
+                                "$paper_doll_offset|default": [
+                                    0,
+                                    -124
+                                ],
+                                "$paper_doll_scale_default|default": 2.0,
+                                "anchor_from": "bottom_middle",
+                                "anchor_to": "bottom_middle",
+                                "animation": "idle_stand",
+                                "bindings": [
+                                    {
+                                        "binding_type": "view",
+                                        "source_control_name": "viewer_panel_mount",
+                                        "source_property_name": "#gesture_delta_source",
+                                        "target_property_name": "#gesture_delta_source"
+                                    },
+                                    {
+                                        "binding_type": "view",
+                                        "source_control_name": "viewer_panel_mount",
+                                        "source_property_name": "#gesture_mouse_delta_x",
+                                        "target_property_name": "#gesture_mouse_delta_x"
+                                    }
+                                ],
+                                "camera_tilt_degrees": -30,
+                                "layer": 1,
+                                "modelname": "2021s2_yx_spacehorseB_0_0",
+                                "modelsize": "$paper_doll_scale_default",
+                                "offset": "$paper_doll_offset",
+                                "renderer": "paper_doll_renderer",
+                                "rotation": "gesture_x",
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "type": "custom",
+                                "animation_reset_name": "screen_animation_reset",
+                                "anims": [
+                                    "@common.screen_exit_size_animation_push",
+                                    "@common.screen_exit_size_animation_pop",
+                                    "@common.screen_entrance_size_animation_push",
+                                    "@common.screen_entrance_size_animation_pop"
+                                ]
+                            }
+                        }
+                    ],
+                    "size": [
+                        "100%",
+                        "100%"
+                    ],
+                    "type": "panel"
+                }
+            }
+        ],
+        "gesture_tracking_button": "button.turn_doll",
+        "layer": 15,
+        "offset": [
+            0,
+            "20.0%+0.0px"
+        ],
+        "size": [
+            108,
+            108
+        ],
+        "type": "input_panel"
+    }
+}

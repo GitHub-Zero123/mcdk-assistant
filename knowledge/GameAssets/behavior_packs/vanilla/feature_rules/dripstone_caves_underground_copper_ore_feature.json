@@ -1,0 +1,42 @@
+{
+    "format_version": "1.13.0",
+    "minecraft:feature_rules": {
+        "description": {
+            "identifier": "minecraft:dripstone_caves_underground_copper_ore_feature",
+            "places_feature": "minecraft:dripstone_caves_copper_ore_feature"
+        },
+        "conditions": {
+            "placement_pass": "underground_pass",
+            "minecraft:biome_filter": {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "dripstone_caves"
+            }
+        },
+        "distribution": {
+            "iterations": 16,
+            "coordinate_eval_order": "zyx",
+            "x": {
+                "distribution": "uniform",
+                "extent": [
+                    0,
+                    16
+                ]
+            },
+            "y": {
+                "distribution": "triangle",
+                "extent": [
+                    -16,
+                    112
+                ]
+            },
+            "z": {
+                "distribution": "uniform",
+                "extent": [
+                    0,
+                    16
+                ]
+            }
+        }
+    }
+}

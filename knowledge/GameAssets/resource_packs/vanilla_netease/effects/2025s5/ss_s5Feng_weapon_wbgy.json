@@ -1,0 +1,70 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "0.6706 0.9686 1.0000 0.0714",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.4863 0.9059 1.0000 0.1875",
+                "time": "49.7%"
+            },
+            {
+                "color": "0.7176 0.9725 1.0000 0.0804",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "20.0",
+            "min": "20.0"
+        },
+        "numparticles": {
+            "value": "2"
+        },
+        "particlesize": {
+            "max": "0.07 0.15",
+            "min": "0.07 0.15"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.62 0.62",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.12 1.12",
+                "time": "49.0%"
+            },
+            {
+                "scale": "0.69 0.69",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "12",
+                "name": "textures/sfxs/2025s5/ss_s5Feng_weapon_glow01",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s5/ss_s5Feng_weapon_glow01"
+        },
+        "timetolive": {
+            "max": "1.5",
+            "min": "1.5"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

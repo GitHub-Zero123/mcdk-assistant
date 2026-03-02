@@ -1,0 +1,86 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "value": "Direction",
+            "min": "0.0 0.0 0.0"
+        },
+        "numparticles": {
+            "value": "2"
+        },
+        "pointFiltering": true,
+        "enabletexture": {
+            "enable": true
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "21.1%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "82.1%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "emissionrate": {
+            "max": "1.0",
+            "min": "1.0"
+        },
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.1 0.2 0.0"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "timetolive": {
+            "max": "0.6",
+            "min": "1.0"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": false,
+                "name": "textures/sfxs/pet_penguin/ss_penguin_s1sand_ty",
+                "fps": "20"
+            },
+            "name": "textures/sfxs/pet_penguin/ss_penguin_s1sand_ty"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.0",
+            "min": "0.1"
+        },
+        "particlesize": {
+            "max": "0.1 0.1",
+            "min": "0.15 0.15"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.0 0.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.2 1.2",
+                "time": "16.7%"
+            },
+            {
+                "scale": "1.53 1.53",
+                "time": "100.0%"
+            }
+        ]
+    }
+}

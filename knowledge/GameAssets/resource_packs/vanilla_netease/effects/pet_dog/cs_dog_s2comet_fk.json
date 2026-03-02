@@ -1,0 +1,57 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "value": "Direction",
+            "min": "0.0 -1.0 0.0"
+        },
+        "faceCameraMode": {
+            "value": "Direction Horizontal"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "42.9%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/pet_dog/cs_dog_s2comet_fk"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "timetolive": {
+            "max": "0.3",
+            "min": "0.3"
+        },
+        "velocity": {
+            "max": "0.3",
+            "min": "0.3"
+        },
+        "rotationRange": {
+            "max": "90.0 0.0 0.0",
+            "min": "90.0 0.0 0.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.8 0.8",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.44 1.44",
+                "time": "100.0%"
+            }
+        ]
+    }
+}

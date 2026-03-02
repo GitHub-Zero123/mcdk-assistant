@@ -1,0 +1,78 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "0.3765 0.1294 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.3765 0.1294 1.0000 1.0000",
+                "time": "25.5%"
+            },
+            {
+                "color": "0.3765 0.1294 1.0000 0.0000",
+                "time": "50.0%"
+            },
+            {
+                "color": "0.3765 0.1294 1.0000 1.0000",
+                "time": "75.0%"
+            },
+            {
+                "color": "0.6471 0.4706 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "constantforce": {
+            "value": "0.0 -0.2 0.0"
+        },
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Outwards"
+        },
+        "emissionrate": {
+            "max": "5.0",
+            "min": "3.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "1.0 0.9 0.8"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "numparticles": {
+            "value": "100"
+        },
+        "particlesize": {
+            "max": "0.1 0.1",
+            "min": "0.05 0.05"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "false"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 360.0",
+            "min": "0.0 0.0 -360.0"
+        },
+        "texture": {
+            "name": "textures/sfxs/2025s5/ss_s5Tidal_armor_wjx"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "1.6",
+            "min": "1.2"
+        },
+        "velocity": {
+            "max": "0.1",
+            "min": "0.1"
+        }
+    }
+}

@@ -1,0 +1,85 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+
+#include "fragmentVersionCentroid.h"
+#include "uniformShaderConstants.h"
+#include "uniformPatternConstants.h"
+
+LAYOUT_BINDING(0) uniform sampler2D TEXTURE_0;
+LAYOUT_BINDING(1) uniform sampler2D TEXTURE_1;
+LAYOUT_BINDING(2) uniform sampler2D TEXTURE_2;
+
+#if __VERSION__ >= 300
+_centroid varying vec4 uv;
+#else
+varying vec4 uv;
+#endif
+
+#ifdef ENABLE_FOG
+varying vec4 fogColor;
+#endif
+
+#ifdef ENABLE_LIGHT
+varying vec4 light;
+#endif
+
+vec4 getPatternColor(int layer, vec2 texcoord) {
+	vec2 tex = (PATTERN_UV_OFFSETS_AND_SCALES[layer].zw * texcoord) + PATTERN_UV_OFFSETS_AND_SCALES[layer].xy;
+	vec4 resultColor = PATTERN_COLORS[layer];
+	return texture2D(TEXTURE_2, tex) * resultColor;
+}
+
+vec4 getBaseColor(vec2 texcoord) {
+	return texture2D(TEXTURE_0, texcoord);
+}
+
+vec4 getAppliedPatternColor(vec2 texcoord0) {
+	vec4 resultColor = getBaseColor(texcoord0);
+#ifndef DISABLE_TINTING
+	int patternCount = int(PATTERN_COUNT);
+	for (int i = 0; i < patternCount; i++) {
+		vec4 pattern = getPatternColor(i, texcoord0);
+		resultColor = mix(resultColor, pattern, pattern.a);
+	}
+	resultColor.a = 1.0;
+#endif
+
+	return resultColor;
+}
+
+#ifdef GLINT
+	varying vec2 layer1UV;
+	varying vec2 layer2UV;
+	varying vec4 tileLightColor;
+	varying vec4 glintColor;
+
+vec4 glintBlend(vec4 dest, vec2 layer1UV, vec2 layer2UV, vec4 tileLightColor, vec4 glintColor) {
+	vec4 layer1 = texture2D(TEXTURE_1, fract(layer1UV)).rgbr * glintColor;
+	vec4 layer2 = texture2D(TEXTURE_1, fract(layer2UV)).rgbr * glintColor;
+	vec4 glint = (layer1 + layer2) * tileLightColor;
+	return vec4(glint.rgb * glint.rgb, abs(glint.a)) + dest;
+}
+#endif
+
+void main()
+{
+	vec4 diffuse = getAppliedPatternColor(uv.xy);
+
+#ifdef ENABLE_LIGHT
+	diffuse.rgb *= light.rgb;
+#endif
+
+#ifdef ENABLE_FOG
+	//apply fog
+	diffuse.rgb = mix( diffuse.rgb, fogColor.rgb, fogColor.a );
+#endif
+
+#ifdef GLINT
+	diffuse = glintBlend(diffuse, layer1UV, layer2UV, tileLightColor, glintColor);
+#endif
+
+#ifdef UI_ENTITY
+	diffuse.a *= HUD_OPACITY;
+#endif
+	gl_FragColor = diffuse;
+}

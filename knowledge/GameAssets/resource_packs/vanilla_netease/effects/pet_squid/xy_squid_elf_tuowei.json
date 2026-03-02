@@ -1,0 +1,83 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "0.0 0.0 0.7",
+            "value": "Direction",
+            "min": "0.0 0.0 0.5"
+        },
+        "dampingforce": {
+            "value": "5.0"
+        },
+        "faceCameraMode": {
+            "value": "Direction"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.1964",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.1875",
+                "time": "100.0%"
+            }
+        ],
+        "emissionrate": {
+            "max": "10.0",
+            "min": "15.0"
+        },
+        "emitterScaleCurve": [],
+        "layer": 7,
+        "emittersize": {
+            "value": "0.4 0.1 0.1"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "timetolive": {
+            "max": "0.8",
+            "min": "0.5"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": false,
+                "name": "textures/sfxs/pet_squid/xy_squid_elf_diwen",
+                "fps": "16"
+            },
+            "name": "textures/sfxs/pet_squid/xy_squid_elf_diwen"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.5",
+            "min": "0.2"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "particlesize": {
+            "max": "0.0 0.4",
+            "min": "0.5 0.4"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.5 0.5",
+                "time": "100.0%"
+            }
+        ],
+        "numparticles": {
+            "value": "20"
+        }
+    }
+}

@@ -1,0 +1,74 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.1"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.8929",
+                "time": "43.2%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "delay": 0.6000000000000001,
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "3000.0",
+            "min": "3000.0"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "layer": 7,
+        "numparticles": {
+            "value": "1"
+        },
+        "particlesize": {
+            "max": "1.5 1.0",
+            "min": "1.5 1.0"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.95 1.95",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.2 1.2",
+                "time": "11.0%"
+            },
+            {
+                "scale": "1.26 1.26",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s2/cs_s4hongshi_skin_birth_1glow01"
+        },
+        "timetolive": {
+            "max": "0.3",
+            "min": "0.3"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

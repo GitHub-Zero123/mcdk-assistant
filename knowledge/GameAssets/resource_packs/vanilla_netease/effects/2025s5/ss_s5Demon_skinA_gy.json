@@ -1,0 +1,40 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.6353 0.9725 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.4902 0.9490 0.1964",
+                "time": "43.2%"
+            },
+            {
+                "color": "1.0000 0.6549 0.9725 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "particlesize": {
+            "max": "0.3 0.3",
+            "min": "0.3 0.3"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "name": "textures/sfxs/2025s5/ss_s5Demon_skinA_gy2"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

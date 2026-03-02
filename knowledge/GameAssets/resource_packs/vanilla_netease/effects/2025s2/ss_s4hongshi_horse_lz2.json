@@ -1,0 +1,62 @@
+{
+    "particleeffect": {
+        "colorfade": [
+            {
+                "color": "1.0000 0.8235 0.1804 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.5843 0.0000 1.0000",
+                "time": "49.5%"
+            },
+            {
+                "color": "1.0000 0.2824 0.0000 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 1.0 0.0",
+            "value": "Direction"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.3 0.3 0.3"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "particlesize": {
+            "max": "0.05 0.05",
+            "min": "0.08 0.08"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.84 0.84",
+                "time": "0.3%"
+            },
+            {
+                "scale": "0.99 0.99",
+                "time": "22.3%"
+            },
+            {
+                "scale": "0.15 0.15",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s2/ss_s4hongshi_horse_fllz"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.3",
+            "min": "0.5"
+        }
+    }
+}

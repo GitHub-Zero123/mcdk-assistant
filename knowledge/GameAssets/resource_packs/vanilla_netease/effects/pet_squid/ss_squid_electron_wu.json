@@ -1,0 +1,95 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "0.0 1.0 0.0",
+            "value": "Direction",
+            "min": "0.0 0.1 0.0"
+        },
+        "faceCameraMode": {
+            "value": "Direction"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.0000 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.4000 0.9922 0.8214",
+                "time": "6.3%"
+            },
+            {
+                "color": "0.0000 0.6157 1.0000 1.0000",
+                "time": "13.2%"
+            },
+            {
+                "color": "0.9686 0.0000 1.0000 0.6964",
+                "time": "16.8%"
+            },
+            {
+                "color": "0.0000 0.5333 1.0000 0.4821",
+                "time": "24.2%"
+            },
+            {
+                "color": "1.0000 0.0314 0.9216 0.7232",
+                "time": "27.9%"
+            },
+            {
+                "color": "0.1608 1.0000 0.4392 0.5268",
+                "time": "38.4%"
+            },
+            {
+                "color": "0.7020 0.0000 1.0000 0.3304",
+                "time": "50.8%"
+            },
+            {
+                "color": "0.1294 0.9294 1.0000 0.1339",
+                "time": "72.4%"
+            },
+            {
+                "color": "0.0000 1.0000 0.8353 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "layer": 9,
+        "texture": {
+            "ani": {
+                "shuffle": false,
+                "name": "textures/sfxs/pet_squid/ss_squid_electron_wu",
+                "fps": "20"
+            },
+            "name": "textures/sfxs/pet_squid/ss_squid_electron_wu"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "timetolive": {
+            "max": "0.6",
+            "min": "0.5"
+        },
+        "velocity": {
+            "max": "0.5",
+            "min": "0.2"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "particlesize": {
+            "max": "0.25 0.5",
+            "min": "0.15 0.3"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.96 0.96",
+                "time": "0.7%"
+            },
+            {
+                "scale": "0.74 0.74",
+                "time": "43.7%"
+            },
+            {
+                "scale": "0.5 0.5",
+                "time": "100.0%"
+            }
+        ]
+    }
+}

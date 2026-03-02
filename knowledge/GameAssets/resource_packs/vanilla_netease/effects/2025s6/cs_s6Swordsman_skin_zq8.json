@@ -1,0 +1,91 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.7"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0804",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0536",
+                "time": "27.4%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0089",
+                "time": "64.7%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "constantforce": {
+            "value": "0.0 0.0 6.38378239159465e-16"
+        },
+        "dampingforce": {
+            "value": "2.5"
+        },
+        "delay": 1.3,
+        "direction": {
+            "max": "1.0 0.1 0.1",
+            "min": "1.0 -0.1 -0.1",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "100.0",
+            "min": "100.0"
+        },
+        "inactivetime": {
+            "value": "10.0"
+        },
+        "numparticles": {
+            "value": "100"
+        },
+        "particlesize": {
+            "max": "0.35 0.35",
+            "min": "0.24 0.24"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 666.0",
+            "min": "0.0 0.0 -666.0"
+        },
+        "rotationSpeedRange": {
+            "max": "0.0 0.0 66.0",
+            "min": "0.0 0.0 -66.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.5 0.5",
+                "time": "0.3%"
+            },
+            {
+                "scale": "0.6 0.6",
+                "time": "30.3%"
+            },
+            {
+                "scale": "1.5 1.5",
+                "time": "81.0%"
+            },
+            {
+                "scale": "1.6 1.6",
+                "time": "99.3%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s6/cs_s6Swordsman_skin_zq2"
+        },
+        "timetolive": {
+            "max": "1.0",
+            "min": "0.5"
+        },
+        "velocity": {
+            "max": "2.0",
+            "min": "1.5"
+        }
+    }
+}

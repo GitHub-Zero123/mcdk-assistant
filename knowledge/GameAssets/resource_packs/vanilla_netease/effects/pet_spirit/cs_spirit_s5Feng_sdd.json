@@ -1,0 +1,44 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.75 0.2 0.75"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "particlesize": {
+            "max": "0.08 0.08",
+            "min": "0.12 0.12"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "ani": {
+                "fps": "12",
+                "name": "textures/sfxs/pet_spirit/cs_spirit_s5Feng_sd2",
+                "shuffle": true
+            },
+            "name": "textures/sfxs/pet_spirit/cs_spirit_s5Feng_sd2"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.3",
+            "min": "0.2"
+        },
+        "velocity": {
+            "max": "0.1",
+            "min": "0.1"
+        }
+    }
+}

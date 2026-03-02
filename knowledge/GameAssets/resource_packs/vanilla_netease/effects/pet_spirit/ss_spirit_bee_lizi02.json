@@ -1,0 +1,79 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "value": "Direction",
+            "min": "0.0 1.0 0.0"
+        },
+        "activetime": {
+            "value": "0.8"
+        },
+        "timetolive": {
+            "max": "0.6",
+            "min": "0.4"
+        },
+        "colorfade": [
+            {
+                "color": "0.9176 1.0000 0.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.9725 0.1020 1.0000",
+                "time": "44.7%"
+            },
+            {
+                "color": "0.0000 0.6000 1.0000 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "emissionrate": {
+            "max": "15.0",
+            "min": "15.0"
+        },
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.8 0.3 0.8"
+        },
+        "thickness": {
+            "value": "0.4"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Cylinder"
+        },
+        "inactivetime": {
+            "value": "1.0"
+        },
+        "texture": {
+            "name": "textures/sfxs/pet_spirit/lizizu_00003"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.1",
+            "min": "0.0"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "particlesize": {
+            "max": "0.1 0.1",
+            "min": "0.05 0.05"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.0 0.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.5 0.5",
+                "time": "47.3%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            }
+        ]
+    }
+}

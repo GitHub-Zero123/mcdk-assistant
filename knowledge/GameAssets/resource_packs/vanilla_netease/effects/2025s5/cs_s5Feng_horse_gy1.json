@@ -1,0 +1,43 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "0.5216 0.9608 1.0000 0.1875",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.4118 0.9020 1.0000 0.2411",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "5.0",
+            "min": "5.0"
+        },
+        "numparticles": {
+            "value": "5"
+        },
+        "particlesize": {
+            "max": "0.7 0.7",
+            "min": "0.7 0.7"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "name": "textures/sfxs/2025s5/cs_s5Feng_horse_gy2"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

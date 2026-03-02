@@ -1,0 +1,71 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "0.4941 0.9098 1.0000 0.5089",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.2980 0.6980 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "20.0",
+            "min": "20.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.3 0.6 0.3"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "faceCameraMode": {
+            "value": "Horizontal"
+        },
+        "layer": 2,
+        "numparticles": {
+            "value": "20"
+        },
+        "particlesize": {
+            "max": "1.2 1.2",
+            "min": "0.6 0.6"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "40.0 -40.0 0.0",
+            "min": "40.0 30.0 180.0"
+        },
+        "texture": {
+            "ani": {
+                "fps": "15",
+                "name": "textures/sfxs/2025s5/cs_s5Feng_horse_kuoquan",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s5/cs_s5Feng_horse_kuoquan"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.8",
+            "min": "0.5"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

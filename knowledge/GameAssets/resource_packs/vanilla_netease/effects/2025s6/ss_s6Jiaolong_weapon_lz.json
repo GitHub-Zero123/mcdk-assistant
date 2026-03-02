@@ -1,0 +1,80 @@
+{
+    "particleeffect": {
+        "colorfade": [
+            {
+                "color": "0.5490 0.9961 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.2863 0.8706 1.0000 0.0000",
+                "time": "50.5%"
+            },
+            {
+                "color": "0.0667 0.2353 0.8431 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "constantforce": {
+            "value": "0.0 0.0 -0.30000000000000004"
+        },
+        "dampingforce": {
+            "value": "0.1"
+        },
+        "direction": {
+            "max": "0.0 0.2 0.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "2.0",
+            "min": "5.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.25 0.5 0.25"
+        },
+        "emittertype": {
+            "value": "Cylinder"
+        },
+        "numparticles": {
+            "value": "5"
+        },
+        "particlesize": {
+            "max": "0.1 0.1",
+            "min": "0.06 0.06"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.62 0.62",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "49.7%"
+            },
+            {
+                "scale": "0.54 0.54",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s6/ss_s6Jiaolong_weapon_lz"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.6",
+            "min": "0.4"
+        },
+        "velocity": {
+            "max": "0.1",
+            "min": "0.3"
+        }
+    }
+}

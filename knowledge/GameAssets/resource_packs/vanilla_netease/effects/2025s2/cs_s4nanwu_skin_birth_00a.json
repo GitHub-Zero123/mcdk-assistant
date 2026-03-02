@@ -1,0 +1,57 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.09"
+        },
+        "delay": 1.79,
+        "depthtest": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "3000.0",
+            "min": "3000.0"
+        },
+        "numparticles": {
+            "value": "1"
+        },
+        "particlesize": {
+            "max": "0.66 0.66",
+            "min": "0.66 0.66"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "false"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.2 1.2",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.8 0.8",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "40",
+                "name": "textures/sfxs/2025s2/cs_s4nanwu_skin_birth_01a",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s2/cs_s4nanwu_skin_birth_01a"
+        },
+        "timetolive": {
+            "max": "0.16",
+            "min": "0.16"
+        },
+        "velocity": {
+            "max": "1.3877787807814457e-16",
+            "min": "1.3877787807814457e-16"
+        }
+    }
+}

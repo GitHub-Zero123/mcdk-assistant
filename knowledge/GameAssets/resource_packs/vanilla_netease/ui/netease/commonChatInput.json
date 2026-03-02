@@ -1,0 +1,315 @@
+{
+    "chatInputMain": {
+        "controls": [
+            {
+                "background": {
+                    "alpha": 0.8,
+                    "clip_direction": "left",
+                    "clip_ratio": 0.0,
+                    "color": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "fill": true,
+                    "layer": 1,
+                    "offset": [
+                        0.0,
+                        5.0
+                    ],
+                    "size": [
+                        "200.0%+0.0px",
+                        "200.0%+8.0px"
+                    ],
+                    "texture": "textures/netease/common/image/default",
+                    "type": "image"
+                }
+            },
+            {
+                "inputPanel": {
+                    "anchor_from": "top_middle",
+                    "anchor_to": "top_middle",
+                    "controls": [
+                        {
+                            "empty_line": {
+                                "layer": 1,
+                                "size": [
+                                    3,
+                                    "100.0%+0.0px"
+                                ],
+                                "type": "panel"
+                            }
+                        },
+                        {
+                            "edit_box@common.text_edit_box": {
+                                "$edit_box_default_texture": "textures/ui/gameChatExtension/new/btn3",
+                                "$edit_box_hover_texture": "textures/ui/gameChatExtension/new/btn3",
+                                "$font_scale_factor": 1.0,
+                                "$font_size": "normal",
+                                "$is_new_nine_slice": true,
+                                "$nine_slice_buttom": 8,
+                                "$nine_slice_left": 10,
+                                "$nine_slice_right": 10,
+                                "$nine_slice_top": 8,
+                                "$nineslice_size": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                ],
+                                "$place_holder_text": "请输入内容",
+                                "$place_holder_text_color": [
+                                    0.5,
+                                    0.5,
+                                    0.5
+                                ],
+                                "$text_background_default": "netease_editor_template_namespace.edit_box_background_default",
+                                "$text_background_hover": "netease_editor_template_namespace.edit_box_background_hover",
+                                "$text_box_name": "text_edit_box_for_input",
+                                "$text_box_text_color": [
+                                    1,
+                                    1,
+                                    1
+                                ],
+                                "$text_edit_box_content_binding_name": "#netease_editor_template_namespace.message_content",
+                                "$text_edit_box_label_anchor_point": "right_middle",
+                                "$text_edit_box_label_min_size": [
+                                    "100%",
+                                    0
+                                ],
+                                "$text_edit_box_label_size": [
+                                    "default",
+                                    "default"
+                                ],
+                                "layer": 2,
+                                "max_length": 512,
+                                "size": [
+                                    "fill",
+                                    22
+                                ],
+                                "type": "edit_box"
+                            }
+                        },
+                        {
+                            "empty_line_0": {
+                                "layer": 5,
+                                "size": [
+                                    3,
+                                    "100.0%+0.0px"
+                                ],
+                                "type": "panel"
+                            }
+                        },
+                        {
+                            "cancelBtn@common.button": {
+                                "$control_alpha": 1.0,
+                                "$default_texture": "textures/ui/gameChatExtension/new/btn1_02",
+                                "$hover_texture": "textures/ui/gameChatExtension/new/btn1_02",
+                                "$is_new_nine_slice": true,
+                                "$label_color": [
+                                    0.2392156862745098,
+                                    0.2392156862745098,
+                                    0.2392156862745098
+                                ],
+                                "$label_font_scale_factor": 1.0,
+                                "$label_font_size": "normal",
+                                "$label_layer": 3,
+                                "$label_offset": [
+                                    0,
+                                    0
+                                ],
+                                "$label_text": "取消",
+                                "$nine_slice_buttom": 0,
+                                "$nine_slice_left": 0,
+                                "$nine_slice_right": 0,
+                                "$nine_slice_top": 0,
+                                "$nineslice_size": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                ],
+                                "$pressed_button_name": "%netease_editor_template_namespace.click",
+                                "$pressed_texture": "textures/ui/gameChatExtension/new/btn1_02",
+                                "$texture_layer": 2,
+                                "bindings": [
+                                    {
+                                        "binding_collection_name": "",
+                                        "binding_condition": "always_when_visible",
+                                        "binding_type": "collection_details"
+                                    }
+                                ],
+                                "button_mappings": [],
+                                "controls": [
+                                    {
+                                        "default@netease_editor_template_namespace.default": {
+                                            "uv": [
+                                                0.0,
+                                                -3.0
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "hover@netease_editor_template_namespace.hover": {
+                                            "uv": [
+                                                0.0,
+                                                -3.0
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "pressed@netease_editor_template_namespace.pressed": {
+                                            "uv": [
+                                                0.0,
+                                                -3.0
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "button_label@netease_editor_template_namespace.button_label": {}
+                                    }
+                                ],
+                                "default_control": "default",
+                                "hover_control": "hover",
+                                "is_handle_button_move_event": true,
+                                "layer": 17,
+                                "pressed_control": "pressed",
+                                "size": [
+                                    "180.0%y+0.0px",
+                                    22
+                                ],
+                                "type": "button"
+                            }
+                        },
+                        {
+                            "empty_line_1": {
+                                "layer": 16,
+                                "size": [
+                                    2,
+                                    "100.0%+0.0px"
+                                ],
+                                "type": "panel"
+                            }
+                        },
+                        {
+                            "confirmBtn@common.button": {
+                                "$control_alpha": 1.0,
+                                "$default_texture": "textures/ui/gameChatExtension/new/btn1_01",
+                                "$hover_texture": "textures/ui/gameChatExtension/new/btn1_01",
+                                "$is_new_nine_slice": true,
+                                "$label_color": [
+                                    1,
+                                    1,
+                                    1
+                                ],
+                                "$label_font_scale_factor": 1.0,
+                                "$label_font_size": "normal",
+                                "$label_layer": 3,
+                                "$label_offset": [
+                                    0,
+                                    0
+                                ],
+                                "$label_text": "确认",
+                                "$nine_slice_buttom": 0,
+                                "$nine_slice_left": 0,
+                                "$nine_slice_right": 0,
+                                "$nine_slice_top": 0,
+                                "$nineslice_size": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                ],
+                                "$pressed_button_name": "%netease_editor_template_namespace.click",
+                                "$pressed_texture": "textures/ui/gameChatExtension/new/btn1_01",
+                                "$texture_layer": 2,
+                                "bindings": [
+                                    {
+                                        "binding_collection_name": "",
+                                        "binding_condition": "always_when_visible",
+                                        "binding_type": "collection_details"
+                                    }
+                                ],
+                                "button_mappings": [],
+                                "controls": [
+                                    {
+                                        "default@netease_editor_template_namespace.default": {
+                                            "uv": [
+                                                0.0,
+                                                -3.0
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "hover@netease_editor_template_namespace.hover": {
+                                            "uv": [
+                                                0.0,
+                                                -3.0
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "pressed@netease_editor_template_namespace.pressed": {
+                                            "uv": [
+                                                0.0,
+                                                -3.0
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "button_label@netease_editor_template_namespace.button_label": {}
+                                    }
+                                ],
+                                "default_control": "default",
+                                "hover_control": "hover",
+                                "is_handle_button_move_event": true,
+                                "layer": 6,
+                                "pressed_control": "pressed",
+                                "size": [
+                                    "180.0%y+0.0px",
+                                    22
+                                ],
+                                "type": "button"
+                            }
+                        },
+                        {
+                            "empty_line_2": {
+                                "layer": 27,
+                                "size": [
+                                    2,
+                                    "100.0%+0.0px"
+                                ],
+                                "type": "panel"
+                            }
+                        }
+                    ],
+                    "layer": 2,
+                    "min_size": [
+                        "default",
+                        22
+                    ],
+                    "offset": [
+                        0.0,
+                        8
+                    ],
+                    "orientation": "horizontal",
+                    "size": [
+                        "100.0%+0.0px",
+                        22
+                    ],
+                    "type": "stack_panel"
+                }
+            }
+        ],
+        "layer": 1,
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "type": "panel"
+    },
+    "main@common.base_screen": {
+        "$screen_content": "commonChatInput.chatInputMain"
+    },
+    "namespace": "commonChatInput"
+}

@@ -1,0 +1,47 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+precision highp float;
+
+#include "fragmentVersionCentroidUV.h"
+#include "uniformWorldConstants.h"
+#include "uniformEntityConstants.h"
+
+#include "uniformPerFrameConstants.h"
+#include "uniformShaderConstants.h"
+#include "util.h"
+
+LAYOUT_BINDING(0) uniform sampler2D TEXTURE_0; // base map
+LAYOUT_BINDING(1) uniform sampler2D TEXTURE_1; // dispersion
+
+const float FROM_255_TO_1 = 1.0 / 255.0;
+
+varying vec3 worldNormal;
+varying vec3 worldViewDir;
+
+#define Color_F vec3(25.0,0.0,133.0)
+#define COLOR_MODE 1.00
+#define MIN_ALPHA 0.80
+#define __xx__ 2.00
+#define FRES_SCALE 1.00
+#define FRES_BIAS 0.20
+#define ETA 1.0000
+#define DISPARSION_F 1.00
+#define dispersionSpeed_F 0.3000
+#define __yy__ 2.00
+#define shineInt_F 1.00
+#define StarsDensity_F 0.70
+#define STAR_SIZE 2.00
+#define UV_PARA vec2(1.0,256.0)
+#define UV_SCALE vec2(2.0,2.0)
+
+const vec3 colorF = Color_F * FROM_255_TO_1;
+
+#include "2022s3_diamond_util.h"
+
+void main() {
+	gl_FragColor = diamond();
+
+#ifdef USE_OVERLAY
+	gl_FragColor.rgb = mix(gl_FragColor.rgb, OVERLAY_COLOR.rgb, OVERLAY_COLOR.a);
+#endif // USE_OVERLAY
+}

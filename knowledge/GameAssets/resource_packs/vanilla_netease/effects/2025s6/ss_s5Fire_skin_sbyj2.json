@@ -1,0 +1,78 @@
+{
+    "particleeffect": {
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.1518",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "23.9%"
+            },
+            {
+                "color": "1.0000 0.9529 0.9569 0.7143",
+                "time": "84.5%"
+            },
+            {
+                "color": "1.0000 0.9020 0.9059 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "dampingforce": {
+            "value": "1.5"
+        },
+        "direction": {
+            "max": "-1.0 -0.7 1.0",
+            "min": "-1.0 -0.7 1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "8.0",
+            "min": "8.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.45 0.6 0.45"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "numparticles": {
+            "value": "8"
+        },
+        "offsetInCamera": {
+            "value": "-0.1"
+        },
+        "particlesize": {
+            "max": "0.05 0.05",
+            "min": "0.02 0.02"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "ani": {
+                "fps": "16",
+                "name": "",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s6/ss_s5Fire_skin_rjlz"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "1.0",
+            "min": "0.5"
+        },
+        "velocity": {
+            "max": "1.0",
+            "min": "0.5"
+        }
+    }
+}

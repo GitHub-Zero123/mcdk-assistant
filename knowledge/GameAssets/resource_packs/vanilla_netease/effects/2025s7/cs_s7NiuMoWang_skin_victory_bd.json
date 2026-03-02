@@ -1,0 +1,90 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.1"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "29.2%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.3214",
+                "time": "50.3%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "delay": 0.03,
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "3000.0",
+            "min": "3000.0"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Horizontal"
+        },
+        "layer": 3,
+        "numparticles": {
+            "value": "1"
+        },
+        "particlesize": {
+            "max": "1.3499999999999999 1.3499999999999999",
+            "min": "1.35 1.35"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 45.0",
+            "min": "0.0 0.0 45.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.64 0.64",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.87 0.87",
+                "time": "15.3%"
+            },
+            {
+                "scale": "1.05 1.05",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "24",
+                "name": "textures/sfxs/2025s7/cs_s7NiuMoWang_skin_victory_bd",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s7/cs_s7NiuMoWang_skin_victory_bd"
+        },
+        "timetolive": {
+            "max": "0.5",
+            "min": "0.5"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

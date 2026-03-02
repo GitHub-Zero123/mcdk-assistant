@@ -1,0 +1,97 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.8929",
+                "time": "7.4%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.7679",
+                "time": "91.8%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "dampingforce": {
+            "value": "1.0"
+        },
+        "direction": {
+            "max": "0.0 0.1 0.0",
+            "min": "0.0 0.1 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "5.0",
+            "min": "5.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.7 0.7 0.7"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "layer": 2,
+        "numparticles": {
+            "value": "5"
+        },
+        "particlesize": {
+            "max": "0.04 0.04",
+            "min": "0.02 0.02"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "false"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.4 0.4",
+                "time": "25.3%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "51.7%"
+            },
+            {
+                "scale": "0.4 0.4",
+                "time": "75.0%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "16",
+                "name": "textures/sfxs/pet_squid/cs_squid_s6Yaksha_fklz",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/pet_squid/cs_squid_s6Yaksha_fklz"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "velocity": {
+            "max": "0.3",
+            "min": "0.3"
+        }
+    }
+}

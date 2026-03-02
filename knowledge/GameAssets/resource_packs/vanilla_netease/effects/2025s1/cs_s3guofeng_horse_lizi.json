@@ -1,0 +1,61 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.5804",
+                "time": "16.1%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.5446",
+                "time": "65.8%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "10.0",
+            "min": "15.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.0 0.8 0.5"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "layer": 4,
+        "particlesize": {
+            "max": "0.08 0.08",
+            "min": "0.05 0.05"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "false"
+        },
+        "texture": {
+            "name": "textures/sfxs/2025s1/cs_s3guofeng_horse_lizi"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "1.0",
+            "min": "0.7"
+        }
+    }
+}

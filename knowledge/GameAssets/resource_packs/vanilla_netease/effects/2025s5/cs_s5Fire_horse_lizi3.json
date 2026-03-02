@@ -1,0 +1,88 @@
+{
+    "particleeffect": {
+        "colorfade": [
+            {
+                "color": "0.8275 0.8275 0.8275 0.3571",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.4588 0.4588 0.4588 0.3482",
+                "time": "61.3%"
+            },
+            {
+                "color": "0.3608 0.3608 0.3608 0.1964",
+                "time": "79.5%"
+            },
+            {
+                "color": "0.2314 0.2314 0.2314 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "constantforce": {
+            "value": "0.0 0.5 0.0"
+        },
+        "dampingforce": {
+            "value": "0.2"
+        },
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 0.0 -0.1",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "30.0",
+            "min": "50.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "1.0 0.1 0.2"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "layer": 3,
+        "numparticles": {
+            "value": "20"
+        },
+        "particlesize": {
+            "max": "0.15 0.15",
+            "min": "0.2 0.2"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "false"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "1.0%"
+            },
+            {
+                "scale": "2.2 2.2",
+                "time": "42.7%"
+            },
+            {
+                "scale": "2.64 2.64",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s5/cs_s5Fire_horse_huilz"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.4",
+            "min": "0.3"
+        },
+        "velocity": {
+            "max": "0.5",
+            "min": "1.0"
+        }
+    }
+}

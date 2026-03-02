@@ -1,0 +1,97 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "3.5"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.9107",
+                "time": "3.9%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "15.5%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.5982",
+                "time": "80.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "0.0 1.0 0.1",
+            "min": "0.0 1.0 -0.1",
+            "value": "Outwards"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.1 0.1 0.02"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Direction"
+        },
+        "layer": 5,
+        "numparticles": {
+            "value": "100"
+        },
+        "offsetInCamera": {
+            "value": "0.1"
+        },
+        "particlesize": {
+            "max": "0.1 0.21",
+            "min": "0.07 0.15"
+        },
+        "pointFiltering": true,
+        "prewarm": true,
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.0 0.0",
+                "time": "24.3%"
+            },
+            {
+                "scale": "0.96 0.96",
+                "time": "46.7%"
+            },
+            {
+                "scale": "1.24 1.24",
+                "time": "71.3%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "0",
+                "name": "textures/sfxs/2025s6/cs_s6FireDragon_skin_birth_lz3",
+                "shuffle": true
+            },
+            "name": "textures/sfxs/2025s6/cs_s6FireDragon_skin_birth_lz3"
+        },
+        "thickness": {
+            "value": "1.0"
+        },
+        "timetolive": {
+            "max": "2.2",
+            "min": "2.2"
+        },
+        "velocity": {
+            "max": "0.8999999999999999",
+            "min": "0.5"
+        }
+    }
+}

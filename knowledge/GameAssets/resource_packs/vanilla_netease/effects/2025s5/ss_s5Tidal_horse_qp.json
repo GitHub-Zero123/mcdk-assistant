@@ -1,0 +1,53 @@
+{
+    "particleeffect": {
+        "dampingforce": {
+            "value": "0.3"
+        },
+        "direction": {
+            "max": "0.0 1.0 0.0",
+            "min": "0.5 0.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "8.0",
+            "min": "6.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "1.2 1.5 1.8"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "numparticles": {
+            "value": "8"
+        },
+        "particlesize": {
+            "max": "0.3 0.3",
+            "min": "0.2 0.2"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "texture": {
+            "ani": {
+                "fps": "20",
+                "name": "textures/sfxs/2025s5/ss_s5Tidal_horse_pp",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s5/ss_s5Tidal_horse_pp"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "1.0",
+            "min": "0.6"
+        },
+        "velocity": {
+            "max": "0.6",
+            "min": "1.2"
+        }
+    }
+}

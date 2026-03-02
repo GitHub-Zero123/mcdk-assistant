@@ -1,0 +1,69 @@
+{
+  "minecraft:behavior_tree": {
+    "minecraft:name": "search_attack",
+    "minecraft:root": {
+        "minecraft:repeat": {
+          "child": {
+              "minecraft:sequence": {
+                "children": [
+                  {
+                    "minecraft:find_target": {
+                      "entity_name": "pig"
+                    }
+                  },
+                  {
+                    "minecraft:selector": {
+                       "children": [
+                          {
+                             "minecraft:sequence": {
+                               "children": [
+                                  {
+                                    "minecraft:check_dist": {
+                                      "operation": "lt",
+                                      "dist": 2.5
+                                    }
+                                  },
+                                  {
+                                    "minecraft:attack_target": {
+                                    }
+                                  },
+                                  {
+                                    "minecraft:wait": {
+                                      "wait_duration": 1
+                                    }
+                                  }
+                               ]
+                             }
+                          },
+                          {
+                            "minecraft:melee_target":  {
+                            }
+                          }//,
+                          // {
+                          //   "minecraft:py_behavior": {
+                          //     "module_path": "server.btTreeTest",
+                          //     "func_name": "CreateTestNode",
+                          //     "args": {
+                          //         "p1":1,
+                          //         "p2":"testStr",
+                          //         "p3":["a", "b", "c"],
+                          //         "p4":{"key1":"val", "key2":333}
+                          //     }
+                          //   }
+                          // },
+                          // {
+                          //   "minecraft:py_behavior": {
+                          //     "module_path": "server.btTreeTest",
+                          //     "func_name": "CreateTestNode1"
+                          //   }
+                          // }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+        }
+    }
+  }
+}

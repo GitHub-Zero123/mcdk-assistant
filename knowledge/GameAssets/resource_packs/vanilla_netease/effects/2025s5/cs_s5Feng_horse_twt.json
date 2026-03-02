@@ -1,0 +1,81 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "6.0",
+            "min": "6.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.05 0.1 0.1"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "numparticles": {
+            "value": "6"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "ani": {
+                "fps": "16",
+                "name": "textures/sfxs/2025s5/cs_s5Feng_horse_tw",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s5/cs_s5Feng_horse_tw"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "trail": {
+            "colorfade": [
+                {
+                    "color": "0.36470588235294116 1.0 0.9607843137254902 0.0",
+                    "time": "0.000%"
+                },
+                {
+                    "color": "0.3764705882352941 1.0 0.8980392156862745 0.6607142857142857",
+                    "time": "5.263%"
+                },
+                {
+                    "color": "0.0 0.8196078431372549 1.0 0.125",
+                    "time": "50.789%"
+                },
+                {
+                    "color": "0.7019607843137254 0.49019607843137253 1.0 0.0",
+                    "time": "100.000%"
+                }
+            ],
+            "facemode": 1,
+            "lifetime": 0.2,
+            "maxnum": 32,
+            "mindistance": 0.01,
+            "texmode": 0,
+            "textile": "1.0 1.0",
+            "useparticlecolor": false,
+            "useparticlewidth": false,
+            "widthfade": [
+                {
+                    "time": "0.0%",
+                    "value": "0.41999999999999993"
+                },
+                {
+                    "time": "100.0%",
+                    "value": "0.0"
+                }
+            ],
+            "worldspace": true
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

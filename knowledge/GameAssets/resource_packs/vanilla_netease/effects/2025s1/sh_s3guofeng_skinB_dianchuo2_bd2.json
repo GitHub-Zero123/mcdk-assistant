@@ -1,0 +1,80 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.1"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.9821",
+                "time": "23.9%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "delay": 1.9,
+        "depthtest": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "100.0",
+            "min": "100.0"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "numparticles": {
+            "value": "5"
+        },
+        "particlesize": {
+            "max": "2.0 2.0",
+            "min": "1.5 1.5"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.0 0.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.68 1.68",
+                "time": "18.3%"
+            },
+            {
+                "scale": "2.05 2.05",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "20",
+                "name": "textures/sfxs/2025s1/sh_s3guofeng_skinB_birth_glow",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s1/sh_s3guofeng_skinB_birth_glow"
+        },
+        "timetolive": {
+            "max": "0.2",
+            "min": "0.2"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

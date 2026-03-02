@@ -1,0 +1,58 @@
+{
+    "particleeffect": {
+        "independent": false,
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "value": "Direction",
+            "min": "-1.0 -1.0 -1.0"
+        },
+        "numparticles": {
+            "value": "3"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.6667 0.0000 0.1518",
+                "time": "0.00"
+            },
+            {
+                "color": "1.0000 1.0000 0.2400 0.0714",
+                "time": "1.00"
+            }
+        ],
+        "emissionrate": {
+            "max": "3.0",
+            "min": "3.0"
+        },
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.0 0.0 0.0"
+        },
+        "texture": {
+            "name": "textures/sfxs/pet_seamonster/ss_seamonster_glow"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "depthtest": {
+            "enable": "true"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "particlesize": {
+            "max": "0.3 0.3",
+            "min": "0.3 0.3"
+        }
+    }
+}

@@ -1,0 +1,78 @@
+{
+    "particleeffect": {
+        "enablecolor": {
+            "enable": "false"
+        },
+        "layer": 15,
+        "emissionrate": {
+            "max": "60.0",
+            "min": "70.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "particlesize": {
+            "max": "0.35 0.35",
+            "min": "0.35 0.35"
+        },
+        "activetime": {
+            "value": "0.5"
+        },
+        "numparticles": {
+            "value": "1"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": false,
+                "name": "textures/sfxs/pet_mtr/xy_tang_armostand_play_redpacket_take05",
+                "fps": "24"
+            },
+            "name": "textures/sfxs/pet_mtr/xy_tang_armostand_play_redpacket_take05"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "delay": 2.55,
+        "timetolive": {
+            "max": "0.5",
+            "min": "0.5"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.87 0.87",
+                "time": "0.00"
+            },
+            {
+                "scale": "1.38 1.38",
+                "time": "2.00"
+            }
+        ],
+        "independent": false,
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "value": "Direction",
+            "min": "0.0 0.0 0.0"
+        },
+        "emitterScaleCurve": [],
+        "enableloop": {
+            "enable": "true"
+        },
+        "emittersize": {
+            "value": "0.0 0.0 0.0"
+        },
+        "emitterscale": [],
+        "depthtest": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        },
+        "blend": {
+            "name": "add"
+        }
+    }
+}

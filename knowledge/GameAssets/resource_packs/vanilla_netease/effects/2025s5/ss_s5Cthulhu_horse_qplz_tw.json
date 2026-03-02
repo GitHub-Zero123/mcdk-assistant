@@ -1,0 +1,105 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.8745 0.4118 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "17.6%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.8036",
+                "time": "56.8%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.4554",
+                "time": "76.8%"
+            },
+            {
+                "color": "0.3333 0.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "constantforce": {
+            "value": "0.0 0.0 1.0"
+        },
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "disorder": {
+            "increment": "0.1",
+            "interval": "0.2",
+            "max": "0.0 -0.4 0.0",
+            "min": "0.0 0.1 0.1"
+        },
+        "emissionrate": {
+            "max": "18.0",
+            "min": "18.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.6 1.2 0.6"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "numparticles": {
+            "value": "18"
+        },
+        "particlesize": {
+            "max": "0.1 0.1",
+            "min": "0.16 0.16"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "false"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.1 0.1",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.8 0.8",
+                "time": "6.3%"
+            },
+            {
+                "scale": "0.6 0.6",
+                "time": "38.0%"
+            },
+            {
+                "scale": "0.1 0.1",
+                "time": "76.3%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s5/ss_s5Cthulhu_horse_qplz"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.4",
+            "min": "0.6"
+        },
+        "velocity": {
+            "max": "0.1",
+            "min": "0.2"
+        }
+    }
+}

@@ -1,0 +1,73 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.2"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "0.3255 1.0000 0.8549 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.0000 1.0000 0.9686 0.8750",
+                "time": "29.7%"
+            },
+            {
+                "color": "0.0000 0.4510 1.0000 0.6607",
+                "time": "56.8%"
+            },
+            {
+                "color": "0.0000 0.3843 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "delay": 2.8,
+        "depthtest": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "3000.0",
+            "min": "3000.0"
+        },
+        "layer": 5,
+        "numparticles": {
+            "value": "1"
+        },
+        "particlesize": {
+            "max": "2.2 2.2",
+            "min": "2.2 2.2"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.0 0.0",
+                "time": "0.3%"
+            },
+            {
+                "scale": "1.14 1.14",
+                "time": "16.3%"
+            },
+            {
+                "scale": "1.2 1.2",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s5/cs_s5Feng_skin_birth_glow01"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

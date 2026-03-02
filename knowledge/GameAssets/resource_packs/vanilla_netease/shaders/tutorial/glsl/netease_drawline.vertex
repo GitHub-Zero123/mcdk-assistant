@@ -1,0 +1,25 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+#include "neteaseModelVertexUtil.h"
+#line 4
+
+const vec4 DRAWLINE_PARAM = vec4(0.6, 0.8, 1.0, 0.025); // (描边颜色RGB, 描边宽度倍率)
+
+varying vec4 fogColor; // 雾色与雾强度 vec4(r, g, b, 雾强度)
+
+void main() {
+	POS4 entitySpacePosition, entitySpaceNormal;
+	// 计算顶点动画 得到模型空间位置与法线
+	getEntitySpacePositionAndNormal(entitySpacePosition, entitySpaceNormal);
+
+	// 放大轮廓
+	vec3 vertexDir = normalize(entitySpacePosition.xyz - vec3(0.0, 0.5, 0.0));
+	entitySpacePosition.xyz += vertexDir * DRAWLINE_PARAM.a;
+
+	// 变换到投影空间
+	POS4 projSpacePos = WORLDVIEWPROJ * entitySpacePosition;
+	gl_Position = projSpacePos;
+
+	// 根据投影位置 计算雾的效果
+	fogColor = getFogColor(projSpacePos);
+}

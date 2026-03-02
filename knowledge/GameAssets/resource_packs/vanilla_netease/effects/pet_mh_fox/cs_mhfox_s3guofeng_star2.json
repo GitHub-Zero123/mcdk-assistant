@@ -1,0 +1,69 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "value": "Direction",
+            "min": "0.0 0.0 0.0"
+        },
+        "faceCameraMode": {
+            "value": "Horizontal"
+        },
+        "colorfade": [
+            {
+                "color": "0.0000 1.0000 0.8510 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.0000 1.0000 0.8510 1.0000",
+                "time": "35.0%"
+            },
+            {
+                "color": "0.0000 1.0000 0.8510 1.0000",
+                "time": "76.3%"
+            },
+            {
+                "color": "0.0000 1.0000 0.8510 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "emissionrate": {
+            "max": "15.0",
+            "min": "20.0"
+        },
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "1.0 1.0 0.0"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "timetolive": {
+            "max": "0.8",
+            "min": "0.5"
+        },
+        "texture": {
+            "name": "textures/sfxs/pet_mh_fox/cs_mhfox_s3guofeng_01"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "particlesize": {
+            "max": "0.04 0.04",
+            "min": "0.02 0.02"
+        },
+        "numparticles": {
+            "value": "100"
+        }
+    }
+}

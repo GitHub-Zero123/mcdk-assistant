@@ -1,0 +1,64 @@
+{
+    "particleeffect": {
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "20.5%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "74.5%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "1.5 1.5 0.2"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "layer": 5,
+        "numparticles": {
+            "value": "3"
+        },
+        "particlesize": {
+            "max": "0.15 0.15",
+            "min": "0.1 0.1"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "rotationSpeedRange": {
+            "max": "0.0 0.0 -90.0",
+            "min": "0.0 0.0 90.0"
+        },
+        "texture": {
+            "name": "textures/sfxs/2025s2/ss_s4diaoling_fz_quanlizi"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

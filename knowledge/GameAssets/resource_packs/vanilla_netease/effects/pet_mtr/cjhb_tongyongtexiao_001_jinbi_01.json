@@ -1,0 +1,94 @@
+{
+    "particleeffect": {
+        "independent": false,
+        "direction": {
+            "max": "-1.0 0.0 -1.0",
+            "value": "Direction",
+            "min": "1.0 -1.0 1.0"
+        },
+        "activetime": {
+            "value": "1.0"
+        },
+        "numparticles": {
+            "value": "3"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 360.0",
+            "min": "0.0 0.0 0.0"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.9333 0.0000 0.8482",
+                "time": "0.00"
+            },
+            {
+                "color": "1.0000 0.8353 0.0000 1.0000",
+                "time": "0.49"
+            },
+            {
+                "color": "1.0000 0.7176 0.0000 0.7054",
+                "time": "1.00"
+            }
+        ],
+        "emissionrate": {
+            "max": "3.0",
+            "min": "3.0"
+        },
+        "emitterScaleCurve": [],
+        "enableloop": {
+            "enable": "true"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": false,
+                "name": "textures/sfxs/pet_mtr/cjhb_tongyongtexiao_qianbi06",
+                "fps": "15"
+            },
+            "name": "textures/sfxs/pet_mtr/cjhb_tongyongtexiao_qianbi06"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "dampingforce": {
+            "value": "4.0"
+        },
+        "inactivetime": {
+            "value": "1.0"
+        },
+        "depthtest": {
+            "enable": "true"
+        },
+        "emittersize": {
+            "value": "0.0 0.5 0.0"
+        },
+        "velocity": {
+            "max": "1.5",
+            "min": "1.0"
+        },
+        "emitterscale": [],
+        "particlesize": {
+            "max": "0.04 0.04",
+            "min": "0.06 0.06"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "0.00"
+            },
+            {
+                "scale": "0.88 0.88",
+                "time": "1.60"
+            },
+            {
+                "scale": "0.76 0.76",
+                "time": "2.00"
+            }
+        ]
+    }
+}

@@ -1,0 +1,91 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.9"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "delay": 0.1,
+        "direction": {
+            "max": "0.0 1.0 0.0",
+            "min": "0.0 1.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "22.0",
+            "min": "18.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "1.2 1.8 0.8"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "layer": 9,
+        "numparticles": {
+            "value": "18"
+        },
+        "particlesize": {
+            "max": "0.12 0.12",
+            "min": "0.05 0.05"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.0 0.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.35 1.35",
+                "time": "7.7%"
+            },
+            {
+                "scale": "0.3 0.3",
+                "time": "49.3%"
+            },
+            {
+                "scale": "1.65 1.65",
+                "time": "55.0%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "0",
+                "name": "textures/sfxs/2025s1/sh_s3guofeng_victitory_lizi01",
+                "shuffle": true
+            },
+            "name": "textures/sfxs/2025s1/sh_s3guofeng_victitory_lizi01"
+        },
+        "thickness": {
+            "value": "0.1"
+        },
+        "timetolive": {
+            "max": "0.6",
+            "min": "0.3"
+        },
+        "velocity": {
+            "max": "0.5",
+            "min": "0.2"
+        }
+    }
+}

@@ -1,0 +1,102 @@
+{
+    "particleeffect": {
+        "sizedelta": {
+            "add": "0.12",
+            "mul": "0.6"
+        },
+        "inactivetime": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "min": "2.0",
+            "max": "2.0"
+        },
+        "enablecolor": {
+            "enable": "true"
+        },
+        "enableloop": {
+            "enable": "false"
+        },
+        "numparticles": {
+            "value": "3"
+        },
+        "material": {
+            "name": "Materials/Particle.xml"
+        },
+        "velocity": {
+            "min": "0.1",
+            "max": "0.1"
+        },
+        "emittersize": {
+            "value": "0.06 0.06 0.0"
+        },
+        "faceCameraMode": {
+            "value": "Rotate XYZ"
+        },
+        "fixedscreensize": {
+            "enable": "false"
+        },
+        "dampingforce": {
+            "value": "1.0"
+        },
+        "sorted": {
+            "enable": "false"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "constantforce": {
+            "value": "0.0 0.0 0.0"
+        },
+        "rotation": {
+            "min": "1.0",
+            "max": "5.0"
+        },
+        "texture": {
+            "ani": {
+                "fps": "10.0",
+                "name": "textures/sfxs/s1/qingming_spread_8x1"
+            },
+            "name": "textures/sfxs/s1/qingming_spread_8x1"
+        },
+        "scaled": {
+            "enable": "true"
+        },
+        "colorfade": [
+            {
+                "color": "0.0 0.494118 0.72549 1.0",
+                "time": "0.0"
+            },
+            {
+                "color": "0.0 0.701961 1.0 1.0",
+                "time": "0.5"
+            },
+            {
+                "color": "0.0 0.0 0.0 0.0",
+                "time": "1.0"
+            }
+        ],
+        "activetime": {
+            "value": "0.5"
+        },
+        "particlesize": {
+            "min": "0.15 0.3",
+            "max": "0.1 0.3"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "emissionrate": {
+            "min": "3.0",
+            "max": "3.0"
+        },
+        "rotationspeed": {
+            "min": "0.0",
+            "max": "0.0"
+        },
+        "direction": {
+            "min": "0.0 0.0 0.0",
+            "max": "0.0 0.0 0.0"
+        }
+    }
+}

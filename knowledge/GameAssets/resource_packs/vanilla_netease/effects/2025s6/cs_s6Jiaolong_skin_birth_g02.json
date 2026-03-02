@@ -1,0 +1,63 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.1"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "0.4902 0.2588 0.3529 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.5255 0.2549 0.4235 0.4732",
+                "time": "11.8%"
+            },
+            {
+                "color": "0.5059 0.2667 0.4510 0.4643",
+                "time": "75.3%"
+            },
+            {
+                "color": "0.5059 0.2627 0.4118 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "delay": 4.15,
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "3000.0",
+            "min": "3000.0"
+        },
+        "faceCameraMode": {
+            "value": "Horizontal"
+        },
+        "layer": 3,
+        "numparticles": {
+            "value": "2"
+        },
+        "particlesize": {
+            "max": "3.5 3.5",
+            "min": "3.5 3.5"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "name": "textures/sfxs/2025s6/cs_s6Jiaolong_skin_birth_sun"
+        },
+        "timetolive": {
+            "max": "1.8",
+            "min": "1.8"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

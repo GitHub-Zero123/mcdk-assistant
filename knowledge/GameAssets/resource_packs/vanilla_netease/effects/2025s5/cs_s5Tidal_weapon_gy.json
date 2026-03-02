@@ -1,0 +1,53 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "0.7059 0.9608 1.0000 0.7321",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.3843 0.7020 1.0000 0.5446",
+                "time": "59.5%"
+            },
+            {
+                "color": "0.3216 0.7647 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "numparticles": {
+            "value": "2"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.7 0.7",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.2 1.2",
+                "time": "48.0%"
+            },
+            {
+                "scale": "1.4 1.4",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s5/cs_s5Tidal_weapon_sun"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

@@ -1,0 +1,90 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.15"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.9911",
+                "time": "5.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "delay": 2.5,
+        "depthtest": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "100.0",
+            "min": "100.0"
+        },
+        "emitterpath": [
+            {
+                "offset": "0.1 1.0 0.0",
+                "rotation": "0.0 0.0 0.0",
+                "time": "0.0"
+            }
+        ],
+        "enableloop": {
+            "enable": "true"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Rotate Y"
+        },
+        "layer": 3,
+        "numparticles": {
+            "value": "1"
+        },
+        "particlesize": {
+            "max": "1.4 1.4",
+            "min": "1.4 1.4"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 15.0",
+            "min": "0.0 0.0 15.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "1.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "20",
+                "name": "textures/sfxs/2025s1/cs_s3kjys_skinA_birth_dqy1",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s1/cs_s3kjys_skinA_birth_dqy1"
+        },
+        "timetolive": {
+            "max": "10.75",
+            "min": "10.75"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

@@ -1,0 +1,73 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "35.5%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "77.6%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Inwards"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.4 0.4 0.4"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "numparticles": {
+            "value": "50"
+        },
+        "particlesize": {
+            "max": "0.04 0.04",
+            "min": "0.02 0.02"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "50.0%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s1/ss_s3guofeng_weapon_fklz"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "velocity": {
+            "max": "0.2",
+            "min": "0.2"
+        }
+    }
+}

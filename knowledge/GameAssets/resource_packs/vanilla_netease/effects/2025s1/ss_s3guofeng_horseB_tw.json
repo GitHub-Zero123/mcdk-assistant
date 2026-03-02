@@ -1,0 +1,45 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "enableloop": {
+            "enable": "true"
+        },
+        "numparticles": {
+            "value": "1"
+        },
+        "particlesize": {
+            "max": "0.35 0.35",
+            "min": "0.35 0.35"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "ani": {
+                "fps": "16",
+                "name": "textures/sfxs/2025s1/ss_s3guofeng_horseB_tw",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s1/ss_s3guofeng_horseB_tw"
+        },
+        "timetolive": {
+            "max": "10.0",
+            "min": "10.0"
+        },
+        "trail": {
+            "facemode": 1,
+            "lifetime": 0.1,
+            "maxnum": 100,
+            "mindistance": 0.01,
+            "texmode": 0,
+            "textile": "1.0 1.0",
+            "useparticlecolor": false,
+            "useparticlewidth": true,
+            "worldspace": true
+        }
+    }
+}

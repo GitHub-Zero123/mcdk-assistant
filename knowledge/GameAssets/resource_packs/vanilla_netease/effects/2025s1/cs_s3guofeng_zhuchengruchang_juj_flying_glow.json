@@ -1,0 +1,75 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.1"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "0.0000 1.0000 0.8863 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.0000 0.4000 1.0000 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "delay": 1.1,
+        "direction": {
+            "max": "0.0 -1.0 0.0",
+            "min": "0.0 -1.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "2.0",
+            "min": "2.0"
+        },
+        "faceCameraMode": {
+            "value": "Direction"
+        },
+        "numparticles": {
+            "value": "2"
+        },
+        "particlesize": {
+            "max": "0.75 4.0",
+            "min": "0.75 4.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "name": "textures/sfxs/2025s1/cs_s3guofeng_zhuchengruchang_lineglow"
+        },
+        "timetolive": {
+            "max": "0.35",
+            "min": "0.35"
+        },
+        "trail": {
+            "colorfade": [
+                {
+                    "color": "0.6823529411764706 0.996078431372549 1.0 0.4553571428571429",
+                    "time": "0.000%"
+                },
+                {
+                    "color": "0.592156862745098 0.8784313725490196 1.0 0.0",
+                    "time": "100.000%"
+                }
+            ],
+            "facemode": 0,
+            "lifetime": 0.25,
+            "maxnum": 32,
+            "mindistance": 0.01,
+            "texmode": 0,
+            "textile": "1.0 1.0",
+            "useparticlecolor": false,
+            "useparticlewidth": true,
+            "worldspace": true
+        },
+        "velocity": {
+            "max": "25.0",
+            "min": "25.0"
+        }
+    }
+}

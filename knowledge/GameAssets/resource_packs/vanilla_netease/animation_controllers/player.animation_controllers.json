@@ -1,0 +1,1425 @@
+{
+    "format_version": "1.10.0",
+    "animation_controllers": {
+        "controller.animation.player.crossbow": {
+            "initial_state": "default",
+            "states": {
+                "charge": {
+                    "animations": [
+                        "third_person_crossbow_equipped"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "query.get_equipped_item_name != 'crossbow' || (query.item_remaining_use_duration <= 0.0 && !query.item_is_charged)"
+                        },
+                        {
+                            "hold": "query.item_is_charged"
+                        }
+                    ]
+                },
+                "default": {
+                    "transitions": [
+                        {
+                            "hold": "query.item_is_charged"
+                        },
+                        {
+                            "charge": "query.item_remaining_use_duration > 0.0"
+                        }
+                    ]
+                },
+                "hold": {
+                    "animations": [
+                        "crossbow_hold"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "query.get_equipped_item_name != 'crossbow' || (query.item_remaining_use_duration <= 0.0 && !query.item_is_charged)"
+                        },
+                        {
+                            "charge": "query.item_remaining_use_duration > 0.0"
+                        }
+                    ]
+                }
+            }
+        },
+        "controller.animation.player.first_person_attack": {
+            "initial_state": "default",
+            "states": {
+                "default": {
+                    "animations": [
+                        "first_person_attack_rotation"
+                    ],
+                    "transitions": [
+                        {
+                            "vr_attack": "variable.is_using_vr"
+                        }
+                    ]
+                },
+                "vr_attack": {
+                    "animations": [
+                        "first_person_vr_attack_rotation"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "!variable.is_using_vr"
+                        }
+                    ]
+                }
+            }
+        },
+        "controller.animation.player.first_person_map": {
+            "initial_state": "default",
+            "states": {
+                "default": {
+                    "transitions": [
+                        {
+                            "one_hand": "query.get_equipped_item_name('off_hand') == 'filled_map' || query.get_equipped_item_name('off_hand') == 'shield'"
+                        },
+                        {
+                            "two_hand": "query.get_equipped_item_name('off_hand') != 'filled_map' && query.get_equipped_item_name('off_hand') != 'shield'"
+                        }
+                    ]
+                },
+                "one_hand": {
+                    "animations": [
+                        {
+                            "first_person_map_hold_main_hand": "query.get_equipped_item_name(0, 1) == 'filled_map'"
+                        },
+                        {
+                            "first_person_map_hold_off_hand": "query.get_equipped_item_name('off_hand') == 'filled_map' && (query.get_equipped_item_name == 'bow' ? !(variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0) : 1.0)"
+                        }
+                    ],
+                    "transitions": [
+                        {
+                            "default": "query.get_equipped_item_name(0, 1) != 'filled_map' && query.get_equipped_item_name('off_hand') != 'filled_map'"
+                        },
+                        {
+                            "two_hand": "query.get_equipped_item_name('off_hand') != 'filled_map' && query.get_equipped_item_name('off_hand') != 'shield'"
+                        }
+                    ]
+                },
+                "two_hand": {
+                    "animations": [
+                        "first_person_map_hold",
+                        "first_person_map_hold_attack"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "query.get_equipped_item_name(0, 1) != 'filled_map' && query.get_equipped_item_name('off_hand') != 'filled_map'"
+                        },
+                        {
+                            "one_hand": "query.get_equipped_item_name('off_hand') == 'filled_map' || query.get_equipped_item_name('off_hand') == 'shield'"
+                        }
+                    ]
+                }
+            }
+        },
+        "controller.animation.player.root": {
+            "initial_state": "first_person",
+            "states": {
+                "first_person": {
+                    "animations": [
+                        "first_person_swap_item",
+                        {
+                            "first_person_attack_controller": "variable.attack_time > 0.0f && query.get_equipped_item_name != 'filled_map' && !query.mod.vip_attack"
+                        },
+                        "first_person_base_pose",
+                        {
+                            "first_person_empty_hand": "query.get_equipped_item_name(0, 1) != 'filled_map'"
+                        },
+                        {
+                            "first_person_walk": "variable.bob_animation"
+                        },
+                        {
+                            "first_person_map_controller": "(query.get_equipped_item_name(0, 1) == 'filled_map' || query.get_equipped_item_name('off_hand') == 'filled_map')"
+                        },
+                        {
+                            "first_person_crossbow_equipped": "query.get_equipped_item_name == 'crossbow' && (variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0)"
+                        },
+                        {
+                            "move.tiger_skinA_destroy_fp": "query.mod.vip_attack && query.mod.tiger_skina_destroy"
+                        }
+                    ],
+                    "transitions": [
+                        {
+                            "paperdoll": "variable.is_paperdoll && !query.mod.is_editor_custom_model"
+                        },
+                        {
+                            "map_player": "variable.map_face_icon && !query.mod.is_editor_custom_model"
+                        },
+                        {
+                            "third_person": "!variable.is_first_person && !query.mod.is_editor_custom_model"
+                        },
+                        {
+                            "editor_custom": "query.mod.is_editor_custom_model"
+                        },
+                        {
+                            "fp_weapon_idle": "query.mod.fp_weapon_idle"
+                        },
+                        {
+                            "fp_weapon_enter": "query.mod.fp_weapon_enter"
+                        },
+                        {
+                            "fp_weapon_attack1": "query.mod.fp_weapon_attack1"
+                        },
+                        {
+                            "fp_weapon_attack2": "query.mod.fp_weapon_attack2"
+                        },
+                        {
+                            "fp_weapon_attack3": "query.mod.fp_weapon_attack3"
+                        },
+                        {
+                            "fp_weapon_inspect": "query.mod.fp_weapon_inspect"
+                        }
+                    ]
+                },
+                "map_player": {
+                    "transitions": [
+                        {
+                            "paperdoll": "variable.is_paperdoll"
+                        },
+                        {
+                            "first_person": "variable.is_first_person"
+                        },
+                        {
+                            "third_person": "!variable.map_face_icon && !variable.is_first_person"
+                        },
+                        {
+                            "editor_custom": "query.mod.is_editor_custom_model"
+                        }
+                    ]
+                },
+                "paperdoll": {
+                    "animations": [
+                        "humanoid_base_pose",
+                        "look_at_target_ui",
+                        "move.arms",
+                        "move.legs",
+                        "cape"
+                    ],
+                    "transitions": [
+                        {
+                            "first_person": "!variable.is_paperdoll && variable.is_first_person"
+                        },
+                        {
+                            "map_player": "variable.map_face_icon"
+                        },
+                        {
+                            "third_person": "!variable.is_paperdoll && !variable.is_first_person"
+                        },
+                        {
+                            "rngl_idle": "return variable.is_rngl && (variable.rn_bored_time = query.life_time + variable.rn_bored_interval);"
+                        },
+                        {
+                            "editor_custom": "query.mod.is_editor_custom_model"
+                        }
+                    ]
+                },
+                "third_person": {
+                    "animations": [
+                        "humanoid_base_pose",
+                        {
+                            "look_at_target": "!query.is_sleeping && !query.mod.is_playing_emote"
+                        },
+                        {
+                            "move.arms": "!query.mod.vip_move && !query.mod.vip_walk && !query.mod.vip_run && !query.mod.vip_swim"
+                        },
+                        {
+                            "move.legs": "!query.mod.vip_move && !query.mod.vip_walk && !query.mod.vip_run && !query.mod.vip_swim"
+                        },
+                        {
+                            "move.space_skin_move": "query.mod.vip_move && query.mod.space_skin_move && !query.mod.space_skin_jump"
+                        },
+                        {
+                            "move.space_skin_jump": "query.mod.space_skin_jump"
+                        },
+                        {
+                            "move.swk_skin_move": "query.mod.vip_move && query.mod.swk_skin_move"
+                        },
+                        {
+                            "move.nezha_skin_move": "query.mod.vip_move && query.mod.nezha_skin_move"
+                        },
+                        {
+                            "move.tiger_skinA_idle": "!query.is_sleeping && query.mod.vip_idle && query.mod.tiger_skina_idle"
+                        },
+                        {
+                            "move.tiger_skinA_destroy": "query.mod.vip_attack && query.mod.tiger_skina_destroy"
+                        },
+                        {
+                            "move.cs_xcm_skina_move": "query.mod.vip_move && query.mod.cs_xcm_skina_move"
+                        },
+                        {
+                            "move.cs_567_skinb_idle": "!query.is_sleeping && !query.is_moving && query.mod.vip_idle && query.mod.cs_567_skinb_idle"
+                        },
+                        {
+                            "move.cs_567_skinb_run": "query.mod.vip_move && query.mod.cs_567_skinb_run"
+                        },
+                        {
+                            "move.cs_rabbit_skina_idle": "!query.is_sleeping && query.mod.vip_idle && query.mod.cs_rabbit_skina_idle"
+                        },
+                        {
+                            "move.cs_rabbit_skina_walk": "query.mod.vip_move && query.mod.cs_rabbit_skina_walk"
+                        },
+                        {
+                            "move.cs_rabbit_skina_ride": "query.is_riding && !query.mod.vip_ride && query.mod.vip_ride_low && query.mod.cs_rabbit_skina_ride"
+                        },
+                        {
+                            "move.cs_guochao_skinb_idle": "!query.is_sleeping && query.mod.vip_idle && query.mod.cs_guochao_skinb_idle"
+                        },
+                        {
+                            "move.cs_guochao_skina_run": "!query.is_sleeping && query.mod.vip_move && query.mod.cs_guochao_skina_run"
+                        },
+                        {
+                            "move.cs_guochao_skina_walk": "!query.is_sleeping && query.mod.vip_walk && query.mod.cs_guochao_skina_walk"
+                        },
+                        {
+                            "move.cs_guochao_skina_idle": "!query.is_sleeping && query.mod.vip_idle && query.mod.cs_guochao_skina_idle"
+                        },
+                        {
+                            "move.cs_atlan_skin_idle": "!query.is_sleeping && query.mod.vip_idle && query.mod.cs_atlan_skin_idle"
+                        },
+                        {
+                            "move.cs_atlan_skin_run": "!query.is_sleeping && query.mod.vip_walk && query.mod.cs_atlan_skin_run"
+                        },
+                        {
+                            "move.cs_atlan_skin_swim": "!query.is_sleeping && (query.mod.vip_run || query.mod.vip_swim) && query.mod.cs_atlan_skin_swim"
+                        },
+                        {
+                            "move.sh_atlan_skin_idle_without_head": "!query.is_sleeping && query.mod.vip_idle && query.mod.sh_atlan_skin_idle"
+                        },
+                        {
+                            "move.sh_atlan_skin_run": "!query.is_sleeping && query.mod.vip_walk && query.mod.sh_atlan_skin_run"
+                        },
+                        {
+                            "move.sh_nether_skin_idle_without_head": "!query.is_sleeping && query.mod.vip_idle && query.mod.sh_nether_skin_idle"
+                        },
+                        {
+                            "move.sh_nether_skin_run": "!query.is_sleeping && query.mod.vip_run && query.mod.sh_nether_skin_run"
+                        },
+                        {
+                            "move.cs_game_skina_idle_ingame": "!query.is_sleeping && query.mod.vip_idle && query.mod.cs_game_skina_idle_ingame"
+                        },
+                        {
+                            "move.cs_game_skina_run": "!query.is_sleeping && query.mod.vip_run && query.mod.cs_game_skina_run"
+                        },
+                        {
+                            "move.cs_conan_skina_idle": "!query.is_sleeping && !query.is_moving && query.mod.vip_idle && query.mod.cs_conan_skina_idle"
+                        },
+                        {
+                            "move.cs_conan_skina_run": "!query.is_sleeping && query.mod.vip_run && query.mod.cs_conan_s1skina_run"
+                        },
+                        {
+                            "move.cs_conan_skinb_idle_ingame": "!query.is_sleeping && !query.is_moving && query.mod.vip_idle && query.mod.cs_conan_skinb_idle"
+                        },
+                        {
+                            "move.cs_conan_skinc_idle_ingame": "!query.is_sleeping && !query.is_moving && query.mod.vip_idle && query.mod.cs_conan_skinc_idle"
+                        },
+                        {
+                            "move.cs_conan_skind_idle_ingame": "!query.is_sleeping && !query.is_moving && query.mod.vip_idle && query.mod.cs_conan_skind_idle"
+                        },
+                        {
+                            "move.ss_conan_skina_idle_ingame": "!query.is_sleeping && !query.is_moving && query.mod.vip_idle && query.mod.ss_conan_skina_idle"
+                        },
+                        {
+                            "move.ss_conan_skinc_idle": "!query.is_sleeping && !query.is_moving && query.mod.vip_idle && query.mod.ss_conan_skinc_idle"
+                        },
+                        {
+                            "move.cs_loong_skina_idle": "!query.is_sleeping && !query.is_moving && query.mod.vip_idle && query.mod.cs_loong_skina_idle"
+                        },
+                        {
+                            "move.cs_loong_skina_walk": "!query.is_sleeping && query.mod.vip_walk && query.mod.cs_loong_skina_walk"
+                        },
+                        {
+                            "move.cs_loong_skina_run": "!query.is_sleeping && query.mod.vip_run && query.mod.cs_loong_skina_run"
+                        },
+                        {
+                            "move.cs_loong_skinb_idle_ingame": "!query.is_sleeping && !query.is_moving && query.mod.vip_idle && query.mod.cs_loong_skinb_idle"
+                        },
+                        {
+                            "move.cs_loong_skinb_walk": "!query.is_sleeping && query.mod.vip_walk && query.mod.cs_loong_skinb_walk"
+                        },
+                        {
+                            "move.cs_loong_skinb_run": "!query.is_sleeping && query.mod.vip_run && query.mod.cs_loong_skinb_run"
+                        },
+                        {
+                            "move.cs_s4nvwu_skin_idle": "!query.is_sleeping && !query.is_moving && query.mod.vip_idle && query.mod.cs_s4nvwu_skin_idle"
+                        },
+                        {
+                            "move.cs_s4nvwu_skin_walk_walk": "!query.is_sleeping && query.mod.vip_walk && query.mod.cs_s4nvwu_skin_walk_walk"
+                        },
+                        {
+                            "move.cs_s4nvwu_skin_run": "!query.is_sleeping && query.mod.vip_run && query.mod.cs_s4nvwu_skin_run"
+                        },
+                        {
+                            "move.cs_s1dark_idle_ingame": "!query.is_sleeping && query.mod.vip_idle && query.mod.cs_s1dark_idle_ingame"
+                        },
+                        {
+                            "move.s1wild_idle": "!query.is_sleeping && query.mod.vip_idle && query.mod.s1wild_idle"
+                        },
+                        {
+                            "move.s1wild_run": "!query.is_sleeping && query.mod.vip_run && query.mod.s1wild_run"
+                        },
+                        {
+                            "move.s1wild_walk": "!query.is_sleeping && query.mod.vip_walk && query.mod.s1wild_walk"
+                        },
+                        {
+                            "move.s1desert_run": "!query.is_sleeping && query.mod.vip_run && query.mod.s1desert_run"
+                        },
+                        {
+                            "move.s1desert_walk": "!query.is_sleeping && query.mod.vip_walk && query.mod.s1desert_walk"
+                        },
+                        {
+                            "move.s2blackhole_idle": "!query.is_sleeping && query.mod.vip_idle && query.mod.s2blackhole_idle"
+                        },
+                        {
+                            "move.s2mc_skin_idle": "!query.is_sleeping && query.mod.vip_idle && query.mod.s2mc_skin_idle"
+                        },
+                        {
+                            "move.cs_s1creat_skinb_idle": "!query.is_sleeping && query.mod.vip_idle && query.mod.cs_s1creat_skinb_idle"
+                        },
+                        {
+                            "move.cs_s1creat_skina_idle": "!query.is_sleeping && query.mod.vip_idle && query.mod.cs_s1creat_skina_idle"
+                        },
+                        {
+                            "move.s2blackhole_run": "!query.is_sleeping && query.mod.vip_run && query.mod.s2blackhole_run"
+                        },
+                        {
+                            "move.s2blackhole_walk": "!query.is_sleeping && query.mod.vip_walk && query.mod.s2blackhole_walk"
+                        },
+                        {
+                            "move.cs_s1opera_skin_idle": "!query.is_sleeping && query.mod.vip_idle && query.mod.cs_s1opera_skin_idle"
+                        },
+                        {
+                            "move.cs_s2comet_skin_idle": "!query.is_sleeping && query.mod.vip_idle && query.mod.cs_s2comet_skin_idle"
+                        },
+                        {
+                            "move.cs_s2comet_skin_walk": "!query.is_sleeping && query.mod.vip_walk && query.mod.cs_s2comet_skin_walk"
+                        },
+                        {
+                            "move.cs_s2comet_skin_run": "!query.is_sleeping && query.mod.vip_run && query.mod.cs_s2comet_skin_run"
+                        },
+                        {
+                            "move.cs_s3guofeng_skin_idle": "!query.is_sleeping && query.mod.vip_idle && query.mod.cs_s3guofeng_skin_idle"
+                        },
+                        {
+                            "move.cs_s3guofeng_skin_walk": "!query.is_sleeping && query.mod.vip_walk && query.mod.cs_s3guofeng_skin_walk"
+                        },
+                        {
+                            "move.cs_s3guofeng_skin_run": "!query.is_sleeping && query.mod.vip_run && query.mod.cs_s3guofeng_skin_run"
+                        },
+                        {
+                            "move.cs_s3kjys_skina_walk": "!query.is_sleeping && query.mod.vip_walk && query.mod.cs_s3kjys_skina_walk"
+                        },
+                        {
+                            "move.cs_s3kjys_skina_run": "!query.is_sleeping && query.mod.vip_run && query.mod.cs_s3kjys_skina_run"
+                        },
+                        {
+                            "move.cs_s3kjys_skina_idle": "!query.is_sleeping && query.mod.vip_idle && query.mod.cs_s3kjys_skina_idle"
+                        },
+                        {
+                            "move.ss_s2star_skin_g_idle": "!query.is_sleeping && query.mod.vip_idle && query.mod.ss_s2star_skin_g_idle"
+                        },
+                        {
+                            "move.ss_s2star_skin_g_walk": "!query.is_sleeping && query.mod.vip_walk && query.mod.ss_s2star_skin_g_walk"
+                        },
+                        {
+                            "move.ss_s2star_skin_g_run": "!query.is_sleeping && query.mod.vip_run && query.mod.ss_s2star_skin_g_run"
+                        },
+                        {
+                            "move.ss_s2star_skin_g_swim": "!query.is_sleeping && query.mod.vip_swim && query.mod.ss_s2star_skin_g_swim"
+                        },
+                        {
+                            "move.ss_kjys_skina_idle": "!query.is_sleeping && !query.is_moving && query.mod.vip_idle && query.mod.ss_kjys_skina_idle"
+                        },
+                        {
+                            "move.ss_kjys_skinb_idle": "!query.is_sleeping && !query.is_moving && query.mod.vip_idle && query.mod.ss_kjys_skinb_idle"
+                        },
+                        {
+                            "move.sh_s3kjys_skina_idle": "!query.is_sleeping && query.mod.vip_idle && query.mod.sh_s3kjys_skina_idle"
+                        },
+                        {
+                            "move.sh_s3kjys_skina_idle01": "!query.is_sleeping && query.mod.vip_idle && query.mod.sh_s3kjys_skina_idle01"
+                        },
+                        {
+                            "move.sh_s3kjys_skina_walk": "!query.is_sleeping && query.mod.vip_walk && query.mod.sh_s3kjys_skina_walk"
+                        },
+                        {
+                            "move.sh_s3kjys_skinb_walk": "!query.is_sleeping && query.mod.vip_walk && query.mod.sh_s3kjys_skinb_walk"
+                        },
+                        {
+                            "move.sh_s3kjys_skina_run": "!query.is_sleeping && query.mod.vip_run && query.mod.sh_s3kjys_skina_run"
+                        },
+                        {
+                            "move.sh_s3kjys_skinb_run": "!query.is_sleeping && query.mod.vip_run && query.mod.sh_s3kjys_skinb_run"
+                        },
+                        {
+                            "move.sh_s3guofeng_xd_idle": "!query.is_sleeping && query.mod.vip_idle && query.mod.sh_s3guofeng_xd_idle"
+                        },
+                        {
+                            "move.sh_s3guofeng_xd_idle01": "!query.is_sleeping && query.mod.vip_idle && query.mod.sh_s3guofeng_xd_idle01"
+                        },
+                        {
+                            "move.sh_s3guofeng_xd_1_run": "!query.is_sleeping && query.mod.vip_run && query.mod.sh_s3guofeng_xd_1_run"
+                        },
+                        {
+                            "move.sh_s3guofeng_xd_1_walk": "!query.is_sleeping && query.mod.vip_walk && query.mod.sh_s3guofeng_xd_1_walk"
+                        },
+                        {
+                            "move.sh_s3guofeng_xd_2_run": "!query.is_sleeping && query.mod.vip_run && query.mod.sh_s3guofeng_xd_2_run"
+                        },
+                        {
+                            "move.sh_s3guofeng_xd_2_walk": "!query.is_sleeping && query.mod.vip_walk && query.mod.sh_s3guofeng_xd_2_walk"
+                        },
+                        {
+                            "move.sh_s3guofeng_skinb_idle": "!query.is_sleeping && query.mod.vip_idle && query.mod.sh_s3guofeng_skinb_idle"
+                        },
+                        {
+                            "move.sh_s3guofeng_skinb_idle01": "!query.is_sleeping && query.mod.vip_idle && query.mod.sh_s3guofeng_skinb_idle01"
+                        },
+                        {
+                            "move.sh_s3guofeng_skinb_1_run": "!query.is_sleeping && query.mod.vip_run && query.mod.sh_s3guofeng_skinb_1_run"
+                        },
+                        {
+                            "move.sh_s3guofeng_skinb_1_walk": "!query.is_sleeping && query.mod.vip_walk && query.mod.sh_s3guofeng_skinb_1_walk"
+                        },
+                        {
+                            "move.sh_s3guofeng_skinb_2_run": "!query.is_sleeping && query.mod.vip_run && query.mod.sh_s3guofeng_skinb_2_run"
+                        },
+                        {
+                            "move.sh_s3guofeng_skinb_2_walk": "!query.is_sleeping && query.mod.vip_walk && query.mod.sh_s3guofeng_skinb_2_walk"
+                        },
+                        {
+                            "move.ss_s4cp_skinb_run": "!query.is_sleeping && query.mod.vip_run && query.mod.ss_s4cp_skinb_run"
+                        },
+                        {
+                            "move.ss_s4cp_skinb_walk": "!query.is_sleeping && query.mod.vip_walk && query.mod.ss_s4cp_skinb_walk"
+                        },
+                        {
+                            "move.ss_s4liuyi_skin_run": "!query.is_sleeping && query.mod.vip_run && query.mod.ss_s4liuyi_skin_run"
+                        },
+                        {
+                            "move.ss_s4liuyi_skin_walk": "!query.is_sleeping && query.mod.vip_walk && query.mod.ss_s4liuyi_skin_walk"
+                        },
+                        {
+                            "move.main_city_entry": "query.mod.main_city_entry"
+                        },
+                        {
+                            "move.main_city_exit": "query.mod.main_city_exit"
+                        },
+                        {
+                            "move.cs_s4diaoling_skin_walk": "!query.is_sleeping && query.mod.vip_walk && query.mod.cs_s4diaoling_skin_walk"
+                        },
+                        {
+                            "move.cs_s4diaoling_skin_run": "!query.is_sleeping && query.mod.vip_run && query.mod.cs_s4diaoling_skin_run"
+                        },
+                        {
+                            "move.cs_s4diaoling_skin_idle": "!query.is_sleeping && query.mod.vip_idle && query.mod.cs_s4diaoling_skin_idle"
+                        },
+                        {
+                            "move.cs_s4nanwu_skin_skin_walk": "!query.is_sleeping && query.mod.vip_walk && query.mod.cs_s4nanwu_skin_skin_walk"
+                        },
+                        {
+                            "move.cs_s4nanwu_skin_skin_run": "!query.is_sleeping && query.mod.vip_run && query.mod.cs_s4nanwu_skin_skin_run"
+                        },
+                        {
+                            "move.cs_s4nanwu_skin_skin_idle": "!query.is_sleeping && query.mod.vip_idle && query.mod.cs_s4nanwu_skin_skin_idle"
+                        },
+                        {
+                            "move.cs_s4hongshi_skin_walk": "!query.is_sleeping && query.mod.vip_walk && query.mod.cs_s4hongshi_skin_walk"
+                        },
+                        {
+                            "move.cs_s4hongshi_skin_run": "!query.is_sleeping && query.mod.vip_run && query.mod.cs_s4hongshi_skin_run"
+                        },
+                        {
+                            "move.cs_s4hongshi_skin_idle": "!query.is_sleeping && query.mod.vip_idle && query.mod.cs_s4hongshi_skin_idle"
+                        },
+                        {
+                            "move.cs_s4hongshi_skin_ride": "query.is_riding && !query.mod.vip_ride && query.mod.vip_ride_low && query.mod.cs_s4hongshi_skin_ride"
+                        },
+                        {
+                            "move.ss_s4zhulinggirl_skin_walk": "!query.is_sleeping && query.mod.vip_walk && query.mod.ss_s4zhulinggirl_skin_walk"
+                        },
+                        {
+                            "move.ss_s4zhulinggirl_skin_run": "!query.is_sleeping && query.mod.vip_run && query.mod.ss_s4zhulinggirl_skin_run"
+                        },
+                        {
+                            "move.cs_s5feng_skinA_run": "!query.is_sleeping && query.mod.vip_run && query.mod.cs_s5feng_skina_run"
+                        },
+                        {
+                            "move.cs_s5feng_skinA_walk": "!query.is_sleeping && query.mod.vip_walk && query.mod.cs_s5feng_skina_walk"
+                        },
+                        {
+                            "move.cs_s5feng_skinA_idle": "!query.is_sleeping && query.mod.vip_idle && query.mod.cs_s5feng_skina_idle"
+                        },
+                        {
+                            "move.cs_s5feng_skinA_idle_junei": "!query.is_sleeping && query.mod.vip_idle && query.mod.cs_s5feng_skina_idle_junei"
+                        },
+                        {
+                            "move.cs_s5feng_skin_run": "!query.is_sleeping && query.mod.vip_run && query.mod.cs_s5feng_skin_run"
+                        },
+                        {
+                            "move.cs_s5feng_skin_walk": "!query.is_sleeping && query.mod.vip_walk && query.mod.cs_s5feng_skin_walk"
+                        },
+                        {
+                            "move.cs_s5feng_skin_idle": "!query.is_sleeping && query.mod.vip_idle && query.mod.cs_s5feng_skin_idle"
+                        },
+                        {
+                            "move.cs_s5feng_skin_idle_junei": "!query.is_sleeping && query.mod.vip_idle && query.mod.cs_s5feng_skin_idle_junei"
+                        },
+                        {
+                            "move.ss_s5enderman_skin_run_anim_run": "!query.is_sleeping && query.mod.vip_run && query.mod.ss_s5enderman_skin_run_anim_run"
+                        },
+                        {
+                            "move.ss_s5enderman_skin_walk_anim_run": "!query.is_sleeping && query.mod.vip_walk && query.mod.ss_s5enderman_skin_walk_anim_run"
+                        },
+                        {
+                            "move.cs_s5tidal_skin_run_anim_run": "!query.is_sleeping && query.mod.vip_run && query.mod.cs_s5tidal_skin_run_anim_run"
+                        },
+                        {
+                            "move.cs_s5tidal_skin_walk_anim_run": "!query.is_sleeping && query.mod.vip_walk && query.mod.cs_s5tidal_skin_walk_anim_run"
+                        },
+                        {
+                            "move.cs_s5tidal_skin_ride_sit": "query.is_riding && !query.mod.vip_ride && query.mod.vip_ride_low && query.mod.cs_s5tidal_skin_ride_sit"
+                        },
+                        {
+                            "move.cs_s5tidal_skin_ride_stand": "query.is_riding && !query.mod.vip_ride && query.mod.vip_ride_low && query.mod.cs_s5tidal_skin_ride_stand"
+                        },
+                        {
+                            "move.cs_s5cthulhu_skin_idle_junei": "!query.is_sleeping && query.mod.vip_idle && query.mod.cs_s5cthulhu_skin_idle_junei"
+                        },
+                        {
+                            "move.cs_s5cthulhu_skin_run_anim_run": "!query.is_sleeping && query.mod.vip_run && query.mod.cs_s5cthulhu_skin_run_anim_run"
+                        },
+                        {
+                            "move.cs_s5cthulhu_skin_walk_anim_run": "!query.is_sleeping && query.mod.vip_walk && query.mod.cs_s5cthulhu_skin_walk_anim_run"
+                        },
+                        {
+                            "move.cs_s5tidal_skina_run_anim_run": "!query.is_sleeping && query.mod.vip_run && query.mod.cs_s5tidal_skina_run_anim_run"
+                        },
+                        {
+                            "move.cs_s5tidal_skina_walk_anim_run": "!query.is_sleeping && query.mod.vip_walk && query.mod.cs_s5tidal_skina_walk_anim_run"
+                        },
+                        {
+                            "move.cs_s5tidal_skina_ride_sit": "query.is_riding && !query.mod.vip_ride && query.mod.vip_ride_low && query.mod.cs_s5tidal_skin_ride_sit"
+                        },
+                        {
+                            "move.cs_s5tidal_skina_ride_stand": "query.is_riding && !query.mod.vip_ride && query.mod.vip_ride_low && query.mod.cs_s5tidal_skin_ride_stand"
+                        },
+                        {
+                            "move.cs_s5tidal_skinb_run_anim_run": "!query.is_sleeping && query.mod.vip_run && query.mod.cs_s5tidal_skinb_run_anim_run"
+                        },
+                        {
+                            "move.cs_s5tidal_skinb_walk_anim_run": "!query.is_sleeping && query.mod.vip_walk && query.mod.cs_s5tidal_skinb_walk_anim_run"
+                        },
+                        {
+                            "move.cs_s5fire_skin_anim_idle_junei": "!query.is_sleeping && query.mod.vip_idle && query.mod.cs_s5fire_skin_anim_idle_junei"
+                        },
+                        {
+                            "move.cs_s5fire_skin_run_anim_run": "!query.is_sleeping && query.mod.vip_run && query.mod.cs_s5fire_skin_run_anim_run"
+                        },
+                        {
+                            "move.cs_s5fire_skin_walk_anim_run": "!query.is_sleeping && query.mod.vip_walk && query.mod.cs_s5fire_skin_walk_anim_run"
+                        },
+                        {
+                            "move.cs_s5ninefox_skin_run_anim_run": "!query.is_sleeping && query.mod.vip_run && query.mod.cs_s5ninefox_skin_run_anim_run"
+                        },
+                        {
+                            "move.cs_s5ninefox_skin_walk_anim_run": "!query.is_sleeping && query.mod.vip_walk && query.mod.cs_s5ninefox_skin_walk_anim_run"
+                        },
+                        {
+                            "move.ss_s5swimsuit_skin_run_anim_run": "!query.is_sleeping && query.mod.vip_run && query.mod.ss_s5swimsuit_skin_run_anim_run"
+                        },
+                        {
+                            "move.ss_s5swimsuit_skin_walk_anim_run": "!query.is_sleeping && query.mod.vip_walk && query.mod.ss_s5swimsuit_skin_walk_anim_run"
+                        },
+                        {
+                            "move.ss_s5swimsuit_skina_run_anim_run": "!query.is_sleeping && query.mod.vip_run && query.mod.ss_s5swimsuit_skina_run_anim_run"
+                        },
+                        {
+                            "move.ss_s5swimsuit_skina_walk_anim_run": "!query.is_sleeping && query.mod.vip_walk && query.mod.ss_s5swimsuit_skina_walk_anim_run"
+                        },
+                        {
+                            "move.ss_s5swimsuit_skinb_run_anim_run": "!query.is_sleeping && query.mod.vip_run && query.mod.ss_s5swimsuit_skinb_run_anim_run"
+                        },
+                        {
+                            "move.ss_s5swimsuit_skinb_walk_anim_run": "!query.is_sleeping && query.mod.vip_walk && query.mod.ss_s5swimsuit_skinb_walk_anim_run"
+                        },
+                        {
+                            "move.ss_s5demon_skina_run_anim_run": "!query.is_sleeping && query.mod.vip_run && query.mod.ss_s5demon_skina_run_anim_run"
+                        },
+                        {
+                            "move.ss_s5demon_skina_walk_anim_run": "!query.is_sleeping && query.mod.vip_walk && query.mod.ss_s5demon_skina_walk_anim_run"
+                        },
+                        {
+                            "move.ceshi_run_anim_run": "!query.is_sleeping && query.mod.vip_run && query.mod.ceshi_run_anim_run"
+                        },
+                        {
+                            "move.cs_s6flowerdragon_skin_run_anim_run": "!query.is_sleeping && query.mod.vip_run && query.mod.cs_s6flowerdragon_skin_run_anim_run"
+                        },
+                        {
+                            "move.cs_s6flowerdragon_skin_walk_anim_run": "!query.is_sleeping && query.mod.vip_walk && query.mod.cs_s6flowerdragon_skin_walk_anim_run"
+                        },
+                        {
+                            "move.cs_s6flowerdragon_skin_idle_anim_idle": "!query.is_sleeping && query.mod.vip_idle && query.mod.cs_s6flowerdragon_skin_idle_anim_idle"
+                        },
+                        {
+                            "move.ss_s5catgirl_skin_run_anim_run": "!query.is_sleeping && query.mod.vip_run && query.mod.ss_s5catgirl_skin_run_anim_run"
+                        },
+                        {
+                            "move.ss_s5catgirl_skin_walk_anim_run": "!query.is_sleeping && query.mod.vip_walk && query.mod.ss_s5catgirl_skin_walk_anim_run"
+                        },
+                        {
+                            "move.ss_s5catgirl_skina_run_anim_run": "!query.is_sleeping && query.mod.vip_run && query.mod.ss_s5catgirl_skina_run_anim_run"
+                        },
+                        {
+                            "move.ss_s5catgirl_skina_walk_anim_run": "!query.is_sleeping && query.mod.vip_walk && query.mod.ss_s5catgirl_skina_walk_anim_run"
+                        },
+                        {
+                            "move.ss_s5catgirl_skinb_run_anim_run": "!query.is_sleeping && query.mod.vip_run && query.mod.ss_s5catgirl_skinb_run_anim_run"
+                        },
+                        {
+                            "move.ss_s5catgirl_skinb_walk_anim_run": "!query.is_sleeping && query.mod.vip_walk && query.mod.ss_s5catgirl_skinb_walk_anim_run"
+                        },
+                        {
+                            "move.ss_s6bear_skin_run_anim_run": "!query.is_sleeping && query.mod.vip_run && query.mod.ss_s6bear_skin_run_anim_run"
+                        },
+                        {
+                            "move.ss_s6bear_skin_walk_anim_run": "!query.is_sleeping && query.mod.vip_walk && query.mod.ss_s6bear_skin_walk_anim_run"
+                        },
+                        {
+                            "move.cs_s6firedragon_skin_run_anim_run": "!query.is_sleeping && query.mod.vip_run && query.mod.cs_s6firedragon_skin_run_anim_run"
+                        },
+                        {
+                            "move.cs_s6firedragon_skin_walk_anim_run": "!query.is_sleeping && query.mod.vip_walk && query.mod.cs_s6firedragon_skin_walk_anim_run"
+                        },
+                        {
+                            "move.cs_s6firedragon_skin_idle_anim_idle": "!query.is_sleeping && query.mod.vip_idle && query.mod.cs_s6firedragon_skin_idle_anim_idle"
+                        },
+                        {
+                            "move.cs_s6cyber_skin_idle_anim_idle_junei": "!query.is_sleeping && query.mod.vip_idle && query.mod.cs_s6cyber_skin_idle_anim_idle_junei"
+                        },
+                        {
+                            "move.cs_s6cyber_skin_run_anim_run": "!query.is_sleeping && query.mod.vip_run && query.mod.cs_s6cyber_skin_run_anim_run"
+                        },
+                        {
+                            "move.cs_s6cyber_skin_walk_anim_run": "!query.is_sleeping && query.mod.vip_walk && query.mod.cs_s6cyber_skin_walk_anim_run"
+                        },
+                        {
+                            "move.ss_s5angel_skin_run_anim_run": "!query.is_sleeping && query.mod.vip_run && query.mod.ss_s5angel_skin_run_anim_run"
+                        },
+                        {
+                            "move.ss_s5angel_skin_walk_anim_run": "!query.is_sleeping && query.mod.vip_walk && query.mod.ss_s5angel_skin_walk_anim_run"
+                        },
+                        {
+                            "move.ss_s5angel_skina_run_anim_run": "!query.is_sleeping && query.mod.vip_run && query.mod.ss_s5angel_skina_run_anim_run"
+                        },
+                        {
+                            "move.ss_s5angel_skina_walk_anim_run": "!query.is_sleeping && query.mod.vip_walk && query.mod.ss_s5angel_skina_walk_anim_run"
+                        },
+                        {
+                            "move.ss_s5angel_skinb_run_anim_run": "!query.is_sleeping && query.mod.vip_run && query.mod.ss_s5angel_skinb_run_anim_run"
+                        },
+                        {
+                            "move.ss_s5angel_skinb_walk_anim_run": "!query.is_sleeping && query.mod.vip_walk && query.mod.ss_s5angel_skinb_walk_anim_run"
+                        },
+                        {
+                            "move.cs_s6yaksha_skin_idle_anim_idle_junei": "!query.is_sleeping && query.mod.vip_idle && query.mod.cs_s6yaksha_skin_idle_anim_idle_junei"
+                        },
+                        {
+                            "move.cs_s6yaksha_skin_run_anim_run": "!query.is_sleeping && query.mod.vip_run && query.mod.cs_s6yaksha_skin_run_anim_run"
+                        },
+                        {
+                            "move.cs_s6yaksha_skin_walk_anim_run": "!query.is_sleeping && query.mod.vip_walk && query.mod.cs_s6yaksha_skin_walk_anim_run"
+                        },
+                        {
+                            "move.ss_s6nuncat_skin_run_anim_run": "!query.is_sleeping && query.mod.vip_run && query.mod.ss_s6nuncat_skin_run_anim_run"
+                        },
+                        {
+                            "move.ss_s6nuncat_skin_walk_anim_run": "!query.is_sleeping && query.mod.vip_walk && query.mod.ss_s6nuncat_skin_walk_anim_run"
+                        },
+                        {
+                            "move.cs_s6jiaolong_skin_idle_anim_idle_junei": "!query.is_sleeping && query.mod.vip_idle && query.mod.cs_s6jiaolong_skin_idle_anim_idle_junei"
+                        },
+                        {
+                            "move.cs_s6jiaolong_skin_run_anim_run": "!query.is_sleeping && query.mod.vip_run && query.mod.cs_s6jiaolong_skin_run_anim_run"
+                        },
+                        {
+                            "move.cs_s6jiaolong_skin_walk_anim_run": "!query.is_sleeping && query.mod.vip_walk && query.mod.cs_s6jiaolong_skin_walk_anim_run"
+                        },
+                        {
+                            "move.ss_s5hood_skina_run_anim_run": "!query.is_sleeping && query.mod.vip_run && query.mod.ss_s5hood_skina_run_anim_run"
+                        },
+                        {
+                            "move.ss_s5hood_skina_walk_anim_run": "!query.is_sleeping && query.mod.vip_walk && query.mod.ss_s5hood_skina_walk_anim_run"
+                        },
+                        {
+                            "move.ss_s5hood_skinb_run_anim_run": "!query.is_sleeping && query.mod.vip_run && query.mod.ss_s5hood_skinb_run_anim_run"
+                        },
+                        {
+                            "move.ss_s5hood_skinb_walk_anim_run": "!query.is_sleeping && query.mod.vip_walk && query.mod.ss_s5hood_skinb_walk_anim_run"
+                        },
+                        {
+                            "move.cs_s6moth_skin_idle_anim_idle_junei": "!query.is_sleeping && query.mod.vip_idle && query.mod.cs_s6moth_skin_idle_anim_idle_junei"
+                        },
+                        {
+                            "move.cs_s6moth_skin_run_anim_run": "!query.is_sleeping && query.mod.vip_run && query.mod.cs_s6moth_skin_run_anim_run"
+                        },
+                        {
+                            "move.cs_s6moth_skin_walk_anim_run": "!query.is_sleeping && query.mod.vip_walk && query.mod.cs_s6moth_skin_walk_anim_run"
+                        },
+                        {
+                            "move.ss_s5hood_skin_run_anim_run": "!query.is_sleeping && query.mod.vip_run && query.mod.ss_s5hood_skin_run_anim_run"
+                        },
+                        {
+                            "move.ss_s5hood_skin_walk_anim_run": "!query.is_sleeping && query.mod.vip_walk && query.mod.ss_s5hood_skin_walk_anim_run"
+                        },
+                        {
+                            "move.cs_s6swordsman_skin_idle_anim_idle_junei": "!query.is_sleeping && query.mod.vip_idle && query.mod.cs_s6swordsman_skin_idle_anim_idle_junei"
+                        },
+                        {
+                            "move.cs_s6swordsman_skin_run_anim_run": "!query.is_sleeping && query.mod.vip_run && query.mod.cs_s6swordsman_skin_run_anim_run"
+                        },
+                        {
+                            "move.cs_s6swordsman_skin_walk_anim_run": "!query.is_sleeping && query.mod.vip_walk && query.mod.cs_s6swordsman_skin_walk_anim_run"
+                        },
+                        {
+                            "move.cs_s7niumowang_skin_idle_anim_idle_junei": "!query.is_sleeping && query.mod.vip_idle && query.mod.cs_s7niumowang_skin_idle_anim_idle_junei"
+                        },
+                        {
+                            "move.cs_s7niumowang_skin_run_anim_run": "!query.is_sleeping && query.mod.vip_run && query.mod.cs_s7niumowang_skin_run_anim_run"
+                        },
+                        {
+                            "move.cs_s7niumowang_skin_walk_anim_run": "!query.is_sleeping && query.mod.vip_walk && query.mod.cs_s7niumowang_skin_walk_anim_run"
+                        },
+                        {
+                            "move.ss_s2star_skinf_run_anim_run": "!query.is_sleeping && query.mod.vip_run && query.mod.ss_s2star_skinf_run_anim_run"
+                        },
+                        {
+                            "move.ss_s2star_skink_run_anim_run": "!query.is_sleeping && query.mod.vip_run && query.mod.ss_s2star_skink_run_anim_run"
+                        },
+                        {
+                            "move.ss_s2star_skink_walk_anim_run": "!query.is_sleeping && query.mod.vip_walk && query.mod.ss_s2star_skink_walk_anim_run"
+                        },
+                        {
+                            "move.ss_s2star_skini_run_anim_run": "!query.is_sleeping && query.mod.vip_run && query.mod.ss_s2star_skini_run_anim_run"
+                        },
+                        {
+                            "move.ss_s2star_skini_walk_anim_run": "!query.is_sleeping && query.mod.vip_walk && query.mod.ss_s2star_skini_walk_anim_run"
+                        },
+                        {
+                            "move.ss_s2star_skinf_walk_anim_run": "!query.is_sleeping && query.mod.vip_walk && query.mod.ss_s2star_skinf_walk_anim_run"
+                        },
+                        {
+                            "move.cs_s7change_skin_idle_anim_idle_junei": "!query.is_sleeping && query.mod.vip_idle && query.mod.cs_s7change_skin_idle_anim_idle_junei"
+                        },
+                        {
+                            "move.cs_s7change_skin_run_anim_run": "!query.is_sleeping && query.mod.vip_run && query.mod.cs_s7change_skin_run_anim_run"
+                        },
+                        {
+                            "move.cs_s7change_skin_walk_anim_run": "!query.is_sleeping && query.mod.vip_walk && query.mod.cs_s7change_skin_walk_anim_run"
+                        },
+                        "cape",
+                        {
+                            "riding.arms": "query.is_riding && !query.mod.vip_ride && !query.mod.vip_ride_low"
+                        },
+                        {
+                            "riding.legs": "query.is_riding && !query.mod.vip_ride && !query.mod.vip_ride_low"
+                        },
+                        {
+                            "riding.wutai_cshorse_ride": "query.mod.wutai_cshorse_ride"
+                        },
+                        {
+                            "riding.ts_qixing": "query.mod.ts_qixing"
+                        },
+                        {
+                            "riding.kjys_ride": "query.mod.kjys_ride"
+                        },
+                        {
+                            "riding.ss_s4hongshi_ride": "query.mod.ss_s4hongshi_ride"
+                        },
+                        {
+                            "riding.mg_horse_ride": "query.mod.mg_horse_ride"
+                        },
+                        {
+                            "riding.guofeng_horse_ride": "query.mod.guofeng_horse_ride"
+                        },
+                        {
+                            "riding.ip_doraemon_idle": "query.mod.ip_doraemon_idle"
+                        },
+                        {
+                            "riding.cs_s5feng_horse_ride": "query.mod.cs_s5feng_horse_ride"
+                        },
+                        {
+                            "riding.cs_s5fire_horse_ride": "query.mod.cs_s5fire_horse_ride"
+                        },
+                        {
+                            "riding.cs_s6yaksha_horse_ride": "query.mod.cs_s6yaksha_horse_ride"
+                        },
+                        "holding",
+                        {
+                            "brandish_spear": "variable.is_brandishing_spear"
+                        },
+                        {
+                            "holding_spyglass": "variable.is_holding_spyglass"
+                        },
+                        {
+                            "charging": "query.is_charging"
+                        },
+                        {
+                            "sneaking": "query.is_sneaking && !query.is_sleeping"
+                        },
+                        {
+                            "bob": "!variable.is_holding_spyglass && !variable.is_tooting_goat_horn && !variable.is_using_brush"
+                        },
+                        {
+                            "damage_nearby_mobs": "variable.damage_nearby_mobs"
+                        },
+                        {
+                            "bow_and_arrow": "query.get_equipped_item_name == 'bow' && query.has_target && (variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0)"
+                        },
+                        {
+                            "swimming": "variable.swim_amount > 0.0 && !query.mod.vip_swim"
+                        },
+                        {
+                            "swimming.legs": "variable.swim_amount > 0.0 && !query.mod.vip_swim"
+                        },
+                        {
+                            "crawling": "query.is_crawling"
+                        },
+                        {
+                            "crawling.legs": "query.is_crawling"
+                        },
+                        {
+                            "use_item_progress": "( variable.use_item_interval_progress > 0.0 ) || ( variable.use_item_startup_progress > 0.0 ) && !variable.is_brandishing_spear && !variable.is_holding_spyglass && !variable.is_tooting_goat_horn && !variable.is_using_brush && !query.is_item_name_any('slot.weapon.mainhand', 'minecraft:bow')"
+                        },
+                        {
+                            "sleeping": "query.is_sleeping && query.is_alive"
+                        },
+                        {
+                            "attack.positions": "variable.attack_time >= 0.0 && query.mod.vip_attack < 1.0"
+                        },
+                        {
+                            "attack.rotations": "variable.attack_time >= 0.0 && query.mod.vip_attack < 1.0"
+                        },
+                        {
+                            "shield_block_main_hand": "query.blocking && !query.get_equipped_item_is_netease_shield('off_hand')&& query.get_equipped_item_name('off_hand') != 'shield' && query.get_equipped_item_name == 'shield'"
+                        },
+                        {
+                            "shield_block_off_hand": "query.blocking && query.get_equipped_item_name('off_hand') == 'shield'"
+                        },
+                        {
+                            "crossbow_controller": "query.get_equipped_item_name == 'crossbow'"
+                        },
+                        {
+                            "third_person_bow_equipped": "query.get_equipped_item_name == 'bow' && (variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0)"
+                        },
+                        {
+                            "tooting_goat_horn": "variable.is_tooting_goat_horn"
+                        },
+                        {
+                            "holding_brush": "query.get_equipped_item_name == 'brush'"
+                        },
+                        {
+                            "brushing": "variable.is_using_brush"
+                        }
+                    ],
+                    "transitions": [
+                        {
+                            "vip_show": "query.mod.vip_show"
+                        },
+                        {
+                            "paperdoll": "variable.is_paperdoll && !query.mod.is_editor_custom_model"
+                        },
+                        {
+                            "first_person": "variable.is_first_person && !query.mod.is_editor_custom_model"
+                        },
+                        {
+                            "map_player": "variable.map_face_icon && !query.mod.is_editor_custom_model"
+                        },
+                        {
+                            "editor_custom": "query.mod.is_editor_custom_model"
+                        },
+                        {
+                            "vip_new_state": "!variable.is_first_person && query.mod.vip_new_state"
+                        }
+                    ]
+                },
+                "vip_show": {
+                    "animations": [
+                        {
+                            "move.ss_jlls_skinC_walk": "query.mod.jlls_skinc_walk"
+                        },
+                        {
+                            "move.ss_jlls_skinD_dance": "query.mod.jlls_skind_dance"
+                        }
+                    ],
+                    "transitions": [
+                        {
+                            "paperdoll": "variable.is_paperdoll && !query.mod.is_editor_custom_model"
+                        },
+                        {
+                            "first_person": "variable.is_first_person && !query.mod.is_editor_custom_model"
+                        },
+                        {
+                            "map_player": "variable.map_face_icon && !query.mod.is_editor_custom_model"
+                        },
+                        {
+                            "editor_custom": "query.mod.is_editor_custom_model"
+                        },
+                        {
+                            "third_person": "!query.mod.vip_show && !variable.is_first_person && !query.mod.is_editor_custom_model"
+                        }
+                    ]
+                },
+                "editor_custom": {
+                    "transitions": [
+                        {
+                            "first_person": "variable.is_first_person && !query.mod.is_editor_custom_model"
+                        },
+                        {
+                            "third_person": "!variable.is_first_person && !query.mod.is_editor_custom_model"
+                        }
+                    ]
+                },
+                "vip_new_state": {
+                    "animations": [
+                        {
+                            "look_at_target": "!query.is_sleeping && !query.mod.is_playing_emote && !query.mod.sh_atlan_skin_swim"
+                        },
+                        {
+                            "move.arms": "!query.mod.vip_move && !query.mod.vip_walk && !query.mod.vip_run && !query.mod.vip_swim"
+                        },
+                        {
+                            "move.legs": "!query.mod.vip_move && !query.mod.vip_walk && !query.mod.vip_run && !query.mod.vip_swim"
+                        },
+                        {
+                            "move.sh_atlan_skin_swim": " !query.is_sleeping && (query.mod.vip_run || query.mod.vip_swim) && query.mod.sh_atlan_skin_swim"
+                        }
+                    ],
+                    "transitions": [
+                        {
+                            "first_person": "variable.is_first_person"
+                        },
+                        {
+                            "third_person": "!variable.is_first_person && !query.mod.vip_new_state"
+                        }
+                    ]
+                },
+                "rngl_idle": {
+                    "animations": [
+                        {
+                            "rn_normal": "variable.rn_idle_index == 0"
+                        },
+                        "look_at_target_ui"
+                    ],
+                    "transitions": [
+                        {
+                            "rngl_once_anim": "variable.rn_trigger_once"
+                        },
+                        {
+                            "rngl_loop_anim": "return variable.rn_trigger_loop && (variable.rn_loop_end = query.life_time + variable.rn_anim_time);"
+                        },
+                        {
+                            "rngl_cont_anim": "variable.rn_trigger_nonstop"
+                        },
+                        {
+                            "rngl_bored": "query.life_time > variable.rn_bored_time && variable.rn_idle_index == 0"
+                        }
+                    ],
+                    "blend_transition": 0.2,
+                    "blend_via_shortest_path": true
+                },
+                "rngl_bored": {
+                    "animations": [
+                        "react_bored_1"
+                    ],
+                    "transitions": [
+                        {
+                            "rngl_once_anim": "variable.rn_trigger_once"
+                        },
+                        {
+                            "rngl_loop_anim": "return variable.rn_trigger_loop && (variable.rn_loop_end = query.life_time + variable.rn_anim_time);"
+                        },
+                        {
+                            "rngl_cont_anim": "variable.rn_trigger_nonstop"
+                        },
+                        {
+                            "rngl_idle": "return query.any_animation_finished && (variable.rn_bored_time = query.life_time + variable.rn_bored_interval);"
+                        }
+                    ],
+                    "blend_transition": 0.2,
+                    "blend_via_shortest_path": true
+                },
+                "rngl_once_anim": {
+                    "animations": [
+                        {
+                            "rn_empty": "variable.rn_anim_index == -1"
+                        },
+                        {
+                            "react_torso_1": "variable.rn_anim_index == 0"
+                        },
+                        {
+                            "react_torso_2": "variable.rn_anim_index == 1"
+                        },
+                        {
+                            "react_arm_1": "variable.rn_anim_index == 2"
+                        },
+                        {
+                            "react_arm_2": "variable.rn_anim_index == 3"
+                        },
+                        {
+                            "react_back_1": "variable.rn_anim_index == 4"
+                        },
+                        {
+                            "react_back_2": "variable.rn_anim_index == 5"
+                        },
+                        {
+                            "react_bottom_1": "variable.rn_anim_index == 6"
+                        },
+                        {
+                            "react_bottom_2": "variable.rn_anim_index == 7"
+                        },
+                        {
+                            "react_bottom_3": "variable.rn_anim_index == 8"
+                        },
+                        {
+                            "react_head_1": "variable.rn_anim_index == 9"
+                        },
+                        {
+                            "react_head_2": "variable.rn_anim_index == 10"
+                        },
+                        {
+                            "change_armor": "variable.rn_anim_index == 11"
+                        },
+                        {
+                            "change_weapon": "variable.rn_anim_index == 12"
+                        },
+                        {
+                            "change_shield": "variable.rn_anim_index == 13"
+                        },
+                        {
+                            "change_footprint": "variable.rn_anim_index == 14"
+                        },
+                        {
+                            "change_armor_1": "variable.rn_anim_index == 15"
+                        }
+                    ],
+                    "transitions": [
+                        {
+                            "rngl_once_anim": "variable.rn_trigger_once"
+                        },
+                        {
+                            "rngl_idle": "return query.any_animation_finished && (variable.rn_bored_time = query.life_time + variable.rn_bored_interval);"
+                        }
+                    ],
+                    "blend_transition": 0.2,
+                    "blend_via_shortest_path": true
+                },
+                "rngl_loop_anim": {
+                    "animations": [
+                        {
+                            "react_home_walk": "variable.rn_anim_index == 0"
+                        },
+                        {
+                            "react_home_golfclap": "variable.rn_anim_index == 1"
+                        },
+                        {
+                            "react_home_wave": "variable.rn_anim_index == 2"
+                        },
+                        {
+                            "react_home_show": "variable.rn_anim_index == 3"
+                        },
+                        {
+                            "react_home_shock": "variable.rn_anim_index == 4"
+                        },
+                        {
+                            "react_home_clap": "variable.rn_anim_index == 5"
+                        },
+                        {
+                            "react_home_no": "variable.rn_anim_index == 6"
+                        },
+                        {
+                            "react_home_jump": "variable.rn_anim_index == 7"
+                        },
+                        {
+                            "react_home_dance": "variable.rn_anim_index == 8"
+                        },
+                        {
+                            "react_home_stamp": "variable.rn_anim_index == 9"
+                        },
+                        {
+                            "react_home_sad": "variable.rn_anim_index == 10"
+                        },
+                        {
+                            "react_home_bow": "variable.rn_anim_index == 11"
+                        },
+                        {
+                            "react_home_question": "variable.rn_anim_index == 12"
+                        },
+                        {
+                            "react_home_scared": "variable.rn_anim_index == 13"
+                        },
+                        {
+                            "react_home_sick": "variable.rn_anim_index == 14"
+                        },
+                        {
+                            "react_home_worry": "variable.rn_anim_index == 15"
+                        },
+                        {
+                            "react_home_run": "variable.rn_anim_index == 16"
+                        },
+                        {
+                            "react_home_slip": "variable.rn_anim_index == 17"
+                        }
+                    ],
+                    "transitions": [
+                        {
+                            "rngl_loop_anim": "return variable.rn_trigger_loop && (variable.rn_loop_end = query.life_time + variable.rn_anim_time);"
+                        },
+                        {
+                            "rngl_idle": "return (query.life_time > variable.rn_loop_end || variable.rn_anim_time <= 0) && (variable.rn_bored_time = query.life_time + variable.rn_bored_interval);"
+                        }
+                    ],
+                    "blend_transition": 0.2,
+                    "blend_via_shortest_path": true
+                },
+                "rngl_cont_anim": {
+                    "animations": [
+                        {
+                            "react_home_gripping": "variable.rn_anim_index == 0"
+                        }
+                    ],
+                    "transitions": [
+                        {
+                            "rngl_idle": "!variable.rn_trigger_nonstop"
+                        }
+                    ],
+                    "blend_transition": 0.2,
+                    "blend_via_shortest_path": true
+                },
+                "fp_weapon_idle": {
+                    "animations": [
+                        {
+                            "move.cs_s5Feng_weapon_idle": "query.mod.cs_s5feng_weapon_idle"
+                        }
+                    ],
+                    "transitions": [
+                        {
+                            "fp_weapon_enter": "variable.is_first_person && query.mod.fp_weapon &&query.mod.fp_weapon_enter"
+                        },
+                        {
+                            "fp_weapon_inspect": "variable.is_first_person && query.mod.fp_weapon &&query.mod.fp_weapon_inspect"
+                        },
+                        {
+                            "fp_weapon_attack1": "variable.is_first_person && query.mod.fp_weapon &&query.mod.fp_weapon_attack1"
+                        },
+                        {
+                            "fp_weapon_attack2": "variable.is_first_person&& query.mod.fp_weapon  &&query.mod.fp_weapon_attack2"
+                        },
+                        {
+                            "fp_weapon_attack3": "variable.is_first_person&& query.mod.fp_weapon  &&query.mod.fp_weapon_attack3"
+                        },
+                        {
+                            "first_person": "variable.is_first_person && !query.mod.fp_weapon &&  !query.mod.is_editor_custom_model"
+                        },
+                        {
+                            "third_person": "!variable.is_first_person && !query.mod.is_editor_custom_model"
+                        }
+                    ]
+                },
+                "fp_weapon_enter": {
+                    "animations": [
+                        {
+                            "move.cs_s5Feng_weapon_enter": "query.mod.cs_s5feng_weapon_enter"
+                        }
+                    ],
+                    "transitions": [
+                        {
+                            "fp_weapon_idle": "variable.is_first_person && query.mod.fp_weapon &&query.mod.fp_weapon_idle"
+                        },
+                        {
+                            "fp_weapon_inspect": "variable.is_first_person && query.mod.fp_weapon &&query.mod.fp_weapon_inspect"
+                        },
+                        {
+                            "fp_weapon_attack1": "variable.is_first_person && query.mod.fp_weapon &&query.mod.fp_weapon_attack1"
+                        },
+                        {
+                            "fp_weapon_attack2": "variable.is_first_person && query.mod.fp_weapon &&query.mod.fp_weapon_attack2"
+                        },
+                        {
+                            "fp_weapon_attack3": "variable.is_first_person && query.mod.fp_weapon &&query.mod.fp_weapon_attack3"
+                        },
+                        {
+                            "first_person": "variable.is_first_person && !query.mod.fp_weapon && !query.mod.is_editor_custom_model"
+                        },
+                        {
+                            "third_person": "!variable.is_first_person && !query.mod.is_editor_custom_model"
+                        }
+                    ]
+                },
+                "fp_weapon_attack1": {
+                    "animations": [
+                        {
+                            "move.cs_s5Feng_weapon_attack1": "query.mod.cs_s5feng_weapon_attack1"
+                        }
+                    ],
+                    "transitions": [
+                        {
+                            "fp_weapon_idle": "variable.is_first_person && query.mod.fp_weapon && query.mod.fp_weapon_idle"
+                        },
+                        {
+                            "fp_weapon_enter": "variable.is_first_person &&query.mod.fp_weapon && query.mod.fp_weapon_enter"
+                        },
+                        {
+                            "fp_weapon_inspect": "variable.is_first_person && query.mod.fp_weapon && query.mod.fp_weapon_inspect"
+                        },
+                        {
+                            "fp_weapon_attack2": "variable.is_first_person && query.mod.fp_weapon &&query.mod.fp_weapon_attack2"
+                        },
+                        {
+                            "fp_weapon_attack3": "variable.is_first_person && query.mod.fp_weapon &&query.mod.fp_weapon_attack3"
+                        },
+                        {
+                            "first_person": "variable.is_first_person && !query.mod.fp_weapon && !query.mod.is_editor_custom_model"
+                        },
+                        {
+                            "third_person": "!variable.is_first_person && !query.mod.is_editor_custom_model"
+                        }
+                    ]
+                },
+                "fp_weapon_attack2": {
+                    "animations": [
+                        {
+                            "move.cs_s5Feng_weapon_attack2": "query.mod.cs_s5feng_weapon_attack2"
+                        }
+                    ],
+                    "transitions": [
+                        {
+                            "fp_weapon_idle": "variable.is_first_person && query.mod.fp_weapon &&query.mod.fp_weapon_idle"
+                        },
+                        {
+                            "fp_weapon_enter": "variable.is_first_person && query.mod.fp_weapon &&query.mod.fp_weapon_enter"
+                        },
+                        {
+                            "fp_weapon_inspect": "variable.is_first_person && query.mod.fp_weapon &&query.mod.fp_weapon_inspect"
+                        },
+                        {
+                            "fp_weapon_attack1": "variable.is_first_person && query.mod.fp_weapon &&query.mod.fp_weapon_attack1"
+                        },
+                        {
+                            "fp_weapon_attack3": "variable.is_first_person && query.mod.fp_weapon &&query.mod.fp_weapon_attack3"
+                        },
+                        {
+                            "first_person": "variable.is_first_person && !query.mod.fp_weapon && !query.mod.is_editor_custom_model"
+                        },
+                        {
+                            "third_person": "!variable.is_first_person && !query.mod.is_editor_custom_model"
+                        }
+                    ]
+                },
+                "fp_weapon_attack3": {
+                    "animations": [
+                        {
+                            "move.cs_s5Feng_weapon_attack3": "query.mod.cs_s5feng_weapon_attack3"
+                        }
+                    ],
+                    "transitions": [
+                        {
+                            "fp_weapon_idle": "variable.is_first_person && query.mod.fp_weapon &&query.mod.fp_weapon_idle"
+                        },
+                        {
+                            "fp_weapon_enter": "variable.is_first_person && query.mod.fp_weapon &&query.mod.fp_weapon_enter"
+                        },
+                        {
+                            "fp_weapon_inspect": "variable.is_first_person && query.mod.fp_weapon &&query.mod.fp_weapon_inspect"
+                        },
+                        {
+                            "fp_weapon_attack1": "variable.is_first_person && query.mod.fp_weapon &&query.mod.fp_weapon_attack1"
+                        },
+                        {
+                            "fp_weapon_attack2": "variable.is_first_person && query.mod.fp_weapon &&query.mod.fp_weapon_attack2"
+                        },
+                        {
+                            "first_person": "variable.is_first_person && !query.mod.fp_weapon && !query.mod.is_editor_custom_model"
+                        },
+                        {
+                            "third_person": "!variable.is_first_person && !query.mod.is_editor_custom_model"
+                        }
+                    ]
+                },
+                "fp_weapon_inspect": {
+                    "animations": [
+                        {
+                            "move.cs_s5Feng_weapon_view": "query.mod.cs_s5feng_weapon_view"
+                        }
+                    ],
+                    "transitions": [
+                        {
+                            "fp_weapon_idle": "variable.is_first_person && query.mod.fp_weapon &&query.mod.fp_weapon_idle"
+                        },
+                        {
+                            "fp_weapon_enter": "variable.is_first_person && query.mod.fp_weapon &&query.mod.fp_weapon_enter"
+                        },
+                        {
+                            "fp_weapon_attack1": "variable.is_first_person && query.mod.fp_weapon &&query.mod.fp_weapon_attack1"
+                        },
+                        {
+                            "fp_weapon_attack2": "variable.is_first_person && query.mod.fp_weapon &&query.mod.fp_weapon_attack2"
+                        },
+                        {
+                            "fp_weapon_attack3": "variable.is_first_person && query.mod.fp_weapon &&query.mod.fp_weapon_attack3"
+                        },
+                        {
+                            "first_person": "variable.is_first_person && !query.mod.fp_weapon && !query.mod.is_editor_custom_model"
+                        },
+                        {
+                            "third_person": "!variable.is_first_person && !query.mod.is_editor_custom_model"
+                        }
+                    ]
+                }
+            }
+        },
+        "controller.animation.player.entry": {
+            "states": {
+                "default": {
+                    "transitions": [
+                        {
+                            "entry": "query.mod.entry"
+                        }
+                    ]
+                },
+                "entry": {
+                    "animations": [
+                        "custom_entry"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "!query.mod.entry"
+                        }
+                    ]
+                }
+            }
+        },
+        "controller.animation.player.exit": {
+            "states": {
+                "default": {
+                    "transitions": [
+                        {
+                            "entry": "query.mod.exit"
+                        }
+                    ]
+                },
+                "entry": {
+                    "animations": [
+                        "custom_exit"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "!query.mod.exit"
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}

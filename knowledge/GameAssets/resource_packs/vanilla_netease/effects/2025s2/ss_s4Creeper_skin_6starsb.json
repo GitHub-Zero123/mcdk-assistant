@@ -1,0 +1,90 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "0.8039 1.0000 0.7686 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.6353 1.0000 0.7216 1.0000",
+                "time": "20.0%"
+            },
+            {
+                "color": "0.9020 0.5373 1.0000 0.7857",
+                "time": "76.3%"
+            },
+            {
+                "color": "0.8118 0.5961 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "0.5 0.5 1.0",
+            "min": "-0.5 -0.5 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "5.0",
+            "min": "2.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.3 0.5 0.3"
+        },
+        "emittertype": {
+            "value": "Cylinder"
+        },
+        "layer": 2,
+        "numparticles": {
+            "value": "3"
+        },
+        "offsetInCamera": {
+            "value": "-0.2"
+        },
+        "particlesize": {
+            "max": "0.07 0.07",
+            "min": "0.04 0.04"
+        },
+        "pointFiltering": true,
+        "prewarm": true,
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 666.0",
+            "min": "0.0 0.0 -666.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.4 0.4",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.7 1.7",
+                "time": "20.0%"
+            },
+            {
+                "scale": "0.45 0.45",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s2/ss_s4Creeper_skin_6star02"
+        },
+        "thickness": {
+            "value": "0.05"
+        },
+        "timetolive": {
+            "max": "1.0",
+            "min": "0.6"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

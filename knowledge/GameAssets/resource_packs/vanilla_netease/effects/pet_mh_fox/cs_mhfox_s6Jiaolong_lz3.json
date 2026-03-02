@@ -1,0 +1,94 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "0.6314 0.7804 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.6745 0.9255 1.0000 1.0000",
+                "time": "81.6%"
+            },
+            {
+                "color": "0.5961 1.0000 0.9529 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "0.0 -0.10000000000000003 0.0",
+            "min": "-0.10000000000000003 -0.2 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "3.0",
+            "min": "5.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.15 0.35 0.15"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "layer": 4,
+        "numparticles": {
+            "value": "5"
+        },
+        "particlesize": {
+            "max": "0.07 0.07",
+            "min": "0.1 0.1"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "rotationSpeedRange": {
+            "max": "0.0 0.0 60.0",
+            "min": "0.0 0.0 0.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.36 0.36",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.52 0.52",
+                "time": "34.7%"
+            },
+            {
+                "scale": "0.3 0.3",
+                "time": "71.0%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "1",
+                "name": "textures/sfxs/pet_mh_fox/cs_mhfox_s6Jiaolong_sj",
+                "shuffle": true
+            },
+            "name": "textures/sfxs/pet_mh_fox/cs_mhfox_s6Jiaolong_sj"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "1.0",
+            "min": "0.5"
+        },
+        "velocity": {
+            "max": "0.2",
+            "min": "0.1"
+        }
+    }
+}

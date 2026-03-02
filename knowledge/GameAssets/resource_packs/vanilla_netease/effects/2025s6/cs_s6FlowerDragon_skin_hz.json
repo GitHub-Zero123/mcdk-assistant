@@ -1,0 +1,79 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "2.0"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "18.7%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "68.2%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "delay": 3.6,
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "8.0",
+            "min": "6.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "3.0 3.0 0.0"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Horizontal"
+        },
+        "layer": 2,
+        "numparticles": {
+            "value": "8"
+        },
+        "particlesize": {
+            "max": "0.2 0.2",
+            "min": "0.1 0.1"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 0.0 360.0"
+        },
+        "texture": {
+            "name": "textures/sfxs/2025s6/cs_s6FlowerDragon_skin_hual"
+        },
+        "thickness": {
+            "value": "0.5"
+        },
+        "timetolive": {
+            "max": "4.5",
+            "min": "4.0"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

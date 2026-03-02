@@ -1,0 +1,51 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "dampingforce": {
+            "value": "0.05"
+        },
+        "direction": {
+            "max": "0.0 1.0 0.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "3000.0",
+            "min": "3000.0"
+        },
+        "faceCameraMode": {
+            "value": "Direction"
+        },
+        "independent": true,
+        "numparticles": {
+            "value": "1"
+        },
+        "particlesize": {
+            "max": "0.15 0.15",
+            "min": "0.15 0.15"
+        },
+        "pointFiltering": true,
+        "prewarm": true,
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "ani": {
+                "fps": "12",
+                "name": "textures/sfxs/2025s5/ss_s5Tidal_armorA_ks",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s5/ss_s5Tidal_armorA_ks"
+        },
+        "timetolive": {
+            "max": "2.0",
+            "min": "1.5"
+        },
+        "velocity": {
+            "max": "0.1",
+            "min": "0.1"
+        }
+    }
+}

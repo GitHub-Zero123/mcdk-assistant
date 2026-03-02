@@ -1,0 +1,59 @@
+{
+    "particleeffect": {
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.3661",
+                "time": "1.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.3839",
+                "time": "99.5%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "enableloop": {
+            "enable": "true"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "layer": 0,
+        "numparticles": {
+            "value": "1"
+        },
+        "offsetInCamera": {
+            "value": "0.25"
+        },
+        "particlesize": {
+            "max": "1.2 1.8",
+            "min": "1.2 1.8"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "ani": {
+                "fps": "16",
+                "name": "textures/sfxs/pet_squid/cs_squid_s6Yaksha_bjgh",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/pet_squid/cs_squid_s6Yaksha_bjgh"
+        },
+        "timetolive": {
+            "max": "10.0",
+            "min": "10.0"
+        }
+    }
+}

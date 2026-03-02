@@ -1,0 +1,71 @@
+{
+    "particleeffect": {
+        "colorfade": [
+            {
+                "color": "0.9725 1.0000 0.3843 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.7020 0.3843 0.3059 1.0000",
+                "time": "51.8%"
+            },
+            {
+                "color": "0.2157 0.0667 0.0667 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "dampingforce": {
+            "value": "0.4"
+        },
+        "direction": {
+            "max": "-0.1 0.0 0.0",
+            "min": "0.1 0.1 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "50.0",
+            "min": "50.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.15 0.15 0.15"
+        },
+        "emittertype": {
+            "value": "Cone"
+        },
+        "faceCameraMode": {
+            "value": "Direction"
+        },
+        "layer": 3,
+        "numparticles": {
+            "value": "6"
+        },
+        "particlesize": {
+            "max": "0.02 0.02",
+            "min": "0.03 0.03"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 90.0",
+            "min": "0.0 0.0 90.0"
+        },
+        "texture": {
+            "name": "textures/sfxs/2025s5/ss_s5Fire_weaponB_lizi2"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.5",
+            "min": "0.3"
+        },
+        "velocity": {
+            "max": "0.4",
+            "min": "0.5"
+        }
+    }
+}

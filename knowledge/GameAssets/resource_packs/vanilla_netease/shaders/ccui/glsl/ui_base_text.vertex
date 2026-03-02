@@ -1,0 +1,46 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+
+#define MCPE_NETEASE
+
+#include "vertexVersionCentroid.h"
+#include "uniformWorldConstants.h"
+#include "uniformUITransformsConstants.h"
+
+#ifdef ENABLE_FULL_PRECISION_POSITION
+attribute POS3 POSITION;
+#else
+attribute POS4 POSITION;
+#endif
+
+attribute vec4 COLOR;
+attribute vec2 TEXCOORD_0;
+
+varying vec4 color;
+varying vec2 uv;
+
+#ifdef ENABLE_TEXT_COLOR_GRADIENT
+varying vec2 colorInterpolation;
+#endif
+
+void main()
+{
+#ifdef ENABLE_FULL_PRECISION_POSITION
+	gl_Position = WORLDVIEWPROJ * vec4(POSITION.xyz, 1.0);
+#else
+	gl_Position = WORLDVIEWPROJ * POSITION;
+#endif
+
+	vec2 temp = gl_Position.xy - TRANSFORM[0].xy;
+#ifdef ENABLE_TEXT_COLOR_GRADIENT
+	colorInterpolation = vec2(
+		TRANSFORM[0][2] * abs(temp.x) * TRANSFORM[2].z,
+		TRANSFORM[0][3] * abs(temp.y) * TRANSFORM[2].w
+	);
+#endif
+	gl_Position.xy = TRANSFORM[0].xy + TRANSFORM[0][2] * TRANSFORM[1].xy * temp.x + TRANSFORM[0][3] * TRANSFORM[1].zw * temp.y;
+
+	color = COLOR;
+
+	uv = TEXCOORD_0;
+}

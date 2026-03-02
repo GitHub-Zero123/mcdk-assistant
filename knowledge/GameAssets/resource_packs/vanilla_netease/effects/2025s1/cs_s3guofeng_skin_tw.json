@@ -1,0 +1,76 @@
+{
+    "particleeffect": {
+        "colorfade": [
+            {
+                "color": "0.0000 0.0157 0.0275 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.0000 0.0471 0.0706 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "10.0",
+            "min": "12.0"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "particlesize": {
+            "max": "0.2 0.2",
+            "min": "0.2 0.2"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "name": "textures/particle/2025s1/cs_s3guofeng_skin_lizitw_00001"
+        },
+        "trail": {
+            "colorfade": [
+                {
+                    "color": "1.0 1.0 1.0 0.5535714285714286",
+                    "time": "0.000%"
+                },
+                {
+                    "color": "1.0 1.0 1.0 0.25",
+                    "time": "19.474%"
+                },
+                {
+                    "color": "1.0 1.0 1.0 0.0",
+                    "time": "100.000%"
+                }
+            ],
+            "facemode": 0,
+            "lifetime": 0.5,
+            "maxnum": 200,
+            "mindistance": 0.01,
+            "texmode": 0,
+            "textile": "0.5 0.5",
+            "useparticlecolor": false,
+            "useparticlewidth": true,
+            "widthfade": [
+                {
+                    "time": "0.0%",
+                    "value": "2.04"
+                },
+                {
+                    "time": "100.0%",
+                    "value": "0.42000000000000004"
+                }
+            ],
+            "worldspace": true
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

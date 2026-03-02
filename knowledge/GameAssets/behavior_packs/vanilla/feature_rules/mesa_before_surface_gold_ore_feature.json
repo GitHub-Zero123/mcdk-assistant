@@ -1,0 +1,25 @@
+{
+    "format_version": "1.13.0",
+    "minecraft:feature_rules": {
+        "description": {
+            "identifier": "minecraft:mesa_before_surface_gold_ore_feature",
+            "places_feature": "minecraft:fixup_mesa_gold_position_feature"
+        },
+        "conditions": {
+            "placement_pass": "before_surface_pass",
+            "minecraft:biome_filter": [
+                {
+                    "test": "has_biome_tag",
+                    "operator": "==",
+                    "value": "mesa"
+                }
+            ]
+        },
+        "distribution": {
+            "iterations": 0,
+            "x": 0,
+            "y": 0,
+            "z": 0
+        }
+    }
+}

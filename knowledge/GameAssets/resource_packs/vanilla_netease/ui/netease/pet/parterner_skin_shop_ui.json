@@ -1,0 +1,1574 @@
+{
+    "main": {
+        "controls": [
+            {
+                "unlock_main_panel": {
+                    "controls": [
+                        {
+                            "left_background@common.common_panel": {
+                                "$show_close_button": false,
+                                "controls": [
+                                    {
+                                        "bg_image@$dialog_background": {
+                                            "layer": 1
+                                        }
+                                    }
+                                ],
+                                "layer": 2
+                            }
+                        },
+                        {
+                            "title_panel": {
+                                "anchor_from": "top_middle",
+                                "anchor_to": "top_middle",
+                                "controls": [
+                                    {
+                                        "title_label": {
+                                            "anchor_from": "bottom_middle",
+                                            "anchor_to": "bottom_middle",
+                                            "color": [
+                                                0.2588235294117647,
+                                                0.2588235294117647,
+                                                0.2588235294117647
+                                            ],
+                                            "font_type": "default",
+                                            "layer": 1,
+                                            "max_size": [
+                                                "100.0%+0.0px",
+                                                "default"
+                                            ],
+                                            "offset": [
+                                                0.0,
+                                                "-27.3%+0.0px"
+                                            ],
+                                            "size": [
+                                                "default",
+                                                9
+                                            ],
+                                            "text": "解锁小鱿仔",
+                                            "text_alignment": "center",
+                                            "type": "label"
+                                        }
+                                    }
+                                ],
+                                "layer": 4,
+                                "offset": [
+                                    0.0,
+                                    "1.0%+0.0px"
+                                ],
+                                "size": [
+                                    "100.0%+0.0px",
+                                    "11.08%+0.0px"
+                                ],
+                                "type": "panel"
+                            }
+                        },
+                        {
+                            "content_panel": {
+                                "anchor_from": "top_middle",
+                                "anchor_to": "top_middle",
+                                "controls": [
+                                    {
+                                        "display_panel": {
+                                            "anchor_from": "left_middle",
+                                            "anchor_to": "left_middle",
+                                            "controls": [
+                                                {
+                                                    "background": {
+                                                        "clip_direction": "left",
+                                                        "clip_ratio": 0.0,
+                                                        "color": [
+                                                            0.2627450980392157,
+                                                            0.2627450980392157,
+                                                            0.2627450980392157
+                                                        ],
+                                                        "fill": true,
+                                                        "layer": 1,
+                                                        "size": [
+                                                            "100.0%+0.0px",
+                                                            "100.0%+0.0px"
+                                                        ],
+                                                        "texture": "textures/ui/pet/parterner/panel05_3x",
+                                                        "type": "image"
+                                                    }
+                                                },
+                                                {
+                                                    "paper_doll_panel": {
+                                                        "anchor_from": "top_left",
+                                                        "anchor_to": "top_left",
+                                                        "controls": [
+                                                            {
+                                                                "paper_doll": {
+                                                                    "$paper_doll_offset|default": [
+                                                                        0,
+                                                                        -70
+                                                                    ],
+                                                                    "$paper_doll_scale_default|default": 2.0,
+                                                                    "animation": "idle_stand",
+                                                                    "camera_tilt_degrees": -15,
+                                                                    "layer": 1,
+                                                                    "modelname": "ty_yuanshenghuli_0_0",
+                                                                    "modelsize": "$paper_doll_scale_default",
+                                                                    "offset": "$paper_doll_offset",
+                                                                    "renderer": "paper_doll_renderer",
+                                                                    "rotation": "gesture_x",
+                                                                    "starting_rotation": 30,
+                                                                    "size": [
+                                                                        "100.0%+0.0px",
+                                                                        "100.0%+0.0px"
+                                                                    ],
+                                                                    "type": "custom"
+                                                                }
+                                                            }
+                                                        ],
+                                                        "layer": 3,
+                                                        "offset": [
+                                                            "22.87%+0.0px",
+                                                            "23.73%+0.0px"
+                                                        ],
+                                                        "size": [
+                                                            "58.3%+0.0px",
+                                                            "50.8%+0.0px"
+                                                        ],
+                                                        "type": "panel"
+                                                    }
+                                                },
+                                                {
+                                                    "display_name_panel": {
+                                                        "anchor_from": "top_left",
+                                                        "anchor_to": "top_left",
+                                                        "controls": [
+                                                            {
+                                                                "name_label": {
+                                                                    "font_type": "default",
+                                                                    "size": [
+                                                                        "default",
+                                                                        "100.0%+2.0px"
+                                                                    ],
+                                                                    "text": "小鱿仔",
+                                                                    "text_alignment": "center",
+                                                                    "type": "label"
+                                                                }
+                                                            }
+                                                        ],
+                                                        "layer": 3,
+                                                        "offset": [
+                                                            "42.0%+0.0px",
+                                                            "84.0%+0.0px"
+                                                        ],
+                                                        "size": [
+                                                            "19.0%+0.0px",
+                                                            "5.0%+0.0px"
+                                                        ],
+                                                        "type": "panel"
+                                                    }
+                                                }
+                                            ],
+                                            "layer": 1,
+                                            "size": [
+                                                "38.18%+0.0px",
+                                                "100.0%+0.0px"
+                                            ],
+                                            "type": "panel"
+                                        }
+                                    },
+                                    {
+                                        "info_panel": {
+                                            "anchor_from": "right_middle",
+                                            "anchor_to": "right_middle",
+                                            "controls": [
+                                                {
+                                                    "background": {
+                                                        "clip_direction": "left",
+                                                        "clip_ratio": 0.0,
+                                                        "fill": true,
+                                                        "layer": 1,
+                                                        "size": [
+                                                            "100.0%+0.0px",
+                                                            "100.0%+0.0px"
+                                                        ],
+                                                        "texture": "textures/ui/pet/parterner/panel05_3x",
+                                                        "type": "image"
+                                                    }
+                                                },
+                                                {
+                                                    "buy_tip_panel": {
+                                                        "anchor_from": "top_middle",
+                                                        "anchor_to": "top_middle",
+                                                        "controls": [
+                                                            {
+                                                                "label": {
+                                                                    "color": [
+                                                                        1.0,
+                                                                        1.0,
+                                                                        1.0
+                                                                    ],
+                                                                    "font_type": "default",
+                                                                    "size": [
+                                                                        "default",
+                                                                        "100.0%+1.0px"
+                                                                    ],
+                                                                    "text": "要消耗以下货币解锁§2小鱿仔§f吗？",
+                                                                    "text_alignment": "center",
+                                                                    "type": "label"
+                                                                }
+                                                            }
+                                                        ],
+                                                        "layer": 2,
+                                                        "offset": [
+                                                            0.0,
+                                                            "8.87%+0.0px"
+                                                        ],
+                                                        "size": [
+                                                            100,
+                                                            "5.1%+0.0px"
+                                                        ],
+                                                        "type": "panel"
+                                                    }
+                                                },
+                                                {
+                                                    "money_info_panel": {
+                                                        "anchor_from": "top_middle",
+                                                        "anchor_to": "top_middle",
+                                                        "controls": [
+                                                            {
+                                                                "no_enough_tip_image": {
+                                                                    "anchor_from": "bottom_middle",
+                                                                    "anchor_to": "bottom_middle",
+                                                                    "clip_direction": "left",
+                                                                    "clip_ratio": 0.0,
+                                                                    "controls": [
+                                                                        {
+                                                                            "tip_label": {
+                                                                                "font_type": "default",
+                                                                                "layer": 10,
+                                                                                "text": "余额不足，是否前往充值？",
+                                                                                "text_alignment": "center",
+                                                                                "type": "label"
+                                                                            }
+                                                                        }
+                                                                    ],
+                                                                    "fill": true,
+                                                                    "layer": 2,
+                                                                    "offset": [
+                                                                        0,
+                                                                        -1.0
+                                                                    ],
+                                                                    "size": [
+                                                                        "100.0%+-2.0px",
+                                                                        "22.6%+0.0px"
+                                                                    ],
+                                                                    "texture": "textures/ui/pet/parterner/panel11_2x",
+                                                                    "type": "image",
+                                                                    "visible": false
+                                                                }
+                                                            },
+                                                            {
+                                                                "cost_panel": {
+                                                                    "anchor_from": "bottom_middle",
+                                                                    "anchor_to": "bottom_middle",
+                                                                    "controls": [
+                                                                        {
+                                                                            "label": {
+                                                                                "anchor_from": "bottom_left",
+                                                                                "anchor_to": "bottom_left",
+                                                                                "color": [
+                                                                                    1.0,
+                                                                                    1.0,
+                                                                                    0.3333333333333333
+                                                                                ],
+                                                                                "font_type": "default",
+                                                                                "text": "消耗：",
+                                                                                "text_alignment": "center",
+                                                                                "type": "label"
+                                                                            }
+                                                                        },
+                                                                        {
+                                                                            "money_label": {
+                                                                                "anchor_from": "bottom_right",
+                                                                                "anchor_to": "bottom_right",
+                                                                                "color": [
+                                                                                    1.0,
+                                                                                    1.0,
+                                                                                    0.3333333333333333
+                                                                                ],
+                                                                                "font_type": "default",
+                                                                                "offset": [
+                                                                                    "-9.0%+0.0px",
+                                                                                    0.0
+                                                                                ],
+                                                                                "text": "-1000",
+                                                                                "text_alignment": "center",
+                                                                                "type": "label"
+                                                                            }
+                                                                        },
+                                                                        {
+                                                                            "image": {
+                                                                                "anchor_from": "bottom_right",
+                                                                                "anchor_to": "bottom_right",
+                                                                                "clip_direction": "left",
+                                                                                "clip_ratio": 0.0,
+                                                                                "layer": 1,
+                                                                                "size": [
+                                                                                    "100.0%y+0.0px",
+                                                                                    "100.0%sm+0.0px"
+                                                                                ],
+                                                                                "texture": "textures/ui/pet/parterner/icon69_2x",
+                                                                                "type": "image"
+                                                                            }
+                                                                        }
+                                                                    ],
+                                                                    "layer": 3,
+                                                                    "offset": [
+                                                                        0.0,
+                                                                        "-74.5%+0.0px"
+                                                                    ],
+                                                                    "size": [
+                                                                        "82.18%+0.0px",
+                                                                        "9.27%+0.0px"
+                                                                    ],
+                                                                    "type": "panel"
+                                                                }
+                                                            },
+                                                            {
+                                                                "segment_img": {
+                                                                    "anchor_from": "bottom_middle",
+                                                                    "anchor_to": "bottom_middle",
+                                                                    "clip_direction": "left",
+                                                                    "clip_ratio": 0.0,
+                                                                    "color": [
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0
+                                                                    ],
+                                                                    "fill": true,
+                                                                    "layer": 3,
+                                                                    "offset": [
+                                                                        0.0,
+                                                                        "-65.2%+0.0px"
+                                                                    ],
+                                                                    "size": [
+                                                                        "89.9%+0.0px",
+                                                                        0.5
+                                                                    ],
+                                                                    "texture": "textures/netease/common/image/default",
+                                                                    "type": "image"
+                                                                }
+                                                            },
+                                                            {
+                                                                "remainder_panel": {
+                                                                    "anchor_from": "bottom_middle",
+                                                                    "anchor_to": "bottom_middle",
+                                                                    "controls": [
+                                                                        {
+                                                                            "label": {
+                                                                                "anchor_from": "bottom_left",
+                                                                                "anchor_to": "bottom_left",
+                                                                                "color": [
+                                                                                    1.0,
+                                                                                    1.0,
+                                                                                    1.0
+                                                                                ],
+                                                                                "font_type": "default",
+                                                                                "text": "余额：",
+                                                                                "text_alignment": "center",
+                                                                                "type": "label"
+                                                                            }
+                                                                        },
+                                                                        {
+                                                                            "money_label": {
+                                                                                "anchor_from": "bottom_right",
+                                                                                "anchor_to": "bottom_right",
+                                                                                "color": [
+                                                                                    1.0,
+                                                                                    1.0,
+                                                                                    1.0
+                                                                                ],
+                                                                                "font_type": "default",
+                                                                                "offset": [
+                                                                                    "-9.0%+0.0px",
+                                                                                    0.0
+                                                                                ],
+                                                                                "text": "9999",
+                                                                                "text_alignment": "center",
+                                                                                "type": "label"
+                                                                            }
+                                                                        },
+                                                                        {
+                                                                            "image": {
+                                                                                "anchor_from": "bottom_right",
+                                                                                "anchor_to": "bottom_right",
+                                                                                "clip_direction": "left",
+                                                                                "clip_ratio": 0.0,
+                                                                                "layer": 1,
+                                                                                "nineslice_size": [
+                                                                                    0.0,
+                                                                                    0.0,
+                                                                                    0.0,
+                                                                                    0.0
+                                                                                ],
+                                                                                "size": [
+                                                                                    "100.0%y+0.0px",
+                                                                                    "100.0%sm+0.0px"
+                                                                                ],
+                                                                                "texture": "textures/ui/pet/parterner/icon69_2x",
+                                                                                "type": "image"
+                                                                            }
+                                                                        }
+                                                                    ],
+                                                                    "layer": 3,
+                                                                    "offset": [
+                                                                        0.0,
+                                                                        "-44.35%+0.0px"
+                                                                    ],
+                                                                    "size": [
+                                                                        "82.18%+0.0px",
+                                                                        "9.27%+0.0px"
+                                                                    ],
+                                                                    "type": "panel"
+                                                                }
+                                                            },
+                                                            {
+                                                                "background": {
+                                                                    "clip_direction": "left",
+                                                                    "clip_ratio": 0.0,
+                                                                    "layer": 1,
+                                                                    "nineslice_size": [
+                                                                        2.0,
+                                                                        2.0,
+                                                                        2.0,
+                                                                        2.0
+                                                                    ],
+                                                                    "size": [
+                                                                        "100.0%+0.0px",
+                                                                        "100.0%+0.0px"
+                                                                    ],
+                                                                    "texture": "textures/ui/pet/parterner/panel06",
+                                                                    "type": "image"
+                                                                }
+                                                            }
+                                                        ],
+                                                        "layer": 2,
+                                                        "offset": [
+                                                            0.0,
+                                                            "19.0%+0.0px"
+                                                        ],
+                                                        "size": [
+                                                            "93.0%+0.0px",
+                                                            "54.59%+0.0px"
+                                                        ],
+                                                        "type": "panel"
+                                                    }
+                                                },
+                                                {
+                                                    "btn_stack_panel": {
+                                                        "anchor_from": "bottom_middle",
+                                                        "anchor_to": "bottom_middle",
+                                                        "controls": [
+                                                            {
+                                                                "repeat_think_btn@common.button": {
+                                                                    "$control_alpha": 1.0,
+                                                                    "$default_texture": "textures/ui/btn_light_default",
+                                                                    "$hover_texture": "textures/ui/btn_hover",
+                                                                    "$is_new_nine_slice": false,
+                                                                    "$label_color": [
+                                                                        0.2588235294117647,
+                                                                        0.2588235294117647,
+                                                                        0.2588235294117647
+                                                                    ],
+                                                                    "$label_font_scale_factor": 1.0,
+                                                                    "$label_font_size": "normal",
+                                                                    "$label_layer": 3,
+                                                                    "$label_offset": [
+                                                                        0,
+                                                                        0
+                                                                    ],
+                                                                    "$label_text": "再想想",
+                                                                    "$nine_slice_buttom": 0,
+                                                                    "$nine_slice_left": 0,
+                                                                    "$nine_slice_right": 0,
+                                                                    "$nine_slice_top": 0,
+                                                                    "$nineslice_size": [
+                                                                        2.0,
+                                                                        2.0,
+                                                                        2.0,
+                                                                        2.0
+                                                                    ],
+                                                                    "$pressed_button_name": "%netease_editor_template_namespace.click",
+                                                                    "$pressed_texture": "textures/ui/btn_pressed",
+                                                                    "$texture_layer": 2,
+                                                                    "anchor_from": "left_middle",
+                                                                    "anchor_to": "left_middle",
+                                                                    "bindings": [
+                                                                        {
+                                                                            "binding_collection_name": "",
+                                                                            "binding_condition": "always_when_visible",
+                                                                            "binding_type": "collection_details"
+                                                                        }
+                                                                    ],
+                                                                    "button_mappings": [],
+                                                                    "controls": [
+                                                                        {
+                                                                            "default@netease_editor_template_namespace.default": {}
+                                                                        },
+                                                                        {
+                                                                            "hover@netease_editor_template_namespace.hover": {}
+                                                                        },
+                                                                        {
+                                                                            "pressed@netease_editor_template_namespace.pressed": {}
+                                                                        },
+                                                                        {
+                                                                            "button_label@netease_editor_template_namespace.button_label": {}
+                                                                        }
+                                                                    ],
+                                                                    "default_control": "default",
+                                                                    "hover_control": "hover",
+                                                                    "is_handle_button_move_event": true,
+                                                                    "layer": 2,
+                                                                    "pressed_control": "pressed",
+                                                                    "size": [
+                                                                        "31.0%+0.0px",
+                                                                        "100.0%+0.0px"
+                                                                    ],
+                                                                    "type": "button"
+                                                                }
+                                                            },
+                                                            {
+                                                                "empty_panel": {
+                                                                    "size": [
+                                                                        "1.39%+0.0px",
+                                                                        "100.0%+0.0px"
+                                                                    ],
+                                                                    "type": "panel"
+                                                                }
+                                                            },
+                                                            {
+                                                                "confirm_buy_btn@common.button": {
+                                                                    "$control_alpha": 1.0,
+                                                                    "$default_texture": "textures/ui/pet/parterner/btn12_3x",
+                                                                    "$hover_texture": "textures/ui/pet/parterner/btn12_3x",
+                                                                    "$is_new_nine_slice": false,
+                                                                    "$label_color": [
+                                                                        0.4980392156862745,
+                                                                        0.1803921568627451,
+                                                                        0.06666666666666667
+                                                                    ],
+                                                                    "$label_font_scale_factor": 1.3,
+                                                                    "$label_font_size": "normal",
+                                                                    "$label_layer": 3,
+                                                                    "$label_offset": [
+                                                                        0,
+                                                                        0
+                                                                    ],
+                                                                    "$label_text": "确认购买",
+                                                                    "$nine_slice_buttom": 0,
+                                                                    "$nine_slice_left": 0,
+                                                                    "$nine_slice_right": 0,
+                                                                    "$nine_slice_top": 0,
+                                                                    "$nineslice_size": [
+                                                                        2.0,
+                                                                        2.0,
+                                                                        2.0,
+                                                                        2.0
+                                                                    ],
+                                                                    "$pressed_button_name": "%netease_editor_template_namespace.click",
+                                                                    "$pressed_texture": "textures/ui/pet/parterner/btn12_click_3x",
+                                                                    "$texture_layer": 2,
+                                                                    "bindings": [
+                                                                        {
+                                                                            "binding_collection_name": "",
+                                                                            "binding_condition": "always_when_visible",
+                                                                            "binding_type": "collection_details"
+                                                                        }
+                                                                    ],
+                                                                    "button_mappings": [],
+                                                                    "controls": [
+                                                                        {
+                                                                            "default@netease_editor_template_namespace.default": {}
+                                                                        },
+                                                                        {
+                                                                            "hover@netease_editor_template_namespace.hover": {}
+                                                                        },
+                                                                        {
+                                                                            "pressed@netease_editor_template_namespace.pressed": {}
+                                                                        },
+                                                                        {
+                                                                            "button_label@netease_editor_template_namespace.button_label": {
+                                                                                "visible": false
+                                                                            }
+                                                                        },
+                                                                        {
+                                                                            "label": {
+                                                                                "color": [
+                                                                                    0.4980392156862745,
+                                                                                    0.1803921568627451,
+                                                                                    0.06666666666666667
+                                                                                ],
+                                                                                "font_scale_factor": 1.2,
+                                                                                "font_type": "rune",
+                                                                                "layer": 3,
+                                                                                "text": "确认购买",
+                                                                                "text_alignment": "center",
+                                                                                "type": "label"
+                                                                            }
+                                                                        }
+                                                                    ],
+                                                                    "default_control": "default",
+                                                                    "hover_control": "hover",
+                                                                    "is_handle_button_move_event": true,
+                                                                    "layer": 2,
+                                                                    "pressed_control": "pressed",
+                                                                    "size": [
+                                                                        "67.61%+0.0px",
+                                                                        "100.0%+0.0px"
+                                                                    ],
+                                                                    "type": "button"
+                                                                }
+                                                            },
+                                                            {
+                                                                "charge_btn@common.button": {
+                                                                    "$control_alpha": 1.0,
+                                                                    "$default_texture": "textures/ui/pet/parterner/btn13_3x",
+                                                                    "$hover_texture": "textures/ui/pet/parterner/btn13_3x",
+                                                                    "$is_new_nine_slice": false,
+                                                                    "$label_color": [
+                                                                        0.4980392156862745,
+                                                                        0.1803921568627451,
+                                                                        0.06666666666666667
+                                                                    ],
+                                                                    "$label_font_scale_factor": 1.3,
+                                                                    "$label_font_size": "normal",
+                                                                    "$label_layer": 3,
+                                                                    "$label_offset": [
+                                                                        0,
+                                                                        0
+                                                                    ],
+                                                                    "$label_text": "确认购买",
+                                                                    "$nine_slice_buttom": 0,
+                                                                    "$nine_slice_left": 0,
+                                                                    "$nine_slice_right": 0,
+                                                                    "$nine_slice_top": 0,
+                                                                    "$nineslice_size": [
+                                                                        2.0,
+                                                                        2.0,
+                                                                        2.0,
+                                                                        2.0
+                                                                    ],
+                                                                    "$pressed_button_name": "%netease_editor_template_namespace.click",
+                                                                    "$pressed_texture": "textures/ui/pet/parterner/btn13_click_3x",
+                                                                    "$texture_layer": 2,
+                                                                    "bindings": [
+                                                                        {
+                                                                            "binding_collection_name": "",
+                                                                            "binding_condition": "always_when_visible",
+                                                                            "binding_type": "collection_details"
+                                                                        }
+                                                                    ],
+                                                                    "button_mappings": [],
+                                                                    "controls": [
+                                                                        {
+                                                                            "default@netease_editor_template_namespace.default": {}
+                                                                        },
+                                                                        {
+                                                                            "hover@netease_editor_template_namespace.hover": {}
+                                                                        },
+                                                                        {
+                                                                            "pressed@netease_editor_template_namespace.pressed": {}
+                                                                        },
+                                                                        {
+                                                                            "button_label@netease_editor_template_namespace.button_label": {
+                                                                                "visible": false
+                                                                            }
+                                                                        },
+                                                                        {
+                                                                            "label": {
+                                                                                "color": [
+                                                                                    1.0,
+                                                                                    1.0,
+                                                                                    1.0
+                                                                                ],
+                                                                                "font_scale_factor": 1.2,
+                                                                                "font_type": "rune",
+                                                                                "layer": 3,
+                                                                                "offset": [
+                                                                                    0.0,
+                                                                                    "-12.0%+0.0px"
+                                                                                ],
+                                                                                "text": "前往充值",
+                                                                                "text_alignment": "center",
+                                                                                "type": "label"
+                                                                            }
+                                                                        },
+                                                                        {
+                                                                            "desc_label": {
+                                                                                "anchor_from": "bottom_middle",
+                                                                                "anchor_to": "bottom_middle",
+                                                                                "font_scale_factor": 1.4,
+                                                                                "font_size": "small",
+                                                                                "font_type": "default",
+                                                                                "layer": 3,
+                                                                                "offset": [
+                                                                                    0.0,
+                                                                                    "-12.0%+0.0px"
+                                                                                ],
+                                                                                "text": "点击后将前往启动器",
+                                                                                "text_alignment": "center",
+                                                                                "type": "label"
+                                                                            }
+                                                                        }
+                                                                    ],
+                                                                    "default_control": "default",
+                                                                    "hover_control": "hover",
+                                                                    "is_handle_button_move_event": true,
+                                                                    "layer": 2,
+                                                                    "pressed_control": "pressed",
+                                                                    "size": [
+                                                                        "67.61%+0.0px",
+                                                                        "100.0%+0.0px"
+                                                                    ],
+                                                                    "type": "button",
+                                                                    "visible": false
+                                                                }
+                                                            }
+                                                        ],
+                                                        "layer": 2,
+                                                        "offset": [
+                                                            0.0,
+                                                            "-3.8%+0.0px"
+                                                        ],
+                                                        "orientation": "horizontal",
+                                                        "size": [
+                                                            "93.0%+0.0px",
+                                                            "18.99%+0.0px"
+                                                        ],
+                                                        "type": "stack_panel"
+                                                    }
+                                                }
+                                            ],
+                                            "layer": 1,
+                                            "size": [
+                                                "61.82%+0.0px",
+                                                "100.0%+0.0px"
+                                            ],
+                                            "type": "panel"
+                                        }
+                                    }
+                                ],
+                                "layer": 6,
+                                "offset": [
+                                    0.0,
+                                    "12.14%+0.0px"
+                                ],
+                                "size": [
+                                    "95.85%+0.0px",
+                                    "83.38%+0.0px"
+                                ],
+                                "type": "panel"
+                            }
+                        }
+                    ],
+                    "layer": 5,
+                    "size": [
+                        324,
+                        182
+                    ],
+                    "type": "panel"
+                }
+            },
+            {
+                "gray_background": {
+                    "alpha": 0.5,
+                    "clip_direction": "left",
+                    "clip_ratio": 0.0,
+                    "color": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "fill": true,
+                    "size": [
+                        "150.0%+0.0px",
+                        "150.0%+0.0px"
+                    ],
+                    "texture": "textures/netease/common/image/default",
+                    "type": "image"
+                }
+            },
+            {
+                "succeed_main_panel": {
+                    "controls": [
+                        {
+                            "left_background@common.common_panel": {
+                                "$show_close_button": false,
+                                "controls": [
+                                    {
+                                        "bg_image@$dialog_background": {
+                                            "layer": 1
+                                        }
+                                    }
+                                ],
+                                "layer": 2
+                            }
+                        },
+                        {
+                            "title_panel": {
+                                "anchor_from": "top_middle",
+                                "anchor_to": "top_middle",
+                                "controls": [
+                                    {
+                                        "label": {
+                                            "color": [
+                                                0.3019607843137255,
+                                                0.3019607843137255,
+                                                0.3019607843137255
+                                            ],
+                                            "font_type": "default",
+                                            "text": "解锁成功",
+                                            "text_alignment": "center",
+                                            "type": "label"
+                                        }
+                                    }
+                                ],
+                                "layer": 3,
+                                "offset": [
+                                    0.0,
+                                    "4.67%+0.0px"
+                                ],
+                                "size": [
+                                    "15.47%+0.0px",
+                                    "4.87%+0.0px"
+                                ],
+                                "type": "panel"
+                            }
+                        },
+                        {
+                            "display_panel": {
+                                "anchor_from": "top_middle",
+                                "anchor_to": "top_middle",
+                                "controls": [
+                                    {
+                                        "background": {
+                                            "clip_direction": "left",
+                                            "clip_ratio": 0.0,
+                                            "color": [
+                                                0.2627450980392157,
+                                                0.2627450980392157,
+                                                0.2627450980392157
+                                            ],
+                                            "fill": true,
+                                            "layer": 2,
+                                            "size": [
+                                                "100.0%+0.0px",
+                                                "100.0%+0.0px"
+                                            ],
+                                            "texture": "textures/ui/pet/parterner/panel05_3x",
+                                            "type": "image"
+                                        }
+                                    },
+                                    {
+                                        "name_panel": {
+                                            "anchor_from": "bottom_middle",
+                                            "anchor_to": "bottom_middle",
+                                            "controls": [
+                                                {
+                                                    "label": {
+                                                        "font_scale_factor": 1.8,
+                                                        "font_size": "small",
+                                                        "font_type": "default",
+                                                        "text": "小鱿仔",
+                                                        "text_alignment": "center",
+                                                        "type": "label"
+                                                    }
+                                                }
+                                            ],
+                                            "layer": 3,
+                                            "offset": [
+                                                0.0,
+                                                "-8.11%+0.0px"
+                                            ],
+                                            "size": [
+                                                "13.0%+0.0px",
+                                                "4.2%+0.0px"
+                                            ],
+                                            "type": "panel"
+                                        }
+                                    },
+                                    {
+                                        "paperdoll_panel": {
+                                            "anchor_from": "bottom_middle",
+                                            "anchor_to": "bottom_middle",
+                                            "controls": [
+                                                {
+                                                    "paper_doll": {
+                                                        "$paper_doll_offset|default": [
+                                                            0,
+                                                            -60
+                                                        ],
+                                                        "$paper_doll_scale_default|default": 2.0,
+                                                        "animation": "idle_stand",
+                                                        "camera_tilt_degrees": -15,
+                                                        "layer": 1,
+                                                        "modelname": "ty_yuanshenghuli_0_0",
+                                                        "modelsize": "$paper_doll_scale_default",
+                                                        "offset": "$paper_doll_offset",
+                                                        "renderer": "paper_doll_renderer",
+                                                        "rotation": "gesture_x",
+                                                        "starting_rotation": 30,
+                                                        "size": [
+                                                            "100.0%+0.0px",
+                                                            "100.0%+0.0px"
+                                                        ],
+                                                        "type": "custom"
+                                                    }
+                                                }
+                                            ],
+                                            "layer": 3,
+                                            "offset": [
+                                                0.0,
+                                                "-22.0%+0.0px"
+                                            ],
+                                            "size": [
+                                                "40.74%+0.0px",
+                                                "65.0%+0.0px"
+                                            ],
+                                            "type": "panel"
+                                        }
+                                    }
+                                ],
+                                "layer": 3,
+                                "offset": [
+                                    0.0,
+                                    "12.5%+0.0px"
+                                ],
+                                "size": [
+                                    "94.27%+0.0px",
+                                    "64.87%+0.0px"
+                                ],
+                                "type": "panel"
+                            }
+                        },
+                        {
+                            "btn_stack_panel": {
+                                "anchor_from": "bottom_middle",
+                                "anchor_to": "bottom_middle",
+                                "controls": [
+                                    {
+                                        "repeat_btn@common.button": {
+                                            "$control_alpha": 1.0,
+                                            "$default_texture": "textures/ui/btn_light_default",
+                                            "$hover_texture": "textures/ui/btn_hover",
+                                            "$is_new_nine_slice": false,
+                                            "$label_color": [
+                                                0.2588235294117647,
+                                                0.2588235294117647,
+                                                0.2588235294117647
+                                            ],
+                                            "$label_font_scale_factor": 1.0,
+                                            "$label_font_size": "normal",
+                                            "$label_layer": 3,
+                                            "$label_offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "$label_text": "再想想",
+                                            "$nine_slice_buttom": 0,
+                                            "$nine_slice_left": 0,
+                                            "$nine_slice_right": 0,
+                                            "$nine_slice_top": 0,
+                                            "$nineslice_size": [
+                                                2.0,
+                                                2.0,
+                                                2.0,
+                                                2.0
+                                            ],
+                                            "$pressed_button_name": "%netease_editor_template_namespace.click",
+                                            "$pressed_texture": "textures/ui/btn_pressed",
+                                            "$texture_layer": 2,
+                                            "anchor_from": "left_middle",
+                                            "anchor_to": "left_middle",
+                                            "bindings": [
+                                                {
+                                                    "binding_collection_name": "",
+                                                    "binding_condition": "always_when_visible",
+                                                    "binding_type": "collection_details"
+                                                }
+                                            ],
+                                            "button_mappings": [],
+                                            "controls": [
+                                                {
+                                                    "default@netease_editor_template_namespace.default": {}
+                                                },
+                                                {
+                                                    "hover@netease_editor_template_namespace.hover": {}
+                                                },
+                                                {
+                                                    "pressed@netease_editor_template_namespace.pressed": {}
+                                                },
+                                                {
+                                                    "button_label@netease_editor_template_namespace.button_label": {}
+                                                }
+                                            ],
+                                            "default_control": "default",
+                                            "hover_control": "hover",
+                                            "is_handle_button_move_event": true,
+                                            "layer": 2,
+                                            "offset": [
+                                                "2.93%+0.0px",
+                                                0.0
+                                            ],
+                                            "pressed_control": "pressed",
+                                            "size": [
+                                                "46.4%+0.0px",
+                                                "100.0%+0.0px"
+                                            ],
+                                            "type": "button"
+                                        }
+                                    },
+                                    {
+                                        "cur_use_btn@common.button": {
+                                            "$control_alpha": 1.0,
+                                            "$default_texture": "textures/ui/btn_light_default",
+                                            "$hover_texture": "textures/ui/btn_hover",
+                                            "$is_new_nine_slice": false,
+                                            "$label_color": [
+                                                0.2588235294117647,
+                                                0.2588235294117647,
+                                                0.2588235294117647
+                                            ],
+                                            "$label_font_scale_factor": 1.0,
+                                            "$label_font_size": "normal",
+                                            "$label_layer": 3,
+                                            "$label_offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "$label_text": "立即使用",
+                                            "$nine_slice_buttom": 0,
+                                            "$nine_slice_left": 0,
+                                            "$nine_slice_right": 0,
+                                            "$nine_slice_top": 0,
+                                            "$nineslice_size": [
+                                                2.0,
+                                                2.0,
+                                                2.0,
+                                                2.0
+                                            ],
+                                            "$pressed_button_name": "%netease_editor_template_namespace.click",
+                                            "$pressed_texture": "textures/ui/btn_pressed",
+                                            "$texture_layer": 2,
+                                            "anchor_from": "right_middle",
+                                            "anchor_to": "right_middle",
+                                            "bindings": [
+                                                {
+                                                    "binding_collection_name": "",
+                                                    "binding_condition": "always_when_visible",
+                                                    "binding_type": "collection_details"
+                                                }
+                                            ],
+                                            "button_mappings": [],
+                                            "controls": [
+                                                {
+                                                    "default@netease_editor_template_namespace.default": {}
+                                                },
+                                                {
+                                                    "hover@netease_editor_template_namespace.hover": {}
+                                                },
+                                                {
+                                                    "pressed@netease_editor_template_namespace.pressed": {}
+                                                },
+                                                {
+                                                    "button_label@netease_editor_template_namespace.button_label": {}
+                                                }
+                                            ],
+                                            "default_control": "default",
+                                            "hover_control": "hover",
+                                            "is_handle_button_move_event": true,
+                                            "layer": 2,
+                                            "offset": [
+                                                "-2.93%+0.0px",
+                                                0.0
+                                            ],
+                                            "pressed_control": "pressed",
+                                            "size": [
+                                                "46.4%+0.0px",
+                                                "100.0%+0.0px"
+                                            ],
+                                            "type": "button"
+                                        }
+                                    }
+                                ],
+                                "layer": 3,
+                                "offset": [
+                                    0.0,
+                                    "-4.2%+0.0px"
+                                ],
+                                "size": [
+                                    "100.0%+0.0px",
+                                    "15.79%+0.0px"
+                                ],
+                                "type": "panel"
+                            }
+                        }
+                    ],
+                    "size": [
+                        150,
+                        152
+                    ],
+                    "type": "panel",
+                    "visible": false
+                }
+            },
+            {
+                "charge_main_panel": {
+                    "controls": [
+                        {
+                            "left_background@common.common_panel": {
+                                "$show_close_button": false,
+                                "controls": [
+                                    {
+                                        "bg_image@$dialog_background": {
+                                            "layer": 1
+                                        }
+                                    }
+                                ],
+                                "layer": 2
+                            }
+                        },
+                        {
+                            "title_panel": {
+                                "anchor_from": "top_middle",
+                                "anchor_to": "top_middle",
+                                "controls": [
+                                    {
+                                        "label": {
+                                            "anchor_from": "top_middle",
+                                            "anchor_to": "top_middle",
+                                            "color": [
+                                                0.2588235294117647,
+                                                0.2588235294117647,
+                                                0.2588235294117647
+                                            ],
+                                            "font_type": "default",
+                                            "layer": 2,
+                                            "offset": [
+                                                0.0,
+                                                0
+                                            ],
+                                            "text": "提示",
+                                            "text_alignment": "center",
+                                            "type": "label"
+                                        }
+                                    }
+                                ],
+                                "layer": 3,
+                                "offset": [
+                                    0.0,
+                                    "6.89%+0.0px"
+                                ],
+                                "size": [
+                                    "10.85%+0.0px",
+                                    "6.3%+0.0px"
+                                ],
+                                "type": "panel"
+                            }
+                        },
+                        {
+                            "content_panel": {
+                                "anchor_from": "bottom_middle",
+                                "anchor_to": "bottom_middle",
+                                "controls": [
+                                    {
+                                        "background": {
+                                            "clip_direction": "left",
+                                            "clip_ratio": 0.0,
+                                            "is_new_nine_slice": true,
+                                            "layer": 1,
+                                            "nine_slice_buttom": 10,
+                                            "nine_slice_left": 10,
+                                            "nine_slice_right": 10,
+                                            "nine_slice_top": 10,
+                                            "nineslice_size": [
+                                                0.0,
+                                                0.0,
+                                                0.0,
+                                                0.0
+                                            ],
+                                            "size": [
+                                                "100.0%+0.0px",
+                                                "100.0%+0.0px"
+                                            ],
+                                            "texture": "textures/ui/pet/parterner/panel04_3x",
+                                            "type": "image"
+                                        }
+                                    },
+                                    {
+                                        "tip_label_panel": {
+                                            "anchor_from": "top_left",
+                                            "anchor_to": "top_left",
+                                            "controls": [
+                                                {
+                                                    "label": {
+                                                        "anchor_from": "top_left",
+                                                        "anchor_to": "top_left",
+                                                        "font_type": "default",
+                                                        "size": [
+                                                            "100.0%+0.0px",
+                                                            "default"
+                                                        ],
+                                                        "text": "是否暂停游戏，前往启动器？",
+                                                        "text_alignment": "center",
+                                                        "type": "label"
+                                                    }
+                                                }
+                                            ],
+                                            "layer": 3,
+                                            "offset": [
+                                                "4.49%+0.0px",
+                                                "9.89%+0.0px"
+                                            ],
+                                            "size": [
+                                                "76.26%+0.0px",
+                                                "12.65%+0.0px"
+                                            ],
+                                            "type": "panel"
+                                        }
+                                    },
+                                    {
+                                        "no_repeat_panel": {
+                                            "anchor_from": "top_left",
+                                            "anchor_to": "top_left",
+                                            "controls": [
+                                                {
+                                                    "check_panel": {
+                                                        "controls": [
+                                                            {
+                                                                "check_img": {
+                                                                    "anchor_from": "bottom_middle",
+                                                                    "anchor_to": "bottom_middle",
+                                                                    "clip_direction": "left",
+                                                                    "clip_ratio": 0.0,
+                                                                    "controls": [
+                                                                        {
+                                                                            "confirm_img": {
+                                                                                "clip_direction": "left",
+                                                                                "clip_ratio": 0.0,
+                                                                                "layer": 1,
+                                                                                "size": [
+                                                                                    "100.0%+0.0px",
+                                                                                    "100.0%+0.0px"
+                                                                                ],
+                                                                                "texture": "textures/ui/pet/parterner/icon12_3x",
+                                                                                "type": "image",
+                                                                                "visible": false
+                                                                            }
+                                                                        }
+                                                                    ],
+                                                                    "layer": 1,
+                                                                    "size": [
+                                                                        "100.0%y+0.0px",
+                                                                        "100.0%+0.0px"
+                                                                    ],
+                                                                    "texture": "textures/ui/pet/parterner/check_32_4x",
+                                                                    "type": "image"
+                                                                }
+                                                            },
+                                                            {
+                                                                "button@common.button": {
+                                                                    "$control_alpha": 1.0,
+                                                                    "$default_texture": "textures/netease/common/button/default",
+                                                                    "$hover_texture": "textures/netease/common/button/hover",
+                                                                    "$is_new_nine_slice": false,
+                                                                    "$label_color": [
+                                                                        1,
+                                                                        1,
+                                                                        1
+                                                                    ],
+                                                                    "$label_font_scale_factor": 1.0,
+                                                                    "$label_font_size": "large",
+                                                                    "$label_layer": 3,
+                                                                    "$label_offset": [
+                                                                        0,
+                                                                        0
+                                                                    ],
+                                                                    "$label_text": "",
+                                                                    "$nine_slice_buttom": 0,
+                                                                    "$nine_slice_left": 0,
+                                                                    "$nine_slice_right": 0,
+                                                                    "$nine_slice_top": 0,
+                                                                    "$nineslice_size": [
+                                                                        0,
+                                                                        0,
+                                                                        0,
+                                                                        0
+                                                                    ],
+                                                                    "$pressed_button_name": "%netease_editor_template_namespace.click",
+                                                                    "$pressed_texture": "textures/netease/common/button/pressed",
+                                                                    "$texture_layer": 2,
+                                                                    "alpha": 0.0,
+                                                                    "anchor_from": "top_left",
+                                                                    "anchor_to": "top_left",
+                                                                    "bindings": [
+                                                                        {
+                                                                            "binding_collection_name": "",
+                                                                            "binding_condition": "always_when_visible",
+                                                                            "binding_type": "collection_details"
+                                                                        }
+                                                                    ],
+                                                                    "button_mappings": [],
+                                                                    "controls": [
+                                                                        {
+                                                                            "default@netease_editor_template_namespace.default": {}
+                                                                        },
+                                                                        {
+                                                                            "hover@netease_editor_template_namespace.hover": {}
+                                                                        },
+                                                                        {
+                                                                            "pressed@netease_editor_template_namespace.pressed": {}
+                                                                        },
+                                                                        {
+                                                                            "button_label@netease_editor_template_namespace.button_label": {}
+                                                                        }
+                                                                    ],
+                                                                    "default_control": "default",
+                                                                    "hover_control": "hover",
+                                                                    "is_handle_button_move_event": true,
+                                                                    "layer": 2,
+                                                                    "pressed_control": "pressed",
+                                                                    "propagate_alpha": true,
+                                                                    "size": [
+                                                                        100.0,
+                                                                        14.0
+                                                                    ],
+                                                                    "type": "button"
+                                                                }
+                                                            }
+                                                        ],
+                                                        "layer": 3,
+                                                        "size": [
+                                                            "100.0%y+0.0px",
+                                                            "100.0%sm+0.0px"
+                                                        ],
+                                                        "type": "panel"
+                                                    }
+                                                },
+                                                {
+                                                    "panel": {
+                                                        "size": [
+                                                            3.0,
+                                                            "100.0%sm+0.0px"
+                                                        ],
+                                                        "type": "panel"
+                                                    }
+                                                },
+                                                {
+                                                    "label": {
+                                                        "font_type": "default",
+                                                        "layer": 10,
+                                                        "text": "本周不再提示",
+                                                        "text_alignment": "center",
+                                                        "type": "label"
+                                                    }
+                                                }
+                                            ],
+                                            "layer": 3,
+                                            "offset": [
+                                                "5.49%+0.0px",
+                                                "72.3%+0.0px"
+                                            ],
+                                            "orientation": "horizontal",
+                                            "size": [
+                                                "100.0%c+0.0px",
+                                                "100.0%cm+0.0px"
+                                            ],
+                                            "type": "stack_panel"
+                                        }
+                                    }
+                                ],
+                                "layer": 3,
+                                "offset": [
+                                    0.0,
+                                    "-32.28%+0.0px"
+                                ],
+                                "size": [
+                                    "90.68%+0.0px",
+                                    "49.8%+0.0px"
+                                ],
+                                "type": "panel"
+                            }
+                        },
+                        {
+                            "btn_stack_panel": {
+                                "anchor_from": "bottom_middle",
+                                "anchor_to": "bottom_middle",
+                                "controls": [
+                                    {
+                                        "cancel_btn@common.button": {
+                                            "$control_alpha": 1.0,
+                                            "$default_texture": "textures/ui/btn_light_default",
+                                            "$hover_texture": "textures/ui/btn_hover",
+                                            "$is_new_nine_slice": false,
+                                            "$label_color": [
+                                                0.2588235294117647,
+                                                0.2588235294117647,
+                                                0.2588235294117647
+                                            ],
+                                            "$label_font_scale_factor": 1.0,
+                                            "$label_font_size": "normal",
+                                            "$label_layer": 3,
+                                            "$label_offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "$label_text": "取消",
+                                            "$nine_slice_buttom": 0,
+                                            "$nine_slice_left": 0,
+                                            "$nine_slice_right": 0,
+                                            "$nine_slice_top": 0,
+                                            "$nineslice_size": [
+                                                2.0,
+                                                2.0,
+                                                2.0,
+                                                2.0
+                                            ],
+                                            "$pressed_button_name": "%netease_editor_template_namespace.click",
+                                            "$pressed_texture": "textures/ui/btn_pressed",
+                                            "$texture_layer": 2,
+                                            "anchor_from": "left_middle",
+                                            "anchor_to": "left_middle",
+                                            "bindings": [
+                                                {
+                                                    "binding_collection_name": "",
+                                                    "binding_condition": "always_when_visible",
+                                                    "binding_type": "collection_details"
+                                                }
+                                            ],
+                                            "button_mappings": [],
+                                            "controls": [
+                                                {
+                                                    "default@netease_editor_template_namespace.default": {}
+                                                },
+                                                {
+                                                    "hover@netease_editor_template_namespace.hover": {}
+                                                },
+                                                {
+                                                    "pressed@netease_editor_template_namespace.pressed": {}
+                                                },
+                                                {
+                                                    "button_label@netease_editor_template_namespace.button_label": {}
+                                                }
+                                            ],
+                                            "default_control": "default",
+                                            "hover_control": "hover",
+                                            "is_handle_button_move_event": true,
+                                            "layer": 2,
+                                            "offset": [
+                                                "4.75%+0.0px",
+                                                0.0
+                                            ],
+                                            "pressed_control": "pressed",
+                                            "size": [
+                                                "44.41%+0.0px",
+                                                "100.0%+0.0px"
+                                            ],
+                                            "type": "button"
+                                        }
+                                    },
+                                    {
+                                        "confitm_btn@common.button": {
+                                            "$control_alpha": 1.0,
+                                            "$default_texture": "textures/ui/btn_light_default",
+                                            "$hover_texture": "textures/ui/btn_hover",
+                                            "$is_new_nine_slice": false,
+                                            "$label_color": [
+                                                0.2588235294117647,
+                                                0.2588235294117647,
+                                                0.2588235294117647
+                                            ],
+                                            "$label_font_scale_factor": 1.0,
+                                            "$label_font_size": "normal",
+                                            "$label_layer": 3,
+                                            "$label_offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "$label_text": "确定",
+                                            "$nine_slice_buttom": 0,
+                                            "$nine_slice_left": 0,
+                                            "$nine_slice_right": 0,
+                                            "$nine_slice_top": 0,
+                                            "$nineslice_size": [
+                                                2.0,
+                                                2.0,
+                                                2.0,
+                                                2.0
+                                            ],
+                                            "$pressed_button_name": "%netease_editor_template_namespace.click",
+                                            "$pressed_texture": "textures/ui/btn_pressed",
+                                            "$texture_layer": 2,
+                                            "anchor_from": "right_middle",
+                                            "anchor_to": "right_middle",
+                                            "bindings": [
+                                                {
+                                                    "binding_collection_name": "",
+                                                    "binding_condition": "always_when_visible",
+                                                    "binding_type": "collection_details"
+                                                }
+                                            ],
+                                            "button_mappings": [],
+                                            "controls": [
+                                                {
+                                                    "default@netease_editor_template_namespace.default": {}
+                                                },
+                                                {
+                                                    "hover@netease_editor_template_namespace.hover": {}
+                                                },
+                                                {
+                                                    "pressed@netease_editor_template_namespace.pressed": {}
+                                                },
+                                                {
+                                                    "button_label@netease_editor_template_namespace.button_label": {}
+                                                }
+                                            ],
+                                            "default_control": "default",
+                                            "hover_control": "hover",
+                                            "is_handle_button_move_event": true,
+                                            "layer": 2,
+                                            "offset": [
+                                                "-4.75%+0.0px",
+                                                0.0
+                                            ],
+                                            "pressed_control": "pressed",
+                                            "size": [
+                                                "44.41%+0.0px",
+                                                "100.0%+0.0px"
+                                            ],
+                                            "type": "button"
+                                        }
+                                    }
+                                ],
+                                "layer": 3,
+                                "offset": [
+                                    0.0,
+                                    "-5.5%+0.0px"
+                                ],
+                                "size": [
+                                    "100.0%+0.0px",
+                                    "23.62%+0.0px"
+                                ],
+                                "type": "panel"
+                            }
+                        }
+                    ],
+                    "size": [
+                        147.5,
+                        127.5
+                    ],
+                    "type": "panel",
+                    "visible": false
+                }
+            }
+        ],
+        "type": "screen"
+    },
+    "namespace": "parterner_skin_shop_ui"
+}

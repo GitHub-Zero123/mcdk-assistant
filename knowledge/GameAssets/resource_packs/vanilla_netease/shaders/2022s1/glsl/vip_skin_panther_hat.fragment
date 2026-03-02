@@ -1,0 +1,72 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+#include "fragmentVersionCentroidUV.h"
+#include "uniformPerFrameConstants.h"
+#include "util.h"
+
+LAYOUT_BINDING(0) uniform sampler2D TEXTURE_0;
+LAYOUT_BINDING(1) uniform sampler2D TEXTURE_1;
+LAYOUT_BINDING(2) uniform sampler2D TEXTURE_2;
+
+
+const vec4 PRESET_VALUE_VECTOR = vec4(0.75, 0.3, 0.0, 1.0); //(_Transparency, _lineWidthAdj, _OutlineWidthAdj2, _Outline)
+const vec4 OUTLINE_COLOR = vec4(1.0, 0.878, 0.125, 1.0);
+varying vec4 fogColor;
+varying float dissolveOffset;
+
+#ifdef USE_OVERLAY
+    // When drawing horses on specific android devices, overlay color ends up being garbage data.
+    // Changing overlay color to high precision appears to fix the issue on devices tested
+	varying highp vec4 overlayColor;
+#endif
+
+void main()
+{
+	vec4 color = vec4(1.0);
+	vec4 outLineSDF = vec4(1.0);
+	vec4 alphaTest = vec4(1.0);
+
+#if !defined(TEXEL_AA) || !defined(TEXEL_AA_FEATURE)
+	color = texture2D( TEXTURE_0, uv );
+	outLineSDF = texture2D( TEXTURE_1, uv );
+	alphaTest = texture2D( TEXTURE_2, uv );
+#else
+	color = texture2D_AA(TEXTURE_0, uv);
+	outLineSDF = texture2D_AA(TEXTURE_1, uv);
+	alphaTest = texture2D_AA( TEXTURE_2, uv );
+#endif // !defined(TEXEL_AA) || !defined(TEXEL_AA_FEATURE)
+
+
+#ifdef USE_OVERLAY
+	//use either the diffuse or the OVERLAY_COLOR
+	color.rgb = mix(color, overlayColor, overlayColor.a).rgb;
+#endif
+
+	float distanceSDF = outLineSDF.r;
+	float outline = step(distanceSDF, PRESET_VALUE_VECTOR.y);
+	vec3 _OutlineColor = OUTLINE_COLOR.xyz;
+    vec4 result = vec4(1.0);
+
+	float stepTest_one = step(alphaTest.g, 0.85); // alphaTest.g > 0.75 return 0
+	float stepTest_two = step(alphaTest.g, 0.75); // alphaTest.g > 0.55 return 0
+	float stepTest_three = step(alphaTest.g, 0.55); // alphaTest.g > 0.35 return 0
+	float stepTest_four = step(alphaTest.g, 0.25); // alphaTest.g > 0.20 return 0
+
+	result.a = (
+		(1.0 -stepTest_one) * 0.55
+		+ stepTest_one * ((1.0-stepTest_two) * 0.60
+		+ stepTest_two * ((1.0-stepTest_three) * 0.65
+		+ stepTest_three * ((1.0-stepTest_four) * 0.75)))
+		+ stepTest_four * 0.75
+	);
+
+	result.rgb = color.rgb;
+	// result.xyz = mix(color.g * _OutlineColor , outline * _OutlineColor, outline);
+	result.xyz = result.xyz *((1.0 -stepTest_one) * 1.2 + stepTest_one * 1.0);
+	// result.xyz = outline * result.xyz * 1.5 + (1.0-outline) * result.xyz * 2.0;
+	
+	//apply fog
+	result.rgb = mix( result.rgb, fogColor.rgb, fogColor.a );
+
+	gl_FragColor = result;
+}

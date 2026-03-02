@@ -1,0 +1,39 @@
+{
+    "namespace": "startup",
+    "startup_screen": {
+        "type": "screen",
+        "send_telemetry": false,
+        "load_screen_immediately": true,
+        "controls": [
+            {
+                "background_color": {
+                    "type": "image",
+                    "size": [
+                        "100%",
+                        "100%"
+                    ],
+                    "texture": "textures/ui/White"
+                }
+            },
+            {
+                "loading_image": {
+                    "type": "image",
+                    "layer": 1,
+                    "fill": false,
+                    "size": [
+                        "100%",
+                        "100%"
+                    ],
+                    "$loading_image_texture|default": "textures/ui/loading_screen_0",
+                    "texture": "$loading_image_texture",
+                    "variables": [
+                        {
+                            "requires": "$nx_os",
+                            "$loading_image_texture": "textures/ui/mojang_splash_screen"
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

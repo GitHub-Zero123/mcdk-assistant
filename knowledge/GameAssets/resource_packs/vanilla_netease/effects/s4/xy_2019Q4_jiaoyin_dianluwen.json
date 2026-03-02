@@ -1,0 +1,89 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [],
+        "dampingforce": {
+            "value": "5.0"
+        },
+        "depthtest": {
+            "enable": "true"
+        },
+        "direction": {
+            "max": "0.0 -0.01 0.0",
+            "min": "0.0 -0.01 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "5.0",
+            "min": "5.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.0 0.0 0.0"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "enablecolor": {
+            "enable": "false"
+        },
+        "faceCameraMode": {
+            "value": "Direction Horizontal"
+        },
+        "independent": false,
+        "numparticles": {
+            "value": "5"
+        },
+        "particlesize": {
+            "max": "0.25 0.25",
+            "min": "0.25 0.25"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.08 1.08",
+                "time": "20.0%"
+            },
+            {
+                "scale": "1.086 1.086",
+                "time": "40.0%"
+            },
+            {
+                "scale": "1.087 1.087",
+                "time": "60.0%"
+            },
+            {
+                "scale": "1.087 1.087",
+                "time": "80.0%"
+            },
+            {
+                "scale": "1.087 1.087",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "10",
+                "name": "textures/sfxs/s4/xy_2019Q4_jiaoyin_dianluwen8",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/s4/xy_2019Q4_jiaoyin_dianluwen8"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.7",
+            "min": "0.7"
+        }
+    }
+}

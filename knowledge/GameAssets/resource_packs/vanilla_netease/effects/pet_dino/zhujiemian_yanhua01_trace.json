@@ -1,0 +1,109 @@
+{
+    "particleeffect": {
+        "constantforce": {
+            "value": "0.0 -0.30000000000000004 0.0"
+        },
+        "faceCameraMode": {
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "300.0",
+            "min": "250.0"
+        },
+        "emitterpath": [],
+        "relative": {
+            "enable": "true"
+        },
+        "particlesize": {
+            "max": "0.05 0.5",
+            "min": "0.05 0.2"
+        },
+        "activetime": {
+            "value": "0.20000000000000004"
+        },
+        "numparticles": {
+            "value": "50"
+        },
+        "texture": {
+            "name": "textures/sfxs/pet_dino/fangkuai"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "delay": 1.6,
+        "timetolive": {
+            "max": "2.0",
+            "min": "2.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.0 0.0",
+                "time": "0.00"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "0.30"
+            },
+            {
+                "scale": "0.3 0.3",
+                "time": "1.01"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "1.96"
+            }
+        ],
+        "independent": false,
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "value": "Direction",
+            "min": "-1.0 -1.0 -1.0"
+        },
+        "dampingforce": {
+            "value": "2.0000000000000004"
+        },
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.0 0.0 0.0"
+        },
+        "inactivetime": {
+            "value": "2.3000000000000003"
+        },
+        "emitterscale": [],
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.00"
+            },
+            {
+                "color": "0.1608 0.7765 1.0000 1.0000",
+                "time": "0.05"
+            },
+            {
+                "color": "0.0275 0.3686 1.0000 0.9643",
+                "time": "0.27"
+            },
+            {
+                "color": "0.6196 0.1529 1.0000 0.5000",
+                "time": "0.88"
+            },
+            {
+                "color": "0.6510 0.0902 1.0000 0.0000",
+                "time": "2.00"
+            }
+        ],
+        "depthtest": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "velocity": {
+            "max": "2.0999999999999996",
+            "min": "1.9999999999999996"
+        },
+        "blend": {
+            "name": "add"
+        }
+    }
+}

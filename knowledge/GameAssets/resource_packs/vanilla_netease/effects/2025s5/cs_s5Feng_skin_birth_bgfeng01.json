@@ -1,0 +1,93 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.2"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.3929",
+                "time": "9.2%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.3482",
+                "time": "63.2%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.2411",
+                "time": "76.1%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "constantforce": {
+            "value": "0.0 0.0 0.01"
+        },
+        "dampingforce": {
+            "value": "10.0"
+        },
+        "depthtest": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "0.0 1.0 0.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "3000.0",
+            "min": "3000.0"
+        },
+        "enableloop": {
+            "enable": "true"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Direction Horizontal"
+        },
+        "layer": 4,
+        "numparticles": {
+            "value": "1"
+        },
+        "offsetInCamera": {
+            "value": "1.0"
+        },
+        "particlesize": {
+            "max": "-9.6 5.4",
+            "min": "-9.6 5.4"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "-90.0 0.0 0.0",
+            "min": "-90.0 0.0 0.0"
+        },
+        "texture": {
+            "ani": {
+                "fps": "16",
+                "name": "textures/sfxs/2025s5/cs_s5Feng_skin_birth_bgfeng01",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s5/cs_s5Feng_skin_birth_bgfeng01"
+        },
+        "timetolive": {
+            "max": "8.5",
+            "min": "8.5"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

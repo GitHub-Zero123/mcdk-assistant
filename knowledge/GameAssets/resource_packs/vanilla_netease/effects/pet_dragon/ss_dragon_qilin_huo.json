@@ -1,0 +1,58 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "value": "Direction",
+            "min": "0.0 1.0 0.0"
+        },
+        "numparticles": {
+            "value": "8"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.2054",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.1875",
+                "time": "100.0%"
+            }
+        ],
+        "emissionrate": {
+            "max": "20.0",
+            "min": "15.0"
+        },
+        "enableloop": {
+            "enable": "true"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": false,
+                "name": "textures/sfxs/pet_dragon/ss_dragon_qilin_huo",
+                "fps": "20"
+            },
+            "name": "textures/sfxs/pet_dragon/ss_dragon_qilin_huo"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "timetolive": {
+            "max": "0.8",
+            "min": "0.8"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "particlesize": {
+            "max": "0.55 0.55",
+            "min": "0.55 0.55"
+        }
+    }
+}

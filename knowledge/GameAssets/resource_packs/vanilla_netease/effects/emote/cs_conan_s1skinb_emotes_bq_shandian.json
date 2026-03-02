@@ -1,0 +1,92 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.1"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 0.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 0.0000 1.0000",
+                "time": "80.0%"
+            },
+            {
+                "color": "1.0000 1.0000 0.0000 0.4286",
+                "time": "86.6%"
+            },
+            {
+                "color": "1.0000 1.0000 0.0000 0.0893",
+                "time": "94.5%"
+            },
+            {
+                "color": "1.0000 1.0000 0.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "delay": 0.23,
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "20.0",
+            "min": "20.0"
+        },
+        "layer": 0,
+        "numparticles": {
+            "value": "1"
+        },
+        "particlesize": {
+            "max": "0.5 1.0",
+            "min": "0.5 1.0"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.08 1.08",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.08 1.08",
+                "time": "10.0%"
+            },
+            {
+                "scale": "1.08 1.08",
+                "time": "68.7%"
+            },
+            {
+                "scale": "1.35 1.35",
+                "time": "83.8%"
+            },
+            {
+                "scale": "1.41 1.41",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "8",
+                "name": "textures/sfxs/emote/cs_conan_s1skinb_emotes_shandian",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/emote/cs_conan_s1skinb_emotes_shandian"
+        },
+        "timetolive": {
+            "max": "2.500000000000001",
+            "min": "2.500000000000001"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

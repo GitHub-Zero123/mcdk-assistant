@@ -1,0 +1,67 @@
+{
+    "particleeffect": {
+        "independent": false,
+        "direction": {
+            "max": "0.0 -0.02 0.0",
+            "value": "Direction",
+            "min": "0.0 -0.1 0.0"
+        },
+        "dampingforce": {
+            "value": "5.0"
+        },
+        "numparticles": {
+            "value": "5"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.7451 0.2980 0.0000",
+                "time": "0.00"
+            },
+            {
+                "color": "1.0000 0.9882 0.6471 0.8000",
+                "time": "0.20"
+            },
+            {
+                "color": "1.0000 0.5137 0.1686 0.0000",
+                "time": "0.60"
+            }
+        ],
+        "texture": {
+            "name": "textures/particle/2020s2/2020s2_cs_gong_cube_2"
+        },
+        "emitterScaleCurve": [],
+        "depthtest": {
+            "enable": "true"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "inactivetime": {
+            "value": "2.0"
+        },
+        "emittersize": {
+            "value": "0.3 0.0 0.0"
+        },
+        "emitterscale": [],
+        "timetolive": {
+            "max": "0.8",
+            "min": "0.6"
+        },
+        "particlesize": {
+            "max": "0.15 0.15",
+            "min": "0.08 0.08"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "0.0%"
+            }
+        ]
+    }
+}

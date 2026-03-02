@@ -1,0 +1,92 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.0549 0.0235 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.0549 0.0235 1.0000",
+                "time": "53.7%"
+            },
+            {
+                "color": "1.0000 0.0549 0.0235 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "constantforce": {
+            "value": "0.0 -0.1 0.0"
+        },
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 -1.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "7.0",
+            "min": "5.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "1.5 2.0 1.2"
+        },
+        "emittertype": {
+            "value": "Cylinder"
+        },
+        "numparticles": {
+            "value": "4"
+        },
+        "particlesize": {
+            "max": "0.09 0.09",
+            "min": "0.03 0.03"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 20.0",
+            "min": "0.0 0.0 -20.0"
+        },
+        "rotationSpeedRange": {
+            "max": "0.0 0.0 20.0",
+            "min": "0.0 0.0 70.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.6 0.6",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "15.0%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "16",
+                "name": "textures/sfxs/2025s2/ss_s2neteast_skin_yf",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s2/ss_s2neteast_skin_yf"
+        },
+        "thickness": {
+            "value": "0.3"
+        },
+        "timetolive": {
+            "max": "1.5",
+            "min": "0.9"
+        },
+        "velocity": {
+            "max": "0.3",
+            "min": "0.1"
+        }
+    }
+}

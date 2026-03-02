@@ -1,0 +1,99 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "1.2"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "dampingforce": {
+            "value": "15.0"
+        },
+        "direction": {
+            "max": "-1.0 1.0 -1.0",
+            "min": "1.0 1.0 1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "20.0",
+            "min": "20.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.01 0.01 0.01"
+        },
+        "emittertype": {
+            "value": "Cone"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Direction"
+        },
+        "inactivetime": {
+            "value": "5.0"
+        },
+        "layer": 3,
+        "numparticles": {
+            "value": "3"
+        },
+        "particlesize": {
+            "max": "0.12 0.12",
+            "min": "0.1 0.1"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.32 1.32",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.32 1.32",
+                "time": "12.3%"
+            },
+            {
+                "scale": "0.69 0.69",
+                "time": "14.0%"
+            },
+            {
+                "scale": "0.27 0.27",
+                "time": "18.0%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "22.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "0",
+                "name": "textures/sfxs/2025s7/ss_s7ChangE_weapon_lblz",
+                "shuffle": true
+            },
+            "name": "textures/sfxs/2025s7/ss_s7ChangE_weapon_lblz"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "1.2",
+            "min": "1.2"
+        },
+        "velocity": {
+            "max": "15.0",
+            "min": "15.0"
+        }
+    }
+}

@@ -1,0 +1,78 @@
+{
+    "particleeffect": {
+        "enablecolor": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "0.0 1.0 0.0",
+            "value": "Direction",
+            "min": "0.0 0.0 0.0"
+        },
+        "dampingforce": {
+            "value": "0.5"
+        },
+        "faceCameraMode": {
+            "value": "Direction"
+        },
+        "independent": false,
+        "emissionrate": {
+            "max": "8.0",
+            "min": "5.0"
+        },
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.1 0.2 0.4"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": false,
+                "name": "textures/sfxs/pet_dragon/ty_dragon_idle_angry_huo",
+                "fps": "15"
+            },
+            "name": "textures/sfxs/pet_dragon/ty_dragon_idle_angry_huo"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Cone"
+        },
+        "delay": 0.45,
+        "timetolive": {
+            "max": "0.5",
+            "min": "0.3"
+        },
+        "depthtest": {
+            "enable": "true"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.1",
+            "min": "0.1"
+        },
+        "particlesize": {
+            "max": "0.18 0.22",
+            "min": "0.24 0.28"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.0 0.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.81 0.81",
+                "time": "14.0%"
+            },
+            {
+                "scale": "1.26 1.26",
+                "time": "99.3%"
+            }
+        ],
+        "numparticles": {
+            "value": "8"
+        }
+    }
+}

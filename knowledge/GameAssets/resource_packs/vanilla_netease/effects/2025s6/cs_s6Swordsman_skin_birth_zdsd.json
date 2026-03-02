@@ -1,0 +1,81 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.1"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "delay": 3.8,
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "45.0",
+            "min": "45.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.24999999999999997 0.8 0.30000000000000016"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "enableloop": {
+            "enable": "true"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "numparticles": {
+            "value": "3"
+        },
+        "offsetInCamera": {
+            "value": "-0.2"
+        },
+        "particlesize": {
+            "max": "0.7 0.7",
+            "min": "0.4 0.4"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 666.0",
+            "min": "0.0 0.0 -666.0"
+        },
+        "texture": {
+            "ani": {
+                "fps": "16",
+                "name": "textures/sfxs/2025s6/cs_s6Swordsman_skin_birth_hcsd2",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s6/cs_s6Swordsman_skin_birth_hcsd2"
+        },
+        "thickness": {
+            "value": "1.0"
+        },
+        "timetolive": {
+            "max": "1.7",
+            "min": "1.4000000000000001"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

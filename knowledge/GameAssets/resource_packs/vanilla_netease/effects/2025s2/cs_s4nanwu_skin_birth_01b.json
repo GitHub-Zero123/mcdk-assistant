@@ -1,0 +1,83 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.14"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "35.5%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.2589",
+                "time": "44.7%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "delay": 1.95,
+        "depthtest": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "3000.0",
+            "min": "3000.0"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "layer": 7,
+        "numparticles": {
+            "value": "1"
+        },
+        "particlesize": {
+            "max": "0.7 0.7",
+            "min": "0.7 0.7"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "false"
+        },
+        "rotationRange": {
+            "max": "0.0 180.0 0.0",
+            "min": "0.0 180.0 0.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "37.3%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "40",
+                "name": "textures/sfxs/2025s2/cs_s4nanwu_skin_birth_02a",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s2/cs_s4nanwu_skin_birth_02a"
+        },
+        "timetolive": {
+            "max": "0.4",
+            "min": "0.4"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

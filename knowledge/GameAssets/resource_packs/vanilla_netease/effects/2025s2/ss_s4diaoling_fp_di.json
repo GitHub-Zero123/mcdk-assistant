@@ -1,0 +1,88 @@
+{
+    "particleeffect": {
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "3.7%"
+            },
+            {
+                "color": "0.7294 0.7294 0.7294 0.3036",
+                "time": "66.3%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0089",
+                "time": "100.0%"
+            }
+        ],
+        "dampingforce": {
+            "value": "3.0"
+        },
+        "direction": {
+            "max": "0.0 1.0 0.0",
+            "min": "0.0 1.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "5.0",
+            "min": "5.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.0 0.0 0.0"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Direction Horizontal"
+        },
+        "numparticles": {
+            "value": "100"
+        },
+        "particlesize": {
+            "max": "0.85 1.05",
+            "min": "0.85 1.05"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "false"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "10.0%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "12",
+                "name": "textures/sfxs/2025s2/ss_s4diaoling_fp_di",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s2/ss_s4diaoling_fp_di"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "1.0",
+            "min": "0.7"
+        },
+        "velocity": {
+            "max": "0.1",
+            "min": "0.1"
+        }
+    }
+}

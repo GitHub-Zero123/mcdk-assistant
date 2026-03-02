@@ -1,0 +1,122 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "1.0"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "4.5%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "48.7%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "75.3%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "93.7%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "0.0 -1.0 0.0",
+            "min": "0.0 -1.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "20.0",
+            "min": "20.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "1.5 0.5 1.5"
+        },
+        "emittertype": {
+            "value": "Cylinder"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "numparticles": {
+            "value": "20"
+        },
+        "particlesize": {
+            "max": "0.1 0.1",
+            "min": "0.04 0.04"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.6 0.6",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.35 0.35",
+                "time": "12.3%"
+            },
+            {
+                "scale": "0.8 0.8",
+                "time": "25.3%"
+            },
+            {
+                "scale": "0.1 0.1",
+                "time": "34.3%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "47.0%"
+            },
+            {
+                "scale": "0.1 0.1",
+                "time": "58.3%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "67.7%"
+            },
+            {
+                "scale": "0.1 0.1",
+                "time": "75.3%"
+            },
+            {
+                "scale": "0.8 0.8",
+                "time": "87.7%"
+            },
+            {
+                "scale": "0.1 0.1",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s1/cs_s3guofeng_zhuchengruchang_xxdd"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.4",
+            "min": "1.0"
+        },
+        "velocity": {
+            "max": "1.0",
+            "min": "2.0"
+        }
+    }
+}

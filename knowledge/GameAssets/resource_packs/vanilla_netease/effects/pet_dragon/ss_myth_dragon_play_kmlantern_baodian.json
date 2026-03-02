@@ -1,0 +1,82 @@
+{
+    "particleeffect": {
+        "independent": false,
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "value": "Direction",
+            "min": "0.0 0.0 0.0"
+        },
+        "activetime": {
+            "value": "0.1"
+        },
+        "numparticles": {
+            "value": "1"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 0.0000 1.0000",
+                "time": "0.00"
+            },
+            {
+                "color": "1.0000 1.0000 0.0000 0.7411",
+                "time": "0.09"
+            },
+            {
+                "color": "1.0000 1.0000 0.2400 0.0000",
+                "time": "0.20"
+            }
+        ],
+        "emissionrate": {
+            "max": "100.0",
+            "min": "100.0"
+        },
+        "emitterScaleCurve": [],
+        "layer": 2,
+        "texture": {
+            "name": "textures/sfxs/pet_dragon/sun"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "delay": 2.45,
+        "timetolive": {
+            "max": "0.2",
+            "min": "0.2"
+        },
+        "depthtest": {
+            "enable": "true"
+        },
+        "emittersize": {
+            "value": "0.0 0.0 0.0"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        },
+        "emitterscale": [],
+        "particlesize": {
+            "max": "7.0 7.0",
+            "min": "7.0 7.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.0 0.0",
+                "time": "0.00"
+            },
+            {
+                "scale": "0.54 0.54",
+                "time": "0.97"
+            },
+            {
+                "scale": "0.69 0.69",
+                "time": "2.00"
+            }
+        ]
+    }
+}

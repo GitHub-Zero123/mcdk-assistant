@@ -1,0 +1,93 @@
+{
+    "particleeffect": {
+        "colorfade": [
+            {
+                "color": "0.8824 0.9922 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.7882 0.9294 1.0000 1.0000",
+                "time": "20.8%"
+            },
+            {
+                "color": "1.0000 0.7725 0.9922 1.0000",
+                "time": "79.5%"
+            },
+            {
+                "color": "1.0000 0.7333 0.9765 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "dampingforce": {
+            "value": "0.1"
+        },
+        "direction": {
+            "max": "0.0 -0.3 -0.3",
+            "min": "0.1 -0.5 0.3",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "5.0",
+            "min": "8.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "2.5 0.7 2.5"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "layer": 6,
+        "numparticles": {
+            "value": "6"
+        },
+        "particlesize": {
+            "max": "0.12 0.12",
+            "min": "0.1 0.1"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 0.0 180.0"
+        },
+        "rotationSpeedRange": {
+            "max": "0.0 0.0 30.0",
+            "min": "0.0 0.0 0.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.3 0.3",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.58 0.58",
+                "time": "26.3%"
+            },
+            {
+                "scale": "0.81 0.81",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s6/cs_s6Jiaolong_horse_shizi"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "1.0",
+            "min": "1.2"
+        },
+        "velocity": {
+            "max": "0.5",
+            "min": "0.3"
+        }
+    }
+}

@@ -1,0 +1,112 @@
+{
+    "particleeffect": {
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "10.3%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "51.3%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.3661",
+                "time": "75.8%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "constantforce": {
+            "value": "0.04 0.0 -0.30000000000000004"
+        },
+        "dampingforce": {
+            "value": "1.0"
+        },
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Outwards"
+        },
+        "disorder": {
+            "increment": "1.75",
+            "interval": "0.6000000000000001",
+            "max": "-0.1 -0.1 -0.1",
+            "min": "0.1 0.1 0.1"
+        },
+        "emissionrate": {
+            "max": "4.0",
+            "min": "4.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.8899999999999999 1.09 0.19000000000000003"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "numparticles": {
+            "value": "6"
+        },
+        "offsetInCamera": {
+            "value": "-0.1"
+        },
+        "particlesize": {
+            "max": "0.1 0.1",
+            "min": "0.05 0.05"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "false"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 666.0",
+            "min": "0.0 0.0 -666.0"
+        },
+        "rotationSpeedRange": {
+            "max": "33.0 33.0 33.0",
+            "min": "-33.0 -33.0 -33.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.56 0.56",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.81 0.81",
+                "time": "9.7%"
+            },
+            {
+                "scale": "0.85 0.85",
+                "time": "23.0%"
+            },
+            {
+                "scale": "0.93 0.93",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s5/ss_s5Swimsuit_skinB_hy01"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "2.0",
+            "min": "1.2"
+        },
+        "velocity": {
+            "max": "0.4",
+            "min": "0.1"
+        }
+    }
+}

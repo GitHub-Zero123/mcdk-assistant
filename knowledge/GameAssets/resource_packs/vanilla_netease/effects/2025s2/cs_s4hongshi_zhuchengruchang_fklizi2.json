@@ -1,0 +1,95 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "3.0"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "0.9922 1.0000 0.3490 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.9529 0.2745 0.0000",
+                "time": "25.3%"
+            },
+            {
+                "color": "1.0000 0.9451 0.3294 1.0000",
+                "time": "50.8%"
+            },
+            {
+                "color": "1.0000 0.9804 0.3451 0.0000",
+                "time": "77.4%"
+            },
+            {
+                "color": "1.0000 1.0000 0.3098 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "dampingforce": {
+            "value": "1.0"
+        },
+        "delay": 0.7,
+        "direction": {
+            "max": "0.0 1.0 0.0",
+            "min": "0.0 1.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "8.0",
+            "min": "30.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "5.0 3.0 5.0"
+        },
+        "emittertype": {
+            "value": "Cylinder"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Direction"
+        },
+        "layer": 8,
+        "numparticles": {
+            "value": "20"
+        },
+        "particlesize": {
+            "max": "0.08 0.08",
+            "min": "0.2 0.2"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "false"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.9 0.9",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.7 0.7",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s2/cs_s4hongshi_zhuchengruchang_lizii"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.5",
+            "min": "1.0"
+        },
+        "velocity": {
+            "max": "2.0",
+            "min": "1.0"
+        }
+    }
+}

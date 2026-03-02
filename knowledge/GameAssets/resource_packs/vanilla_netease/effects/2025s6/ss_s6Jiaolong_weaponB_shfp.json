@@ -1,0 +1,50 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "-0.5 1.0 -0.5",
+            "min": "0.5 0.0 0.5",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "8.0",
+            "min": "8.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.2 0.4 0.2"
+        },
+        "emittertype": {
+            "value": "Cone"
+        },
+        "faceCameraMode": {
+            "value": "Direction"
+        },
+        "numparticles": {
+            "value": "8"
+        },
+        "particlesize": {
+            "max": "0.03 0.03",
+            "min": "0.05 0.05"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "ani": {
+                "fps": "10",
+                "name": "textures/sfxs/2025s6/ss_s6Jiaolong_weaponB_shuihua",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s6/ss_s6Jiaolong_weaponB_shuihua"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.1"
+        }
+    }
+}

@@ -1,0 +1,57 @@
+{
+    "particleeffect": {
+        "enablecolor": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "value": "Direction",
+            "min": "0.0 1.0 0.0"
+        },
+        "depthtest": {
+            "enable": "true"
+        },
+        "numparticles": {
+            "value": "3"
+        },
+        "independent": false,
+        "emissionrate": {
+            "max": "3.0",
+            "min": "2.0"
+        },
+        "emitterScaleCurve": [],
+        "texture": {
+            "ani": {
+                "shuffle": true,
+                "name": "textures/sfxs/pet_dragon/xy_dragon_light_sd",
+                "fps": "10"
+            },
+            "name": "textures/sfxs/pet_dragon/xy_dragon_light_sd"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "timetolive": {
+            "max": "0.5",
+            "min": "0.8"
+        },
+        "emittersize": {
+            "value": "0.0 0.0 0.0"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        },
+        "particlesize": {
+            "max": "0.08 0.08",
+            "min": "0.15 0.15"
+        }
+    }
+}

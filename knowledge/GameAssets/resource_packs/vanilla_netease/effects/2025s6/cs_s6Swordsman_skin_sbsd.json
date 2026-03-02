@@ -1,0 +1,61 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.1"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "3.0",
+            "min": "3.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.1 0.45 0.15"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "inactivetime": {
+            "max": "0.8",
+            "min": "0.0"
+        },
+        "layer": 2,
+        "numparticles": {
+            "value": "3"
+        },
+        "particlesize": {
+            "max": "0.1 0.11",
+            "min": "0.08 0.07"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "ani": {
+                "fps": "12",
+                "name": "textures/sfxs/2025s6/cs_s6Swordsman_skin_sdlz",
+                "shuffle": true
+            },
+            "name": "textures/sfxs/2025s6/cs_s6Swordsman_skin_sdlz"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.4",
+            "min": "0.2"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

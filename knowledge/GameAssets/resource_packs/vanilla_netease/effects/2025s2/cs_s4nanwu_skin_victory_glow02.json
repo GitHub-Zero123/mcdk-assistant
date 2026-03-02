@@ -1,0 +1,73 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.2"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "7.1%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.6429",
+                "time": "16.8%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.4196",
+                "time": "76.8%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "delay": 0.02,
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "3000.0",
+            "min": "3000.0"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Rotate Y"
+        },
+        "numparticles": {
+            "value": "1"
+        },
+        "offsetInCamera": {
+            "value": "-0.2"
+        },
+        "particlesize": {
+            "max": "0.8 1.9",
+            "min": "0.8 1.9"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "ani": {
+                "fps": "32",
+                "name": "textures/sfxs/2025s2/cs_s4nanwu_skin_victory_glow02",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s2/cs_s4nanwu_skin_victory_glow02"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

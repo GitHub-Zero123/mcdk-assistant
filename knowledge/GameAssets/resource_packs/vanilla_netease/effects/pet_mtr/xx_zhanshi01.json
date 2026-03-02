@@ -1,0 +1,125 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "value": "Direction",
+            "min": "-1.0 -1.0 -1.0"
+        },
+        "dampingforce": {
+            "value": "9.0"
+        },
+        "faceCameraMode": {
+            "value": "Direction"
+        },
+        "colorfade": [
+            {
+                "color": "1.000000 1.000000 1.000000 0.000000",
+                "time": "0.0"
+            },
+            {
+                "color": "1.000000 1.000000 1.000000 0.991071",
+                "time": "0.04656505263157893"
+            },
+            {
+                "color": "1.000000 1.000000 1.000000 0.000000",
+                "time": "0.11175612631578949"
+            },
+            {
+                "color": "1.000000 1.000000 1.000000 1.000000",
+                "time": "0.22584050526315794"
+            },
+            {
+                "color": "1.000000 1.000000 1.000000 0.017857",
+                "time": "0.3306118736842105"
+            },
+            {
+                "color": "1.000000 1.000000 1.000000 1.000000",
+                "time": "0.4097724631578948"
+            },
+            {
+                "color": "1.000000 1.000000 1.000000 0.017857",
+                "time": "0.5029025684210526"
+            },
+            {
+                "color": "1.000000 1.000000 1.000000 1.000000",
+                "time": "0.6053456842105264"
+            },
+            {
+                "color": "1.000000 1.000000 1.000000 0.000000",
+                "time": "0.6914910315789474"
+            },
+            {
+                "color": "1.000000 1.000000 1.000000 1.000000",
+                "time": "0.7613386105263158"
+            },
+            {
+                "color": "1.000000 1.000000 1.000000 0.000000",
+                "time": "0.8847360000000001"
+            }
+        ],
+        "material": {
+            "name": "materials/particles.materialC:\\MCStudioDownload\\work\\zcy_test_20200603@163.com\\Cpp\\Map\\76fed18bd5954715bd35f59f322cb76c\\resource_packs\\resource_pack_uFerx4WJ\\textures\\sfxs\\sg_zq_star_03.png"
+        },
+        "emittersize": {
+            "value": "0.0 0.0 0.0"
+        },
+        "layer": 4,
+        "texture": {
+            "ani": {
+                "shuffle": true,
+                "name": "textures/sfxs/pet_mtr/xingdian_01",
+                "fps": "5"
+            },
+            "name": "textures/sfxs/pet_mtr/xingdian_01"
+        },
+        "enableloop": {
+            "enable": "true"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "timetolive": {
+            "max": "0.8",
+            "min": "0.8"
+        },
+        "depthtest": {
+            "enable": "true"
+        },
+        "rotationspeed": {
+            "max": "50.0",
+            "min": "30.0"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "6.0",
+            "min": "2.5"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "emissionrate": {
+            "max": "100.0",
+            "min": "100.0"
+        },
+        "particlesize": {
+            "max": "0.08 0.08",
+            "min": "0.11 0.11"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "0.0"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "3.0"
+            }
+        ],
+        "numparticles": {
+            "value": "8"
+        }
+    }
+}

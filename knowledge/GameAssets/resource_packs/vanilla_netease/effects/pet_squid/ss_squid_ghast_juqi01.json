@@ -1,0 +1,81 @@
+{
+    "particleeffect": {
+        "delay": 0.5,
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "value": "Direction",
+            "min": "-1.0 -1.0 -1.0"
+        },
+        "activetime": {
+            "value": "0.5"
+        },
+        "numparticles": {
+            "value": "4"
+        },
+        "timetolive": {
+            "max": "0.4",
+            "min": "0.8"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.9294 0.3961 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.9569 1.0000 0.4824 0.7232",
+                "time": "12.6%"
+            },
+            {
+                "color": "1.0000 0.8784 0.1686 0.3571",
+                "time": "30.5%"
+            },
+            {
+                "color": "1.0000 0.8353 0.0000 1.0000",
+                "time": "57.6%"
+            },
+            {
+                "color": "1.0000 0.3451 0.0431 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "emissionrate": {
+            "max": "4.0",
+            "min": "4.0"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": false,
+                "name": "/pet_squid",
+                "fps": "15"
+            },
+            "name": "textures/sfxs/pet_squid/custom_sun"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "inactivetime": {
+            "value": "2.5"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "sizedelta": [
+            {
+                "scale": "2.46 2.46",
+                "time": "0.00"
+            },
+            {
+                "scale": "4.26 4.26",
+                "time": "0.40"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "2.00"
+            }
+        ]
+    }
+}

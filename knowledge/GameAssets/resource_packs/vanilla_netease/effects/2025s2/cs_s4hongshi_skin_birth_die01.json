@@ -1,0 +1,73 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.1"
+        },
+        "colorfade": [
+            {
+                "color": "0.1176 0.2510 1.0000 0.7500",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.1843 0.3569 1.0000 0.6964",
+                "time": "67.4%"
+            },
+            {
+                "color": "0.0000 0.0000 0.0000 0.1786",
+                "time": "100.0%"
+            }
+        ],
+        "constantforce": {
+            "value": "0.0 2.0 0.0"
+        },
+        "delay": 2.6,
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "500.0",
+            "min": "500.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.8 1.2000000000000002 0.8"
+        },
+        "emittertype": {
+            "value": "Hemisphere"
+        },
+        "layer": 5,
+        "numparticles": {
+            "value": "20"
+        },
+        "particlesize": {
+            "max": "0.25 0.25",
+            "min": "0.1 0.1"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "false"
+        },
+        "texture": {
+            "ani": {
+                "fps": "16",
+                "name": "textures/sfxs/2025s2/cs_s4hongshi_skin_birth_smoke",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s2/cs_s4hongshi_skin_birth_smoke"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.35",
+            "min": "0.3"
+        },
+        "velocity": {
+            "max": "0.3",
+            "min": "0.2"
+        }
+    }
+}

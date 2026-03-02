@@ -1,0 +1,13 @@
+{
+    "format_version": "1.13.0",
+    "minecraft:aggregate_feature": {
+        "description": {
+            "identifier": "minecraft:mangrove_tree_with_beenest_feature"
+        },
+        "early_out": "first_failure",
+        "features": [
+            "minecraft:mangrove_tree_feature",
+            "minecraft:beehive_search_feature"
+        ]
+    }
+}

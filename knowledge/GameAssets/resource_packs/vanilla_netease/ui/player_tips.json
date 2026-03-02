@@ -1,0 +1,211 @@
+{
+    "namespace": "player_tips",
+    "player_tips_screen@common.base_screen": {
+        "controls": [
+            {
+                "player_panel@player_tips.player_panel": {}
+            }
+        ]
+    },
+    "player_panel": {
+        "type": "panel",
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "size": [
+            100.0,
+            85.0
+        ],
+        "$tips_offset | default": [
+            0,
+            0
+        ],
+        "offset": "$tips_offset",
+        "layer": 20,
+        "controls": [
+            {
+                "player_head_image": {
+                    "type": "image",
+                    "anchor_from": "top_left",
+                    "anchor_to": "top_left",
+                    "offset": [
+                        5.0,
+                        5.0
+                    ],
+                    "size": [
+                        30.0,
+                        "100%x"
+                    ],
+                    "layer": 2,
+                    "enabled": true,
+                    "texture": "#selected_player_head_image",
+                    "texture_file_system": "RawPath",
+                    "bindings": [
+                        {
+                            "binding_name_override": "#texture",
+                            "binding_name": "#selected_player_head_image"
+                        }
+                    ],
+                    "controls": [
+                        {
+                            "player_name": {
+                                "type": "label",
+                                "anchor_from": "top_right",
+                                "anchor_to": "top_left",
+                                "offset": [
+                                    2.0,
+                                    0.0
+                                ],
+                                "size": [
+                                    60.0,
+                                    "default"
+                                ],
+                                "max_size": [
+                                    "default",
+                                    20.0
+                                ],
+                                "layer": 2,
+                                "color": [
+                                    0.0,
+                                    0.0,
+                                    0.0
+                                ],
+                                "font_type": "unicode",
+                                "text": "#username",
+                                "controls": [
+                                    {
+                                        "player_level": {
+                                            "type": "label",
+                                            "anchor_from": "bottom_left",
+                                            "anchor_to": "top_left",
+                                            "layer": 2,
+                                            "color": [
+                                                0.0,
+                                                0.0,
+                                                0.0
+                                            ],
+                                            "font_type": "unicode",
+                                            "text": "neteaseChat.playertip.level_before",
+                                            "controls": [
+                                                {
+                                                    "player_level_num": {
+                                                        "type": "label",
+                                                        "anchor_from": "bottom_right",
+                                                        "anchor_to": "bottom_left",
+                                                        "layer": 2,
+                                                        "color": [
+                                                            0.0,
+                                                            0.0,
+                                                            0.0
+                                                        ],
+                                                        "font_type": "unicode",
+                                                        "text": "#player_level"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "border": {
+                                "type": "image",
+                                "size": [
+                                    "100%+2px",
+                                    "100%x"
+                                ],
+                                "layer": 1,
+                                "texture": "textures/ui/black_border"
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "apply_button@common_buttons.light_text_button": {
+                    "$button_text": "申请好友",
+                    "$pressed_button_name": "button.apply_click",
+                    "anchor_from": "bottom_left",
+                    "anchor_to": "bottom_left",
+                    "layer": 4,
+                    "offset": [
+                        4,
+                        -27
+                    ],
+                    "size": [
+                        45,
+                        20
+                    ]
+                }
+            },
+            {
+                "shield_button@common_buttons.light_text_button": {
+                    "$button_text": "#netease_chat_shield_text",
+                    "$button_text_binding_type": "global",
+                    "$button_binding_condition": "always",
+                    "$pressed_button_name": "button.shield_click",
+                    "anchor_from": "bottom_left",
+                    "anchor_to": "bottom_left",
+                    "layer": 4,
+                    "offset": [
+                        4,
+                        -5
+                    ],
+                    "size": [
+                        45,
+                        20
+                    ]
+                }
+            },
+            {
+                "report_button@common_buttons.light_text_button": {
+                    "$button_text": "举报玩家",
+                    "$pressed_button_name": "button.report_click",
+                    "anchor_from": "bottom_right",
+                    "anchor_to": "bottom_right",
+                    "layer": 4,
+                    "offset": [
+                        -4,
+                        -27
+                    ],
+                    "size": [
+                        45,
+                        20
+                    ]
+                }
+            },
+            {
+                "kick_button@common_buttons.light_text_button": {
+                    "$button_text": "踢出玩家",
+                    "$pressed_button_name": "button.kick_click",
+                    "anchor_from": "bottom_right",
+                    "anchor_to": "bottom_right",
+                    "layer": 4,
+                    "offset": [
+                        -4,
+                        -5
+                    ],
+                    "size": [
+                        45,
+                        20
+                    ],
+                    "bindings": [
+                        {
+                            "binding_name": "#netease_chat_kick_button_visible",
+                            "binding_name_override": "#visible",
+                            "binding_type": "global"
+                        }
+                    ]
+                }
+            },
+            {
+                "bg_image": {
+                    "type": "image",
+                    "layer": 1,
+                    "keep_ratio": false,
+                    "texture": "textures/ui/dialog_background_opaque"
+                }
+            }
+        ]
+    }
+}

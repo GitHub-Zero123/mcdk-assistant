@@ -1,0 +1,95 @@
+{
+    "particleeffect": {
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.2143",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "27.4%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.7411",
+                "time": "81.3%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "constantforce": {
+            "value": "0.0 0.0 0.1"
+        },
+        "dampingforce": {
+            "value": "1.0"
+        },
+        "direction": {
+            "max": "-0.0 0.0 0.0",
+            "min": "-1.0 -1.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "6.0",
+            "min": "6.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.1 0.2 0.1"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "layer": 2,
+        "numparticles": {
+            "value": "6"
+        },
+        "offsetInCamera": {
+            "value": "-0.09999999999999996"
+        },
+        "particlesize": {
+            "max": "0.2 0.2",
+            "min": "0.1 0.1"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.9 0.9",
+                "time": "0.3%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "77.7%"
+            },
+            {
+                "scale": "0.6 0.6",
+                "time": "99.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "6",
+                "name": "textures/sfxs/2025s6/ss_s6FireDragon_weapon_lz1",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s6/ss_s6FireDragon_weapon_lz1"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "1.2",
+            "min": "1.0"
+        },
+        "velocity": {
+            "max": "0.3",
+            "min": "0.1"
+        }
+    }
+}

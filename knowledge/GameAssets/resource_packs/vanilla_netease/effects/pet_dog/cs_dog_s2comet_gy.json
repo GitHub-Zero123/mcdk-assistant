@@ -1,0 +1,61 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "value": "Direction",
+            "min": "-1.0 -1.0 -1.0"
+        },
+        "numparticles": {
+            "value": "8"
+        },
+        "colorfade": [
+            {
+                "color": "0.5922 0.9490 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.5098 0.9529 1.0000 0.2679",
+                "time": "49.5%"
+            },
+            {
+                "color": "0.3804 0.8353 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "emissionrate": {
+            "max": "8.0",
+            "min": "8.0"
+        },
+        "texture": {
+            "name": "textures/sfxs/pet_dog/cs_dog_s2comet_sun"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "particlesize": {
+            "max": "0.1 0.1",
+            "min": "0.1 0.1"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.5 0.5",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.71 1.71",
+                "time": "55.3%"
+            },
+            {
+                "scale": "0.51 0.51",
+                "time": "100.0%"
+            }
+        ]
+    }
+}

@@ -1,0 +1,79 @@
+{
+    "particleeffect": {
+        "colorfade": [
+            {
+                "color": "0.0000 0.0000 0.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.0000 0.0000 0.0000 1.0000",
+                "time": "8.4%"
+            },
+            {
+                "color": "0.9333 0.0000 1.0000 1.0000",
+                "time": "43.2%"
+            },
+            {
+                "color": "1.0000 0.5765 0.9804 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "15.0",
+            "min": "15.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.8 0.5 0.8"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "layer": 2,
+        "numparticles": {
+            "value": "15"
+        },
+        "particlesize": {
+            "max": "0.2 0.2",
+            "min": "0.1 0.1"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "false"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.0 0.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.9 0.9",
+                "time": "54.0%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s6/ss_s6Yaksha_horse_lz2"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.3",
+            "min": "0.5"
+        },
+        "velocity": {
+            "max": "0.2",
+            "min": "0.1"
+        }
+    }
+}

@@ -1,0 +1,63 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.6392 0.0118 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.5020 0.0000 1.0000",
+                "time": "22.1%"
+            },
+            {
+                "color": "1.0000 0.2510 0.0000 1.0000",
+                "time": "73.2%"
+            },
+            {
+                "color": "1.0000 0.1647 0.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "0.0 0.0 1.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "1.0 1.0 0.0"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "numparticles": {
+            "value": "5"
+        },
+        "particlesize": {
+            "max": "0.08 0.08",
+            "min": "0.05 0.05"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "name": "textures/sfxs/2025s5/ss_s5fire_fz_01"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.8",
+            "min": "0.5"
+        },
+        "velocity": {
+            "max": "1.0",
+            "min": "0.5"
+        }
+    }
+}

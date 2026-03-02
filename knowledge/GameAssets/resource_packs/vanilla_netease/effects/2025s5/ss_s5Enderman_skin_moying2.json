@@ -1,0 +1,103 @@
+{
+    "particleeffect": {
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.9911",
+                "time": "6.6%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "43.2%"
+            },
+            {
+                "color": "0.4667 0.0000 1.0000 1.0000",
+                "time": "63.2%"
+            },
+            {
+                "color": "0.3843 0.0000 1.0000 1.0000",
+                "time": "74.7%"
+            },
+            {
+                "color": "0.1137 0.0000 0.3176 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "constantforce": {
+            "value": "0.0 -0.1 0.1"
+        },
+        "dampingforce": {
+            "value": "0.02"
+        },
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "disorder": {
+            "increment": "0.0",
+            "interval": "0.8500000000000001",
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 0.0 0.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.8 0.15 0.7"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "inactivetime": {
+            "max": "0.0",
+            "min": "0.0"
+        },
+        "particlesize": {
+            "max": "0.02 0.02",
+            "min": "0.05 0.05"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "false"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "59.7%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "0",
+                "name": "textures/sfxs/2025s5/ss_s5Enderman_skin_moying",
+                "shuffle": true
+            },
+            "name": "textures/sfxs/2025s5/ss_s5Enderman_skin_moying2"
+        },
+        "thickness": {
+            "value": "1.0"
+        },
+        "timetolive": {
+            "max": "3.3",
+            "min": "1.8"
+        },
+        "velocity": {
+            "max": "0.4",
+            "min": "0.0"
+        }
+    }
+}

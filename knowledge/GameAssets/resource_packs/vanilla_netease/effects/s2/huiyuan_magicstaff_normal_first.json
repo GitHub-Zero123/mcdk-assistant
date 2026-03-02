@@ -1,0 +1,106 @@
+{
+    "particleeffect": {
+        "constantforce": {
+            "value": "0.0 0.0 0.0"
+        },
+        "enablecolor": {
+            "enable": "false"
+        },
+        "faceCameraMode": {
+            "value": "Rotate XYZ"
+        },
+        "emissionrate": {
+            "max": "30.0",
+            "min": "30.0"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "rotationspeed": {
+            "max": "0.0",
+            "min": "0.0"
+        },
+        "particlesize": {
+            "max": "0.04 0.04",
+            "min": "0.02 0.02"
+        },
+        "activetime": {
+            "value": "0.0"
+        },
+        "numparticles": {
+            "value": "10"
+        },
+        "texture": {
+            "name": "textures/sfxs/s2/m_huiyuan_magicstaff_normal_first",
+            "ani": {
+                "name": "textures/sfxs/s2/m_huiyuan_magicstaff_normal_first",
+                "fps": "8.0"
+            }
+        },
+        "timetolive": {
+            "max": "0.7",
+            "min": "0.4"
+        },
+        "sizedelta": {
+            "mul": "0.6",
+            "add": "0.1"
+        },
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 0.0 0.0"
+        },
+        "dampingforce": {
+            "value": "5.0"
+        },
+        "material": {
+            "name": "Materials/Particle.xml"
+        },
+        "enableloop": {
+            "enable": "false"
+        },
+        "emittersize": {
+            "value": "0.25 0.25 0.25"
+        },
+        "inactivetime": {
+            "value": "0.0"
+        },
+        "sorted": {
+            "enable": "false"
+        },
+        "rotation": {
+            "max": "0.0",
+            "min": "0.0"
+        },
+        "scaled": {
+            "enable": "true"
+        },
+        "fixedscreensize": {
+            "enable": "false"
+        },
+        "colorfade": [
+            {
+                "color": "0.909804 0.0 0.0 0.0",
+                "time": "0.0"
+            },
+            {
+                "color": "0.666667 0.0 0.0 0.298039",
+                "time": "0.1"
+            },
+            {
+                "color": "0.937255 0.035294 0.05098 0.098039",
+                "time": "0.25"
+            },
+            {
+                "color": "0.0 0.0 0.0 0.0",
+                "time": "1.5"
+            }
+        ],
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        },
+        "blend": {
+            "name": "blend"
+        }
+    }
+}

@@ -1,0 +1,76 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.1"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "0.5451 1.0000 0.9255 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.0000 0.9529 1.0000 0.6250",
+                "time": "15.5%"
+            },
+            {
+                "color": "1.0000 0.4667 0.9490 0.5625",
+                "time": "57.1%"
+            },
+            {
+                "color": "0.7294 0.4588 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "depthtest": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "20.0",
+            "min": "20.0"
+        },
+        "layer": 3,
+        "numparticles": {
+            "value": "2"
+        },
+        "particlesize": {
+            "max": "0.7 0.7",
+            "min": "0.7 0.7"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.0 0.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.8 1.8",
+                "time": "18.3%"
+            },
+            {
+                "scale": "2.24 2.24",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s6/cs_s6Cyber_skin_gy3"
+        },
+        "timetolive": {
+            "max": "0.3",
+            "min": "0.2"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

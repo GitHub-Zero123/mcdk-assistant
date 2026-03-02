@@ -1,0 +1,216 @@
+{
+    "particleeffect": {
+        "rotationSpeedRange": {
+            "max": "90.0 90.0 90.0",
+            "min": "-90.0 -90.0 -90.0"
+        },
+        "direction": {
+            "max": "0.0 0.01 0.0",
+            "value": "Direction",
+            "min": "0.0 0.01 0.0"
+        },
+        "numparticles": {
+            "value": "3"
+        },
+        "pointFiltering": true,
+        "enabletexture": {
+            "enable": true
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "50.0%"
+            },
+            {
+                "color": "0.8549 0.5137 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "emitterScaleCurve": [
+            {
+                "y": 3.0,
+                "x": 3.0,
+                "leftPoint": {
+                    "y": 0.0,
+                    "x": 6.0
+                },
+                "rightPoint": {
+                    "y": 2.46,
+                    "x": 3.8
+                }
+            },
+            {
+                "y": 0.0,
+                "x": 6.0,
+                "leftPoint": {
+                    "y": 1.7400000000000002,
+                    "x": 5.26
+                },
+                "rightPoint": {
+                    "y": 0.0,
+                    "x": 6.0
+                }
+            }
+        ],
+        "layer": 2,
+        "emittersize": {
+            "value": "0.15 0.11 0.11"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "emittertype": {
+            "value": "Cylinder"
+        },
+        "timetolive": {
+            "max": "0.8",
+            "min": "0.8"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": false,
+                "name": "textures/sfxs/pet_mh_fox/cs_mhfox_s1wild_xing",
+                "fps": "30"
+            },
+            "name": "textures/sfxs/pet_mh_fox/cs_mhfox_s1wild_xing"
+        },
+        "emitterscale": [
+            {
+                "value": "3.000",
+                "time": "3.0"
+            },
+            {
+                "value": "2.748",
+                "time": "2.8027545599999995"
+            },
+            {
+                "value": "2.513",
+                "time": "2.6274124800000003"
+            },
+            {
+                "value": "2.295",
+                "time": "2.47456512"
+            },
+            {
+                "value": "2.093",
+                "time": "2.3448038399999995"
+            },
+            {
+                "value": "1.907",
+                "time": "2.2387200000000003"
+            },
+            {
+                "value": "1.734",
+                "time": "2.15690496"
+            },
+            {
+                "value": "1.575",
+                "time": "2.0999500799999997"
+            },
+            {
+                "value": "1.428",
+                "time": "2.06844672"
+            },
+            {
+                "value": "1.293",
+                "time": "2.0629862400000003"
+            },
+            {
+                "value": "1.169",
+                "time": "2.08416"
+            },
+            {
+                "value": "1.055",
+                "time": "2.13255936"
+            },
+            {
+                "value": "0.950",
+                "time": "2.20877568"
+            },
+            {
+                "value": "0.852",
+                "time": "2.3134003200000004"
+            },
+            {
+                "value": "0.762",
+                "time": "2.44702464"
+            },
+            {
+                "value": "0.679",
+                "time": "2.61024"
+            },
+            {
+                "value": "0.601",
+                "time": "2.8036377600000004"
+            },
+            {
+                "value": "0.527",
+                "time": "3.02780928"
+            },
+            {
+                "value": "0.457",
+                "time": "3.28334592"
+            },
+            {
+                "value": "0.390",
+                "time": "3.5708390400000005"
+            },
+            {
+                "value": "0.325",
+                "time": "3.890880000000001"
+            },
+            {
+                "value": "0.262",
+                "time": "4.244060159999999"
+            },
+            {
+                "value": "0.198",
+                "time": "4.63097088"
+            },
+            {
+                "value": "0.134",
+                "time": "5.05220352"
+            },
+            {
+                "value": "0.068",
+                "time": "5.50834944"
+            },
+            {
+                "value": "0.000",
+                "time": "6.0"
+            }
+        ],
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "particlesize": {
+            "max": "0.03 0.03",
+            "min": "0.09 0.09"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.76 0.76",
+                "time": "74.7%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "99.7%"
+            }
+        ]
+    }
+}

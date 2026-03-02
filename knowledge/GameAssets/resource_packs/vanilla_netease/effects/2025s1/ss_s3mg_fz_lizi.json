@@ -1,0 +1,86 @@
+{
+    "particleeffect": {
+        "colorfade": [
+            {
+                "color": "1.0000 0.9176 0.4392 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.9176 0.4392 1.0000",
+                "time": "25.8%"
+            },
+            {
+                "color": "1.0000 0.8510 0.0000 1.0000",
+                "time": "26.3%"
+            },
+            {
+                "color": "1.0000 0.8510 0.0000 1.0000",
+                "time": "44.2%"
+            },
+            {
+                "color": "1.0000 0.8353 0.0000 1.0000",
+                "time": "45.5%"
+            },
+            {
+                "color": "1.0000 0.8353 0.0000 1.0000",
+                "time": "69.5%"
+            },
+            {
+                "color": "0.4196 0.1176 0.0000 1.0000",
+                "time": "71.1%"
+            },
+            {
+                "color": "0.4196 0.1176 0.0000 1.0000",
+                "time": "88.9%"
+            },
+            {
+                "color": "0.4196 0.1176 0.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "constantforce": {
+            "value": "0.0 0.0 -5.0"
+        },
+        "dampingforce": {
+            "value": "6.0"
+        },
+        "direction": {
+            "max": "-1.0 -1.0 0.0",
+            "min": "1.0 1.0 1.0",
+            "value": "Direction"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.5 0.3 0.2"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "inactivetime": {
+            "value": "0.5"
+        },
+        "particlesize": {
+            "max": "0.06 0.06",
+            "min": "0.04 0.04"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "name": "textures/sfxs/2025s1/ss_s3mg_fz_01"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.5",
+            "min": "0.3"
+        },
+        "velocity": {
+            "max": "7.0",
+            "min": "5.0"
+        }
+    }
+}

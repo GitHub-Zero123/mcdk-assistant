@@ -1,0 +1,88 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:tree_feature": {
+    "description": {
+      "identifier": "minecraft:roofed_tree_feature"
+    },
+    "acacia_trunk": {
+      "trunk_width": 2,
+      "trunk_height": {
+        "base": 6,
+        "intervals": [ 3, 2 ]
+      },
+      "trunk_block": {
+        "name": "minecraft:dark_oak_log"
+      },
+      "trunk_lean": {
+        "allow_diagonal_growth": false,
+        "lean_height": {
+          "range_min": 0,
+          "range_max": 4
+        },
+        "lean_steps": {
+          "range_min": 0,
+          "range_max": 3
+        }
+      },
+      "branches": {
+        "branch_chance": {
+          "numerator": 1,
+          "denominator": 3
+        },
+        "branch_length": {
+          "range_min": 2,
+          "range_max": 5
+        },
+        "branch_position": 1,
+        "branch_canopy": {
+          "acacia_canopy": {
+            "canopy_size": 2,
+            "leaf_block": {
+              "name": "minecraft:dark_oak_leaves"
+            },
+            "simplify_canopy": true
+          }
+        }
+      }
+    },
+    "roofed_canopy": {
+      "canopy_height": 4,
+      "core_width": 2,
+      "outer_radius": 2,
+      "inner_radius": 3,
+      "leaf_block": {
+        "name": "minecraft:dark_oak_leaves"
+      }
+    },
+    // Blocks the tree can be placed on.
+    "may_grow_on": [
+      { "tags": "query.any_tag('dirt')" }
+    ],
+    // Any "may_grow_on" block that is not specified here will be replaced with the first block in this list.
+    "base_block": [
+      "minecraft:dirt",
+      "minecraft:coarse_dirt"
+    ],
+    // Blocks to ignore when checking for clearance around the tree. Already includes all blocks specified in "may_replace".
+    "may_grow_through": [
+      { "tags": "query.any_tag('dirt')" }
+    ],
+    // Blocks that can be replaced by the tree's trunk and canopy.
+    "may_replace": [
+      "minecraft:air",
+      "minecraft:snow_layer",
+      // All leaves
+      "minecraft:acacia_leaves",
+      "minecraft:azalea_leaves",
+      "minecraft:azalea_leaves_flowered",
+      "minecraft:birch_leaves",
+      "minecraft:cherry_leaves",
+      "minecraft:dark_oak_leaves",
+      "minecraft:jungle_leaves",
+      "minecraft:mangrove_leaves",
+      "minecraft:oak_leaves",
+      "minecraft:pale_oak_leaves",
+      "minecraft:spruce_leaves"
+    ]
+  }
+}

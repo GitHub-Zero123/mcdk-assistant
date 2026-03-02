@@ -1,0 +1,99 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.8863 0.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 0.0000 0.8571",
+                "time": "27.4%"
+            },
+            {
+                "color": "1.0000 1.0000 0.0000 0.3839",
+                "time": "59.2%"
+            },
+            {
+                "color": "1.0000 0.7020 0.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "dampingforce": {
+            "value": "1.0"
+        },
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 1.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "20.0",
+            "min": "20.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "1.4 0.1 1.4"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "numparticles": {
+            "value": "20"
+        },
+        "particlesize": {
+            "max": "0.15 0.15",
+            "min": "0.3 0.3"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 360.0",
+            "min": "0.0 0.0 0.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.22 0.22",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.78 0.78",
+                "time": "21.7%"
+            },
+            {
+                "scale": "0.32 0.32",
+                "time": "47.3%"
+            },
+            {
+                "scale": "0.76 0.76",
+                "time": "60.7%"
+            },
+            {
+                "scale": "0.18 0.18",
+                "time": "80.3%"
+            },
+            {
+                "scale": "0.46 0.46",
+                "time": "90.3%"
+            },
+            {
+                "scale": "0.18 0.18",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s1/cs_s3xd_horse_lz"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.6",
+            "min": "0.3"
+        }
+    }
+}

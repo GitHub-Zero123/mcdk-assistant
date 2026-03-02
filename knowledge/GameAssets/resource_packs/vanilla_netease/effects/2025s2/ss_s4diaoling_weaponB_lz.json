@@ -1,0 +1,77 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.9725 0.6667 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.3647 0.0000 1.0000 1.0000",
+                "time": "60.0%"
+            },
+            {
+                "color": "0.1412 0.0000 0.5412 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "1.0 0.0 1.0",
+            "min": "-1.0 0.0 -1.0",
+            "value": "Outwards"
+        },
+        "emissionrate": {
+            "max": "8.0",
+            "min": "6.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.4 0.0 0.4"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "numparticles": {
+            "value": "6"
+        },
+        "particlesize": {
+            "max": "0.1 0.1",
+            "min": "0.05 0.05"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.26 0.26",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.74 0.74",
+                "time": "58.3%"
+            },
+            {
+                "scale": "0.8 0.8",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s2/ss_s4diaoling_weaponB_lz"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.4",
+            "min": "0.3"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

@@ -1,0 +1,92 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "1.0 -1.0 -1.0",
+            "value": "Direction",
+            "min": "-1.0 1.0 1.0"
+        },
+        "dampingforce": {
+            "value": "2.0"
+        },
+        "numparticles": {
+            "value": "30"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 0.4980 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 0.0000 0.0000",
+                "time": "20.8%"
+            },
+            {
+                "color": "1.0000 1.0000 0.0000 1.0000",
+                "time": "51.1%"
+            },
+            {
+                "color": "1.0000 1.0000 0.0000 0.0000",
+                "time": "70.3%"
+            },
+            {
+                "color": "1.0000 1.0000 0.2400 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "emissionrate": {
+            "max": "40.0",
+            "min": "30.0"
+        },
+        "emitterScaleCurve": [],
+        "enableloop": {
+            "enable": "true"
+        },
+        "emittersize": {
+            "value": "0.1 0.15 0.1"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "emittertype": {
+            "value": "Cylinder"
+        },
+        "timetolive": {
+            "max": "0.5",
+            "min": "0.3"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": false,
+                "name": "/pet_mh_fox",
+                "fps": "2"
+            },
+            "name": "textures/sfxs/pet_mh_fox/ss_mhfox_guofeng_fangkuai"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.1",
+            "min": "0.1"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 0.0 180.0"
+        },
+        "particlesize": {
+            "max": "0.02 0.02",
+            "min": "0.01 0.01"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.7 0.7",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.7 0.7",
+                "time": "100.0%"
+            }
+        ]
+    }
+}

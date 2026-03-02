@@ -1,0 +1,64 @@
+{
+    "particleeffect": {
+        "constantforce": {
+            "value": "0.0 -0.3 0.0"
+        },
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "1.5 1.5 1.5"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "particlesize": {
+            "max": "0.05 0.05",
+            "min": "0.03 0.03"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.0 0.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.2 1.2",
+                "time": "30.0%"
+            },
+            {
+                "scale": "0.6 0.6",
+                "time": "50.0%"
+            },
+            {
+                "scale": "1.05 1.05",
+                "time": "69.0%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "0",
+                "name": "textures/sfxs/2025s1/sh_s3guofeng_skina_lz56",
+                "shuffle": true
+            },
+            "name": "textures/sfxs/2025s1/sh_s3guofeng_skina_lz56"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "2.0",
+            "min": "1.5"
+        }
+    }
+}

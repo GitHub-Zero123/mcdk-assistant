@@ -1,0 +1,134 @@
+{
+    "particleeffect": {
+        "constantforce": {
+            "value": "0.0 -0.30000000000000004 0.0"
+        },
+        "layer": 13,
+        "faceCameraMode": {
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "750.0",
+            "min": "500.0"
+        },
+        "emitterpath": [],
+        "relative": {
+            "enable": "true"
+        },
+        "activetime": {
+            "value": "0.20000000000000004"
+        },
+        "numparticles": {
+            "value": "70"
+        },
+        "texture": {
+            "name": "textures/sfxs/pet_dino/fangkuai"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "delay": 1.62,
+        "timetolive": {
+            "max": "1.4",
+            "min": "1.2"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "0.00"
+            },
+            {
+                "scale": "0.58 0.58",
+                "time": "1.00"
+            },
+            {
+                "scale": "0.5 0.5",
+                "time": "2.00"
+            }
+        ],
+        "independent": false,
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "value": "Direction",
+            "min": "-1.0 -1.0 -1.0"
+        },
+        "dampingforce": {
+            "value": "1.5"
+        },
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.0 0.0 0.0"
+        },
+        "inactivetime": {
+            "value": "2.88"
+        },
+        "emitterscale": [],
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.00"
+            },
+            {
+                "color": "1.0000 0.6667 0.6745 1.0000",
+                "time": "0.09"
+            },
+            {
+                "color": "1.0000 0.5647 0.9451 1.0000",
+                "time": "0.22"
+            },
+            {
+                "color": "1.0000 0.4549 0.8118 0.8571",
+                "time": "0.66"
+            },
+            {
+                "color": "0.9412 0.2588 1.0000 0.3304",
+                "time": "0.76"
+            },
+            {
+                "color": "0.9490 0.3490 1.0000 0.8036",
+                "time": "0.91"
+            },
+            {
+                "color": "0.8627 0.2980 1.0000 0.0000",
+                "time": "0.98"
+            },
+            {
+                "color": "1.0000 0.4471 0.9451 0.5089",
+                "time": "1.07"
+            },
+            {
+                "color": "0.8549 0.2627 1.0000 0.0000",
+                "time": "1.17"
+            },
+            {
+                "color": "1.0000 0.3608 0.8941 0.3125",
+                "time": "1.24"
+            },
+            {
+                "color": "0.7294 0.2627 1.0000 0.0000",
+                "time": "1.34"
+            },
+            {
+                "color": "1.0000 0.3765 0.8980 0.2143",
+                "time": "1.37"
+            },
+            {
+                "color": "1.0000 0.2235 0.9373 0.0000",
+                "time": "1.40"
+            }
+        ],
+        "depthtest": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "velocity": {
+            "max": "3.5000000000000013",
+            "min": "2.999999999999999"
+        },
+        "blend": {
+            "name": "add"
+        }
+    }
+}

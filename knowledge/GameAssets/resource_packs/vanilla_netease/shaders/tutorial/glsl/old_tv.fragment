@@ -1,0 +1,43 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+precision highp float;
+#include "fragmentVersionCentroidUV.h"
+#include "uniformPerFrameConstants.h"
+#include "noise.h"
+#include "util.h"
+#line 8
+
+LAYOUT_BINDING(0) uniform sampler2D TEXTURE_0;
+
+uniform vec4 EXTRA_VECTOR1; // (density 雪花密度, strength 雪花强度, snow_size 雪花大小, noise_fps 噪声频率)
+uniform vec4 EXTRA_VECTOR2; // (black_zone 黑边占屏幕比率, ?, ?, ?)
+
+void main(){
+	vec4 base_color = texture( TEXTURE_0, uv );
+	float time_flow = floor(TIME * EXTRA_VECTOR1.a) / EXTRA_VECTOR1.a;
+
+	// 白噪声
+	vec2 snow_uv = floor(uv * vec2(1.6, 0.9) * (2048.0 / EXTRA_VECTOR1.b)) * EXTRA_VECTOR1.b;
+	float r = rand(snow_uv + time_flow);
+	r = step(1.0 - EXTRA_VECTOR1.r, r);
+
+	// 纵向的随机划痕 增加陈旧的观感
+	float glitch = rand(uv.xx * 1024.0 + time_flow);
+	glitch = step(0.999, glitch);
+
+	// 颜色滤镜 叠加灰度感 让画面发旧
+	float gray = dot(base_color.rgb, vec3(0.2126729, 0.7151522, 0.0721750));
+	base_color.rgb = vec3(gray * 0.4) + base_color.rgb * vec3(0.6, 0.55, 0.5);
+
+	// 中心的噪声需要淡出 防止遮挡视野
+	float dist_to_center = length(uv - vec2(0.5, 0.5));
+	dist_to_center *= dist_to_center;
+
+	vec3 final_color = base_color.rgb + vec3((r + glitch) * EXTRA_VECTOR1.g * dist_to_center);
+
+	// 电影黑边
+	float black_zone = step(min(uv.y, 1.0 - uv.y), EXTRA_VECTOR2.r * 0.5);
+	final_color = (1.0 - black_zone) * final_color.rgb;
+
+	gl_FragColor = vec4(final_color, 1.0);
+}

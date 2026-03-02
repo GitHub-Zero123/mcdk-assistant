@@ -1,0 +1,12 @@
+{
+    "format_version": "1.16.0",
+    "minecraft:snap_to_surface_feature": {
+        "description": {
+            "identifier": "minecraft:small_dripstone_snap_to_surface_feature"
+        },
+        "feature_to_snap": "minecraft:pointed_dripstone_feature",
+        "vertical_search_range": 12,
+        "surface": "random_horizontal",
+        "allow_underwater_placement": true
+    }
+}

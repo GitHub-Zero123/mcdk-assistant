@@ -1,0 +1,76 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "value": "Direction",
+            "min": "0.0 0.0 0.0"
+        },
+        "numparticles": {
+            "value": "5"
+        },
+        "pointFiltering": true,
+        "enabletexture": {
+            "enable": true
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "24.5%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "61.8%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "emissionrate": {
+            "max": "12.0",
+            "min": "10.0"
+        },
+        "emitterScaleCurve": [],
+        "layer": 3,
+        "emittersize": {
+            "value": "0.8 0.8 0.0"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "inactivetime": {
+            "value": "1.0"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": true,
+                "name": "textures/sfxs/pet_cat/ss_conan_s1skina_huaban03",
+                "fps": "0"
+            },
+            "name": "textures/sfxs/pet_cat/ss_conan_s1skina_huaban03"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        },
+        "particlesize": {
+            "max": "0.05 0.05",
+            "min": "0.03 0.03"
+        },
+        "timetolive": {
+            "max": "1.5",
+            "min": "1.0"
+        }
+    }
+}

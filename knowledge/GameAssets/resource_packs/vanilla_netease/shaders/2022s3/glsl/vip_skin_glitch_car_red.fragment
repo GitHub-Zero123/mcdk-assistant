@@ -1,0 +1,46 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+precision highp float;
+
+#include "fragmentVersionCentroidUV.h"
+#include "uniformEntityConstants.h"
+
+#include "uniformPerFrameConstants.h"
+#include "uniformShaderConstants.h"
+#include "util.h"
+
+LAYOUT_BINDING(0) uniform sampler2D TEXTURE_0; // base map
+LAYOUT_BINDING(1) uniform sampler2D TEXTURE_1; // noise map
+LAYOUT_BINDING(2) uniform sampler2D TEXTURE_2; 
+
+#define Emission 0.00
+#define VertSpeed 25.00
+#define VertMoveAmount 0.15
+#define Amplitude 2.68
+
+#define NoiseStep 1000.00
+#define Frequency 0.02
+
+#define Block_Offset 0.07
+#define Block_Amount 0.15
+#define Block_LinesWidth 10.00
+#define JITTER_COLOR vec3(254.0,255.0,158.0)
+#define Block_small_add 1.00
+
+const float FROM_255_TO_1 = 1.0 / 255.0;
+const vec3 jitterColor = JITTER_COLOR * FROM_255_TO_1;
+
+varying vec4 light;
+varying vec4 fogColor;
+
+varying vec2 uv2;
+
+#include "2022s3_glitch_car_util.h"
+
+void main() {
+	gl_FragColor = glitch_car();
+
+#ifdef USE_OVERLAY
+	gl_FragColor.rgb = mix(gl_FragColor.rgb, OVERLAY_COLOR.rgb, OVERLAY_COLOR.a);
+#endif // USE_OVERLAY
+}

@@ -1,0 +1,5987 @@
+{
+    "actionBtn@common.button": {
+        "$default_texture": "textures/ui/btn_light_default",
+        "$hover_texture": "textures/ui/btn_hover",
+        "$label_font_size": "normal",
+        "$default_text_color": [
+            0.26,
+            0.26,
+            0.26
+        ],
+        "$pressed_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$hover_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$label_layer": 3,
+        "$label_offset": [
+            0,
+            0
+        ],
+        "$label_text": "动作",
+        "$nineslice_size": 2,
+        "$pressed_button_name": "",
+        "$pressed_texture": "textures/ui/btn_pressed",
+        "$texture_layer": 2,
+        "anchor_from": "right_middle",
+        "anchor_to": "right_middle",
+        "controls": [
+            {
+                "default@petUI.default": {}
+            },
+            {
+                "hover@petUI.hover": {}
+            },
+            {
+                "pressed@petUI.pressed": {}
+            }
+        ],
+        "default_control": "default",
+        "hover_control": "hover",
+        "is_handle_button_move_event": true,
+        "layer": 1,
+        "offset": [
+            0.0,
+            2.0
+        ],
+        "pressed_control": "pressed",
+        "size": [
+            60.0,
+            24.0
+        ],
+        "type": "button",
+        "visible": true
+    },
+    "changeBtn@common.button": {
+        "$default_texture": "textures/ui/btn_light_default",
+        "$hover_texture": "textures/ui/btn_hover",
+        "$nineslice_size": 2,
+        "$label_offset": [
+            10,
+            0
+        ],
+        "$label_text": "切换伙伴",
+        "$default_text_color": [
+            0.26,
+            0.26,
+            0.26
+        ],
+        "$pressed_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$hover_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$pressed_button_name": "",
+        "$pressed_texture": "textures/ui/btn_pressed",
+        "$texture_layer": 1,
+        "anchor_from": "left_middle",
+        "anchor_to": "left_middle",
+        "controls": [
+            {
+                "default@petUI.default": {}
+            },
+            {
+                "hover@petUI.hover": {}
+            },
+            {
+                "pressed@petUI.pressed": {}
+            },
+            {
+                "changeImage@petUI.changeImage": {}
+            }
+        ],
+        "default_control": "default",
+        "hover_control": "hover",
+        "is_handle_button_move_event": true,
+        "layer": 1,
+        "offset": [
+            4.0,
+            2.0
+        ],
+        "pressed_control": "pressed",
+        "size": [
+            75.0,
+            24.0
+        ],
+        "type": "button",
+        "visible": true
+    },
+    "backBtn@common.button": {
+        "$default_texture": "",
+        "$hover_texture": "",
+        "$default_text_color": [
+            0.26,
+            0.26,
+            0.26
+        ],
+        "$pressed_text_color": [
+            0.26,
+            0.26,
+            0.26
+        ],
+        "$hover_text_color": [
+            0.26,
+            0.26,
+            0.26
+        ],
+        "$label_font_size": "normal",
+        "$label_layer": 3,
+        "$label_offset": [
+            -15,
+            0
+        ],
+        "$label_text": "<",
+        "$pressed_button_name": "",
+        "$pressed_texture": "",
+        "$texture_layer": 2,
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "default@petUI.default": {}
+            },
+            {
+                "hover@petUI.hover": {}
+            },
+            {
+                "pressed@petUI.pressed": {}
+            }
+        ],
+        "default_control": "default",
+        "hover_control": "hover",
+        "is_handle_button_move_event": true,
+        "layer": 4,
+        "offset": [
+            0,
+            0
+        ],
+        "pressed_control": "pressed",
+        "size": [
+            60.0,
+            "100.0%+0.0px"
+        ],
+        "type": "button",
+        "visible": true
+    },
+    "bgImage": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "layer": 2,
+        "alpha": 0.5,
+        "offset": [
+            0,
+            0
+        ],
+        "nineslice_size": 1,
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "texture": "textures/ui/Black",
+        "type": "image",
+        "visible": true
+    },
+    "btnTogglePanel": {
+        "anchor_from": "bottom_middle",
+        "anchor_to": "bottom_middle",
+        "controls": [
+            {
+                "guideToggle@petUI.guideToggle": {}
+            },
+            {
+                "wikiToggle@petUI.wikiToggle": {}
+            },
+            {
+                "dressToggle@petUI.dressToggle": {}
+            },
+            {
+                "interactionToggle@petUI.interactionToggle": {}
+            }
+        ],
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100%-8px",
+            96
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "common_btn@common.button": {
+        "$middle_icon_texture": "textures/ui/exchange_icon",
+        "$button_offset": [
+            0,
+            0
+        ],
+        "$default_texture": "textures/ui/btn_light_default",
+        "$hover_texture": "textures/ui/btn_hover",
+        "$nineslice_size": 2,
+        "$default_text_color": [
+            0.26,
+            0.26,
+            0.26
+        ],
+        "$pressed_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$hover_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$pressed_button_name": "",
+        "$pressed_texture": "textures/ui/btn_pressed",
+        "$texture_layer": 2,
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "default@petUI.default": {}
+            },
+            {
+                "hover@petUI.hover": {}
+            },
+            {
+                "pressed@petUI.pressed": {}
+            },
+            {
+                "common_img": {
+                    "anchor_from": "center",
+                    "anchor_to": "center",
+                    "size": [
+                        "50%",
+                        "50%"
+                    ],
+                    "layer": 3,
+                    "texture": "$middle_icon_texture",
+                    "type": "image"
+                }
+            }
+        ],
+        "default_control": "default",
+        "hover_control": "hover",
+        "is_handle_button_move_event": true,
+        "layer": 5,
+        "offset": "$button_offset",
+        "pressed_control": "pressed",
+        "size": [
+            18.0,
+            18.0
+        ],
+        "type": "button",
+        "visible": true
+    },
+    "headerBg": {
+        "texture": "textures/ui/header_bar",
+        "type": "image",
+        "layer": 1,
+        "nineslice_size": [
+            3,
+            3,
+            3,
+            6
+        ],
+        "visible": true
+    },
+    "panelBg": {
+        "color": [
+            0.3647,
+            0.3647,
+            0.3647
+        ],
+        "texture": "textures/ui/White",
+        "alpha": 0.9,
+        "type": "image"
+    },
+    "wikiDetailPanel": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "controls": [
+            {
+                "panelBg@petUI.panelBg": {}
+            },
+            {
+                "wikiDetailHeaderPanel@petUI.wikiDetailHeaderPanel": {}
+            },
+            {
+                "wikiDetailLeftPanel@petUI.wikiDetailLeftPanel": {}
+            },
+            {
+                "wikiDetailRightPanel@petUI.wikiDetailRightPanel": {}
+            }
+        ],
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "type": "panel",
+        "visible": false
+    },
+    "wikiDetailHeaderPanel": {
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "controls": [
+            {
+                "backBtn@petUI.closeButton": {}
+            },
+            {
+                "titleLabel": {
+                    "anchor_from": "center",
+                    "anchor_to": "center",
+                    "color": [
+                        0.26,
+                        0.26,
+                        0.26
+                    ],
+                    "font_scale_factor": 1.0,
+                    "font_size": "normal",
+                    "font_type": "smooth",
+                    "layer": 2,
+                    "offset": [
+                        0,
+                        0
+                    ],
+                    "shadow": false,
+                    "size": [
+                        100.0,
+                        "default"
+                    ],
+                    "text": "百科详情",
+                    "text_alignment": "center",
+                    "type": "label",
+                    "visible": true
+                }
+            },
+            {
+                "headerBg@petUI.headerBg": {}
+            },
+            {
+                "wikiNavigateLeft@petUI.wikiNavigateLeft": {}
+            },
+            {
+                "wikiNavigateRight@petUI.wikiNavigateRight": {}
+            }
+        ],
+        "layer": 3,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%+0.0px",
+            30.0
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "wikiNavigateLeft@common.button": {
+        "$default_texture": "textures/ui/btn_light_default",
+        "$hover_texture": "textures/ui/btn_hover",
+        "$locked_texture": "textures/ui/btn_unuse",
+        "$nineslice_size": 2,
+        "$label_offset": [
+            5,
+            0
+        ],
+        "$label_text": "后退",
+        "$default_text_color": [
+            0.26,
+            0.26,
+            0.26
+        ],
+        "$pressed_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$hover_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$locked_text_color": [
+            0.69,
+            0.69,
+            0.69
+        ],
+        "$pressed_button_name": "",
+        "$pressed_texture": "textures/ui/btn_pressed",
+        "$texture_layer": 2,
+        "enabled": false,
+        "anchor_from": "left_middle",
+        "anchor_to": "left_middle",
+        "controls": [
+            {
+                "default@petUI.default": {}
+            },
+            {
+                "hover@petUI.hover": {}
+            },
+            {
+                "pressed@petUI.pressed": {}
+            },
+            {
+                "locked@petUI.locked": {}
+            },
+            {
+                "visibleImg": {
+                    "anchor_from": "left_middle",
+                    "anchor_to": "left_middle",
+                    "size": [
+                        16,
+                        16
+                    ],
+                    "layer": 3,
+                    "texture": "textures/ui/left_arrow_icon",
+                    "type": "image"
+                }
+            }
+        ],
+        "default_control": "default",
+        "hover_control": "hover",
+        "locked_control": "locked",
+        "is_handle_button_move_event": true,
+        "layer": 1,
+        "offset": [
+            4,
+            -1
+        ],
+        "pressed_control": "pressed",
+        "size": [
+            36,
+            16
+        ],
+        "type": "button",
+        "visible": true
+    },
+    "wikiNavigateRight@common.button": {
+        "$default_texture": "textures/ui/btn_light_default",
+        "$hover_texture": "textures/ui/btn_hover",
+        "$locked_texture": "textures/ui/btn_unuse",
+        "$nineslice_size": 2,
+        "$label_offset": [
+            -5,
+            0
+        ],
+        "$label_text": "前进",
+        "$default_text_color": [
+            0.26,
+            0.26,
+            0.26
+        ],
+        "$pressed_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$hover_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$locked_text_color": [
+            0.69,
+            0.69,
+            0.69
+        ],
+        "$pressed_button_name": "",
+        "$pressed_texture": "textures/ui/btn_pressed",
+        "$texture_layer": 2,
+        "enabled": false,
+        "anchor_from": "left_middle",
+        "anchor_to": "left_middle",
+        "controls": [
+            {
+                "default@petUI.default": {}
+            },
+            {
+                "hover@petUI.hover": {}
+            },
+            {
+                "pressed@petUI.pressed": {}
+            },
+            {
+                "locked@petUI.locked": {}
+            },
+            {
+                "visibleImg": {
+                    "anchor_from": "right_middle",
+                    "anchor_to": "right_middle",
+                    "size": [
+                        16,
+                        16
+                    ],
+                    "layer": 3,
+                    "texture": "textures/ui/right_arrow_icon",
+                    "type": "image"
+                }
+            }
+        ],
+        "default_control": "default",
+        "hover_control": "hover",
+        "locked_control": "locked",
+        "is_handle_button_move_event": true,
+        "layer": 1,
+        "offset": [
+            46,
+            -1
+        ],
+        "pressed_control": "pressed",
+        "size": [
+            36,
+            16
+        ],
+        "type": "button",
+        "visible": true
+    },
+    "wikiDetailLeftPanel": {
+        "anchor_from": "bottom_left",
+        "anchor_to": "bottom_left",
+        "layer": 3,
+        "offset": [
+            4,
+            0
+        ],
+        "size": [
+            "50.0%-8px",
+            "100%-30px"
+        ],
+        "type": "stack_panel",
+        "visible": true,
+        "controls": [
+            {
+                "padding1": {
+                    "size": [
+                        "100%",
+                        4
+                    ],
+                    "type": "panel"
+                }
+            },
+            {
+                "wikiDetailTitle@petUI.wikiDetailTitle": {}
+            },
+            {
+                "wikiDetailImagePanel@petUI.wikiDetailImagePanel": {}
+            },
+            {
+                "wikiRelationContentPanel@petUI.wikiRelationContentPanel": {}
+            },
+            {
+                "wikiNoRelationContentPanel@petUI.wikiNoRelationContentPanel": {}
+            }
+        ]
+    },
+    "wikiDetailRightPanel": {
+        "anchor_from": "bottom_right",
+        "anchor_to": "bottom_right",
+        "layer": 3,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "50.0%",
+            "100%-30px"
+        ],
+        "type": "panel",
+        "visible": true,
+        "controls": [
+            {
+                "wikiDetailScrollPanel@petUI.wikiDetailScrollPanel": {}
+            }
+        ]
+    },
+    "wikiDetailTitle": {
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "layer": 3,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100%",
+            20
+        ],
+        "type": "panel",
+        "visible": true,
+        "controls": [
+            {
+                "visibleBg@petUI.visibleBg": {}
+            },
+            {
+                "wikiDetailTitleLabel": {
+                    "anchor_from": "center",
+                    "anchor_to": "center",
+                    "color": [
+                        1,
+                        1,
+                        1
+                    ],
+                    "font_size": "normal",
+                    "font_type": "smooth",
+                    "layer": 2,
+                    "shadow": false,
+                    "size": [
+                        "100.0%",
+                        "default"
+                    ],
+                    "text": "百科详情标题",
+                    "text_alignment": "center",
+                    "type": "label",
+                    "visible": true
+                }
+            }
+        ]
+    },
+    "wikiDetailScrollPanel@common.scrolling_panel": {
+        "$scrolling_content": "petUI.wikiDetailScrollContent",
+        "$show_background": false,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "layer": 3,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%-8px",
+            "100.0%-8px"
+        ],
+        "type": "scroll_view",
+        "visible": true
+    },
+    "wikiDetailScrollContent": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "controls": [
+            {
+                "wikiDetailText": {
+                    "anchor_from": "top_left",
+                    "anchor_to": "top_left",
+                    "color": [
+                        1,
+                        1,
+                        1
+                    ],
+                    "font_size": "normal",
+                    "font_type": "smooth",
+                    "layer": 4,
+                    "shadow": false,
+                    "size": [
+                        "100%",
+                        "default"
+                    ],
+                    "text": "百科详情内容",
+                    "text_alignment": "left",
+                    "type": "label",
+                    "visible": true,
+                    "line_padding": 4.0
+                }
+            }
+        ],
+        "layer": 3,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%",
+            "100.0%"
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "wikiRelationContentPanel": {
+        "anchor_from": "bottom_middle",
+        "anchor_to": "bottom_middle",
+        "layer": 5,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%",
+            85
+        ],
+        "type": "panel",
+        "visible": true,
+        "controls": [
+            {
+                "visibleBg@petUI.visibleBg": {
+                    "size": [
+                        "100.0%",
+                        "100.0%-4px"
+                    ]
+                }
+            },
+            {
+                "relationLabel": {
+                    "anchor_from": "top_left",
+                    "anchor_to": "top_left",
+                    "color": [
+                        1,
+                        1,
+                        1
+                    ],
+                    "font_scale_factor": 1.0,
+                    "font_size": "normal",
+                    "font_type": "smooth",
+                    "layer": 2,
+                    "offset": [
+                        "3%",
+                        6
+                    ],
+                    "shadow": false,
+                    "size": [
+                        "100%",
+                        "default"
+                    ],
+                    "text": "包含词条：",
+                    "text_alignment": "left",
+                    "type": "label",
+                    "visible": true
+                }
+            },
+            {
+                "wikiRelationRow0@petUI.wikiRelationRow": {
+                    "offset": [
+                        0,
+                        22
+                    ]
+                }
+            },
+            {
+                "wikiRelationRow1@petUI.wikiRelationRow": {
+                    "offset": [
+                        0,
+                        48
+                    ]
+                }
+            }
+        ]
+    },
+    "wikiNoRelationContentPanel": {
+        "anchor_from": "bottom_middle",
+        "anchor_to": "bottom_middle",
+        "layer": 5,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%",
+            85
+        ],
+        "type": "panel",
+        "visible": false,
+        "controls": [
+            {
+                "visibleBg@petUI.visibleBg": {
+                    "size": [
+                        "100.0%",
+                        "100.0%-4px"
+                    ]
+                }
+            },
+            {
+                "noRelationLabel": {
+                    "layer": 2,
+                    "alpha": 0.5,
+                    "text": "无相关词条",
+                    "type": "label"
+                }
+            }
+        ]
+    },
+    "wikiRelationRow": {
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "layer": 6,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%",
+            24
+        ],
+        "type": "stack_panel",
+        "orientation": "horizontal",
+        "visible": true,
+        "controls": [
+            {
+                "padding1": {
+                    "size": [
+                        "3%",
+                        "100%"
+                    ],
+                    "type": "panel"
+                }
+            },
+            {
+                "wikiRelation0@petUI.wikiItem": {
+                    "size": [
+                        "30%",
+                        24
+                    ]
+                }
+            },
+            {
+                "padding2": {
+                    "size": [
+                        "3%",
+                        "100%"
+                    ],
+                    "type": "panel"
+                }
+            },
+            {
+                "wikiRelation1@petUI.wikiItem": {
+                    "size": [
+                        "30%",
+                        24
+                    ]
+                }
+            },
+            {
+                "padding3": {
+                    "size": [
+                        "3%",
+                        "100%"
+                    ],
+                    "type": "panel"
+                }
+            },
+            {
+                "wikiRelation2@petUI.wikiItem": {
+                    "size": [
+                        "30%",
+                        24
+                    ]
+                }
+            }
+        ]
+    },
+    "wikiDetailImagePanel": {
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "layer": 4,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%",
+            "100%-109px"
+        ],
+        "type": "panel",
+        "visible": true,
+        "controls": [
+            {
+                "visibleBg@petUI.visibleBg": {
+                    "size": [
+                        "100%",
+                        "100%-8px"
+                    ]
+                }
+            },
+            {
+                "wikiDetailImage": {
+                    "anchor_from": "center",
+                    "anchor_to": "center",
+                    "type": "image",
+                    "layer": 2,
+                    "texture": "textures/ui/guide_default",
+                    "offset": [
+                        0,
+                        0
+                    ],
+                    "size": [
+                        "100%-16px",
+                        "100%-16px"
+                    ]
+                }
+            }
+        ]
+    },
+    "animationPreviewPanel": {
+        "alpha": 0.5,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "controls": [
+            {
+                "BGShutter@petUI.BGShutter": {}
+            },
+            {
+                "animationPreviewBG@petUI.animationPreviewBG": {}
+            }
+        ],
+        "layer": 30,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "texture": "textures/ui/Black",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            0,
+            0
+        ],
+        "visible": false
+    },
+    "BGShutter@common.button": {
+        "$default_texture": "",
+        "$hover_texture": "",
+        "$default_text_color": [
+            0.26,
+            0.26,
+            0.26
+        ],
+        "$pressed_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$hover_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$pressed_button_name": "",
+        "$pressed_texture": "",
+        "$texture_layer": 2,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "controls": [
+            {
+                "default@petUI.default": {}
+            },
+            {
+                "hover@petUI.hover": {}
+            },
+            {
+                "pressed@petUI.pressed": {}
+            }
+        ],
+        "default_control": "default",
+        "hover_control": "hover",
+        "is_handle_button_move_event": true,
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "pressed_control": "pressed",
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "type": "button",
+        "visible": true
+    },
+    "animationPreviewBG": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "controls": [
+            {
+                "animationPreviewTitle@petUI.animationPreviewTitle": {}
+            },
+            {
+                "animationPreviewBackBtn@petUI.closeButton": {}
+            },
+            {
+                "animationPreviewConfirmBtn@petUI.animationPreviewConfirmBtn": {}
+            },
+            {
+                "animationPreviewModel@petUI.animationPreviewModel": {}
+            }
+        ],
+        "nineslice_size": [
+            10,
+            26,
+            10,
+            46
+        ],
+        "layer": 1,
+        "offset": [
+            0.0,
+            0.0
+        ],
+        "size": [
+            "80%",
+            "100%-16px"
+        ],
+        "texture": "textures/ui/panel09@3x",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "visible": true
+    },
+    "closeButton@common.button": {
+        "$default_texture": "textures/ui/close_button_default",
+        "$hover_texture": "textures/ui/close_button_hover",
+        "$pressed_button_name": "",
+        "$default_text_color": [
+            0.26,
+            0.26,
+            0.26
+        ],
+        "$pressed_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$hover_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$pressed_texture": "textures/ui/close_button_pressed",
+        "$texture_layer": 2,
+        "anchor_from": "top_right",
+        "anchor_to": "top_right",
+        "controls": [
+            {
+                "default@petUI.default": {}
+            },
+            {
+                "hover@petUI.hover": {}
+            },
+            {
+                "pressed@petUI.pressed": {}
+            }
+        ],
+        "default_control": "default",
+        "hover_control": "hover",
+        "is_handle_button_move_event": true,
+        "layer": 5,
+        "offset": [
+            -4,
+            2
+        ],
+        "pressed_control": "pressed",
+        "size": [
+            24.0,
+            24.0
+        ],
+        "type": "button",
+        "visible": true
+    },
+    "animationPreviewConfirmBtn@common.button": {
+        "$default_texture": "textures/ui/btn_light_default",
+        "$hover_texture": "textures/ui/btn_hover",
+        "$default_text_color": [
+            0.26,
+            0.26,
+            0.26
+        ],
+        "$pressed_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$hover_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$label_font_scale_factor": 1.0,
+        "$label_font_size": "normal",
+        "$label_layer": 3,
+        "$label_offset": [
+            0,
+            0
+        ],
+        "$label_text": "确定",
+        "$nineslice_size": 2,
+        "$pressed_button_name": "",
+        "$pressed_texture": "textures/ui/btn_pressed",
+        "$texture_layer": 2,
+        "anchor_from": "bottom_middle",
+        "anchor_to": "bottom_middle",
+        "controls": [
+            {
+                "default@petUI.default": {}
+            },
+            {
+                "hover@petUI.hover": {}
+            },
+            {
+                "pressed@petUI.pressed": {}
+            }
+        ],
+        "default_control": "default",
+        "hover_control": "hover",
+        "is_handle_button_move_event": true,
+        "layer": 1,
+        "offset": [
+            0.0,
+            -5.0
+        ],
+        "pressed_control": "pressed",
+        "size": [
+            "96.0%+0.0px",
+            30
+        ],
+        "type": "button",
+        "visible": true
+    },
+    "animationPreviewModel": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "animation": "",
+        "layer": 1,
+        "modelname": "",
+        "modelsize": 1.0,
+        "offset": [
+            0,
+            -150
+        ],
+        "renderer": "paper_doll_renderer",
+        "size": [
+            300,
+            300
+        ],
+        "type": "custom",
+        "visible": true
+    },
+    "animationPreviewTitle": {
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "color": [
+            0.26,
+            0.26,
+            0.26
+        ],
+        "font_scale_factor": 1.0,
+        "font_size": "normal",
+        "font_type": "smooth",
+        "layer": 1,
+        "offset": [
+            0.0,
+            9.0
+        ],
+        "shadow": false,
+        "size": [
+            53.0,
+            12.0
+        ],
+        "text": "伙伴动作预览",
+        "text_alignment": "center",
+        "type": "label",
+        "visible": true
+    },
+    "controllerPanel": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "controls": [
+            {
+                "panelBg@petUI.panelBg": {}
+            },
+            {
+                "headerPanel@petUI.headerPanel": {}
+            },
+            {
+                "rightPanel@petUI.rightPanel": {}
+            },
+            {
+                "splitLine": {
+                    "anchor_from": "bottom_left",
+                    "anchor_to": "bottom_left",
+                    "type": "image",
+                    "nineslice_size": 1,
+                    "layer": 2,
+                    "texture": "textures/ui/line01@3x",
+                    "offset": [
+                        "30%",
+                        0
+                    ],
+                    "size": [
+                        "0.8%",
+                        "100%-28px"
+                    ]
+                }
+            },
+            {
+                "leftPanel@petUI.leftPanel": {}
+            }
+        ],
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "type": "panel",
+        "visible": false
+    },
+    "dressContentPanel": {
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "controls": [
+            {
+                "skinPanel@petUI.skinPanel": {}
+            },
+            {
+                "actionPanel@petUI.actionPanel": {}
+            },
+            {
+                "dressScrollView@petUI.dressScrollView": {}
+            }
+        ],
+        "layer": 1,
+        "offset": [
+            0.0,
+            28.0
+        ],
+        "size": [
+            "100.0%+-8.0px",
+            "100%-32.0px"
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "dressStackPanel": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "controls": [
+            {
+                "topPadding": {
+                    "size": [
+                        "100%",
+                        8
+                    ],
+                    "type": "panel"
+                }
+            },
+            {
+                "petDressTitle@petUI.petDressTitle": {}
+            },
+            {
+                "petDressView@petUI.petDressView": {}
+            }
+        ],
+        "layer": 1,
+        "offset": [
+            0.0,
+            0.0
+        ],
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "type": "stack_panel",
+        "orientation": "vertical",
+        "visible": false
+    },
+    "petDressTitle": {
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "color": [
+            0.69,
+            0.69,
+            0.69
+        ],
+        "font_scale_factor": 1.0,
+        "font_size": "normal",
+        "font_type": "smooth",
+        "layer": 4,
+        "offset": [
+            5.0,
+            0.0
+        ],
+        "shadow": false,
+        "size": [
+            200,
+            25
+        ],
+        "text": "  站立超过一定时间，伙伴将随机表演“使用中”的动作",
+        "text_alignment": "left",
+        "type": "label",
+        "visible": true
+    },
+    "petDressView": {
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "controls": [
+            {
+                "petDressItem0@petUI.petDressItem0": {}
+            },
+            {
+                "petDressItem1@petUI.petDressItem1": {}
+            },
+            {
+                "petDressItem2@petUI.petDressItem2": {}
+            },
+            {
+                "petDressItem3@petUI.petDressItem3": {}
+            }
+        ],
+        "layer": 1,
+        "offset": [
+            0.0,
+            0.0
+        ],
+        "size": [
+            "100.0%+0.0px",
+            75
+        ],
+        "type": "panel",
+        "visible": false
+    },
+    "petSkillFriendItem": {
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "skillFriendItemName@petUI.skillFriendItemName": {}
+            },
+            {
+                "skillItemSelectBtn@petUI.skillItemSelectBtn": {}
+            },
+            {
+                "skillItemBG@petUI.skillItemBG": {}
+            },
+            {
+                "skillItemSelected@petUI.skillItemSelected": {}
+            },
+            {
+                "skillItemDescImg@petUI.skillItemDescImg": {}
+            },
+            {
+                "petSkillImage@petUI.petSkillImage": {
+                    "texture": "textures/ui/pet/pet_friend"
+                }
+            }
+        ],
+        "layer": 1,
+        "offset": [
+            "1%+0.0px",
+            0.0
+        ],
+        "size": [
+            56.0,
+            56.0
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "skillItemDescImg": {
+        "anchor_from": "bottom_middle",
+        "anchor_to": "bottom_middle",
+        "controls": [
+            {
+                "petSkillDescText@petUI.petSkillDescText": {}
+            },
+            {
+                "skillItemDescPointToImage@petUI.skillItemDescPointToImage": {}
+            }
+        ],
+        "nineslice_size": 6,
+        "layer": 1,
+        "offset": [
+            0,
+            70
+        ],
+        "size": [
+            100,
+            60
+        ],
+        "texture": "textures/ui/pet/panel08@3x",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            0,
+            0
+        ],
+        "visible": false
+    },
+    "skillItemDescPointToImage": {
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "layer": 3,
+        "offset": [
+            0,
+            -5
+        ],
+        "size": [
+            8,
+            9
+        ],
+        "texture": "textures/ui/pet/panel01_01",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            0,
+            0
+        ],
+        "visible": true
+    },
+    "petSkillDescText": {
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "color": [
+            1,
+            1,
+            1
+        ],
+        "font_scale_factor": 1.0,
+        "font_size": "normal",
+        "font_type": "smooth",
+        "layer": 300,
+        "offset": [
+            10,
+            10
+        ],
+        "shadow": false,
+        "size": [
+            "100% - 15px",
+            "default"
+        ],
+        "text": "",
+        "text_alignment": "left",
+        "type": "label",
+        "visible": true
+    },
+    "petSkillImage": {
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "layer": 200,
+        "offset": [
+            9,
+            9
+        ],
+        "size": [
+            38.0,
+            38.0
+        ],
+        "type": "image",
+        "visible": true
+    },
+    "petSkillMusicItem": {
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "skillMusicItemName@petUI.skillMusicItemName": {}
+            },
+            {
+                "skillItemSelectBtn@petUI.skillItemSelectBtn": {}
+            },
+            {
+                "skillItemBG@petUI.skillItemBG": {}
+            },
+            {
+                "skillItemSelected@petUI.skillItemSelected": {}
+            },
+            {
+                "skillItemDescImg@petUI.skillItemDescImg": {}
+            },
+            {
+                "petSkillImage@petUI.petSkillImage": {
+                    "texture": "textures/ui/pet/pet_music"
+                }
+            }
+        ],
+        "layer": 1,
+        "offset": [
+            "26.5%+0.0px",
+            0.0
+        ],
+        "size": [
+            56.0,
+            56.0
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "petSkillBeaconItem": {
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "skillBeaconItemName@petUI.skillBeaconItemName": {}
+            },
+            {
+                "skillItemSelectBtn@petUI.skillItemSelectBtn": {}
+            },
+            {
+                "skillItemBG@petUI.skillItemBG": {}
+            },
+            {
+                "skillItemSelected@petUI.skillItemSelected": {}
+            },
+            {
+                "skillItemDescImg@petUI.skillItemDescImg": {}
+            },
+            {
+                "petSkillImage@petUI.petSkillImage": {
+                    "texture": "textures/ui/pet/pet_beacon"
+                }
+            }
+        ],
+        "layer": 1,
+        "offset": [
+            "51%+0.0px",
+            0.0
+        ],
+        "size": [
+            56.0,
+            56.0
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "petSkillTipsItem": {
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "skillTipsItemName@petUI.skillTipsItemName": {}
+            },
+            {
+                "skillItemSelectBtn@petUI.skillItemSelectBtn": {}
+            },
+            {
+                "skillItemBG@petUI.skillItemBG": {}
+            },
+            {
+                "skillItemSelected@petUI.skillItemSelected": {}
+            },
+            {
+                "skillItemDescImg@petUI.skillItemDescImg": {
+                    "offset": [
+                        -15,
+                        70
+                    ]
+                }
+            },
+            {
+                "petSkillImage@petUI.petSkillImage": {
+                    "texture": "textures/ui/pet/pet_tips"
+                }
+            }
+        ],
+        "layer": 1,
+        "offset": [
+            "76.5%+0.0px",
+            0.0
+        ],
+        "size": [
+            56.0,
+            56.0
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "petDressItem0": {
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "dressItemName@petUI.dressItemName": {}
+            },
+            {
+                "dressLockImage@petUI.dressLockImage": {}
+            },
+            {
+                "dressItemSelectBtn@petUI.dressItemSelectBtn": {}
+            },
+            {
+                "dressItemPreviewBtn@petUI.dressItemPreviewBtn": {}
+            },
+            {
+                "dressItemBG@petUI.dressItemBG": {}
+            },
+            {
+                "dressItemSelected@petUI.dressItemSelected": {}
+            }
+        ],
+        "layer": 1,
+        "offset": [
+            "1%+0.0px",
+            0.0
+        ],
+        "size": [
+            56.0,
+            56.0
+        ],
+        "texture": "textures/netease/common/image/default",
+        "type": "image",
+        "visible": true
+    },
+    "petDressItem1": {
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "dressItemName@petUI.dressItemName": {}
+            },
+            {
+                "dressLockImage@petUI.dressLockImage": {}
+            },
+            {
+                "dressItemSelectBtn@petUI.dressItemSelectBtn": {}
+            },
+            {
+                "dressItemPreviewBtn@petUI.dressItemPreviewBtn": {}
+            },
+            {
+                "dressItemBG@petUI.dressItemBG": {}
+            },
+            {
+                "dressItemSelected@petUI.dressItemSelected": {}
+            }
+        ],
+        "layer": 1,
+        "offset": [
+            "26.5%+0.0px",
+            0.0
+        ],
+        "size": [
+            56.0,
+            56.0
+        ],
+        "texture": "textures/netease/common/image/default",
+        "type": "image",
+        "visible": true
+    },
+    "petDressItem2": {
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "dressItemName@petUI.dressItemName": {}
+            },
+            {
+                "dressLockImage@petUI.dressLockImage": {}
+            },
+            {
+                "dressItemSelectBtn@petUI.dressItemSelectBtn": {}
+            },
+            {
+                "dressItemPreviewBtn@petUI.dressItemPreviewBtn": {}
+            },
+            {
+                "dressItemBG@petUI.dressItemBG": {}
+            },
+            {
+                "dressItemSelected@petUI.dressItemSelected": {}
+            }
+        ],
+        "layer": 1,
+        "offset": [
+            "51%+0.0px",
+            0.0
+        ],
+        "size": [
+            56.0,
+            56.0
+        ],
+        "texture": "textures/netease/common/image/default",
+        "type": "image",
+        "visible": true
+    },
+    "petDressItem3": {
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "dressItemName@petUI.dressItemName": {}
+            },
+            {
+                "dressLockImage@petUI.dressLockImage": {}
+            },
+            {
+                "dressItemSelectBtn@petUI.dressItemSelectBtn": {}
+            },
+            {
+                "dressItemPreviewBtn@petUI.dressItemPreviewBtn": {}
+            },
+            {
+                "dressItemBG@petUI.dressItemBG": {}
+            },
+            {
+                "dressItemSelected@petUI.dressItemSelected": {}
+            }
+        ],
+        "layer": 1,
+        "offset": [
+            "76.5%+0.0px",
+            0.0
+        ],
+        "size": [
+            56.0,
+            56.0
+        ],
+        "texture": "textures/netease/common/image/default",
+        "type": "image",
+        "visible": true
+    },
+    "dressItemName": {
+        "anchor_from": "bottom_middle",
+        "anchor_to": "top_middle",
+        "color": [
+            0.69,
+            0.69,
+            0.69
+        ],
+        "font_scale_factor": 1.0,
+        "font_size": "normal",
+        "font_type": "smooth",
+        "layer": 4,
+        "offset": [
+            0.0,
+            0.0
+        ],
+        "shadow": false,
+        "size": [
+            100.0,
+            13.0
+        ],
+        "text": "Hello World!",
+        "text_alignment": "center",
+        "controls": [
+            {
+                "dressUsingImage@petUI.dressUsingImage": {}
+            }
+        ],
+        "type": "label",
+        "visible": true
+    },
+    "skillFriendItemName": {
+        "anchor_from": "bottom_middle",
+        "anchor_to": "top_middle",
+        "color": [
+            0.69,
+            0.69,
+            0.69
+        ],
+        "font_scale_factor": 1.0,
+        "font_size": "normal",
+        "font_type": "smooth",
+        "layer": 4,
+        "offset": [
+            0.0,
+            0.0
+        ],
+        "shadow": false,
+        "size": [
+            100.0,
+            13.0
+        ],
+        "text": "伙伴糖果",
+        "text_alignment": "center",
+        "controls": [
+            {
+                "skillUsingImage@petUI.skillUsingImage": {}
+            }
+        ],
+        "type": "label",
+        "visible": true
+    },
+    "skillMusicItemName": {
+        "anchor_from": "bottom_middle",
+        "anchor_to": "top_middle",
+        "color": [
+            0.69,
+            0.69,
+            0.69
+        ],
+        "font_scale_factor": 1.0,
+        "font_size": "normal",
+        "font_type": "smooth",
+        "layer": 4,
+        "offset": [
+            0.0,
+            0.0
+        ],
+        "shadow": false,
+        "size": [
+            100.0,
+            13.0
+        ],
+        "text": "唱片糖果",
+        "text_alignment": "center",
+        "controls": [
+            {
+                "skillUsingImage@petUI.skillUsingImage": {}
+            }
+        ],
+        "type": "label",
+        "visible": true
+    },
+    "skillBeaconItemName": {
+        "anchor_from": "bottom_middle",
+        "anchor_to": "top_middle",
+        "color": [
+            0.69,
+            0.69,
+            0.69
+        ],
+        "font_scale_factor": 1.0,
+        "font_size": "normal",
+        "font_type": "smooth",
+        "layer": 4,
+        "offset": [
+            0.0,
+            0.0
+        ],
+        "shadow": false,
+        "size": [
+            100.0,
+            13.0
+        ],
+        "text": "信标糖果",
+        "text_alignment": "center",
+        "controls": [
+            {
+                "skillUsingImage@petUI.skillUsingImage": {}
+            }
+        ],
+        "type": "label",
+        "visible": true
+    },
+    "skillTipsItemName": {
+        "anchor_from": "bottom_middle",
+        "anchor_to": "top_middle",
+        "color": [
+            0.69,
+            0.69,
+            0.69
+        ],
+        "font_scale_factor": 1.0,
+        "font_size": "normal",
+        "font_type": "smooth",
+        "layer": 4,
+        "offset": [
+            0.0,
+            0.0
+        ],
+        "shadow": false,
+        "size": [
+            100.0,
+            13.0
+        ],
+        "text": "建筑糖果",
+        "text_alignment": "center",
+        "controls": [
+            {
+                "skillUsingImage@petUI.skillUsingImage": {}
+            }
+        ],
+        "type": "label",
+        "visible": true
+    },
+    "dressUsingImage": {
+        "anchor_from": "left_middle",
+        "anchor_to": "right_middle",
+        "layer": 1,
+        "offset": [
+            0.0,
+            0.0
+        ],
+        "size": [
+            13,
+            13
+        ],
+        "texture": "textures/ui/pet_using",
+        "type": "image",
+        "visible": true
+    },
+    "skillUsingImage": {
+        "anchor_from": "right_middle",
+        "anchor_to": "right_middle",
+        "layer": 1,
+        "offset": [
+            -20.0,
+            0.0
+        ],
+        "size": [
+            13,
+            13
+        ],
+        "texture": "textures/ui/pet_using",
+        "type": "image",
+        "visible": false
+    },
+    "dressLockImage": {
+        "anchor_from": "bottom_right",
+        "anchor_to": "bottom_right",
+        "layer": 5,
+        "offset": [
+            2.0,
+            2.0
+        ],
+        "size": [
+            20.0,
+            20.0
+        ],
+        "texture": "textures/ui/pet_ani_lock",
+        "type": "image",
+        "visible": true
+    },
+    "dressItemSelectBtn@common.button": {
+        "$default_texture": "",
+        "$hover_texture": "",
+        "$pressed_button_name": "",
+        "$default_text_color": [
+            0.26,
+            0.26,
+            0.26
+        ],
+        "$pressed_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$hover_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$pressed_texture": "",
+        "$texture_layer": 2,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "controls": [
+            {
+                "default@petUI.default": {}
+            },
+            {
+                "hover@petUI.hover": {}
+            },
+            {
+                "pressed@petUI.pressed": {}
+            }
+        ],
+        "default_control": "default",
+        "hover_control": "hover",
+        "is_handle_button_move_event": true,
+        "layer": 6,
+        "offset": [
+            0,
+            0
+        ],
+        "pressed_control": "pressed",
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "type": "button",
+        "visible": true
+    },
+    "skillItemSelectBtn@common.button": {
+        "$default_texture": "",
+        "$hover_texture": "",
+        "$pressed_button_name": "",
+        "$default_text_color": [
+            0.26,
+            0.26,
+            0.26
+        ],
+        "$pressed_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$hover_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$pressed_texture": "",
+        "$texture_layer": 2,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "controls": [
+            {
+                "default@petUI.default": {}
+            },
+            {
+                "hover@petUI.hover": {}
+            },
+            {
+                "pressed@petUI.pressed": {}
+            }
+        ],
+        "default_control": "default",
+        "hover_control": "hover",
+        "is_handle_button_move_event": true,
+        "layer": 6,
+        "offset": [
+            0,
+            0
+        ],
+        "pressed_control": "pressed",
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "type": "button",
+        "visible": true
+    },
+    "dressItemPreviewBtn@common.button": {
+        "$default_texture": "textures/ui/btn_dark_default",
+        "$hover_texture": "textures/ui/btn_hover",
+        "$nineslice_size": 2,
+        "$default_text_color": [
+            0.26,
+            0.26,
+            0.26
+        ],
+        "$pressed_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$hover_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$pressed_button_name": "",
+        "$pressed_texture": "textures/ui/btn_pressed",
+        "$texture_layer": 2,
+        "anchor_from": "top_right",
+        "anchor_to": "top_right",
+        "controls": [
+            {
+                "default@petUI.default": {}
+            },
+            {
+                "hover@petUI.hover": {}
+            },
+            {
+                "pressed@petUI.pressed": {}
+            },
+            {
+                "dressItemPreviewImage@petUI.dressItemPreviewImage": {}
+            }
+        ],
+        "default_control": "default",
+        "hover_control": "hover",
+        "is_handle_button_move_event": true,
+        "layer": 7,
+        "offset": [
+            0,
+            0
+        ],
+        "pressed_control": "pressed",
+        "size": [
+            15,
+            15
+        ],
+        "type": "button",
+        "visible": true
+    },
+    "dressItemPreviewImage": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "layer": 3,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "texture": "textures/ui/pet_ani_preview",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            0,
+            0
+        ],
+        "visible": true
+    },
+    "dressItemSelected": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "layer": 1,
+        "nineslice_size": 2,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%+2.0px",
+            "100.0%+2.0px"
+        ],
+        "texture": "textures/ui/active_01@3x",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            0,
+            0
+        ],
+        "visible": false
+    },
+    "skillItemSelected": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "layer": 1,
+        "nineslice_size": 2,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%+2.0px",
+            "100.0%+2.0px"
+        ],
+        "texture": "textures/ui/active_01@3x",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            0,
+            0
+        ],
+        "visible": false
+    },
+    "dressItemBG": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "layer": -1,
+        "nineslice_size": 2,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "texture": "textures/ui/pet_ani_bg",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            0,
+            0
+        ],
+        "visible": true
+    },
+    "skillItemBG": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "layer": -1,
+        "nineslice_size": 2,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "texture": "textures/ui/pet_ani_bg",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            0,
+            0
+        ],
+        "visible": true
+    },
+    "dressScrollView@common.scrolling_panel": {
+        "$background_niceslice_size": 2,
+        "$scroll_background_image_control": "petUI.scroll_background_image",
+        "$scroll_background_texture": "textures/ui/pet_visible_bg",
+        "$scroll_box_mouse_image_control": "petUI.scroll_box_image",
+        "$scroll_box_texture": "textures/ui/newTouchScrollBox",
+        "$scroll_box_touch_image_control": "petUI.scroll_box_image",
+        "$scroll_track_image_control": "petUI.scroll_track_image",
+        "$scroll_track_texture": "textures/ui/ScrollRail",
+        "$scrolling_content": "petUI.dressStackPanel",
+        "$show_background": true,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "layer": 0,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "type": "scroll_view",
+        "visible": true
+    },
+    "skinPanel": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "actionPanel": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "changeImage": {
+        "anchor_from": "left_middle",
+        "anchor_to": "left_middle",
+        "layer": 4,
+        "offset": [
+            4.0,
+            0.0
+        ],
+        "size": [
+            20.0,
+            20.0
+        ],
+        "texture": "textures/ui/exchange_icon",
+        "type": "image",
+        "visible": true
+    },
+    "dressHeaderPanel": {
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "skinBtn@petUI.skinBtn": {}
+            },
+            {
+                "actionBtn@petUI.actionBtn": {}
+            },
+            {
+                "changeBtn@petUI.changeBtn": {}
+            }
+        ],
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%+0.0px",
+            24
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "dressImage": {
+        "anchor_from": "left_middle",
+        "anchor_to": "left_middle",
+        "layer": 2,
+        "offset": [
+            4.0,
+            0.0
+        ],
+        "size": [
+            24.0,
+            24.0
+        ],
+        "texture": "textures/ui/pet_dress",
+        "type": "image",
+        "visible": true
+    },
+    "interactionImage": {
+        "anchor_from": "left_middle",
+        "anchor_to": "left_middle",
+        "layer": 2,
+        "offset": [
+            4.0,
+            0.0
+        ],
+        "size": [
+            24.0,
+            24.0
+        ],
+        "texture": "textures/ui/pet/icon19@3x",
+        "type": "image",
+        "visible": true
+    },
+    "dressPanel": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "controls": [
+            {
+                "dressHeaderPanel@petUI.dressHeaderPanel": {}
+            },
+            {
+                "dressContentPanel@petUI.dressContentPanel": {}
+            }
+        ],
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "type": "panel",
+        "visible": false
+    },
+    "interactionPanel": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "controls": [
+            {
+                "interactionContentPanel@petUI.interactionContentPanel": {}
+            }
+        ],
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "type": "panel",
+        "visible": false
+    },
+    "interactionContentPanel": {
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "controls": [
+            {
+                "petSkillFriendItem@petUI.petSkillFriendItem": {}
+            },
+            {
+                "petSkillMusicItem@petUI.petSkillMusicItem": {}
+            },
+            {
+                "petSkillBeaconItem@petUI.petSkillBeaconItem": {}
+            },
+            {
+                "petSkillTipsItem@petUI.petSkillTipsItem": {}
+            }
+        ],
+        "layer": 1,
+        "offset": [
+            0.0,
+            0.0
+        ],
+        "size": [
+            "100.0%+0.0px",
+            75
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "dressToggle@common.button": {
+        "$default_texture": "textures/ui/btn_light_default",
+        "$hover_texture": "textures/ui/btn_hover",
+        "$nineslice_size": 2,
+        "$label_offset": [
+            0,
+            0
+        ],
+        "$label_text": "伙伴装扮",
+        "$default_text_color": [
+            0.26,
+            0.26,
+            0.26
+        ],
+        "$pressed_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$hover_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$pressed_button_name": "",
+        "$pressed_texture": "textures/ui/btn_pressed",
+        "$texture_layer": 1,
+        "anchor_from": "bottom_middle",
+        "anchor_to": "bottom_middle",
+        "controls": [
+            {
+                "default@petUI.default": {}
+            },
+            {
+                "hover@petUI.hover": {}
+            },
+            {
+                "pressed@petUI.pressed": {}
+            },
+            {
+                "dressImage@petUI.dressImage": {}
+            }
+        ],
+        "default_control": "default",
+        "hover_control": "hover",
+        "is_handle_button_move_event": true,
+        "layer": 1,
+        "offset": [
+            0.0,
+            -24.0
+        ],
+        "pressed_control": "pressed",
+        "size": [
+            "100%",
+            24.0
+        ],
+        "type": "button",
+        "visible": true
+    },
+    "interactionToggle@common.button": {
+        "$default_texture": "textures/ui/btn_light_default",
+        "$hover_texture": "textures/ui/btn_hover",
+        "$nineslice_size": 2,
+        "$label_offset": [
+            0,
+            0
+        ],
+        "$label_text": "伙伴互动",
+        "$default_text_color": [
+            0.26,
+            0.26,
+            0.26
+        ],
+        "$pressed_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$hover_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$pressed_button_name": "",
+        "$pressed_texture": "textures/ui/btn_pressed",
+        "$texture_layer": 1,
+        "anchor_from": "bottom_middle",
+        "anchor_to": "bottom_middle",
+        "controls": [
+            {
+                "default@petUI.default": {}
+            },
+            {
+                "hover@petUI.hover": {}
+            },
+            {
+                "pressed@petUI.pressed": {}
+            },
+            {
+                "interactionImage@petUI.interactionImage": {}
+            }
+        ],
+        "default_control": "default",
+        "hover_control": "hover",
+        "is_handle_button_move_event": true,
+        "layer": 1,
+        "offset": [
+            0.0,
+            0.0
+        ],
+        "pressed_control": "pressed",
+        "size": [
+            "100%",
+            24.0
+        ],
+        "type": "button",
+        "visible": true
+    },
+    "guideImage": {
+        "anchor_from": "left_middle",
+        "anchor_to": "left_middle",
+        "layer": 2,
+        "offset": [
+            4.0,
+            0.0
+        ],
+        "size": [
+            24.0,
+            24.0
+        ],
+        "texture": "textures/ui/guide_icon",
+        "type": "image",
+        "visible": true
+    },
+    "guidePanel": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clips_children": true,
+        "controls": [
+            {
+                "guideTreePanel@petUI.guideTreePanel": {}
+            },
+            {
+                "introduceBg@petUI.introduceBg": {}
+            }
+        ],
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%+-10.0px",
+            "100.0%+-10.0px"
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "guideToggle@common.button": {
+        "$default_texture": "textures/ui/btn_light_default",
+        "$hover_texture": "textures/ui/btn_hover",
+        "$nineslice_size": 2,
+        "$label_offset": [
+            0,
+            0
+        ],
+        "$label_text": "成长指引",
+        "$default_text_color": [
+            0.26,
+            0.26,
+            0.26
+        ],
+        "$pressed_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$hover_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$pressed_button_name": "",
+        "$pressed_texture": "textures/ui/btn_pressed",
+        "$texture_layer": 1,
+        "anchor_from": "bottom_middle",
+        "anchor_to": "bottom_middle",
+        "controls": [
+            {
+                "default@petUI.default": {}
+            },
+            {
+                "hover@petUI.hover": {}
+            },
+            {
+                "pressed@petUI.pressed": {}
+            },
+            {
+                "guideImage@petUI.guideImage": {}
+            }
+        ],
+        "default_control": "default",
+        "hover_control": "hover",
+        "is_handle_button_move_event": true,
+        "layer": 1,
+        "offset": [
+            0,
+            -72
+        ],
+        "pressed_control": "pressed",
+        "size": [
+            "100%",
+            24.0
+        ],
+        "type": "button",
+        "visible": true
+    },
+    "common_select@common.button": {
+        "$middle_icon": "textures/ui/left_arrow_icon",
+        "$anchor_from": "left_middle",
+        "$anchor_to": "left_middle",
+        "$enabled": true,
+        "$default_texture": "textures/ui/btn_light_default",
+        "$hover_texture": "textures/ui/btn_hover",
+        "$locked_texture": "textures/ui/btn_unuse",
+        "$default_text_color": [
+            0.26,
+            0.26,
+            0.26
+        ],
+        "$pressed_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$hover_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$locked_text_color": [
+            0.69,
+            0.69,
+            0.69
+        ],
+        "$nineslice_size": 2,
+        "$pressed_button_name": "",
+        "$pressed_texture": "textures/ui/btn_pressed",
+        "$texture_layer": 2,
+        "enabled": "$enabled",
+        "anchor_from": "$anchor_from",
+        "anchor_to": "$anchor_to",
+        "controls": [
+            {
+                "default@petUI.default": {}
+            },
+            {
+                "hover@petUI.hover": {}
+            },
+            {
+                "pressed@petUI.pressed": {}
+            },
+            {
+                "locked@petUI.locked": {}
+            },
+            {
+                "visibleImg": {
+                    "anchor_from": "center",
+                    "anchor_to": "center",
+                    "size": [
+                        "100.0%+0.0px",
+                        69
+                    ],
+                    "layer": 3,
+                    "texture": "$middle_icon",
+                    "type": "image"
+                }
+            }
+        ],
+        "default_control": "default",
+        "hover_control": "hover",
+        "locked_control": "locked",
+        "is_handle_button_move_event": true,
+        "layer": 5,
+        "offset": [
+            0,
+            0
+        ],
+        "pressed_control": "pressed",
+        "size": [
+            28,
+            "100%"
+        ],
+        "type": "button",
+        "visible": true
+    },
+    "guideLeftSelect@petUI.common_select": {
+        "$middle_icon": "textures/ui/left_arrow_icon",
+        "$enabled": false
+    },
+    "guideRightSelect@petUI.common_select": {
+        "$middle_icon": "textures/ui/right_arrow_icon",
+        "$anchor_from": "right_middle",
+        "$anchor_to": "right_middle"
+    },
+    "base_growth_guide_item@common.button": {
+        "$nineslice_size": 2,
+        "$texture_layer": 1,
+        "anchor_from": "top_left",
+        "$default_text_color": [
+            0.26,
+            0.26,
+            0.26
+        ],
+        "$pressed_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$hover_text_color": [
+            1,
+            1,
+            1
+        ],
+        "anchor_to": "top_left",
+        "$pressed_button_name": "",
+        "$default_texture": "textures/ui/btn_light_default",
+        "$hover_texture": "textures/ui/btn_hover",
+        "$pressed_texture": "textures/ui/btn_pressed",
+        "size": [
+            30,
+            30
+        ],
+        "layer": 2,
+        "default_control": "default",
+        "hover_control": "hover",
+        "pressed_control": "pressed",
+        "controls": [
+            {
+                "default@petUI.default": {}
+            },
+            {
+                "hover@petUI.hover": {}
+            },
+            {
+                "pressed@petUI.pressed": {}
+            },
+            {
+                "img": {
+                    "anchor_from": "center",
+                    "anchor_to": "center",
+                    "layer": 2,
+                    "offset": [
+                        0,
+                        0
+                    ],
+                    "size": [
+                        "100.0%+0.0px",
+                        "100.0%+0.0px"
+                    ],
+                    "texture": "textures/ui/growth_guide/branch01",
+                    "type": "image",
+                    "visible": true
+                }
+            },
+            {
+                "selected_img": {
+                    "anchor_from": "center",
+                    "anchor_to": "center",
+                    "layer": 3,
+                    "offset": [
+                        0,
+                        0
+                    ],
+                    "size": [
+                        "100.0%+0.0px",
+                        "100.0%+0.0px"
+                    ],
+                    "texture": "textures/ui/common_selected",
+                    "type": "image",
+                    "uv": [
+                        0,
+                        0
+                    ],
+                    "uv_size": [
+                        0,
+                        0
+                    ],
+                    "visible": false
+                }
+            }
+        ],
+        "is_handle_button_move_event": true,
+        "offset": [
+            0.0,
+            0.0
+        ],
+        "type": "button"
+    },
+    "growth_guide_item_0@petUI.base_growth_guide_item": {
+        "offset": [
+            102.0,
+            -6.0
+        ]
+    },
+    "growth_guide_item_1@petUI.base_growth_guide_item": {
+        "offset": [
+            148.0,
+            -6.0
+        ]
+    },
+    "growth_guide_item_2@petUI.base_growth_guide_item": {
+        "offset": [
+            -36.0,
+            30.0
+        ]
+    },
+    "growth_guide_item_3@petUI.base_growth_guide_item": {
+        "offset": [
+            10.0,
+            30.0
+        ]
+    },
+    "growth_guide_item_4@petUI.base_growth_guide_item": {
+        "offset": [
+            56.0,
+            30.0
+        ]
+    },
+    "growth_guide_item_5@petUI.base_growth_guide_item": {
+        "offset": [
+            102.0,
+            30.0
+        ]
+    },
+    "growth_guide_item_6@petUI.base_growth_guide_item": {
+        "offset": [
+            148.0,
+            30.0
+        ]
+    },
+    "growth_guide_item_7@petUI.base_growth_guide_item": {
+        "offset": [
+            194.0,
+            30.0
+        ]
+    },
+    "growth_guide_item_8@petUI.base_growth_guide_item": {
+        "offset": [
+            240.0,
+            30.0
+        ]
+    },
+    "growth_guide_item_9@petUI.base_growth_guide_item": {
+        "offset": [
+            286.0,
+            30.0
+        ]
+    },
+    "growth_guide_item_10@petUI.base_growth_guide_item": {
+        "offset": [
+            332.0,
+            30.0
+        ]
+    },
+    "growth_guide_item_11@petUI.base_growth_guide_item": {
+        "offset": [
+            378.0,
+            30.0
+        ]
+    },
+    "growth_guide_item_12@petUI.base_growth_guide_item": {
+        "offset": [
+            424.0,
+            30.0
+        ]
+    },
+    "growth_guide_item_13@petUI.base_growth_guide_item": {
+        "offset": [
+            470.0,
+            30.0
+        ]
+    },
+    "growth_guide_item_14@petUI.base_growth_guide_item": {
+        "offset": [
+            516.0,
+            30.0
+        ]
+    },
+    "growth_guide_item_15@petUI.base_growth_guide_item": {
+        "offset": [
+            562.0,
+            30.0
+        ]
+    },
+    "growth_guide_item_16@petUI.base_growth_guide_item": {
+        "offset": [
+            608.0,
+            30.0
+        ]
+    },
+    "growth_guide_item_17@petUI.base_growth_guide_item": {
+        "offset": [
+            654.0,
+            30.0
+        ]
+    },
+    "growth_guide_item_18@petUI.base_growth_guide_item": {
+        "offset": [
+            700.0,
+            30.0
+        ]
+    },
+    "growth_guide_item_19@petUI.base_growth_guide_item": {
+        "offset": [
+            746.0,
+            30.0
+        ]
+    },
+    "growth_guide_item_20@petUI.base_growth_guide_item": {
+        "offset": [
+            102.0,
+            66.0
+        ]
+    },
+    "growth_guide_item_21@petUI.base_growth_guide_item": {
+        "offset": [
+            148.0,
+            66.0
+        ]
+    },
+    "base_growth_guide_item_link": {
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "layer": 1,
+        "nineslice_size": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            30,
+            4
+        ],
+        "texture": "textures/ui/guide_item_link",
+        "type": "image",
+        "visible": true
+    },
+    "growth_guide_item_link_0@petUI.base_growth_guide_item_link": {
+        "size": [
+            46,
+            2
+        ],
+        "offset": [
+            110.0,
+            8
+        ]
+    },
+    "growth_guide_item_link_1@petUI.base_growth_guide_item_link": {
+        "size": [
+            780,
+            2
+        ],
+        "offset": [
+            -18.0,
+            44
+        ]
+    },
+    "growth_guide_item_link_2@petUI.base_growth_guide_item_link": {
+        "size": [
+            46,
+            2
+        ],
+        "offset": [
+            110.0,
+            80
+        ]
+    },
+    "growthGuideView": {
+        "$button_name": "common",
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "controls": [
+            {
+                "growth_guide_item_link_0@petUI.growth_guide_item_link_0": {}
+            },
+            {
+                "growth_guide_item_link_1@petUI.growth_guide_item_link_1": {}
+            },
+            {
+                "growth_guide_item_link_2@petUI.growth_guide_item_link_2": {}
+            },
+            {
+                "growth_guide_item_0@petUI.growth_guide_item_0": {}
+            },
+            {
+                "growth_guide_item_1@petUI.growth_guide_item_1": {}
+            },
+            {
+                "growth_guide_item_2@petUI.growth_guide_item_2": {}
+            },
+            {
+                "growth_guide_item_3@petUI.growth_guide_item_3": {}
+            },
+            {
+                "growth_guide_item_4@petUI.growth_guide_item_4": {}
+            },
+            {
+                "growth_guide_item_5@petUI.growth_guide_item_5": {}
+            },
+            {
+                "growth_guide_item_6@petUI.growth_guide_item_6": {}
+            },
+            {
+                "growth_guide_item_7@petUI.growth_guide_item_7": {}
+            },
+            {
+                "growth_guide_item_8@petUI.growth_guide_item_8": {}
+            },
+            {
+                "growth_guide_item_9@petUI.growth_guide_item_9": {}
+            },
+            {
+                "growth_guide_item_10@petUI.growth_guide_item_10": {}
+            },
+            {
+                "growth_guide_item_11@petUI.growth_guide_item_11": {}
+            },
+            {
+                "growth_guide_item_12@petUI.growth_guide_item_12": {}
+            },
+            {
+                "growth_guide_item_13@petUI.growth_guide_item_13": {}
+            },
+            {
+                "growth_guide_item_14@petUI.growth_guide_item_14": {}
+            },
+            {
+                "growth_guide_item_15@petUI.growth_guide_item_15": {}
+            },
+            {
+                "growth_guide_item_16@petUI.growth_guide_item_16": {}
+            },
+            {
+                "growth_guide_item_17@petUI.growth_guide_item_17": {}
+            },
+            {
+                "growth_guide_item_18@petUI.growth_guide_item_18": {}
+            },
+            {
+                "growth_guide_item_19@petUI.growth_guide_item_19": {}
+            },
+            {
+                "growth_guide_item_20@petUI.growth_guide_item_20": {}
+            },
+            {
+                "growth_guide_item_21@petUI.growth_guide_item_21": {}
+            }
+        ],
+        "layer": 1,
+        "offset": [
+            44.0,
+            0.0
+        ],
+        "size": [
+            "100.0%+-56.0px",
+            90
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "guideTreePanel": {
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "controls": [
+            {
+                "guideTreeBg": {
+                    "anchor_from": "center",
+                    "anchor_to": "center",
+                    "layer": 1,
+                    "nineslice_size": 2,
+                    "offset": [
+                        0,
+                        0
+                    ],
+                    "size": [
+                        "100.0%+0.0px",
+                        "100.0%+0.0px"
+                    ],
+                    "texture": "textures/ui/pet_visible_bg",
+                    "type": "image",
+                    "uv": [
+                        0,
+                        0
+                    ],
+                    "uv_size": [
+                        0,
+                        0
+                    ],
+                    "visible": true
+                }
+            },
+            {
+                "growthGuideView@petUI.growthGuideView": {}
+            },
+            {
+                "guideLeftSelect@petUI.guideLeftSelect": {}
+            },
+            {
+                "guideRightSelect@petUI.guideRightSelect": {}
+            }
+        ],
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%+0.0px",
+            "65.0%+-8.0px"
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "headerPanel": {
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "controls": [
+            {
+                "backBtn@petUI.backBtn": {}
+            },
+            {
+                "titleLabel@petUI.titleLabel": {}
+            },
+            {
+                "messagePushLabel@petUI.messagePushLabel": {}
+            },
+            {
+                "sendMessageSwitch@petUI.sendMessageSwitch": {}
+            },
+            {
+                "headerBg@petUI.headerBg": {}
+            }
+        ],
+        "layer": 3,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%+0.0px",
+            30.0
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "hintBg": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "layer": 1,
+        "nineslice_size": 5,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "texture": "textures/ui/hint_tip_bg",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            0,
+            0
+        ],
+        "visible": true
+    },
+    "hintLabel": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "color": [
+            1,
+            1,
+            1
+        ],
+        "font_scale_factor": 1.0,
+        "font_size": "normal",
+        "font_type": "smooth",
+        "layer": 2,
+        "offset": [
+            0,
+            0
+        ],
+        "shadow": false,
+        "size": [
+            "100.0%+0.0px",
+            "default"
+        ],
+        "text": "已解散并隐藏你的伙伴",
+        "text_alignment": "center",
+        "type": "label",
+        "visible": true
+    },
+    "hintPanel": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "controls": [
+            {
+                "hintBg@petUI.hintBg": {}
+            },
+            {
+                "hintLabel@petUI.hintLabel": {}
+            }
+        ],
+        "layer": 500,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "40.0%+0.0px",
+            30.0
+        ],
+        "type": "panel",
+        "visible": false
+    },
+    "introduceBg": {
+        "anchor_from": "bottom_middle",
+        "anchor_to": "bottom_middle",
+        "controls": [
+            {
+                "introduceHead@petUI.introduceHead": {}
+            },
+            {
+                "introduceContent@petUI.introduceContent": {}
+            }
+        ],
+        "nineslice_size": 6,
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%+0.0px",
+            "35.0%+0.0px"
+        ],
+        "texture": "textures/ui/growth_guide_bg",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            0,
+            0
+        ],
+        "visible": true
+    },
+    "introduceContent": {
+        "anchor_from": "bottom_middle",
+        "anchor_to": "bottom_middle",
+        "controls": [
+            {
+                "introduceImage@petUI.introduceImage": {}
+            },
+            {
+                "introduceTextPanel@petUI.introduceTextPanel": {}
+            }
+        ],
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%+-12.0px",
+            "100.0%-21.0px"
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "introduceHead": {
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "controls": [
+            {
+                "label0@petUI.label0": {}
+            }
+        ],
+        "layer": 1,
+        "offset": [
+            0,
+            6
+        ],
+        "size": [
+            "100.0%-12.0px",
+            15
+        ],
+        "type": "image",
+        "texture": "textures/ui/White",
+        "color": [
+            0.1,
+            0.1,
+            0.1
+        ],
+        "visible": true
+    },
+    "introduceImage": {
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "layer": 1,
+        "offset": [
+            4.0,
+            -4.0
+        ],
+        "size": [
+            "20.0%+0.0px",
+            "default"
+        ],
+        "texture": "textures/ui/wiki/wiki_90",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            0,
+            0
+        ],
+        "visible": true
+    },
+    "introduceText": {
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "color": [
+            1,
+            1,
+            1
+        ],
+        "font_scale_factor": 1.0,
+        "font_size": "normal",
+        "font_type": "smooth",
+        "layer": 1,
+        "offset": [
+            0,
+            4
+        ],
+        "shadow": false,
+        "size": [
+            "100%",
+            "default"
+        ],
+        "text": "成长指引详细说明成长指引详细说明成长指引详细说明成长指引详细说明成长指引详细说明成长指引详细说明成长指引详细说明",
+        "text_alignment": "left",
+        "type": "label",
+        "visible": true
+    },
+    "introduceTextPanel": {
+        "anchor_from": "top_right",
+        "anchor_to": "top_right",
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "80.0%-8.0px",
+            "100.0%+0.0px"
+        ],
+        "type": "panel",
+        "visible": true,
+        "controls": [
+            {
+                "introduceText@petUI.introduceText": {}
+            }
+        ]
+    },
+    "label0": {
+        "anchor_from": "left_middle",
+        "anchor_to": "left_middle",
+        "color": [
+            1,
+            1,
+            1
+        ],
+        "font_scale_factor": 1.0,
+        "font_size": "normal",
+        "font_type": "smooth",
+        "layer": 1,
+        "offset": [
+            4.0,
+            0.0
+        ],
+        "shadow": false,
+        "size": [
+            "100.0%-4.0px",
+            "default"
+        ],
+        "text": "成长指引标题",
+        "text_alignment": "left",
+        "type": "label",
+        "visible": true
+    },
+    "leftPanel": {
+        "anchor_from": "bottom_left",
+        "anchor_to": "bottom_left",
+        "controls": [
+            {
+                "modelPanel@petUI.modelPanel": {}
+            },
+            {
+                "btnTogglePanel@petUI.btnTogglePanel": {}
+            },
+            {
+                "visibleBtn@petUI.common_btn": {
+                    "$middle_icon_texture": "textures/ui/eye_icon",
+                    "$button_offset": [
+                        4.0,
+                        12.0
+                    ]
+                }
+            },
+            {
+                "petBagBtn@petUI.common_btn": {
+                    "$middle_icon_texture": "textures/blocks/chest_front",
+                    "$button_offset": [
+                        4.0,
+                        32.0
+                    ]
+                }
+            },
+            {
+                "petSummonBtn@petUI.common_btn": {
+                    "$middle_icon_texture": "textures/ui/ring_icon",
+                    "$button_offset": [
+                        4.0,
+                        52.0
+                    ]
+                }
+            },
+            {
+                "visiblePanel@petUI.visiblePanel": {}
+            }
+        ],
+        "layer": 1,
+        "offset": [
+            0.0,
+            0.0
+        ],
+        "size": [
+            "30%+0.0px",
+            "100.0%-30.0px"
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "main@common.base_screen": {
+        "$screen_content": "petUI.petUIScreen"
+    },
+    "petUIScreen": {
+        "controls": [
+            {
+                "controllerPanel@petUI.controllerPanel": {}
+            },
+            {
+                "wikiDetailPanel@petUI.wikiDetailPanel": {}
+            },
+            {
+                "hintPanel@petUI.hintPanel": {}
+            },
+            {
+                "animationPreviewPanel@petUI.animationPreviewPanel": {}
+            },
+            {
+                "petSelectPanel@petUI.petSelectPanel": {}
+            }
+        ],
+        "layer": 10000,
+        "type": "panel"
+    },
+    "messagePushLabel": {
+        "anchor_from": "right_middle",
+        "anchor_to": "right_middle",
+        "color": [
+            0.26,
+            0.26,
+            0.26
+        ],
+        "font_scale_factor": 1.0,
+        "font_size": "normal",
+        "font_type": "smooth",
+        "layer": 9,
+        "offset": [
+            -48.0,
+            0
+        ],
+        "shadow": false,
+        "size": [
+            64.0,
+            "default"
+        ],
+        "text": "消息推送",
+        "text_alignment": "right",
+        "type": "label",
+        "visible": true
+    },
+    "modelPanel": {
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "controls": [
+            {
+                "viewer_panel@petUI.skin_viewer_panel": {}
+            },
+            {
+                "petName@petUI.petName": {}
+            },
+            {
+                "useBtn@petUI.common_use_btn": {}
+            },
+            {
+                "skillUseBtn@petUI.common_use_btn": {}
+            },
+            {
+                "unUseBtn@petUI.unUseBtn": {}
+            },
+            {
+                "skillUnUseBtn@petUI.unUseBtn": {}
+            },
+            {
+                "unlockBtn@petUI.unlockBtn": {}
+            }
+        ],
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100%+0.0px",
+            "100%-96px"
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "namespace": "petUI",
+    "otherText": {
+        "anchor_from": "left_middle",
+        "anchor_to": "left_middle",
+        "color": [
+            1,
+            1,
+            1
+        ],
+        "font_scale_factor": 1.0,
+        "font_size": "normal",
+        "font_type": "smooth",
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "shadow": false,
+        "size": [
+            "80.0%+0.0px",
+            "default"
+        ],
+        "text": "其他人",
+        "text_alignment": "left",
+        "type": "label",
+        "visible": true
+    },
+    "skin_viewer_panel": {
+        "$paper_doll_offset": [
+            0,
+            -124
+        ],
+        "type": "input_panel",
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "size": [
+            108,
+            108
+        ],
+        "offset": [
+            0,
+            "20.0%+0.0px"
+        ],
+        "gesture_tracking_button": "button.turn_doll",
+        "layer": 1,
+        "button_mappings": [
+            {
+                "from_button_id": "button.menu_select",
+                "to_button_id": "button.turn_doll",
+                "mapping_type": "pressed",
+                "button_up_right_of_first_refusal": true
+            }
+        ],
+        "controls": [
+            {
+                "paper_doll_panel": {
+                    "type": "panel",
+                    "size": [
+                        "100%",
+                        "100%"
+                    ],
+                    "controls": [
+                        {
+                            "paper_doll": {
+                                "type": "custom",
+                                "renderer": "paper_doll_renderer",
+                                "layer": 1,
+                                "anchor_from": "bottom_middle",
+                                "anchor_to": "bottom_middle",
+                                "rotation": "gesture_x",
+                                "modelname": "ty_yuanshenghuli_0_0",
+                                "animation": "idle_stand",
+                                "modelsize": 2.0,
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "offset": "$paper_doll_offset",
+                                "bindings": [
+                                    {
+                                        "binding_type": "view",
+                                        "source_control_name": "viewer_panel",
+                                        "source_property_name": "#gesture_delta_source",
+                                        "target_property_name": "#gesture_delta_source"
+                                    },
+                                    {
+                                        "binding_type": "view",
+                                        "source_control_name": "viewer_panel",
+                                        "source_property_name": "#gesture_mouse_delta_x",
+                                        "target_property_name": "#gesture_mouse_delta_x"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "petName": {
+        "anchor_from": "bottom_middle",
+        "anchor_to": "bottom_middle",
+        "color": [
+            1,
+            1,
+            1
+        ],
+        "font_scale_factor": 1.0,
+        "font_size": "normal",
+        "font_type": "smooth",
+        "layer": 4,
+        "offset": [
+            0.0,
+            -26
+        ],
+        "shadow": false,
+        "size": [
+            100.0,
+            "default"
+        ],
+        "text": "Hello World!",
+        "text_alignment": "center",
+        "type": "label",
+        "visible": true
+    },
+    "rightPanel": {
+        "anchor_from": "bottom_right",
+        "anchor_to": "bottom_right",
+        "controls": [
+            {
+                "guidePanel@petUI.guidePanel": {}
+            },
+            {
+                "wikiPanel@petUI.wikiPanel": {}
+            },
+            {
+                "dressPanel@petUI.dressPanel": {}
+            },
+            {
+                "interactionPanel@petUI.interactionPanel": {}
+            }
+        ],
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "69%+0.0px",
+            "100.0%-30.0px"
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "selfText": {
+        "anchor_from": "left_middle",
+        "anchor_to": "left_middle",
+        "color": [
+            1,
+            1,
+            1
+        ],
+        "font_scale_factor": 1.0,
+        "font_size": "normal",
+        "font_type": "smooth",
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "shadow": false,
+        "size": [
+            "100.0%+0.0px",
+            "default"
+        ],
+        "text": "本人",
+        "text_alignment": "left",
+        "type": "label",
+        "visible": true
+    },
+    "selfPetVisibleSwitch@common_toggles.switch_toggle_collection": {
+        "$default_texture": "textures/ui/toggle_off",
+        "$hover_texture": "textures/ui/toggle_on",
+        "$pressed_no_hover_texture": "textures/ui/toggle_on_hover",
+        "$pressed_texture": "textures/ui/toggle_off_hover",
+        "$toggle_name": "#petUI.OnSelfPetVisibleToggleChange",
+        "$toggle_state_binding_name": "#petUI.ReturnSelfPetVisibleToggleState",
+        "anchor_from": "right_middle",
+        "anchor_to": "right_middle",
+        "layer": 1,
+        "offset": [
+            0,
+            0.0
+        ],
+        "size": [
+            36,
+            18
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "petVisibleSelfPanel": {
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "selfText@petUI.selfText": {}
+            },
+            {
+                "selfPetVisibleSwitch@petUI.selfPetVisibleSwitch": {}
+            }
+        ],
+        "layer": 1,
+        "size": [
+            "100.0%-10.0px",
+            18.0
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "petVisibleOthersPanel": {
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "otherText@petUI.otherText": {}
+            },
+            {
+                "selfOthersVisibleSwitch@petUI.selfOthersVisibleSwitch": {}
+            }
+        ],
+        "layer": 1,
+        "size": [
+            "100.0%-10.0px",
+            18.0
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "skinBtn@common.button": {
+        "$default_texture": "textures/ui/btn_light_default",
+        "$hover_texture": "textures/ui/btn_hover",
+        "$label_font_size": "normal",
+        "$default_text_color": [
+            0.26,
+            0.26,
+            0.26
+        ],
+        "$pressed_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$hover_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$label_layer": 3,
+        "$label_offset": [
+            0,
+            0
+        ],
+        "$label_text": "外观",
+        "$nineslice_size": 2,
+        "$pressed_button_name": "",
+        "$pressed_texture": "textures/ui/btn_pressed",
+        "$texture_layer": 2,
+        "anchor_from": "right_middle",
+        "anchor_to": "right_middle",
+        "controls": [
+            {
+                "default@petUI.default": {}
+            },
+            {
+                "hover@petUI.hover": {}
+            },
+            {
+                "pressed@petUI.pressed": {}
+            }
+        ],
+        "default_control": "default",
+        "hover_control": "hover",
+        "is_handle_button_move_event": true,
+        "layer": 1,
+        "offset": [
+            -60.0,
+            2.0
+        ],
+        "pressed_control": "pressed",
+        "size": [
+            60.0,
+            24.0
+        ],
+        "type": "button",
+        "visible": true
+    },
+    "titleLabel": {
+        "anchor_from": "left_middle",
+        "anchor_to": "left_middle",
+        "$titleLabelText|default": "我的伙伴",
+        "color": [
+            0.26,
+            0.26,
+            0.26
+        ],
+        "font_scale_factor": 1.0,
+        "font_size": "normal",
+        "font_type": "smooth",
+        "layer": 8,
+        "offset": [
+            29.0,
+            0
+        ],
+        "shadow": false,
+        "size": [
+            100.0,
+            "default"
+        ],
+        "text": "$titleLabelText",
+        "text_alignment": "left",
+        "type": "label",
+        "visible": true
+    },
+    "unlockBtn@common.button": {
+        "$default_texture": "textures/ui/btn_light_default",
+        "$hover_texture": "textures/ui/btn_hover",
+        "$default_text_color": [
+            0.26,
+            0.26,
+            0.26
+        ],
+        "$pressed_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$hover_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$label_font_size": "normal",
+        "$label_layer": 3,
+        "$label_offset": [
+            0,
+            0
+        ],
+        "$label_text": "去解锁",
+        "$nineslice_size": 2,
+        "$pressed_button_name": "",
+        "$pressed_texture": "textures/ui/btn_pressed",
+        "$texture_layer": 2,
+        "anchor_from": "bottom_middle",
+        "anchor_to": "bottom_middle",
+        "controls": [
+            {
+                "default@petUI.default": {}
+            },
+            {
+                "hover@petUI.hover": {}
+            },
+            {
+                "pressed@petUI.pressed": {}
+            }
+        ],
+        "default_control": "default",
+        "hover_control": "hover",
+        "is_handle_button_move_event": true,
+        "layer": 1,
+        "offset": [
+            0,
+            -4
+        ],
+        "pressed_control": "pressed",
+        "size": [
+            50.0,
+            20.0
+        ],
+        "type": "button",
+        "visible": true
+    },
+    "common_use_btn@common.button": {
+        "$anchor_from": "bottom_middle",
+        "$anchor_to": "bottom_middle",
+        "$offset": [
+            0,
+            -20
+        ],
+        "$default_texture": "textures/ui/btn_light_default",
+        "$hover_texture": "textures/ui/btn_hover",
+        "$default_text_color": [
+            0.26,
+            0.26,
+            0.26
+        ],
+        "$pressed_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$hover_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$label_font_size": "normal",
+        "$label_layer": 3,
+        "$label_offset": [
+            0,
+            0
+        ],
+        "$label_text": "使用",
+        "$nineslice_size": 2,
+        "$pressed_button_name": "",
+        "$pressed_texture": "textures/ui/btn_pressed",
+        "$texture_layer": 2,
+        "anchor_from": "$anchor_from",
+        "anchor_to": "$anchor_to",
+        "controls": [
+            {
+                "default@petUI.default": {}
+            },
+            {
+                "hover@petUI.hover": {}
+            },
+            {
+                "pressed@petUI.pressed": {}
+            }
+        ],
+        "default_control": "default",
+        "hover_control": "hover",
+        "is_handle_button_move_event": true,
+        "layer": 1,
+        "offset": [
+            0,
+            -4
+        ],
+        "pressed_control": "pressed",
+        "size": [
+            50.0,
+            20.0
+        ],
+        "type": "button",
+        "visible": true
+    },
+    "unUseBtn@common.button": {
+        "$default_texture": "textures/ui/btn_light_default",
+        "$hover_texture": "textures/ui/btn_hover",
+        "$default_text_color": [
+            0.26,
+            0.26,
+            0.26
+        ],
+        "$pressed_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$hover_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$label_font_size": "normal",
+        "$label_layer": 3,
+        "$label_offset": [
+            0,
+            0
+        ],
+        "$label_text": "取消使用",
+        "$nineslice_size": 2,
+        "$pressed_button_name": "",
+        "$pressed_texture": "textures/ui/btn_pressed",
+        "$texture_layer": 2,
+        "anchor_from": "bottom_middle",
+        "anchor_to": "bottom_middle",
+        "controls": [
+            {
+                "default@petUI.default": {}
+            },
+            {
+                "hover@petUI.hover": {}
+            },
+            {
+                "pressed@petUI.pressed": {}
+            }
+        ],
+        "default_control": "default",
+        "hover_control": "hover",
+        "is_handle_button_move_event": true,
+        "layer": 1,
+        "offset": [
+            0,
+            -4
+        ],
+        "pressed_control": "pressed",
+        "size": [
+            50.0,
+            20.0
+        ],
+        "type": "button",
+        "visible": true
+    },
+    "visibleBg": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "layer": 1,
+        "nineslice_size": 2,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "texture": "textures/ui/pet_visible_bg",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            0,
+            0
+        ],
+        "visible": true
+    },
+    "selfOthersVisibleSwitch@common_toggles.switch_toggle_collection": {
+        "$default_texture": "textures/ui/toggle_off",
+        "$hover_texture": "textures/ui/toggle_on",
+        "$pressed_no_hover_texture": "textures/ui/toggle_on_hover",
+        "$pressed_texture": "textures/ui/toggle_off_hover",
+        "$toggle_name": "#petUI.OnOthersPetVisibleToggleChange",
+        "$toggle_state_binding_name": "#petUI.ReturnOthersPetVisibleToggleState",
+        "anchor_from": "right_middle",
+        "anchor_to": "right_middle",
+        "layer": 9,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            36,
+            18
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "triggerEventText": {
+        "anchor_from": "left_middle",
+        "anchor_to": "left_middle",
+        "color": [
+            1,
+            1,
+            1
+        ],
+        "font_scale_factor": 1.0,
+        "font_size": "normal",
+        "font_type": "smooth",
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "shadow": false,
+        "size": [
+            "80.0%+0.0px",
+            "default"
+        ],
+        "text": "触发机关",
+        "text_alignment": "left",
+        "type": "label",
+        "visible": true
+    },
+    "triggerEventSwitch@common_toggles.switch_toggle_collection": {
+        "$default_texture": "textures/ui/toggle_off",
+        "$hover_texture": "textures/ui/toggle_on",
+        "$pressed_no_hover_texture": "textures/ui/toggle_on_hover",
+        "$pressed_texture": "textures/ui/toggle_off_hover",
+        "$toggle_name": "#petUI.OnTriggerEventToggleChange",
+        "$toggle_state_binding_name": "#petUI.ReturnTriggerEventToggleState",
+        "anchor_from": "right_middle",
+        "anchor_to": "right_middle",
+        "layer": 9,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            36,
+            18
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "stepOnBlockEventPanel": {
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "triggerEventText@petUI.triggerEventText": {}
+            },
+            {
+                "triggerEventSwitch@petUI.triggerEventSwitch": {}
+            }
+        ],
+        "layer": 1,
+        "size": [
+            "100.0%-10.0px",
+            18.0
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "avoidOwnerText": {
+        "anchor_from": "left_middle",
+        "anchor_to": "left_middle",
+        "color": [
+            1,
+            1,
+            1
+        ],
+        "font_scale_factor": 1.0,
+        "font_size": "normal",
+        "font_type": "smooth",
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "shadow": false,
+        "size": [
+            "80.0%+0.0px",
+            "default"
+        ],
+        "text": "智能避让",
+        "text_alignment": "left",
+        "type": "label",
+        "visible": true
+    },
+    "avoidOwnerSwitch@common_toggles.switch_toggle_collection": {
+        "$default_texture": "textures/ui/toggle_off",
+        "$hover_texture": "textures/ui/toggle_on",
+        "$pressed_no_hover_texture": "textures/ui/toggle_on_hover",
+        "$pressed_texture": "textures/ui/toggle_off_hover",
+        "$toggle_name": "#petUI.OnTriggerAvoidOwnerToggleChange",
+        "$toggle_state_binding_name": "#petUI.ReturnTriggerAvoidOwnerToggleState",
+        "anchor_from": "right_middle",
+        "anchor_to": "right_middle",
+        "layer": 9,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            36,
+            18
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "smartAvoidOwnerPanel": {
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "avoidOwnerText@petUI.avoidOwnerText": {}
+            },
+            {
+                "avoidOwnerSwitch@petUI.avoidOwnerSwitch": {}
+            }
+        ],
+        "layer": 1,
+        "size": [
+            "100.0%-10.0px",
+            18.0
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "setting_panel": {
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "visibleTitle@petUI.visibleTitle": {}
+            },
+            {
+                "content_padding_1": {
+                    "size": [
+                        "100.0%+0.0px",
+                        2
+                    ],
+                    "type": "panel"
+                }
+            },
+            {
+                "petVisibleSelfPanel@petUI.petVisibleSelfPanel": {}
+            },
+            {
+                "content_padding_1": {
+                    "size": [
+                        "100.0%+0.0px",
+                        2
+                    ],
+                    "type": "panel"
+                }
+            },
+            {
+                "petVisibleOthersPanel@petUI.petVisibleOthersPanel": {}
+            },
+            {
+                "content_padding_1": {
+                    "size": [
+                        "100.0%+0.0px",
+                        1
+                    ],
+                    "type": "panel"
+                }
+            },
+            {
+                "splitLine": {
+                    "anchor_from": "top_left",
+                    "anchor_to": "top_left",
+                    "layer": 1,
+                    "nineslice_size": 0,
+                    "size": [
+                        "100.0%-10.0px",
+                        2
+                    ],
+                    "texture": "textures/ui/Black",
+                    "type": "image"
+                }
+            },
+            {
+                "content_padding_1": {
+                    "size": [
+                        "100.0%+0.0px",
+                        1
+                    ],
+                    "type": "panel"
+                }
+            },
+            {
+                "stepOnBlockEventPanel@petUI.stepOnBlockEventPanel": {}
+            },
+            {
+                "content_padding_1": {
+                    "size": [
+                        "100.0%+0.0px",
+                        2
+                    ],
+                    "type": "panel"
+                }
+            },
+            {
+                "triggerEventDesc": {
+                    "anchor_from": "top_left",
+                    "anchor_to": "top_left",
+                    "color": [
+                        0.6,
+                        0.6,
+                        0.6
+                    ],
+                    "font_scale_factor": 1.0,
+                    "font_size": "normal",
+                    "font_type": "smooth",
+                    "layer": 1,
+                    "shadow": false,
+                    "size": [
+                        "100.0%-8px",
+                        20
+                    ],
+                    "text": "控制伙伴是否触发压力板、红石矿、绊线钩",
+                    "text_alignment": "left",
+                    "type": "label"
+                }
+            },
+            {
+                "content_padding_1": {
+                    "size": [
+                        "100.0%+0.0px",
+                        1
+                    ],
+                    "type": "panel"
+                }
+            },
+            {
+                "splitLine": {
+                    "anchor_from": "top_left",
+                    "anchor_to": "top_left",
+                    "layer": 1,
+                    "nineslice_size": 0,
+                    "size": [
+                        "100.0%-10.0px",
+                        2
+                    ],
+                    "texture": "textures/ui/Black",
+                    "type": "image"
+                }
+            },
+            {
+                "content_padding_1": {
+                    "size": [
+                        "100.0%+0.0px",
+                        1
+                    ],
+                    "type": "panel"
+                }
+            },
+            {
+                "smartAvoidOwnerPanel@petUI.smartAvoidOwnerPanel": {}
+            },
+            {
+                "content_padding_1": {
+                    "size": [
+                        "100.0%+0.0px",
+                        2
+                    ],
+                    "type": "panel"
+                }
+            },
+            {
+                "avoidOwnerDesc": {
+                    "anchor_from": "top_left",
+                    "anchor_to": "top_left",
+                    "color": [
+                        0.6,
+                        0.6,
+                        0.6
+                    ],
+                    "font_scale_factor": 1.0,
+                    "font_size": "normal",
+                    "font_type": "smooth",
+                    "layer": 1,
+                    "shadow": false,
+                    "size": [
+                        "100.0%-8px",
+                        24
+                    ],
+                    "text": "伙伴阻挡玩家摆放、破坏方块时进行避让。",
+                    "text_alignment": "left",
+                    "type": "label"
+                }
+            }
+        ],
+        "layer": 10,
+        "offset": [
+            6.0,
+            8.0
+        ],
+        "size": [
+            "100%",
+            "100%"
+        ],
+        "type": "stack_panel",
+        "visible": true
+    },
+    "visiblePanel": {
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "visibleBg@petUI.visibleBg": {}
+            },
+            {
+                "setting_panel@petUI.setting_panel": {}
+            }
+        ],
+        "layer": 10,
+        "offset": [
+            24.0,
+            12.0
+        ],
+        "size": [
+            95.0,
+            170.0
+        ],
+        "type": "panel",
+        "visible": false
+    },
+    "visibleTitle": {
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "color": [
+            1,
+            1,
+            1
+        ],
+        "font_scale_factor": 1.0,
+        "font_size": "normal",
+        "font_type": "smooth",
+        "layer": 2,
+        "shadow": false,
+        "size": [
+            "80.0%+0.0px",
+            "default"
+        ],
+        "text": "伙伴可见性",
+        "text_alignment": "left",
+        "type": "label",
+        "visible": true
+    },
+    "wikiImage": {
+        "anchor_from": "left_middle",
+        "anchor_to": "left_middle",
+        "layer": 2,
+        "offset": [
+            4.0,
+            0.0
+        ],
+        "size": [
+            24.0,
+            24.0
+        ],
+        "texture": "textures/ui/search_icon",
+        "type": "image",
+        "visible": true
+    },
+    "wikiPanel": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "controls": [
+            {
+                "wikiSearchEditBox@petUI.wikiSearchEditBox": {}
+            },
+            {
+                "wikiContentPanel@petUI.wikiContentPanel": {}
+            },
+            {
+                "wikiResultPanel@petUI.wikiResultPanel": {}
+            }
+        ],
+        "size": [
+            "100.0%+-10.0px",
+            "100.0%+-8.0px"
+        ],
+        "type": "panel",
+        "visible": false
+    },
+    "wikiSearchEditBox@common.text_edit_box": {
+        "$edit_box_default_texture": "textures/ui/edit_box_indent",
+        "$edit_box_hover_texture": "textures/ui/edit_box_indent_hover",
+        "$font_size": "normal",
+        "$is_new_nine_slice": false,
+        "$nine_slice_buttom": 0,
+        "$nine_slice_left": 0,
+        "$nine_slice_right": 0,
+        "$nine_slice_top": 0,
+        "$place_holder_text": "请输入内容",
+        "$place_holder_text_color": [
+            0.5,
+            0.5,
+            0.5
+        ],
+        "$text_background_default": "petUI.edit_box_background_default",
+        "$text_background_hover": "petUI.edit_box_background_hover",
+        "$text_box_name": "%petUI.OnWikiSearchInput",
+        "$text_box_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$text_edit_box_content_binding_name": "#petUI.ReturnWikiSearchString",
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "enabled_newline": false,
+        "layer": 1,
+        "max_length": 512,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%+0.0px",
+            30
+        ],
+        "type": "edit_box",
+        "visible": true
+    },
+    "edit_box_background_default": {
+        "is_new_nine_slice": "$is_new_nine_slice",
+        "nine_slice_buttom": "$nine_slice_buttom",
+        "nine_slice_left": "$nine_slice_left",
+        "nine_slice_right": "$nine_slice_right",
+        "nine_slice_top": "$nine_slice_top",
+        "texture": "$edit_box_default_texture",
+        "type": "image"
+    },
+    "edit_box_background_hover": {
+        "is_new_nine_slice": "$is_new_nine_slice",
+        "nine_slice_buttom": "$nine_slice_buttom",
+        "nine_slice_left": "$nine_slice_left",
+        "nine_slice_right": "$nine_slice_right",
+        "nine_slice_top": "$nine_slice_top",
+        "texture": "$edit_box_hover_texture",
+        "type": "image"
+    },
+    "wikiContentPanel": {
+        "anchor_from": "bottom_middle",
+        "anchor_to": "bottom_middle",
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%+0.0px",
+            "100.0%-38.0px"
+        ],
+        "type": "panel",
+        "visible": true,
+        "controls": [
+            {
+                "wikiContentScrollingPanel@petUI.wikiContentScrollingPanel": {}
+            }
+        ]
+    },
+    "wikiContentScrollingPanel@common.scrolling_panel": {
+        "$scrolling_content": "petUI.wikiScrollContentPanel",
+        "$show_background": false,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "type": "scroll_view",
+        "visible": true
+    },
+    "wikiScrollContentPanel": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "type": "stack_panel",
+        "visible": true,
+        "controls": [
+            {
+                "wikiCategoryItem@petUI.wikiCategoryItem": {}
+            }
+        ]
+    },
+    "wikiCategoryItem": {
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%+0.0px",
+            54
+        ],
+        "type": "stack_panel",
+        "visible": false,
+        "controls": [
+            {
+                "content_padding_1": {
+                    "size": [
+                        "100.0%+0.0px",
+                        8
+                    ],
+                    "type": "panel"
+                }
+            },
+            {
+                "wikiCategoryTitle@petUI.wikiCategoryTitle": {}
+            },
+            {
+                "wikiCategoryContentPanel@petUI.wikiCategoryContentPanel": {}
+            }
+        ]
+    },
+    "wikiCategoryTitle": {
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "color": [
+            1,
+            1,
+            1
+        ],
+        "font_scale_factor": 1.0,
+        "font_size": "normal",
+        "font_type": "smooth",
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "shadow": false,
+        "size": [
+            "100.0%+0.0px",
+            "default"
+        ],
+        "text": "游戏模式",
+        "text_alignment": "left",
+        "type": "label",
+        "visible": true
+    },
+    "wikiCategoryContentPanel": {
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%+0.0px",
+            34
+        ],
+        "type": "panel",
+        "visible": true,
+        "controls": [
+            {
+                "visibleBg1@petUI.visibleBg": {}
+            },
+            {
+                "wikiCategoryContentStackPanel@petUI.wikiCategoryContentStackPanel": {}
+            }
+        ]
+    },
+    "wikiCategoryContentStackPanel": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "layer": 1,
+        "offset": [
+            4,
+            5
+        ],
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "type": "stack_panel",
+        "orientation": "vertical",
+        "visible": true,
+        "controls": [
+            {
+                "wikiCategoryContentRow@petUI.wikiCategoryContentRow": {}
+            }
+        ]
+    },
+    "wikiCategoryContentRow": {
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%+0.0px",
+            34
+        ],
+        "type": "stack_panel",
+        "orientation": "horizontal",
+        "visible": true,
+        "controls": [
+            {
+                "wikiItem@petUI.wikiItem": {}
+            }
+        ]
+    },
+    "wikiItemBtn@common.button": {
+        "$default_texture": "textures/ui/btn_light_default",
+        "$hover_texture": "textures/ui/btn_hover",
+        "$pressed_texture": "textures/ui/btn_pressed",
+        "$default_text_color": [
+            0.26,
+            0.26,
+            0.26
+        ],
+        "$pressed_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$hover_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$nineslice_size": 2,
+        "$pressed_button_name": "",
+        "$texture_layer": 2,
+        "anchor_from": "left_middle",
+        "anchor_to": "left_middle",
+        "controls": [
+            {
+                "default@petUI.default": {}
+            },
+            {
+                "hover@petUI.hover": {}
+            },
+            {
+                "pressed@petUI.pressed": {}
+            }
+        ],
+        "default_control": "default",
+        "hover_control": "hover",
+        "is_handle_button_move_event": true,
+        "layer": 1,
+        "offset": [
+            0.0,
+            0.0
+        ],
+        "pressed_control": "pressed",
+        "size": [
+            "100.0%-4.0px",
+            "100.0%+0.0px"
+        ],
+        "type": "button",
+        "visible": true
+    },
+    "wikiItem": {
+        "anchor_from": "left_middle",
+        "anchor_to": "left_middle",
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            58,
+            24
+        ],
+        "type": "stack_panel",
+        "orientation": "horizontal",
+        "visible": false,
+        "controls": [
+            {
+                "wikiItemBtn@petUI.wikiItemBtn": {}
+            }
+        ]
+    },
+    "wikiResultPanel": {
+        "anchor_from": "bottom_middle",
+        "anchor_to": "bottom_middle",
+        "controls": [
+            {
+                "resultBG@petUI.resultBG": {}
+            },
+            {
+                "wikiResultView@petUI.wikiResultView": {}
+            }
+        ],
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%+0.0px",
+            "100.0%-34.0px"
+        ],
+        "type": "panel",
+        "visible": false
+    },
+    "resultBG": {
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "controls": [
+            {
+                "resultLabel@petUI.resultLabel": {}
+            },
+            {
+                "wikiNotFoundBtn@petUI.wikiNotFoundBtn": {}
+            }
+        ],
+        "layer": 1,
+        "nineslice_size": 2,
+        "offset": [
+            0.0,
+            0
+        ],
+        "size": [
+            "100.0%+0.0px",
+            "0.0%+30.0px"
+        ],
+        "texture": "textures/ui/pet_visible_bg",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            0,
+            0
+        ],
+        "visible": true
+    },
+    "resultLabel": {
+        "anchor_from": "left_middle",
+        "anchor_to": "left_middle",
+        "color": [
+            1,
+            1,
+            1
+        ],
+        "font_scale_factor": 1.0,
+        "font_size": "normal",
+        "font_type": "smooth",
+        "layer": 1,
+        "offset": [
+            "2.0%",
+            0
+        ],
+        "shadow": false,
+        "size": [
+            "94.0%-60.0px",
+            "default"
+        ],
+        "text": "2结果：“生”",
+        "text_alignment": "left",
+        "type": "label",
+        "visible": true
+    },
+    "wikiNotFoundBtn@common.button": {
+        "$default_texture": "textures/ui/btn_light_default",
+        "$hover_texture": "textures/ui/btn_hover",
+        "$nineslice_size": 2,
+        "$default_text_color": [
+            0.26,
+            0.26,
+            0.26
+        ],
+        "$pressed_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$hover_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$pressed_button_name": "",
+        "$pressed_texture": "textures/ui/btn_pressed",
+        "$label_text": "上报词条",
+        "$texture_layer": 1,
+        "anchor_from": "right_middle",
+        "anchor_to": "right_middle",
+        "controls": [
+            {
+                "default@petUI.default": {}
+            },
+            {
+                "hover@petUI.hover": {}
+            },
+            {
+                "pressed@petUI.pressed": {}
+            }
+        ],
+        "default_control": "default",
+        "hover_control": "hover",
+        "is_handle_button_move_event": true,
+        "layer": 2,
+        "offset": [
+            "-2.0%",
+            0
+        ],
+        "pressed_control": "pressed",
+        "size": [
+            60,
+            20
+        ],
+        "type": "button",
+        "visible": true
+    },
+    "wikiResultView@common.scrolling_panel": {
+        "$scroll_background_image_control": "petUI.scroll_background_image",
+        "$scroll_background_texture": "textures/ui/ScrollRail",
+        "$scroll_box_mouse_image_control": "petUI.scroll_box_image",
+        "$scroll_box_texture": "textures/ui/newTouchScrollBox",
+        "$scroll_box_touch_image_control": "petUI.scroll_box_image",
+        "$scroll_track_image_control": "petUI.scroll_track_image",
+        "$scroll_track_texture": "textures/ui/ScrollRail",
+        "$scrolling_content": "petUI.wikiResultContentPanel",
+        "$show_background": false,
+        "anchor_from": "bottom_middle",
+        "anchor_to": "bottom_middle",
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%+0.0px",
+            "100.0%-34.0px"
+        ],
+        "type": "scroll_view",
+        "visible": true
+    },
+    "wikiResultContentPanel": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "controls": [
+            {
+                "wikiResultContentBtn@petUI.wikiResultContentBtn": {}
+            }
+        ],
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "wikiResultContentBtn@common.button": {
+        "$default_texture": "textures/ui/btn_light_default",
+        "$hover_texture": "textures/ui/btn_hover",
+        "$nineslice_size": 2,
+        "$default_text_color": [
+            0.26,
+            0.26,
+            0.26
+        ],
+        "$pressed_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$hover_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$pressed_button_name": "",
+        "$pressed_texture": "textures/ui/btn_pressed",
+        "$texture_layer": 1,
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "default@petUI.default": {}
+            },
+            {
+                "hover@petUI.hover": {}
+            },
+            {
+                "pressed@petUI.pressed": {}
+            },
+            {
+                "wikiResultContentImage@petUI.wikiResultContentImage": {}
+            },
+            {
+                "wikiResultContentTitle@petUI.wikiResultContentTitle": {}
+            },
+            {
+                "wikiResultContentDesc@petUI.wikiResultContentDesc": {}
+            }
+        ],
+        "default_control": "default",
+        "hover_control": "hover",
+        "is_handle_button_move_event": true,
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "pressed_control": "pressed",
+        "size": [
+            "100.0%+0.0px",
+            40
+        ],
+        "type": "button",
+        "visible": false
+    },
+    "wikiResultContentDesc": {
+        "anchor_from": "bottom_left",
+        "anchor_to": "bottom_left",
+        "color": [
+            0.26,
+            0.26,
+            0.26
+        ],
+        "font_scale_factor": 1.0,
+        "font_size": "normal",
+        "font_type": "smooth",
+        "layer": 3,
+        "offset": [
+            64.0,
+            -7.0
+        ],
+        "shadow": false,
+        "size": [
+            100.0,
+            "default"
+        ],
+        "text": "Hello World!",
+        "text_alignment": "left",
+        "type": "label",
+        "visible": true
+    },
+    "wikiResultContentImage": {
+        "anchor_from": "left_middle",
+        "anchor_to": "left_middle",
+        "layer": 3,
+        "offset": [
+            5.0,
+            0.0
+        ],
+        "size": [
+            50.0,
+            30.0
+        ],
+        "texture": "textures/netease/common/image/default",
+        "type": "image",
+        "visible": true
+    },
+    "wikiResultContentTitle": {
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "color": [
+            0.26,
+            0.26,
+            0.26
+        ],
+        "font_scale_factor": 1.3,
+        "font_size": "normal",
+        "font_type": "smooth",
+        "layer": 3,
+        "offset": [
+            64.0,
+            7.0
+        ],
+        "shadow": false,
+        "size": [
+            100.0,
+            "default"
+        ],
+        "text": "Hello World!",
+        "text_alignment": "left",
+        "type": "label",
+        "visible": true
+    },
+    "wikiToggle@common.button": {
+        "$default_texture": "textures/ui/btn_light_default",
+        "$hover_texture": "textures/ui/btn_hover",
+        "$nineslice_size": 2,
+        "$label_offset": [
+            0,
+            0
+        ],
+        "$label_text": "世界百科",
+        "$default_text_color": [
+            0.26,
+            0.26,
+            0.26
+        ],
+        "$pressed_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$hover_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$pressed_button_name": "",
+        "$pressed_texture": "textures/ui/btn_pressed",
+        "$texture_layer": 1,
+        "anchor_from": "bottom_middle",
+        "anchor_to": "bottom_middle",
+        "controls": [
+            {
+                "default@petUI.default": {}
+            },
+            {
+                "hover@petUI.hover": {}
+            },
+            {
+                "pressed@petUI.pressed": {}
+            },
+            {
+                "wikiImage@petUI.wikiImage": {}
+            }
+        ],
+        "default_control": "default",
+        "hover_control": "hover",
+        "is_handle_button_move_event": true,
+        "layer": 1,
+        "offset": [
+            0.0,
+            -48.0
+        ],
+        "pressed_control": "pressed",
+        "size": [
+            "100%",
+            24.0
+        ],
+        "type": "button",
+        "visible": true
+    },
+    "itemName": {
+        "anchor_from": "bottom_middle",
+        "anchor_to": "top_middle",
+        "color": [
+            1,
+            1,
+            1
+        ],
+        "font_scale_factor": 1.0,
+        "font_size": "normal",
+        "font_type": "smooth",
+        "layer": 1,
+        "offset": [
+            0.0,
+            4.0
+        ],
+        "shadow": false,
+        "size": [
+            "default",
+            13.0
+        ],
+        "text": "Hello World!",
+        "text_alignment": "center",
+        "type": "label",
+        "visible": true,
+        "controls": [
+            {
+                "usingImage@petUI.dressUsingImage": {}
+            }
+        ]
+    },
+    "leftSelect@petUI.common_select": {
+        "$middle_icon": "textures/ui/left_arrow_icon",
+        "$enabled": false,
+        "size": [
+            28,
+            "100%-2px"
+        ],
+        "offset": [
+            1,
+            0
+        ],
+        "layer": 2
+    },
+    "lockImage": {
+        "anchor_from": "bottom_right",
+        "anchor_to": "bottom_right",
+        "layer": 1,
+        "offset": [
+            0.0,
+            0.0
+        ],
+        "size": [
+            25.0,
+            25.0
+        ],
+        "texture": "textures/ui/locked_icon",
+        "type": "image",
+        "visible": true
+    },
+    "petSelectBtn": {
+        "$default_texture": "",
+        "$hover_texture": "",
+        "$pressed_button_name": "",
+        "$default_text_color": [
+            0.26,
+            0.26,
+            0.26
+        ],
+        "$pressed_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$hover_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$pressed_texture": "",
+        "$texture_layer": 2,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "controls": [
+            {
+                "default@petUI.default": {}
+            },
+            {
+                "hover@petUI.hover": {}
+            },
+            {
+                "pressed@petUI.pressed": {}
+            }
+        ],
+        "default_control": "default",
+        "hover_control": "hover",
+        "is_handle_button_move_event": true,
+        "layer": 6,
+        "offset": [
+            0,
+            0
+        ],
+        "pressed_control": "pressed",
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "type": "button",
+        "visible": true
+    },
+    "petItem0": {
+        "anchor_from": "left_middle",
+        "anchor_to": "left_middle",
+        "controls": [
+            {
+                "itemName@petUI.itemName": {}
+            },
+            {
+                "lockImage@petUI.lockImage": {}
+            },
+            {
+                "petSelectBtn@petUI.petSelectBtn": {}
+            },
+            {
+                "selectedImage@petUI.selectedImage": {}
+            }
+        ],
+        "layer": 1,
+        "offset": [
+            "0.0%+0.0px",
+            "0.0%+-3.0px"
+        ],
+        "size": [
+            50.0,
+            58.0
+        ],
+        "texture": "textures/netease/common/image/default",
+        "type": "image",
+        "visible": true
+    },
+    "petItem1": {
+        "anchor_from": "left_middle",
+        "anchor_to": "left_middle",
+        "controls": [
+            {
+                "itemName@petUI.itemName": {}
+            },
+            {
+                "lockImage@petUI.lockImage": {}
+            },
+            {
+                "petSelectBtn@petUI.petSelectBtn": {}
+            },
+            {
+                "selectedImage@petUI.selectedImage": {}
+            }
+        ],
+        "layer": 1,
+        "offset": [
+            "0.0%+62.0px",
+            "0.0%+-3.0px"
+        ],
+        "size": [
+            50.0,
+            58.0
+        ],
+        "texture": "textures/netease/common/image/default",
+        "type": "image",
+        "visible": true
+    },
+    "petItem2": {
+        "anchor_from": "left_middle",
+        "anchor_to": "left_middle",
+        "controls": [
+            {
+                "itemName@petUI.itemName": {}
+            },
+            {
+                "lockImage@petUI.lockImage": {}
+            },
+            {
+                "petSelectBtn@petUI.petSelectBtn": {}
+            },
+            {
+                "selectedImage@petUI.selectedImage": {}
+            }
+        ],
+        "layer": 3,
+        "offset": [
+            "0.0%+124.0px",
+            "0.0%+-3.0px"
+        ],
+        "size": [
+            50.0,
+            58.0
+        ],
+        "texture": "textures/netease/common/image/default",
+        "type": "image",
+        "visible": true
+    },
+    "petItem3": {
+        "anchor_from": "left_middle",
+        "anchor_to": "left_middle",
+        "controls": [
+            {
+                "itemName@petUI.itemName": {}
+            },
+            {
+                "lockImage@petUI.lockImage": {}
+            },
+            {
+                "petSelectBtn@petUI.petSelectBtn": {}
+            },
+            {
+                "selectedImage@petUI.selectedImage": {}
+            }
+        ],
+        "layer": 3,
+        "offset": [
+            "0.0%+186.0px",
+            "0.0%+-3.0px"
+        ],
+        "size": [
+            50.0,
+            58.0
+        ],
+        "texture": "textures/netease/common/image/default",
+        "type": "image",
+        "visible": true
+    },
+    "petSelectPanel": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "controls": [
+            {
+                "selectUIBG@petUI.selectUIBG": {}
+            }
+        ],
+        "layer": 50,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "type": "input_panel",
+        "modal": true,
+        "visible": false
+    },
+    "petSelectView": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "controls": [
+            {
+                "petItem0@petUI.petItem0": {}
+            },
+            {
+                "petItem1@petUI.petItem1": {}
+            },
+            {
+                "petItem2@petUI.petItem2": {}
+            },
+            {
+                "petItem3@petUI.petItem3": {}
+            }
+        ],
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%c",
+            "100.0%+0.0px"
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "previewDoll": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "animation": "idle_stand",
+        "layer": 1,
+        "modelname": "",
+        "modelsize": 1.0,
+        "offset": [
+            0.0,
+            -100.0
+        ],
+        "renderer": "paper_doll_renderer",
+        "size": [
+            150,
+            150
+        ],
+        "type": "custom",
+        "visible": true
+    },
+    "previewPanel": {
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "controls": [
+            {
+                "previewDoll@petUI.previewDoll": {}
+            },
+            {
+                "useBtn@petUI.common_use_btn": {
+                    "$anchor_from": "bottom_right",
+                    "$anchor_to": "bottom_right",
+                    "$offset": [
+                        -8,
+                        0
+                    ]
+                }
+            }
+        ],
+        "layer": 1,
+        "offset": [
+            0.0,
+            0.0
+        ],
+        "size": [
+            "100.0%+0.0px",
+            "50.0%+0.0px"
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "rightSelect@petUI.common_select": {
+        "$middle_icon": "textures/ui/right_arrow_icon",
+        "$anchor_from": "right_middle",
+        "$anchor_to": "right_middle",
+        "size": [
+            28,
+            "100%-2px"
+        ],
+        "offset": [
+            -1,
+            0
+        ],
+        "layer": 11
+    },
+    "scrollViewPanel": {
+        "anchor_from": "bottom_middle",
+        "anchor_to": "bottom_middle",
+        "controls": [
+            {
+                "leftSelect@petUI.leftSelect": {
+                    "visible": true
+                }
+            },
+            {
+                "rightSelect@petUI.rightSelect": {
+                    "visible": true
+                }
+            },
+            {
+                "petSelectView@petUI.petSelectView": {}
+            }
+        ],
+        "layer": 1,
+        "offset": [
+            0,
+            -10
+        ],
+        "size": [
+            "100.0%-20.0px",
+            "39.0%+0.0px"
+        ],
+        "texture": "textures/ui/Black",
+        "type": "image",
+        "visible": true
+    },
+    "selectUIBG": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "controls": [
+            {
+                "scrollViewPanel@petUI.scrollViewPanel": {}
+            },
+            {
+                "previewPanel@petUI.previewPanel": {}
+            },
+            {
+                "topPanel@petUI.topPanel": {}
+            }
+        ],
+        "nineslice_size": [
+            10,
+            26,
+            10,
+            10
+        ],
+        "size": [
+            "80%",
+            "100%-16px"
+        ],
+        "texture": "textures/ui/panel10@3x",
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "type": "image",
+        "visible": true
+    },
+    "selectedImage": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "nineslice_size": 2,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%+2.0px",
+            "100.0%+2.0px"
+        ],
+        "texture": "textures/ui/active_01@3x",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            0,
+            0
+        ],
+        "layer": 5,
+        "visible": false
+    },
+    "petSelectTitleLabel": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "color": [
+            0.26,
+            0.26,
+            0.26
+        ],
+        "font_scale_factor": 1.169999957084656,
+        "font_size": "normal",
+        "font_type": "smooth",
+        "layer": 1,
+        "offset": [
+            0.0,
+            1.0
+        ],
+        "shadow": false,
+        "size": [
+            75.0,
+            16.0
+        ],
+        "text": "更换伙伴",
+        "text_alignment": "center",
+        "type": "label",
+        "visible": true
+    },
+    "topPanel": {
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "controls": [
+            {
+                "closeButton@petUI.closeButton": {}
+            },
+            {
+                "petSelectTitleLabel@petUI.petSelectTitleLabel": {}
+            }
+        ],
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%+0.0px",
+            "11.0%+0.0px"
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "sendMessageSwitch@common_toggles.switch_toggle_collection": {
+        "$default_texture": "textures/ui/toggle_off",
+        "$hover_texture": "textures/ui/toggle_on",
+        "$pressed_no_hover_texture": "textures/ui/toggle_on_hover",
+        "$pressed_texture": "textures/ui/toggle_off_hover",
+        "$toggle_name": "#petUI.OnSendMessageToggleChange",
+        "$toggle_state_binding_name": "#petUI.ReturnSendMessageToggleState",
+        "anchor_from": "right_middle",
+        "anchor_to": "right_middle",
+        "layer": 9,
+        "offset": [
+            -1,
+            -1
+        ],
+        "size": [
+            40,
+            20
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "scroll_background_image": {
+        "$background_niceslice_size|default": 0,
+        "nineslice_size": "$background_niceslice_size",
+        "texture": "$scroll_background_texture",
+        "type": "image"
+    },
+    "scroll_box_image": {
+        "$scroll_box_niceslice_size|default": 0,
+        "nineslice_size": "$scroll_box_niceslice_size",
+        "texture": "$scroll_box_texture",
+        "type": "image"
+    },
+    "scroll_track_image": {
+        "layer": 3,
+        "$scroll_track_niceslice_size|default": 0,
+        "nineslice_size": "$scroll_track_niceslice_size",
+        "size": [
+            3,
+            "100%"
+        ],
+        "texture": "$scroll_track_texture",
+        "type": "image"
+    },
+    "default": {
+        "$label_color": "$default_text_color",
+        "$nineslice_size|default": 0,
+        "nineslice_size": "$nineslice_size",
+        "layer": "$texture_layer",
+        "texture": "$default_texture",
+        "type": "image",
+        "$alpha|default": 1,
+        "alpha": "$alpha",
+        "controls": [
+            {
+                "label@petUI.button_label": {}
+            }
+        ]
+    },
+    "locked": {
+        "$label_color": "$locked_text_color",
+        "$nineslice_size|default": 0,
+        "nineslice_size": "$nineslice_size",
+        "layer": "$texture_layer",
+        "texture": "$locked_texture",
+        "type": "image",
+        "controls": [
+            {
+                "label@petUI.button_label": {}
+            }
+        ]
+    },
+    "pressed": {
+        "$label_color": "$pressed_text_color",
+        "$nineslice_size|default": 0,
+        "nineslice_size": "$nineslice_size",
+        "layer": "$texture_layer",
+        "texture": "$pressed_texture",
+        "type": "image",
+        "$alpha|default": 1,
+        "alpha": "$alpha",
+        "controls": [
+            {
+                "label@petUI.button_label": {}
+            }
+        ]
+    },
+    "hover": {
+        "$label_color": "$hover_text_color",
+        "$nineslice_size|default": 0,
+        "nineslice_size": "$nineslice_size",
+        "layer": "$texture_layer",
+        "texture": "$hover_texture",
+        "type": "image",
+        "$alpha|default": 1,
+        "alpha": "$alpha",
+        "controls": [
+            {
+                "label@petUI.button_label": {}
+            }
+        ]
+    },
+    "button_label": {
+        "$label_color|default": [
+            1,
+            1,
+            1
+        ],
+        "$label_layer|default": 1,
+        "$label_font_size|default": "normal",
+        "$label_offset|default": [
+            0,
+            0
+        ],
+        "$label_text|default": "",
+        "color": "$label_color",
+        "font_size": "$label_font_size",
+        "font_type": "smooth",
+        "layer": "$label_layer",
+        "max_size": [
+            "100%",
+            "100%"
+        ],
+        "offset": "$label_offset",
+        "shadow": false,
+        "text": "$label_text",
+        "text_alignment": "center",
+        "type": "label"
+    },
+    "hud_main@common.base_screen": {
+        "$screen_content": "petUI.HudUIScreen"
+    },
+    "HudUIScreen": {
+        "controls": [
+            {
+                "hintPanel@petUI.hintPanel": {}
+            },
+            {
+                "interactingBtn@common.button": {
+                    "$default_texture": "textures/ui/btn_light_default",
+                    "$hover_texture": "textures/ui/btn_hover",
+                    "$nineslice_size": 2,
+                    "$default_text_color": [
+                        1,
+                        1,
+                        1
+                    ],
+                    "$pressed_text_color": [
+                        1,
+                        1,
+                        1
+                    ],
+                    "$hover_text_color": [
+                        1,
+                        1,
+                        1
+                    ],
+                    "$pressed_button_name": "",
+                    "$pressed_texture": "textures/ui/btn_pressed",
+                    "$texture_layer": 2,
+                    "$label_text": "我的伙伴",
+                    "$alpha": 0.5,
+                    "anchor_from": "bottom_middle",
+                    "anchor_to": "bottom_middle",
+                    "controls": [
+                        {
+                            "default@petUI.default": {}
+                        },
+                        {
+                            "hover@petUI.hover": {}
+                        },
+                        {
+                            "pressed@petUI.pressed": {}
+                        }
+                    ],
+                    "default_control": "default",
+                    "hover_control": "hover",
+                    "is_handle_button_move_event": true,
+                    "layer": 51,
+                    "offset": [
+                        -12.0,
+                        -50.0
+                    ],
+                    "pressed_control": "pressed",
+                    "size": [
+                        50.0,
+                        24.0
+                    ],
+                    "type": "button",
+                    "alpha": "$alpha",
+                    "visible": false
+                }
+            },
+            {
+                "interactingBtn2@common.button": {
+                    "$default_texture": "textures/ui/btn_light_default",
+                    "$hover_texture": "textures/ui/btn_hover",
+                    "$nineslice_size": 2,
+                    "$default_text_color": [
+                        1,
+                        1,
+                        1
+                    ],
+                    "$pressed_text_color": [
+                        1,
+                        1,
+                        1
+                    ],
+                    "$hover_text_color": [
+                        1,
+                        1,
+                        1
+                    ],
+                    "$pressed_button_name": "",
+                    "$pressed_texture": "textures/ui/btn_pressed",
+                    "$texture_layer": 2,
+                    "$label_text": "",
+                    "$alpha": 0.5,
+                    "anchor_from": "bottom_middle",
+                    "anchor_to": "bottom_middle",
+                    "controls": [
+                        {
+                            "default@petUI.default": {}
+                        },
+                        {
+                            "hover@petUI.hover": {}
+                        },
+                        {
+                            "pressed@petUI.pressed": {}
+                        },
+                        {
+                            "img": {
+                                "type": "image",
+                                "texture": "textures/blocks/chest_front",
+                                "layer": 3,
+                                "size": [
+                                    14,
+                                    14
+                                ]
+                            }
+                        }
+                    ],
+                    "default_control": "default",
+                    "hover_control": "hover",
+                    "is_handle_button_move_event": true,
+                    "layer": 51,
+                    "offset": [
+                        25.0,
+                        -50.0
+                    ],
+                    "pressed_control": "pressed",
+                    "size": [
+                        24.0,
+                        24.0
+                    ],
+                    "type": "button",
+                    "alpha": "$alpha",
+                    "visible": false
+                }
+            },
+            {
+                "isNewImg": {
+                    "anchor_from": "top_middle",
+                    "anchor_to": "top_middle",
+                    "color": [
+                        1,
+                        0,
+                        0
+                    ],
+                    "offset": [
+                        15,
+                        0
+                    ],
+                    "size": [
+                        4,
+                        4
+                    ],
+                    "texture": "textures/ui/White",
+                    "type": "image",
+                    "bindings": [
+                        {
+                            "binding_name": "#petUI.isNewTip",
+                            "binding_name_override": "#visible"
+                        }
+                    ]
+                }
+            }
+        ],
+        "layer": 10000,
+        "type": "panel"
+    }
+}

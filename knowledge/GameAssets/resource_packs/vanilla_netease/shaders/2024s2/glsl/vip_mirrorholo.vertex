@@ -1,0 +1,76 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+precision highp float;
+#include "neteaseModelVertexUtil.h"
+#line 5
+
+varying vec4 light; // 光照值 vec4(r, g, b, a)
+
+varying vec3 positionWS;
+varying vec3 positionVS;
+varying vec3 normalVS;
+varying vec3 absNormalWS;
+varying vec3 worldNormal;
+varying vec3 tangetWS;
+
+POS4 getEntitySpacePosition(POS4 localPos) {
+	POS4 pos = localPos;
+#ifdef USE_SKINNING
+	#ifdef NETEASE_SKINNING
+		MAT4 boneMat = GetBoneMatForNetease(int(BONEID_0));
+		pos = boneMat * localPos;
+		#ifdef USE_INSTANCE
+			MAT4 instanceMat = GetInstanceWorldMatForNetease();
+			pos = localPos * pos;
+		#endif
+	#else
+		#if defined(LARGE_VERTEX_SHADER_UNIFORMS)
+			pos = BONES[int(BONEID_0)] * localPos;
+		
+		#else
+			pos = BONE * localPos;
+		#endif
+	#endif // NETEASE_SKINNING
+#else
+	pos = localPos;
+#endif // USE_SKINNING
+	return pos;
+}
+
+
+void main() {
+    POS4 entitySpacePosition, entitySpaceNormal;
+	// 计算顶点动画 得到模型空间位置与法线
+    getEntitySpacePositionAndNormal(entitySpacePosition, entitySpaceNormal);
+
+    positionWS = (WORLD * entitySpacePosition).xyz;
+	positionVS = (WORLDVIEW * entitySpacePosition).xyz;
+	normalVS = normalize(WORLDVIEW * entitySpaceNormal).xyz;
+	absNormalWS = abs(normalize(WORLD * entitySpaceNormal).xyz);
+
+	worldNormal = normalize(WORLD * entitySpaceNormal).xyz;
+	POS4 b0 = getEntitySpacePosition(vec4(0.0, 0.0, 0.0, 1));
+	POS4 b1 = getEntitySpacePosition(vec4(0.0, 1.0, 0.0, 1));
+	POS4 b = b1 - b0;
+
+	vec3 entitySpaceTangent = cross(entitySpaceNormal.xyz, b.xyz);
+	tangetWS = normalize(WORLD * vec4(entitySpaceTangent, 0.0)).xyz;
+
+    calculateOverlayColor(); // 受伤变红等效果
+	calculateGlint(); // 计算附魔效果相关变量
+
+	// 包含其他内置宏相关的varying计算
+	neteaseModelCommonVert();
+
+    // 计算默认的MC顶点光照
+	light = getLightColor(entitySpacePosition, entitySpaceNormal);
+
+	// 变量uv已经在头文件中预先声明 这里使用TEXCOORD_0作为uv值
+	uv = TEXCOORD_0;
+	// 计算顶点uv 包括MC支持的UV序列帧效果
+	applyUVAnim(uv);
+
+	// 变换到投影空间
+	POS4 projSpacePos = WORLDVIEWPROJ * entitySpacePosition;
+	gl_Position = projSpacePos;
+}

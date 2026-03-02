@@ -1,0 +1,266 @@
+{
+    "main@common.base_screen": {
+        "$screen_content": "chatExtensionMainScreenMsgNew.main_screen_msg_panel",
+        "$screen_animations": "$background_animations"
+    },
+    "main_screen_msg_panel": {
+        "controls": [
+            {
+                "switch_panel": {
+                    "anchor_from": "left_middle",
+                    "anchor_to": "left_middle",
+                    "controls": [
+                        {
+                            "content_panel": {
+                                "alpha": 0.0,
+                                "anchor_from": "top_right",
+                                "anchor_to": "top_left",
+                                "controls": [
+                                    {
+                                        "chat_background": {
+                                            "alpha": 0.7,
+                                            "clip_direction": "left",
+                                            "clip_ratio": 0.0,
+                                            "color": [
+                                                0.0,
+                                                0.0,
+                                                0.0
+                                            ],
+                                            "fill": true,
+                                            "is_new_nine_slice": true,
+                                            "layer": 1,
+                                            "size": [
+                                                "100.0%+0.0px",
+                                                "100.0%+0.0px"
+                                            ],
+                                            "texture": "textures/ui/Black",
+                                            "type": "image",
+                                            "visible": false
+                                        }
+                                    },
+                                    {
+                                        "top_empty_line": {
+                                            "anchor_from": "top_left",
+                                            "anchor_to": "top_left",
+                                            "layer": 2,
+                                            "size": [
+                                                "100.0%+0.0px",
+                                                5
+                                            ],
+                                            "type": "panel"
+                                        }
+                                    },
+                                    {
+                                        "content_detail_panel": {
+                                            "clips_children": true,
+                                            "controls": [
+                                                {
+                                                    "message_template": {
+                                                        "anchor_from": "bottom_left",
+                                                        "anchor_to": "bottom_left",
+                                                        "controls": [
+                                                            {
+                                                                "mask": {
+                                                                    "alpha": 0.2,
+                                                                    "anchor_from": "left_middle",
+                                                                    "anchor_to": "left_middle",
+                                                                    "clip_direction": "left",
+                                                                    "clip_ratio": 0.0,
+                                                                    "color": [
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0
+                                                                    ],
+                                                                    "fill": true,
+                                                                    "layer": 1,
+                                                                    "size": [
+                                                                        "100.0%sm+4.0px",
+                                                                        "100.0%sm+2.0px"
+                                                                    ],
+                                                                    "texture": "textures/ui/background_panel",
+                                                                    "type": "image"
+                                                                }
+                                                            },
+                                                            {
+                                                                "label": {
+                                                                    "anchor_from": "left_middle",
+                                                                    "anchor_to": "left_middle",
+                                                                    "layer": 2,
+                                                                    "offset": [
+                                                                        2,
+                                                                        0.0
+                                                                    ],
+                                                                    "text": "default",
+                                                                    "type": "label"
+                                                                }
+                                                            }
+                                                        ],
+                                                        "layer": 1,
+                                                        "size": [
+                                                            "100.0%+0.0px",
+                                                            "100.0%cm+0.0px"
+                                                        ],
+                                                        "type": "panel",
+                                                        "visible": false
+                                                    }
+                                                }
+                                            ],
+                                            "layer": 3,
+                                            "propagate_alpha": true,
+                                            "size": [
+                                                "100.0%+0.0px",
+                                                "100.0%+0.0px"
+                                            ],
+                                            "type": "panel"
+                                        }
+                                    },
+                                    {
+                                        "bottom_empty_line": {
+                                            "anchor_from": "bottom_left",
+                                            "anchor_to": "bottom_left",
+                                            "layer": 5,
+                                            "size": [
+                                                "100.0%+0.0px",
+                                                5
+                                            ],
+                                            "type": "panel"
+                                        }
+                                    }
+                                ],
+                                "layer": 12,
+                                "offset": [
+                                    3,
+                                    0
+                                ],
+                                "propagate_alpha": true,
+                                "size": [
+                                    "650.0%+0.0px",
+                                    "420.0%+0.0px"
+                                ],
+                                "type": "panel"
+                            }
+                        },
+                        {
+                            "button@common.button": {
+                                "$control_alpha": 0.8,
+                                "$default_texture": "textures/ui/gameChatExtension/common/common_button3_normal",
+                                "$hover_texture": "textures/ui/gameChatExtension/common/common_button3_normal",
+                                "$is_new_nine_slice": false,
+                                "$label_color": [
+                                    1,
+                                    1,
+                                    1
+                                ],
+                                "$label_font_scale_factor": 1.0,
+                                "$label_font_size": "large",
+                                "$label_layer": 3,
+                                "$label_offset": [
+                                    0,
+                                    0
+                                ],
+                                "$label_text": "",
+                                "$nine_slice_buttom": 0,
+                                "$nine_slice_left": 0,
+                                "$nine_slice_right": 0,
+                                "$nine_slice_top": 0,
+                                "$nineslice_size": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                ],
+                                "$pressed_button_name": "%netease_editor_template_namespace.click",
+                                "$pressed_texture": "textures/ui/gameChatExtension/common/common_button3_click",
+                                "$texture_layer": 2,
+                                "bindings": [
+                                    {
+                                        "binding_collection_name": "",
+                                        "binding_condition": "always_when_visible",
+                                        "binding_type": "collection_details"
+                                    }
+                                ],
+                                "button_mappings": [],
+                                "controls": [
+                                    {
+                                        "default@netease_editor_template_namespace.default": {}
+                                    },
+                                    {
+                                        "hover@netease_editor_template_namespace.hover": {}
+                                    },
+                                    {
+                                        "pressed@netease_editor_template_namespace.pressed": {}
+                                    },
+                                    {
+                                        "button_label@netease_editor_template_namespace.button_label": {}
+                                    },
+                                    {
+                                        "icon": {
+                                            "clip_direction": "left",
+                                            "clip_ratio": 0.0,
+                                            "layer": 1,
+                                            "size": [
+                                                "60.0%+0.0px",
+                                                "60.0%+0.0px"
+                                            ],
+                                            "texture": "textures/ui/gameChatExtension/icon/pack_up",
+                                            "type": "image"
+                                        }
+                                    }
+                                ],
+                                "default_control": "default",
+                                "hover_control": "hover",
+                                "is_handle_button_move_event": true,
+                                "layer": 2,
+                                "offset": [
+                                    0.0,
+                                    "50.0%x+0.0px"
+                                ],
+                                "pressed_control": "pressed",
+                                "size": [
+                                    "80.0%+0.0px",
+                                    "100.0%x+0.0px"
+                                ],
+                                "type": "button",
+                                "visible": false
+                            }
+                        }
+                    ],
+                    "layer": 1,
+                    "offset": [
+                        "1.25%+0.0px",
+                        "-300.0%x+0.0px"
+                    ],
+                    "size": [
+                        "3.75%+0.0px",
+                        "100.0%x+0.0px"
+                    ],
+                    "type": "panel"
+                }
+            }
+        ],
+        "layer": 1,
+        "offset": [
+            0,
+            0.0
+        ],
+        "bindings": [
+            {
+                "binding_name": "#hud_visible",
+                "binding_name_override": "#visible",
+                "binding_type": "global"
+            },
+            {
+                "binding_name": "#hud_alpha",
+                "binding_name_override": "#alpha",
+                "binding_type": "global"
+            },
+            {
+                "binding_name": "#hud_propagate_alpha",
+                "binding_name_override": "#propagateAlpha",
+                "binding_type": "global"
+            }
+        ],
+        "type": "panel"
+    },
+    "namespace": "chatExtensionMainScreenMsgNew"
+}

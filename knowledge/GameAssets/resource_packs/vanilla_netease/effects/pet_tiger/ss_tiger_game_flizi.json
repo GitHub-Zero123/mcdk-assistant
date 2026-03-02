@@ -1,0 +1,117 @@
+{
+    "particleeffect": {
+        "constantforce": {
+            "value": "0.0 1.0 0.0"
+        },
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "value": "Direction",
+            "min": "-1.0 -1.0 -1.0"
+        },
+        "dampingforce": {
+            "value": "1.0"
+        },
+        "numparticles": {
+            "value": "5"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "colorfade": [
+            {
+                "color": "0.6667 1.0000 0.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.1255 0.5176 0.6161",
+                "time": "10.3%"
+            },
+            {
+                "color": "0.6667 1.0000 0.0000 1.0000",
+                "time": "24.7%"
+            },
+            {
+                "color": "1.0000 0.1529 0.6039 0.6964",
+                "time": "38.2%"
+            },
+            {
+                "color": "0.6667 1.0000 0.0000 1.0000",
+                "time": "49.7%"
+            },
+            {
+                "color": "1.0000 0.1137 0.5725 0.5893",
+                "time": "64.5%"
+            },
+            {
+                "color": "0.6667 1.0000 0.0000 0.8393",
+                "time": "80.0%"
+            },
+            {
+                "color": "1.0000 0.0667 0.5176 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.55 0.5 0.65"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "timetolive": {
+            "max": "1.0",
+            "min": "0.5"
+        },
+        "texture": {
+            "name": "textures/sfxs/pet_tiger/ss_scifi_weapon_lizi"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.3",
+            "min": "0.0"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "particlesize": {
+            "max": "0.04 0.04",
+            "min": "0.01 0.01"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.0 0.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "2.28 2.28",
+                "time": "11.3%"
+            },
+            {
+                "scale": "2.04 2.04",
+                "time": "31.7%"
+            },
+            {
+                "scale": "2.16 2.16",
+                "time": "50.0%"
+            },
+            {
+                "scale": "1.84 1.84",
+                "time": "70.3%"
+            },
+            {
+                "scale": "2.12 2.12",
+                "time": "85.7%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            }
+        ]
+    }
+}

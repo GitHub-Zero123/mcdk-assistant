@@ -1,0 +1,124 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.3"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "6.1%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "60.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "81.1%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "delay": 0.5,
+        "depthtest": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "1.0 1.0 1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "3000.0",
+            "min": "3000.0"
+        },
+        "enableloop": {
+            "enable": "true"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "layer": 4,
+        "numparticles": {
+            "value": "1"
+        },
+        "particlesize": {
+            "max": "0.30000000000000004 1.0",
+            "min": "0.30000000000000004 1.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "2.48 2.48",
+                "time": "49.3%"
+            },
+            {
+                "scale": "2.36 2.36",
+                "time": "92.7%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "16",
+                "name": "",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s2/cs_s4hongshi_skin_tw"
+        },
+        "timetolive": {
+            "max": "2.97",
+            "min": "2.97"
+        },
+        "trail": {
+            "colorfade": [
+                {
+                    "color": "0.0 0.06666666666666667 1.0 0.8660714285714286",
+                    "time": "0.000%"
+                },
+                {
+                    "color": "0.054901960784313725 0.27450980392156865 1.0 0.6875",
+                    "time": "32.105%"
+                },
+                {
+                    "color": "0.00784313725490196 0.27058823529411763 1.0 0.34375",
+                    "time": "66.053%"
+                },
+                {
+                    "color": "0.41568627450980394 0.0 1.0 0.0",
+                    "time": "100.000%"
+                }
+            ],
+            "facemode": 1,
+            "lifetime": 2.0,
+            "maxnum": 32,
+            "mindistance": 0.01,
+            "texmode": 0,
+            "textile": "1.0 1.0",
+            "useparticlecolor": true,
+            "useparticlewidth": true,
+            "widthfade": [
+                {
+                    "time": "0.0%",
+                    "value": "1.5000000000000004"
+                },
+                {
+                    "time": "32.0%",
+                    "value": "1.44"
+                }
+            ],
+            "worldspace": true
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

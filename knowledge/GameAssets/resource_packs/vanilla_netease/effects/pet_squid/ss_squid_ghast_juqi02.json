@@ -1,0 +1,63 @@
+{
+    "particleeffect": {
+        "enablecolor": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "value": "Inwards",
+            "min": "-1.0 -1.0 -1.0"
+        },
+        "activetime": {
+            "value": "0.2"
+        },
+        "faceCameraMode": {
+            "value": "Direction"
+        },
+        "timetolive": {
+            "max": "0.4",
+            "min": "0.4"
+        },
+        "emissionrate": {
+            "max": "12.0",
+            "min": "15.0"
+        },
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "1.5 1.5 1.5"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "delay": 0.2,
+        "inactivetime": {
+            "value": "2.5"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": false,
+                "name": "textures/sfxs/pet_squid/ss_squid_ghast_huomiao",
+                "fps": "10"
+            },
+            "name": "textures/sfxs/pet_squid/ss_squid_ghast_huomiao"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "1.6",
+            "min": "1.6"
+        },
+        "particlesize": {
+            "max": "0.05 0.1",
+            "min": "0.05 0.1"
+        },
+        "numparticles": {
+            "value": "8"
+        }
+    }
+}

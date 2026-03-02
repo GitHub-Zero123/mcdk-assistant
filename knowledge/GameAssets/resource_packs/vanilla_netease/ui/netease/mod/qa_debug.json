@@ -1,0 +1,35 @@
+{
+    "main@common.base_screen": {
+        "controls": [
+            {
+                "message@qa_debug.message": {}
+            }
+        ]
+    },
+    "message": {
+        "anchor_from": "center",
+        "anchor_to": "top_left",
+        "auto_expand": false,
+        "color": [
+            1,
+            1,
+            1
+        ],
+        "font_size": "normal",
+        "layer": 1,
+        "offset": [
+            "-49.29577%+0px",
+            "-49.24812%+0px"
+        ],
+        "shadow": true,
+        "size": [
+            "98.35680%+0px",
+            "32.70677%+0px"
+        ],
+        "text": "",
+        "text_alignment": "left",
+        "type": "label",
+        "visible": true
+    },
+    "namespace": "qa_debug"
+}

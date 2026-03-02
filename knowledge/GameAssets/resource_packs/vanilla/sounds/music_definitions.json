@@ -1,0 +1,242 @@
+{
+    "game": {
+        "event_name": "music.game",
+        "min_delay": 600,
+        "max_delay": 1200
+    },
+    "water": {
+        "event_name": "music.game.water",
+        "min_delay": 10,
+        "max_delay": 20
+    },
+    "creative": {
+        "event_name": "music.game.creative",
+        "min_delay": 60,
+        "max_delay": 180
+    },
+    "end": {
+        "event_name": "music.game.end",
+        "min_delay": 60,
+        "max_delay": 180
+    },
+    "endboss": {
+        "event_name": "music.game.endboss",
+        "min_delay": 60,
+        "max_delay": 180
+    },
+    "nether": {
+        "event_name": "music.game.nether",
+        "min_delay": 60,
+        "max_delay": 180
+    },
+    "credits": {
+        "event_name": "music.game.credits",
+        "min_delay": 0,
+        "max_delay": 0
+    },
+    "menu": {
+        "event_name": "music.menu",
+        "min_delay": 0,
+        "max_delay": 30
+    },
+    "soulsand_valley": {
+        "event_name": "music.game.soulsand_valley",
+        "min_delay": 60,
+        "max_delay": 180
+    },
+    "hell": {
+        "event_name": "music.game.nether_wastes",
+        "min_delay": 60,
+        "max_delay": 180
+    },
+    "crimson_forest": {
+        "event_name": "music.game.crimson_forest",
+        "min_delay": 60,
+        "max_delay": 180
+    },
+    "dripstone_caves": {
+        "event_name": "music.overworld.dripstone_caves",
+        "min_delay": 60,
+        "max_delay": 180
+    },
+    "grove": {
+        "event_name": "music.overworld.grove",
+        "min_delay": 60,
+        "max_delay": 180
+    },
+    "jagged_peaks": {
+        "event_name": "music.overworld.jagged_peaks",
+        "min_delay": 60,
+        "max_delay": 180
+    },
+    "lush_caves": {
+        "event_name": "music.overworld.lush_caves",
+        "min_delay": 60,
+        "max_delay": 180
+    },
+    "meadow": {
+        "event_name": "music.game.meadow",
+        "min_delay": 60,
+        "max_delay": 180
+    },
+    "frozen_peaks": {
+        "event_name": "music.game.frozen_peaks",
+        "min_delay": 60,
+        "max_delay": 180
+    },
+    "snowy_slopes": {
+        "event_name": "music.overworld.snowy_slopes",
+        "min_delay": 60,
+        "max_delay": 180
+    },
+    "stony_peaks": {
+        "event_name": "music.overworld.stony_peaks",
+        "min_delay": 60,
+        "max_delay": 180
+    },
+    "deep_dark": {
+        "event_name": "music.overworld.deep_dark",
+        "min_delay": 60,
+        "max_delay": 180
+    },
+    "swampland": {
+        "event_name": "music.game.swamp_music",
+        "min_delay": 60,
+        "max_delay": 180
+    },
+    "swampland_mutated": {
+        "event_name": "music.game.swamp_music",
+        "min_delay": 60,
+        "max_delay": 180
+    },
+    "mangrove_swamp": {
+        "event_name": "music.game.swamp_music",
+        "min_delay": 60,
+        "max_delay": 180
+    },
+    "bamboo_jungle": {
+        "event_name": "music.overworld.bamboo_jungle",
+        "min_delay": 60,
+        "max_delay": 180
+    },
+    "bamboo_jungle_hills": {
+        "event_name": "music.overworld.bamboo_jungle",
+        "min_delay": 60,
+        "max_delay": 180
+    },
+    "birch_forest": {
+        "event_name": "music.game_and_wild_equal_chance",
+        "min_delay": 60,
+        "max_delay": 180
+    },
+    "birch_forest_hills": {
+        "event_name": "music.game_and_wild_equal_chance",
+        "min_delay": 60,
+        "max_delay": 180
+    },
+    "roofed_forest": {
+        "event_name": "music.game_and_wild_equal_chance",
+        "min_delay": 60,
+        "max_delay": 180
+    },
+    "roofed_forest_mutated": {
+        "event_name": "music.game_and_wild_equal_chance",
+        "min_delay": 60,
+        "max_delay": 180
+    },
+    "forest": {
+        "event_name": "music.game_and_wild_equal_chance",
+        "min_delay": 60,
+        "max_delay": 180
+    },
+    "flower_forest": {
+        "event_name": "music.overworld.flower_forest",
+        "min_delay": 60,
+        "max_delay": 180
+    },
+    "jungle": {
+        "event_name": "music.overworld.jungle",
+        "min_delay": 60,
+        "max_delay": 180
+    },
+    "jungle_hills": {
+        "event_name": "music.overworld.jungle",
+        "min_delay": 60,
+        "max_delay": 180
+    },
+    "jungle_mutated": {
+        "event_name": "music.game_and_wild_equal_chance",
+        "min_delay": 60,
+        "max_delay": 180
+    },
+    "mesa_plateau": {
+        "event_name": "music.overworld.mesa",
+        "min_delay": 60,
+        "max_delay": 180
+    },
+    "mega_taiga": {
+        "event_name": "music.game_and_wild_favor_game",
+        "min_delay": 60,
+        "max_delay": 180
+    },
+    "redwood_taiga_mutated": {
+        "event_name": "music.game_and_wild_favor_game",
+        "min_delay": 60,
+        "max_delay": 180
+    },
+    "redwood_taiga_hills_mutated": {
+        "event_name": "music.game_and_wild_favor_game",
+        "min_delay": 60,
+        "max_delay": 180
+    },
+    "birch_forest_mutated": {
+        "event_name": "music.game_and_wild_favor_game",
+        "min_delay": 60,
+        "max_delay": 180
+    },
+    "mesa_plateau_mutated": {
+        "event_name": "music.overworld.mesa",
+        "min_delay": 60,
+        "max_delay": 180
+    },
+    "basalt_deltas": {
+        "event_name": "music.game.basalt_deltas",
+        "min_delay": 60,
+        "max_delay": 180
+    },
+    "cherry_grove": {
+        "event_name": "music.overworld.cherry_grove",
+        "min_delay": 60,
+        "max_delay": 180
+    },
+    "desert": {
+        "event_name": "music.overworld.desert",
+        "min_delay": 60,
+        "max_delay": 180
+    },
+    "desert_hills": {
+        "event_name": "music.overworld.desert",
+        "min_delay": 60,
+        "max_delay": 180
+    },
+    "desert_hills_mutated": {
+        "event_name": "music.overworld.desert",
+        "min_delay": 60,
+        "max_delay": 180
+    },
+    "mesa": {
+        "event_name": "music.overworld.mesa",
+        "min_delay": 60,
+        "max_delay": 180
+    },
+    "jungle_hills_mutated": {
+        "event_name": "music.overworld.jungle",
+        "min_delay": 60,
+        "max_delay": 180
+    },
+    "jungle_edge": {
+        "event_name": "music.overworld.jungle_edge",
+        "min_delay": 60,
+        "max_delay": 180
+    }
+}

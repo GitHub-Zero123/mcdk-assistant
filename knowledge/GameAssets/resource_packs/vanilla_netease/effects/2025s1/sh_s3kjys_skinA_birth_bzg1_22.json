@@ -1,0 +1,91 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.15"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.6353 0.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.6353 0.0000 0.0804",
+                "time": "62.9%"
+            },
+            {
+                "color": "1.0000 0.6353 0.0000 0.2411",
+                "time": "75.0%"
+            },
+            {
+                "color": "1.0000 0.6353 0.0000 0.9196",
+                "time": "78.0%"
+            },
+            {
+                "color": "1.0000 0.6353 0.0000 1.0000",
+                "time": "86.0%"
+            },
+            {
+                "color": "1.0000 0.6353 0.0000 0.0000",
+                "time": "86.0%"
+            },
+            {
+                "color": "1.0000 0.6353 0.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "delay": 4.07,
+        "depthtest": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "0.0 0.11 1.0",
+            "min": "0.0 0.11 1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "3000.0",
+            "min": "3000.0"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "layer": 4,
+        "numparticles": {
+            "value": "1"
+        },
+        "offsetInCamera": {
+            "value": "-3.4"
+        },
+        "particlesize": {
+            "max": "1.0 1.0",
+            "min": "1.0 1.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.2 1.2",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s1/sh_s3kjys_skinA_birth_6"
+        },
+        "timetolive": {
+            "max": "0.7",
+            "min": "0.7"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

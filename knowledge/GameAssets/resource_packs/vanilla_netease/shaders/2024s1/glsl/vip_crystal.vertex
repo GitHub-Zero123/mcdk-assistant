@@ -1,0 +1,174 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+precision highp float;
+
+#include "vertexVersionCentroidUV.h"
+
+#include "uniformPerFrameConstants.h"
+#include "uniformWorldConstants.h"
+#include "uniformEntityConstants.h"
+#include "uniformWeatherConstants.h"
+#ifdef USE_SKINNING
+#include "uniformAnimationConstants.h"
+#endif
+
+attribute mediump vec4 POSITION;
+attribute vec2 TEXCOORD_0;
+attribute vec4 NORMAL;
+#if defined(USE_SKINNING)
+#ifdef MCPE_PLATFORM_NX
+attribute uint BONEID_0;
+#else
+attribute float BONEID_0;
+#endif
+#endif
+
+#ifdef RNGL_LIGHT
+uniform vec4 HIDE_COLOR;
+#endif
+
+const float AMBIENT = 0.45;
+
+const float XFAC = -0.1;
+const float ZFAC = 0.1;
+
+float lightIntensity(vec4 position, vec4 normal) {
+#ifdef FANCY
+#if defined(NETEASE_SKINNING) && defined(USE_SKINNING)
+	MAT4 boneMat = GetBoneMatForNetease(int(BONEID_0));
+    vec3 N = normalize( boneMat * NORMAL ).xyz;
+#else//NETEASE_SKINNING
+	vec3 N = normalize( WORLD * normal ).xyz;
+#endif
+	N.y *= TILE_LIGHT_COLOR.w; //TILE_LIGHT_COLOR.w contains the direction of the light
+
+	//take care of double sided polygons on materials without culling
+#ifdef FLIP_BACKFACES
+#if defined(NETEASE_SKINNING) && defined(USE_SKINNING)
+	vec3 viewDir = normalize( boneMat * POSITION ).xyz;
+#else //NETEASE_SKINNING
+	vec3 viewDir = normalize((WORLD * position).xyz);
+#endif
+	if( dot(N, viewDir) > 0.0 )
+		N *= -1.0;
+#endif
+
+#ifdef RNGL_LIGHT
+	vec3 lightDir = normalize(HIDE_COLOR.xyz);  // light dir uses world coords
+	float dLight = max(0.0, dot(N, lightDir));  // diffuse in directional light
+	return dLight * (1.0-AMBIENT-0.2) + AMBIENT+0.2;  // origin range [0.65, 1.0]
+#else
+	float yLight = (1.0+N.y) * 0.5;
+	return yLight * (1.0-AMBIENT) + N.x*N.x * XFAC + N.z*N.z * ZFAC + AMBIENT;
+#endif // RNGL_LIGHT
+
+#else
+	return 1.0;
+#endif
+}
+
+#ifdef GLINT
+vec2 calculateLayerUV(float offset, float rotation) {
+	vec2 uv = TEXCOORD_0;
+	uv -= 0.5;
+	float rsin = sin(rotation);
+	float rcos = cos(rotation);
+	uv = mat2(rcos, -rsin, rsin, rcos) * uv;
+	uv.x += offset;
+	uv += 0.5;
+
+	return uv * GLINT_UV_SCALE;
+}
+#endif
+
+
+#ifdef USE_UV_FRAME_ANIM
+uniform vec4 UV_FRAME_ANIM_PARAM;	//(gridRowInverse, gridColInverse, gridCol, curFrame)
+
+vec2 calculateFrameAnimUV(vec2 uv, float gridRowInverse, float gridColInverse, float gridCol, float curFrame) {
+	float curRow = floor(curFrame * gridColInverse + 0.1);
+	float curCol = curFrame - curRow * gridCol;	
+	return (uv + vec2(curCol, curRow)) * vec2(gridColInverse, gridRowInverse);
+}
+#endif
+
+varying vec4 fogColor;
+varying vec3 worldPos;
+varying vec3 worldNormal;
+varying vec3 tangentViewDir;
+
+void main()
+{
+	vec4 entitySpacePosition;
+	vec4 entitySpaceNormal;
+
+#ifdef USE_SKINNING
+#ifdef NETEASE_SKINNING
+		MAT4 boneMat = GetBoneMatForNetease(int(BONEID_0));
+		entitySpacePosition = boneMat * POSITION;
+		entitySpaceNormal = boneMat * NORMAL;
+#else
+	#if defined(LARGE_VERTEX_SHADER_UNIFORMS)
+		entitySpacePosition = BONES[int(BONEID_0)] * POSITION;
+		entitySpaceNormal = BONES[int(BONEID_0)] * NORMAL;
+	#else
+		entitySpacePosition = BONE * POSITION;
+		entitySpaceNormal = BONE * NORMAL;
+	#endif
+#endif
+#else
+	entitySpacePosition = POSITION * vec4(1, 1, 1, 1);
+	entitySpaceNormal = NORMAL * vec4(1, 1, 1, 0);
+#endif
+	vec4 pos = WORLDVIEWPROJ * entitySpacePosition;
+	gl_Position = pos;
+
+#ifdef RNGL_UNLIT
+	float L = 1.0;
+#else
+	float L = lightIntensity(entitySpacePosition, entitySpaceNormal);
+#endif
+
+#ifdef TINTED_ALPHA_TEST
+	alphaTestMultiplier = OVERLAY_COLOR.a;
+#endif
+
+#ifndef NO_TEXTURE
+	uv = TEXCOORD_0;
+#endif
+
+#ifdef USE_UV_ANIM
+	uv.xy = UV_ANIM.xy + (uv.xy * UV_ANIM.zw);
+#endif
+
+#ifdef USE_UV_FRAME_ANIM
+	uv = calculateFrameAnimUV(uv, UV_FRAME_ANIM_PARAM.x, UV_FRAME_ANIM_PARAM.y, UV_FRAME_ANIM_PARAM.z, UV_FRAME_ANIM_PARAM.w);
+#endif
+
+#ifdef GLINT
+	glintColor = GLINT_COLOR;
+	layer1UV = calculateLayerUV(UV_OFFSET.x, UV_ROTATION.x);
+	layer2UV = calculateLayerUV(UV_OFFSET.y, UV_ROTATION.y);
+	tileLightColor = TILE_LIGHT_COLOR;
+#endif
+
+	worldPos = (WORLD * entitySpacePosition).xyz;
+	vec3 worldViewDir = normalize(WORLD * vec4(worldPos - VIEW_POS, 0.0)).xyz;
+
+	worldNormal = normalize(WORLD * entitySpaceNormal).xyz;
+
+	// calculate world space tangent
+	vec3 entitySpaceTangent = cross(entitySpaceNormal.xyz, vec3(0.0, 1.0, 0.0));
+	vec3 tangetWS = normalize(WORLD * vec4(entitySpaceTangent, 0.0)).xyz;
+	mat3 world2tangent = mat3(
+		tangetWS,
+		cross(tangetWS, worldNormal),
+		worldNormal
+	);
+	tangentViewDir = world2tangent * worldViewDir;
+
+	// fog
+	fogColor.rgb = FOG_COLOR.rgb;
+	fogColor.a = clamp(((pos.z / RENDER_DISTANCE) - FOG_CONTROL.x) / (FOG_CONTROL.y - FOG_CONTROL.x), 0.0, 1.0);
+}
+#define update 1.0000

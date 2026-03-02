@@ -1,0 +1,76 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.1"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "0.7804 0.6000 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.2275 0.2392 1.0000 1.0000",
+                "time": "11.3%"
+            },
+            {
+                "color": "0.2196 0.1922 1.0000 0.9196",
+                "time": "35.5%"
+            },
+            {
+                "color": "0.3137 0.3255 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "depthtest": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "20.0",
+            "min": "20.0"
+        },
+        "layer": 2,
+        "numparticles": {
+            "value": "20"
+        },
+        "particlesize": {
+            "max": "1.2 1.2",
+            "min": "1.2 1.2"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.0 0.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.53 1.53",
+                "time": "30.0%"
+            },
+            {
+                "scale": "2.0 2.0",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s5/CS_s5Cthulhu_skin_gy2"
+        },
+        "timetolive": {
+            "max": "0.2",
+            "min": "0.2"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

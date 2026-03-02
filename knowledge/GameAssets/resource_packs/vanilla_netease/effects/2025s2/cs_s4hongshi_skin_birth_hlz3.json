@@ -1,0 +1,81 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.30000000000000004"
+        },
+        "constantforce": {
+            "value": "0.0 3.0 0.0"
+        },
+        "dampingforce": {
+            "value": "5.0"
+        },
+        "delay": 1.9,
+        "depthtest": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Outwards"
+        },
+        "emissionrate": {
+            "max": "700.0",
+            "min": "700.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "2.0 0.5 2.0"
+        },
+        "emittertype": {
+            "value": "Cone"
+        },
+        "faceCameraMode": {
+            "value": "Direction"
+        },
+        "layer": 5,
+        "numparticles": {
+            "value": "25"
+        },
+        "particlesize": {
+            "max": "0.4 0.4",
+            "min": "0.1 0.1"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.9 0.9",
+                "time": "60.0%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "8",
+                "name": "textures/sfxs/2025s2/cs_s4hongshi_skin_birth_hlz3",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s2/cs_s4hongshi_skin_birth_hlz3"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.75",
+            "min": "0.3"
+        },
+        "velocity": {
+            "max": "12.0",
+            "min": "5.0"
+        }
+    }
+}

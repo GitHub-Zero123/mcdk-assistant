@@ -1,0 +1,58 @@
+{
+    "particleeffect": {
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.9464",
+                "time": "64.7%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0714",
+                "time": "100.0%"
+            }
+        ],
+        "dampingforce": {
+            "value": "0.5"
+        },
+        "direction": {
+            "max": "0.0 0.0 -1.0",
+            "min": "0.0 0.0 -1.0",
+            "value": "Direction"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.3 0.3 0.3"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "particlesize": {
+            "max": "0.02 0.02",
+            "min": "0.01 0.01"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "name": "textures/sfxs/2025s1/sh_s3kjys_skina_lz1_00000"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.8",
+            "min": "0.3"
+        },
+        "velocity": {
+            "max": "1.0",
+            "min": "0.3"
+        }
+    }
+}

@@ -1,0 +1,94 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.1"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "0.9529 0.9882 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.5255 0.8745 1.0000 0.7321",
+                "time": "6.8%"
+            },
+            {
+                "color": "0.2078 0.7647 1.0000 0.6429",
+                "time": "26.3%"
+            },
+            {
+                "color": "0.0000 0.7843 1.0000 0.3839",
+                "time": "43.4%"
+            },
+            {
+                "color": "0.3647 0.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "delay": 0.6,
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "3000.0",
+            "min": "3000.0"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "layer": 7,
+        "numparticles": {
+            "value": "3"
+        },
+        "particlesize": {
+            "max": "1.2 1.2",
+            "min": "1.0 1.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 666.0",
+            "min": "0.0 0.0 -666.0"
+        },
+        "rotationSpeedRange": {
+            "max": "0.0 0.0 66.0",
+            "min": "0.0 0.0 -66.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.42 0.42",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.14 1.14",
+                "time": "12.0%"
+            },
+            {
+                "scale": "1.44 1.44",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "16",
+                "name": "textures/sfxs/2025s2/cs_s4diaoling_skin_ccklcg",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s2/cs_s4diaoling_skin_ccklcg"
+        },
+        "timetolive": {
+            "max": "0.30000000000000004",
+            "min": "0.30000000000000004"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

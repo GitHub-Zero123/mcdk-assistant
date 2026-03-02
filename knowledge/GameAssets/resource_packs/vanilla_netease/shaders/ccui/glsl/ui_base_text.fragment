@@ -1,0 +1,42 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+
+#define MCPE_NETEASE
+
+#include "fragmentVersionCentroid.h"
+#include "uniformShaderConstants.h"
+#include "util.h"
+#include "uniformTextConstants.h"
+#include "uniformUITransformsConstants.h"
+
+LAYOUT_BINDING(0) uniform sampler2D TEXTURE_0;
+
+varying vec4 color;
+varying vec2 uv;
+
+#ifdef ENABLE_TEXT_COLOR_GRADIENT
+varying vec2 colorInterpolation;
+#endif
+
+void main()
+{
+	vec4 diffuse = texture2D( TEXTURE_0, uv );
+
+	vec4 gradient = vec4(1.0, 1.0, 1.0, 1.0);
+#ifdef ENABLE_TEXT_COLOR_GRADIENT
+	gradient = mix(
+		mix(TEXTCOLORS[3].xyzw, TEXTCOLORS[2].xyzw, colorInterpolation.x),
+		mix(TEXTCOLORS[0].xyzw, TEXTCOLORS[1].xyzw, colorInterpolation.x),
+		colorInterpolation.y
+	);
+#endif
+
+	if (DARKEN.a == 0.0)
+	{
+		gl_FragColor = vec4(DARKEN.rgb * gradient.rgb, diffuse.r * color.a);
+	}
+	else
+	{
+		gl_FragColor = vec4(color.rgb * DARKEN.rgb * gradient.rgb, diffuse.r * color.a);
+	}
+}

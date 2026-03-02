@@ -1,0 +1,71 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.2"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "7.6%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "delay": 2.75,
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "3000.0",
+            "min": "3000.0"
+        },
+        "enableloop": {
+            "enable": "true"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Horizontal"
+        },
+        "layer": 4,
+        "numparticles": {
+            "value": "0"
+        },
+        "particlesize": {
+            "max": "1.5999999999999999 1.5999999999999999",
+            "min": "1.6 1.5999999999999999"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "ani": {
+                "fps": "16",
+                "name": "textures/sfxs/2025s1/sh_s3guofeng_skinA_juanzhou01",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s1/sh_s3guofeng_skinA_juanzhou01"
+        },
+        "timetolive": {
+            "max": "1.02",
+            "min": "1.02"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

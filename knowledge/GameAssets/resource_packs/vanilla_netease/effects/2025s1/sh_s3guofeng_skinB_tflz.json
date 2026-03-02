@@ -1,0 +1,54 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "0.0 1.0 0.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "25.0",
+            "min": "25.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.75 0.1 0.4"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "faceCameraMode": {
+            "value": "Direction"
+        },
+        "numparticles": {
+            "value": "25"
+        },
+        "particlesize": {
+            "max": "0.3 0.35",
+            "min": "0.4 0.45"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "ani": {
+                "fps": "12",
+                "name": "textures/sfxs/2025s1/sh_s3guofeng_skinB_huoy2",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s1/sh_s3guofeng_skinB_huoy2"
+        },
+        "thickness": {
+            "value": "1.0"
+        },
+        "timetolive": {
+            "max": "0.6",
+            "min": "0.5"
+        },
+        "velocity": {
+            "max": "0.1",
+            "min": "0.0"
+        }
+    }
+}

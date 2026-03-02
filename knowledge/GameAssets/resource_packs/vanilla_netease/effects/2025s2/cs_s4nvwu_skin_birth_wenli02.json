@@ -1,0 +1,89 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.2"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.9107",
+                "time": "21.3%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.4732",
+                "time": "67.4%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "delay": 9.0,
+        "depthtest": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "3.0",
+            "min": "3.0"
+        },
+        "enableloop": {
+            "enable": "true"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "layer": 6,
+        "numparticles": {
+            "value": "4"
+        },
+        "particlesize": {
+            "max": "1.8 1.8",
+            "min": "1.8 1.8"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 666.0",
+            "min": "0.0 0.0 -666.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.29 1.29",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.74 1.74",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "48",
+                "name": "textures/sfxs/2025s2/cs_s4nvwu_skin_birth_wenli02",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s2/cs_s4nvwu_skin_birth_wenli02"
+        },
+        "timetolive": {
+            "max": "0.5",
+            "min": "0.3"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

@@ -1,0 +1,74 @@
+{
+    "particleeffect": {
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.2589",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "23.7%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.8304",
+                "time": "78.7%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "constantforce": {
+            "value": "0.0 0.0 0.5"
+        },
+        "dampingforce": {
+            "value": "1.0"
+        },
+        "direction": {
+            "max": "1.0 1.0 0.0",
+            "min": "-1.0 -1.0 0.0",
+            "value": "Outwards"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "1.4 1.4 0.1"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "numparticles": {
+            "value": "4"
+        },
+        "particlesize": {
+            "max": "0.25 0.25",
+            "min": "0.1 0.1"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "ani": {
+                "fps": "8",
+                "name": "textures/sfxs/2025s6/ss_s6Yaksha_fz_hylz",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s6/ss_s6Yaksha_fz_hylz"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "1.7",
+            "min": "1.5"
+        },
+        "velocity": {
+            "max": "0.4",
+            "min": "0.3"
+        }
+    }
+}

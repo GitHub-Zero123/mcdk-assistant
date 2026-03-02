@@ -1,0 +1,79 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "1.0"
+        },
+        "constantforce": {
+            "value": "-0.1 0.0 -0.2"
+        },
+        "dampingforce": {
+            "value": "0.5"
+        },
+        "delay": 0.2,
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "min": "-0.5 0.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "5.0",
+            "min": "5.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.5 0.0 0.4"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "numparticles": {
+            "value": "20"
+        },
+        "particlesize": {
+            "max": "0.05 0.05",
+            "min": "0.07 0.07"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 0.0",
+            "min": "180.0 180.0 180.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.0 0.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "20.0%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "16",
+                "name": "textures/sfxs/emote/cs_story_skinA_emote_hb01",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/emote/cs_story_skinA_emote_hb01"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "1.5",
+            "min": "1.5"
+        },
+        "velocity": {
+            "max": "0.4",
+            "min": "0.2"
+        }
+    }
+}

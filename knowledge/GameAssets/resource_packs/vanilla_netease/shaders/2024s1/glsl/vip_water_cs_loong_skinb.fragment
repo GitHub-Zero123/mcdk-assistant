@@ -1,0 +1,97 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+precision highp float;
+
+#include "fragmentVersionCentroidUV.h"
+#include "uniformEntityConstants.h"
+
+#include "uniformPerFrameConstants.h"
+#include "uniformShaderConstants.h"
+#include "util.h"
+
+LAYOUT_BINDING(0) uniform sampler2D TEXTURE_0; // 描边图
+LAYOUT_BINDING(1) uniform sampler2D TEXTURE_1; // 波纹混合贴图(R:底图, G:波纹贴图, B:波纹高亮遮罩&扰动贴图)
+LAYOUT_BINDING(2) uniform sampler2D TEXTURE_2; // MatCap贴图(A通道为透明度控制)
+LAYOUT_BINDING(3) uniform sampler2D TEXTURE_3; // 炫光贴图
+
+varying vec3 worldDir;
+varying vec3 worldNormal;
+varying vec3 viewNormal;
+varying vec3 viewPos;
+
+#define _OutlineColor vec3(230.0, 230.0, 230.0)// <name:描边颜色调整>
+#define _MainTexPannerSpeed vec2(0.03, 0.15)// <name:底图移动速度>
+#define _TurbulenceIntensity 0.0890// <name:扰动强度>
+#define _TurbulenceTexPannerSpeed vec2(-0.3,-0.08)// <name:扰动贴图移动速度>
+#define _MatCapIntensity 0.5000// <name:MatCap强度>
+#define _AlphaControl 0.8500// <name:透明度控制>
+#define _FlashColor vec3(26.0, 26.0, 26.0)// <name:炫光颜色>
+#define _FlashTexPannerSpeed vec2(0.0, 0.4)// <name:炫光贴图移动速度>
+#define _BaseColor vec3(150.0,128.0,20.0)// <name:基础颜色>
+#define _BaseColor2 vec3(200.0,102.0,20.0)// <name:基础颜色2>
+#define _WaveColor vec3(205.0, 205.0, 205.0)// <name:波纹颜色>
+#define _WaveTiling vec2(1.0, 1.0) //<name:波纹平铺率>
+#define _FrensnelColor vec3(0.0, 0.0, 26.0)// <name:菲涅尔颜色(add)>
+#define _FrensnelPower 3.0000// <name:菲涅尔pow>
+#define _PixelNum 200.0000// <name:像素化尺寸>
+
+const mediump float from_255 = 1.0 / 255.0;
+
+vec2 MC_Pixelation(vec2 uv, float m) {
+	return vec2(floor(uv.x * m), floor(uv.y * m)) / m;
+}
+
+void main() {
+	vec3 viewDir = normalize(worldDir);
+	float frensnelVal = 1.0 - dot(worldNormal, viewDir);
+	frensnelVal = pow(frensnelVal, _FrensnelPower);
+
+	vec2 new_uv = MC_Pixelation(uv, _PixelNum);
+	vec2 alpha_uv = clamp(new_uv, 0.0, 1.0);
+	// 扰动
+	vec2 uv_TurbulenceTex = new_uv * _WaveTiling;
+	vec2 pannerUV = TIME * _TurbulenceTexPannerSpeed;
+	uv_TurbulenceTex += MC_Pixelation(pannerUV, _PixelNum);
+	mediump float tur = texture2D(TEXTURE_1, fract(uv_TurbulenceTex)).b;
+	tur *= _TurbulenceIntensity;
+	new_uv += MC_Pixelation(vec2(tur, tur), _PixelNum);
+
+	// 底图 波纹亮暗 波纹
+	vec2 uv_mainTex = new_uv * _WaveTiling;
+	uv_mainTex += TIME * _MainTexPannerSpeed;
+	vec3 mixColor = texture2D(TEXTURE_1, fract(uv_mainTex)).rgb;
+
+	vec3 FinalColor = mix(_BaseColor, _BaseColor2, mixColor.r) * from_255;
+
+	FinalColor = mix(FinalColor, _WaveColor * from_255, mixColor.g * mixColor.b);
+
+	// 炫光
+	vec2 uv_flashTex = new_uv;
+	uv_flashTex += TIME * _FlashTexPannerSpeed;
+	vec3 flashColor = texture2D(TEXTURE_3, fract(uv_flashTex)).xyz;
+	FinalColor += flashColor * _FlashColor * from_255;
+
+	// MatCap
+	vec3 ref = normalize(reflect(viewPos, viewNormal) + vec3(0.0, 0.0, -1.0));
+	vec2 matcap_uv = ref.xy * 0.5 + 0.5;
+	matcap_uv.y = 1.0 - matcap_uv.y;
+	vec3 matCapColor = texture2D(TEXTURE_2, fract(matcap_uv)).xyz;
+
+	FinalColor += matCapColor * _MatCapIntensity;
+
+	vec3 col = mix(FinalColor, FinalColor + _FrensnelColor * from_255, frensnelVal);
+
+	// 描边
+	vec4 outlineColor = texture2D(TEXTURE_0, uv);
+	col = mix(col, outlineColor.rgb * _OutlineColor * from_255, outlineColor.a);
+
+	// 透明度mask
+	mediump float alpha = texture2D(TEXTURE_2, alpha_uv).a * _AlphaControl;
+	alpha = clamp(mix(alpha, alpha + 0.15, outlineColor.a), 0.0, 1.0);
+
+#ifdef USE_OVERLAY
+	col = mix(col, OVERLAY_COLOR.rgb, OVERLAY_COLOR.a);
+#endif // USE_OVERLAY
+
+	gl_FragColor = vec4(col, alpha);
+}

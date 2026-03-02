@@ -1,0 +1,66 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+precision highp float;
+
+#include "fragmentVersionCentroidUV.h"
+#include "uniformWorldConstants.h"
+#include "uniformEntityConstants.h"
+
+#include "uniformPerFrameConstants.h"
+#include "uniformShaderConstants.h"
+#include "fresnel.h"
+#include "noise.h"
+#include "util.h"
+
+LAYOUT_BINDING(0) uniform sampler2D TEXTURE_0; // base map & alpha
+LAYOUT_BINDING(1) uniform sampler2D TEXTURE_1; // scene color
+LAYOUT_BINDING(2) uniform sampler2D TEXTURE_2; // scene mask
+
+#define NOISE_DENSITY 4200.0000
+#define NOISE_FLOW_SPEED 90.0000
+#define FRESNEL_BIAS 0.5500
+#define FRESNEL_COLOR vec3(255.0,178.0,28.0)
+#define SCENE_FLOW 0.0000
+#define SCENE_SCALE vec2(1.0,1.0)
+#define SCENE_BIAS vec2(0.0,0.32)
+
+const float FROM_255_TO_1 = 1.0 / 255.0;
+const vec3 fresnel_color = FRESNEL_COLOR * FROM_255_TO_1;
+
+varying vec4 fogColor;
+
+varying vec3 worldSpaceNormal;
+varying vec3 worldSpacePosition;
+
+void main() {
+	vec4 col = texture2D(TEXTURE_0, uv);
+
+	float useSceneColor = texture2D(TEXTURE_2, uv).r;
+	useSceneColor = step(0.5, useSceneColor);
+
+	vec2 sceneUV = fract(SCENE_BIAS + (gl_FragCoord.xy / 1024.0 + vec2(TIME * SCENE_FLOW, 0.0)) / SCENE_SCALE);
+	vec4 sceneColor = texture2D(TEXTURE_1, sceneUV);
+
+
+	vec3 worldSpaceViewDir = normalize(VIEW_POS.xyz - worldSpacePosition);
+
+	// noise mask for fresnel effect
+	float noise = perlin(
+		uv * NOISE_DENSITY + TIME * NOISE_FLOW_SPEED,
+		64.0, 64.0
+	) * 0.25 + 0.75;
+	noise *= fresnel_ex(worldSpaceNormal, worldSpaceViewDir, FRESNEL_BIAS, 0.6, 2.0);
+	sceneColor.rgb += noise * fresnel_color;
+
+	// final merge
+	col.rgb = useSceneColor * sceneColor.rgb + (1.0 - useSceneColor) * col.rgb;
+
+	// apply fog
+	col.rgb = mix(col.rgb, fogColor.rgb, fogColor.a);
+
+	gl_FragColor = col;
+
+#ifdef USE_OVERLAY
+	gl_FragColor.rgb = mix(gl_FragColor.rgb, OVERLAY_COLOR.rgb, OVERLAY_COLOR.a);
+#endif // USE_OVERLAY
+}

@@ -1,0 +1,86 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.4"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "9.7%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "48.7%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.3929",
+                "time": "59.7%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0804",
+                "time": "82.1%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "dampingforce": {
+            "value": "2.0"
+        },
+        "direction": {
+            "max": "1.0 0.0 1.0",
+            "min": "-1.0 0.0 -1.0",
+            "value": "Outwards"
+        },
+        "emissionrate": {
+            "max": "20.0",
+            "min": "20.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.3 0.1 0.3"
+        },
+        "emittertype": {
+            "value": "Cylinder"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "layer": 4,
+        "numparticles": {
+            "value": "20"
+        },
+        "particlesize": {
+            "max": "0.4 0.4",
+            "min": "0.8 0.8"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "ani": {
+                "fps": "0",
+                "name": "textures/sfxs/2025s1/cs_s3guofeng_zhuchengruchang_yun",
+                "shuffle": true
+            },
+            "name": "textures/sfxs/2025s1/cs_s3guofeng_zhuchengruchang_yun"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "2.0",
+            "min": "2.0"
+        },
+        "velocity": {
+            "max": "2.0",
+            "min": "2.0"
+        }
+    }
+}

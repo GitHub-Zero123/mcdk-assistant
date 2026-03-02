@@ -1,0 +1,76 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "6.0"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.6518",
+                "time": "50.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "constantforce": {
+            "value": "0.0 0.2 0.0"
+        },
+        "dampingforce": {
+            "value": "1.0"
+        },
+        "depthtest": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "0.5000000000000001 1.0 0.5000000000000001",
+            "min": "-0.5 0.5 -0.5",
+            "value": "Direction"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "2.2 6.0 2.2"
+        },
+        "emittertype": {
+            "value": "Cone"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "layer": 5,
+        "particlesize": {
+            "max": "0.2 0.2",
+            "min": "0.1 0.1"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "ani": {
+                "fps": "0",
+                "name": "textures/sfxs/2025s5/cs_s5Tidal_skin_birth_gd01",
+                "shuffle": true
+            },
+            "name": "textures/sfxs/2025s5/cs_s5Tidal_skin_birth_gd01"
+        },
+        "thickness": {
+            "value": "0.4"
+        },
+        "timetolive": {
+            "max": "2.0",
+            "min": "1.5"
+        },
+        "velocity": {
+            "max": "0.5",
+            "min": "0.0"
+        }
+    }
+}

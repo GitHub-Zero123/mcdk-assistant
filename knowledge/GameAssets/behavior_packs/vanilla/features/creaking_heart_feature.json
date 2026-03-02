@@ -1,0 +1,30 @@
+{
+    "format_version": "1.13.0",
+    "minecraft:single_block_feature": {
+        "description": {
+            "identifier": "minecraft:creaking_heart_feature"
+        },
+        "places_block": {
+            "name": "minecraft:creaking_heart",
+            "states": {
+                "pillar_axis": "y",
+                "active": true,
+                "natural": true
+            }
+        },
+        "enforce_survivability_rules": false,
+        "enforce_placement_rules": false,
+        "may_attach_to": {
+            "auto_rotate": false,
+            "top": "minecraft:pale_oak_log",
+            "bottom": "minecraft:pale_oak_log",
+            "north": "minecraft:pale_oak_log",
+            "east": "minecraft:pale_oak_log",
+            "south": "minecraft:pale_oak_log",
+            "west": "minecraft:pale_oak_log"
+        },
+        "may_replace": [
+            "minecraft:pale_oak_log"
+        ]
+    }
+}

@@ -1,0 +1,48 @@
+{
+    "format_version": "1.14",
+    "minecraft:recipe_material_reduction": {
+        "description": {
+            "identifier": "minecraft:dirt:0"
+        },
+        "input": "minecraft:dirt:0",
+        "output": [
+            {
+                "count": 21,
+                "item": "minecraft:element_14"
+            },
+            {
+                "count": 8,
+                "item": "minecraft:element_20"
+            },
+            {
+                "count": 3,
+                "item": "minecraft:element_15"
+            },
+            {
+                "count": 3,
+                "item": "minecraft:element_7"
+            },
+            {
+                "count": 13,
+                "item": "minecraft:element_26"
+            },
+            {
+                "count": 6,
+                "item": "minecraft:element_12"
+            },
+            {
+                "count": 2,
+                "item": "minecraft:element_30"
+            },
+            {
+                "count": 2,
+                "item": "minecraft:element_29"
+            },
+            {
+                "count": 42,
+                "item": "minecraft:element_8"
+            }
+        ],
+        "tags": "material_reducer"
+    }
+}

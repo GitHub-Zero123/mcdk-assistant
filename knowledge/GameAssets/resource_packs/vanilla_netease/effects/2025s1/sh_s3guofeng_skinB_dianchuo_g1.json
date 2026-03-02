@@ -1,0 +1,53 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.1"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "dampingforce": {
+            "value": "20.0"
+        },
+        "delay": 0.9,
+        "direction": {
+            "max": "1.0 0.0 0.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "100.0",
+            "min": "100.0"
+        },
+        "faceCameraMode": {
+            "value": "Direction Horizontal"
+        },
+        "numparticles": {
+            "value": "5"
+        },
+        "particlesize": {
+            "max": "2.0 2.0",
+            "min": "2.0 2.0"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "90.0 90.0 -10.0",
+            "min": "90.0 90.0 -10.0"
+        },
+        "texture": {
+            "ani": {
+                "fps": "30",
+                "name": "textures/sfxs/2025s1/sh_s3guofeng_skinB_dianchuo_dg2",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s1/sh_s3guofeng_skinB_dianchuo_dg2"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.1"
+        }
+    }
+}

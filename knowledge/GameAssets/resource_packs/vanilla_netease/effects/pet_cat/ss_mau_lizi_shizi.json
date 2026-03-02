@@ -1,0 +1,71 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "0.0 1.0 0.0",
+            "value": "Direction",
+            "min": "0.0 -1.0 0.0"
+        },
+        "dampingforce": {
+            "value": "2.5"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.6667 0.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 0.0000 1.0000",
+                "time": "30.3%"
+            },
+            {
+                "color": "1.0000 1.0000 0.0000 1.0000",
+                "time": "53.2%"
+            },
+            {
+                "color": "1.0000 1.0000 0.0000 1.0000",
+                "time": "81.1%"
+            },
+            {
+                "color": "1.0000 0.6549 0.1686 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "emissionrate": {
+            "max": "50.0",
+            "min": "30.0"
+        },
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.55 0.3 0.5"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": false,
+                "name": "textures/sfxs/pet_cat/ss_mau_shizi",
+                "fps": "12"
+            },
+            "name": "textures/sfxs/pet_cat/ss_mau_shizi"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "particlesize": {
+            "max": "0.3 0.3",
+            "min": "0.1 0.1"
+        }
+    }
+}

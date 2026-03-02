@@ -1,0 +1,63 @@
+{
+    "particleeffect": {
+        "enablecolor": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "0.0 0.0 0.2",
+            "value": "Direction",
+            "min": "0.0 0.0 0.0"
+        },
+        "activetime": {
+            "value": "0.2"
+        },
+        "numparticles": {
+            "value": "1"
+        },
+        "emissionrate": {
+            "max": "6.0",
+            "min": "6.0"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": false,
+                "name": "textures/sfxs/pet_dino/ty_dino_play_happy_paopao",
+                "fps": "8"
+            },
+            "name": "textures/sfxs/pet_dino/ty_dino_play_happy_paopao"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "delay": 2.7,
+        "timetolive": {
+            "max": "0.8",
+            "min": "0.8"
+        },
+        "velocity": {
+            "max": "0.1",
+            "min": "0.1"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.38 0.38",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.86 0.86",
+                "time": "28.0%"
+            },
+            {
+                "scale": "0.44 0.44",
+                "time": "49.7%"
+            },
+            {
+                "scale": "0.86 0.86",
+                "time": "100.0%"
+            }
+        ]
+    }
+}

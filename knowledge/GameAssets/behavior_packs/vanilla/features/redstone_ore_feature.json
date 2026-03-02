@@ -1,0 +1,27 @@
+{
+    "format_version": "1.13.0",
+    "minecraft:ore_feature": {
+        "description": {
+            "identifier": "minecraft:redstone_ore_feature"
+        },
+        "count": 8,
+        "replace_rules": [
+            {
+                "places_block": "minecraft:redstone_ore",
+                "may_replace": [
+                    {
+                        "name": "minecraft:stone"
+                    }
+                ]
+            },
+            {
+                "places_block": "minecraft:deepslate_redstone_ore",
+                "may_replace": [
+                    {
+                        "name": "minecraft:deepslate"
+                    }
+                ]
+            }
+        ]
+    }
+}

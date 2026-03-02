@@ -1,0 +1,85 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "1.0"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.6786",
+                "time": "23.4%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.4732",
+                "time": "67.4%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "delay": 7.8,
+        "depthtest": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "3.0",
+            "min": "3.0"
+        },
+        "enableloop": {
+            "enable": "true"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "layer": 3,
+        "numparticles": {
+            "value": "4"
+        },
+        "particlesize": {
+            "max": "1.8000000000000003 1.8000000000000003",
+            "min": "1.5000000000000002 1.5000000000000002"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 666.0",
+            "min": "0.0 0.0 -666.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.5 1.5",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.93 0.93",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "32",
+                "name": "textures/sfxs/2025s2/cs_s4nvwu_skin_birth_wenli01",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s2/cs_s4nvwu_skin_birth_wenli01"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

@@ -1,0 +1,96 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "1.15"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "85.8%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.2143",
+                "time": "100.0%"
+            }
+        ],
+        "dampingforce": {
+            "value": "5.0"
+        },
+        "delay": 2.42,
+        "direction": {
+            "max": "1.0 0.3 1.0",
+            "min": "-1.0 1.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "40.0",
+            "min": "30.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.1 0.1 0.1"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Direction"
+        },
+        "layer": 6,
+        "numparticles": {
+            "value": "5"
+        },
+        "particlesize": {
+            "max": "0.3 0.3",
+            "min": "0.07 0.07"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.7 0.7",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.17 1.17",
+                "time": "6.0%"
+            },
+            {
+                "scale": "0.51 0.51",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "0",
+                "name": "textures/sfxs/2025s1/cs_s2comet_zhuchengruchang_lizic",
+                "shuffle": true
+            },
+            "name": "textures/sfxs/2025s1/cs_s2comet_zhuchengruchang_lizic"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.3",
+            "min": "0.5"
+        },
+        "velocity": {
+            "max": "75.0",
+            "min": "45.0"
+        }
+    }
+}

@@ -1,0 +1,65 @@
+{
+    "particleeffect": {
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.2857",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "20.8%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.8839",
+                "time": "78.7%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "dampingforce": {
+            "value": "1.0"
+        },
+        "direction": {
+            "max": "0.0 0.0 1.0",
+            "min": "0.0 0.0 1.0",
+            "value": "Direction"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "1.1 1.1 0.6"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "numparticles": {
+            "value": "5"
+        },
+        "particlesize": {
+            "max": "0.1 0.1",
+            "min": "0.03 0.03"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "name": "textures/sfxs/2025s6/ss_s6Yaksha_fz_lz"
+        },
+        "thickness": {
+            "value": "0.3"
+        },
+        "timetolive": {
+            "max": "1.0",
+            "min": "0.6"
+        },
+        "velocity": {
+            "max": "0.6",
+            "min": "0.4"
+        }
+    }
+}

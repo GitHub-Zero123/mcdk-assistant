@@ -1,0 +1,49 @@
+{
+    "particleeffect": {
+        "layer": 9,
+        "activetime": {
+            "value": "1.0"
+        },
+        "numparticles": {
+            "value": "1"
+        },
+        "colorfade": [],
+        "emissionrate": {
+            "max": "5.0",
+            "min": "3.0"
+        },
+        "direction": {
+            "max": "0.0 -0.01 0.0",
+            "value": "Direction",
+            "min": "0.0 -0.01 0.0"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": false,
+                "name": "textures/sfxs/pet_rabbit/ss_rabi_guochao_shandian",
+                "fps": "16"
+            },
+            "name": "textures/sfxs/pet_rabbit/ss_rabi_guochao_shandian"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "dampingforce": {
+            "value": "6.0"
+        },
+        "inactivetime": {
+            "value": "0.6"
+        },
+        "velocity": {
+            "max": "0.2",
+            "min": "0.1"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "particlesize": {
+            "max": "0.2 0.2",
+            "min": "0.25 0.25"
+        }
+    }
+}

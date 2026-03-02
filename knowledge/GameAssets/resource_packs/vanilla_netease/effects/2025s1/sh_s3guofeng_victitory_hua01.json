@@ -1,0 +1,86 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.2"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "6.1%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "13.9%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.9375",
+                "time": "38.4%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.7679",
+                "time": "57.4%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.3929",
+                "time": "81.1%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0982",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "0.0 -1.0 0.0",
+            "min": "0.0 -1.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "500.0",
+            "min": "500.0"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Rotate Y"
+        },
+        "layer": 5,
+        "numparticles": {
+            "value": "1"
+        },
+        "particlesize": {
+            "max": "1.15 1.25",
+            "min": "1.15 1.25"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "0.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "21",
+                "name": "textures/sfxs/2025s1/sh_s3guofeng_victitory_hua01",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s1/sh_s3guofeng_victitory_hua01"
+        },
+        "timetolive": {
+            "max": "1.15",
+            "min": "1.15"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

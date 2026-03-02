@@ -1,0 +1,93 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.2"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "8.4%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "15.3%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "84.7%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.7054",
+                "time": "95.3%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "dampingforce": {
+            "value": "0.49999999999999867"
+        },
+        "direction": {
+            "max": "0.0 -1.0 0.0",
+            "min": "0.0 -1.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "3000.0",
+            "min": "3000.0"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Rotate Y"
+        },
+        "layer": 3,
+        "numparticles": {
+            "value": "1"
+        },
+        "particlesize": {
+            "max": "0.5 1.2999999999999998",
+            "min": "0.5 1.2999999999999998"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "-7.0 0.0 0.0",
+            "min": "-7.0 0.0 0.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.98 0.98",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "11.0%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "62.3%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "17",
+                "name": "textures/sfxs/2025s5/cs_s5Tidal_skin_victory_sh3",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s5/cs_s5Tidal_skin_victory_sh3"
+        },
+        "timetolive": {
+            "max": "0.5",
+            "min": "0.5"
+        }
+    }
+}

@@ -1,0 +1,76 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.1"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.3373 0.3961 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.2510 0.2745 1.0000",
+                "time": "54.7%"
+            },
+            {
+                "color": "0.5451 0.0078 0.0039 1.0000",
+                "time": "83.7%"
+            },
+            {
+                "color": "0.4784 0.0000 0.0000 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "dampingforce": {
+            "value": "0.1"
+        },
+        "direction": {
+            "max": "-0.1 -0.1 -0.1",
+            "min": "0.1 0.1 0.1",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "50.0",
+            "min": "50.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.1 0.1 0.1"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "layer": 7,
+        "numparticles": {
+            "value": "8"
+        },
+        "particlesize": {
+            "max": "0.25 0.25",
+            "min": "0.15 0.15"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "false"
+        },
+        "texture": {
+            "ani": {
+                "fps": "10",
+                "name": "textures/sfxs/2025s2/cs_s4hongshi_skin_redlz01",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s2/cs_s4hongshi_skin_redlz01"
+        },
+        "thickness": {
+            "value": "1.0"
+        },
+        "timetolive": {
+            "max": "0.8",
+            "min": "0.6"
+        },
+        "velocity": {
+            "max": "3.0",
+            "min": "2.2"
+        }
+    }
+}

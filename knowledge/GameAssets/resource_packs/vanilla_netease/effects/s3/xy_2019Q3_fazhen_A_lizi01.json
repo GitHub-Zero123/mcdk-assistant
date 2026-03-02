@@ -1,0 +1,55 @@
+{
+    "particleeffect": {
+        "enablecolor": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "value": "Direction",
+            "min": "-1.0 -1.0 -1.0"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": false,
+                "name": "textures/sfxs/s3/ss_2019Q3_fazhen_lizi01",
+                "fps": "30"
+            },
+            "name": "textures/sfxs/s3/ss_2019Q3_fazhen_lizi01"
+        },
+        "numparticles": {
+            "value": "20"
+        },
+        "independent": false,
+        "emissionrate": {
+            "max": "50.0",
+            "min": "35.0"
+        },
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "1.0 1.0 1.0"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "timetolive": {
+            "max": "0.5",
+            "min": "0.3"
+        },
+        "depthtest": {
+            "enable": "true"
+        },
+        "emitterscale": [],
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "0.0%"
+            }
+        ]
+    }
+}

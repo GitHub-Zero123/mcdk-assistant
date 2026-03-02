@@ -1,0 +1,63 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:tree_feature": {
+    "description": {
+      "identifier": "minecraft:fancy_oak_tree_feature"
+    },
+    "fancy_trunk": {
+      "trunk_height": {
+        "base": 5,
+        "variance": 12,
+        "scale": 0.618
+      },
+      "trunk_width": 1,
+      "trunk_block": {
+        "name": "minecraft:oak_log"
+      },
+      "branches": {
+        "slope": 0.381,
+        "density": 1.0,
+        "min_altitude_factor": 0.2
+      },
+      "width_scale": 1.0,
+      "foliage_altitude_factor": 0.3
+    },
+    "fancy_canopy": {
+      "height": 4,
+      "radius": 3,
+      "leaf_block": {
+        "name": "minecraft:oak_leaves"
+      }
+    },
+    // Blocks the tree can be placed on.
+    "may_grow_on": [
+      { "tags": "query.any_tag('dirt')" }
+    ],
+    // Any "may_grow_on" block that is not specified here will be replaced with the first block in this list.
+    "base_block": [
+      "minecraft:dirt",
+      "minecraft:coarse_dirt"
+    ],
+    // Blocks to ignore when checking for clearance around the tree. Already includes all blocks specified in "may_replace".
+    "may_grow_through": [
+      { "tags": "query.any_tag('dirt')" }
+    ],
+    // Blocks that can be replaced by the tree's trunk and canopy.
+    "may_replace": [
+      "minecraft:air",
+      "minecraft:snow_layer",
+      // All leaves
+      "minecraft:acacia_leaves",
+      "minecraft:azalea_leaves",
+      "minecraft:azalea_leaves_flowered",
+      "minecraft:birch_leaves",
+      "minecraft:cherry_leaves",
+      "minecraft:dark_oak_leaves",
+      "minecraft:jungle_leaves",
+      "minecraft:mangrove_leaves",
+      "minecraft:oak_leaves",
+      "minecraft:pale_oak_leaves",
+      "minecraft:spruce_leaves"
+    ]
+  }
+}

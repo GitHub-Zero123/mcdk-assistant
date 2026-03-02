@@ -1,0 +1,93 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "0.2314 0.0000 1.0000 1.0000",
+                "time": "0.00"
+            },
+            {
+                "color": "0.2000 0.0000 1.0000 1.0000",
+                "time": "0.06"
+            },
+            {
+                "color": "0.9216 0.3255 1.0000 1.0000",
+                "time": "0.10"
+            },
+            {
+                "color": "1.0000 0.4000 0.8902 0.7500",
+                "time": "0.15"
+            },
+            {
+                "color": "1.0000 0.6549 0.7490 0.0000",
+                "time": "0.18"
+            }
+        ],
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Inwards"
+        },
+        "emissionrate": {
+            "max": "10.0",
+            "min": "20.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "1.5000000000000004 1.5000000000000004 1.5000000000000004"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "numparticles": {
+            "value": "5"
+        },
+        "particlesize": {
+            "max": "0.06 0.06",
+            "min": "0.03 0.03"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 -360.0",
+            "min": "0.0 0.0 360.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "0.00"
+            },
+            {
+                "scale": "0.92 0.92",
+                "time": "0.64"
+            },
+            {
+                "scale": "0.56 0.56",
+                "time": "1.32"
+            },
+            {
+                "scale": "0.3 0.3",
+                "time": "2.00"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s5/ss_s5NineFox_weapon_lizi02"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.18",
+            "min": "0.1"
+        },
+        "velocity": {
+            "max": "5.0",
+            "min": "3.0"
+        }
+    }
+}

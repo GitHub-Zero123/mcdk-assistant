@@ -1,0 +1,53 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "10.0",
+            "min": "5.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.25 1.0 0.3"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "faceCameraMode": {
+            "value": "Rotate Y"
+        },
+        "numparticles": {
+            "value": "3"
+        },
+        "particlesize": {
+            "max": "0.18 0.18",
+            "min": "0.08 0.08"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "ani": {
+                "fps": "16",
+                "name": "textures/sfxs/2025s1/cs_s3kjys_weaponA_sd",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s1/cs_s3kjys_weaponA_sd"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.5",
+            "min": "0.3"
+        }
+    }
+}

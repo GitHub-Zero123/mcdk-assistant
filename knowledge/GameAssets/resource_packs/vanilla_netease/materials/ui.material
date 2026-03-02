@@ -1,0 +1,32 @@
+{
+    "materials": {
+        "version": "1.0.0",
+        "ui_invert_overlay:ui_base": {
+            "blendSrc": "OneMinusDestColor",
+            "blendDst": "OneMinusSrcColor",
+            "alphaSrc": "One",
+            "alphaDst": "OneMinusSrcAlpha",
+            "vertexShader": "shaders/position.vertex",
+            "vrGeometryShader": "shaders/position.geometry",
+            "fragmentShader": "shaders/flat_white.fragment",
+            "vertexFields": [
+                {
+                    "field": "Position"
+                }
+            ]
+        },
+        "ui_shield_custom:ui_shield": {
+            "-states": [
+                "DisableDepthTest"
+            ]
+        },
+        "ui_shield_glint_custom:ui_shield_glint": {
+            "-states": [
+                "DisableDepthTest"
+            ]
+        },
+        "billboard_text:ui_texture_and_color": {
+            "fragmentShader": "shaders/billboard_text.fragment"
+        }
+    }
+}

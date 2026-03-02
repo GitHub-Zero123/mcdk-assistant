@@ -1,0 +1,89 @@
+{
+    "particleeffect": {
+        "": "",
+        "activetime": {
+            "value": "0.0"
+        },
+        "blend": {
+            "name": "blend"
+        },
+        "constantforce": {
+            "value": "0.0 0.0 0.0"
+        },
+        "dampingforce": {
+            "value": "0.0"
+        },
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0"
+        },
+        "emissionrate": {
+            "max": "10.0",
+            "min": "10.0"
+        },
+        "emittersize": {
+            "value": "0.5 0.5 0.5"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "enableloop": {
+            "enable": "false"
+        },
+        "faceCameraMode": {
+            "value": "Rotate XYZ"
+        },
+        "fixedscreensize": {
+            "enable": "false"
+        },
+        "inactivetime": {
+            "value": "0.0"
+        },
+        "material": {
+            "name": "materials/particles.material"
+        },
+        "numparticles": {
+            "value": "10"
+        },
+        "particlesize": {
+            "max": "0.1 0.1",
+            "min": "0.1 0.1"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "rotation": {
+            "max": "0.0",
+            "min": "0.0"
+        },
+        "rotationspeed": {
+            "max": "0.0",
+            "min": "0.0"
+        },
+        "scaled": {
+            "enable": "true"
+        },
+        "sizedelta": {
+            "add": "0.0",
+            "mul": "0.3"
+        },
+        "sorted": {
+            "enable": "false"
+        },
+        "texture": {
+            "ani": {
+                "fps": "30.0",
+                "name": "textures/sfxs/s3/cs_wuqi_gongjian_lizi"
+            },
+            "name": "textures/sfxs/s3/cs_wuqi_gongjian_lizi"
+        },
+        "timetolive": {
+            "max": "1.0",
+            "min": "1.0"
+        },
+        "velocity": {
+            "max": "0.3",
+            "min": "0.2"
+        }
+    }
+}

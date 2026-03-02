@@ -1,0 +1,96 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.9882 0.5451 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.9529 0.2627 0.4286",
+                "time": "10.5%"
+            },
+            {
+                "color": "0.4824 1.0000 0.9137 0.3393",
+                "time": "32.9%"
+            },
+            {
+                "color": "0.0902 0.4980 1.0000 0.1161",
+                "time": "79.5%"
+            },
+            {
+                "color": "0.0902 0.4980 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "1.0 1.0 0.2",
+            "min": "-1.0 -1.0 -0.2",
+            "value": "Outwards"
+        },
+        "emissionrate": {
+            "max": "20.0",
+            "min": "20.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.15 0.30000000000000004 0.30000000000000004"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Direction"
+        },
+        "layer": 6,
+        "numparticles": {
+            "value": "20"
+        },
+        "particlesize": {
+            "max": "0.07 0.35",
+            "min": "0.03 0.22"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.5 0.5",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.86 0.86",
+                "time": "16.3%"
+            },
+            {
+                "scale": "1.02 1.02",
+                "time": "69.7%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s2/cs_s4nanwu_skin_xian01"
+        },
+        "thickness": {
+            "value": "0.8"
+        },
+        "timetolive": {
+            "max": "0.45",
+            "min": "0.3"
+        },
+        "velocity": {
+            "max": "1.0",
+            "min": "0.5"
+        }
+    }
+}

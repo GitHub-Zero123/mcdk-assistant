@@ -1,0 +1,98 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:tree_feature": {
+    "description": {
+      "identifier": "minecraft:fallen_jungle_tree_feature"
+    },
+    "fallen_trunk": {
+      "log_length": {
+        "range_min": 4,
+        "range_max": 11
+      },
+      "trunk_block": {
+        "name": "minecraft:jungle_log"
+      },
+      "log_decoration_feature": "minecraft:optional_log_mushrooms_feature",
+      "trunk_decoration": {
+        "decoration_block": "minecraft:vine",
+        "decoration_chance": 75.0
+      }
+    },
+    "base_block": [
+      "minecraft:dirt",
+      "minecraft:coarse_dirt"
+    ],
+    "may_grow_on": [
+      "minecraft:dirt",
+      "minecraft:grass_block",
+      "minecraft:podzol",
+      "minecraft:dirt_with_roots",
+      "minecraft:moss_block",
+      "minecraft:coarse_dirt",
+      // Block aliases sure would be sweet
+      {
+        "name": "minecraft:farmland",
+        "states": {
+          "moisturized_amount": 0
+        }
+      },
+      {
+        "name": "minecraft:farmland",
+        "states": {
+          "moisturized_amount": 1
+        }
+      },
+      {
+        "name": "minecraft:farmland",
+        "states": {
+          "moisturized_amount": 2
+        }
+      },
+      {
+        "name": "minecraft:farmland",
+        "states": {
+          "moisturized_amount": 3
+        }
+      },
+      {
+        "name": "minecraft:farmland",
+        "states": {
+          "moisturized_amount": 4
+        }
+      },
+      {
+        "name": "minecraft:farmland",
+        "states": {
+          "moisturized_amount": 5
+        }
+      },
+      {
+        "name": "minecraft:farmland",
+        "states": {
+          "moisturized_amount": 6
+        }
+      },
+      {
+        "name": "minecraft:farmland",
+        "states": {
+          "moisturized_amount": 7
+        }
+      }
+    ],
+    "may_replace": [
+      "minecraft:air",
+      "minecraft:oak_leaves",
+      "minecraft:spruce_leaves",
+      "minecraft:birch_leaves",
+      "minecraft:jungle_leaves",
+      "minecraft:acacia_leaves",
+      "minecraft:dark_oak_leaves"
+    ],
+    "may_grow_through": [
+      "minecraft:dirt",
+      "minecraft:grass_block",
+      "minecraft:coarse_dirt"
+    ]
+
+  }
+}

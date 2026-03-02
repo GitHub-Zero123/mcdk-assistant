@@ -1,0 +1,85 @@
+{
+    "particleeffect": {
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.8863 0.9843 1.0000 1.0000",
+                "time": "65.5%"
+            },
+            {
+                "color": "0.6510 0.8078 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "dampingforce": {
+            "value": "0.1"
+        },
+        "direction": {
+            "max": "0.0 1.0 0.0",
+            "min": "0.5 0.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "40.0",
+            "min": "30.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.2 0.5 0.7"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "numparticles": {
+            "value": "12"
+        },
+        "particlesize": {
+            "max": "0.6 0.6",
+            "min": "0.5 0.5"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "false"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.45 0.45",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.08 1.08",
+                "time": "40.0%"
+            },
+            {
+                "scale": "1.32 1.32",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "20",
+                "name": "textures/sfxs/2025s5/ss_s5Tidal_horse_sh",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s5/ss_s5Tidal_horse_sh"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.5",
+            "min": "0.6"
+        },
+        "velocity": {
+            "max": "0.6",
+            "min": "0.3"
+        }
+    }
+}

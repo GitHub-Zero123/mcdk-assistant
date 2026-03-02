@@ -1,0 +1,82 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "0.0 -0.5 0.0",
+            "value": "Direction",
+            "min": "0.0 -0.5 0.0"
+        },
+        "dampingforce": {
+            "value": "0.05"
+        },
+        "numparticles": {
+            "value": "5"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "colorfade": [
+            {
+                "color": "0.3333 1.0000 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.4375",
+                "time": "7.9%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.7946",
+                "time": "19.7%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.9196",
+                "time": "32.9%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.7589",
+                "time": "49.5%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.3839",
+                "time": "58.4%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0357",
+                "time": "64.7%"
+            },
+            {
+                "color": "0.3333 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.6 1.1 0.7"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "timetolive": {
+            "max": "1.0",
+            "min": "0.8"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": false,
+                "name": "textures/sfxs/pet_dragon/ss_s1dark_fp_huo",
+                "fps": "8"
+            },
+            "name": "textures/sfxs/pet_dragon/ss_dog_s1dark_ghostfire1"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.1",
+            "min": "0.1"
+        }
+    }
+}

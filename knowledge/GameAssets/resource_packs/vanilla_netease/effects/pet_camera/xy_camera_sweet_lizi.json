@@ -1,0 +1,71 @@
+{
+    "particleeffect": {
+        "independent": false,
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "value": "Direction",
+            "min": "0.0 -1.0 0.0"
+        },
+        "numparticles": {
+            "value": "5"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.4902 0.6000 0.5000",
+                "time": "0.00"
+            },
+            {
+                "color": "1.0000 0.5020 0.6196 1.0000",
+                "time": "0.11"
+            },
+            {
+                "color": "1.0000 0.7333 0.8353 0.6339",
+                "time": "0.64"
+            },
+            {
+                "color": "1.0000 0.7333 0.8157 0.0000",
+                "time": "0.80"
+            }
+        ],
+        "emissionrate": {
+            "max": "5.0",
+            "min": "3.0"
+        },
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.4 0.3 0.6"
+        },
+        "texture": {
+            "name": "textures/sfxs/pet_camera/xy_camera_sweet_lizi"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "timetolive": {
+            "max": "0.8",
+            "min": "0.5"
+        },
+        "depthtest": {
+            "enable": "true"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.4",
+            "min": "0.6"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 -90.0",
+            "min": "0.0 0.0 90.0"
+        },
+        "particlesize": {
+            "max": "0.03 0.03",
+            "min": "0.05 0.05"
+        }
+    }
+}

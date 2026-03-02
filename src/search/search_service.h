@@ -9,6 +9,9 @@
 #include <sstream>
 #include <iostream>
 #include <unordered_set>
+#include <unordered_map>
+#include <algorithm>
+#include <cctype>
 
 namespace mcdk {
 
@@ -81,9 +84,117 @@ public:
              + qumod_index_.engine.doc_count() + netease_guide_index_.engine.doc_count();
     }
 
+    // GameAssets 搜索结果条目
+    struct AssetResult {
+        std::string rel_path;   // 相对于 knowledge/GameAssets/ 的路径
+        std::string snippet;    // 文件内容片段（命中内容行附近）
+        double      score;      // 综合得分（路径匹配 + 内容 BM25）
+    };
+
+    // scope: 0=全部, 1=仅行为包, 2=仅资源包
+    // 同时按路径名模糊匹配 + 文件内容 BM25 搜索，合并得分后返回
+    std::vector<AssetResult> search_game_assets(const std::string& keyword, int scope, int top_k = -1) const {
+        // 英文 token 列表
+        std::vector<std::string> tokens;
+        tokenize_en(keyword, tokens);
+
+        // keyword 整体小写（路径匹配用）
+        std::string kw_lower = keyword;
+        for (auto& c : kw_lower) c = static_cast<char>(std::tolower(static_cast<unsigned char>(c)));
+
+        // 按 scope 选择候选列表
+        const GameAssetIndex* idx_bp = (scope == 0 || scope == 1) ? &game_assets_bp_ : nullptr;
+        const GameAssetIndex* idx_rp = (scope == 0 || scope == 2) ? &game_assets_rp_ : nullptr;
+
+        // 对两个 index 分别做 BM25 搜索，结果合并到 path->score map
+        std::unordered_map<std::string, double> score_map;  // rel_path -> bm25_score
+        std::unordered_map<std::string, std::string> snippet_map;
+
+        auto collect_bm25 = [&](const GameAssetIndex& idx) {
+            auto bm25_results = idx.engine.search(tokens, -1);
+            for (const auto& r : bm25_results) {
+                const std::string& path = r.fragment->file;
+                double& s = score_map[path];
+                s += r.score * 1.0;  // 内容 BM25 得分
+                if (snippet_map.find(path) == snippet_map.end()) {
+                    // 取内容前 300 字符作为 snippet
+                    const std::string& content = r.fragment->content;
+                    snippet_map[path] = content.size() > 300 ? content.substr(0, 300) + "..." : content;
+                }
+            }
+        };
+
+        if (idx_bp) collect_bm25(*idx_bp);
+        if (idx_rp) collect_bm25(*idx_rp);
+
+        // 路径名匹配额外加分
+        auto add_path_score = [&](const GameAssetIndex& idx) {
+            for (const auto& entry : idx.entries) {
+                const std::string& rel = entry.rel_path;
+                std::string rel_lower = rel;
+                for (auto& c : rel_lower) c = static_cast<char>(std::tolower(static_cast<unsigned char>(c)));
+
+                double path_score = 0.0;
+                // 整体 keyword 命中路径：+10
+                if (!kw_lower.empty() && rel_lower.find(kw_lower) != std::string::npos)
+                    path_score += 10.0;
+                // 各 token 命中路径：每个 +3
+                for (const auto& tok : tokens) {
+                    if (!tok.empty() && rel_lower.find(tok) != std::string::npos)
+                        path_score += 3.0;
+                }
+                if (path_score > 0.0) {
+                    score_map[rel] += path_score;
+                    // 路径命中但尚无 snippet 时，用文件内容填充
+                    if (snippet_map.find(rel) == snippet_map.end() && !entry.content.empty()) {
+                        snippet_map[rel] = entry.content.size() > 300
+                            ? entry.content.substr(0, 300) + "..." : entry.content;
+                    }
+                }
+            }
+        };
+
+        if (idx_bp) add_path_score(*idx_bp);
+        if (idx_rp) add_path_score(*idx_rp);
+
+        // 汇总并排序
+        std::vector<AssetResult> results;
+        results.reserve(score_map.size());
+        for (auto& [path, score] : score_map) {
+            std::string snip;
+            auto it = snippet_map.find(path);
+            if (it != snippet_map.end()) snip = it->second;
+            results.push_back({path, std::move(snip), score});
+        }
+        std::sort(results.begin(), results.end(), [](const AssetResult& a, const AssetResult& b) {
+            return a.score != b.score ? a.score > b.score : a.rel_path < b.rel_path;
+        });
+        if (top_k > 0 && static_cast<size_t>(top_k) < results.size())
+            results.resize(static_cast<size_t>(top_k));
+        return results;
+    }
+
+    size_t game_assets_count() const {
+        return game_assets_bp_.entries.size() + game_assets_rp_.entries.size();
+    }
+
 private:
     struct CategoryIndex {
         std::vector<DocFragment>                 fragments;
+        std::vector<std::vector<std::string>>    tokenized_docs;
+        BM25Engine                               engine;
+    };
+
+    // GameAssets 单条文件记录
+    struct AssetEntry {
+        std::string rel_path;  // 相对于 knowledge/GameAssets/ 的路径（如 behavior_packs/vanilla/...）
+        std::string content;   // 文件完整文本内容
+    };
+
+    // GameAssets 分包索引（BP 或 RP）
+    struct GameAssetIndex {
+        std::vector<AssetEntry>                  entries;
+        std::vector<DocFragment>                 fragments;   // 每个 entry 作为整体一个 fragment
         std::vector<std::vector<std::string>>    tokenized_docs;
         BM25Engine                               engine;
     };
@@ -97,6 +208,8 @@ private:
     CategoryIndex                  wiki_index_;
     CategoryIndex                  qumod_index_;
     CategoryIndex                  netease_guide_index_;
+    GameAssetIndex                 game_assets_bp_;  // behavior_packs/
+    GameAssetIndex                 game_assets_rp_;  // resource_packs/
 
     std::vector<SearchResult> search_category(const CategoryIndex& idx, const std::string& keyword, int top_k) const {
         std::vector<std::string> query_tokens;
@@ -189,16 +302,48 @@ private:
             return;
         }
 
+        // 加载 Markdown 文档（BM25 索引）
         for (const auto& entry : fs::recursive_directory_iterator(knowledge_dir_)) {
             if (!entry.is_regular_file()) continue;
+            std::string rel_path = path_to_utf8(fs::relative(entry.path(), knowledge_dir_));
+
+            // GameAssets 下的文件建路径+内容索引，不走普通 BM25
+            if (rel_path.find("GameAssets/") == 0 || rel_path.find("GameAssets\\") == 0) {
+                // 路径相对于 knowledge/GameAssets/
+                std::string assets_rel = rel_path.substr(std::string("GameAssets/").size());
+                // 统一斜杠
+                for (auto& c : assets_rel) if (c == '\\') c = '/';
+
+                // 读取文件内容
+                std::ifstream ga_ifs(entry.path());
+                std::string content;
+                if (ga_ifs.is_open()) {
+                    std::ostringstream ss;
+                    ss << ga_ifs.rdbuf();
+                    content = ss.str();
+                }
+
+                GameAssetIndex* ga_idx = nullptr;
+                if (assets_rel.find("behavior_packs/") == 0)
+                    ga_idx = &game_assets_bp_;
+                else if (assets_rel.find("resource_packs/") == 0)
+                    ga_idx = &game_assets_rp_;
+
+                if (ga_idx) {
+                    ga_idx->entries.push_back({assets_rel, content});
+                    ga_idx->fragments.push_back({content, assets_rel, 1, 0});
+                }
+                continue;
+            }
+
             auto ext = entry.path().extension().string();
             if (ext != ".md" && ext != ".MD") continue;
-
-            std::string rel_path = path_to_utf8(fs::relative(entry.path(), knowledge_dir_));
             load_markdown_file(entry.path(), rel_path);
         }
 
         std::cout << "[MCDK] loaded " << doc_count() << " fragments from " << knowledge_dir_ << std::endl;
+        std::cout << "[MCDK] GameAssets: " << game_assets_bp_.entries.size() << " BP + "
+                  << game_assets_rp_.entries.size() << " RP files indexed" << std::endl;
     }
 
     void load_markdown_file(const std::filesystem::path& abs_path, const std::string& rel_path) {
@@ -269,6 +414,18 @@ private:
         build_en(wiki_index_,           "Wiki");
         build_cn(qumod_index_,          "QuMod");
         build_cn(netease_guide_index_,  "NeteaseGuide");
+
+        // GameAssets：用英文分词对文件内容建 BM25 索引
+        auto build_game_assets = [](GameAssetIndex& idx, const char* name) {
+            idx.tokenized_docs.resize(idx.fragments.size());
+            for (size_t i = 0; i < idx.fragments.size(); ++i) {
+                tokenize_en(idx.fragments[i].content, idx.tokenized_docs[i]);
+            }
+            idx.engine.build_index(idx.fragments, idx.tokenized_docs);
+            std::cout << "[MCDK] " << name << " index: " << idx.fragments.size() << " docs" << std::endl;
+        };
+        build_game_assets(game_assets_bp_, "GameAssets/BP");
+        build_game_assets(game_assets_rp_, "GameAssets/RP");
     }
 };
 

@@ -1,0 +1,18 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+#include "uniformPerFrameConstants.h"
+#include "neteaseModelFragmentUtil.h"
+#line 5
+
+const vec4 DRAWLINE_PARAM = vec4(0.6, 0.8, 1.0, 0.025); // (描边颜色RGB, 描边宽度倍率)
+
+varying vec4 fogColor;
+
+void main() {
+	vec4 color = vec4(DRAWLINE_PARAM.rgb, 1.0);
+
+	// 雾效果
+	applyFog(color, fogColor);
+
+	gl_FragColor = color;
+}

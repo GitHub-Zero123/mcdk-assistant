@@ -1,0 +1,104 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "7.6"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.8941 0.6157 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.4000 0.0000 0.6786",
+                "time": "12.1%"
+            },
+            {
+                "color": "0.0941 0.0314 0.0000 0.9464",
+                "time": "51.1%"
+            },
+            {
+                "color": "0.0235 0.0000 0.0000 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "constantforce": {
+            "value": "0.0 1.0 1.25"
+        },
+        "depthtest": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 0.5",
+            "value": "Direction"
+        },
+        "disorder": {
+            "increment": "0.5",
+            "interval": "0.49999999999999994",
+            "max": "0.7999999999999999 0.7999999999999999 0.5",
+            "min": "-0.8 -0.8 -0.7999999999999999"
+        },
+        "emissionrate": {
+            "max": "17.0",
+            "min": "13.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "20.0 10.0 3.0"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "layer": 3,
+        "numparticles": {
+            "value": "30"
+        },
+        "particlesize": {
+            "max": "0.06 0.06",
+            "min": "0.02 0.02"
+        },
+        "pointFiltering": true,
+        "prewarm": true,
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "2.05 2.05",
+                "time": "0.0%"
+            },
+            {
+                "scale": "2.52 2.52",
+                "time": "7.3%"
+            },
+            {
+                "scale": "2.48 2.48",
+                "time": "39.0%"
+            },
+            {
+                "scale": "1.6 1.6",
+                "time": "79.3%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "0",
+                "name": "textures/sfxs/2025s7/cs_s2blackhole_armor_lz01",
+                "shuffle": true
+            },
+            "name": "textures/sfxs/2025s7/cs_s7NiuMoWang_skin_birth_lz1"
+        },
+        "thickness": {
+            "value": "0.5"
+        },
+        "timetolive": {
+            "max": "3.0",
+            "min": "1.0"
+        }
+    }
+}

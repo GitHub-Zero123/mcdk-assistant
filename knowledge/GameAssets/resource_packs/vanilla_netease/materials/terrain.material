@@ -1,0 +1,216 @@
+{
+  "materials": {
+    "version": "1.0.0",
+    "terrain_base": {
+      "vertexShader": "shaders/renderchunk.vertex",
+      "vrGeometryShader": "shaders/renderchunk.geometry",
+      "fragmentShader": "shaders/renderchunk.fragment",
+
+      "+defines": [ "FOG", "LOW_PRECISION", "TEXEL_AA", "ATLAS_TEXTURE" ],
+      "+states": [ "DisableAlphaWrite" ],
+
+      "+samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "TexelAA"
+        },
+        {
+          "samplerIndex": 1,
+          "textureFilter": "Bilinear"
+        },
+        {
+          "samplerIndex": 3,
+          "textureFilter": "Point"
+        },
+        {
+          "samplerIndex": 4,
+          "textureFilter": "Point"
+        }
+      ],
+
+      "vertexFields": [
+        { "field": "Position" },
+        { "field": "UV1" },
+        { "field": "Color" },
+        { "field": "UV0" }
+      ],
+      "msaaSupport": "Both",
+
+      "variants": [
+        { "fog": { "+defines": [ "FOG" ] } },
+        { "lit": { "+defines": [ "ALWAYS_LIT" ] } },
+        { "underwater": { "+defines": [ "FOG" ] } },
+        { "fog.underwater": {} },
+        { "fading": { "+defines": [ "FOG", "ALLOW_FADE" ] } }
+      ]
+    },
+    "netease_water_near:terrain_blend": {
+      //if you want to use or override this material, you have to define "MATERIAL_ENABLE" 
+      //"defines": [ "MATERIAL_ENABLE" ],
+      "vertexShader": "shaders/renderchunk_water_near.vertex",
+      "fragmentShader": "shaders/renderchunk_water_near.fragment"
+    },
+
+    "netease_water_far:terrain_blend": {
+      //if you want to use or override this material, you have to define "MATERIAL_ENABLE" 
+      //"defines": [ "MATERIAL_ENABLE" ],
+      "vertexShader": "shaders/renderchunk_water_far.vertex",
+      "fragmentShader": "shaders/renderchunk_water_far.fragment"
+    },
+    "netease_micro_block:terrain_base": {
+      //if you want to use or override this material, you have to define "MATERIAL_ENABLE" 
+      //"defines": [ "MATERIAL_ENABLE" ],
+      "vertexShader": "shaders/renderchunk_micro_block.vertex",
+      "fragmentShader": "shaders/renderchunk_micro_block.fragment"
+    },
+    
+    "netease_block_as_entity_mesh": {
+      "vertexShader": "shaders/netease_block_as_entity.vertex",
+      "vrGeometryShader": "shaders/netease_block_as_entity.geometry",
+      "fragmentShader": "shaders/netease_block_as_entity.fragment",
+
+      "+defines": [ "LOW_PRECISION", "TEXEL_AA", "ATLAS_TEXTURE" ],
+      "+states": [ "DisableAlphaWrite" ],
+
+      "+samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "TexelAA"
+        },
+        {
+          "samplerIndex": 1,
+          "textureFilter": "Bilinear"
+        },
+        {
+          "samplerIndex": 2,
+          "textureFilter": "Point"
+        }
+      ],
+
+      "vertexFields": [
+        { "field": "Position" },
+        { "field": "Normal" },
+        { "field": "Color" },
+        { "field": "UV0" },
+        { "field": "UV1" }
+        ],
+      "msaaSupport": "Both",
+
+      "variants": [
+        { "fog": { "+defines": [ "FOG" ] } },
+        { "lit": { "+defines": [ "ALWAYS_LIT" ] } },
+        { "underwater": { "+defines": [ "FOG" ] } },
+        { "fog.underwater": {} },
+        { "fading": { "+defines": [ "FOG", "ALLOW_FADE" ] } }
+      ]
+    },
+    "netease_block_as_mesh_opaque:netease_block_as_entity_mesh":{
+        "+variants": [
+           { "underlava": { "+states": [ "DisableCulling" ] } }
+        ]
+    },
+    "netease_block_as_mesh_opaque_seasons:netease_block_as_entity_mesh":{
+        "+defines": [ "SEASONS" ],
+        "+samplerStates": [
+          {
+            "samplerIndex": 0,
+            "textureFilter": "TexelAA"
+          },
+          {
+            "samplerIndex": 1,
+            "textureFilter": "Bilinear"
+          }
+        ]
+    },
+    "netease_block_as_mesh_blend:netease_block_as_entity_mesh":{
+        "+defines": [ "BLEND" ],
+        "depthFunc": "LessEqual",
+        "+states": [
+          "Blending"
+        ],
+        "+variants": [
+          { "underwater": { } },
+          { "fog.underwater": { } }
+        ]
+    },
+    "netease_block_as_mesh_blend_far:netease_block_as_mesh_blend":{
+       "+defines": [ "FOG" ]
+    },
+    "netease_block_as_mesh_blend_no_culling:netease_block_as_mesh_blend":{
+        "+states": [
+          "DisableCulling"
+        ]
+    },
+    "netease_block_as_mesh_doubleside:netease_block_as_entity_mesh": { },
+    "netease_block_as_mesh_alpha_single_side:netease_block_as_entity_mesh": {
+      "+defines": [ "ALPHA_TEST" ],
+      "+states": [ "EnableAlphaToCoverage" ]
+    },
+    "netease_block_as_mesh_alpha_seasons:netease_block_as_entity_mesh": {
+      "+defines": [ "ALPHA_TEST", "SEASONS" ],
+      "+states": [ "DisableCulling", "EnableAlphaToCoverage" ],
+      "+samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "TexelAA"
+        },
+        {
+          "samplerIndex": 1,
+          "textureFilter": "Bilinear"
+        }
+      ]
+
+    },
+    "netease_block_as_mesh_alpha:netease_block_as_mesh_alpha_single_side": {
+      "+states": [ "DisableCulling" ],
+
+      // z-fighting fix
+      "depthBias": 0.0,
+      "slopeScaledDepthBias": 0.1,
+      "depthBiasOGL": 0.0,
+      "slopeScaledDepthBiasOGL": 0.5
+    },
+    "netease_block_as_mesh_blend_enable_transparency:netease_block_as_mesh_blend":{
+    },
+    "netease_block_as_mesh_blend_alphatest:netease_block_as_mesh_alpha":{
+       "+defines": [ "BLEND" ],
+        "depthFunc": "LessEqual",
+        "+states": [
+          "Blending"
+        ]
+    },
+    "netease_block_as_mesh_blend_alphatest_seasons:netease_block_as_mesh_alpha_seasons":{
+       "+defines": [ "BLEND" ],
+        "depthFunc": "LessEqual",
+        "+states": [
+          "Blending"
+        ]
+    },
+    "netease_block_as_mesh_blend_alphatest_singleside:netease_block_as_mesh_alpha_single_side":{
+       "+defines": [ "BLEND" ],
+        "depthFunc": "LessEqual",
+        "+states": [
+          "Blending"
+        ]
+    },
+    "netease_block_as_mesh_far:netease_block_as_entity_mesh": {
+      "+defines": [
+        "FOG",
+        "LOW_PRECISION"
+      ]
+    },
+    "netease_block_as_mesh_seasons_far:netease_block_as_mesh_opaque_seasons": {
+      "+defines": [
+        "FOG",
+        "LOW_PRECISION"
+      ]
+    },
+    "netease_block_as_mesh_seasons_far_alpha:netease_block_as_mesh_opaque_seasons": {
+      "+defines": [
+        "FOG",
+        "LOW_PRECISION",
+        "SEASONS_FAR"
+      ]
+    }
+  }
+}

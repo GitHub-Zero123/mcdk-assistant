@@ -1,0 +1,93 @@
+{
+    "particleeffect": {
+        "colorfade": [
+            {
+                "color": "1.0000 0.9765 0.2941 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.7725 0.1882 1.0000",
+                "time": "5.3%"
+            },
+            {
+                "color": "1.0000 0.0000 0.0000 1.0000",
+                "time": "17.9%"
+            },
+            {
+                "color": "0.0000 0.0000 0.0000 1.0000",
+                "time": "39.2%"
+            },
+            {
+                "color": "0.0000 0.0000 0.0000 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 0.0 1.0",
+            "value": "Direction"
+        },
+        "disorder": {
+            "increment": "0.0",
+            "interval": "0.2",
+            "max": "-0.1 -0.1 -0.1",
+            "min": "0.1 0.1 0.1"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.6 0.10000000000000003 0.30000000000000004"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "numparticles": {
+            "value": "6"
+        },
+        "particlesize": {
+            "max": "0.1 0.1",
+            "min": "0.05 0.05"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "false"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.42 0.42",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.08 1.08",
+                "time": "11.3%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "41.0%"
+            },
+            {
+                "scale": "0.46 0.46",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "0",
+                "name": "textures/sfxs/2025s5/cs_s5Fire_skin_huijin",
+                "shuffle": true
+            },
+            "name": "textures/sfxs/2025s5/cs_s5Fire_skin_huijin"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "1.0",
+            "min": "0.5"
+        },
+        "velocity": {
+            "max": "1.1",
+            "min": "0.6"
+        }
+    }
+}

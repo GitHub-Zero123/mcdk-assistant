@@ -1,0 +1,28 @@
+{
+    "format_version": "1.10.0",
+    "minecraft:client_entity": {
+        "description": {
+            "identifier": "minecraft:ice_bomb",
+            "materials": {
+                "default": "ice_bomb"
+            },
+            "textures": {
+                "default": "textures/items/ice_bomb"
+            },
+            "geometry": {
+                "default": "geometry.item_sprite"
+            },
+            "render_controllers": [
+                "controller.render.item_sprite"
+            ],
+            "animations": {
+                "flying": "animation.actor.billboard"
+            },
+            "scripts": {
+                "animate": [
+                    "flying"
+                ]
+            }
+        }
+    }
+}

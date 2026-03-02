@@ -1,0 +1,52 @@
+{
+    "particleeffect": {
+        "enablecolor": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "-0.2 0.0 -0.2",
+            "value": "Direction",
+            "min": "0.2 1.0 0.2"
+        },
+        "activetime": {
+            "value": "0.6"
+        },
+        "numparticles": {
+            "value": "8"
+        },
+        "emissionrate": {
+            "max": "8.0",
+            "min": "12.0"
+        },
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.3 0.0 0.3"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "delay": 0.25,
+        "timetolive": {
+            "max": "0.5",
+            "min": "0.8"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": false,
+                "name": "textures/sfxs/pet_squid/ss_squid_starry_bored_pp",
+                "fps": "15"
+            },
+            "name": "textures/sfxs/pet_squid/ss_squid_starry_bored_pp"
+        },
+        "emitterscale": [],
+        "blend": {
+            "name": "add"
+        }
+    }
+}

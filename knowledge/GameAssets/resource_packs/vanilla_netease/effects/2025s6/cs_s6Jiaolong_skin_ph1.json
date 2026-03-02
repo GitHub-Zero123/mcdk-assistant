@@ -1,0 +1,96 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.2"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.4018",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "32.4%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "dampingforce": {
+            "value": "1.0"
+        },
+        "direction": {
+            "max": "-1.0 -1.0 -1.0",
+            "min": "1.0 1.0 1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "50.0",
+            "min": "50.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.1 0.1 0.1"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Direction"
+        },
+        "layer": 3,
+        "numparticles": {
+            "value": "8"
+        },
+        "particlesize": {
+            "max": "0.15 0.15",
+            "min": "0.2 0.2"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "false"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.6 0.6",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "21.0%"
+            },
+            {
+                "scale": "0.8 0.8",
+                "time": "72.3%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "0",
+                "name": "textures/sfxs/2025s6/cs_s6Jiaolong_skin_splz",
+                "shuffle": true
+            },
+            "name": "textures/sfxs/2025s6/cs_s6Jiaolong_skin_splz"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.6",
+            "min": "0.5"
+        },
+        "velocity": {
+            "max": "3.5",
+            "min": "3.0"
+        }
+    }
+}

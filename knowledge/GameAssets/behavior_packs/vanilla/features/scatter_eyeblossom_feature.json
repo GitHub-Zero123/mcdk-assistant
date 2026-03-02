@@ -1,0 +1,29 @@
+{
+    "format_version": "1.16.0",
+    "minecraft:scatter_feature": {
+        "description": {
+            "identifier": "minecraft:scatter_eyeblossom_feature"
+        },
+        "iterations": 5,
+        "scatter_chance": {
+            "numerator": 1,
+            "denominator": 8
+        },
+        "x": {
+            "distribution": "gaussian",
+            "extent": [
+                0,
+                8
+            ]
+        },
+        "y": "query.heightmap(variable.worldx, variable.worldz)",
+        "z": {
+            "distribution": "gaussian",
+            "extent": [
+                0,
+                8
+            ]
+        },
+        "places_feature": "minecraft:eyeblossom_feature"
+    }
+}

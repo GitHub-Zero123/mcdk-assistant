@@ -1,0 +1,84 @@
+{
+    "particleeffect": {
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "0.0 1.0 0.02",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.8 0.4 0.2"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Rotate Y"
+        },
+        "numparticles": {
+            "value": "7"
+        },
+        "particlesize": {
+            "max": "0.08 0.08",
+            "min": "0.01 0.01"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "false"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 0.0",
+            "min": "2.0 2.0 0.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.0 0.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.9 0.9",
+                "time": "20.7%"
+            },
+            {
+                "scale": "0.15 0.15",
+                "time": "40.3%"
+            },
+            {
+                "scale": "0.42 0.42",
+                "time": "60.3%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s1/lizi04"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "2.0",
+            "min": "1.0"
+        },
+        "velocity": {
+            "max": "0.5",
+            "min": "0.3"
+        }
+    }
+}

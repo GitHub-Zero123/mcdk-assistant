@@ -1,0 +1,66 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.1"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.8863 0.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.7059 0.0118 0.6607",
+                "time": "51.8%"
+            },
+            {
+                "color": "1.0000 0.5333 0.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "delay": 7.14,
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Outwards"
+        },
+        "emissionrate": {
+            "max": "100.0",
+            "min": "100.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "1.0 0.5 0.0"
+        },
+        "emittertype": {
+            "value": "Hemisphere"
+        },
+        "faceCameraMode": {
+            "value": "Direction"
+        },
+        "particlesize": {
+            "max": "0.25 0.5",
+            "min": "0.15 0.4"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "name": "textures/sfxs/2025s1/sh_s3guofeng_skinB_birth_xian01"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.2",
+            "min": "0.2"
+        },
+        "velocity": {
+            "max": "15.0",
+            "min": "15.0"
+        }
+    }
+}

@@ -1,0 +1,65 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "0.0 1.0 0.0",
+            "value": "Direction",
+            "min": "0.0 1.0 0.0"
+        },
+        "numparticles": {
+            "value": "7"
+        },
+        "pointFiltering": true,
+        "colorfade": [
+            {
+                "color": "1.0000 0.0000 0.0157 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.0000 0.0157 1.0000",
+                "time": "29.2%"
+            },
+            {
+                "color": "1.0000 0.0000 0.0157 1.0000",
+                "time": "55.5%"
+            },
+            {
+                "color": "1.0000 0.0000 0.0157 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.6 0.4 0.7"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "timetolive": {
+            "max": "0.6",
+            "min": "0.4"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": false,
+                "name": "/pet_cat",
+                "fps": "16"
+            },
+            "name": "textures/sfxs/pet_cat/ss_cat_conan_lizi"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.2",
+            "min": "0.1"
+        },
+        "particlesize": {
+            "max": "0.03 0.03",
+            "min": "0.02 0.02"
+        }
+    }
+}

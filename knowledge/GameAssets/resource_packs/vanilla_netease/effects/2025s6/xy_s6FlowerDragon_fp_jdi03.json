@@ -1,0 +1,79 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.3214",
+                "time": "15.5%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.4018",
+                "time": "33.7%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.4196",
+                "time": "67.9%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.2768",
+                "time": "86.6%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "0.0 -0.1 0.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "5.0",
+            "min": "5.0"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Direction Horizontal"
+        },
+        "layer": 4,
+        "numparticles": {
+            "value": "5"
+        },
+        "particlesize": {
+            "max": "0.5 0.5",
+            "min": "0.5 0.5"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "rotationRange": {
+            "max": "0.0 180.0 180.0",
+            "min": "0.0 180.0 180.0"
+        },
+        "texture": {
+            "ani": {
+                "fps": "16",
+                "name": "textures/sfxs/2025s6/xy_s6FlowerDragon_fp_004",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s6/xy_s6FlowerDragon_fp_004"
+        },
+        "timetolive": {
+            "max": "0.8",
+            "min": "0.8"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.1"
+        }
+    }
+}

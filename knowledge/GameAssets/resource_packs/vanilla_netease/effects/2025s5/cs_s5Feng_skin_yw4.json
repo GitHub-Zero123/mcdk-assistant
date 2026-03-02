@@ -1,0 +1,78 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.2"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0625",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.1161",
+                "time": "25.8%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0625",
+                "time": "77.9%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "-1.0 -1.0 -1.0",
+            "min": "1.0 1.0 1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "50.0",
+            "min": "50.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.1 0.1 0.1"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "numparticles": {
+            "value": "8"
+        },
+        "particlesize": {
+            "max": "0.9 0.9",
+            "min": "0.4 0.4"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "rotationSpeedRange": {
+            "max": "-50.0 -50.0 -50.0",
+            "min": "50.0 50.0 50.0"
+        },
+        "texture": {
+            "ani": {
+                "fps": "12",
+                "name": "textures/sfxs/2025s5/cs_s5Feng_skin_yw1",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s5/cs_s5Feng_skin_yw2"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "1.0",
+            "min": "0.5"
+        },
+        "velocity": {
+            "max": "3.0",
+            "min": "1.5"
+        }
+    }
+}

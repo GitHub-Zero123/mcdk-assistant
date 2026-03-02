@@ -1,0 +1,105 @@
+{
+    "particleeffect": {
+        "colorfade": [
+            {
+                "color": "0.9922 1.0000 0.3137 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.9255 1.0000 0.4157 1.0000",
+                "time": "18.9%"
+            },
+            {
+                "color": "0.9451 1.0000 0.4196 1.0000",
+                "time": "51.6%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "59.2%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.7143",
+                "time": "81.6%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "constantforce": {
+            "value": "-0.07 0.0 0.0"
+        },
+        "dampingforce": {
+            "value": "0.2"
+        },
+        "direction": {
+            "max": "1.0 0.3 1.0",
+            "min": "-1.0 -0.3 -0.6000000000000001",
+            "value": "Outwards"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.15000000000000002 0.07 0.15000000000000002"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "layer": 2,
+        "numparticles": {
+            "value": "15"
+        },
+        "offsetInCamera": {
+            "value": "-0.02"
+        },
+        "particlesize": {
+            "max": "0.07 0.07",
+            "min": "0.03 0.03"
+        },
+        "pointFiltering": true,
+        "prewarm": true,
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.72 0.72",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.62 0.62",
+                "time": "32.7%"
+            },
+            {
+                "scale": "0.36 0.36",
+                "time": "66.3%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "0",
+                "name": "textures/sfxs/2025s6/ss_s6FireDragon_weaponA_lz01",
+                "shuffle": true
+            },
+            "name": "textures/sfxs/2025s6/ss_s6FireDragon_weaponA_lz01"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "1.5",
+            "min": "1.0"
+        },
+        "velocity": {
+            "max": "0.2",
+            "min": "0.1"
+        }
+    }
+}

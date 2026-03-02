@@ -1,0 +1,74 @@
+{
+    "particleeffect": {
+        "independent": false,
+        "direction": {
+            "max": "0.0 1.0 0.0",
+            "value": "Direction",
+            "min": "0.0 1.0 0.0"
+        },
+        "dampingforce": {
+            "value": "1.5"
+        },
+        "faceCameraMode": {
+            "value": "Direction"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.6667 1.0000 0.3125",
+                "time": "0.00"
+            },
+            {
+                "color": "0.6667 0.0000 1.0000 0.7679",
+                "time": "0.21"
+            },
+            {
+                "color": "1.0000 0.3333 1.0000 0.9018",
+                "time": "0.70"
+            }
+        ],
+        "emissionrate": {
+            "max": "6.0",
+            "min": "4.0"
+        },
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.4 0.6 0.8"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": false,
+                "name": "textures/sfxs/pet_dog/xy_dragon_robotdog_lizimy",
+                "fps": "0"
+            },
+            "name": "textures/sfxs/pet_dog/xy_dragon_robotdog_lizimy"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "timetolive": {
+            "max": "0.35",
+            "min": "0.7"
+        },
+        "depthtest": {
+            "enable": "true"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "-0.3",
+            "min": "-1.5"
+        },
+        "particlesize": {
+            "max": "0.03 0.03",
+            "min": "0.09 0.09"
+        },
+        "numparticles": {
+            "value": "3"
+        }
+    }
+}

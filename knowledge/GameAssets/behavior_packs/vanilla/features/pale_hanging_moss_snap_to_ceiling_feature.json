@@ -1,0 +1,19 @@
+{
+    "format_version": "1.16.0",
+    "minecraft:snap_to_surface_feature": {
+        "description": {
+            "identifier": "minecraft:pale_hanging_moss_snap_to_ceiling_feature"
+        },
+        "feature_to_snap": "minecraft:pale_hanging_moss_feature",
+        "vertical_search_range": 12,
+        "surface": "ceiling",
+        "allowed_surface_blocks": [
+            {
+                "name": "minecraft:pale_oak_leaves"
+            },
+            {
+                "name": "minecraft:pale_oak_log"
+            }
+        ]
+    }
+}

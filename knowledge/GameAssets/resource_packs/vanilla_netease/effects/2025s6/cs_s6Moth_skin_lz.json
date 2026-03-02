@@ -1,0 +1,64 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.2"
+        },
+        "constantforce": {
+            "value": "0.0 -1.0 0.0"
+        },
+        "dampingforce": {
+            "value": "3.0"
+        },
+        "direction": {
+            "max": "0.19999999999999998 0.0 0.3",
+            "min": "-0.20000000000000004 -1.0 -0.20000000000000004",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "40.0",
+            "min": "40.0"
+        },
+        "layer": 4,
+        "particlesize": {
+            "max": "0.1 0.1",
+            "min": "0.05 0.05"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 0.0 360.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.0 0.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.41 1.41",
+                "time": "27.0%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "0",
+                "name": "textures/sfxs/2025s6/cs_s6Moth_skin_lz",
+                "shuffle": true
+            },
+            "name": "textures/sfxs/2025s6/cs_s6Moth_skin_lz"
+        },
+        "timetolive": {
+            "max": "1.0",
+            "min": "0.8"
+        },
+        "velocity": {
+            "max": "6.0",
+            "min": "5.0"
+        }
+    }
+}

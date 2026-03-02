@@ -1,0 +1,100 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.1"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.4554",
+                "time": "6.3%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "12.1%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.6786",
+                "time": "24.5%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "40.3%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.6875",
+                "time": "55.5%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "71.3%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.6429",
+                "time": "83.4%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "dampingforce": {
+            "value": "4.0"
+        },
+        "direction": {
+            "max": "0.01 0.0 0.0",
+            "min": "0.02 0.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "3000.0",
+            "min": "3000.0"
+        },
+        "enableloop": {
+            "enable": "true"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Direction Horizontal"
+        },
+        "layer": 2,
+        "numparticles": {
+            "value": "1"
+        },
+        "particlesize": {
+            "max": "3.8000000000000003 3.8000000000000003",
+            "min": "3.8000000000000003 3.8000000000000003"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "-90.0 0.0 -5.0",
+            "min": "-90.0 0.0 -5.0"
+        },
+        "texture": {
+            "ani": {
+                "fps": "8",
+                "name": "",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s5/cs_s5Tidal_skin_birth_g"
+        },
+        "timetolive": {
+            "max": "7.5",
+            "min": "7.5"
+        },
+        "velocity": {
+            "max": "0.1",
+            "min": "0.0"
+        }
+    }
+}

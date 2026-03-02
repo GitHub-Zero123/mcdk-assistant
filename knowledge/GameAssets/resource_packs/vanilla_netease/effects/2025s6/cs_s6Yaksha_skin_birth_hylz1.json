@@ -1,0 +1,92 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "1.0"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.5982",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.3839",
+                "time": "43.9%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "constantforce": {
+            "value": "-2.0 0.0 0.0"
+        },
+        "delay": 5.0,
+        "depthtest": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 0.0 -1.0",
+            "value": "Outwards"
+        },
+        "emissionrate": {
+            "max": "20.0",
+            "min": "20.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.2 0.2 0.2"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "layer": 4,
+        "numparticles": {
+            "value": "20"
+        },
+        "particlesize": {
+            "max": "0.37 0.25",
+            "min": "0.25 0.37"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "false"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.0 0.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.9 0.9",
+                "time": "16.0%"
+            },
+            {
+                "scale": "1.47 1.47",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "16",
+                "name": "textures/sfxs/2025s6/cs_s6Yaksha_skin_birth_twlz1",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s6/cs_s6Yaksha_skin_birth_twlz1"
+        },
+        "thickness": {
+            "value": "1.0"
+        },
+        "velocity": {
+            "max": "0.5",
+            "min": "0.2"
+        }
+    }
+}

@@ -1,0 +1,95 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "1.6"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "0.8078 0.8471 0.0196 0.1786",
+                "time": "0.00"
+            },
+            {
+                "color": "0.9176 1.0000 0.0039 0.3036",
+                "time": "0.02"
+            },
+            {
+                "color": "0.3686 0.9373 1.0000 0.2054",
+                "time": "0.04"
+            },
+            {
+                "color": "0.0078 0.7020 1.0000 0.1250",
+                "time": "0.12"
+            },
+            {
+                "color": "0.0000 0.2157 0.5608 0.0000",
+                "time": "0.40"
+            }
+        ],
+        "dampingforce": {
+            "value": "10.0"
+        },
+        "delay": 0.78,
+        "direction": {
+            "max": "0.0 0.0 -0.01",
+            "min": "0.0 0.0 -0.01",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "8.0",
+            "min": "4.0"
+        },
+        "emitterpath": [
+            {
+                "offset": "0.0 -2.0 0.0",
+                "rotation": "0.0 0.0 0.0",
+                "time": "0.0"
+            }
+        ],
+        "enabletexture": {
+            "enable": true
+        },
+        "layer": 6,
+        "numparticles": {
+            "value": "4"
+        },
+        "particlesize": {
+            "max": "4.0 4.0",
+            "min": "2.5 2.5"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 -90.0",
+            "min": "0.0 0.0 -90.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.92 0.92",
+                "time": "29.7%"
+            },
+            {
+                "scale": "0.2 0.2",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s1/cs_s2comet_zhuchengruchang_2sg01"
+        },
+        "timetolive": {
+            "max": "0.4",
+            "min": "0.2"
+        },
+        "velocity": {
+            "max": "0.1",
+            "min": "0.1"
+        }
+    }
+}

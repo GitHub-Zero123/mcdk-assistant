@@ -1,0 +1,105 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "7.1"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "23.9%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.1875",
+                "time": "42.4%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.7232",
+                "time": "62.6%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "constantforce": {
+            "value": "0.0 0.0 0.1"
+        },
+        "dampingforce": {
+            "value": "0.2"
+        },
+        "depthtest": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "-1.0 0.0 1.0",
+            "min": "1.0 0.0 1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "20.0",
+            "min": "20.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "8.0 1.0 5.0"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "layer": 7,
+        "numparticles": {
+            "value": "20"
+        },
+        "particlesize": {
+            "max": "0.05 0.05",
+            "min": "0.03 0.03"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "88.0%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s2/cs_s4diaoling_skin_cccjlz"
+        },
+        "thickness": {
+            "value": "0.2"
+        },
+        "timetolive": {
+            "max": "0.5",
+            "min": "0.3"
+        },
+        "velocity": {
+            "max": "0.6",
+            "min": "0.2"
+        }
+    }
+}

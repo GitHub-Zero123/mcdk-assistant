@@ -1,0 +1,126 @@
+/********************************************************
++*   (c) Mojang. All rights reserved                       *
++*   (c) Microsoft. All rights reserved.                   *
++*********************************************************/
+
+{
+  "namespace": "common_toggles",
+
+  "light_ui_toggle_collection": {
+    "type": "panel",
+
+    "$unchecked_control|default": "common_toggles.toggle_unchecked",
+    "$checked_control|default": "common_toggles.toggle_checked",
+    "$unchecked_hover_control|default": "common_toggles.toggle_unchecked_hover",
+    "$checked_hover_control|default": "common_toggles.toggle_checked_hover",
+    "$unchecked_locked_control|default": "common_toggles.toggle_locked",
+    "$unchecked_locked_hover_control|default": "common_toggles.toggle_locked",
+    "$checked_locked_control|default": "common_toggles.toggle_locked",
+    "$checked_locked_hover_control|default": "common_toggles.toggle_locked",
+
+    "$default_texture|default": "textures/ui/button_borderless_light",
+    "$hover_texture|default": "textures/ui/button_borderless_lightpressednohover",
+    "$pressed_texture|default": "textures/ui/button_borderless_lighthover",
+    "$pressed_no_hover_texture|default": "textures/ui/button_borderless_lightpressed",
+    "$locked_texture|default": "textures/ui/disabledButtonNoBorder",
+
+    "$default_texture_alpha|default": 1.0,
+    "$default_checked_texture_alpha|default": 1.0,
+    "$hover_texture_alpha|default": 1.0,
+    "$hover_checked_texture_alpha|default": 1.0,
+
+    "$default_texture_color|default": "$f_color_format",
+    "$default_checked_texture_color|default": "$f_color_format",
+    "$hover_texture_color|default": "$f_color_format",
+    "$hover_checked_texture_color|default": "$f_color_format",
+
+    "$default_text_color|default": "$light_toggle_default_text_color",
+    "$hover_text_color|default": "$light_toggle_hover_text_color",
+    "$default_checked_text_color|default": "$light_toggle_checked_default_text_color",
+    "$hover_checked_text_color|default": "$light_toggle_checked_hover_text_color",
+
+    "$default_glyph_color|default": "$light_glyph_toggle_default_color",
+    "$hover_glyph_color|default": "$light_glyph_toggle_hover_color",
+    "$default_checked_glyph_color|default": "$light_glyph_toggle_checked_default_color",
+    "$hover_checked_glyph_color|default": "$light_glyph_toggle_checked_hover_color",
+
+    "$checked_image|default": "common.empty_panel",
+    "$unchecked_image|default": "common.empty_panel",
+    "$default_border_visible|default": "(not $is_netease)",
+    "$hover_border_visible|default": "(not $is_netease)",
+    "$default_border_color": "$dark_border_toggle_default_color",
+    "$hover_border_color": "$dark_border_toggle_hover_color",
+    "$locked_alpha": 1,
+
+    "$toggle_binding_type|default": "none",
+    "$toggle_enabled_binding_type|default": "none",
+    "$toggle_tab_focus_binding_type|default": "none",
+    "$toggle_on_hover_binding_type|default": "none",
+    "$toggle_view_binding_name|default": "this_toggle",
+    "$template_toggle|default": "common.toggle",
+    "$toggle_tab_focus_binding_name|default": "",
+    "$toggle_on_hover_binding_name|default": "",
+
+    "$toggle_unchecked|default": false,
+    "$toggle_unchecked_hover|default": false,
+    "$toggle_checked|default": false,
+    "$toggle_checked_hover|default": false,
+    "$toggle_locked|default": false,
+
+    "$toggle_focus_wrap_enabled|default": true,
+    "$toggle_focus_magnet_enabled|default": true,
+
+    "controls": [
+      {
+        // done as a child to allow for parent bindings
+        "$toggle_view_binding_name@$template_toggle": {
+          "focus_wrap_enabled": false,
+          "bindings": [
+            {
+              "binding_type": "$toggle_binding_type",
+              "binding_condition": "$toggle_binding_condition",
+              "binding_collection_name": "$toggle_grid_collection_name",
+              "binding_name": "$toggle_state_binding_name",
+              "binding_name_override": "#toggle_state"
+            },
+            {
+              "binding_type": "$toggle_enabled_binding_type",
+              "binding_condition": "$toggle_enabled_binding_condition",
+              "binding_collection_name": "$toggle_grid_collection_name",
+              "binding_name": "$toggle_enabled_binding_name",
+              "binding_name_override": "#enabled"
+            },
+            {
+              "binding_type": "collection_details",
+              "binding_collection_name": "$toggle_grid_collection_name"
+            },
+            {
+              "binding_type": "$toggle_tab_focus_binding_type",
+              "binding_name": "$toggle_tab_focus_binding_name",
+              "binding_name_override": "#default_focus_precedence"
+            },
+            {
+              "binding_type": "$toggle_on_hover_binding_type",
+              "binding_name": "$toggle_on_hover_binding_name",
+              "binding_name_override": "#toggle_on_hover"
+            },
+            {
+              "binding_type": "$toggle_tts_header_binding_type",
+              "binding_collection_name": "$toggle_tts_header_binding_collection_name",
+              "binding_name": "$toggle_tts_header"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "edit_toggle_unchecked@common_toggles.toggle_unchecked": {
+    "$ui_button_panel": "common_buttons.edit_button_panel"
+  },
+
+  "edit_toggle_unchecked_hover_with_chevron@common_toggles.toggle_unchecked_hover_with_chevron": {
+    "$ui_button_panel": "common_buttons.edit_button_panel"
+  }
+
+}

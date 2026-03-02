@@ -1,0 +1,92 @@
+{
+    "particleeffect": {
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.5089",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "29.7%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "90.8%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "dampingforce": {
+            "value": "0.3"
+        },
+        "delay": 1.0,
+        "direction": {
+            "max": "0.0 -1.0 0.0",
+            "min": "0.0 -1.0 0.0",
+            "value": "Direction"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.3 0.3 0.3"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "enableloop": {
+            "enable": "true"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Direction Horizontal"
+        },
+        "numparticles": {
+            "value": "3"
+        },
+        "particlesize": {
+            "max": "0.05 0.05",
+            "min": "0.05 0.05"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "90.0 90.0 0.0",
+            "min": "90.0 90.0 0.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.9 0.9",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.1 1.1",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "9",
+                "name": "",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s1/sh_s3guofeng_skina_lz1_00000"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "1.2",
+            "min": "0.8"
+        },
+        "velocity": {
+            "max": "0.7",
+            "min": "0.4"
+        }
+    }
+}

@@ -1,0 +1,20 @@
+{
+    "format_version": "1.14",
+    "minecraft:recipe_material_reduction": {
+        "description": {
+            "identifier": "minecraft:iron_ingot"
+        },
+        "input": "minecraft:iron_ingot",
+        "output": [
+            {
+                "count": 64,
+                "item": "minecraft:element_26"
+            },
+            {
+                "count": 36,
+                "item": "minecraft:element_26"
+            }
+        ],
+        "tags": "material_reducer"
+    }
+}

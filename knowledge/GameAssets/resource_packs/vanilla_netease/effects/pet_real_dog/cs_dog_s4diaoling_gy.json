@@ -1,0 +1,40 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "0.0000 0.4510 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.5333 0.0000 1.0000 0.3839",
+                "time": "48.7%"
+            },
+            {
+                "color": "0.0000 0.4000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "particlesize": {
+            "max": "0.4 0.4",
+            "min": "0.4 0.4"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "name": "textures/sfxs/pet_real_dog/cs_dog_s4diaoling_gy"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

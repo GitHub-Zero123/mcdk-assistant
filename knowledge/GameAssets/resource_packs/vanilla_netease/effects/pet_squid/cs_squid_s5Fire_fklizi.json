@@ -1,0 +1,90 @@
+{
+    "particleeffect": {
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.9882 1.0000 0.7020 1.0000",
+                "time": "15.3%"
+            },
+            {
+                "color": "1.0000 0.9176 0.4314 1.0000",
+                "time": "34.7%"
+            },
+            {
+                "color": "0.4941 0.0000 0.0000 1.0000",
+                "time": "71.3%"
+            },
+            {
+                "color": "0.0824 0.0000 0.0000 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "0.0 1.0 0.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "8.0",
+            "min": "6.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "1.0 0.8 0.8"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "numparticles": {
+            "value": "6"
+        },
+        "particlesize": {
+            "max": "0.1 0.1",
+            "min": "0.08 0.08"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "false"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.82 0.82",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.46 0.46",
+                "time": "22.0%"
+            },
+            {
+                "scale": "0.87 0.87",
+                "time": "51.0%"
+            },
+            {
+                "scale": "0.5 0.5",
+                "time": "79.7%"
+            },
+            {
+                "scale": "0.9 0.9",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/pet_squid/cs_squid_s5Fire_lizi02"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "1.2",
+            "min": "0.8"
+        },
+        "velocity": {
+            "max": "0.1",
+            "min": "0.1"
+        }
+    }
+}

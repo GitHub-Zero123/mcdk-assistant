@@ -1,0 +1,45 @@
+{
+    "particleeffect": {
+        "colorfade": [
+            {
+                "color": "1.0000 0.8314 0.4392 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.6667 0.0000 0.6250",
+                "time": "48.9%"
+            },
+            {
+                "color": "1.0000 0.8039 0.2078 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "layer": 2,
+        "numparticles": {
+            "value": "1"
+        },
+        "particlesize": {
+            "max": "0.45 0.6",
+            "min": "0.45 0.6"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "name": "textures/sfxs/2025s6/cs_s6Yaksha_horse_sun"
+        },
+        "timetolive": {
+            "max": "2.0",
+            "min": "2.0"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

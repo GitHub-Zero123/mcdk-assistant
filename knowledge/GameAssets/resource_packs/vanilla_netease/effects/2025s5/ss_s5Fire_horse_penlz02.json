@@ -1,0 +1,129 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.2"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "50.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "constantforce": {
+            "value": "-0.8 -2.0 0.0"
+        },
+        "dampingforce": {
+            "value": "5.0"
+        },
+        "delay": 0.87,
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Outwards"
+        },
+        "emissionrate": {
+            "max": "3000.0",
+            "min": "3000.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.35 0.4 0.35"
+        },
+        "emittertype": {
+            "value": "Cone"
+        },
+        "enableloop": {
+            "enable": "true"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Direction"
+        },
+        "inactivetime": {
+            "value": "3.0"
+        },
+        "layer": 2,
+        "numparticles": {
+            "value": "3"
+        },
+        "particlesize": {
+            "max": "0.05 1.0",
+            "min": "0.02 0.2"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "60.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "16",
+                "name": "textures/sfxs/2025s5/ss_s5Fire_horse_tw02",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s5/ss_s5Fire_horse_tw02"
+        },
+        "thickness": {
+            "value": "0.5"
+        },
+        "timetolive": {
+            "max": "1.5",
+            "min": "0.6"
+        },
+        "trail": {
+            "colorfade": [
+                {
+                    "color": "1.0 0.984313725490196 0.49411764705882355 1.0",
+                    "time": "0.000%"
+                },
+                {
+                    "color": "1.0 0.7019607843137254 0.09803921568627451 1.0",
+                    "time": "50.000%"
+                },
+                {
+                    "color": "0.6392156862745098 0.11764705882352941 0.11764705882352941 0.0",
+                    "time": "100.000%"
+                }
+            ],
+            "facemode": 1,
+            "lifetime": 0.4,
+            "maxnum": 200,
+            "mindistance": 0.01,
+            "texmode": 0,
+            "textile": "1.0 1.0",
+            "useparticlecolor": false,
+            "useparticlewidth": true,
+            "widthfade": [
+                {
+                    "time": "50.0%",
+                    "value": "1.0"
+                }
+            ],
+            "worldspace": false
+        },
+        "velocity": {
+            "max": "10.0",
+            "min": "3.0"
+        }
+    }
+}

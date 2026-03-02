@@ -1,0 +1,333 @@
+{
+    "namespace": "edu_library_category",
+    "category_label@common_buttons.nested_label_with_image_control": {
+        "$nested_label_alignment": "left",
+        "$nested_label_text": "#category_text",
+        "$nested_label_bindings": [
+            {
+                "binding_type": "collection_details",
+                "binding_collection_name": "category_column_collection",
+                "binding_collection_prefix": "category_column"
+            },
+            {
+                "binding_type": "collection_details",
+                "binding_collection_name": "category_row_collection",
+                "binding_collection_prefix": "category_row"
+            },
+            {
+                "binding_name": "$nested_label_text",
+                "binding_type": "global"
+            }
+        ],
+        "$nested_label_image": "#texture",
+        "$nested_label_image_bindings": [
+            {
+                "binding_type": "collection_details",
+                "binding_collection_name": "category_column_collection",
+                "binding_collection_prefix": "category_column"
+            },
+            {
+                "binding_type": "collection_details",
+                "binding_collection_name": "category_row_collection",
+                "binding_collection_prefix": "category_row"
+            },
+            {
+                "binding_name": "#category_icon",
+                "binding_name_override": "#texture",
+                "binding_type": "global"
+            },
+            {
+                "binding_name": "#category_icon_visible",
+                "binding_name_override": "#visible",
+                "binding_type": "global"
+            }
+        ]
+    },
+    "category_screenshot": {
+        "type": "image",
+        "fill": true,
+        "bindings": [
+            {
+                "binding_type": "collection_details",
+                "binding_collection_name": "category_column_collection",
+                "binding_collection_prefix": "category_column"
+            },
+            {
+                "binding_type": "collection_details",
+                "binding_collection_name": "category_row_collection",
+                "binding_collection_prefix": "category_row"
+            },
+            {
+                "binding_name": "#category_screenshot",
+                "binding_name_override": "#texture",
+                "binding_type": "global"
+            }
+        ]
+    },
+    "category_label_background": {
+        "type": "image",
+        "texture": "textures/ui/White",
+        "$color_binding": "#category_default_color",
+        "$label_background_alpha": 0.8,
+        "variables": [
+            {
+                "requires": "($hover_state or $pressed_state)",
+                "$color_binding": "#category_hover_color",
+                "$label_background_alpha": 1.0
+            }
+        ],
+        "alpha": "$label_background_alpha",
+        "bindings": [
+            {
+                "binding_type": "collection_details",
+                "binding_collection_name": "category_column_collection",
+                "binding_collection_prefix": "category_column"
+            },
+            {
+                "binding_type": "collection_details",
+                "binding_collection_name": "category_row_collection",
+                "binding_collection_prefix": "category_row"
+            },
+            {
+                "binding_name": "$color_binding",
+                "binding_name_override": "#color",
+                "binding_type": "global"
+            }
+        ]
+    },
+    "category_button@common_buttons.nestable_button": {
+        "$use_parent_size": true,
+        "$nested_content_label_padding": true,
+        "$nestable_button_size": [
+            "100%",
+            "100%"
+        ],
+        "$pressed_button_name": "button.library_category",
+        "$has_special_button_bindings": true,
+        "$special_nested_button_bindings": [
+            {
+                "binding_type": "collection_details",
+                "binding_collection_name": "category_column_collection",
+                "binding_collection_prefix": "category_column"
+            },
+            {
+                "binding_type": "collection_details",
+                "binding_collection_name": "category_row_collection",
+                "binding_collection_prefix": "category_row"
+            }
+        ],
+        "$nested_content_overlay_assets": "common_buttons.nested_content_overlay_assets",
+        "$nested_button_content_size": [
+            "100%",
+            "fill"
+        ],
+        "$nested_content_control": "edu_library_category.category_screenshot",
+        "$nested_button_label_size": [
+            "100%",
+            23
+        ],
+        "$nested_label_control": "edu_library_category.category_label",
+        "$nested_label_control_background": "edu_library_category.category_label_background"
+    },
+    "category_button_panel": {
+        "type": "stack_panel",
+        "orientation": "horizontal",
+        "size": [
+            "100%",
+            "100%cm"
+        ],
+        "controls": [
+            {
+                "left_padding@common.empty_panel": {
+                    "size": [
+                        2,
+                        "100%sm"
+                    ]
+                }
+            },
+            {
+                "button@edu_library_category.category_button": {
+                    "size": "$category_button_size"
+                }
+            },
+            {
+                "right_padding@common.empty_panel": {
+                    "size": [
+                        2,
+                        "100%sm"
+                    ]
+                }
+            }
+        ]
+    },
+    "grid@edu_common.stack_panel_grid": {
+        "$grid_collection_prefix": "category",
+        "$stack_grid_item": "edu_library_category.category_button_panel"
+    },
+    "scrolling_content": {
+        "type": "stack_panel",
+        "max_size": [
+            380,
+            "100%c"
+        ],
+        "size": [
+            "100% - 8px",
+            "100%c"
+        ],
+        "controls": [
+            {
+                "description@edu_common.description_panel": {}
+            },
+            {
+                "description_to_grid@common.empty_panel": {
+                    "ignored": "$ignore_page_description",
+                    "size": [
+                        "100%",
+                        4
+                    ]
+                }
+            },
+            {
+                "grid@edu_library_category.grid": {}
+            },
+            {
+                "resource_padding@common.empty_panel": {
+                    "size": [
+                        "100%",
+                        6
+                    ],
+                    "bindings": [
+                        {
+                            "binding_name": "#edu_resources_visible",
+                            "binding_name_override": "#visible"
+                        }
+                    ]
+                }
+            },
+            {
+                "resources_button@common_buttons.light_text_button": {
+                    "$pressed_button_name": "button.education_resources",
+                    "$button_text": "menu.educatorResources",
+                    "size": [
+                        "100%",
+                        19
+                    ],
+                    "$button_bindings": [
+                        {
+                            "binding_name": "#edu_resources_visible",
+                            "binding_name_override": "#visible"
+                        }
+                    ]
+                }
+            },
+            {
+                "lower_padding@common.empty_panel": {
+                    "size": [
+                        "100%",
+                        11
+                    ]
+                }
+            }
+        ]
+    },
+    "scroll_panel": {
+        "type": "panel",
+        "size": [
+            "100% - 8px",
+            "100%"
+        ],
+        "controls": [
+            {
+                "scroll@common.scrolling_panel": {
+                    "size": [
+                        "100%",
+                        "100%"
+                    ],
+                    "$scrolling_content": "edu_library_category.scrolling_content",
+                    "$show_background": false,
+                    "$scroll_bar_left_padding_size": [
+                        0,
+                        0
+                    ],
+                    "$scroll_bar_right_padding_size": [
+                        1,
+                        0
+                    ],
+                    "$scroll_size": [
+                        5,
+                        "100% - 11px"
+                    ],
+                    "$scroll_size_touch": "$scroll_size",
+                    "$scroll_track_anchor": "top_middle",
+                    "$scrolling_content_anchor_from": "top_middle",
+                    "$scrolling_content_anchor_to": "top_middle"
+                }
+            }
+        ]
+    },
+    "screen_content": {
+        "type": "stack_panel",
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "size": [
+            "100%",
+            "100%"
+        ],
+        "controls": [
+            {
+                "header": {
+                    "type": "panel",
+                    "size": [
+                        "100%",
+                        "100%cm"
+                    ],
+                    "controls": [
+                        {
+                            "title@edu_common.edu_screen_header": {
+                                "$title_text": "$category_screen_header_title",
+                                "$title_has_image": true,
+                                "$title_texture": "$category_screen_header_icon"
+                            }
+                        },
+                        {
+                            "search_bar_and_home_button@edu_common.search_bar_and_home_button": {}
+                        }
+                    ]
+                }
+            },
+            {
+                "top_padding@common.empty_panel": {
+                    "size": [
+                        "100%",
+                        8
+                    ]
+                }
+            },
+            {
+                "scroll_panel_item": {
+                    "type": "panel",
+                    "size": [
+                        "100%",
+                        "fill"
+                    ],
+                    "controls": [
+                        {
+                            "worlds@edu_library_category.scroll_panel": {}
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "edu_library_category_screen@common.base_screen": {
+        "$screen_content": "edu_library_category.screen_content",
+        "$screen_bg_content": "common.screen_background",
+        "button_mappings": [
+            {
+                "from_button_id": "button.menu_cancel",
+                "to_button_id": "button.menu_exit",
+                "mapping_type": "global"
+            }
+        ]
+    }
+}

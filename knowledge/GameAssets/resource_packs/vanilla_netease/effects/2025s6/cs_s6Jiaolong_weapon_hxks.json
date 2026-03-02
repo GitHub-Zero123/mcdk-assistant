@@ -1,0 +1,88 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "17.1%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.2500",
+                "time": "34.5%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0446",
+                "time": "65.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "delay": 1.0,
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "1.0",
+            "min": "1.0"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "layer": 2,
+        "numparticles": {
+            "value": "1"
+        },
+        "particlesize": {
+            "max": "0.12 0.12",
+            "min": "0.12 0.12"
+        },
+        "pointFiltering": true,
+        "prewarm": true,
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 666.0",
+            "min": "0.0 0.0 -666.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.8 0.8",
+                "time": "0.3%"
+            },
+            {
+                "scale": "1.5 1.5",
+                "time": "14.0%"
+            },
+            {
+                "scale": "2.1 2.1",
+                "time": "57.7%"
+            },
+            {
+                "scale": "2.2 2.2",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s6/cs_s6Jiaolong_weapon_hxkx"
+        },
+        "timetolive": {
+            "max": "0.6",
+            "min": "0.6"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

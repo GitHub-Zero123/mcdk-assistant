@@ -1,0 +1,87 @@
+{
+    "comps": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "enabled": true,
+        "layer": 1,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "main": {
+        "absorbs_input": true,
+        "always_accepts_input": false,
+        "controls": [
+            {
+                "totalPanel@book_screen.totalPanel": {}
+            }
+        ],
+        "force_render_below": false,
+        "is_showing_menu": true,
+        "render_game_behind": true,
+        "render_only_when_topmost": true,
+        "should_steal_mouse": false,
+        "type": "screen"
+    },
+    "namespace": "book_screen",
+    "totalPanel": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "comps@book_screen.comps": {}
+            }
+        ],
+        "enabled": true,
+        "layer": 0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "type": "panel",
+        "visible": true
+    }
+}

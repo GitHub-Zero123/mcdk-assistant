@@ -1,0 +1,76 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.0392 0.2941 1.0000 1.0000",
+                "time": "13.4%"
+            },
+            {
+                "color": "0.1137 0.0000 1.0000 1.0000",
+                "time": "28.4%"
+            },
+            {
+                "color": "0.3647 0.0000 1.0000 0.6161",
+                "time": "70.0%"
+            },
+            {
+                "color": "0.5843 0.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "delay": 0.5,
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "2.4",
+            "min": "1.8"
+        },
+        "layer": 0,
+        "offsetInCamera": {
+            "value": "-0.2"
+        },
+        "particlesize": {
+            "max": "0.05 0.05",
+            "min": "0.05 0.05"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.4 0.4",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.6 1.6",
+                "time": "24.0%"
+            },
+            {
+                "scale": "2.97 2.97",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s2/cs_s4diaoling_weapon_sun"
+        },
+        "timetolive": {
+            "max": "0.4",
+            "min": "0.4"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

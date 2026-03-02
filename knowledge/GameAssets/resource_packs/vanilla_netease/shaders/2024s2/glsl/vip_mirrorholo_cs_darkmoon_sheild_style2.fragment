@@ -1,0 +1,85 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+#line 3
+precision highp float;
+#include "uniformPerFrameConstants.h"
+#include "neteaseModelFragmentUtil.h"
+
+LAYOUT_BINDING(0) uniform sampler2D TEXTURE_0;  // base_color
+LAYOUT_BINDING(0) uniform sampler2D TEXTURE_1;  // merge_texture
+LAYOUT_BINDING(0) uniform sampler2D TEXTURE_2;  // holo_gradient
+LAYOUT_BINDING(0) uniform sampler2D TEXTURE_3;  // texture_character
+
+#define EMISSION_STRENGTH 1.3000//<name:自发光强度>
+
+#define HOLO_PATTERN_TILE 1.0000//<name:控制内层形状图层shape的uv缩放>
+
+// Iridescent Film 彩虹薄膜控制效果参数
+#define IS_USE_SECOND 1.0000//<name:开启彩虹薄膜控制效果>
+#define USE_TRIP_MAP_HOLO_NOISE 1.0000//<name:开启对全息噪声使用三面映射>
+#define IRIDESCENT_COLOR_CHANGE_MULTIPLIER 2.0000//<name:彩虹虹膜的圈数>
+#define IRIDESCENT_NOISE_INFLUENCE 1.0000//<name:彩虹虹膜受noise扰动的效果表现>
+#define IRIDESCENT_NOISE_TILE 1.0000//<name:noise扰动uvtile>
+#define IRIDESCENT_SURFACE_NORMAL_INFLUENCE 0.5000//<name:法线控制方向扰动>
+#define IRIDESCENT_RANGE 80.0000//<name:彩虹虹膜的粗细范围表现>
+#define IRIDESCENT_ROTATE 135.0000//<name:控制虹膜出现的位置>
+#define IRIDESCENT_SECOND_STRENGTH 2.0000//<name:控制彩虹虹膜层的颜色强弱>
+
+// Shine 闪动纹理层
+#define SHINE_RANGE 40.0000//<name:闪动纹理层的范围>
+#define SHINE_ROTATE 135.0000//<name:闪动纹理层的方向>
+#define SHINE_SHAPE_SIZE 2.0000//<name:闪动纹理层的原点大小控制>
+
+// Texture Control
+#define TEXTURE_UV_SCALE1 0.5800//<name:贴图1大小>
+#define TEXTURE_U_OFFSET1 0.3700//<name:贴图1u方向的偏移>
+#define TEXTURE_V_OFFSET1 -0.1000//<name:贴图1v方向的偏移>
+
+#define TEXTURE_UV_SCALE2 0.5600//<name:贴图2大小>
+#define TEXTURE_U_OFFSET2 -0.1200//<name:贴图2u方向的偏移>
+#define TEXTURE_V_OFFSET2 -0.1000//<name:贴图2v方向的偏移>
+
+#define INPUT_LOW 50.0000//<name:InputLow>
+#define INPUT_HIGH 1.2000//<name:InputHigh>
+#define TARGET_LOW -50.0000//<name:TargetLow>
+#define TARGET_HIGH 1.2000//<name:TargetHigh>
+
+// Advanced Parameters 控制镭射虹膜底层部分
+#define USE_TRIP_MAP_HOLO 0.0000//<name:开启根据uv进行三面映射>
+#define HOLO_BG_COLOR vec3(102.0,0.0,0.0)//<name:背景颜色>
+#define HOLO_BG_COLOR_AMOUNT 0.5000//<name:背景和镭射效果混合>
+#define HOLO_COLOR_CHANGE_MULTIPLIER 1.0000//<name:镭射虹膜的层数>
+#define HOLO_PATTERN_INFLUENCE 1.0000//<name:镭射虹膜的位置>
+#define HOLO_PATTERN_DEPTH 200.0000//<name:控制深度depth表现>
+// #define RANDOM_DIRECTION vec4(31.0, 67.0, 255.0, 255.0)//<name:镭射虹膜方向>
+#define BG_HOLO_INTENSITY 1.0000//<name:控制镭射层和贴图的颜色>
+#define DIFFUSE_BLEED_INTO_HOLO 0.0000//<name:控制镭射层和贴图的颜色的混合>
+#define DIFFUSE_HOLO_LERP 0.0000//<name:控制镭射层和贴图的颜色的混合>
+
+varying vec4 light;
+
+varying vec3 positionWS;
+varying vec3 positionVS;
+varying vec3 normalVS;
+varying vec3 absNormalWS;
+varying vec3 worldNormal;
+varying vec3 tangetWS;
+uniform mat4 WORLDVIEW;
+
+#include "2024s3_mirrorholo_util.h"
+
+void main() {
+    vec4 color = vip_mirrorholo();
+
+    // 杂项的内置宏功能
+	neteaseModelCommonFrag(color);
+	// 加入受击变红等效果
+	applyOverlayColor(color);
+    // 光照计算
+	// lowp float emissive = getEmissive(TEXTURE_1, uv);
+	// color.rgb *= (emissive < 0.1) ? light.rgb : vec3(emissive);
+	color.rgb = color.a * color.rgb * light.rgb + (1.0 - color.a) * color.rgb;
+
+    gl_FragColor = color;
+	gl_FragColor.a = 1.0;
+}

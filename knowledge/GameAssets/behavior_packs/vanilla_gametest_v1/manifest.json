@@ -1,0 +1,42 @@
+{
+    "format_version": 2,
+    "header": {
+        "description": "Vanilla gameplay tests for v1",
+        "name": "Vanilla GameTests V1",
+        "uuid": "6670244a-1c66-4d8c-801f-ff40a8b51e25",
+        "version": [
+            0,
+            0,
+            1
+        ],
+        "min_engine_version": [
+            1,
+            14,
+            0
+        ]
+    },
+    "modules": [
+        {
+            "description": "Vanilla gameplay tests for v1",
+            "type": "script",
+            "uuid": "7204611e-702f-4a54-8ce3-69dab21753ef",
+            "version": [
+                0,
+                0,
+                1
+            ],
+            "language": "JavaScript",
+            "entry": "scripts/vanilla-gametest-v1.js"
+        }
+    ],
+    "dependencies": [
+        {
+            "module_name": "@minecraft/server",
+            "version": "1.0.0"
+        },
+        {
+            "module_name": "@minecraft/server-gametest",
+            "version": "1.0.0-beta"
+        }
+    ]
+}

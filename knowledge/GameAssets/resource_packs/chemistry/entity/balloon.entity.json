@@ -1,0 +1,21 @@
+{
+    "format_version": "1.10.0",
+    "minecraft:client_entity": {
+        "description": {
+            "identifier": "minecraft:balloon",
+            "materials": {
+                "default": "balloon"
+            },
+            "textures": {
+                "default": "textures/entity/balloon",
+                "rope": "textures/entity/lead_rope"
+            },
+            "geometry": {
+                "default": "geometry.balloon"
+            },
+            "render_controllers": [
+                "controller.render.balloon"
+            ]
+        }
+    }
+}

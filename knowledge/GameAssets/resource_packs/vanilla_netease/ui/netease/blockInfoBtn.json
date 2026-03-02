@@ -1,0 +1,165 @@
+{
+    "main": {
+        "controls": [
+            {
+                "infoBtn@common.button": {
+                    "$control_alpha": 1.0,
+                    "$default_texture": "",
+                    "$hover_texture": "",
+                    "$is_new_nine_slice": false,
+                    "$label_color": [
+                        1,
+                        1,
+                        1
+                    ],
+                    "$label_font_scale_factor": 1.0,
+                    "$label_font_size": "large",
+                    "$label_layer": 3,
+                    "$label_offset": [
+                        0,
+                        0
+                    ],
+                    "$label_text": "",
+                    "$nine_slice_buttom": 0,
+                    "$nine_slice_left": 0,
+                    "$nine_slice_right": 0,
+                    "$nine_slice_top": 0,
+                    "$nineslice_size": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "$pressed_button_name": "%netease_editor_template_namespace.click",
+                    "$pressed_texture": "",
+                    "$texture_layer": 2,
+                    "anchor_from": "top_right",
+                    "anchor_to": "top_right",
+                    "bindings": [
+                        {
+                            "binding_collection_name": "",
+                            "binding_condition": "always_when_visible",
+                            "binding_type": "collection_details"
+                        }
+                    ],
+                    "button_mappings": [],
+                    "controls": [
+                        {
+                            "default@netease_editor_template_namespace.default": {
+                                "visible": false
+                            }
+                        },
+                        {
+                            "hover@netease_editor_template_namespace.hover": {
+                                "visible": false
+                            }
+                        },
+                        {
+                            "pressed@netease_editor_template_namespace.pressed": {
+                                "visible": false
+                            }
+                        },
+                        {
+                            "button_label@netease_editor_template_namespace.button_label": {
+                                "visible": false
+                            }
+                        },
+                        {
+                            "unLock": {
+                                "clip_direction": "left",
+                                "clip_ratio": 0.0,
+                                "controls": [],
+                                "layer": 3,
+                                "size": [
+                                    "100.0%+0.0px",
+                                    "100.0%+0.0px"
+                                ],
+                                "texture": "textures/ui/unlock",
+                                "type": "image",
+                                "visible": false
+                            }
+                        },
+                        {
+                            "item": {
+                                "controls": [
+                                    {
+                                        "Bg": {
+                                            "clip_direction": "left",
+                                            "clip_ratio": 0.0,
+                                            "layer": 1,
+                                            "size": [
+                                                "100.0%+0.0px",
+                                                "100.0%+0.0px"
+                                            ],
+                                            "texture": "textures/ui/btn_01",
+                                            "type": "image"
+                                        }
+                                    },
+                                    {
+                                        "item_renderer": {
+                                            "controls": [],
+                                            "layer": 2,
+                                            "property_bag": {
+                                                "#item_id_aux": 131072
+                                            },
+                                            "renderer": "inventory_item_renderer",
+                                            "size": [
+                                                "70.0%+0.0px",
+                                                "70.0%+0.0px"
+                                            ],
+                                            "type": "custom"
+                                        }
+                                    },
+                                    {
+                                        "entity": {
+                                            "clip_direction": "left",
+                                            "clip_ratio": 0.0,
+                                            "layer": 1,
+                                            "size": [
+                                                "75.0%+0.0px",
+                                                "75.0%+0.0px"
+                                            ],
+                                            "texture": "textures/ui/btn_01",
+                                            "type": "image"
+                                        }
+                                    },
+                                    {
+                                        "selectFrame": {
+                                            "type": "image",
+                                            "texture": "textures/ui/btn_selected",
+                                            "clip_direction": "left",
+                                            "clip_ratio": 0.0,
+                                            "layer": 10,
+                                            "size": [
+                                                "100.0%+0.0px",
+                                                "100.0%+0.0px"
+                                            ],
+                                            "visible": false
+                                        }
+                                    }
+                                ],
+                                "layer": 1,
+                                "type": "panel"
+                            }
+                        }
+                    ],
+                    "default_control": "default",
+                    "hover_control": "hover",
+                    "is_handle_button_move_event": true,
+                    "offset": [
+                        "-30.0px",
+                        "50.0px"
+                    ],
+                    "pressed_control": "pressed",
+                    "size": [
+                        22,
+                        22.0
+                    ],
+                    "type": "button"
+                }
+            }
+        ],
+        "type": "screen"
+    },
+    "namespace": "blockInfoBtn"
+}

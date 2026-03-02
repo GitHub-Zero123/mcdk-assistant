@@ -1,0 +1,49 @@
+{
+    "hud_screen_helper": {
+        "controls": [
+            {
+                "chat_red_point": {
+                    "anchor_from": "top_left",
+                    "anchor_to": "top_left",
+                    "color": [
+                        1,
+                        0,
+                        0
+                    ],
+                    "offset": [
+                        0,
+                        0
+                    ],
+                    "size": [
+                        4,
+                        4
+                    ],
+                    "texture": "textures/ui/White",
+                    "type": "image",
+                    "layer": 10001,
+                    "visible": false
+                }
+            }
+        ],
+        "size": [
+            "100.0%",
+            "100.0%"
+        ],
+        "type": "panel"
+    },
+    "hud_screen_netease_helper_screen@common.base_screen": {
+        "is_showing_menu": false,
+        "should_steal_mouse": true,
+        "low_frequency_rendering": true,
+        "absorbs_input": false,
+        "send_telemetry": false,
+        "$screen_animations": [
+            "@common.screen_exit_animation_push_fade",
+            "@common.screen_exit_animation_pop_fade",
+            "@common.screen_entrance_animation_push_fade",
+            "@common.screen_entrance_animation_pop_fade"
+        ],
+        "$screen_content": "hud_screen_netease_helper.hud_screen_helper"
+    },
+    "namespace": "hud_screen_netease_helper"
+}

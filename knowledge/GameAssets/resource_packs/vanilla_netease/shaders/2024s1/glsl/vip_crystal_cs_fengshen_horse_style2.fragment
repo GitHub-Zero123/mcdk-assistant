@@ -1,0 +1,83 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+precision highp float;
+
+#include "fragmentVersionCentroidUV.h"
+#include "uniformWorldConstants.h"
+#include "uniformEntityConstants.h"
+
+#include "uniformPerFrameConstants.h"
+#include "uniformShaderConstants.h"
+#include "util.h"
+
+LAYOUT_BINDING(0) uniform sampler2D TEXTURE_0; // base map
+LAYOUT_BINDING(1) uniform sampler2D TEXTURE_1; // color map
+LAYOUT_BINDING(2) uniform sampler2D TEXTURE_2; // emissive
+
+#define _Base_Tiling vec2(4.0,4.0)//<name:基本纹理平铺>
+#define _Depth_1 -9.8000//<name:深度偏移1>
+#define _Emissive_1 0.5000//<name:自发光强度1>
+#define _Depth_2 13.5000//<name:深度偏移2>
+#define _Emissive_2 0.6600//<name:自发光强度2>
+#define _Emissive_add 0.5500//<name:自发光-增加>
+#define _Emissive_tiling vec2(6.0,6.0)//<name:炫光纹理平铺>
+#define _Depth_3 20.0000//<name:深度偏移-炫光>
+#define _Emissive_add_total 0.5000//<name:炫光强度>
+#define _Power 1.0000//<name:Emissive Power>
+#define _FRES_SCALE 0.0500//<name:反射强度>
+
+const float FROM_255_TO_1 = 1.0 / 255.0;
+
+varying vec4 fogColor;
+varying vec3 worldPos;
+varying vec3 worldNormal;
+varying vec3 tangentViewDir;
+
+vec2 bumpoffset(vec2 texCoords, vec3 _tangentViewDir, float height) {
+	_tangentViewDir = normalize(_tangentViewDir);
+	vec2 p = _tangentViewDir.xy * (height * 0.05);
+	return texCoords + p;
+}
+
+void main() {
+	vec3 worldViewDir = normalize(worldPos - VIEW_POS);
+	float frensnelVal = 1.0 - dot(worldNormal, worldViewDir);
+	frensnelVal = clamp(_FRES_SCALE * frensnelVal * frensnelVal, 0.0, 1.0);
+
+	// 偏移1
+	vec2 uv_1 = bumpoffset(uv, tangentViewDir, _Depth_1);
+	// sample the texture
+	mediump vec4 col_1 = texture2D(TEXTURE_0, fract(uv_1 * _Base_Tiling));
+	// 偏移2
+	vec2 uv_2 = bumpoffset(uv, tangentViewDir, _Depth_2);
+	// sample the texture
+	mediump vec4 col_2 = texture2D(TEXTURE_0, fract(uv_2 * _Base_Tiling));
+	// 偏移3
+	vec2 uv_3 = bumpoffset(uv, tangentViewDir, _Depth_3);
+	mediump vec4 emissive_col = texture2D(TEXTURE_2, fract(uv_3 * _Emissive_tiling));
+	mediump float col_lerp = texture2D(TEXTURE_0, uv).x;
+
+	col_1 = col_1 * _Emissive_1;
+	col_2 = col_2 * _Emissive_2;
+	mediump vec4 col = mix(col_1, col_2, col_lerp);
+	// col = saturate(col);
+
+	// 五彩颜色
+	vec2 color_uv = vec2(uv.x, 0.99);
+	mediump vec4 wucai_col_bright = texture2D(TEXTURE_1, color_uv); // 亮色
+	color_uv.y = 0.01;
+	mediump vec4 wucai_col_dark = texture2D(TEXTURE_1, color_uv); // 暗色
+
+	col = mix(wucai_col_dark, wucai_col_bright, pow(col.x, _Power)) * (col.x + _Emissive_add); // 亮暗部颜色过渡
+	col += emissive_col * col.x * _Emissive_add_total; // 丰富颜色
+	col += frensnelVal; // 反射
+
+	// apply fog
+	col.rgb = mix(col.rgb, fogColor.rgb, fogColor.a);
+
+#ifdef USE_OVERLAY
+	col.rgb = mix(col.rgb, OVERLAY_COLOR.rgb, OVERLAY_COLOR.a);
+#endif // USE_OVERLAY
+
+	gl_FragColor = vec4(col.rgb, 1.0);
+}

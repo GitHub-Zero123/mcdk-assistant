@@ -1,0 +1,92 @@
+{
+    "particleeffect": {
+        "independent": false,
+        "direction": {
+            "max": "0.0 0.0 1.0",
+            "value": "Direction",
+            "min": "0.0 0.0 0.0"
+        },
+        "colorfade": [
+            {
+                "color": "0.0980 1.0000 0.0000 1.0000",
+                "time": "0.00"
+            },
+            {
+                "color": "0.9176 1.0000 0.0000 1.0000",
+                "time": "0.20"
+            },
+            {
+                "color": "0.9686 0.0000 1.0000 0.1961",
+                "time": "0.50"
+            },
+            {
+                "color": "0.0000 0.0471 1.0000 0.0000",
+                "time": "1.00"
+            }
+        ],
+        "texture": {
+            "name": "textures/particle/2020s2/2020s2_cs_gong_cube_2"
+        },
+        "emitterScaleCurve": [],
+        "enableloop": {
+            "enable": "true"
+        },
+        "depthtest": {
+            "enable": "true"
+        },
+        "thickness": {
+            "value": "0"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "timetolive": {
+            "max": "0.4",
+            "min": "0.3"
+        },
+        "emittersize": {
+            "value": "0.3 0.0 0.5"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "1.5",
+            "min": "1.0"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "particlesize": {
+            "max": "0.1 0.1",
+            "min": "0.05 0.05"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.8 0.8",
+                "time": "20.0%"
+            },
+            {
+                "scale": "0.84 0.84",
+                "time": "40.0%"
+            },
+            {
+                "scale": "0.832 0.832",
+                "time": "60.0%"
+            },
+            {
+                "scale": "0.834 0.834",
+                "time": "80.0%"
+            },
+            {
+                "scale": "0.833 0.833",
+                "time": "100.0%"
+            }
+        ]
+    }
+}

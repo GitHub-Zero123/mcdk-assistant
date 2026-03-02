@@ -1,0 +1,84 @@
+{
+    "particleeffect": {
+        "rotationSpeedRange": {
+            "max": "-5.0 -5.0 -5.0",
+            "min": "5.0 5.0 5.0"
+        },
+        "direction": {
+            "max": "0.2 0.0 0.2",
+            "value": "Direction",
+            "min": "-0.2 -1.0 -0.19999999999999998"
+        },
+        "prewarm": true,
+        "enabletexture": {
+            "enable": true
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.00"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.75"
+            },
+            {
+                "color": "0.0000 0.7647 0.1529 0.0000",
+                "time": "2.00"
+            }
+        ],
+        "emissionrate": {
+            "max": "1.5",
+            "min": "1.0"
+        },
+        "emitterScaleCurve": [],
+        "layer": 15,
+        "emittersize": {
+            "value": "0.8 0.3 0.8"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "emittertype": {
+            "value": "Cylinder"
+        },
+        "timetolive": {
+            "max": "2.0",
+            "min": "3.0"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": true,
+                "name": "textures/sfxs/pet_cat/xy_cat_bee_lizi_02",
+                "fps": "0"
+            },
+            "name": "textures/sfxs/pet_cat/xy_cat_bee_lizi_02"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.1",
+            "min": "0.1"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 -180.0",
+            "min": "0.0 0.0 180.0"
+        },
+        "particlesize": {
+            "max": "0.05 0.05",
+            "min": "0.03 0.03"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "0.00"
+            },
+            {
+                "scale": "0.7 0.7",
+                "time": "2.00"
+            }
+        ]
+    }
+}

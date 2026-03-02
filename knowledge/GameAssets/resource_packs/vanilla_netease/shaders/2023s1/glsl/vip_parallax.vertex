@@ -1,0 +1,151 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+precision highp float;
+
+#include "vertexVersionCentroidUV.h"
+
+#include "uniformPerFrameConstants.h"
+#include "uniformWorldConstants.h"
+#include "uniformEntityConstants.h"
+#include "uniformWeatherConstants.h"
+#ifdef USE_SKINNING
+#include "uniformAnimationConstants.h"
+#endif
+
+attribute mediump vec4 POSITION;
+attribute vec4 COLOR;
+attribute vec4 NORMAL;
+#if defined(USE_SKINNING)
+#ifdef MCPE_PLATFORM_NX
+attribute uint BONEID_0;
+#else
+attribute float BONEID_0;
+#endif
+#endif
+
+varying vec2 uv1;
+varying vec4 light;
+varying vec4 fogColor;
+
+#ifdef RNGL_LIGHT
+uniform vec4 HIDE_COLOR;
+#endif
+
+const float AMBIENT = 0.45;
+
+const float XFAC = -0.1;
+const float ZFAC = 0.1;
+
+float lightIntensity(vec4 position, vec4 normal) {
+#ifdef FANCY
+#if defined(NETEASE_SKINNING) && defined(USE_SKINNING)
+	MAT4 boneMat = GetBoneMatForNetease(int(BONEID_0));
+    vec3 N = normalize( boneMat * NORMAL ).xyz;
+#else//NETEASE_SKINNING
+	vec3 N = normalize( WORLD * normal ).xyz;
+#endif
+	N.y *= TILE_LIGHT_COLOR.w; //TILE_LIGHT_COLOR.w contains the direction of the light
+
+	//take care of double sided polygons on materials without culling
+#ifdef FLIP_BACKFACES
+#if defined(NETEASE_SKINNING) && defined(USE_SKINNING)
+	vec3 viewDir = normalize( boneMat * POSITION ).xyz;
+#else //NETEASE_SKINNING
+	vec3 viewDir = normalize((WORLD * position).xyz);
+#endif
+	if( dot(N, viewDir) > 0.0 )
+		N *= -1.0;
+#endif
+
+#ifdef RNGL_LIGHT
+	vec3 lightDir = normalize(HIDE_COLOR.xyz);  // light dir uses world coords
+	float dLight = max(0.0, dot(N, lightDir));  // diffuse in directional light
+	return dLight * (1.0-AMBIENT-0.2) + AMBIENT+0.2;  // origin range [0.65, 1.0]
+#else
+	float yLight = (1.0+N.y) * 0.5;
+	return yLight * (1.0-AMBIENT) + N.x*N.x * XFAC + N.z*N.z * ZFAC + AMBIENT;
+#endif // RNGL_LIGHT
+
+#else
+	return 1.0;
+#endif
+}
+
+
+varying float ViewDotNormal;
+varying vec3 TangentViewDir;
+
+void main()
+{
+	vec4 entitySpacePosition;
+	vec4 entitySpaceNormal;
+
+#ifdef USE_SKINNING
+#ifdef NETEASE_SKINNING
+		MAT4 boneMat = GetBoneMatForNetease(int(BONEID_0));
+		entitySpacePosition = boneMat * POSITION;
+		entitySpaceNormal = boneMat * NORMAL;
+#else
+	#if defined(LARGE_VERTEX_SHADER_UNIFORMS)
+		entitySpacePosition = BONES[int(BONEID_0)] * POSITION;
+		entitySpaceNormal = BONES[int(BONEID_0)] * NORMAL;
+	#else
+		entitySpacePosition = BONE * POSITION;
+		entitySpaceNormal = BONE * NORMAL;
+	#endif
+#endif
+#else
+	entitySpacePosition = POSITION * vec4(1, 1, 1, 1);
+	entitySpaceNormal = NORMAL * vec4(1, 1, 1, 0);
+#endif
+	vec4 pos = WORLDVIEWPROJ * entitySpacePosition;
+	gl_Position = pos;
+
+#ifdef RNGL_UNLIT
+	float L = 1.0;
+#else
+	float L = lightIntensity(entitySpacePosition, entitySpaceNormal);
+#endif
+
+#ifdef TINTED_ALPHA_TEST
+	alphaTestMultiplier = OVERLAY_COLOR.a;
+#endif
+
+	light = vec4(vec3(L) * TILE_LIGHT_COLOR.xyz, 1.0);
+
+	uv = vec2(COLOR.r, COLOR.g);
+	uv1= vec2(COLOR.b, COLOR.a);
+
+	vec4 entitySpaceTangent = vec4(cross(entitySpaceNormal.xyz, vec3(0.0, 1.0, 0.0)), 0.0);
+	
+	vec3 viewDirWS, normalWS, tangetWS;
+	// check if this pass is under orthogonal space
+	lowp float isPersp = step(0.05, abs(PROJ[2][3]));
+	if (isPersp > 0.5){
+#ifdef USE_SKINNING
+		viewDirWS = normalize((WORLD * entitySpacePosition).xyz - VIEW_POS);
+		normalWS = normalize((WORLD * entitySpaceNormal).xyz);
+		tangetWS = (WORLD * entitySpaceTangent).xyz;
+#else
+		viewDirWS = normalize(entitySpacePosition.xyz + vec3(0.0, 0.0, -200.0));
+		normalWS = normalize(entitySpaceNormal.xyz);
+		tangetWS = entitySpaceTangent.xyz;
+#endif
+	}else{
+		viewDirWS = normalize(entitySpacePosition.xyz + vec3(0.0, 0.0, -200.0));
+		normalWS = normalize(entitySpaceNormal.xyz);
+		tangetWS = entitySpaceTangent.xyz;
+	}
+	ViewDotNormal = dot(viewDirWS, normalWS);
+
+	vec3 bitangentWS = cross(tangetWS, normalWS);
+	TangentViewDir = vec3(
+		dot(viewDirWS, tangetWS.xyz),
+		dot(viewDirWS, bitangentWS.xyz),
+		-dot(viewDirWS, normalWS.xyz)
+	);
+
+	//fog
+	fogColor.rgb = FOG_COLOR.rgb;
+	fogColor.a = clamp(((pos.z / RENDER_DISTANCE) - FOG_CONTROL.x) / (FOG_CONTROL.y - FOG_CONTROL.x), 0.0, 1.0);
+}

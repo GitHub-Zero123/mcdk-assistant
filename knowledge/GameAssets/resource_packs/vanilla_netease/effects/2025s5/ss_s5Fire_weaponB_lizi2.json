@@ -1,0 +1,57 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "direction": {
+            "max": "-0.1 0.0 0.0",
+            "min": "0.1 0.1 0.0",
+            "value": "Direction"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.15 0.1 0.15"
+        },
+        "emittertype": {
+            "value": "Cone"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Direction"
+        },
+        "layer": 3,
+        "numparticles": {
+            "value": "4"
+        },
+        "particlesize": {
+            "max": "0.1 0.1",
+            "min": "0.08 0.08"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "ani": {
+                "fps": "20",
+                "name": "textures/sfxs/2025s5/ss_s5Fire_weaponB_huolz",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s5/ss_s5Fire_weaponB_huolz"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.4",
+            "min": "0.5"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.1"
+        }
+    }
+}

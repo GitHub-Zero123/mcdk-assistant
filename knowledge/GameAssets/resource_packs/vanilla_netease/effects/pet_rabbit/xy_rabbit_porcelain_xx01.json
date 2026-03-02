@@ -1,0 +1,84 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "value": "Direction",
+            "min": "0.0 0.0 0.0"
+        },
+        "numparticles": {
+            "value": "1"
+        },
+        "colorfade": [
+            {
+                "color": "0.1725 0.8627 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.3608 0.7569 1.0000 1.0000",
+                "time": "22.6%"
+            },
+            {
+                "color": "0.3608 0.7569 1.0000 0.2500",
+                "time": "47.9%"
+            },
+            {
+                "color": "0.3608 0.7569 1.0000 0.9643",
+                "time": "70.3%"
+            },
+            {
+                "color": "0.1725 0.8627 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "emissionrate": {
+            "max": "10.0",
+            "min": "2.0"
+        },
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.07 0.09 0.0"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "timetolive": {
+            "max": "0.7",
+            "min": "0.4"
+        },
+        "texture": {
+            "name": "textures/sfxs/pet_rabbit/xy_rabbit_porcelain_xx03"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "particlesize": {
+            "max": "0.01 0.01",
+            "min": "0.02 0.02"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.45 0.45",
+                "time": "0.7%"
+            },
+            {
+                "scale": "1.14 1.14",
+                "time": "47.3%"
+            },
+            {
+                "scale": "0.42 0.42",
+                "time": "100.0%"
+            }
+        ]
+    }
+}

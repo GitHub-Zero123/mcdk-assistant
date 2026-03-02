@@ -1,0 +1,74 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.15"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.3036",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.8588 0.0824 0.2768",
+                "time": "100.0%"
+            }
+        ],
+        "delay": 13.23,
+        "depthtest": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "50.0",
+            "min": "50.0"
+        },
+        "layer": 6,
+        "numparticles": {
+            "value": "2"
+        },
+        "particlesize": {
+            "max": "4.0 4.0",
+            "min": "4.0 4.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 666.0",
+            "min": "0.0 0.0 -666.0"
+        },
+        "rotationSpeedRange": {
+            "max": "0.0 0.0 15.0",
+            "min": "0.0 0.0 -15.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.66 0.66",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.74 1.74",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "16",
+                "name": "textures/sfxs/2025s1/cs_s3kjys_skinA_birth_cjb01",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s1/cs_s3kjys_skinA_birth_cjb01"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

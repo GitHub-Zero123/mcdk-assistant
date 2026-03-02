@@ -1,0 +1,31 @@
+{
+    "format_version": "1.8.0",
+    "minecraft:client_entity": {
+        "description": {
+            "identifier": "netease:pet",
+            "geometry": {
+                "default": "geometry.fox"
+            },
+            "textures": {
+                "red": "textures/entity/fox/fox",
+                "arctic": "textures/entity/fox/arctic_fox"
+            },
+            "materials": {
+                "default": "fox"
+            },
+            "animations": {
+                "walk": "animation.quadruped.walk",
+                "look_at_target": "animation.common.look_at_target",
+                "sit": "animation.netease_pet.sit"
+            },
+            "animation_controllers": [
+                {
+                    "move": "controller.animation.netease_pet.move"
+                }
+            ],
+            "render_controllers": [
+                "controller.render.fox"
+            ]
+        }
+    }
+}

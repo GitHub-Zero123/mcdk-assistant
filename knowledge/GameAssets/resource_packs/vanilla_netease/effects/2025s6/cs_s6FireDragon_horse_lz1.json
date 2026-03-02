@@ -1,0 +1,93 @@
+{
+    "particleeffect": {
+        "colorfade": [
+            {
+                "color": "0.4706 0.0000 0.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.0000 0.0000 1.0000",
+                "time": "28.9%"
+            },
+            {
+                "color": "1.0000 0.7020 0.0000 1.0000",
+                "time": "55.8%"
+            },
+            {
+                "color": "1.0000 1.0000 0.5725 1.0000",
+                "time": "80.3%"
+            },
+            {
+                "color": "1.0000 0.9961 0.7725 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "dampingforce": {
+            "value": "0.3"
+        },
+        "direction": {
+            "max": "0.0 1.0 0.0",
+            "min": "0.0 1.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "5.0",
+            "min": "8.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.7 0.7 0.4"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "numparticles": {
+            "value": "6"
+        },
+        "particlesize": {
+            "max": "0.08 0.08",
+            "min": "0.06 0.06"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.06 1.06",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.44 0.44",
+                "time": "27.7%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "53.3%"
+            },
+            {
+                "scale": "0.5 0.5",
+                "time": "80.7%"
+            },
+            {
+                "scale": "1.02 1.02",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s6/cs_s6FireDragon_horse_lz"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.8",
+            "min": "0.5"
+        },
+        "velocity": {
+            "max": "0.4",
+            "min": "0.3"
+        }
+    }
+}

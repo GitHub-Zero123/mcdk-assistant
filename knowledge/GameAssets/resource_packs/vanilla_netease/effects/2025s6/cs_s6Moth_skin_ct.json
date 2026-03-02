@@ -1,0 +1,61 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.1"
+        },
+        "dampingforce": {
+            "value": "3.0"
+        },
+        "direction": {
+            "max": "1.0 0.0 0.4",
+            "min": "-1.0 -0.8 -0.4",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "80.0",
+            "min": "80.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.1 0.1 0.1"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "faceCameraMode": {
+            "value": "Direction"
+        },
+        "layer": 4,
+        "numparticles": {
+            "value": "15"
+        },
+        "particlesize": {
+            "max": "0.1 0.2",
+            "min": "0.2 0.3"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "ani": {
+                "fps": "0",
+                "name": "textures/sfxs/2025s6/cs_s6Moth_skin_ct",
+                "shuffle": true
+            },
+            "name": "textures/sfxs/2025s6/cs_s6Moth_skin_ct"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.4",
+            "min": "0.3"
+        },
+        "velocity": {
+            "max": "7.0",
+            "min": "5.0"
+        }
+    }
+}

@@ -1,0 +1,112 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "2.4"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "23.4%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "46.1%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "dampingforce": {
+            "value": "1.0"
+        },
+        "delay": 0.05,
+        "depthtest": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "1.0 1.0 0.1",
+            "min": "-1.0 -1.0 -0.1",
+            "value": "Outwards"
+        },
+        "emissionrate": {
+            "max": "50.0",
+            "min": "50.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterpath": [
+            {
+                "offset": "-0.2 0.0 0.0",
+                "rotation": "0.0 0.0 0.0",
+                "time": "0.0"
+            }
+        ],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "1.2999999999999998 0.1 1.2999999999999998"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "layer": 6,
+        "numparticles": {
+            "value": "50"
+        },
+        "particlesize": {
+            "max": "0.12 0.12",
+            "min": "0.05 0.05"
+        },
+        "pointFiltering": true,
+        "prewarm": true,
+        "relative": {
+            "enable": "false"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 666.0",
+            "min": "0.0 0.0 -666.0"
+        },
+        "rotationSpeedRange": {
+            "max": "0.0 0.0 66.0",
+            "min": "0.0 0.0 -66.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.0 0.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.95 0.95",
+                "time": "10.0%"
+            },
+            {
+                "scale": "0.95 0.95",
+                "time": "60.0%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s1/sh_s3guofeng_skinA_kslizi01"
+        },
+        "thickness": {
+            "value": "0.5"
+        },
+        "timetolive": {
+            "max": "0.75",
+            "min": "0.35"
+        },
+        "velocity": {
+            "max": "2.5",
+            "min": "1.0"
+        }
+    }
+}

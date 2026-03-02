@@ -1,0 +1,107 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.2"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.5804",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.5446",
+                "time": "95.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "delay": 5.5,
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "3000.0",
+            "min": "3000.0"
+        },
+        "enableloop": {
+            "enable": "true"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "layer": 3,
+        "numparticles": {
+            "value": "1"
+        },
+        "particlesize": {
+            "max": "0.3 0.1",
+            "min": "0.3 0.1"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "ani": {
+                "fps": "64",
+                "name": "textures/sfxs/2025s6/cs_s6Yaksha_skin_birth_tw1",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s6/cs_s6Yaksha_skin_birth_tw1"
+        },
+        "timetolive": {
+            "max": "0.75",
+            "min": "0.75"
+        },
+        "trail": {
+            "colorfade": [
+                {
+                    "color": "1.0 1.0 1.0 0.6339285714285714",
+                    "time": "0.000%"
+                },
+                {
+                    "color": "1.0 1.0 1.0 0.9107142857142857",
+                    "time": "5.789%"
+                },
+                {
+                    "color": "1.0 1.0 1.0 1.0",
+                    "time": "17.632%"
+                },
+                {
+                    "color": "1.0 1.0 1.0 0.9285714285714286",
+                    "time": "52.105%"
+                },
+                {
+                    "color": "1.0 1.0 1.0 0.0",
+                    "time": "100.000%"
+                }
+            ],
+            "facemode": 1,
+            "lifetime": 0.3,
+            "maxnum": 64,
+            "mindistance": 0.01,
+            "texmode": 0,
+            "textile": "1.0 1.0",
+            "useparticlecolor": true,
+            "useparticlewidth": true,
+            "widthfade": [
+                {
+                    "time": "0.0%",
+                    "value": "1.05"
+                }
+            ],
+            "worldspace": true
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

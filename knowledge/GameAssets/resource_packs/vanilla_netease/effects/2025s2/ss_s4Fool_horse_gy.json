@@ -1,0 +1,61 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 0.6745 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.9804 0.6902 0.2500",
+                "time": "15.3%"
+            },
+            {
+                "color": "1.0000 0.9922 0.6549 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "5.0",
+            "min": "5.0"
+        },
+        "numparticles": {
+            "value": "5"
+        },
+        "particlesize": {
+            "max": "0.25 0.25",
+            "min": "0.4 0.4"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.72 0.72",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.29 1.29",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s2/ss_s4Fool_horse_gy"
+        },
+        "timetolive": {
+            "max": "1.0",
+            "min": "2.0"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

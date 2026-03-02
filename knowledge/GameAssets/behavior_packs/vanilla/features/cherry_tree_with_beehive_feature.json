@@ -1,0 +1,13 @@
+{
+    "format_version": "1.13.0",
+    "minecraft:aggregate_feature": {
+        "description": {
+            "identifier": "minecraft:cherry_tree_with_beehive_feature"
+        },
+        "early_out": "first_failure",
+        "features": [
+            "minecraft:cherry_tree_feature",
+            "minecraft:beehive_search_feature"
+        ]
+    }
+}

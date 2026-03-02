@@ -1,0 +1,89 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "6.799999999999999"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.1071",
+                "time": "15.5%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.2054",
+                "time": "42.1%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.1786",
+                "time": "68.9%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "depthtest": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "5.0",
+            "min": "5.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.0 0.0 0.0"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "layer": 3,
+        "numparticles": {
+            "value": "5"
+        },
+        "particlesize": {
+            "max": "9.0 3.0",
+            "min": "9.5 8.0"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 -120.0",
+            "min": "0.0 0.0 -140.0"
+        },
+        "rotationSpeedRange": {
+            "max": "0.0 0.0 -5.0",
+            "min": "0.0 0.0 0.0"
+        },
+        "texture": {
+            "name": "textures/sfxs/2025s5/cs_s5NineFox_skin_gx"
+        },
+        "thickness": {
+            "value": "0.4"
+        },
+        "timetolive": {
+            "max": "1.5",
+            "min": "2.0"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

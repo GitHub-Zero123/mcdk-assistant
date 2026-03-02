@@ -1,0 +1,43 @@
+{
+    "format_version": "1.16.0",
+    "minecraft:feature_rules": {
+        "description": {
+            "identifier": "minecraft:sculk_patch_feature",
+            "places_feature": "minecraft:sculk_patch_feature"
+        },
+        "conditions": {
+            "placement_pass": "after_surface_pass",
+            "minecraft:biome_filter": [
+                {
+                    "test": "has_biome_tag",
+                    "operator": "==",
+                    "value": "deep_dark"
+                }
+            ]
+        },
+        "distribution": {
+            "iterations": 256,
+            "x": {
+                "distribution": "uniform",
+                "extent": [
+                    0,
+                    16
+                ]
+            },
+            "y": {
+                "distribution": "uniform",
+                "extent": [
+                    -63,
+                    256
+                ]
+            },
+            "z": {
+                "distribution": "uniform",
+                "extent": [
+                    0,
+                    16
+                ]
+            }
+        }
+    }
+}

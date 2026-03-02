@@ -1,0 +1,105 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.2"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "59.2%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "constantforce": {
+            "value": "-5.0 0.0 0.0"
+        },
+        "dampingforce": {
+            "value": "5.0"
+        },
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Outwards"
+        },
+        "disorder": {
+            "increment": "3.0",
+            "interval": "0.3",
+            "max": "0.0 0.2 0.2",
+            "min": "0.0 -0.20000000000000015 -0.20000000000000015"
+        },
+        "emissionrate": {
+            "max": "3000.0",
+            "min": "3000.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.02 0.02 0.01"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "layer": 2,
+        "numparticles": {
+            "value": "15"
+        },
+        "particlesize": {
+            "max": "0.02 0.02",
+            "min": "0.01 0.01"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "false"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.11 1.11",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.38 1.38",
+                "time": "11.0%"
+            },
+            {
+                "scale": "0.75 0.75",
+                "time": "54.3%"
+            },
+            {
+                "scale": "0.18 0.18",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "0",
+                "name": "textures/sfxs/2025s6/cs_s6Jiaolong_weapon_lzxl",
+                "shuffle": true
+            },
+            "name": "textures/sfxs/2025s6/cs_s6Jiaolong_weapon_lzxl"
+        },
+        "thickness": {
+            "value": "0.19999999999999998"
+        },
+        "timetolive": {
+            "max": "0.7",
+            "min": "0.45"
+        },
+        "velocity": {
+            "max": "10.0",
+            "min": "5.0"
+        }
+    }
+}

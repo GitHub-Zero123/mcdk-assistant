@@ -1,0 +1,127 @@
+{
+    "particleeffect": {
+        "layer": 6,
+        "faceCameraMode": {
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "60.0",
+            "min": "50.0"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "particlesize": {
+            "max": "0.07 0.07",
+            "min": "0.12 0.12"
+        },
+        "activetime": {
+            "value": "2.0"
+        },
+        "numparticles": {
+            "value": "12"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": true,
+                "name": "textures/sfxs/pet_mh_fox/mh_fox_play_happy_xingdian_01",
+                "fps": "5"
+            },
+            "name": "textures/sfxs/pet_mh_fox/mh_fox_play_happy_xingdian_01"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "delay": 0.9,
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "0.00"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "2.00"
+            }
+        ],
+        "independent": false,
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "value": "Direction",
+            "min": "-1.0 -1.0 -1.0"
+        },
+        "dampingforce": {
+            "value": "12.0"
+        },
+        "material": {
+            "name": "materials/particles.materialC:\\MCStudioDownload\\work\\zcy_test_20200603@163.com\\Cpp\\Map\\76fed18bd5954715bd35f59f322cb76c\\resource_packs\\resource_pack_uFerx4WJ\\textures\\sfxs\\sg_zq_star_03.png"
+        },
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.0 0.0 0.0"
+        },
+        "inactivetime": {
+            "value": "0.9"
+        },
+        "emitterscale": [],
+        "rotationSpeedRange": {
+            "max": "0.0 0.0 50.0",
+            "min": "0.0 0.0 30.0"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.00"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.9911",
+                "time": "0.07"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.17"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.35"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.43"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.9821",
+                "time": "0.53"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0714",
+                "time": "0.60"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.72"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.4107",
+                "time": "0.78"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.1429",
+                "time": "0.87"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "1.00"
+            }
+        ],
+        "depthtest": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "velocity": {
+            "max": "6.0",
+            "min": "8.0"
+        }
+    }
+}

@@ -1,0 +1,133 @@
+{
+    "particleeffect": {
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "51.1%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.6607",
+                "time": "83.2%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "constantforce": {
+            "value": "0.0 0.1 0.0"
+        },
+        "dampingforce": {
+            "value": "0.2"
+        },
+        "direction": {
+            "max": "0.2 1.0 0.2",
+            "min": "-0.2 0.7 0.2",
+            "value": "Direction"
+        },
+        "disorder": {
+            "increment": "0.2",
+            "interval": "0.2",
+            "max": "-0.1 -0.1 -0.1",
+            "min": "0.1 0.1 0.1"
+        },
+        "emissionrate": {
+            "max": "18.0",
+            "min": "18.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterpath": [
+            {
+                "offset": "-0.4 0.0 0.0",
+                "rotation": "0.0 0.0 45.0",
+                "time": "0.0"
+            },
+            {
+                "offset": "-0.4 0.0 0.0",
+                "rotation": "0.0 0.0 45.0",
+                "time": "0.02"
+            },
+            {
+                "offset": "0.4 0.0 0.0",
+                "rotation": "0.0 0.0 -45.0",
+                "time": "0.02"
+            },
+            {
+                "offset": "0.4 0.0 0.0",
+                "rotation": "0.0 0.0 -45.0",
+                "time": "0.04"
+            },
+            {
+                "offset": "-0.4 0.0 0.0",
+                "rotation": "0.0 0.0 45.0",
+                "time": "0.04"
+            }
+        ],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.30000000000000004 0.6 0.30000000000000004"
+        },
+        "emittertype": {
+            "value": "Cylinder"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "numparticles": {
+            "value": "18"
+        },
+        "offsetInCamera": {
+            "value": "-0.25"
+        },
+        "particlesize": {
+            "max": "0.04 0.04",
+            "min": "0.02 0.02"
+        },
+        "pointFiltering": true,
+        "prewarm": true,
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.1 1.1",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.6 1.6",
+                "time": "27.7%"
+            },
+            {
+                "scale": "1.23 1.23",
+                "time": "75.7%"
+            },
+            {
+                "scale": "0.63 0.63",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "0",
+                "name": "textures/sfxs/2025s5/ss_s5Swimsuit_skinB_lizi01",
+                "shuffle": true
+            },
+            "name": "textures/sfxs/2025s5/ss_s5Swimsuit_skinB_lizi01"
+        },
+        "thickness": {
+            "value": "0.2"
+        },
+        "timetolive": {
+            "max": "1.4000000000000001",
+            "min": "0.6"
+        },
+        "velocity": {
+            "max": "0.4",
+            "min": "0.2"
+        }
+    }
+}

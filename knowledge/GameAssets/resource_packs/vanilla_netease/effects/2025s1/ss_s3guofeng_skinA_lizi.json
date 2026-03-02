@@ -1,0 +1,78 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.95"
+        },
+        "dampingforce": {
+            "value": "0.2"
+        },
+        "delay": 3.0,
+        "direction": {
+            "max": "0.0 0.0 -1.0",
+            "min": "0.0 0.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "30.0",
+            "min": "30.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.1 0.25 0.2"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "inactivetime": {
+            "value": "3.0"
+        },
+        "numparticles": {
+            "value": "30"
+        },
+        "particlesize": {
+            "max": "0.02 0.02",
+            "min": "0.01 0.01"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.2 0.2",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.56 1.56",
+                "time": "33.7%"
+            },
+            {
+                "scale": "0.42 0.42",
+                "time": "51.0%"
+            },
+            {
+                "scale": "0.87 0.87",
+                "time": "70.0%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s1/ss_s3guofeng_skinA_lizi1"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "1.0",
+            "min": "0.5"
+        },
+        "velocity": {
+            "max": "0.2",
+            "min": "0.0"
+        }
+    }
+}

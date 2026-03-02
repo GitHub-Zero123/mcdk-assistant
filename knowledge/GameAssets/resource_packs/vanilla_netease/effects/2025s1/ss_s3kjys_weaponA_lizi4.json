@@ -1,0 +1,97 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.0000 0.0000 1.0000",
+                "time": "0.00"
+            },
+            {
+                "color": "1.0000 0.7843 0.0000 0.9911",
+                "time": "0.06"
+            },
+            {
+                "color": "1.0000 1.0000 0.0000 0.7321",
+                "time": "0.10"
+            },
+            {
+                "color": "1.0000 1.0000 0.5961 0.0000",
+                "time": "0.20"
+            }
+        ],
+        "dampingforce": {
+            "value": "2.0"
+        },
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Inwards"
+        },
+        "emissionrate": {
+            "max": "10.0",
+            "min": "20.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.6 0.6 0.6"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "enableloop": {
+            "enable": "true"
+        },
+        "faceCameraMode": {
+            "value": "Direction"
+        },
+        "numparticles": {
+            "value": "3"
+        },
+        "particlesize": {
+            "max": "0.01 0.01",
+            "min": "0.05 0.05"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 45.0",
+            "min": "0.0 0.0 45.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "0.00"
+            },
+            {
+                "scale": "0.92 0.92",
+                "time": "0.64"
+            },
+            {
+                "scale": "0.56 0.56",
+                "time": "1.32"
+            },
+            {
+                "scale": "0.3 0.3",
+                "time": "2.00"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s1/ss_s3kjys_weaponA_ctlz"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.2",
+            "min": "0.1"
+        },
+        "velocity": {
+            "max": "4.0",
+            "min": "2.0"
+        }
+    }
+}

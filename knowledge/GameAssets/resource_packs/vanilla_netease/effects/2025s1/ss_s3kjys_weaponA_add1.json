@@ -1,0 +1,69 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.2"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.1490 0.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.2824 0.0000 1.0000",
+                "time": "49.5%"
+            },
+            {
+                "color": "1.0000 0.9804 0.3647 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "numparticles": {
+            "value": "1"
+        },
+        "particlesize": {
+            "max": "0.12 0.12",
+            "min": "0.12 0.12"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.0 0.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.96 0.96",
+                "time": "6.7%"
+            },
+            {
+                "scale": "1.36 1.36",
+                "time": "16.7%"
+            },
+            {
+                "scale": "1.8 1.8",
+                "time": "99.7%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s1/ss_s3kjys_weaponA_sun"
+        },
+        "timetolive": {
+            "max": "0.25",
+            "min": "0.25"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

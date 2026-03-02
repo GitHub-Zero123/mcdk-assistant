@@ -1,0 +1,79 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "value": "Direction",
+            "min": "-0.21000000000000002 0.0 0.0"
+        },
+        "numparticles": {
+            "value": "5"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.0000 0.5176 0.2768",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.0000 0.9843 1.0000",
+                "time": "10.0%"
+            },
+            {
+                "color": "0.0824 0.0000 1.0000 0.2946",
+                "time": "25.8%"
+            },
+            {
+                "color": "0.0000 0.6000 1.0000 1.0000",
+                "time": "39.5%"
+            },
+            {
+                "color": "0.0000 0.9020 1.0000 0.2946",
+                "time": "56.8%"
+            },
+            {
+                "color": "0.0000 1.0000 0.2000 1.0000",
+                "time": "72.4%"
+            },
+            {
+                "color": "0.6000 1.0000 0.0000 0.2679",
+                "time": "88.4%"
+            },
+            {
+                "color": "0.5686 1.0000 0.0000 0.0625",
+                "time": "100.0%"
+            }
+        ],
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.5 0.3 0.5"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "timetolive": {
+            "max": "0.30000000000000004",
+            "min": "0.2"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": true,
+                "name": "textures/sfxs/pet_squid/ss_squid_electron_lizi1",
+                "fps": "16"
+            },
+            "name": "textures/sfxs/pet_squid/ss_squid_electron_lizi1"
+        },
+        "emitterscale": [],
+        "blend": {
+            "name": "add"
+        },
+        "particlesize": {
+            "max": "0.15 0.15",
+            "min": "0.1 0.1"
+        }
+    }
+}

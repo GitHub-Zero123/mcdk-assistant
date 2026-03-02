@@ -1,0 +1,36 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "value": "Direction",
+            "min": "-1.0 -1.0 -1.0"
+        },
+        "faceCameraMode": {
+            "value": "Horizontal"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 0.4353 0.0625",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 0.2400 0.0536",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/pet_rabbit/ss_rabi_guochao_glow"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        },
+        "particlesize": {
+            "max": "0.5 0.6",
+            "min": "0.6 0.6"
+        }
+    }
+}

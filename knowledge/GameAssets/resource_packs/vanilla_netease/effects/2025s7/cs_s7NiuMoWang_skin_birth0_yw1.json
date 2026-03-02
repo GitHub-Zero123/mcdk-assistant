@@ -1,0 +1,95 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.1"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.3929",
+                "time": "36.6%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "constantforce": {
+            "value": "0.01 0.0 0.0"
+        },
+        "dampingforce": {
+            "value": "5.0"
+        },
+        "delay": 2.55,
+        "depthtest": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "3000.0",
+            "min": "3000.0"
+        },
+        "emitterpath": [
+            {
+                "offset": "0.0 0.0 -1.0",
+                "rotation": "0.0 0.0 0.0",
+                "time": "0.0"
+            }
+        ],
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Direction Horizontal"
+        },
+        "layer": 2,
+        "numparticles": {
+            "value": "1"
+        },
+        "particlesize": {
+            "max": "1.5 0.5",
+            "min": "1.5 0.5"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "0.0 60.0 -90.0",
+            "min": "0.0 60.0 -90.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.55 0.55",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.1 1.1",
+                "time": "15.7%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "25",
+                "name": "textures/sfxs/2025s7/cs_s7NiuMoWang_skin_birth0_yw1",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s7/cs_s7NiuMoWang_skin_birth0_yw1"
+        },
+        "timetolive": {
+            "max": "0.5",
+            "min": "0.5"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

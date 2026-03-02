@@ -1,0 +1,41 @@
+{
+    "format_version": "1.16.0",
+    "minecraft:vegetation_patch_feature": {
+        "description": {
+            "identifier": "minecraft:pale_moss_patch_bonemeal_feature"
+        },
+        "replaceable_blocks": [
+            "minecraft:dirt",
+            "minecraft:coarse_dirt",
+            "minecraft:podzol",
+            "minecraft:dirt_with_roots",
+            "minecraft:grass_block",
+            "minecraft:mycelium",
+            "minecraft:stone",
+            "minecraft:granite",
+            "minecraft:polished_granite",
+            "minecraft:diorite",
+            "minecraft:polished_diorite",
+            "minecraft:andesite",
+            "minecraft:polished_andesite",
+            "minecraft:deepslate",
+            "minecraft:tuff",
+            "minecraft:moss_block",
+            "minecraft:pale_moss_block"
+        ],
+        "ground_block": "minecraft:pale_moss_block",
+        "vegetation_feature": "minecraft:pale_moss_vegetation_feature",
+        "surface": "floor",
+        "depth": {
+            "range_min": 1,
+            "range_max": 2
+        },
+        "vertical_range": 5,
+        "vegetation_chance": 0.6,
+        "horizontal_radius": {
+            "range_min": 1,
+            "range_max": 2
+        },
+        "extra_edge_column_chance": 0.75
+    }
+}

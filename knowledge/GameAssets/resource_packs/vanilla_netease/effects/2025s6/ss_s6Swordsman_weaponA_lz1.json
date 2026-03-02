@@ -1,0 +1,61 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.6071",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "23.7%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "60.8%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "dampingforce": {
+            "value": "0.2"
+        },
+        "direction": {
+            "max": "-1.0 -1.0 0.5",
+            "min": "1.0 1.0 0.5",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "6.0",
+            "min": "4.0"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "numparticles": {
+            "value": "6"
+        },
+        "particlesize": {
+            "max": "0.05 0.05",
+            "min": "0.01 0.01"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "name": "textures/sfxs/2025s6/ss_s6Swordsman_weaponA_lz1"
+        },
+        "timetolive": {
+            "max": "1.5",
+            "min": "1.2"
+        },
+        "velocity": {
+            "max": "0.3",
+            "min": "0.1"
+        }
+    }
+}

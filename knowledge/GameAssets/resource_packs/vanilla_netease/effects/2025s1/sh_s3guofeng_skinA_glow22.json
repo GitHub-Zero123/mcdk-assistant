@@ -1,0 +1,96 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.2"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "0.1608 0.6392 0.6745 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.1608 0.6392 0.6745 0.4286",
+                "time": "1.8%"
+            },
+            {
+                "color": "0.2471 0.7098 0.7098 0.4196",
+                "time": "65.8%"
+            },
+            {
+                "color": "0.2471 0.7098 0.7098 0.3929",
+                "time": "70.0%"
+            },
+            {
+                "color": "0.2471 0.7098 0.7098 0.7679",
+                "time": "76.0%"
+            },
+            {
+                "color": "0.1412 0.6000 0.5020 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "delay": 0.03,
+        "depthtest": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "3000.0",
+            "min": "3000.0"
+        },
+        "emitterpath": [
+            {
+                "offset": "-0.19999999999999998 0.0 0.0",
+                "rotation": "0.0 0.0 0.0",
+                "time": "0.0"
+            }
+        ],
+        "layer": 3,
+        "numparticles": {
+            "value": "1"
+        },
+        "particlesize": {
+            "max": "1.5 1.5",
+            "min": "1.5 1.5"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "50.0%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "70.0%"
+            },
+            {
+                "scale": "1.5 1.5",
+                "time": "76.0%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s1/sh_s3guofeng_skinA_glow11"
+        },
+        "timetolive": {
+            "max": "2.2",
+            "min": "2.2"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

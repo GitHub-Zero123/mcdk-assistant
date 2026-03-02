@@ -1,0 +1,81 @@
+{
+    "particleeffect": {
+        "layer": 4,
+        "emissionrate": {
+            "max": "50.0",
+            "min": "50.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "particlesize": {
+            "max": "0.04 0.04",
+            "min": "0.03 0.03"
+        },
+        "activetime": {
+            "value": "0.2"
+        },
+        "numparticles": {
+            "value": "5"
+        },
+        "texture": {
+            "name": "textures/sfxs/pet_mod_robot/yx_dragom_fpB_lz2"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "delay": 0.8,
+        "timetolive": {
+            "max": "0.2",
+            "min": "0.5"
+        },
+        "independent": false,
+        "direction": {
+            "max": "0.0 1.0 0.0",
+            "value": "Direction",
+            "min": "0.0 0.0 0.0"
+        },
+        "dampingforce": {
+            "value": "8.0"
+        },
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.5 0.5 0.5"
+        },
+        "inactivetime": {
+            "value": "0.6"
+        },
+        "emitterscale": [],
+        "colorfade": [
+            {
+                "color": "0.3686 0.8000 1.0000 1.0000",
+                "time": "0.00"
+            },
+            {
+                "color": "0.5451 1.0000 0.9882 1.0000",
+                "time": "0.00"
+            },
+            {
+                "color": "0.4078 0.2588 1.0000 1.0000",
+                "time": "0.20"
+            },
+            {
+                "color": "0.1725 0.2471 0.6863 0.8929",
+                "time": "0.50"
+            }
+        ],
+        "depthtest": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Cone"
+        },
+        "velocity": {
+            "max": "7.0",
+            "min": "10.0"
+        },
+        "blend": {
+            "name": "add"
+        }
+    }
+}

@@ -1,0 +1,126 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+precision highp float;
+
+#include "fragmentVersionCentroidUV.h"
+#include "uniformWorldConstants.h"
+#include "uniformEntityConstants.h"
+
+#include "uniformPerFrameConstants.h"
+#include "uniformShaderConstants.h"
+#include "util.h"
+
+
+LAYOUT_BINDING(0) uniform sampler2D TEXTURE_0; // base map
+LAYOUT_BINDING(1) uniform sampler2D TEXTURE_1; // parallax
+
+const float FROM_255_TO_1 = 1.0 / 255.0;
+
+#define _Bump_offset1 -1.0000//<name:视觉距离1>
+#define _Bump_offset2 0.5000//<name:视觉距离2>
+#define _Bump_offset3 2.0000//<name:视觉距离3>
+#define _Bump_offset4 4.0000//<name:视觉距离4>
+#define _Bump_speed 0.8000//<name:视觉变化率>
+
+#define _Flash_Strength 2.0000//<name:闪烁亮度>
+#define _Flash_UVScale 1.0//<name:闪烁UV缩放>
+#define _Flash_Size 0.1000//<name:闪点大小>
+#define _Flash_Speed 80.0000//<name:闪点速度>
+#define _Flash_Density 0.0100//<name:闪点密度>
+
+varying float ViewDotNormal;
+varying vec3 TangentViewDir;
+
+varying vec2 uv1;
+varying vec4 light;
+varying vec4 fogColor;
+
+vec2 bumpoffset(float Height, float HeightRatioInput, vec2 UVInput, vec3 TangentViewDir){
+	float reference_plane = 0.5;
+	float height_offset = reference_plane + Height * HeightRatioInput;
+	vec2 view_uv = TangentViewDir.rg * height_offset + UVInput; 
+
+	return fract(view_uv);
+}
+
+float rand(vec2 uv){
+	return fract(sin(dot(uv, vec2(0.5161573, 0.4346789)))* 13571.5977913417);
+}
+
+vec2 loop2(vec2 value, vec2 size){
+	return fract(value / size) * size;
+}
+
+vec2 random_unit_vector(vec2 pos){
+	float r = rand(pos * vec2(1.3219547, 0.5133416));
+	r *= 3.1415926535 * 2.0;
+	return vec2(
+		cos(r),
+		sin(r)
+	);
+}
+
+float perlin(vec2 uuv, float BLOCK_SIZE, float BLOCK_NUM){
+	vec2 index = floor(uuv / BLOCK_SIZE);
+	vec2 MAGIC = vec2(BLOCK_NUM, BLOCK_NUM);
+	index = fract(index / BLOCK_NUM) * BLOCK_NUM;
+	uuv = fract(uuv / BLOCK_SIZE);
+
+	vec2 v0 = loop2(index, MAGIC);
+	float val0 = dot(random_unit_vector(v0), uuv);
+	v0 = loop2(index + vec2(0.0, 1.0), MAGIC);
+	float val1 = dot(random_unit_vector(v0), uuv - vec2(0.0, 1.0));
+	float ret = mix(val0, val1, uuv.y);
+
+	v0 = loop2(index + vec2(1.0, 0.0), MAGIC);
+	val0 = dot(random_unit_vector(v0), uuv - vec2(1.0, 0.0));
+	v0 = loop2(index + vec2(1.0, 1.0), MAGIC);
+	val1 = dot(random_unit_vector(v0), uuv - vec2(1.0, 1.0));
+
+	return mix(ret, mix(val0, val1, uuv.y), uuv.x);
+}
+
+float calc_view_star(vec2 UVInput, float UVScale, float star_size, float ViewDotNormal){
+	vec2 StarUV = floor(UVScale * vec2(512.0, 512.0) * UVInput) / _Flash_Size;
+	StarUV = floor(StarUV);
+
+	float noise = (fract(sin(dot(StarUV * 14.35, vec2(12.9898, 78.233) * 2.0)) * 43758.5453)) - 0.5;
+	vec2 noise_move_dir = normalize(vec2(noise, noise));
+	float view_factor = ViewDotNormal * _Flash_Speed;
+	noise_move_dir *= view_factor;
+
+	float out_star = perlin(StarUV + noise_move_dir, 2.0, 256.0);
+	float minn = 0.8 - _Flash_Density * 0.2;
+	float maxx = 0.8;
+	out_star = 1.0 - smoothstep(minn, maxx, out_star * 0.5 + 1.0);
+	return out_star;
+}
+
+void main() {
+	// sample the texture
+	lowp vec4 col = texture2D(TEXTURE_0, uv);
+	col.rgb = col.rgb * light.rgb;
+
+	//calc color1
+	vec2 uv_1 = bumpoffset(_Bump_offset1, _Bump_speed, uv1, TangentViewDir) * 0.5 + vec2(0.5, 0.5);
+	vec2 uv_2 = bumpoffset(_Bump_offset2, _Bump_speed, uv1, TangentViewDir) * 0.5 + vec2(0.0, 0.5);
+	vec2 uv_3 = bumpoffset(_Bump_offset3, _Bump_speed, uv1, TangentViewDir) * 0.5 + vec2(0.5, 0.0);
+	vec2 uv_4 = bumpoffset(_Bump_offset4, _Bump_speed, uv1, TangentViewDir) * 0.5 + vec2(0.0, 0.0);
+	vec4 cd1 = texture2D(TEXTURE_1, uv_1);
+	vec4 cd2 = texture2D(TEXTURE_1, uv_2);
+	vec4 cd3 = texture2D(TEXTURE_1, uv_3);
+	vec4 cd4 = texture2D(TEXTURE_1, uv_4);
+	float view_star = calc_view_star(uv1, _Flash_UVScale, _Flash_Size, ViewDotNormal);
+	float star_color = view_star * _Flash_Strength;
+
+	vec3 out_color = cd1.rgb * (1.0 - cd2.a) + cd2.rgb * cd2.a;
+	out_color += star_color * out_color;
+	out_color = out_color * (1.0 - cd3.a) + cd3.rgb * cd3.a;
+	out_color = out_color * (1.0 - cd4.a) + cd4.rgb * cd4.a;
+
+	col.rgb = col.a * col.rgb + out_color * (1.0 - col.a);
+	// apply fog
+	col.rgb = mix(col.rgb, fogColor.rgb, fogColor.a);
+
+	gl_FragColor = vec4(col.rgb, 1.0);
+}

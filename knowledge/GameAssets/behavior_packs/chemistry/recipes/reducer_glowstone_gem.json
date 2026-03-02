@@ -1,0 +1,32 @@
+{
+    "format_version": "1.14",
+    "minecraft:recipe_material_reduction": {
+        "description": {
+            "identifier": "minecraft:glowstone_dust"
+        },
+        "input": "minecraft:glowstone_dust",
+        "output": [
+            {
+                "count": 20,
+                "item": "minecraft:element_18"
+            },
+            {
+                "count": 20,
+                "item": "minecraft:element_5"
+            },
+            {
+                "count": 20,
+                "item": "minecraft:element_36"
+            },
+            {
+                "count": 20,
+                "item": "minecraft:element_10"
+            },
+            {
+                "count": 20,
+                "item": "minecraft:element_0"
+            }
+        ],
+        "tags": "material_reducer"
+    }
+}

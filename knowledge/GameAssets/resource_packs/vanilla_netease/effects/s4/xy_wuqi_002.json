@@ -1,0 +1,100 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.0"
+        },
+        "animlodbias": {
+            "value": "0.0"
+        },
+        "blend": {
+            "name": "blend"
+        },
+        "colorfade": [
+            {
+                "color": "1.0 0.360784 0.831373 1.0",
+                "time": "0.0"
+            }
+        ],
+        "constantforce": {
+            "value": "0.0 0.0 0.0"
+        },
+        "dampingforce": {
+            "value": "0.0"
+        },
+        "direction": {
+            "max": "0.0 1.0 0.0",
+            "min": "0.0 0.0 0.0"
+        },
+        "emissionrate": {
+            "max": "10.0",
+            "min": "5.0"
+        },
+        "emittersize": {
+            "value": "0.3 0.8 0.3"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "enablecolor": {
+            "enable": "true"
+        },
+        "enableloop": {
+            "enable": "true"
+        },
+        "faceCameraMode": {
+            "value": "Rotate XYZ"
+        },
+        "fixedscreensize": {
+            "enable": "false"
+        },
+        "inactivetime": {
+            "value": "0.0"
+        },
+        "material": {
+            "name": "materials/particles.material"
+        },
+        "numparticles": {
+            "value": "10"
+        },
+        "particlesize": {
+            "max": "0.06 0.06",
+            "min": "0.04 0.04"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "rotation": {
+            "max": "0.0",
+            "min": "0.0"
+        },
+        "rotationspeed": {
+            "max": "0.0",
+            "min": "0.0"
+        },
+        "scaled": {
+            "enable": "true"
+        },
+        "sizedelta": {
+            "add": "0.9",
+            "mul": "0.0"
+        },
+        "sorted": {
+            "enable": "false"
+        },
+        "texture": {
+            "ani": {
+                "fps": "5.0",
+                "name": "textures/particle/s4/xy_wuqi_001"
+            },
+            "name": "textures/particle/s4/xy_wuqi_001"
+        },
+        "timetolive": {
+            "max": "0.9",
+            "min": "0.7"
+        },
+        "velocity": {
+            "max": "0.8",
+            "min": "0.4"
+        }
+    }
+}

@@ -1,0 +1,104 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "29.5%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "dampingforce": {
+            "value": "-5.0"
+        },
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Inwards"
+        },
+        "emissionrate": {
+            "max": "20.0",
+            "min": "20.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "2.0 2.0 2.0"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Direction"
+        },
+        "numparticles": {
+            "value": "20"
+        },
+        "particlesize": {
+            "max": "0.25 0.25",
+            "min": "0.18 0.18"
+        },
+        "pointFiltering": true,
+        "prewarm": true,
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 0.0 0.0"
+        },
+        "rotationSpeedRange": {
+            "max": "0.0 0.0 300.0",
+            "min": "0.0 0.0 -300.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.35 1.35",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.93 0.93",
+                "time": "15.7%"
+            },
+            {
+                "scale": "0.36 0.36",
+                "time": "53.7%"
+            },
+            {
+                "scale": "0.24 0.24",
+                "time": "99.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "0",
+                "name": "textures/sfxs/2025s6/cs_s6Jiaolong_weapon_sp",
+                "shuffle": true
+            },
+            "name": "textures/sfxs/2025s6/cs_s6Jiaolong_weapon_sp"
+        },
+        "thickness": {
+            "value": "0.19999999999999998"
+        },
+        "timetolive": {
+            "max": "0.4",
+            "min": "0.25"
+        },
+        "velocity": {
+            "max": "1.0",
+            "min": "0.5"
+        }
+    }
+}

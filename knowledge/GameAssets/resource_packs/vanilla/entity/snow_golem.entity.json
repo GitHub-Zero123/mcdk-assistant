@@ -1,0 +1,35 @@
+{
+    "format_version": "1.8.0",
+    "minecraft:client_entity": {
+        "description": {
+            "identifier": "minecraft:snow_golem",
+            "materials": {
+                "default": "snow_golem",
+                "head": "snow_golem_pumpkin"
+            },
+            "geometry": {
+                "default": "geometry.snowgolem.v1.8"
+            },
+            "textures": {
+                "default": "textures/entity/snow_golem"
+            },
+            "animations": {
+                "move": "animation.snowgolem.move.v1.8",
+                "look_at_target": "animation.common.look_at_target"
+            },
+            "render_controllers": [
+                "controller.render.snowgolem"
+            ],
+            "spawn_egg": {
+                "base_color": "#d9f2f2",
+                "overlay_color": "#81a4a4"
+            },
+            "min_engine_version": "1.8.0",
+            "animation_controllers": [
+                {
+                    "move": "controller.animation.snowgolem.move.v1.8"
+                }
+            ]
+        }
+    }
+}

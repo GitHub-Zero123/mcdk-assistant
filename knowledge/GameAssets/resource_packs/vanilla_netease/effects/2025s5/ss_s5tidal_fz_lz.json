@@ -1,0 +1,67 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "0.0235 0.9529 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.0118 0.6039 1.0000 1.0000",
+                "time": "20.8%"
+            },
+            {
+                "color": "0.5882 0.0824 1.0000 0.9911",
+                "time": "65.3%"
+            },
+            {
+                "color": "0.7882 0.2863 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 1.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "3.0",
+            "min": "5.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "1.0 0.3 1.0"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "numparticles": {
+            "value": "5"
+        },
+        "particlesize": {
+            "max": "0.05 0.05",
+            "min": "0.03 0.03"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "ani": {
+                "fps": "16",
+                "name": "",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s5/ss_s5tidal_fz__01"
+        },
+        "thickness": {
+            "value": "0.0"
+        }
+    }
+}

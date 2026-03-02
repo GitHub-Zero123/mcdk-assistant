@@ -1,0 +1,55 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "value": "Direction",
+            "min": "-1.0 -1.0 -1.0"
+        },
+        "numparticles": {
+            "value": "5"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.7412 0.9412 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.6078 0.6941 1.0000",
+                "time": "58.7%"
+            },
+            {
+                "color": "1.0000 0.6667 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "emissionrate": {
+            "max": "3.0",
+            "min": "5.0"
+        },
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.6 0.5 0.6"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "texture": {
+            "name": "textures/sfxs/pet_mh_fox/xy_mhfox_sleep_fllz"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.1",
+            "min": "0.1"
+        },
+        "particlesize": {
+            "max": "0.06 0.06",
+            "min": "0.03 0.03"
+        }
+    }
+}

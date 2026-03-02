@@ -1,0 +1,23 @@
+[
+    {
+        "enable": false,
+        //enable为true时，下面的值运行时会判断使用哪一个并通过uniform vec4传入到Shader中名为USER_FOR_COLOR_NEAR和USER_FOR_COLOR_FAR的变量中，255会转化浮点数1.0
+        //enable为false时USER_FOR_COLOR_NEAR和USER_FOR_COLOR_FAR为vec4(1.0, 1.0, 1.0, 1.0)
+        //水上 白天 近处
+        "aboveWaterDayNearColor": [255, 255, 255, 255],
+        //水上 白天 远处
+        "aboveWaterDayFarColor": [255, 255, 255, 255],
+        //水底 白天 近处
+        "underWaterDayNearColor": [255, 255, 255, 255],
+        //水底 白天 远处
+        "underWaterDayFarColor": [255, 255, 255, 255],
+        //水上 黑夜 近处
+        "aboveWaterNightNearColor": [255, 255, 255, 255],
+        //水上 黑夜 远处
+        "aboveWaterNightFarColor": [255, 255, 255, 255],
+        //水底 黑夜 近处
+        "underWaterNightNearColor": [255, 255, 255, 255],
+        //水底 黑夜 远处
+        "underWaterNightFarColor": [255, 255, 255, 255]
+    }
+]

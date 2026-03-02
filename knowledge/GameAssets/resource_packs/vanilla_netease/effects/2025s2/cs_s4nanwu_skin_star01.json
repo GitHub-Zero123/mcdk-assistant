@@ -1,0 +1,131 @@
+{
+    "particleeffect": {
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "50.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "constantforce": {
+            "value": "0.0 0.0 -0.7999999999999999"
+        },
+        "dampingforce": {
+            "value": "0.20000000000000004"
+        },
+        "direction": {
+            "max": "0.4 -1.0 -0.6",
+            "min": "-0.4 -1.0 0.1",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "50.0",
+            "min": "50.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterpath": [
+            {
+                "offset": "0.0 -0.7 0.0",
+                "rotation": "0.0 0.0 0.0",
+                "time": "0.0"
+            },
+            {
+                "offset": "0.0 -0.7 0.0",
+                "rotation": "0.0 0.0 0.0",
+                "time": "0.3"
+            },
+            {
+                "offset": "0.0 0.7 0.0",
+                "rotation": "-180.0 180.0 0.0",
+                "time": "0.31"
+            },
+            {
+                "offset": "0.0 0.7 0.0",
+                "rotation": "-180.0 180.0 0.0",
+                "time": "0.61"
+            },
+            {
+                "offset": "0.0 -0.7 0.0",
+                "rotation": "0.0 0.0 0.0",
+                "time": "0.62"
+            }
+        ],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.4 1.0 1.0"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "enableloop": {
+            "enable": "true"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "layer": 6,
+        "numparticles": {
+            "value": "50"
+        },
+        "particlesize": {
+            "max": "0.05 0.05",
+            "min": "0.01 0.01"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 666.0",
+            "min": "0.0 0.0 -666.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.0 0.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.5 1.5",
+                "time": "18.3%"
+            },
+            {
+                "scale": "0.1 0.1",
+                "time": "46.0%"
+            },
+            {
+                "scale": "0.9 0.9",
+                "time": "76.3%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "8",
+                "name": "textures/sfxs/2025s2/cs_s4nanwu_skin_star02",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s2/cs_s4nanwu_skin_star02"
+        },
+        "thickness": {
+            "value": "0.15"
+        },
+        "timetolive": {
+            "max": "0.8",
+            "min": "0.25"
+        },
+        "velocity": {
+            "max": "0.4",
+            "min": "0.1"
+        }
+    }
+}

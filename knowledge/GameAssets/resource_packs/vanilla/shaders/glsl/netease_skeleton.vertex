@@ -1,0 +1,25 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+
+#include "vertexVersionCentroidUV.h"
+#include "uniformAnimationConstants.h"
+#include "uniformWorldConstants.h"
+#include "uniformEntityConstants.h"
+#include "uniformPerFrameConstants.h"
+
+attribute mediump vec4 POSITION;
+attribute float BONEID_0;
+attribute vec4 COLOR;
+
+varying vec4 vertColor;
+
+void main()
+{
+    MAT4 boneMat = GetBoneMatForNetease(int(BONEID_0));
+
+    POS4 pos = WORLDVIEWPROJ * boneMat * POSITION;
+
+    vertColor = COLOR;
+
+    gl_Position = pos;
+}

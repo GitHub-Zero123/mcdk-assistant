@@ -1,0 +1,66 @@
+{
+    "particleeffect": {
+        "independent": false,
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "value": "Direction",
+            "min": "0.0 0.0 0.0"
+        },
+        "numparticles": {
+            "value": "1"
+        },
+        "colorfade": [
+            {
+                "color": "0.5804 0.9255 1.0000 0.0000",
+                "time": "0.00"
+            },
+            {
+                "color": "0.4314 0.6784 1.0000 0.3661",
+                "time": "0.20"
+            },
+            {
+                "color": "0.3451 0.2863 1.0000 0.4286",
+                "time": "0.34"
+            },
+            {
+                "color": "0.5373 0.3216 1.0000 0.2589",
+                "time": "0.70"
+            },
+            {
+                "color": "0.4941 0.1255 0.7961 0.0000",
+                "time": "1.00"
+            }
+        ],
+        "emissionrate": {
+            "max": "40.0",
+            "min": "50.0"
+        },
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.0 0.0 0.0"
+        },
+        "texture": {
+            "name": "textures/sfxs/pet_dragon/ss_dragon_libao_glow"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "depthtest": {
+            "enable": "true"
+        },
+        "emitterscale": [],
+        "blend": {
+            "name": "add"
+        },
+        "particlesize": {
+            "max": "0.4 0.2",
+            "min": "0.3 0.15"
+        }
+    }
+}

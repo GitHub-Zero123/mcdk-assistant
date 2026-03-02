@@ -1,0 +1,198 @@
+{
+    "main": {
+        "absorbs_input": true,
+        "always_accepts_input": false,
+        "controls": [
+            {
+                "verticalStack@water_mark_screen.horizontalStack": {
+                    "orientation": "vertical",
+                    "anchor_from": "center",
+                    "anchor_to": "center",
+                    "size": [
+                        "100.0%+0.0px",
+                        "100.0%+0.0px"
+                    ],
+                    "controls": [
+                        {
+                            "hstack1@water_mark_screen.horizontalStack": {}
+                        },
+                        {
+                            "hstack2@water_mark_screen.horizontalStack": {}
+                        },
+                        {
+                            "hstack3@water_mark_screen.horizontalStack": {}
+                        }
+                    ]
+                }
+            }
+        ],
+        "force_render_below": false,
+        "is_showing_menu": false,
+        "render_game_behind": true,
+        "render_only_when_topmost": true,
+        "should_steal_mouse": false,
+        "type": "screen"
+    },
+    "textLabel": {
+        "alpha": 0.05,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "color": [
+            1,
+            1,
+            1
+        ],
+        "enabled": true,
+        "font_scale_factor": 1.0,
+        "font_size": "normal",
+        "font_type": "smooth",
+        "layer": 4,
+        "line_padding": 0.0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "shadow": false,
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "text": "helloworld",
+        "text_alignment": "center",
+        "type": "label",
+        "visible": true
+    },
+    "textPanel": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "text@water_mark_screen.textLabel": {}
+            }
+        ],
+        "enabled": true,
+        "layer": 3,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "default",
+            "40%+0.0px"
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "regionPanel": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "textPanel@water_mark_screen.textPanel": {}
+            }
+        ],
+        "enabled": true,
+        "layer": 2,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "33.0%+0.0px",
+            "default"
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "horizontalStack": {
+        "alpha": 1.0,
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "enabled": true,
+        "layer": 1,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "orientation": "horizontal",
+        "propagate_alpha": false,
+        "size": [
+            "100.0%+0.0px",
+            "33.0%+0.0px"
+        ],
+        "type": "stack_panel",
+        "visible": true,
+        "controls": [
+            {
+                "regionPanel1@water_mark_screen.regionPanel": {}
+            },
+            {
+                "regionPanel2@water_mark_screen.regionPanel": {}
+            },
+            {
+                "regionPanel3@water_mark_screen.regionPanel": {}
+            }
+        ]
+    },
+    "namespace": "water_mark_screen"
+}

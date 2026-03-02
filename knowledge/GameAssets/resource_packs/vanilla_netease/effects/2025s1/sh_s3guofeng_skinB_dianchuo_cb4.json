@@ -1,0 +1,66 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.1"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.4107",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.4107",
+                "time": "100.0%"
+            }
+        ],
+        "dampingforce": {
+            "value": "0.0"
+        },
+        "delay": 2.48,
+        "direction": {
+            "max": "1.0 0.0 0.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "100.0",
+            "min": "100.0"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Direction Horizontal"
+        },
+        "numparticles": {
+            "value": "1"
+        },
+        "particlesize": {
+            "max": "5.5 5.5",
+            "min": "5.5 5.5"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "0.0 -90.0 90.0",
+            "min": "0.0 -90.0 90.0"
+        },
+        "texture": {
+            "ani": {
+                "fps": "15",
+                "name": "textures/sfxs/2025s1/sh_s3guofeng_skinB_birth_cb11",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s1/sh_s3guofeng_skinB_birth_cb11"
+        },
+        "timetolive": {
+            "max": "1.5",
+            "min": "1.5"
+        },
+        "velocity": {
+            "max": "0.1",
+            "min": "0.1"
+        }
+    }
+}

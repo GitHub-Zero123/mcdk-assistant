@@ -1,0 +1,60 @@
+{
+    "particleeffect": {
+        "colorfade": [
+            {
+                "color": "0.7882 0.7882 0.7882 0.3214",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.7882 0.7882 0.7882 0.1875",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Outwards"
+        },
+        "emissionrate": {
+            "max": "12.0",
+            "min": "12.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "1.2 1.2 0.0"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "numparticles": {
+            "value": "12"
+        },
+        "particlesize": {
+            "max": "0.4 0.4",
+            "min": "0.5 0.5"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 0.0 180.0"
+        },
+        "texture": {
+            "ani": {
+                "fps": "15",
+                "name": "textures/sfxs/2025s5/cs_s5Feng_horse_ywlz",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s5/cs_s5Feng_horse_ywlz"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "velocity": {
+            "max": "0.5",
+            "min": "0.2"
+        }
+    }
+}

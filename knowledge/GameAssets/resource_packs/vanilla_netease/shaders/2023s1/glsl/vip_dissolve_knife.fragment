@@ -1,0 +1,72 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+precision highp float;
+
+#include "fragmentVersionCentroidUV.h"
+#include "uniformWorldConstants.h"
+#include "uniformEntityConstants.h"
+#include "uniformExtraVectorConstants.h"
+
+#include "uniformPerFrameConstants.h"
+#include "uniformShaderConstants.h"
+#include "util.h"
+
+LAYOUT_BINDING(0) uniform sampler2D TEXTURE_0; // base map
+LAYOUT_BINDING(1) uniform sampler2D TEXTURE_1; // mix color
+LAYOUT_BINDING(2) uniform sampler2D TEXTURE_2; // diamond
+
+const float FROM_255_TO_1 = 1.0 / 255.0;
+
+#define _Dissolve_Speed 0.8000//<name:溶解速度>
+#define _Dissolve_Highlight_Width 0.2000//<name:溶解亮边宽度>
+#define _Highlight_Intentsity 1.0000//<name:溶解亮边强度>
+#define _Diamond_Move_Speed 0.0000//<name:钻石纹理波动速度>
+
+#define _Diamond_UV_Scale vec2(1.0, 1.0)//<name:钻石纹理缩放>
+#define _Diamond_Tint vec3(255.0,255.0,255.0)//<name:钻石颜色>
+#define _Highlight_Color vec3(220.0,100.0,240.0)//<name:溶解高光颜色>
+
+const vec3 _diamond_tint = _Diamond_Tint * FROM_255_TO_1;
+const vec3 _hightlight_color = _Highlight_Color * FROM_255_TO_1;
+
+varying vec4 light;
+varying vec4 fogColor;
+
+varying float poszOS;
+varying vec3 positionWS;
+varying vec3 normalWS;
+
+void main() {
+	lowp vec4 col;
+	vec4 mix_map = texture2D(TEXTURE_1, uv);
+
+	float local_dissolve = poszOS + sin(mod(TIME - EXTRA_VECTOR1.a, 210.0) * _Dissolve_Speed) * 3.0 - 1.5 + mix_map.g; // _Dissolve_Speed + mix_map.g;
+	// calc opacity
+	float opacity = step(local_dissolve, mix_map.r);
+
+	//calc hightlight color
+	float hightlight_range = mix_map.r - _Dissolve_Highlight_Width;
+	float hightlight = step(hightlight_range, local_dissolve);
+	vec3 hightlight_color = hightlight * _hightlight_color * _Highlight_Intentsity * (1.0 - mix_map.b);
+
+	//sample diamond tex
+	vec3 worldViewDir = normalize(VIEW_POS.xyz - positionWS);
+	vec3 worldRefVector = reflect(-worldViewDir, normalWS);
+	vec2 reflectUV = uv.xy + worldRefVector.xy + TIME * _Diamond_Move_Speed * vec2(0.0, 1.0);
+
+	vec3 diamond_color = texture2D(TEXTURE_2, reflectUV * _Diamond_UV_Scale).rgb * _diamond_tint;
+	vec4 base_color = texture2D(TEXTURE_0, uv);
+
+	col.rgb = base_color.rgb + diamond_color * base_color.a + hightlight_color * EXTRA_VECTOR1.r;
+	col.a = 1.0;
+	opacity += mix_map.b;
+
+	if (EXTRA_VECTOR1.r > 0.5 && opacity <= 0.0){
+		discard;
+	}
+	
+	// apply fog
+	col.rgb = mix(col.rgb, fogColor.rgb, fogColor.a);
+
+	gl_FragColor = col;
+}

@@ -1,0 +1,89 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "0.0 -1.0 0.0",
+            "value": "Direction",
+            "min": "0.0 -1.0 0.0"
+        },
+        "faceCameraMode": {
+            "value": "Rotate Y"
+        },
+        "pointFiltering": true,
+        "enabletexture": {
+            "enable": true
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.2500",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.7946",
+                "time": "8.9%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "17.1%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "90.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.3571",
+                "time": "100.0%"
+            }
+        ],
+        "emissionrate": {
+            "max": "1.0",
+            "min": "2.0"
+        },
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.6 0.0 0.6"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "timetolive": {
+            "max": "3.0",
+            "min": "2.0"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": false,
+                "name": "textures/sfxs/pet_mh_fox/ss_spirit_s1bp_lizi_05",
+                "fps": "0"
+            },
+            "name": "textures/sfxs/pet_mh_fox/ss_spirit_s1bp_lizi_05"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.2",
+            "min": "0.2"
+        },
+        "particlesize": {
+            "max": "0.04 0.04",
+            "min": "0.04 0.04"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            }
+        ],
+        "numparticles": {
+            "value": "4"
+        }
+    }
+}

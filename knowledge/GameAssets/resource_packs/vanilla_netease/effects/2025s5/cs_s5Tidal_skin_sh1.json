@@ -1,0 +1,78 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.1429",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "13.4%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "77.4%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0357",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "4.0",
+            "min": "4.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "2.0 0.15 0.8"
+        },
+        "emittertype": {
+            "value": "Cone"
+        },
+        "enableloop": {
+            "enable": "true"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "layer": 0,
+        "numparticles": {
+            "value": "4"
+        },
+        "offsetInCamera": {
+            "value": "-0.3"
+        },
+        "particlesize": {
+            "max": "1.0 1.0",
+            "min": "0.6 0.6"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "ani": {
+                "fps": "16",
+                "name": "textures/sfxs/2025s5/cs_s5Tidal_skin_sh1",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s5/cs_s5Tidal_skin_sh1"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

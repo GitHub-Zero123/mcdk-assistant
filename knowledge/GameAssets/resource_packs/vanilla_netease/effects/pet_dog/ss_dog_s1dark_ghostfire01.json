@@ -1,0 +1,69 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "0.0 -0.5 1.0",
+            "value": "Direction",
+            "min": "0.0 -0.5 1.0"
+        },
+        "dampingforce": {
+            "value": "0.5"
+        },
+        "numparticles": {
+            "value": "4"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "colorfade": [
+            {
+                "color": "0.4471 0.9294 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.3333 1.0000 1.0000 1.0000",
+                "time": "50.5%"
+            },
+            {
+                "color": "0.4471 0.9294 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "emissionrate": {
+            "max": "5.0",
+            "min": "5.0"
+        },
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.6 0.7 0.6"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "timetolive": {
+            "max": "1.2",
+            "min": "1.0"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": false,
+                "name": "textures/sfxs/pet_dog/ss_s1dark_fp_huo",
+                "fps": "8"
+            },
+            "name": "textures/sfxs/pet_dog/ss_s1dark_fp_huo"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.1",
+            "min": "0.1"
+        },
+        "blend": {
+            "name": "add"
+        }
+    }
+}

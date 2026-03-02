@@ -1,0 +1,100 @@
+{
+    "particleeffect": {
+        "delay": 1.5,
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "value": "Direction",
+            "min": "0.0 0.5 0.0"
+        },
+        "activetime": {
+            "value": "0.5"
+        },
+        "pointFiltering": true,
+        "colorfade": [
+            {
+                "color": "0.6275 1.0000 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.0000 1.0000 0.2000 1.0000",
+                "time": "18.4%"
+            },
+            {
+                "color": "0.9176 1.0000 0.0000 1.0000",
+                "time": "48.7%"
+            },
+            {
+                "color": "0.0000 0.2667 1.0000 1.0000",
+                "time": "76.8%"
+            },
+            {
+                "color": "0.5333 0.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "emissionrate": {
+            "max": "15.0",
+            "min": "8.0"
+        },
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.65 0.7 0.65"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "dampingforce": {
+            "value": "0.5"
+        },
+        "inactivetime": {
+            "value": "1.6"
+        },
+        "texture": {
+            "name": "textures/sfxs/pet_tiger/Ip_tiger_doraemon_sizi_01"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.1",
+            "min": "0.2"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.42 0.42",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "20.0%"
+            },
+            {
+                "scale": "0.24 0.24",
+                "time": "49.7%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "80.0%"
+            },
+            {
+                "scale": "0.4 0.4",
+                "time": "99.3%"
+            }
+        ],
+        "blend": {
+            "name": "add"
+        },
+        "particlesize": {
+            "max": "0.05 0.05",
+            "min": "0.1 0.1"
+        },
+        "timetolive": {
+            "max": "0.8",
+            "min": "0.5"
+        }
+    }
+}

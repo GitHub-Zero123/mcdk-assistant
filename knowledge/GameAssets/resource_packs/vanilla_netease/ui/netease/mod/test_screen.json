@@ -1,0 +1,161 @@
+{
+   "button@common.button" : {
+      "$default_color" : [ 1, 1, 1 ],
+      "$default_texture" : "textures/netease/common/button/btn05",
+      "$hover_texture" : "textures/netease/common/button/btn05",
+      "$labelText" : "Yeah",
+      "$label_font_size" : "large",
+      "$nine_slice_buttom" : 0,
+      "$nine_slice_left" : 0,
+      "$nine_slice_right" : 0,
+      "$nine_slice_top" : 0,
+      "$pressed_button_name" : "%test_screen.clock",
+      "$text_offset" : [ 0, 0 ],
+      "anchor_from" : "center",
+      "anchor_to" : "center",
+      "controls" : [
+         {
+            "default" : {
+               "is_new_nine_slice" : true,
+               "layer" : 2,
+               "nine_slice_buttom" : "$nine_slice_buttom",
+               "nine_slice_left" : "$nine_slice_left",
+               "nine_slice_right" : "$nine_slice_right",
+               "nine_slice_top" : "$nine_slice_top",
+               "texture" : "$default_texture",
+               "type" : "image"
+            }
+         },
+         {
+            "hover" : {
+               "is_new_nine_slice" : true,
+               "layer" : 2,
+               "nine_slice_buttom" : "$nine_slice_buttom",
+               "nine_slice_left" : "$nine_slice_left",
+               "nine_slice_right" : "$nine_slice_right",
+               "nine_slice_top" : "$nine_slice_top",
+               "texture" : "$hover_texture",
+               "type" : "image"
+            }
+         },
+         {
+            "pressed" : {
+               "is_new_nine_slice" : true,
+               "layer" : 2,
+               "nine_slice_buttom" : "$nine_slice_buttom",
+               "nine_slice_left" : "$nine_slice_left",
+               "nine_slice_right" : "$nine_slice_right",
+               "nine_slice_top" : "$nine_slice_top",
+               "texture" : "$hover_texture",
+               "type" : "image"
+            }
+         },
+         {
+            "button_label" : {
+               "color" : "$default_color",
+               "font_size" : "$label_font_size",
+               "layer" : 3,
+               "max_size" : [ "100%", "100%" ],
+               "offset" : "$text_offset",
+               "shadow" : false,
+               "text" : "$labelText",
+               "type" : "label"
+            }
+         }
+      ],
+      "layer" : 1,
+      "offset" : [ "20%+0px", "20%+0px" ],
+      "size" : [ "20%+0px", "20%+0px" ],
+      "visible" : true
+   },
+
+   "test_label" : {
+      "anchor_from" : "top_left",
+      "anchor_to" : "top_left",
+      "auto_expand" : false,
+      "color" : [ 1, 1, 0, 0.8],
+      "font_size" : "large",
+      "layer" : 5,
+      "offset" : [ "0%+0px", "0%+0px" ],
+      "shadow" : false,
+      "size" : [ "83.80282%+0px", "100%+0px" ],
+      "text" : "123123123123123123",
+      "text_alignment" : "center",
+      "type" : "label",
+      "visible" : true
+   },
+
+  "search_panel": {
+   "type": "panel",
+   "anchor_from" : "top_left",
+   "anchor_to" : "top_left",
+   "offset" : [ "7.21832%+0px", "50%+0px" ],
+   "size" : [ "83.80282%+0px", "10.31250%+0px" ],
+    // dont want text to overlap the clear button
+    "$text_edit_clipping_panel_size": [ "100% - 23px", "100%" ],
+    "$text_edit_box_label_anchor_point": "left_middle",
+    "controls": [
+      {
+        "search_text_box@common.text_edit_box": {
+          "max_length": 100,
+          "$text_box_name": "%test_screen.TextBox",
+          "$text_edit_box_enabled_binding_type": "none",
+          "$text_edit_box_content_binding_name": "#test_screen.ReturnTextString",
+          "$place_holder_text": "#test_screen.ReturnHolderContent",
+          "$text_edit_box_placeholder_content_binding_name": "#test_screen.ReturnHolderContent",
+          "$enabled": true
+        }
+      },
+      {
+        "clear_button@common.close_button": {
+          "anchor_from": "right_middle",
+          "anchor_to": "right_middle",
+          "visible": true,
+          "layer": 2,
+          "focus_enabled": true,
+          "$close_button_offset": [ -2, 0 ],
+          "button_mappings": [
+            {
+              "from_button_id": "button.menu_select",
+              "to_button_id": "%test_screen.ClearButtonClick",
+              "mapping_type": "pressed"
+            },
+            {
+              "from_button_id": "button.menu_ok",
+              "to_button_id": "%test_screen.ClearButtonClick",
+              "mapping_type": "focused"
+            }
+          ]
+        }
+      },
+      {
+         "test_label@test_screen.test_label" : {}
+      }
+    ]
+  },
+
+  "option_toggle@common_toggles.switch_toggle_collection": {
+    "type": "panel",
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "size": [ 100, 100 ],
+    "offset": [ 0, 0 ],
+    "layer": 1,
+    "visible": true,
+    "$toggle_name": "#test_screen.option_toggle",
+    "$toggle_state_binding_name": "#test_screen.option_toggle_state"
+  },
+
+   "main@common.base_screen" : {
+      "controls" : [
+         {
+            "button@test_screen.button" : {}
+         },
+         {
+            "search_panel@test_screen.search_panel" : {}
+         }
+      ]
+   },
+   
+   "namespace" : "test_screen"
+}

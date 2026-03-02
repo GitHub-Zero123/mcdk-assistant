@@ -1,0 +1,10 @@
+{
+    "format_version": "1.16.0",
+    "minecraft:surface_relative_threshold_feature": {
+        "description": {
+            "identifier": "minecraft:underwater_magma_underground_feature"
+        },
+        "feature_to_place": "minecraft:underwater_magma_snap_to_surface_feature",
+        "minimum_distance_below_surface": 2
+    }
+}

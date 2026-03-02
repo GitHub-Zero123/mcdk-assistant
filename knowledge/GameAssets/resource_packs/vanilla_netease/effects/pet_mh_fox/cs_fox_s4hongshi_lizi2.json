@@ -1,0 +1,62 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "direction": {
+            "max": "1.0 0.0 1.0",
+            "min": "-1.0 0.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "8.0",
+            "min": "15.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.8 0.5 1.0"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "numparticles": {
+            "value": "15"
+        },
+        "particlesize": {
+            "max": "0.06 0.06",
+            "min": "0.05 0.05"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.0 0.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.4 1.4",
+                "time": "54.0%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/pet_mh_fox/cs_fox_s4hongshi_lz"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.8",
+            "min": "0.5"
+        },
+        "velocity": {
+            "max": "0.2",
+            "min": "0.3"
+        }
+    }
+}

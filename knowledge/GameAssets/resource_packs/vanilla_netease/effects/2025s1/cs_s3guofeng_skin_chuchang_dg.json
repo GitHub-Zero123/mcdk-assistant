@@ -1,0 +1,87 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.5"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "11.3%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "70.5%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "delay": 2.8,
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 -0.1 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "20.0",
+            "min": "20.0"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Direction Horizontal"
+        },
+        "layer": 4,
+        "numparticles": {
+            "value": "1"
+        },
+        "particlesize": {
+            "max": "2.5 2.5",
+            "min": "2.5 2.5"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "-30.0 10.0 -90.0",
+            "min": "-30.0 10.0 -90.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.9 0.9",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.48 1.48",
+                "time": "44.0%"
+            },
+            {
+                "scale": "1.88 1.88",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "20",
+                "name": "textures/sfxs/2025s1/cs_s3guofeng_skin_chuchang_dg",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s1/cs_s3guofeng_skin_chuchang_dg"
+        },
+        "timetolive": {
+            "max": "5.8999999999999995",
+            "min": "5.8999999999999995"
+        },
+        "velocity": {
+            "max": "0.1",
+            "min": "0.0"
+        }
+    }
+}

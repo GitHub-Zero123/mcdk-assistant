@@ -1,0 +1,81 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "direction": {
+            "max": "0.0 1.0 0.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.0 0.0 0.0"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "particlesize": {
+            "max": "0.01 0.01",
+            "min": "0.01 0.01"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 90.0",
+            "min": "0.0 0.0 90.0"
+        },
+        "texture": {
+            "name": "textures/sfxs/2025s1/ss_s3guofeng_horseB_tuowei01"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.5",
+            "min": "0.8"
+        },
+        "trail": {
+            "colorfade": [
+                {
+                    "color": "0.10980392156862745 0.07058823529411765 0.6470588235294118 0.3303571428571429",
+                    "time": "0.000%"
+                },
+                {
+                    "color": "0.043137254901960784 0.08235294117647059 0.6196078431372549 0.4732142857142857",
+                    "time": "22.368%"
+                },
+                {
+                    "color": "0.2196078431372549 0.4 1.0 0.1875",
+                    "time": "43.421%"
+                },
+                {
+                    "color": "0.21176470588235294 0.1843137254901961 1.0 0.0",
+                    "time": "100.000%"
+                }
+            ],
+            "facemode": 0,
+            "lifetime": 0.2,
+            "maxnum": 300,
+            "mindistance": 0.01,
+            "texmode": 0,
+            "textile": "1.0 1.0",
+            "useparticlecolor": false,
+            "useparticlewidth": false,
+            "widthfade": [
+                {
+                    "time": "0.0%",
+                    "value": "0.17999999999999994"
+                }
+            ],
+            "worldspace": true
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

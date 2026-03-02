@@ -1,0 +1,483 @@
+{
+    "ButtonItem@common.button": {
+        "$default_texture": "textures/netease/common/button/default",
+        "$hover_texture": "textures/netease/common/button/hover",
+        "$is_new_nine_slice": false,
+        "$label_color": [
+            1,
+            1,
+            1
+        ],
+        "$label_font_scale_factor": "$rich_panel_font_scale_factor",
+        "$label_font_size": "$rich_panel_font_size",
+        "$label_layer": 3,
+        "$label_offset": [
+            0,
+            0
+        ],
+        "$label_text": "",
+        "$nine_slice_buttom": 0,
+        "$nine_slice_left": 0,
+        "$nine_slice_right": 0,
+        "$nine_slice_top": 0,
+        "$nineslice_size": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "$pressed_button_name": "%rich_text.click",
+        "$pressed_texture": "textures/netease/common/button/pressed",
+        "$texture_layer": 2,
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "bindings": [
+            {
+                "binding_collection_name": "",
+                "binding_condition": "always_when_visible",
+                "binding_type": "collection_details"
+            }
+        ],
+        "button_mappings": [],
+        "controls": [
+            {
+                "default@rich_text.default": {}
+            },
+            {
+                "hover@rich_text.hover": {}
+            },
+            {
+                "pressed@rich_text.pressed": {}
+            },
+            {
+                "button_label@rich_text.button_label": {}
+            }
+        ],
+        "default_control": "default",
+        "hover_control": "hover",
+        "is_handle_button_move_event": true,
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "pressed_control": "pressed",
+        "size": [
+            100.0,
+            20
+        ],
+        "type": "button",
+        "visible": false
+    },
+    "LinkItem@common.button": {
+        "$default_texture": "",
+        "$hover_texture": "",
+        "$is_new_nine_slice": false,
+        "$label_color": [
+            1,
+            1,
+            1
+        ],
+        "$label_font_scale_factor": "$rich_panel_font_scale_factor",
+        "$label_font_size": "$rich_panel_font_size",
+        "$label_layer": 3,
+        "$label_offset": [
+            0,
+            0
+        ],
+        "$label_text": "",
+        "$nine_slice_buttom": 0,
+        "$nine_slice_left": 0,
+        "$nine_slice_right": 0,
+        "$nine_slice_top": 0,
+        "$nineslice_size": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "$pressed_button_name": "%rich_text.click",
+        "$pressed_texture": "",
+        "$texture_layer": 2,
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "bindings": [
+            {
+                "binding_collection_name": "",
+                "binding_condition": "always_when_visible",
+                "binding_type": "collection_details"
+            }
+        ],
+        "button_mappings": [],
+        "controls": [
+            {
+                "default@rich_text.default": {}
+            },
+            {
+                "hover@rich_text.hover": {}
+            },
+            {
+                "pressed@rich_text.pressed": {}
+            },
+            {
+                "button_label@rich_text.button_label": {}
+            }
+        ],
+        "default_control": "default",
+        "hover_control": "hover",
+        "is_handle_button_move_event": true,
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "pressed_control": "pressed",
+        "size": [
+            100.0,
+            20
+        ],
+        "type": "button",
+        "visible": false
+    },
+    "ImageItem": {
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "is_new_nine_slice": false,
+        "layer": 1,
+        "nine_slice_buttom": 0,
+        "nine_slice_left": 0,
+        "nine_slice_right": 0,
+        "nine_slice_top": 0,
+        "nineslice_size": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            100.0,
+            100.0
+        ],
+        "texture": "textures/netease/common/image/default",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            0,
+            0
+        ],
+        "visible": false
+    },
+    "RichTextPanel": {
+        "$rich_panel_bg|default": "textures/ui/enchanting_dark_background",
+        "$rich_panel_nineslice_size|default": 0.01,
+        "$rich_panel_font_size|default": "normal",
+        "$rich_panel_font_scale_factor|default": 1.0,
+        "$rich_panel_color|default": [
+            1,
+            1,
+            1
+        ],
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "controls": [
+            {
+                "PanelBG@rich_text.PanelBG": {}
+            },
+            {
+                "CalculateLabel@rich_text.CalculateLabel": {}
+            },
+            {
+                "CalculateText@rich_text.CalculateText": {}
+            },
+            {
+                "RichTextItem@rich_text.RichTextItem": {}
+            }
+        ],
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            200.0,
+            100.0
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "RichTextItem": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "controls": [
+            {
+                "RichTextRow@rich_text.RichTextRow": {}
+            }
+        ],
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%",
+            "100.0%"
+        ],
+        "orientation": "vertical",
+        "type": "stack_panel",
+        "visible": true
+    },
+    "PanelBG": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "is_new_nine_slice": false,
+        "layer": 1,
+        "nine_slice_buttom": 0,
+        "nine_slice_left": 0,
+        "nine_slice_right": 0,
+        "nine_slice_top": 0,
+        "nineslice_size": "$rich_panel_nineslice_size",
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0% + 10px",
+            "100.0% +10px"
+        ],
+        "texture": "$rich_panel_bg",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            0,
+            0
+        ],
+        "visible": false
+    },
+    "RichTextRow": {
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "ImageItem@rich_text.ImageItem": {}
+            },
+            {
+                "TextItem@rich_text.TextItem": {}
+            },
+            {
+                "ButtonItem@rich_text.ButtonItem": {}
+            },
+            {
+                "LinkItem@rich_text.LinkItem": {}
+            },
+            {
+                "SfxItem@rich_text.SfxItem": {}
+            },
+            {
+                "LabelItem@rich_text.LabelItem": {}
+            }
+        ],
+        "layer": 2,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%+0.0px",
+            20.0
+        ],
+        "type": "panel",
+        "visible": false
+    },
+    "CalculateText": {
+        "anchor_from": "bottom_middle",
+        "anchor_to": "bottom_middle",
+        "color": [
+            1,
+            0,
+            0
+        ],
+        "font_scale_factor": "$rich_panel_font_scale_factor",
+        "font_size": "$rich_panel_font_size",
+        "font_type": "smooth",
+        "layer": 1,
+        "offset": [
+            800,
+            0
+        ],
+        "shadow": false,
+        "size": [
+            "default",
+            "default"
+        ],
+        "text": "test",
+        "text_alignment": "center",
+        "type": "label",
+        "visible": false
+    },
+    "TextItem": {
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "color": "$rich_panel_color",
+        "font_scale_factor": "$rich_panel_font_scale_factor",
+        "font_size": "$rich_panel_font_size",
+        "font_type": "smooth",
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "shadow": false,
+        "size": [
+            "default",
+            "default"
+        ],
+        "text": "Hello World!",
+        "text_alignment": "center",
+        "type": "label",
+        "visible": false
+    },
+    "CalculateLabel": {
+        "anchor_from": "bottom_middle",
+        "anchor_to": "bottom_middle",
+        "color": [
+            1,
+            1,
+            1
+        ],
+        "font_scale_factor": 1.0,
+        "font_size": "normal",
+        "layer": 1,
+        "offset": [
+            800,
+            0
+        ],
+        "shadow": false,
+        "size": [
+            "default",
+            "default"
+        ],
+        "text": "test",
+        "text_alignment": "center",
+        "type": "label",
+        "visible": false
+    },
+    "LabelItem": {
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "color": [
+            1,
+            1,
+            1
+        ],
+        "font_scale_factor": 1.0,
+        "font_size": "normal",
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "shadow": false,
+        "size": [
+            "default",
+            "default"
+        ],
+        "text": "Hello World!",
+        "text_alignment": "center",
+        "type": "label",
+        "visible": false
+    },
+    "button_label": {
+        "color": "$label_color",
+        "font_scale_factor": "$label_font_scale_factor",
+        "font_size": "$label_font_size",
+        "font_type": "smooth",
+        "layer": "$label_layer",
+        "max_size": [
+            "100%",
+            "100%"
+        ],
+        "offset": "$label_offset",
+        "shadow": false,
+        "text": "$label_text",
+        "text_alignment": "center",
+        "type": "label"
+    },
+    "default": {
+        "is_new_nine_slice": "$is_new_nine_slice",
+        "layer": "$texture_layer",
+        "nine_slice_buttom": "$nine_slice_buttom",
+        "nine_slice_left": "$nine_slice_left",
+        "nine_slice_right": "$nine_slice_right",
+        "nine_slice_top": "$nine_slice_top",
+        "nineslice_size": "$nineslice_size",
+        "texture": "$default_texture",
+        "type": "image"
+    },
+    "hover": {
+        "is_new_nine_slice": "$is_new_nine_slice",
+        "layer": "$texture_layer",
+        "nine_slice_buttom": "$nine_slice_buttom",
+        "nine_slice_left": "$nine_slice_left",
+        "nine_slice_right": "$nine_slice_right",
+        "nine_slice_top": "$nine_slice_top",
+        "nineslice_size": "$nineslice_size",
+        "texture": "$hover_texture",
+        "type": "image"
+    },
+    "namespace": "rich_text",
+    "pressed": {
+        "is_new_nine_slice": "$is_new_nine_slice",
+        "layer": "$texture_layer",
+        "nine_slice_buttom": "$nine_slice_buttom",
+        "nine_slice_left": "$nine_slice_left",
+        "nine_slice_right": "$nine_slice_right",
+        "nine_slice_top": "$nine_slice_top",
+        "nineslice_size": "$nineslice_size",
+        "texture": "$pressed_texture",
+        "type": "image"
+    },
+    "img_animation": {
+        "anim_type": "flip_book",
+        "initial_uv": [
+            0,
+            0
+        ],
+        "frame_count": 9,
+        "frame_step": 1,
+        "fps": 10,
+        "reversible": false,
+        "easing": "linear"
+    },
+    "SfxItem": {
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            100.0,
+            100.0
+        ],
+        "texture": "",
+        "type": "image",
+        "uv": "@rich_text.img_animation",
+        "disable_anim_fast_forward": true,
+        "uv_size": [
+            32,
+            32
+        ],
+        "visible": false
+    }
+}

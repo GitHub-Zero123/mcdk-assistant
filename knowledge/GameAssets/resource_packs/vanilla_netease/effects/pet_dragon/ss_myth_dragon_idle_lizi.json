@@ -1,0 +1,82 @@
+{
+    "particleeffect": {
+        "independent": false,
+        "direction": {
+            "max": "0.2 0.0 0.0",
+            "value": "Direction",
+            "min": "0.0 0.0 0.0"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 0.4980 1.0000",
+                "time": "0.00"
+            },
+            {
+                "color": "1.0000 1.0000 0.0000 1.0000",
+                "time": "0.17"
+            },
+            {
+                "color": "0.3333 1.0000 0.4980 0.6696",
+                "time": "0.33"
+            },
+            {
+                "color": "1.0000 0.3333 1.0000 0.3929",
+                "time": "0.51"
+            },
+            {
+                "color": "1.0000 0.3333 0.0000 0.1250",
+                "time": "0.79"
+            },
+            {
+                "color": "1.0000 1.0000 0.2400 0.0000",
+                "time": "1.00"
+            }
+        ],
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.0 0.7 0.0"
+        },
+        "texture": {
+            "name": "textures/sfxs/pet_dragon/ss_dragon_zishen_lizi"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "depthtest": {
+            "enable": "true"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.5",
+            "min": "0.2"
+        },
+        "particlesize": {
+            "max": "0.1 0.1",
+            "min": "0.05 0.05"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.85 0.85",
+                "time": "0.00"
+            },
+            {
+                "scale": "0.28 0.28",
+                "time": "0.40"
+            },
+            {
+                "scale": "0.08 0.08",
+                "time": "1.18"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "2.00"
+            }
+        ]
+    }
+}

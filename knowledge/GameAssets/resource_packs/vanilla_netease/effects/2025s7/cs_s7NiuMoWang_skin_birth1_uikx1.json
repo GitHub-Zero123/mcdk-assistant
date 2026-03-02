@@ -1,0 +1,95 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.1"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "15.5%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.2500",
+                "time": "49.5%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "constantforce": {
+            "value": "0.01 0.0 0.0"
+        },
+        "dampingforce": {
+            "value": "10.0"
+        },
+        "delay": 3.35,
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "3000.0",
+            "min": "3000.0"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Direction Horizontal"
+        },
+        "layer": 3,
+        "numparticles": {
+            "value": "1"
+        },
+        "particlesize": {
+            "max": "2.7 2.7",
+            "min": "2.7 2.7"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 90.0",
+            "min": "0.0 0.0 90.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.72 0.72",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.4 1.4",
+                "time": "5.7%"
+            },
+            {
+                "scale": "1.84 1.84",
+                "time": "11.3%"
+            },
+            {
+                "scale": "2.24 2.24",
+                "time": "22.7%"
+            },
+            {
+                "scale": "2.56 2.56",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s7/cs_s7NiuMoWang_skin_birth_uikx1"
+        },
+        "timetolive": {
+            "max": "0.4",
+            "min": "0.4"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

@@ -1,0 +1,93 @@
+{
+    "particleeffect": {
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.3571",
+                "time": "11.8%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0625",
+                "time": "27.1%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "45.5%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "dampingforce": {
+            "value": "0.2"
+        },
+        "direction": {
+            "max": "0.0 0.2 -0.3",
+            "min": "0.0 0.09999999999999998 -0.4",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "20.0",
+            "min": "50.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.4 0.2 0.2"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "layer": 2,
+        "numparticles": {
+            "value": "50"
+        },
+        "particlesize": {
+            "max": "0.15 0.15",
+            "min": "0.2 0.2"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "false"
+        },
+        "rotationSpeedRange": {
+            "max": "0.0 0.0 120.0",
+            "min": "0.0 0.0 150.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.84 0.84",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.65 1.65",
+                "time": "41.7%"
+            },
+            {
+                "scale": "1.92 1.92",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s6/cs_s6Yaksha_horse_huilzt3"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.6",
+            "min": "0.6"
+        },
+        "velocity": {
+            "max": "0.30000000000000004",
+            "min": "0.2"
+        }
+    }
+}

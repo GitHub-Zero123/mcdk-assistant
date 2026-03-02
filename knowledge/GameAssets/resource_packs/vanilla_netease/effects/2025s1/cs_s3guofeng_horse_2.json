@@ -1,0 +1,76 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.2"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "0.0000 1.0000 0.8863 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.0000 1.0000 0.8863 1.0000",
+                "time": "27.6%"
+            },
+            {
+                "color": "0.0000 1.0000 0.8863 1.0000",
+                "time": "38.7%"
+            },
+            {
+                "color": "0.0000 1.0000 0.8863 0.2054",
+                "time": "58.7%"
+            },
+            {
+                "color": "0.0000 1.0000 0.8863 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "constantforce": {
+            "value": "1.0 0.5 -0.5"
+        },
+        "dampingforce": {
+            "value": "2.0"
+        },
+        "delay": 0.1,
+        "direction": {
+            "max": "0.0 1.0 0.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "1000.0",
+            "min": "1000.0"
+        },
+        "faceCameraMode": {
+            "value": "Direction"
+        },
+        "inactivetime": {
+            "value": "2.3"
+        },
+        "numparticles": {
+            "value": "17"
+        },
+        "particlesize": {
+            "max": "0.3 0.3",
+            "min": "0.3 0.3"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "name": "textures/sfxs/2025s1/cs_s3guofeng_horse_jian"
+        },
+        "timetolive": {
+            "max": "1.2",
+            "min": "1.2"
+        },
+        "velocity": {
+            "max": "6.0",
+            "min": "6.0"
+        }
+    }
+}

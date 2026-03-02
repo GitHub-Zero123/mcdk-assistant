@@ -1,0 +1,93 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.2"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "10.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "constantforce": {
+            "value": "0.0 2.5 0.0"
+        },
+        "dampingforce": {
+            "value": "3.5"
+        },
+        "delay": 0.12,
+        "direction": {
+            "max": "-1.0 -1.0 0.0",
+            "min": "-1.0 -1.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "20.0",
+            "min": "20.0"
+        },
+        "emitterpath": [
+            {
+                "offset": "0.0 0.0 0.0",
+                "rotation": "0.0 0.0 0.0",
+                "time": "0.0"
+            },
+            {
+                "offset": "0.0 0.0 0.0",
+                "rotation": "0.0 0.0 0.0",
+                "time": "0.04"
+            },
+            {
+                "offset": "0.0 0.0 0.0",
+                "rotation": "0.0 180.0 0.0",
+                "time": "0.05"
+            },
+            {
+                "offset": "0.0 0.0 0.0",
+                "rotation": "0.0 180.0 0.0",
+                "time": "0.2"
+            },
+            {
+                "offset": "0.0 0.0 0.0",
+                "rotation": "0.0 0.0 0.0",
+                "time": "0.21"
+            }
+        ],
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Direction"
+        },
+        "numparticles": {
+            "value": "2"
+        },
+        "particlesize": {
+            "max": "0.3 0.3",
+            "min": "0.3 0.3"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 5.0",
+            "min": "0.0 0.0 5.0"
+        },
+        "texture": {
+            "ani": {
+                "fps": "34",
+                "name": "textures/sfxs/2025s5/cs_s5Fire_skin_victory_h2",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s5/cs_s5Fire_skin_victory_h2"
+        },
+        "velocity": {
+            "max": "7.0",
+            "min": "7.0"
+        }
+    }
+}

@@ -1,0 +1,41 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+
+
+#include "fragmentVersionCentroidUV.h"
+#include "uniformEntityConstants.h"
+#include "uniformShaderConstants.h"
+#include "util.h"
+#ifdef USE_FRESNEL
+#include "fresnel.h"
+#endif
+
+LAYOUT_BINDING(0) uniform sampler2D TEXTURE_0;
+
+varying vec4 fogColor;
+
+#ifdef USE_FRESNEL
+varying vec4 viewNormal;
+#endif
+
+void main()
+{
+	vec4 color = vec4(1.0);
+
+#if !defined(TEXEL_AA) || !defined(TEXEL_AA_FEATURE)
+	color = texture2D( TEXTURE_0, uv );
+#else
+	color = texture2D_AA(TEXTURE_0, uv);
+#endif 
+
+
+#ifdef USE_FRESNEL
+	float fresnelVal = fresnel(viewNormal.xyz, vec3(0.0, 0.0, 1.0));
+	color = vec4(color.rgb + fresnelColor.rgb * fresnelVal, color.a);
+#endif
+
+	//apply fog
+	color.rgb = mix( color.rgb, fogColor.rgb, fogColor.a );
+
+	gl_FragColor = color;
+}

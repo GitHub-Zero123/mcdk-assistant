@@ -1,0 +1,49 @@
+{
+   "format_version" : "1.14",
+   "minecraft:recipe_material_reduction" : {
+      "description" : {
+         "identifier" : "minecraft:mossy_cobblestone"
+		 //Mossy cobblestone block
+      },
+      "input" : "minecraft:mossy_cobblestone",
+      "output" : [
+         {
+            "count" : 45,
+            "item" : "minecraft:element_8"
+         },
+         {
+            "count" : 28,
+            "item" : "minecraft:element_14"
+         },
+         {
+            "count" : 8,
+            "item" : "minecraft:element_13"
+         },
+         {
+            "count" : 5,
+            "item" : "minecraft:element_26"
+         },
+         {
+            "count" : 4,
+            "item" : "minecraft:element_20"
+         },
+         {
+            "count" : 3,
+            "item" : "minecraft:element_11"
+         },
+         {
+            "count" : 3,
+            "item" : "minecraft:element_19"
+         },
+         {
+            "count" : 2,
+            "item" : "minecraft:element_12"
+         },
+         {
+            "count" : 2,
+            "item" : "minecraft:element_6"
+         }
+      ],
+      "tags" : "material_reducer"
+   }
+}

@@ -1,0 +1,93 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "3.5"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "16.8%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "constantforce": {
+            "value": "0.0 -1.7999999999999998 0.0"
+        },
+        "depthtest": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "0.3 1.0 1.0",
+            "min": "-0.3 -1.0 -1.0",
+            "value": "Outwards"
+        },
+        "emitterScaleCurve": [],
+        "emitterpath": [
+            {
+                "offset": "0.0 -1.2000000000000002 0.0",
+                "rotation": "0.0 0.0 0.0",
+                "time": "0.0"
+            }
+        ],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "3.0 2.8 3.0"
+        },
+        "emittertype": {
+            "value": "Cylinder"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "layer": 5,
+        "particlesize": {
+            "max": "0.2 0.2",
+            "min": "0.1 0.1"
+        },
+        "pointFiltering": true,
+        "prewarm": true,
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.76 0.76",
+                "time": "46.3%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "0",
+                "name": "textures/sfxs/2025s2/cs_s4hongshi_skin_birth_lizi01",
+                "shuffle": true
+            },
+            "name": "textures/sfxs/2025s2/cs_s4hongshi_skin_birth_lizi01"
+        },
+        "thickness": {
+            "value": "0.2"
+        },
+        "timetolive": {
+            "max": "1.0999999999999996",
+            "min": "0.5"
+        },
+        "velocity": {
+            "max": "0.6",
+            "min": "0.3"
+        }
+    }
+}

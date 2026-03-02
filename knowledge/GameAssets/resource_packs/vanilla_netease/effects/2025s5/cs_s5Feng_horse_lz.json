@@ -1,0 +1,54 @@
+{
+    "particleeffect": {
+        "colorfade": [
+            {
+                "color": "0.6549 0.6549 0.6549 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.6784 0.6784 0.6784 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "dampingforce": {
+            "value": "6.0"
+        },
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Outwards"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.6 0.2 0.6"
+        },
+        "emittertype": {
+            "value": "Hemisphere"
+        },
+        "faceCameraMode": {
+            "value": "Direction"
+        },
+        "particlesize": {
+            "max": "0.07 0.07",
+            "min": "0.04 0.04"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "name": "textures/sfxs/2025s5/cs_s5Feng_horse_lizi"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.2",
+            "min": "0.3"
+        },
+        "velocity": {
+            "max": "10.0",
+            "min": "8.0"
+        }
+    }
+}

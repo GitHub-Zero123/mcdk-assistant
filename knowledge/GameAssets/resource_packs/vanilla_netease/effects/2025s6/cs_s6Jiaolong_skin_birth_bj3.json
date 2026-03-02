@@ -1,0 +1,73 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "3.0"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.9911",
+                "time": "2.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "93.2%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "constantforce": {
+            "value": "0.01 0.0 0.0"
+        },
+        "dampingforce": {
+            "value": "7.0"
+        },
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "3000.0",
+            "min": "3000.0"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Direction Horizontal"
+        },
+        "layer": 2,
+        "numparticles": {
+            "value": "1"
+        },
+        "particlesize": {
+            "max": "7.6 12.8",
+            "min": "7.6 12.8"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "180.0 0.0 90.0",
+            "min": "180.0 0.0 90.0"
+        },
+        "texture": {
+            "name": "textures/sfxs/2025s6/cs_s6Jiaolong_skin_birth_bj3"
+        },
+        "timetolive": {
+            "max": "7.2",
+            "min": "7.2"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

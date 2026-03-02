@@ -1,0 +1,57 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "value": "Direction",
+            "min": "0.0 0.0 0.0"
+        },
+        "numparticles": {
+            "value": "1"
+        },
+        "colorfade": [
+            {
+                "color": "0.5451 0.6902 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.5451 0.6902 1.0000 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/pet_cat/ss_cat_conan_glow01"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "timetolive": {
+            "max": "20.0",
+            "min": "20.0"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        },
+        "offsetInCamera": {
+            "value": "0.3"
+        },
+        "particlesize": {
+            "max": "0.7 0.7",
+            "min": "0.7 0.7"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.96 0.96",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.2 1.2",
+                "time": "47.7%"
+            },
+            {
+                "scale": "0.96 0.96",
+                "time": "100.0%"
+            }
+        ]
+    }
+}

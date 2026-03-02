@@ -1,0 +1,32 @@
+{
+    "format_version": "1.13.0",
+    "minecraft:scatter_feature": {
+        "description": {
+            "identifier": "minecraft:pink_petals_scatter_feature"
+        },
+        "iterations": 96,
+        "x": {
+            "distribution": "triangle",
+            "extent": [
+                -5,
+                5
+            ]
+        },
+        "y": {
+            "distribution": "triangle",
+            "extent": [
+                -2,
+                2
+            ]
+        },
+        "z": {
+            "distribution": "triangle",
+            "extent": [
+                -5,
+                5
+            ]
+        },
+        "coordinate_eval_order": "zxy",
+        "places_feature": "minecraft:pink_petals_feature"
+    }
+}

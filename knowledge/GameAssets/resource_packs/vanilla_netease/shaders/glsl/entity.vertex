@@ -1,0 +1,47 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+#include "entityVertexUtil.h"
+#line 4
+
+varying vec4 light; // 光照值 vec4(r, g, b, a)
+varying vec4 fogColor; // 雾色与雾强度 vec4(r, g, b, 雾强度)
+
+#ifdef RNGL_LOCAL_LIGHT
+varying vec4 worldSpacePos;
+varying vec4 worldSpaceNormal;
+#endif
+
+void main() {
+	POS4 entitySpacePosition, entitySpaceNormal;
+	// 计算顶点动画 得到模型空间位置与法线
+	getEntitySpacePositionAndNormal(entitySpacePosition, entitySpaceNormal);
+
+	calculateOverlayColor(); // 受伤变红等效果
+	calculateGlint(); // 计算附魔效果相关变量
+
+	// 包含其他内置宏相关的varying计算
+	entityCommonVert();
+
+	// 计算默认的MC顶点光照
+	light = getLightColor(entitySpacePosition, entitySpaceNormal);
+
+	// 变量uv已经在头文件中预先声明 这里使用TEXCOORD_0作为uv值
+	uv = TEXCOORD_0;
+	// 计算顶点uv 包括MC支持的UV序列帧效果
+	applyUVAnim(uv);
+
+	calculateSpecificProcess(entitySpacePosition, entitySpaceNormal);
+
+	// 变换到投影空间
+	POS4 projSpacePos = WORLDVIEWPROJ * entitySpacePosition;
+	gl_Position = projSpacePos;
+
+#ifdef RNGL_LOCAL_LIGHT
+	worldSpacePos = WORLD * entitySpacePosition;
+	worldSpaceNormal = WORLD * entitySpaceNormal;
+	worldSpaceNormal.xyz = normalize(worldSpaceNormal.xyz);
+#endif
+
+	// 根据投影位置 计算雾的效果
+	fogColor = getFogColor(projSpacePos);
+}

@@ -1,0 +1,699 @@
+{
+    "main": {
+        "controls": [
+            {
+                "right_func_panel": {
+                    "anchor_from": "right_middle",
+                    "anchor_to": "right_middle",
+                    "controls": [
+                        {
+                            "bg": {
+                                "alpha": 0.6,
+                                "clip_direction": "left",
+                                "clip_ratio": 0.0,
+                                "is_new_nine_slice": true,
+                                "keep_ratio": false,
+                                "layer": 1,
+                                "nine_slice_buttom": 10,
+                                "nine_slice_top": 10,
+                                "nineslice_size": [
+                                    0.0,
+                                    0.0,
+                                    0.0,
+                                    0.0
+                                ],
+                                "texture": "textures/ui/gameChatExtension/common/common_button4_click",
+                                "type": "image"
+                            }
+                        },
+                        {
+                            "splite": {
+                                "anchor_from": "left_middle",
+                                "anchor_to": "left_middle",
+                                "clip_direction": "left",
+                                "clip_ratio": 0.0,
+                                "color": [
+                                    1.0,
+                                    1.0,
+                                    1.0
+                                ],
+                                "fill": true,
+                                "keep_ratio": false,
+                                "layer": 2,
+                                "size": [
+                                    1,
+                                    "default"
+                                ],
+                                "texture": "textures/ui/shadow",
+                                "type": "image"
+                            }
+                        },
+                        {
+                            "setting_button@common.button": {
+                                "$control_alpha": 1.0,
+                                "$default_texture": "textures/ui/gameChatExtension/common/common_button7_hover",
+                                "$hover_texture": "textures/ui/gameChatExtension/common/common_button7_hover",
+                                "$is_new_nine_slice": false,
+                                "$label_color": [
+                                    1,
+                                    1,
+                                    1
+                                ],
+                                "$label_font_scale_factor": 1.0,
+                                "$label_font_size": "large",
+                                "$label_layer": 3,
+                                "$label_offset": [
+                                    0,
+                                    0
+                                ],
+                                "$label_text": "",
+                                "$nine_slice_buttom": 0,
+                                "$nine_slice_left": 0,
+                                "$nine_slice_right": 0,
+                                "$nine_slice_top": 0,
+                                "$nineslice_size": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                ],
+                                "$pressed_button_name": "%netease_editor_template_namespace.click",
+                                "$pressed_texture": "textures/ui/gameChatExtension/common/common_button7_click",
+                                "$texture_layer": 2,
+                                "alpha": 0.6,
+                                "anchor_from": "top_middle",
+                                "anchor_to": "top_middle",
+                                "bindings": [
+                                    {
+                                        "binding_collection_name": "",
+                                        "binding_condition": "always_when_visible",
+                                        "binding_type": "collection_details"
+                                    }
+                                ],
+                                "button_mappings": [],
+                                "controls": [
+                                    {
+                                        "default@netease_editor_template_namespace.default": {}
+                                    },
+                                    {
+                                        "hover@netease_editor_template_namespace.hover": {}
+                                    },
+                                    {
+                                        "pressed@netease_editor_template_namespace.pressed": {}
+                                    },
+                                    {
+                                        "button_label@netease_editor_template_namespace.button_label": {}
+                                    },
+                                    {
+                                        "image": {
+                                            "clip_direction": "left",
+                                            "clip_ratio": 0.0,
+                                            "layer": 10,
+                                            "size": [
+                                                "50.0%+0.0px",
+                                                "50.0%+0.0px"
+                                            ],
+                                            "texture": "textures/ui/gameChatExtension/icon/setup",
+                                            "type": "image"
+                                        }
+                                    }
+                                ],
+                                "default_control": "default",
+                                "hover_control": "hover",
+                                "is_handle_button_move_event": true,
+                                "layer": 3,
+                                "offset": [
+                                    0.0,
+                                    "1.5%+0.0px"
+                                ],
+                                "pressed_control": "pressed",
+                                "propagate_alpha": true,
+                                "size": [
+                                    "100.0%y+0.0px",
+                                    "8.5%+0.0px"
+                                ],
+                                "type": "button"
+                            }
+                        },
+                        {
+                            "quit_button@common.button": {
+                                "$control_alpha": 1.0,
+                                "$default_texture": "textures/ui/gameChatExtension/common/common_button8_hover",
+                                "$hover_texture": "textures/ui/gameChatExtension/common/common_button8_hover",
+                                "$is_new_nine_slice": false,
+                                "$label_color": [
+                                    1,
+                                    1,
+                                    1
+                                ],
+                                "$label_font_scale_factor": 1.0,
+                                "$label_font_size": "large",
+                                "$label_layer": 3,
+                                "$label_offset": [
+                                    0,
+                                    0
+                                ],
+                                "$label_text": "",
+                                "$nine_slice_buttom": 0,
+                                "$nine_slice_left": 0,
+                                "$nine_slice_right": 0,
+                                "$nine_slice_top": 0,
+                                "$nineslice_size": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                ],
+                                "$pressed_button_name": "%netease_editor_template_namespace.click",
+                                "$pressed_texture": "textures/ui/gameChatExtension/common/common_button8_click",
+                                "$texture_layer": 2,
+                                "alpha": 0.6,
+                                "anchor_from": "top_middle",
+                                "anchor_to": "top_middle",
+                                "bindings": [
+                                    {
+                                        "binding_collection_name": "",
+                                        "binding_condition": "always_when_visible",
+                                        "binding_type": "collection_details"
+                                    }
+                                ],
+                                "button_mappings": [],
+                                "controls": [
+                                    {
+                                        "default@netease_editor_template_namespace.default": {}
+                                    },
+                                    {
+                                        "hover@netease_editor_template_namespace.hover": {}
+                                    },
+                                    {
+                                        "pressed@netease_editor_template_namespace.pressed": {}
+                                    },
+                                    {
+                                        "button_label@netease_editor_template_namespace.button_label": {}
+                                    },
+                                    {
+                                        "image": {
+                                            "clip_direction": "left",
+                                            "clip_ratio": 0.0,
+                                            "layer": 10,
+                                            "size": [
+                                                "36.0%+0.0px",
+                                                "32.0%+0.0px"
+                                            ],
+                                            "texture": "textures/ui/gameChatExtension/icon/arrowhead",
+                                            "type": "image"
+                                        }
+                                    }
+                                ],
+                                "default_control": "default",
+                                "hover_control": "hover",
+                                "is_handle_button_move_event": true,
+                                "layer": 56,
+                                "offset": [
+                                    0.0,
+                                    "81.85%+0.0px"
+                                ],
+                                "pressed_control": "pressed",
+                                "propagate_alpha": true,
+                                "size": [
+                                    "50.0%y+0.0px",
+                                    "17.0%+0.0px"
+                                ],
+                                "type": "button",
+                                "visible": false
+                            }
+                        }
+                    ],
+                    "layer": 1,
+                    "size": [
+                        "6.25%+0.0px",
+                        "default"
+                    ],
+                    "type": "panel",
+                    "visible": false
+                }
+            },
+            {
+                "left_func_panel_real": {
+                    "anchor_from": "left_middle",
+                    "anchor_to": "left_middle",
+                    "controls": [
+                        {
+                            "chat_button@common.button": {
+                                "$control_alpha": 0.8,
+                                "$default_texture": "textures/ui/gameChatExtension/new/tab1_2",
+                                "$hover_texture": "textures/ui/gameChatExtension/new/tab1_2",
+                                "$is_new_nine_slice": false,
+                                "$label_color": [
+                                    1,
+                                    1,
+                                    1
+                                ],
+                                "$label_font_scale_factor": 1.0,
+                                "$label_font_size": "large",
+                                "$label_layer": 3,
+                                "$label_offset": [
+                                    0,
+                                    0
+                                ],
+                                "$label_text": "",
+                                "$nine_slice_buttom": 10,
+                                "$nine_slice_left": 0,
+                                "$nine_slice_right": 0,
+                                "$nine_slice_top": 10,
+                                "$nineslice_size": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                ],
+                                "$pressed_button_name": "%netease_editor_template_namespace.click",
+                                "$pressed_texture": "textures/ui/gameChatExtension/new/tab1_2",
+                                "$texture_layer": 2,
+                                "bindings": [
+                                    {
+                                        "binding_collection_name": "",
+                                        "binding_condition": "always_when_visible",
+                                        "binding_type": "collection_details"
+                                    }
+                                ],
+                                "button_mappings": [],
+                                "controls": [
+                                    {
+                                        "default@netease_editor_template_namespace.default": {
+                                            "alpha": 0.5,
+                                            "controls": []
+                                        }
+                                    },
+                                    {
+                                        "hover@netease_editor_template_namespace.hover": {
+                                            "alpha": 0.5,
+                                            "controls": []
+                                        }
+                                    },
+                                    {
+                                        "pressed@netease_editor_template_namespace.pressed": {
+                                            "controls": []
+                                        }
+                                    },
+                                    {
+                                        "button_label@netease_editor_template_namespace.button_label": {
+                                            "controls": []
+                                        }
+                                    },
+                                    {
+                                        "icon": {
+                                            "alpha": 0.8,
+                                            "clip_direction": "left",
+                                            "clip_ratio": 0.0,
+                                            "controls": [
+                                                {
+                                                    "hint": {
+                                                        "anchor_from": "top_right",
+                                                        "anchor_to": "bottom_left",
+                                                        "clip_direction": "left",
+                                                        "clip_ratio": 0.0,
+                                                        "controls": [
+                                                            {
+                                                                "label": {
+                                                                    "controls": [],
+                                                                    "font_scale_factor": 0.6,
+                                                                    "font_type": "smooth",
+                                                                    "layer": 1,
+                                                                    "text": "22",
+                                                                    "text_alignment": "center",
+                                                                    "type": "label"
+                                                                }
+                                                            }
+                                                        ],
+                                                        "layer": 1,
+                                                        "offset": [
+                                                            "-20.0%+0.0px",
+                                                            "20.0%x+0.0px"
+                                                        ],
+                                                        "size": [
+                                                            "60.0%+0.0px",
+                                                            "100.0%x+0.0px"
+                                                        ],
+                                                        "texture": "textures/ui/gameChatExtension/new/tag_red",
+                                                        "type": "image",
+                                                        "visible": false
+                                                    }
+                                                }
+                                            ],
+                                            "layer": 11,
+                                            "offset": [
+                                                0.0,
+                                                0
+                                            ],
+                                            "size": [
+                                                "60.0%+0.0px",
+                                                "50.0%+0.0px"
+                                            ],
+                                            "texture": "textures/ui/gameChatExtension/new/icon1_chat",
+                                            "type": "image"
+                                        }
+                                    }
+                                ],
+                                "default_control": "default",
+                                "hover_control": "hover",
+                                "is_handle_button_move_event": true,
+                                "offset": [
+                                    0,
+                                    "-300.0%x+0.0px"
+                                ],
+                                "pressed_control": "pressed",
+                                "size": [
+                                    "60.0%+0.0px",
+                                    "100.0%x+0.0px"
+                                ],
+                                "type": "button"
+                            }
+                        },
+                        {
+                            "social_button@common.button": {
+                                "$control_alpha": 0.8,
+                                "$default_texture": "textures/ui/gameChatExtension/new/tab1_2",
+                                "$hover_texture": "textures/ui/gameChatExtension/new/tab1_2",
+                                "$is_new_nine_slice": false,
+                                "$label_color": [
+                                    1,
+                                    1,
+                                    1
+                                ],
+                                "$label_font_scale_factor": 1.0,
+                                "$label_font_size": "large",
+                                "$label_layer": 3,
+                                "$label_offset": [
+                                    0,
+                                    0
+                                ],
+                                "$label_text": "",
+                                "$nine_slice_buttom": 10,
+                                "$nine_slice_left": 0,
+                                "$nine_slice_right": 0,
+                                "$nine_slice_top": 10,
+                                "$nineslice_size": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                ],
+                                "$pressed_button_name": "%netease_editor_template_namespace.click",
+                                "$pressed_texture": "textures/ui/gameChatExtension/new/tab1_2",
+                                "$texture_layer": 2,
+                                "bindings": [
+                                    {
+                                        "binding_collection_name": "",
+                                        "binding_condition": "always_when_visible",
+                                        "binding_type": "collection_details"
+                                    }
+                                ],
+                                "button_mappings": [],
+                                "controls": [
+                                    {
+                                        "default@netease_editor_template_namespace.default": {
+                                            "alpha": 0.5,
+                                            "controls": []
+                                        }
+                                    },
+                                    {
+                                        "hover@netease_editor_template_namespace.hover": {
+                                            "alpha": 0.5,
+                                            "controls": []
+                                        }
+                                    },
+                                    {
+                                        "pressed@netease_editor_template_namespace.pressed": {
+                                            "controls": []
+                                        }
+                                    },
+                                    {
+                                        "button_label@netease_editor_template_namespace.button_label": {
+                                            "controls": []
+                                        }
+                                    },
+                                    {
+                                        "icon": {
+                                            "alpha": 0.8,
+                                            "clip_direction": "left",
+                                            "clip_ratio": 0.0,
+                                            "controls": [
+                                                {
+                                                    "hint": {
+                                                        "anchor_from": "top_right",
+                                                        "anchor_to": "bottom_left",
+                                                        "clip_direction": "left",
+                                                        "clip_ratio": 0.0,
+                                                        "controls": [
+                                                            {
+                                                                "label": {
+                                                                    "font_scale_factor": 0.6,
+                                                                    "font_type": "smooth",
+                                                                    "layer": 1,
+                                                                    "text": "22",
+                                                                    "text_alignment": "center",
+                                                                    "type": "label"
+                                                                }
+                                                            }
+                                                        ],
+                                                        "layer": 1,
+                                                        "offset": [
+                                                            "-20.0%+0.0px",
+                                                            "20.0%x+0.0px"
+                                                        ],
+                                                        "size": [
+                                                            "60.0%+0.0px",
+                                                            "100.0%x+0.0px"
+                                                        ],
+                                                        "texture": "textures/ui/gameChatExtension/new/tag_red",
+                                                        "type": "image",
+                                                        "visible": false
+                                                    }
+                                                }
+                                            ],
+                                            "layer": 11,
+                                            "offset": [
+                                                0.0,
+                                                0
+                                            ],
+                                            "size": [
+                                                "60.0%+0.0px",
+                                                "50.0%+0.0px"
+                                            ],
+                                            "texture": "textures/ui/gameChatExtension/new/icon1_friend",
+                                            "type": "image"
+                                        }
+                                    }
+                                ],
+                                "default_control": "default",
+                                "hover_control": "hover",
+                                "is_handle_button_move_event": true,
+                                "layer": 15,
+                                "offset": [
+                                    0,
+                                    "-190.0%x+0.0px"
+                                ],
+                                "pressed_control": "pressed",
+                                "size": [
+                                    "60.0%+0.0px",
+                                    "100.0%x+0.0px"
+                                ],
+                                "type": "button"
+                            }
+                        }
+                    ],
+                    "layer": 637,
+                    "size": [
+                        "6.25%+0.0px",
+                        "default"
+                    ],
+                    "type": "panel"
+                }
+            },
+            {
+                "right_func_panel_real": {
+                    "anchor_from": "right_middle",
+                    "anchor_to": "right_middle",
+                    "controls": [
+                        {
+                            "talk_button@common.button": {
+                                "$control_alpha": 0.5,
+                                "$default_texture": "textures/ui/gameChatExtension/new/btn_fast01",
+                                "$hover_texture": "textures/ui/gameChatExtension/new/btn_fast01",
+                                "$is_new_nine_slice": false,
+                                "$label_color": [
+                                    1,
+                                    1,
+                                    1
+                                ],
+                                "$label_font_scale_factor": 1.0,
+                                "$label_font_size": "large",
+                                "$label_layer": 3,
+                                "$label_offset": [
+                                    0,
+                                    0
+                                ],
+                                "$label_text": "",
+                                "$nine_slice_buttom": 0,
+                                "$nine_slice_left": 0,
+                                "$nine_slice_right": 0,
+                                "$nine_slice_top": 0,
+                                "$nineslice_size": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                ],
+                                "$pressed_button_name": "%netease_editor_template_namespace.click",
+                                "$pressed_texture": "textures/ui/gameChatExtension/new/btn_fast01",
+                                "$texture_layer": 2,
+                                "anchor_from": "top_middle",
+                                "anchor_to": "top_middle",
+                                "bindings": [
+                                    {
+                                        "binding_collection_name": "",
+                                        "binding_condition": "always_when_visible",
+                                        "binding_type": "collection_details"
+                                    }
+                                ],
+                                "button_mappings": [],
+                                "controls": [
+                                    {
+                                        "default@netease_editor_template_namespace.default": {}
+                                    },
+                                    {
+                                        "hover@netease_editor_template_namespace.hover": {}
+                                    },
+                                    {
+                                        "pressed@netease_editor_template_namespace.pressed": {}
+                                    },
+                                    {
+                                        "button_label@netease_editor_template_namespace.button_label": {}
+                                    }
+                                ],
+                                "default_control": "default",
+                                "hover_control": "hover",
+                                "is_handle_button_move_event": true,
+                                "layer": 29,
+                                "offset": [
+                                    0,
+                                    "56.0%+0.0px"
+                                ],
+                                "pressed_control": "pressed",
+                                "size": [
+                                    "60.0%+0.0px",
+                                    "100.0%x+0.0px"
+                                ],
+                                "type": "button"
+                            }
+                        }
+                    ],
+                    "layer": 429,
+                    "size": [
+                        "6.25%+0.0px",
+                        "default"
+                    ],
+                    "type": "panel"
+                }
+            },
+            {
+                "drag_tips_panel": {
+                    "anchor_from": "bottom_middle",
+                    "anchor_to": "bottom_middle",
+                    "controls": [
+                        {
+                            "image": {
+                                "alpha": 0.6,
+                                "clip_direction": "left",
+                                "clip_ratio": 0.0,
+                                "controls": [
+                                    {
+                                        "image": {
+                                            "anchor_from": "left_middle",
+                                            "anchor_to": "left_middle",
+                                            "clip_direction": "left",
+                                            "clip_ratio": 0.0,
+                                            "layer": 1,
+                                            "offset": [
+                                                4,
+                                                0.0
+                                            ],
+                                            "size": [
+                                                14,
+                                                14
+                                            ],
+                                            "texture": "textures/ui/gameChatExtension/new/btn_fast01",
+                                            "type": "image"
+                                        }
+                                    },
+                                    {
+                                        "label": {
+                                            "anchor_from": "left_middle",
+                                            "anchor_to": "left_middle",
+                                            "controls": [],
+                                            "font_type": "smooth",
+                                            "layer": 2,
+                                            "offset": [
+                                                22,
+                                                0.0
+                                            ],
+                                            "text": "按钮支持拖拽修改位置",
+                                            "text_alignment": "center",
+                                            "type": "label"
+                                        }
+                                    }
+                                ],
+                                "fill": true,
+                                "layer": 1,
+                                "nineslice_size": [
+                                    0.0,
+                                    0.0,
+                                    0.0,
+                                    0.0
+                                ],
+                                "size": [
+                                    "100.0%cm+26.0px",
+                                    "100.0%cm+6.0px"
+                                ],
+                                "texture": "textures/ui/hud_tip_text_background",
+                                "type": "image"
+                            }
+                        }
+                    ],
+                    "layer": 43,
+                    "offset": [
+                        0.0,
+                        "-15.0%+0.0px"
+                    ],
+                    "propagate_alpha": true,
+                    "size": [
+                        "100.0%c+0.0px",
+                        "100.0%c+0.0px"
+                    ],
+                    "type": "panel",
+                    "visible": false
+                }
+            }
+        ],
+        "bindings": [
+            {
+                "binding_name": "#hud_visible",
+                "binding_name_override": "#visible",
+                "binding_type": "global"
+            },
+            {
+                "binding_name": "#hud_alpha",
+                "binding_name_override": "#alpha",
+                "binding_type": "global"
+            },
+            {
+                "binding_name": "#hud_propagate_alpha",
+                "binding_name_override": "#propagateAlpha",
+                "binding_type": "global"
+            }
+        ],
+        "type": "panel"
+    },
+    "namespace": "gameChatMainUI"
+}

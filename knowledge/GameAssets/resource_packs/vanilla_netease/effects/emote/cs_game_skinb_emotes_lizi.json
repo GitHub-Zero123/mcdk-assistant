@@ -1,0 +1,102 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.1"
+        },
+        "colorfade": [
+            {
+                "color": "0.9686 0.0000 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.9686 0.0000 1.0000 0.8929",
+                "time": "26.8%"
+            },
+            {
+                "color": "1.0000 0.0000 0.9529 0.6786",
+                "time": "51.8%"
+            },
+            {
+                "color": "1.0000 0.0000 0.7333 0.0804",
+                "time": "68.9%"
+            },
+            {
+                "color": "1.0000 0.0000 0.8353 0.0000",
+                "time": "80.3%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "20.0",
+            "min": "20.0"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "numparticles": {
+            "value": "1"
+        },
+        "particlesize": {
+            "max": "0.08 0.08",
+            "min": "0.08 0.08"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.09 0.09",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.08 1.08",
+                "time": "10.0%"
+            },
+            {
+                "scale": "1.07 1.07",
+                "time": "28.0%"
+            },
+            {
+                "scale": "1.12 1.12",
+                "time": "45.0%"
+            },
+            {
+                "scale": "1.08 1.08",
+                "time": "68.7%"
+            },
+            {
+                "scale": "1.35 1.35",
+                "time": "83.8%"
+            },
+            {
+                "scale": "1.41 1.41",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "6",
+                "name": "textures/sfxs/emote/cs_game_skinb_emotes_smoke",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/emote/cs_game_skinb_emotes_smoke"
+        },
+        "timetolive": {
+            "max": "1.6",
+            "min": "1.8"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

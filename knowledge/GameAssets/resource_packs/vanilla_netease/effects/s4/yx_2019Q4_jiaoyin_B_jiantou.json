@@ -1,0 +1,77 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "0.0000 0.9020 1.0000 1.0000",
+                "time": "0.00"
+            },
+            {
+                "color": "0.1176 1.0000 0.7373 0.5020",
+                "time": "0.12"
+            },
+            {
+                "color": "0.1451 0.6039 0.3294 0.0000",
+                "time": "0.50"
+            }
+        ],
+        "dampingforce": {
+            "value": "3.0"
+        },
+        "depthtest": {
+            "enable": "true"
+        },
+        "direction": {
+            "max": "0.0 0.0 0.1",
+            "min": "0.0 0.0 0.1",
+            "value": "Direction"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.3 0.0 0.0"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "independent": false,
+        "particlesize": {
+            "max": "0.15 0.2",
+            "min": "0.1 0.15"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.12 1.12",
+                "time": "0.00"
+            },
+            {
+                "scale": "3.15 3.15",
+                "time": "0.73"
+            },
+            {
+                "scale": "4.45 4.45",
+                "time": "2.00"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "3",
+                "name": "textures/sfxs/s4/yx_2019Q4_jiaoyin_B_wangge",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/s4/yx_2019Q4_jiaoyin_B_wangge"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.5",
+            "min": "0.5"
+        }
+    }
+}

@@ -1,0 +1,89 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.2"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "58.2%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0536",
+                "time": "69.7%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "constantforce": {
+            "value": "0.0 -1.0 0.0"
+        },
+        "dampingforce": {
+            "value": "5.0"
+        },
+        "delay": 0.05,
+        "direction": {
+            "max": "0.0 -1.0 0.0",
+            "min": "0.0 -1.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "3000.0",
+            "min": "3000.0"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Rotate Y"
+        },
+        "layer": 4,
+        "numparticles": {
+            "value": "1"
+        },
+        "particlesize": {
+            "max": "1.1 1.25",
+            "min": "1.1 1.25"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.5 0.5",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "9.0%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "40.7%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "22",
+                "name": "textures/sfxs/2025s2/cs_s4nanwu_skin_victory_ui01",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s2/cs_s4nanwu_skin_victory_ui01"
+        },
+        "timetolive": {
+            "max": "1.1",
+            "min": "1.1"
+        },
+        "velocity": {
+            "max": "7.5",
+            "min": "7.5"
+        }
+    }
+}

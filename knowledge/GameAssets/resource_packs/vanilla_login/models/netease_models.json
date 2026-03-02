@@ -1,0 +1,305 @@
+{
+    "home_wonder_shadow": {
+        "mesh": "mesh/home_wonder_shadow_mesh.json",
+        "skeleton": "skeleton/home_wonder_shadow_skeleton.json",
+        "material": "rngl_lightmap_multiply",
+        "material_cpu": "rngl_lightmap_multiply.cpu",
+        "material_planar_shadow": "planar_shadow_uv1",
+        "material_bloom_mask": "write_alpha_0_24",
+        "texture": {
+            "tex1": "home/no_lightmap"
+        },
+        "dy_load": true
+    },
+    "home_stage_hbdj_1": {
+        "mesh": "mesh/home_stage_hbdj_1_mesh.json",
+        "skeleton": "skeleton/home_stage_hbdj_1_skeleton.json",
+        "material": "rngl_lightmap",
+        "material_cpu": "rngl_lightmap.cpu",
+        "texture": {
+            "tex1": "home/no_lightmap"
+        },
+        "dy_load": true
+    },
+    "home_stage_hbdj_2": {
+        "mesh": "mesh/home_stage_hbdj_2_mesh.json",
+        "skeleton": "skeleton/home_stage_hbdj_2_skeleton.json",
+        "material": "rngl_lightmap",
+        "material_cpu": "rngl_lightmap.cpu",
+        "texture": {
+            "tex1": "home/no_lightmap"
+        },
+        "dy_load": true
+    },
+    "home_stage_hbdj_3": {
+        "mesh": "mesh/home_stage_hbdj_3_mesh.json",
+        "skeleton": "skeleton/home_stage_hbdj_3_skeleton.json",
+        "material": "rngl_lightmap",
+        "material_cpu": "rngl_lightmap.cpu",
+        "texture": {
+            "tex1": "home/no_lightmap"
+        },
+        "dy_load": true
+    },
+    "home_stage_hbdj_4": {
+        "mesh": "mesh/home_stage_hbdj_4_mesh.json",
+        "skeleton": "skeleton/home_stage_hbdj_4_skeleton.json",
+        "material": "rngl_lightmap",
+        "material_cpu": "rngl_lightmap.cpu",
+        "texture": {
+            "tex1": "home/no_lightmap"
+        },
+        "dy_load": true
+    },
+    "home_stage_hbdj_5": {
+        "mesh": "mesh/home_stage_hbdj_5_mesh.json",
+        "skeleton": "skeleton/home_stage_hbdj_5_skeleton.json",
+        "material": "rngl_lightmap_alpha",
+        "material_cpu": "rngl_lightmap_alpha.cpu",
+        "texture": {
+            "tex1": "home/no_lightmap"
+        },
+        "dy_load": true
+    },
+    "home_stage_lzs_1": {
+        "mesh": "mesh/home_stage_lzs_1_mesh.json",
+        "skeleton": "skeleton/home_stage_lzs_1_skeleton.json",
+        "material": "rngl_lightmap",
+        "material_cpu": "rngl_lightmap.cpu",
+        "texture": {
+            "tex1": "home/no_lightmap"
+        },
+        "dy_load": true
+    },
+    "home_stage_lzs_2": {
+        "mesh": "mesh/home_stage_lzs_2_mesh.json",
+        "skeleton": "skeleton/home_stage_lzs_2_skeleton.json",
+        "material": "rngl_lightmap",
+        "material_cpu": "rngl_lightmap.cpu",
+        "texture": {
+            "tex1": "home/no_lightmap"
+        },
+        "dy_load": true
+    },
+    "home_stage_lzs_3": {
+        "mesh": "mesh/home_stage_lzs_3_mesh.json",
+        "skeleton": "skeleton/home_stage_lzs_3_skeleton.json",
+        "material": "rngl_lightmap",
+        "material_cpu": "rngl_lightmap.cpu",
+        "texture": {
+            "tex1": "home/no_lightmap"
+        },
+        "dy_load": true
+    },
+    "home_stage_lzs_4": {
+        "mesh": "mesh/home_stage_lzs_4_mesh.json",
+        "skeleton": "skeleton/home_stage_lzs_4_skeleton.json",
+        "material": "rngl_lightmap",
+        "material_cpu": "rngl_lightmap.cpu",
+        "texture": {
+            "tex1": "home/no_lightmap"
+        },
+        "dy_load": true
+    },
+    "home_stage_lzs_5": {
+        "mesh": "mesh/home_stage_lzs_5_mesh.json",
+        "skeleton": "skeleton/home_stage_lzs_5_skeleton.json",
+        "material": "rngl_lightmap_alpha",
+        "material_cpu": "rngl_lightmap_alpha.cpu",
+        "texture": {
+            "tex1": "home/no_lightmap"
+        },
+        "dy_load": true
+    },
+    "home_stage_bsqx_1": {
+        "mesh": "mesh/home_stage_bsqx_1_mesh.json",
+        "skeleton": "skeleton/home_stage_bsqx_1_skeleton.json",
+        "material": "rngl_lightmap",
+        "material_cpu": "rngl_lightmap.cpu",
+        "texture": {
+            "tex1": "home/no_lightmap"
+        },
+        "dy_load": true
+    },
+    "home_stage_bsqx_2": {
+        "mesh": "mesh/home_stage_bsqx_2_mesh.json",
+        "skeleton": "skeleton/home_stage_bsqx_2_skeleton.json",
+        "material": "rngl_lightmap",
+        "material_cpu": "rngl_lightmap.cpu",
+        "texture": {
+            "tex1": "home/no_lightmap"
+        },
+        "dy_load": true
+    },
+    "home_stage_bsqx_3": {
+        "mesh": "mesh/home_stage_bsqx_3_mesh.json",
+        "skeleton": "skeleton/home_stage_bsqx_3_skeleton.json",
+        "material": "rngl_lightmap",
+        "material_cpu": "rngl_lightmap.cpu",
+        "texture": {
+            "tex1": "home/no_lightmap"
+        },
+        "dy_load": true
+    },
+    "home_stage_bsqx_4": {
+        "mesh": "mesh/home_stage_bsqx_4_mesh.json",
+        "skeleton": "skeleton/home_stage_bsqx_4_skeleton.json",
+        "material": "rngl_lightmap",
+        "material_cpu": "rngl_lightmap.cpu",
+        "texture": {
+            "tex1": "home/no_lightmap"
+        },
+        "dy_load": true
+    },
+    "home_stage_bsqx_5": {
+        "mesh": "mesh/home_stage_bsqx_5_mesh.json",
+        "skeleton": "skeleton/home_stage_bsqx_5_skeleton.json",
+        "material": "rngl_lightmap_alpha",
+        "material_cpu": "rngl_lightmap_alpha.cpu",
+        "texture": {
+            "tex1": "home/no_lightmap"
+        },
+        "dy_load": true
+    },
+    "home_stage_xjkh_1": {
+        "mesh": "mesh/home_stage_xjkh_1_mesh.json",
+        "skeleton": "skeleton/home_stage_xjkh_1_skeleton.json",
+        "material": "rngl_lightmap",
+        "material_cpu": "rngl_lightmap.cpu",
+        "texture": {
+            "tex1": "home/no_lightmap"
+        },
+        "dy_load": true
+    },
+    "home_stage_xjkh_2": {
+        "mesh": "mesh/home_stage_xjkh_2_mesh.json",
+        "skeleton": "skeleton/home_stage_xjkh_2_skeleton.json",
+        "material": "rngl_lightmap",
+        "material_cpu": "rngl_lightmap.cpu",
+        "texture": {
+            "tex1": "home/no_lightmap"
+        },
+        "dy_load": true
+    },
+    "home_stage_xjkh_3": {
+        "mesh": "mesh/home_stage_xjkh_3_mesh.json",
+        "skeleton": "skeleton/home_stage_xjkh_3_skeleton.json",
+        "material": "rngl_lightmap",
+        "material_cpu": "rngl_lightmap.cpu",
+        "texture": {
+            "tex1": "home/no_lightmap"
+        },
+        "dy_load": true
+    },
+    "home_stage_xjkh_4": {
+        "mesh": "mesh/home_stage_xjkh_4_mesh.json",
+        "skeleton": "skeleton/home_stage_xjkh_4_skeleton.json",
+        "material": "rngl_lightmap",
+        "material_cpu": "rngl_lightmap.cpu",
+        "texture": {
+            "tex1": "home/no_lightmap"
+        },
+        "dy_load": true
+    },
+    "home_stage_xjkh_5": {
+        "mesh": "mesh/home_stage_xjkh_5_mesh.json",
+        "skeleton": "skeleton/home_stage_xjkh_5_skeleton.json",
+        "material": "rngl_lightmap",
+        "material_cpu": "rngl_lightmap.cpu",
+        "texture": {
+            "tex1": "home/no_lightmap"
+        },
+        "dy_load": true
+    },
+    "home_stage_xjkh_6": {
+        "mesh": "mesh/home_stage_xjkh_6_mesh.json",
+        "skeleton": "skeleton/home_stage_xjkh_6_skeleton.json",
+        "material": "rngl_lightmap_alpha",
+        "material_cpu": "rngl_lightmap_alpha.cpu",
+        "texture": {
+            "tex1": "home/no_lightmap"
+        },
+        "dy_load": true
+    },
+    "home_item1": {
+        "mesh": "mesh/home_item1_mesh.json",
+        "skeleton": "skeleton/home_item1_skeleton.json",
+        "material": "rngl_model_alpha",
+        "material_cpu": "rngl_model_alpha.cpu",
+        "dy_load": true
+    },
+    "home_item2": {
+        "mesh": "mesh/home_item2_mesh.json",
+        "skeleton": "skeleton/home_item2_skeleton.json",
+        "material": "rngl_model_alpha",
+        "material_cpu": "rngl_model_alpha.cpu",
+        "dy_load": true
+    },
+    "home_item3": {
+        "mesh": "mesh/home_item3_mesh.json",
+        "skeleton": "skeleton/home_item3_skeleton.json",
+        "material": "rngl_model_alpha",
+        "material_cpu": "rngl_model_alpha.cpu",
+        "dy_load": true
+    },
+    "home_item4": {
+        "mesh": "mesh/home_item4_mesh.json",
+        "skeleton": "skeleton/home_item4_skeleton.json",
+        "material": "rngl_model_alpha",
+        "material_cpu": "rngl_model_alpha.cpu",
+        "dy_load": true
+    },
+    "home_item5": {
+        "mesh": "mesh/home_item5_mesh.json",
+        "skeleton": "skeleton/home_item5_skeleton.json",
+        "material": "rngl_model_alpha",
+        "material_cpu": "rngl_model_alpha.cpu",
+        "dy_load": true
+    },
+    "home_item6": {
+        "mesh": "mesh/home_item6_mesh.json",
+        "skeleton": "skeleton/home_item6_skeleton.json",
+        "material": "rngl_model",
+        "material_cpu": "rngl_model.cpu",
+        "dy_load": true
+    },
+    "home_item7": {
+        "mesh": "mesh/home_item7_mesh.json",
+        "skeleton": "skeleton/home_item7_skeleton.json",
+        "material": "rngl_model",
+        "material_cpu": "rngl_model.cpu",
+        "dy_load": true
+    },
+    "home_crane1": {
+        "mesh": "mesh/home_crane1_mesh.json",
+        "skeleton": "skeleton/home_crane1_skeleton.json",
+        "animation": {
+            "idle": "animation/home_crane1_animation_idle.json"
+        },
+        "material": "rngl_model",
+        "material_cpu": "rngl_model.cpu",
+        "dy_load": true
+    },
+    "home_crane2": {
+        "mesh": "mesh/home_crane2_mesh.json",
+        "skeleton": "skeleton/home_crane2_skeleton.json",
+        "animation": {
+            "idle": "animation/home_crane2_animation_idle.json"
+        },
+        "material": "rngl_model_alpha",
+        "material_cpu": "rngl_model_alpha.cpu",
+        "dy_load": true
+    },
+    "login_01_05": {
+        "dy_load": true,
+        "material": "rngl_model_alpha",
+        "mesh": "mesh/login_01_05_mesh.json",
+        "skeleton": "skeleton/login_01_05_skeleton.json"
+    },
+    "login_diye": {
+        "dy_load": true,
+        "material": "rngl_model_alpha",
+        "mesh": "mesh/login_diye_mesh.json",
+        "skeleton": "skeleton/login_diye_skeleton.json"
+    }
+}

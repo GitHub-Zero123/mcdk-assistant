@@ -1,0 +1,32 @@
+{
+    "format_version": "1.14",
+    "minecraft:recipe_material_reduction": {
+        "description": {
+            "identifier": "minecraft:soul_sand"
+        },
+        "input": "minecraft:soul_sand",
+        "output": [
+            {
+                "count": 37,
+                "item": "minecraft:element_14"
+            },
+            {
+                "count": 3,
+                "item": "minecraft:element_8"
+            },
+            {
+                "count": 29,
+                "item": "minecraft:element_0"
+            },
+            {
+                "count": 1,
+                "item": "minecraft:element_0"
+            },
+            {
+                "count": 30,
+                "item": "minecraft:element_0"
+            }
+        ],
+        "tags": "material_reducer"
+    }
+}

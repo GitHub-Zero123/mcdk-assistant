@@ -1,0 +1,80 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "0.0 0.0 -0.1",
+            "value": "Direction",
+            "min": "0.0 0.0 0.1"
+        },
+        "dampingforce": {
+            "value": "5.0"
+        },
+        "faceCameraMode": {
+            "value": "Rotate Y"
+        },
+        "pointFiltering": true,
+        "colorfade": [
+            {
+                "color": "0.6157 0.0000 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.8510 0.0902 1.0000 0.3839",
+                "time": "40.8%"
+            },
+            {
+                "color": "0.2863 0.0471 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "emissionrate": {
+            "max": "2.5",
+            "min": "2.5"
+        },
+        "emitterScaleCurve": [],
+        "enableloop": {
+            "enable": "true"
+        },
+        "emittersize": {
+            "value": "0.0 0.0 0.0"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Cylinder"
+        },
+        "prewarm": true,
+        "texture": {
+            "ani": {
+                "shuffle": false,
+                "name": "/pet_cat",
+                "fps": "6"
+            },
+            "name": "textures/sfxs/pet_cat/cs_567_weapon_FGLZ"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.1",
+            "min": "-0.1"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "particlesize": {
+            "max": "0.2 0.25",
+            "min": "0.2 0.25"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "85.0%"
+            }
+        ],
+        "numparticles": {
+            "value": "3"
+        }
+    }
+}

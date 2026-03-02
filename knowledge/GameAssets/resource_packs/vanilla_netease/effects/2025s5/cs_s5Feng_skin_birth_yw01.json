@@ -1,0 +1,108 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "5.5"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.4107",
+                "time": "24.2%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.3393",
+                "time": "70.5%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "constantforce": {
+            "value": "0.0 -0.5 -0.05"
+        },
+        "dampingforce": {
+            "value": "1.0"
+        },
+        "depthtest": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 0.0 -1.0",
+            "value": "Direction"
+        },
+        "disorder": {
+            "increment": "0.0",
+            "interval": "0.2",
+            "max": "0.1 0.1 0.1",
+            "min": "-0.1 -0.1 -0.1"
+        },
+        "emissionrate": {
+            "max": "100.0",
+            "min": "100.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "15.0 5.0 5.0"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "layer": 3,
+        "numparticles": {
+            "value": "100"
+        },
+        "particlesize": {
+            "max": "1.6 1.6",
+            "min": "0.7 0.7"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 666.0",
+            "min": "0.0 0.0 -666.0"
+        },
+        "rotationSpeedRange": {
+            "max": "0.0 0.0 10.0",
+            "min": "0.0 0.0 -10.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.75 0.75",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.9 0.9",
+                "time": "65.7%"
+            },
+            {
+                "scale": "0.7 0.7",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s5/cs_s5Feng_skin_birth_yw"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "3.0",
+            "min": "2.0"
+        },
+        "velocity": {
+            "max": "2.0",
+            "min": "0.0"
+        }
+    }
+}

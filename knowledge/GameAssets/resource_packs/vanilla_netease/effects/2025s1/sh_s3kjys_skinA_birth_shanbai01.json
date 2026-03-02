@@ -1,0 +1,79 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.15"
+        },
+        "colorfade": [
+            {
+                "color": "0.0000 0.0000 0.0000 0.5268",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.0000 0.0000 0.0000 0.9286",
+                "time": "1.8%"
+            },
+            {
+                "color": "0.0000 0.0000 0.0000 1.0000",
+                "time": "8.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "9.2%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "16.0%"
+            },
+            {
+                "color": "1.0000 0.7843 0.0000 0.9375",
+                "time": "17.9%"
+            },
+            {
+                "color": "1.0000 0.7020 0.0000 0.3214",
+                "time": "51.6%"
+            },
+            {
+                "color": "1.0000 0.7490 0.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "delay": 12.180000000000001,
+        "depthtest": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "3000.0",
+            "min": "3000.0"
+        },
+        "layer": 10,
+        "numparticles": {
+            "value": "1"
+        },
+        "offsetInCamera": {
+            "value": "10.0"
+        },
+        "particlesize": {
+            "max": "18.0 16.0",
+            "min": "18.0 16.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "name": "textures/sfxs/2025s1/sh_s3kjys_skinA_birth_bai1"
+        },
+        "timetolive": {
+            "max": "0.23",
+            "min": "0.23"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

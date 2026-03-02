@@ -1,0 +1,42 @@
+{
+    "format_version": 2,
+    "header": {
+        "description": "resourcePack.education.gametest.description",
+        "name": "resourcePack.education.gametest.name",
+        "uuid": "dba81c2c-f7b3-468e-990e-f31555ed6079",
+        "version": [
+            0,
+            0,
+            1
+        ],
+        "min_engine_version": [
+            1,
+            14,
+            0
+        ]
+    },
+    "modules": [
+        {
+            "description": "resourcePack.education.gametest.description",
+            "type": "script",
+            "uuid": "7b0c8bec-11e1-4374-86f1-8b31141169a8",
+            "version": [
+                0,
+                0,
+                1
+            ],
+            "language": "javascript",
+            "entry": "scripts/vanilla-edu-gametest.js"
+        }
+    ],
+    "dependencies": [
+        {
+            "module_name": "@minecraft/server",
+            "version": "1.17.0-beta"
+        },
+        {
+            "module_name": "@minecraft/server-gametest",
+            "version": "1.0.0-beta"
+        }
+    ]
+}

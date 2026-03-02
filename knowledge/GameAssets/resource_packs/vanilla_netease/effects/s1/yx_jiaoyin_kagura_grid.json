@@ -1,0 +1,115 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.5"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "0.9098 0.0000 0.0000 0.0000",
+                "time": "0.00"
+            },
+            {
+                "color": "0.6667 0.0000 0.0000 1.0000",
+                "time": "0.10"
+            },
+            {
+                "color": "0.9373 0.0353 0.0510 1.0000",
+                "time": "0.25"
+            },
+            {
+                "color": "0.0000 0.0000 0.0000 0.0000",
+                "time": "1.50"
+            }
+        ],
+        "dampingforce": {
+            "value": "3.0"
+        },
+        "depthtest": {
+            "enable": "true"
+        },
+        "direction": {
+            "max": "0.1 0.0 0.1",
+            "min": "-0.1 0.0 -0.1",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "7.0",
+            "min": "15.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.04 0.04 0.0"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "enableloop": {
+            "enable": "true"
+        },
+        "inactivetime": {
+            "value": "0.1"
+        },
+        "independent": false,
+        "material": {
+            "name": "Materials/Particle.xml"
+        },
+        "numparticles": {
+            "value": "15"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 60.0",
+            "min": "0.0 0.0 -59.0"
+        },
+        "rotationSpeedRange": {
+            "max": "0.0 0.0 125.0",
+            "min": "0.0 0.0 -120.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.56 0.56",
+                "time": "20.0%"
+            },
+            {
+                "scale": "0.736 0.736",
+                "time": "40.0%"
+            },
+            {
+                "scale": "0.666 0.666",
+                "time": "60.0%"
+            },
+            {
+                "scale": "0.694 0.694",
+                "time": "80.0%"
+            },
+            {
+                "scale": "0.682 0.682",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/particle/s1/yx_jiaoyin_kagura_grid_01"
+        },
+        "thickness": {
+            "value": "0"
+        },
+        "timetolive": {
+            "max": "1.0",
+            "min": "2.0"
+        },
+        "velocity": {
+            "max": "0.1",
+            "min": "-1.8"
+        }
+    }
+}

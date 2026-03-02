@@ -1,0 +1,103 @@
+{
+    "particleeffect": {
+        "layer": 6,
+        "emissionrate": {
+            "max": "50.0",
+            "min": "50.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "particlesize": {
+            "max": "0.04 0.04",
+            "min": "0.02 0.02"
+        },
+        "activetime": {
+            "value": "0.4"
+        },
+        "numparticles": {
+            "value": "5"
+        },
+        "texture": {
+            "name": "textures/sfxs/pet_mod_robot/yx_dragom_fpB_lz2"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "delay": 0.6,
+        "timetolive": {
+            "max": "0.5",
+            "min": "0.3"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.7 0.7",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "30.0%"
+            },
+            {
+                "scale": "0.6 0.6",
+                "time": "100.0%"
+            }
+        ],
+        "independent": false,
+        "direction": {
+            "max": "0.0 1.0 0.0",
+            "value": "Direction",
+            "min": "0.0 0.0 0.0"
+        },
+        "dampingforce": {
+            "value": "7.0"
+        },
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.5 0.5 0.5"
+        },
+        "inactivetime": {
+            "value": "0.5"
+        },
+        "emitterscale": [],
+        "colorfade": [
+            {
+                "color": "0.3686 0.8000 1.0000 1.0000",
+                "time": "0.00"
+            },
+            {
+                "color": "0.5451 1.0000 0.9882 1.0000",
+                "time": "0.03"
+            },
+            {
+                "color": "0.0235 0.6588 1.0000 0.9911",
+                "time": "0.08"
+            },
+            {
+                "color": "0.0039 0.9176 1.0000 0.9375",
+                "time": "0.16"
+            },
+            {
+                "color": "0.4471 0.1922 1.0000 0.8036",
+                "time": "0.25"
+            },
+            {
+                "color": "0.1725 0.2471 0.6863 0.3304",
+                "time": "0.60"
+            }
+        ],
+        "depthtest": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Cone"
+        },
+        "velocity": {
+            "max": "7.0",
+            "min": "12.0"
+        },
+        "blend": {
+            "name": "add"
+        }
+    }
+}

@@ -1,0 +1,80 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.2"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.9882 0.6431 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.6588 0.2706 1.0000",
+                "time": "32.9%"
+            },
+            {
+                "color": "0.9882 0.1529 0.0902 1.0000",
+                "time": "74.5%"
+            },
+            {
+                "color": "0.3765 0.0314 0.0314 0.0089",
+                "time": "100.0%"
+            }
+        ],
+        "dampingforce": {
+            "value": "5.0"
+        },
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "70.0",
+            "min": "70.0"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "particlesize": {
+            "max": "0.04 0.04",
+            "min": "0.02 0.02"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "false"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.0 0.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.25 1.25",
+                "time": "10.3%"
+            },
+            {
+                "scale": "1.9 1.9",
+                "time": "29.0%"
+            },
+            {
+                "scale": "1.9 1.9",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s6/ss_s6Yaksha_weaponB_lizi02"
+        },
+        "timetolive": {
+            "max": "0.5",
+            "min": "0.2"
+        },
+        "velocity": {
+            "max": "5.0",
+            "min": "5.0"
+        }
+    }
+}

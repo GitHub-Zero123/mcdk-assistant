@@ -1,0 +1,28 @@
+{
+    "format_version": "1.13.0",
+    "minecraft:ore_feature": {
+        "description": {
+            "identifier": "minecraft:diamond_ore_buried_feature"
+        },
+        "count": 8,
+        "discard_chance_on_air_exposure": 1.0,
+        "replace_rules": [
+            {
+                "places_block": "minecraft:diamond_ore",
+                "may_replace": [
+                    {
+                        "name": "minecraft:stone"
+                    }
+                ]
+            },
+            {
+                "places_block": "minecraft:deepslate_diamond_ore",
+                "may_replace": [
+                    {
+                        "name": "minecraft:deepslate"
+                    }
+                ]
+            }
+        ]
+    }
+}

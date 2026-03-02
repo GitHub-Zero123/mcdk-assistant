@@ -1,0 +1,90 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.2"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "18.7%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.4464",
+                "time": "20.5%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.3214",
+                "time": "68.4%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "delay": 0.02,
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "3000.0",
+            "min": "3000.0"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Horizontal"
+        },
+        "layer": 4,
+        "numparticles": {
+            "value": "2"
+        },
+        "particlesize": {
+            "max": "1.13 1.13",
+            "min": "1.13 1.13"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.66 0.66",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.25 1.25",
+                "time": "21.3%"
+            },
+            {
+                "scale": "1.5 1.5",
+                "time": "99.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "36",
+                "name": "textures/sfxs/2025s6/cs_s6Jiaolong_skin_victory_gq",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s6/cs_s6Jiaolong_skin_victory_gq"
+        },
+        "timetolive": {
+            "max": "0.30000000000000004",
+            "min": "0.30000000000000004"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

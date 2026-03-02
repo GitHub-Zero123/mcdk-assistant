@@ -1,0 +1,77 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.4510 0.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.3098 0.0824 0.6875",
+                "time": "36.6%"
+            },
+            {
+                "color": "1.0000 0.4157 0.0000 0.3750",
+                "time": "54.7%"
+            },
+            {
+                "color": "1.0000 0.4157 0.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "dampingforce": {
+            "value": "4.0"
+        },
+        "direction": {
+            "max": "0.02 0.02 0.0",
+            "min": "0.01 0.01 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "0.95",
+            "min": "0.95"
+        },
+        "layer": 2,
+        "numparticles": {
+            "value": "2"
+        },
+        "offsetInCamera": {
+            "value": "-0.15"
+        },
+        "particlesize": {
+            "max": "0.09 0.12",
+            "min": "0.09 0.12"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.25 1.25",
+                "time": "40.0%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s5/ss_s5Demon_skin_g"
+        },
+        "timetolive": {
+            "max": "1.7",
+            "min": "1.7"
+        },
+        "velocity": {
+            "max": "0.1",
+            "min": "0.1"
+        }
+    }
+}

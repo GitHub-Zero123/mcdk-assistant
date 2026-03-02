@@ -1,0 +1,403 @@
+{
+    "render_order": [
+        "bloom",
+        "lensflare",
+        "depthoffield",
+        "gaussianblur",
+        "coloradjustment",
+        "vignette",
+        "lensstain",
+        "oldtv",
+        "scanmap"
+    ],
+    "process_array": [
+        {
+            "name": "bloom",
+            "paras": {
+                "threshold": 0.5,
+                "intensity": 1.0,
+                "radius": 1.0
+            },
+            "enable": true,
+            "pass_array": [
+                {
+                    "render_target": {
+                        "width": 1.0,
+                        "height": 1.0
+                    },
+                    "material": "threashold_pick",
+                    "shaderPassName": "ThreasholdPick"
+                },
+                {
+                    "render_target": {
+                        "width": 0.5,
+                        "height": 0.5
+                    },
+                    "material": "daul_blur_down",
+                    "shaderPassName": "DownScalePass"
+                },
+                {
+                    "render_target": {
+                        "width": 0.25,
+                        "height": 0.25
+                    },
+                    "material": "daul_blur_down",
+                    "shaderPassName": "DownScalePass"
+                },
+                {
+                    "render_target": {
+                        "width": 0.125,
+                        "height": 0.125
+                    },
+                    "material": "daul_blur_down",
+                    "shaderPassName": "DownScalePass"
+                },
+                {
+                    "render_target": {
+                        "width": 0.0625,
+                        "height": 0.0625
+                    },
+                    "material": "daul_blur_down",
+                    "shaderPassName": "DownScalePass"
+                },
+                {
+                    "render_target": {
+                        "width": 0.125,
+                        "height": 0.125
+                    },
+                    "material": "daul_blur_up",
+                    "shaderPassName": "UpScalePass"
+                },
+                {
+                    "render_target": {
+                        "width": 0.25,
+                        "height": 0.25
+                    },
+                    "material": "daul_blur_up",
+                    "shaderPassName": "UpScalePass"
+                },
+                {
+                    "render_target": {
+                        "width": 0.5,
+                        "height": 0.5
+                    },
+                    "material": "daul_blur_up",
+                    "shaderPassName": "UpScalePass"
+                },
+                {
+                    "render_target": {
+                        "width": 1.0,
+                        "height": 1.0
+                    },
+                    "material": "daul_blur_up_blend",
+                    "shaderPassName": "UpScalePass"
+                }
+            ]
+        },
+        {
+            "name": "lensflare",
+            "enable": false
+        },
+        {
+            "name": "vignette",
+            "paras": {
+                "color": [
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                "center": [
+                    0.5,
+                    0.5
+                ],
+                "radius": 0.5,
+                "smoothness": 0.02
+            },
+            "enable": false,
+            "pass_array": [
+                {
+                    "render_target": {
+                        "width": 1.0,
+                        "height": 1.0
+                    },
+                    "material": "vignette"
+                }
+            ]
+        },
+        {
+            "name": "gaussianblur",
+            "paras": {
+                "radius": 1.0
+            },
+            "enable": false,
+            "pass_array": [
+                {
+                    "render_target": {
+                        "width": 0.5,
+                        "height": 0.5
+                    },
+                    "material": "gaussianblur_horizontal",
+                    "shaderPassName": "DownScalePass"
+                },
+                {
+                    "render_target": {
+                        "width": 0.25,
+                        "height": 0.25
+                    },
+                    "material": "gaussianblur_horizontal",
+                    "shaderPassName": "DownScalePass"
+                },
+                {
+                    "render_target": {
+                        "width": 0.125,
+                        "height": 0.125
+                    },
+                    "material": "gaussianblur_horizontal",
+                    "shaderPassName": "DownScalePass"
+                },
+                {
+                    "render_target": {
+                        "width": 0.25,
+                        "height": 0.25
+                    },
+                    "material": "gaussianblur_vertical",
+                    "shaderPassName": "UpScalePass"
+                },
+                {
+                    "render_target": {
+                        "width": 0.5,
+                        "height": 0.5
+                    },
+                    "material": "gaussianblur_vertical",
+                    "shaderPassName": "UpScalePass"
+                },
+                {
+                    "render_target": {
+                        "width": 1.0,
+                        "height": 1.0
+                    },
+                    "material": "gaussianblur_vertical",
+                    "shaderPassName": "UpScalePass"
+                }
+            ]
+        },
+        {
+            "name": "coloradjustment",
+            "paras": {
+                "brightness": 1.0,
+                "contrast": 1.0,
+                "saturation": 1.0,
+                "intensity": 1.0,
+                "colorTint": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "enable": false,
+            "pass_array": [
+                {
+                    "render_target": {
+                        "width": 1.0,
+                        "height": 1.0
+                    },
+                    "material": "color_adjustment_BSC"
+                }
+            ]
+        },
+        {
+            "name": "lensstain",
+            "paras": {
+                "intensity": 0.5,
+                "dirtColor": [
+                    1.0,
+                    0.87,
+                    0.69,
+                    1.0
+                ],
+                "dirtColotIntensity": 1.0
+            },
+            "enable": false,
+            "pass_array": [
+                {
+                    "render_target": {
+                        "width": 1.0,
+                        "height": 1.0
+                    },
+                    "material": "lens_stain",
+                    "bindTexture": [
+                        {
+                            "texture": "textures/postprocess/default_dirtiness"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "depthoffield",
+            "paras": {
+                "focus": 2,
+                "nearBlurScale": 0.1,
+                "farBlurScale": 6.0,
+                "blurRaidus": 0.4,
+                "useAuto": 0.0
+            },
+            "enable": false,
+            "pass_array": [
+                {
+                    "render_target": {
+                        "width": 0.5,
+                        "height": 0.5
+                    },
+                    "material": "dual_kawase_blur_ds",
+                    "shaderPassName": "DownScalePass"
+                },
+                {
+                    "render_target": {
+                        "width": 0.25,
+                        "height": 0.25
+                    },
+                    "material": "dual_kawase_blur_ds",
+                    "shaderPassName": "DownScalePass"
+                },
+                {
+                    "render_target": {
+                        "width": 0.125,
+                        "height": 0.125
+                    },
+                    "material": "dual_kawase_blur_ds",
+                    "shaderPassName": "DownScalePass"
+                },
+                {
+                    "render_target": {
+                        "width": 0.25,
+                        "height": 0.25
+                    },
+                    "material": "dual_kawase_blur_us",
+                    "shaderPassName": "UpScalePass"
+                },
+                {
+                    "render_target": {
+                        "width": 0.5,
+                        "height": 0.5
+                    },
+                    "material": "dual_kawase_blur_us",
+                    "shaderPassName": "UpScalePass"
+                },
+                {
+                    "render_target": {
+                        "width": 1.0,
+                        "height": 1.0
+                    },
+                    "material": "depth_sample_with_blur",
+                    "shaderPassName": "UpScalePass"
+                }
+            ]
+        },
+        {
+            "name": "oldtv",
+            "enable": false,
+            "paras": [
+                {
+                    "name": "density",
+                    "value": 0.1,
+                    "range": [
+                        0.0,
+                        1.0
+                    ]
+                },
+                {
+                    "name": "strength",
+                    "value": 1.0,
+                    "range": [
+                        0.0,
+                        1.0
+                    ]
+                },
+                {
+                    "name": "snow_size",
+                    "value": 2.0,
+                    "range": [
+                        0.5,
+                        16.0
+                    ]
+                },
+                {
+                    "name": "noise_fps",
+                    "value": 6.0,
+                    "range": [
+                        0.01,
+                        64.0
+                    ]
+                },
+                {
+                    "name": "black_zone",
+                    "value": 0.2,
+                    "range": [
+                        0.0,
+                        1.0
+                    ]
+                }
+            ],
+            "pass_array": [
+                {
+                    "render_target": {
+                        "width": 1.0,
+                        "height": 1.0
+                    },
+                    "material": "old_tv"
+                }
+            ]
+        },
+        {
+            "name": "scanmap",
+            "enable": false,
+            "paras": [
+                {
+                    "name": "red",
+                    "value": 1.0,
+                    "range": [
+                        0.0,
+                        1.0
+                    ]
+                },
+                {
+                    "name": "green",
+                    "value": 1.0,
+                    "range": [
+                        0.0,
+                        1.0
+                    ]
+                },
+                {
+                    "name": "blue",
+                    "value": 1.0,
+                    "range": [
+                        0.0,
+                        1.0
+                    ]
+                },
+                {
+                    "name": "freq",
+                    "value": 2.0,
+                    "range": [
+                        0.0,
+                        10.0
+                    ]
+                }
+            ],
+            "pass_array": [
+                {
+                    "render_target": {
+                        "width": 1.0,
+                        "height": 1.0
+                    },
+                    "material": "scan_map",
+                    "depth_enable": true
+                }
+            ]
+        }
+    ]
+}

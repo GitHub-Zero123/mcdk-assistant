@@ -1,0 +1,97 @@
+{
+    "particleeffect": {
+        "layer": 0,
+        "emissionrate": {
+            "max": "60.0",
+            "min": "80.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "particlesize": {
+            "max": "0.5 0.5",
+            "min": "0.5 0.5"
+        },
+        "activetime": {
+            "value": "0.27"
+        },
+        "numparticles": {
+            "value": "1"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": false,
+                "name": "textures/sfxs/pet_camera/xy_myth_camera_play_redpacket_shangsheng",
+                "fps": "42"
+            },
+            "name": "textures/sfxs/pet_camera/xy_myth_camera_play_redpacket_shangsheng"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "delay": 1.83,
+        "timetolive": {
+            "max": "0.28",
+            "min": "0.25"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.84 0.84",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.14 1.14",
+                "time": "51.3%"
+            },
+            {
+                "scale": "1.18 1.18",
+                "time": "100.0%"
+            }
+        ],
+        "independent": false,
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "value": "Direction",
+            "min": "0.0 0.0 0.0"
+        },
+        "dampingforce": {
+            "value": "5.0"
+        },
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.0 0.0 0.0"
+        },
+        "emitterscale": [],
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 0.0000 1.0000",
+                "time": "0.00"
+            },
+            {
+                "color": "1.0000 0.6667 0.0000 0.6786",
+                "time": "0.75"
+            },
+            {
+                "color": "1.0000 0.3333 0.0000 0.2143",
+                "time": "1.01"
+            },
+            {
+                "color": "1.0000 0.3333 0.0000 0.0000",
+                "time": "1.30"
+            }
+        ],
+        "depthtest": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        },
+        "blend": {
+            "name": "add"
+        }
+    }
+}

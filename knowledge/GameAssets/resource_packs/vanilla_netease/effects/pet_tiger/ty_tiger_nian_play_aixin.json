@@ -1,0 +1,62 @@
+{
+    "particleeffect": {
+        "enablecolor": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "value": "Direction",
+            "min": "0.0 1.0 0.0"
+        },
+        "depthtest": {
+            "enable": "true"
+        },
+        "numparticles": {
+            "value": "4"
+        },
+        "independent": false,
+        "emissionrate": {
+            "max": "3.0",
+            "min": "4.0"
+        },
+        "emitterScaleCurve": [],
+        "texture": {
+            "name": "textures/sfxs/pet_tiger/ty_tiger_nian_play_aixin"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "timetolive": {
+            "max": "0.7",
+            "min": "0.4"
+        },
+        "emittersize": {
+            "value": "0.1 0.2 0.43"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.6",
+            "min": "0.4"
+        },
+        "particlesize": {
+            "max": "0.05 0.05",
+            "min": "0.08 0.08"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.29 1.29",
+                "time": "0.00"
+            },
+            {
+                "scale": "0.54 0.54",
+                "time": "1.98"
+            }
+        ]
+    }
+}

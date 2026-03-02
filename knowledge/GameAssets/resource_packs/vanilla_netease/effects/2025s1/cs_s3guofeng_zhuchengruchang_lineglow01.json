@@ -1,0 +1,76 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.5"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "0.6824 0.9961 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.4118 0.9922 1.0000 0.8393",
+                "time": "19.2%"
+            },
+            {
+                "color": "0.1294 0.7961 1.0000 0.6161",
+                "time": "58.7%"
+            },
+            {
+                "color": "0.1294 0.8078 0.7059 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "constantforce": {
+            "value": "0.0 -0.01 0.0"
+        },
+        "dampingforce": {
+            "value": "8.0"
+        },
+        "delay": 0.2,
+        "direction": {
+            "max": "0.0 -1.0 0.0",
+            "min": "0.0 -1.0 0.0",
+            "value": "Direction"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Direction"
+        },
+        "layer": 3,
+        "numparticles": {
+            "value": "1"
+        },
+        "offsetInCamera": {
+            "value": "-0.5"
+        },
+        "particlesize": {
+            "max": "2.0 1.0",
+            "min": "2.0 1.0"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 -90.0",
+            "min": "0.0 0.0 -90.0"
+        },
+        "texture": {
+            "name": "textures/sfxs/2025s1/cs_s3guofeng_zhuchengruchang_lineglow"
+        },
+        "timetolive": {
+            "max": "1.5",
+            "min": "1.5"
+        },
+        "velocity": {
+            "max": "8.0",
+            "min": "8.0"
+        }
+    }
+}

@@ -1,0 +1,354 @@
+{
+  "namespace": "edu_permissions",
+
+  //---------------------------------------------------------------------------
+  // SCREEN
+  //---------------------------------------------------------------------------
+
+  "permissions_menu_factory": {
+    "type": "factory",
+    "control_ids": {
+      "permissions_popup": "@edu_permissions.permissions_screen_popup"
+    }
+  },
+
+  "permissions_screen_popup@popup_dialog.form_fit_modal_dialog_popup": {
+    "$modal_title": "permissions.popup.title",
+    "$popup_dialog_escape_button_name": "button.close_permissions_popup",
+    "$modal_contents": "edu_permissions.permission_content_panel",
+    "$screen_background_alpha": 0.4,
+    "$modal_contents_padding": [ 6, 6 ],
+    // Keeps the whole dialog above the menu but behind modal dialogs
+    "layer": 25
+  },
+
+  //---------------------------------------------------------------------------
+  // CONTENT
+  //---------------------------------------------------------------------------
+
+  "permission_content_panel": {
+    "type": "panel",
+    "size": [ 260, 166 ],
+    "anchor_to": "center",
+    "anchor_from": "center",
+    "controls": [
+      {
+        "permission_stack_panel_content@edu_permissions.content_stack_panel": {}
+      }
+    ]
+  },
+
+  "content_stack_panel": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "size": [ "100%", "100%" ],
+    "controls": [
+      {
+        "perm_wrapper": {
+          "type": "panel",
+          "size": [ "100%", "100%c" ],
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "controls": [
+            {
+              "perms_dropdown@edu_permissions.permissions_dropdown": {
+                "bindings": [
+                  {
+                    "binding_name": "#permissions_dropdown_visible",
+                    "binding_name_override": "#visible"
+                  }
+                ]
+              }
+            },
+            {
+              "static_perms_display@edu_permissions.static_permissions_display": {
+                "bindings": [
+                  {
+                    "binding_name": "(not #permissions_dropdown_visible)",
+                    "binding_name_override": "#visible"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "remove_player_button@edu_permissions.remove_player_button": {}
+      }
+    ]
+  },
+
+  "static_permissions_display": {
+    "type": "panel",
+    "size": ["100%", "100%cm" ],
+    "controls": [
+      {
+        "tts_border@common.non_interact_focus_border_button": {
+          "tts_inherit_siblings": true,
+          "size": [ "100%sm", "100%sm" ],
+          "$default_focus_border_control": "edu_common.border",
+          "bindings": [
+            {
+              "binding_name": "#tts_enabled",
+              "binding_name_override": "#enabled"
+            }
+          ]
+        }
+      },
+      {
+        "vertical_stack": {
+          "type": "stack_panel",
+          "size": [ "100% - 8px", "100%c" ],
+          "controls": [
+            {
+              "padding0@common.empty_panel": { "size": [ "100%sm", 4 ] }
+            },
+            {
+              "permissions_label": {
+                "type": "label",
+                "text": "#permissions_dropdown_label",
+                "color": "$main_header_text_color",
+                "layer": 1,
+                "bindings": [
+                  {
+                    "binding_name": "#permissions_dropdown_label"
+                  }
+                ]
+              }
+            },
+            {
+              "padding1@common.empty_panel": { "size": [ "100%sm", 4 ] }
+            },
+            {
+              "icon_stack": {
+                "type": "stack_panel",
+                "size": [ "100%c", 16 ],
+                "orientation": "horizontal",
+                "layer": 1,
+                "controls": [
+                  {
+                    "icon": {
+                      "type": "image",
+                      "size": [ "100%y", 16 ],
+                      "bindings": [
+                        {
+                          "binding_name": "#permission_level_dropdown_icon_texture",
+                          "binding_name_override": "#texture"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "padding2@common.empty_panel": { "size": [ 4, "100%sm" ] }
+                  },
+                  {
+                    "label_aligner": {
+                      "type": "panel",
+                      "size": [ "100%c", "100%sm" ],
+                      "anchor_from": "left_middle",
+                      "anchor_to": "left_middle",
+                      "layer": 1,
+                      "controls": [
+                        {
+                          "label": {
+                            "type": "label",
+                            "size": [ 80, 12 ],
+                            "color": "$main_header_text_color",
+                            "text": "#permission_level_dropdown_label",
+                            "layer": 1,
+                            "anchor_from": "left_middle",
+                            "anchor_to": "left_middle",
+                            "bindings": [
+                              {
+                                "binding_name": "#permission_level_dropdown_label",
+                                "binding_type": "global"
+                              }
+                            ]
+                          }
+
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "padding2@common.empty_panel": { "size": [ "100%sm", 4 ] }
+            },
+            {
+              "description": {
+                "type": "label",
+                "size": [ "100% - 4px", "default" ],
+                "color": "$main_header_text_color",
+                "text": "#text",
+                "layer": 1,
+                "bindings": [
+                  {
+                    "binding_name": "#static_permissions_display_description",
+                    "binding_name_override": "#text"
+                  }
+                ]
+              }
+            },
+            {
+              "padding3@common.empty_panel": { "size": [ "100%sm", 4 ] }
+            }
+          ]
+        }
+      },
+      {
+        "background": {
+          "type": "image",
+          "texture": "textures/ui/White",
+          "keep_ratio": false,
+          "size": [ "100%", "100%sm" ],
+          "color": "$dropdown_radio_background_checked_color"
+        }
+      }
+    ]
+  },
+
+  "permissions_dropdown@settings_common.option_dropdown": {
+    "$option_label": "#permissions_dropdown_label",
+    "$dropdown_area": "permission_stack_panel_content",
+    "$dropdown_name": "permission_level_dropdown",
+    "$option_enabled_binding_name": "#permissions_dropdown_enabled",
+    "$options_dropdown_toggle_label_binding": "#permissions_dropdown_button_label",
+    "anchor_from": "left_middle",
+    "anchor_to": "left_middle",
+
+
+    // Dropdown toggle button //
+    "$option_dropdown_size": [ "100%", 22 ],
+    "$options_dropdown_toggle_button_state_content": [ "100%", "100%" ],
+
+    "$options_dropdown_toggle_left_padding": [ 2, 0 ],
+    "$options_dropdown_toggle_prelabel_content_size": [ 14, 14 ],
+    "$options_dropdown_toggle_prelabel_content_padding": [ 4, 0 ],
+    "$options_dropdown_toggle_prelabel_content": "edu_permissions.permission_level_icon",
+
+    "$label_bindings": [
+      {
+        "binding_name": "$option_label",
+        "binding_name_override": "$option_label"
+      }
+    ],
+
+    "$options_dropdown_label_bindings": [
+      {
+        "binding_name": "$options_dropdown_toggle_label_binding",
+        "binding_condition": "none",
+        "binding_type": "$options_dropdown_toggle_label_binding_type",
+        "binding_collection_name": "$options_dropdown_toggle_label_binding_collection_name"
+      }
+    ],
+
+    // Dropdown contents //
+    "$dropdown_content": "edu_permissions.permissions_dropdown_content",
+    "$dropdown_scroll_content_size": [ "100%", "700%" ]
+  },
+
+  "permissions_dropdown_content": {
+    "type": "stack_panel",
+    "size": [ "99%", "100%c + 4px" ],
+    "offset": [ 0, 2 ],
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "collection_name": "permission_roles",
+    "controls": [
+      {
+        "permission_level_radio_visitor@edu_permissions.custom_radio": {
+          "$toggle_state_binding_name": "#permission_level_radio_visitor",
+          "$radio_label_text": "permissions.visitor",
+          "$radio_label_desc": "permissions.description.visitors",
+          "$radio_content_control": "edu_permissions.visitor_icon",
+          "$dropdown_item_description": "permissions.description.visitors"
+        }
+      },
+      {
+        "permission_level_radio_member@edu_permissions.custom_radio": {
+          "$toggle_state_binding_name": "#permission_level_radio_member",
+          "$radio_label_text": "permissions.member",
+          "$radio_label_desc": "permissions.description.members",
+          "$radio_content_control": "edu_permissions.member_icon",
+          "$dropdown_item_description": "permissions.description.members"
+        }
+      },
+      {
+        "permission_level_radio_oeprator@edu_permissions.custom_radio": {
+          "$toggle_state_binding_name": "#permission_level_radio_operator",
+          "$radio_label_text": "permissions.operator",
+          "$radio_label_desc": "permissions.description.operators",
+          "$radio_content_control": "edu_permissions.operator_icon",
+          "$dropdown_item_description": "permissions.description.operators"
+        }
+      }
+    ]
+  },
+
+  "custom_radio": {
+    "type": "stack_panel",
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "size": [ "100%", "100%c" ],
+    "$no_description": false,
+    "$no_radio_content": false,
+    "controls": [
+      {
+        "radio@settings_common.radio_item_with_label_and_content": {}
+      }
+    ]
+  },
+
+  "operator_icon": {
+    "type": "image",
+    "size": [ 14, 14 ],
+    "texture": "textures/ui/permissions_op_crown"
+  },
+
+  "member_icon": {
+    "type": "image",
+    "size": [ 14, 14 ],
+    "texture": "textures/ui/permissions_member_star"
+  },
+
+  "visitor_icon": {
+    "type": "image",
+    "size": [ 14, 14 ],
+    "texture": "textures/ui/permissions_visitor_hand"
+  },
+
+  "permission_level_icon": {
+    "type": "image",
+    "size": [ 14, 14 ],
+    "anchor_from": "left_middle",
+    "anchor_to": "left_middle",
+    "offset": [ 0, 4 ],
+
+    "bindings": [
+      {
+        "binding_type": "global",
+        "binding_name": "#player_permissions_dropdown_toggle_button_icon_texture",
+        "binding_name_override": "#texture"
+      }
+    ]
+  },
+
+  "remove_player_button@common_buttons.light_text_button": {
+    "size": [ "100%", 22 ],
+    "$button_text": "permissions.removeplayer",
+    "$pressed_button_name": "remove_player_button",
+    "$focus_id": "remove_player_button",
+    "$focus_override_up": "permissions_dropdown_root",
+    "bindings": [
+      {
+        "binding_name": "#remove_player_button_visible",
+        "binding_name_override": "#visible"
+      }
+    ]
+  }
+
+}
+

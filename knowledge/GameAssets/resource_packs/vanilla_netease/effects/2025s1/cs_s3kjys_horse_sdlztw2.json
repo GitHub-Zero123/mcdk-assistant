@@ -1,0 +1,71 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 1.0 -1.0",
+            "value": "Direction"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "5.0 2.0 0.5"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "enableloop": {
+            "enable": "true"
+        },
+        "particlesize": {
+            "max": "0.4 0.4",
+            "min": "0.3 0.3"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 0.0 0.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.8 0.8",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.7 0.7",
+                "time": "19.0%"
+            },
+            {
+                "scale": "0.42 0.42",
+                "time": "76.3%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "12",
+                "name": "textures/sfxs/2025s1/cs_s3kjys_horse_sdall",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s1/cs_s3kjys_horse_sdall"
+        },
+        "thickness": {
+            "value": "1.0"
+        },
+        "timetolive": {
+            "max": "1.5",
+            "min": "1.5"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

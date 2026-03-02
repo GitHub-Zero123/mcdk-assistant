@@ -1,0 +1,92 @@
+{
+    "particleeffect": {
+        "colorfade": [
+            {
+                "color": "0.5255 0.5137 0.4941 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.5451 0.4667 0.4118 1.0000",
+                "time": "37.9%"
+            },
+            {
+                "color": "0.3608 0.2980 0.2980 1.0000",
+                "time": "81.6%"
+            },
+            {
+                "color": "0.2314 0.1804 0.1804 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "constantforce": {
+            "value": "0.2 0.0 0.0"
+        },
+        "dampingforce": {
+            "value": "0.1"
+        },
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 -0.1 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "8.0",
+            "min": "12.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.1 0.1 0.1"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Direction"
+        },
+        "layer": 3,
+        "numparticles": {
+            "value": "6"
+        },
+        "particlesize": {
+            "max": "0.08 0.08",
+            "min": "0.06 0.06"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.78 0.78",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.81 0.81",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "10",
+                "name": "textures/sfxs/2025s5/ss_s5Fire_weaponB_huilz",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s5/ss_s5Fire_weaponB_huilz"
+        },
+        "thickness": {
+            "value": "0"
+        },
+        "timetolive": {
+            "max": "0.8",
+            "min": "0.5"
+        },
+        "velocity": {
+            "max": "0.2",
+            "min": "0.1"
+        }
+    }
+}

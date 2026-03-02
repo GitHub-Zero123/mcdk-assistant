@@ -1,0 +1,94 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.3"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "0.9961 1.0000 0.7608 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.9529 0.7098 1.0000",
+                "time": "44.2%"
+            },
+            {
+                "color": "1.0000 0.8157 0.6314 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "dampingforce": {
+            "value": "7.0"
+        },
+        "delay": 4.57,
+        "depthtest": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Outwards"
+        },
+        "emissionrate": {
+            "max": "250.0",
+            "min": "250.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.1 0.1 0.1"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Direction"
+        },
+        "layer": 2,
+        "numparticles": {
+            "value": "70"
+        },
+        "particlesize": {
+            "max": "0.15 0.15",
+            "min": "0.2 0.2"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.57 0.57",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.2 1.2",
+                "time": "20.7%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s1/sh_s3guofeng_skinB_birth_fllz2"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.8",
+            "min": "0.5"
+        },
+        "velocity": {
+            "max": "40.0",
+            "min": "20.0"
+        }
+    }
+}

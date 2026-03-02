@@ -1,0 +1,88 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.1"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "dampingforce": {
+            "value": "3.0"
+        },
+        "direction": {
+            "max": "1.0 0.0 0.4",
+            "min": "-1.0 -0.8 -0.4",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "80.0",
+            "min": "80.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.1 0.1 0.1"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Direction"
+        },
+        "layer": 4,
+        "numparticles": {
+            "value": "6"
+        },
+        "particlesize": {
+            "max": "0.1 0.2",
+            "min": "0.2 0.3"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.66 0.66",
+                "time": "51.0%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "0",
+                "name": "textures/sfxs/2025s6/cs_s6Moth_skin_ct",
+                "shuffle": true
+            },
+            "name": "textures/sfxs/2025s6/cs_s6Moth_skin_ct"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.4",
+            "min": "0.3"
+        },
+        "velocity": {
+            "max": "7.0",
+            "min": "5.0"
+        }
+    }
+}

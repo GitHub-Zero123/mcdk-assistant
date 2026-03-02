@@ -1,0 +1,95 @@
+{
+    "particleeffect": {
+        "rotationSpeedRange": {
+            "max": "0.0 0.0 50.0",
+            "min": "0.0 0.0 30.0"
+        },
+        "delay": 0.35,
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "value": "Direction",
+            "min": "-1.0 -1.0 -1.0"
+        },
+        "activetime": {
+            "value": "1.5"
+        },
+        "faceCameraMode": {
+            "value": "Direction"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.00"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.9732",
+                "time": "0.06"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.17"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.35"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.43"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.9821",
+                "time": "0.53"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.61"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.72"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.80"
+            }
+        ],
+        "layer": 4,
+        "texture": {
+            "ani": {
+                "shuffle": true,
+                "name": "textures/sfxs/pet_squid/ss_squid_starry_happy_xingdian_01",
+                "fps": "5"
+            },
+            "name": "textures/sfxs/pet_squid/ss_squid_starry_happy_xingdian_01"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "dampingforce": {
+            "value": "4.0"
+        },
+        "timetolive": {
+            "max": "0.5",
+            "min": "0.8"
+        },
+        "velocity": {
+            "max": "2.0",
+            "min": "3.0"
+        },
+        "particlesize": {
+            "max": "0.07 0.07",
+            "min": "0.12 0.12"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "0.00"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "2.00"
+            }
+        ]
+    }
+}

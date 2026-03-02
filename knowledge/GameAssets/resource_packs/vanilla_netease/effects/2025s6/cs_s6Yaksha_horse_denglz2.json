@@ -1,0 +1,102 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "1.0"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.9922 0.6902 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.9882 0.5804 1.0000",
+                "time": "13.4%"
+            },
+            {
+                "color": "1.0000 0.9725 0.5451 0.0000",
+                "time": "32.9%"
+            },
+            {
+                "color": "1.0000 0.8314 0.4392 0.9911",
+                "time": "50.5%"
+            },
+            {
+                "color": "1.0000 0.6549 0.0588 0.0000",
+                "time": "70.0%"
+            },
+            {
+                "color": "1.0000 0.5765 0.0941 0.8393",
+                "time": "87.1%"
+            },
+            {
+                "color": "0.6275 0.2510 0.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "-0.3 0.3 -0.4",
+            "min": "-0.5 0.5 0.30000000000000004",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "8.0",
+            "min": "10.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.5 0.5 0.5"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "inactivetime": {
+            "value": "1.5"
+        },
+        "layer": 6,
+        "particlesize": {
+            "max": "0.04 0.04",
+            "min": "0.06 0.06"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.55 0.55",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.85 0.85",
+                "time": "26.7%"
+            },
+            {
+                "scale": "1.2 1.2",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "1",
+                "name": "",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s6/cs_s6Yaksha_horse_lizi02"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "1.2",
+            "min": "2.0"
+        },
+        "velocity": {
+            "max": "0.20000000000000004",
+            "min": "0.3"
+        }
+    }
+}

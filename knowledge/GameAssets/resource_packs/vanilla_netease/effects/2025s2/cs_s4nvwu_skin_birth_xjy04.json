@@ -1,0 +1,88 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.11"
+        },
+        "dampingforce": {
+            "value": "4.0"
+        },
+        "delay": 8.9,
+        "depthtest": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "35.0",
+            "min": "35.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterpath": [
+            {
+                "offset": "1.9 -3.2 1.2",
+                "rotation": "0.0 0.0 0.0",
+                "time": "0.0"
+            },
+            {
+                "offset": "0.7 -2.6 0.1",
+                "rotation": "0.0 0.0 0.0",
+                "time": "0.05"
+            },
+            {
+                "offset": "-4.3 -5.4 0.6",
+                "rotation": "0.0 0.0 0.0",
+                "time": "0.09"
+            }
+        ],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.1 0.1 0.1"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "numparticles": {
+            "value": "5"
+        },
+        "particlesize": {
+            "max": "1.0 1.0",
+            "min": "1.0 1.0"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "89.3%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "32",
+                "name": "textures/sfxs/2025s2/cs_s4nvwu_skin_birth_cry01",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s2/cs_s4nvwu_skin_birth_cry01"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

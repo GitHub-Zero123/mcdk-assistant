@@ -1,0 +1,70 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "value": "Direction",
+            "min": "0.0 0.0 0.0"
+        },
+        "activetime": {
+            "value": "1.0"
+        },
+        "faceCameraMode": {
+            "value": "Rotate Y"
+        },
+        "pointFiltering": true,
+        "enabletexture": {
+            "enable": true
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "4.5%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "51.6%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "54.5%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "emissionrate": {
+            "max": "12.0",
+            "min": "10.0"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": false,
+                "name": "textures/sfxs/pet_tiger/cs_tiger_s1wild_yinp",
+                "fps": "16"
+            },
+            "name": "textures/sfxs/pet_tiger/cs_tiger_s1wild_yinp"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "inactivetime": {
+            "value": "0.5"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        },
+        "particlesize": {
+            "max": "0.47 0.25",
+            "min": "0.47 0.25"
+        },
+        "numparticles": {
+            "value": "1"
+        }
+    }
+}

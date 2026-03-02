@@ -1,0 +1,71 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.3490 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.0980 0.3059 1.0000",
+                "time": "20.0%"
+            },
+            {
+                "color": "0.9333 0.0000 1.0000 0.7232",
+                "time": "43.2%"
+            },
+            {
+                "color": "1.0000 0.0000 0.6000 1.0000",
+                "time": "70.0%"
+            },
+            {
+                "color": "1.0000 0.0000 0.1490 0.3304",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "0.0 -1.0 0.0",
+            "min": "0.0 -1.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "5.0",
+            "min": "4.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "1.0 0.02 1.0"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "layer": 15,
+        "numparticles": {
+            "value": "5"
+        },
+        "particlesize": {
+            "max": "0.03 0.03",
+            "min": "0.01 0.01"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "name": "textures/sfxs/2025s6/xy_s6Jiaolong_fz_fangkuai"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.8",
+            "min": "0.8"
+        },
+        "velocity": {
+            "max": "0.3",
+            "min": "0.2"
+        }
+    }
+}

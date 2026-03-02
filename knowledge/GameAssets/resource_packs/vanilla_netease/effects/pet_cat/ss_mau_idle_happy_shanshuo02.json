@@ -1,0 +1,110 @@
+{
+    "particleeffect": {
+        "rotationSpeedRange": {
+            "max": "0.0 0.0 50.0",
+            "min": "0.0 0.0 30.0"
+        },
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "value": "Direction",
+            "min": "-1.0 -1.0 -1.0"
+        },
+        "emissionrate": {
+            "max": "8.0",
+            "min": "9.0"
+        },
+        "numparticles": {
+            "value": "12"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.00"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.9911",
+                "time": "0.07"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.17"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.35"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.43"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.9821",
+                "time": "0.53"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0714",
+                "time": "0.60"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.72"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.4107",
+                "time": "0.78"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.1429",
+                "time": "0.87"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "1.00"
+            }
+        ],
+        "material": {
+            "name": "materials/particles.materialC:\\MCStudioDownload\\work\\zcy_test_20200603@163.com\\Cpp\\Map\\76fed18bd5954715bd35f59f322cb76c\\resource_packs\\resource_pack_uFerx4WJ\\textures\\sfxs\\sg_zq_star_03.png"
+        },
+        "emitterScaleCurve": [],
+        "layer": 4,
+        "emittersize": {
+            "value": "0.8 0.8 0.8"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "emittertype": {
+            "value": "Cylinder"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": true,
+                "name": "textures/sfxs/pet_cat/ss_mau_idle_happy_xingdian_01",
+                "fps": "5"
+            },
+            "name": "textures/sfxs/pet_cat/ss_mau_idle_happy_xingdian_01"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        },
+        "particlesize": {
+            "max": "0.07 0.07",
+            "min": "0.12 0.12"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "0.00"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "2.00"
+            }
+        ]
+    }
+}

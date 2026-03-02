@@ -1,0 +1,73 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.7999999999999999"
+        },
+        "colorfade": [
+            {
+                "color": "0.5059 0.0980 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.2627 0.4824 1.0000 0.3839",
+                "time": "22.1%"
+            },
+            {
+                "color": "0.0000 0.5176 1.0000 0.4732",
+                "time": "44.5%"
+            },
+            {
+                "color": "0.0000 0.4510 1.0000 0.0000",
+                "time": "59.5%"
+            },
+            {
+                "color": "0.2510 0.4235 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "delay": 0.45,
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "3.0",
+            "min": "3.0"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Horizontal"
+        },
+        "layer": 3,
+        "numparticles": {
+            "value": "3"
+        },
+        "particlesize": {
+            "max": "6.5 6.5",
+            "min": "6.5 6.5"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "ani": {
+                "fps": "24",
+                "name": "textures/sfxs/2025s2/cs_s4diaoling_zhuchengruchang_ks01",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s2/cs_s4diaoling_zhuchengruchang_ks01"
+        },
+        "timetolive": {
+            "max": "0.6",
+            "min": "0.6"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

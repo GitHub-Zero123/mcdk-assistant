@@ -1,0 +1,80 @@
+{
+    "particleeffect": {
+        "independent": false,
+        "direction": {
+            "max": "0.2 0.0 0.2",
+            "value": "Direction",
+            "min": "-0.2 0.0 0.1"
+        },
+        "dampingforce": {
+            "value": "1.0"
+        },
+        "numparticles": {
+            "value": "3"
+        },
+        "colorfade": [
+            {
+                "color": "0.1882 1.0000 1.0000 0.0000",
+                "time": "0.00"
+            },
+            {
+                "color": "0.1608 0.9608 1.0000 0.4554",
+                "time": "0.15"
+            },
+            {
+                "color": "0.1529 1.0000 1.0000 0.8036",
+                "time": "0.30"
+            },
+            {
+                "color": "0.2627 0.9882 1.0000 1.0000",
+                "time": "0.49"
+            },
+            {
+                "color": "0.2863 1.0000 1.0000 0.3661",
+                "time": "0.64"
+            },
+            {
+                "color": "0.0000 0.9843 1.0000 0.0000",
+                "time": "0.80"
+            }
+        ],
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.2 0.2 0.2"
+        },
+        "texture": {
+            "name": "textures/sfxs/pet_tiger/cs_tiger_skinA_lz"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Hemisphere"
+        },
+        "timetolive": {
+            "max": "0.8",
+            "min": "0.8"
+        },
+        "depthtest": {
+            "enable": "true"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.2",
+            "min": "0.1"
+        },
+        "disorder": {
+            "max": "0.0 0.0 0.0",
+            "interval": "0.4",
+            "increment": "1.0",
+            "min": "0.0 0.0 0.0"
+        },
+        "particlesize": {
+            "max": "0.03 0.03",
+            "min": "0.05 0.05"
+        }
+    }
+}

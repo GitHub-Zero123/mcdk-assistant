@@ -1,0 +1,19 @@
+{
+  // No-op, this is just to override & remove the original config
+  "format_version": "1.13.0",
+  "minecraft:feature_rules": {
+    "description": {
+      "identifier": "minecraft:overworld_underground_iron_ore_feature",
+      "places_feature": "minecraft:iron_ore_feature"
+    },
+    "conditions": {
+      "placement_pass": "underground_pass"
+    },
+    "distribution": {
+      "iterations": 0,
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  }
+}

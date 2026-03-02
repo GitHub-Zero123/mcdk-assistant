@@ -1,0 +1,74 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "value": "Direction",
+            "min": "-1.0 -1.0 -1.0"
+        },
+        "numparticles": {
+            "value": "2"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "colorfade": [
+            {
+                "color": "0.0000 0.0000 0.0000 0.5625",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.0000 0.0000 0.0000 1.0000",
+                "time": "32.9%"
+            },
+            {
+                "color": "1.0000 0.9608 0.4000 1.0000",
+                "time": "60.3%"
+            },
+            {
+                "color": "1.0000 0.9569 0.3451 0.5089",
+                "time": "100.0%"
+            }
+        ],
+        "emissionrate": {
+            "max": "4.0",
+            "min": "2.0"
+        },
+        "emitterScaleCurve": [],
+        "enableloop": {
+            "enable": "true"
+        },
+        "emittersize": {
+            "value": "0.55 0.8 0.55"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "timetolive": {
+            "max": "0.4",
+            "min": "0.3"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": true,
+                "name": "textures/sfxs/pet_dino/ss_dino_Golden_sd",
+                "fps": "30"
+            },
+            "name": "textures/sfxs/pet_dino/ss_dino_Golden_sd"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        },
+        "particlesize": {
+            "max": "0.2 0.2",
+            "min": "0.2 0.2"
+        }
+    }
+}

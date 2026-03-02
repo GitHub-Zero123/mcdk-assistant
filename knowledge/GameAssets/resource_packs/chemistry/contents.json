@@ -1,0 +1,997 @@
+{
+    "content": [
+        {
+            "path": "blocks.json"
+        },
+        {
+            "path": "contents.json"
+        },
+        {
+            "path": "manifest.json"
+        },
+        {
+            "path": "netease_config.json"
+        },
+        {
+            "path": "pack_icon.png"
+        },
+        {
+            "path": "sounds.json"
+        },
+        {
+            "path": "entity/balloon.entity.json"
+        },
+        {
+            "path": "entity/ice_bomb.entity.json"
+        },
+        {
+            "path": "materials/entity.material"
+        },
+        {
+            "path": "models/entity/balloon.geo.json"
+        },
+        {
+            "path": "particles/evaporation_elephant_toothpaste.json"
+        },
+        {
+            "path": "render_controllers/balloon.render_controllers.json"
+        },
+        {
+            "path": "sounds/sound_definitions.json"
+        },
+        {
+            "path": "sounds/block/elemconstruct_active.fsb"
+        },
+        {
+            "path": "sounds/mob/balloon_pop.fsb"
+        },
+        {
+            "path": "texts/bg_BG.lang"
+        },
+        {
+            "path": "texts/cs_CZ.lang"
+        },
+        {
+            "path": "texts/da_DK.lang"
+        },
+        {
+            "path": "texts/de_DE.lang"
+        },
+        {
+            "path": "texts/el_GR.lang"
+        },
+        {
+            "path": "texts/en_GB.lang"
+        },
+        {
+            "path": "texts/en_US.lang"
+        },
+        {
+            "path": "texts/es_ES.lang"
+        },
+        {
+            "path": "texts/es_MX.lang"
+        },
+        {
+            "path": "texts/fi_FI.lang"
+        },
+        {
+            "path": "texts/fr_CA.lang"
+        },
+        {
+            "path": "texts/fr_FR.lang"
+        },
+        {
+            "path": "texts/hu_HU.lang"
+        },
+        {
+            "path": "texts/id_ID.lang"
+        },
+        {
+            "path": "texts/it_IT.lang"
+        },
+        {
+            "path": "texts/ja_JP.lang"
+        },
+        {
+            "path": "texts/ko_KR.lang"
+        },
+        {
+            "path": "texts/languages.json"
+        },
+        {
+            "path": "texts/language_names.json"
+        },
+        {
+            "path": "texts/nb_NO.lang"
+        },
+        {
+            "path": "texts/nl_NL.lang"
+        },
+        {
+            "path": "texts/pl_PL.lang"
+        },
+        {
+            "path": "texts/pt_BR.lang"
+        },
+        {
+            "path": "texts/pt_PT.lang"
+        },
+        {
+            "path": "texts/ru_RU.lang"
+        },
+        {
+            "path": "texts/sk_SK.lang"
+        },
+        {
+            "path": "texts/sv_SE.lang"
+        },
+        {
+            "path": "texts/tr_TR.lang"
+        },
+        {
+            "path": "texts/uk_UA.lang"
+        },
+        {
+            "path": "texts/zh_CN.lang"
+        },
+        {
+            "path": "texts/zh_TW.lang"
+        },
+        {
+            "path": "textures/flipbook_textures.json"
+        },
+        {
+            "path": "textures/item_texture.json"
+        },
+        {
+            "path": "textures/terrain_texture.json"
+        },
+        {
+            "path": "textures/textures_list.json"
+        },
+        {
+            "path": "textures/blocks/chemical_heat.png"
+        },
+        {
+            "path": "textures/blocks/compound_creator_inside.png"
+        },
+        {
+            "path": "textures/blocks/compound_creator_inside_bottom.png"
+        },
+        {
+            "path": "textures/blocks/compound_creator_side_a.png"
+        },
+        {
+            "path": "textures/blocks/compound_creator_side_b.png"
+        },
+        {
+            "path": "textures/blocks/compound_creator_side_c.png"
+        },
+        {
+            "path": "textures/blocks/compound_creator_top.png"
+        },
+        {
+            "path": "textures/blocks/element_000_unknown.png"
+        },
+        {
+            "path": "textures/blocks/element_001_h.png"
+        },
+        {
+            "path": "textures/blocks/element_002_he.png"
+        },
+        {
+            "path": "textures/blocks/element_003_li.png"
+        },
+        {
+            "path": "textures/blocks/element_004_be.png"
+        },
+        {
+            "path": "textures/blocks/element_005_b.png"
+        },
+        {
+            "path": "textures/blocks/element_006_c.png"
+        },
+        {
+            "path": "textures/blocks/element_007_n.png"
+        },
+        {
+            "path": "textures/blocks/element_008_o.png"
+        },
+        {
+            "path": "textures/blocks/element_009_f.png"
+        },
+        {
+            "path": "textures/blocks/element_010_ne.png"
+        },
+        {
+            "path": "textures/blocks/element_011_na.png"
+        },
+        {
+            "path": "textures/blocks/element_012_mg.png"
+        },
+        {
+            "path": "textures/blocks/element_013_al.png"
+        },
+        {
+            "path": "textures/blocks/element_014_si.png"
+        },
+        {
+            "path": "textures/blocks/element_015_p.png"
+        },
+        {
+            "path": "textures/blocks/element_016_s.png"
+        },
+        {
+            "path": "textures/blocks/element_017_cl.png"
+        },
+        {
+            "path": "textures/blocks/element_018_ar.png"
+        },
+        {
+            "path": "textures/blocks/element_019_k.png"
+        },
+        {
+            "path": "textures/blocks/element_020_ca.png"
+        },
+        {
+            "path": "textures/blocks/element_021_sc.png"
+        },
+        {
+            "path": "textures/blocks/element_022_ti.png"
+        },
+        {
+            "path": "textures/blocks/element_023_v.png"
+        },
+        {
+            "path": "textures/blocks/element_024_cr.png"
+        },
+        {
+            "path": "textures/blocks/element_025_mn.png"
+        },
+        {
+            "path": "textures/blocks/element_026_fe.png"
+        },
+        {
+            "path": "textures/blocks/element_027_co.png"
+        },
+        {
+            "path": "textures/blocks/element_028_ni.png"
+        },
+        {
+            "path": "textures/blocks/element_029_cu.png"
+        },
+        {
+            "path": "textures/blocks/element_030_zn.png"
+        },
+        {
+            "path": "textures/blocks/element_031_ga.png"
+        },
+        {
+            "path": "textures/blocks/element_032_ge.png"
+        },
+        {
+            "path": "textures/blocks/element_033_as.png"
+        },
+        {
+            "path": "textures/blocks/element_034_se.png"
+        },
+        {
+            "path": "textures/blocks/element_035_br.png"
+        },
+        {
+            "path": "textures/blocks/element_036_kr.png"
+        },
+        {
+            "path": "textures/blocks/element_037_rb.png"
+        },
+        {
+            "path": "textures/blocks/element_038_sr.png"
+        },
+        {
+            "path": "textures/blocks/element_039_y.png"
+        },
+        {
+            "path": "textures/blocks/element_040_zr.png"
+        },
+        {
+            "path": "textures/blocks/element_041_nb.png"
+        },
+        {
+            "path": "textures/blocks/element_042_mo.png"
+        },
+        {
+            "path": "textures/blocks/element_043_tc.png"
+        },
+        {
+            "path": "textures/blocks/element_044_ru.png"
+        },
+        {
+            "path": "textures/blocks/element_045_rh.png"
+        },
+        {
+            "path": "textures/blocks/element_046_pd.png"
+        },
+        {
+            "path": "textures/blocks/element_047_ag.png"
+        },
+        {
+            "path": "textures/blocks/element_048_cd.png"
+        },
+        {
+            "path": "textures/blocks/element_049_in.png"
+        },
+        {
+            "path": "textures/blocks/element_050_sn.png"
+        },
+        {
+            "path": "textures/blocks/element_051_sb.png"
+        },
+        {
+            "path": "textures/blocks/element_052_te.png"
+        },
+        {
+            "path": "textures/blocks/element_053_i.png"
+        },
+        {
+            "path": "textures/blocks/element_054_xe.png"
+        },
+        {
+            "path": "textures/blocks/element_055_cs.png"
+        },
+        {
+            "path": "textures/blocks/element_056_ba.png"
+        },
+        {
+            "path": "textures/blocks/element_057_la.png"
+        },
+        {
+            "path": "textures/blocks/element_058_ce.png"
+        },
+        {
+            "path": "textures/blocks/element_059_pr.png"
+        },
+        {
+            "path": "textures/blocks/element_060_nd.png"
+        },
+        {
+            "path": "textures/blocks/element_061_pm.png"
+        },
+        {
+            "path": "textures/blocks/element_062_sm.png"
+        },
+        {
+            "path": "textures/blocks/element_063_eu.png"
+        },
+        {
+            "path": "textures/blocks/element_064_gd.png"
+        },
+        {
+            "path": "textures/blocks/element_065_tb.png"
+        },
+        {
+            "path": "textures/blocks/element_066_dy.png"
+        },
+        {
+            "path": "textures/blocks/element_067_ho.png"
+        },
+        {
+            "path": "textures/blocks/element_068_er.png"
+        },
+        {
+            "path": "textures/blocks/element_069_tm.png"
+        },
+        {
+            "path": "textures/blocks/element_070_yb.png"
+        },
+        {
+            "path": "textures/blocks/element_071_lu.png"
+        },
+        {
+            "path": "textures/blocks/element_072_hf.png"
+        },
+        {
+            "path": "textures/blocks/element_073_ta.png"
+        },
+        {
+            "path": "textures/blocks/element_074_w.png"
+        },
+        {
+            "path": "textures/blocks/element_075_re.png"
+        },
+        {
+            "path": "textures/blocks/element_076_os.png"
+        },
+        {
+            "path": "textures/blocks/element_077_ir.png"
+        },
+        {
+            "path": "textures/blocks/element_078_pt.png"
+        },
+        {
+            "path": "textures/blocks/element_079_au.png"
+        },
+        {
+            "path": "textures/blocks/element_080_hg.png"
+        },
+        {
+            "path": "textures/blocks/element_081_tl.png"
+        },
+        {
+            "path": "textures/blocks/element_082_pb.png"
+        },
+        {
+            "path": "textures/blocks/element_083_bi.png"
+        },
+        {
+            "path": "textures/blocks/element_084_po.png"
+        },
+        {
+            "path": "textures/blocks/element_085_at.png"
+        },
+        {
+            "path": "textures/blocks/element_086_rn.png"
+        },
+        {
+            "path": "textures/blocks/element_087_fr.png"
+        },
+        {
+            "path": "textures/blocks/element_088_ra.png"
+        },
+        {
+            "path": "textures/blocks/element_089_ac.png"
+        },
+        {
+            "path": "textures/blocks/element_090_th.png"
+        },
+        {
+            "path": "textures/blocks/element_091_pa.png"
+        },
+        {
+            "path": "textures/blocks/element_092_u.png"
+        },
+        {
+            "path": "textures/blocks/element_093_np.png"
+        },
+        {
+            "path": "textures/blocks/element_094_pu.png"
+        },
+        {
+            "path": "textures/blocks/element_095_am.png"
+        },
+        {
+            "path": "textures/blocks/element_096_cm.png"
+        },
+        {
+            "path": "textures/blocks/element_097_bk.png"
+        },
+        {
+            "path": "textures/blocks/element_098_cf.png"
+        },
+        {
+            "path": "textures/blocks/element_099_es.png"
+        },
+        {
+            "path": "textures/blocks/element_100_fm.png"
+        },
+        {
+            "path": "textures/blocks/element_101_md.png"
+        },
+        {
+            "path": "textures/blocks/element_102_no.png"
+        },
+        {
+            "path": "textures/blocks/element_103_lr.png"
+        },
+        {
+            "path": "textures/blocks/element_104_rf.png"
+        },
+        {
+            "path": "textures/blocks/element_105_db.png"
+        },
+        {
+            "path": "textures/blocks/element_106_sg.png"
+        },
+        {
+            "path": "textures/blocks/element_107_bh.png"
+        },
+        {
+            "path": "textures/blocks/element_108_hs.png"
+        },
+        {
+            "path": "textures/blocks/element_109_mt.png"
+        },
+        {
+            "path": "textures/blocks/element_110_ds.png"
+        },
+        {
+            "path": "textures/blocks/element_111_rg.png"
+        },
+        {
+            "path": "textures/blocks/element_112_cn.png"
+        },
+        {
+            "path": "textures/blocks/element_113_nh.png"
+        },
+        {
+            "path": "textures/blocks/element_114_fl.png"
+        },
+        {
+            "path": "textures/blocks/element_115_mc.png"
+        },
+        {
+            "path": "textures/blocks/element_116_lv.png"
+        },
+        {
+            "path": "textures/blocks/element_117_ts.png"
+        },
+        {
+            "path": "textures/blocks/element_118_og.png"
+        },
+        {
+            "path": "textures/blocks/element_constructor_back.png"
+        },
+        {
+            "path": "textures/blocks/element_constructor_front.png"
+        },
+        {
+            "path": "textures/blocks/element_constructor_side_a.png"
+        },
+        {
+            "path": "textures/blocks/element_constructor_side_b.png"
+        },
+        {
+            "path": "textures/blocks/element_constructor_top.png"
+        },
+        {
+            "path": "textures/blocks/glow_stick_blue.png"
+        },
+        {
+            "path": "textures/blocks/glow_stick_brown.png"
+        },
+        {
+            "path": "textures/blocks/glow_stick_cyan.png"
+        },
+        {
+            "path": "textures/blocks/glow_stick_gray.png"
+        },
+        {
+            "path": "textures/blocks/glow_stick_green.png"
+        },
+        {
+            "path": "textures/blocks/glow_stick_light_blue.png"
+        },
+        {
+            "path": "textures/blocks/glow_stick_lime.png"
+        },
+        {
+            "path": "textures/blocks/glow_stick_magenta.png"
+        },
+        {
+            "path": "textures/blocks/glow_stick_orange.png"
+        },
+        {
+            "path": "textures/blocks/glow_stick_pink.png"
+        },
+        {
+            "path": "textures/blocks/glow_stick_purple.png"
+        },
+        {
+            "path": "textures/blocks/glow_stick_red.png"
+        },
+        {
+            "path": "textures/blocks/glow_stick_white.png"
+        },
+        {
+            "path": "textures/blocks/glow_stick_yellow.png"
+        },
+        {
+            "path": "textures/blocks/hard_glass.png"
+        },
+        {
+            "path": "textures/blocks/hard_glass_black.png"
+        },
+        {
+            "path": "textures/blocks/hard_glass_blue.png"
+        },
+        {
+            "path": "textures/blocks/hard_glass_brown.png"
+        },
+        {
+            "path": "textures/blocks/hard_glass_cyan.png"
+        },
+        {
+            "path": "textures/blocks/hard_glass_gray.png"
+        },
+        {
+            "path": "textures/blocks/hard_glass_green.png"
+        },
+        {
+            "path": "textures/blocks/hard_glass_light_blue.png"
+        },
+        {
+            "path": "textures/blocks/hard_glass_lime.png"
+        },
+        {
+            "path": "textures/blocks/hard_glass_magenta.png"
+        },
+        {
+            "path": "textures/blocks/hard_glass_orange.png"
+        },
+        {
+            "path": "textures/blocks/hard_glass_pink.png"
+        },
+        {
+            "path": "textures/blocks/hard_glass_purple.png"
+        },
+        {
+            "path": "textures/blocks/hard_glass_red.png"
+        },
+        {
+            "path": "textures/blocks/hard_glass_silver.png"
+        },
+        {
+            "path": "textures/blocks/hard_glass_white.png"
+        },
+        {
+            "path": "textures/blocks/hard_glass_yellow.png"
+        },
+        {
+            "path": "textures/blocks/lab_table_bottom.png"
+        },
+        {
+            "path": "textures/blocks/lab_table_front.png"
+        },
+        {
+            "path": "textures/blocks/lab_table_side_a.png"
+        },
+        {
+            "path": "textures/blocks/lab_table_side_b.png"
+        },
+        {
+            "path": "textures/blocks/lab_table_side_c.png"
+        },
+        {
+            "path": "textures/blocks/lab_table_top.png"
+        },
+        {
+            "path": "textures/blocks/material_reducer_bottom.png"
+        },
+        {
+            "path": "textures/blocks/material_reducer_front.png"
+        },
+        {
+            "path": "textures/blocks/material_reducer_side.png"
+        },
+        {
+            "path": "textures/blocks/material_reducer_top.png"
+        },
+        {
+            "path": "textures/blocks/tnt_bottom_underwater.png"
+        },
+        {
+            "path": "textures/blocks/tnt_side_underwater.png"
+        },
+        {
+            "path": "textures/blocks/tnt_top_underwater.png"
+        },
+        {
+            "path": "textures/blocks/torch_blue.png"
+        },
+        {
+            "path": "textures/blocks/torch_green.png"
+        },
+        {
+            "path": "textures/blocks/torch_purple.png"
+        },
+        {
+            "path": "textures/blocks/torch_red.png"
+        },
+        {
+            "path": "textures/blocks/torch_underwater.png"
+        },
+        {
+            "path": "textures/entity/balloon.tga"
+        },
+        {
+            "path": "textures/items/balloon.tga"
+        },
+        {
+            "path": "textures/items/bleach.png"
+        },
+        {
+            "path": "textures/items/ice_bomb.png"
+        },
+        {
+            "path": "textures/items/medicine_blindness.png"
+        },
+        {
+            "path": "textures/items/medicine_nausea.png"
+        },
+        {
+            "path": "textures/items/medicine_poison.png"
+        },
+        {
+            "path": "textures/items/medicine_weakness.png"
+        },
+        {
+            "path": "textures/items/rapid_fertilizer.png"
+        },
+        {
+            "path": "textures/items/sparkler_blue.png"
+        },
+        {
+            "path": "textures/items/sparkler_blue_off.png"
+        },
+        {
+            "path": "textures/items/sparkler_green.png"
+        },
+        {
+            "path": "textures/items/sparkler_green_off.png"
+        },
+        {
+            "path": "textures/items/sparkler_orange.png"
+        },
+        {
+            "path": "textures/items/sparkler_orange_off.png"
+        },
+        {
+            "path": "textures/items/sparkler_purple.png"
+        },
+        {
+            "path": "textures/items/sparkler_purple_off.png"
+        },
+        {
+            "path": "textures/items/sparkler_red.png"
+        },
+        {
+            "path": "textures/items/sparkler_red_off.png"
+        },
+        {
+            "path": "textures/items/compounds/beaker_black.png"
+        },
+        {
+            "path": "textures/items/compounds/beaker_blue.png"
+        },
+        {
+            "path": "textures/items/compounds/beaker_brown.png"
+        },
+        {
+            "path": "textures/items/compounds/beaker_clear.png"
+        },
+        {
+            "path": "textures/items/compounds/beaker_dark_grey.png"
+        },
+        {
+            "path": "textures/items/compounds/beaker_green.png"
+        },
+        {
+            "path": "textures/items/compounds/beaker_indigo.png"
+        },
+        {
+            "path": "textures/items/compounds/beaker_light_grey.png"
+        },
+        {
+            "path": "textures/items/compounds/beaker_orange.png"
+        },
+        {
+            "path": "textures/items/compounds/beaker_purple.png"
+        },
+        {
+            "path": "textures/items/compounds/beaker_red.png"
+        },
+        {
+            "path": "textures/items/compounds/beaker_white.png"
+        },
+        {
+            "path": "textures/items/compounds/beaker_yellow.png"
+        },
+        {
+            "path": "textures/items/compounds/bleach.png"
+        },
+        {
+            "path": "textures/items/compounds/flask_black.png"
+        },
+        {
+            "path": "textures/items/compounds/flask_blue.png"
+        },
+        {
+            "path": "textures/items/compounds/flask_brown.png"
+        },
+        {
+            "path": "textures/items/compounds/flask_clear.png"
+        },
+        {
+            "path": "textures/items/compounds/flask_dark_grey.png"
+        },
+        {
+            "path": "textures/items/compounds/flask_green.png"
+        },
+        {
+            "path": "textures/items/compounds/flask_indigo.png"
+        },
+        {
+            "path": "textures/items/compounds/flask_light_grey.png"
+        },
+        {
+            "path": "textures/items/compounds/flask_orange.png"
+        },
+        {
+            "path": "textures/items/compounds/flask_purple.png"
+        },
+        {
+            "path": "textures/items/compounds/flask_red.png"
+        },
+        {
+            "path": "textures/items/compounds/flask_white.png"
+        },
+        {
+            "path": "textures/items/compounds/flask_yellow.png"
+        },
+        {
+            "path": "textures/items/compounds/garbage.png"
+        },
+        {
+            "path": "textures/items/compounds/glue.png"
+        },
+        {
+            "path": "textures/items/compounds/jar_black.png"
+        },
+        {
+            "path": "textures/items/compounds/jar_blue.png"
+        },
+        {
+            "path": "textures/items/compounds/jar_brown.png"
+        },
+        {
+            "path": "textures/items/compounds/jar_clear.png"
+        },
+        {
+            "path": "textures/items/compounds/jar_dark_grey.png"
+        },
+        {
+            "path": "textures/items/compounds/jar_green.png"
+        },
+        {
+            "path": "textures/items/compounds/jar_indigo.png"
+        },
+        {
+            "path": "textures/items/compounds/jar_light_grey.png"
+        },
+        {
+            "path": "textures/items/compounds/jar_orange.png"
+        },
+        {
+            "path": "textures/items/compounds/jar_purple.png"
+        },
+        {
+            "path": "textures/items/compounds/jar_red.png"
+        },
+        {
+            "path": "textures/items/compounds/jar_white.png"
+        },
+        {
+            "path": "textures/items/compounds/jar_yellow.png"
+        },
+        {
+            "path": "textures/items/compounds/salt.png"
+        },
+        {
+            "path": "textures/particle/elephant_toothpaste.png"
+        },
+        {
+            "path": "textures/particle/particles.png"
+        },
+        {
+            "path": "textures/ui/arrow_down.png"
+        },
+        {
+            "path": "textures/ui/beaker_active.png"
+        },
+        {
+            "path": "textures/ui/beaker_default.png"
+        },
+        {
+            "path": "textures/ui/button_slash.png"
+        },
+        {
+            "path": "textures/ui/chemistry_slider_background_hover.json"
+        },
+        {
+            "path": "textures/ui/chemistry_slider_background_hover.png"
+        },
+        {
+            "path": "textures/ui/chemistry_slider_button_default.json"
+        },
+        {
+            "path": "textures/ui/chemistry_slider_button_default.png"
+        },
+        {
+            "path": "textures/ui/compound_background.json"
+        },
+        {
+            "path": "textures/ui/compound_background.png"
+        },
+        {
+            "path": "textures/ui/dialog_indent_horiz.json"
+        },
+        {
+            "path": "textures/ui/dialog_indent_horiz.png"
+        },
+        {
+            "path": "textures/ui/electron.png"
+        },
+        {
+            "path": "textures/ui/electron_lowdetail.png"
+        },
+        {
+            "path": "textures/ui/flask_active.png"
+        },
+        {
+            "path": "textures/ui/flask_default.png"
+        },
+        {
+            "path": "textures/ui/jar_active.png"
+        },
+        {
+            "path": "textures/ui/jar_default.png"
+        },
+        {
+            "path": "textures/ui/material_reducer_connectors.png"
+        },
+        {
+            "path": "textures/ui/material_reducer_connectors_pocket.png"
+        },
+        {
+            "path": "textures/ui/microscope.png"
+        },
+        {
+            "path": "textures/ui/neutron.png"
+        },
+        {
+            "path": "textures/ui/placeholder_element.png"
+        },
+        {
+            "path": "textures/ui/proton.png"
+        },
+        {
+            "path": "textures/ui/proton_lowdetail.png"
+        },
+        {
+            "path": "textures/ui/white_slider_progress.json"
+        },
+        {
+            "path": "textures/ui/white_slider_progress.png"
+        },
+        {
+            "path": "ui/chemistry_common_pocket.json"
+        },
+        {
+            "path": "ui/compound_creator_screen.json"
+        },
+        {
+            "path": "ui/compound_creator_screen_pocket.json"
+        },
+        {
+            "path": "ui/element_constructor_screen.json"
+        },
+        {
+            "path": "ui/element_constructor_screen_pocket.json"
+        },
+        {
+            "path": "ui/lab_table_screen.json"
+        },
+        {
+            "path": "ui/lab_table_screen_pocket.json"
+        },
+        {
+            "path": "ui/material_reducer_screen.json"
+        },
+        {
+            "path": "ui/material_reducer_screen_pocket.json"
+        },
+        {
+            "path": "ui/_ui_defs.json"
+        }
+    ]
+}

@@ -1,0 +1,104 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "1.6"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.6875",
+                "time": "4.5%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "13.7%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "62.6%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.5982",
+                "time": "86.8%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "constantforce": {
+            "value": "0.0 -3.0 0.0"
+        },
+        "dampingforce": {
+            "value": "2.0"
+        },
+        "delay": 1.5000000000000002,
+        "direction": {
+            "max": "0.0 -0.3 0.0",
+            "min": "0.0 -1.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "8.0",
+            "min": "6.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "10.0 5.0 10.0"
+        },
+        "emittertype": {
+            "value": "Cone"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Rotate Y"
+        },
+        "layer": 4,
+        "numparticles": {
+            "value": "6"
+        },
+        "particlesize": {
+            "max": "0.26 0.9",
+            "min": "0.5 1.5"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.55 0.55",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "10.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "24",
+                "name": "textures/sfxs/2025s2/cs_s4diaoling_zhuchengruchang_fire01",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s2/cs_s4diaoling_zhuchengruchang_fire01"
+        },
+        "thickness": {
+            "value": "1.0"
+        },
+        "timetolive": {
+            "max": "0.66",
+            "min": "0.5"
+        },
+        "velocity": {
+            "max": "3.0",
+            "min": "5.0"
+        }
+    }
+}

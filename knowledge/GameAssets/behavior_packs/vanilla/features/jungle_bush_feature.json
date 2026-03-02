@@ -1,0 +1,57 @@
+{
+    "format_version": "1.13.0",
+    "minecraft:tree_feature": {
+        "description": {
+            "identifier": "minecraft:jungle_bush_feature"
+        },
+        "trunk": {
+            "trunk_height": 1,
+            "trunk_block": {
+                "name": "minecraft:jungle_log"
+            },
+            "can_be_submerged": {
+                "max_depth": 1
+            }
+        },
+        "canopy": {
+            "canopy_offset": {
+                "min": -1,
+                "max": 1
+            },
+            "leaf_block": {
+                "name": "minecraft:jungle_leaves"
+            },
+            "min_width": 0,
+            "canopy_slope": {
+                "rise": 1,
+                "run": 1
+            },
+            "variation_chance": {
+                "numerator": 1,
+                "denominator": 2
+            }
+        },
+        "base_block": [
+            "minecraft:grass_block",
+            "minecraft:dirt"
+        ],
+        "may_grow_on": [
+            "minecraft:grass_block",
+            "minecraft:dirt"
+        ],
+        "may_replace": [
+            "minecraft:air",
+            "minecraft:oak_leaves",
+            "minecraft:spruce_leaves",
+            "minecraft:birch_leaves",
+            "minecraft:jungle_leaves",
+            "minecraft:acacia_leaves",
+            "minecraft:dark_oak_leaves"
+        ],
+        "may_grow_through": [
+            "minecraft:dirt",
+            "minecraft:grass_block",
+            "minecraft:coarse_dirt"
+        ]
+    }
+}

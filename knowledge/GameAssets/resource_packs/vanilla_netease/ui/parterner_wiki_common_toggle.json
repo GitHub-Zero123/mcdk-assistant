@@ -1,0 +1,2837 @@
+{
+    "base_growth_guide_item@common.button": {
+        "$default_text_color": [
+            0.26,
+            0.26,
+            0.26
+        ],
+        "$default_texture": "textures/ui/btn_light_default",
+        "$hover_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$hover_texture": "textures/ui/btn_hover",
+        "$nineslice_size": 2,
+        "$pressed_button_name": "",
+        "$pressed_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$pressed_texture": "textures/ui/btn_pressed",
+        "$texture_layer": 1,
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "default@parterner_common_toggles.default": {
+                    "controls": []
+                }
+            },
+            {
+                "hover@parterner_common_toggles.hover": {
+                    "controls": []
+                }
+            },
+            {
+                "pressed@parterner_common_toggles.pressed": {
+                    "controls": []
+                }
+            },
+            {
+                "img": {
+                    "anchor_from": "center",
+                    "anchor_to": "center",
+                    "controls": [],
+                    "layer": 2,
+                    "offset": [
+                        0,
+                        0
+                    ],
+                    "size": [
+                        "100.0%+0.0px",
+                        "100.0%+0.0px"
+                    ],
+                    "texture": "textures/ui/growth_guide/branch01",
+                    "type": "image",
+                    "visible": true
+                }
+            },
+            {
+                "selected_img": {
+                    "anchor_from": "center",
+                    "anchor_to": "center",
+                    "controls": [],
+                    "layer": 3,
+                    "offset": [
+                        0,
+                        0
+                    ],
+                    "size": [
+                        "100.0%+0.0px",
+                        "100.0%+0.0px"
+                    ],
+                    "texture": "textures/ui/common_selected",
+                    "type": "image",
+                    "uv": [
+                        0,
+                        0
+                    ],
+                    "uv_size": [
+                        0,
+                        0
+                    ],
+                    "visible": false
+                }
+            }
+        ],
+        "default_control": "default",
+        "hover_control": "hover",
+        "is_handle_button_move_event": true,
+        "layer": 2,
+        "offset": [
+            0.0,
+            0.0
+        ],
+        "pressed_control": "pressed",
+        "size": [
+            30,
+            30
+        ],
+        "type": "button"
+    },
+    "base_growth_guide_item_link": {
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [],
+        "layer": 1,
+        "nineslice_size": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            30,
+            4
+        ],
+        "texture": "textures/ui/guide_item_link",
+        "type": "image",
+        "visible": true
+    },
+    "common_select@common.button": {
+        "$anchor_from": "left_middle",
+        "$anchor_to": "left_middle",
+        "$default_text_color": [
+            0.26,
+            0.26,
+            0.26
+        ],
+        "$default_texture": "textures/ui/btn_light_default",
+        "$enabled": true,
+        "$hover_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$hover_texture": "textures/ui/btn_hover",
+        "$locked_text_color": [
+            0.69,
+            0.69,
+            0.69
+        ],
+        "$locked_texture": "textures/ui/btn_unuse",
+        "$middle_icon": "textures/ui/left_arrow_icon",
+        "$nineslice_size": 2,
+        "$pressed_button_name": "",
+        "$pressed_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$pressed_texture": "textures/ui/btn_pressed",
+        "$texture_layer": 2,
+        "anchor_from": "$anchor_from",
+        "anchor_to": "$anchor_to",
+        "controls": [
+            {
+                "default@parterner_common_toggles.default": {
+                    "controls": []
+                }
+            },
+            {
+                "hover@parterner_common_toggles.hover": {
+                    "controls": []
+                }
+            },
+            {
+                "pressed@parterner_common_toggles.pressed": {
+                    "controls": []
+                }
+            },
+            {
+                "locked@parterner_common_toggles.locked": {
+                    "controls": []
+                }
+            },
+            {
+                "visibleImg": {
+                    "anchor_from": "center",
+                    "anchor_to": "center",
+                    "controls": [],
+                    "layer": 3,
+                    "size": [
+                        "100.0%+0.0px",
+                        69
+                    ],
+                    "texture": "$middle_icon",
+                    "type": "image"
+                }
+            }
+        ],
+        "default_control": "default",
+        "enabled": "$enabled",
+        "hover_control": "hover",
+        "is_handle_button_move_event": true,
+        "layer": 5,
+        "locked_control": "locked",
+        "offset": [
+            0,
+            0
+        ],
+        "pressed_control": "pressed",
+        "size": [
+            28,
+            "100%"
+        ],
+        "type": "button",
+        "visible": true
+    },
+    "edit_box_background_default": {
+        "is_new_nine_slice": "$is_new_nine_slice",
+        "nine_slice_buttom": "$nine_slice_buttom",
+        "nine_slice_left": "$nine_slice_left",
+        "nine_slice_right": "$nine_slice_right",
+        "nine_slice_top": "$nine_slice_top",
+        "texture": "$edit_box_default_texture",
+        "type": "image"
+    },
+    "edit_box_background_hover": {
+        "is_new_nine_slice": "$is_new_nine_slice",
+        "nine_slice_buttom": "$nine_slice_buttom",
+        "nine_slice_left": "$nine_slice_left",
+        "nine_slice_right": "$nine_slice_right",
+        "nine_slice_top": "$nine_slice_top",
+        "texture": "$edit_box_hover_texture",
+        "type": "image"
+    },
+    "guidePanel": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clips_children": true,
+        "controls": [
+            {
+                "guideTreePanel": {
+                    "anchor_from": "top_middle",
+                    "anchor_to": "top_middle",
+                    "controls": [
+                        {
+                            "guideTreeBg": {
+                                "anchor_from": "center",
+                                "anchor_to": "center",
+                                "controls": [],
+                                "layer": 1,
+                                "nineslice_size": 2,
+                                "offset": [
+                                    0,
+                                    0
+                                ],
+                                "size": [
+                                    "100.0%+0.0px",
+                                    "100.0%+0.0px"
+                                ],
+                                "texture": "textures/ui/pet_visible_bg",
+                                "type": "image",
+                                "uv": [
+                                    0,
+                                    0
+                                ],
+                                "uv_size": [
+                                    0,
+                                    0
+                                ],
+                                "visible": true
+                            }
+                        },
+                        {
+                            "growthGuideView_1": {
+                                "anchor_from": "top_left",
+                                "anchor_to": "top_left",
+                                "controls": [
+                                    {
+                                        "first_panel": {
+                                            "controls": [
+                                                {
+                                                    "growth_guide_item_link_0@parterner_wiki_common_toggle.base_growth_guide_item_link": {
+                                                        "anchor_from": "left_middle",
+                                                        "anchor_to": "left_middle",
+                                                        "offset": [
+                                                            "4390.0%y+0.0px",
+                                                            0
+                                                        ],
+                                                        "size": [
+                                                            "1882.0%y+0.0px",
+                                                            "8.0%+0.0px"
+                                                        ]
+                                                    }
+                                                },
+                                                {
+                                                    "growth_guide_item_0@parterner_wiki_common_toggle.base_growth_guide_item": {
+                                                        "offset": [
+                                                            "301.2%y+0.0px",
+                                                            0.0
+                                                        ],
+                                                        "size": [
+                                                            "100.0%y+0.0px",
+                                                            "100.0%+0.0px"
+                                                        ]
+                                                    }
+                                                },
+                                                {
+                                                    "growth_guide_item_1@parterner_wiki_common_toggle.base_growth_guide_item": {
+                                                        "offset": [
+                                                            "451.8%y+0.0px",
+                                                            0.0
+                                                        ],
+                                                        "size": [
+                                                            "100.0%y+0.0px",
+                                                            "100.0%+0.0px"
+                                                        ]
+                                                    }
+                                                }
+                                            ],
+                                            "offset": [
+                                                0,
+                                                0.0
+                                            ],
+                                            "size": [
+                                                "100.0%+0.0px",
+                                                "29.49%+0.0px"
+                                            ],
+                                            "type": "panel"
+                                        }
+                                    },
+                                    {
+                                        "empty_line_1": {
+                                            "size": [
+                                                "100.0%+0.0px",
+                                                "5.76%+0.0px"
+                                            ],
+                                            "type": "panel"
+                                        }
+                                    },
+                                    {
+                                        "second_panel": {
+                                            "controls": [
+                                                {
+                                                    "growth_guide_item_link_1@parterner_wiki_common_toggle.base_growth_guide_item_link": {
+                                                        "anchor_from": "left_middle",
+                                                        "anchor_to": "left_middle",
+                                                        "offset": [
+                                                            "6.6%+0.0px",
+                                                            0
+                                                        ],
+                                                        "size": [
+                                                            "31997.0%y+0.0px",
+                                                            "8.0%+0.0px"
+                                                        ]
+                                                    }
+                                                },
+                                                {
+                                                    "growth_guide_item_2@parterner_wiki_common_toggle.base_growth_guide_item": {
+                                                        "offset": [
+                                                            "0.0%+0.0px",
+                                                            0.0
+                                                        ],
+                                                        "size": [
+                                                            "100.0%y+0.0px",
+                                                            "100.0%+0.0px"
+                                                        ]
+                                                    }
+                                                },
+                                                {
+                                                    "growth_guide_item_3@parterner_wiki_common_toggle.base_growth_guide_item": {
+                                                        "offset": [
+                                                            "150.6%y+0.0px",
+                                                            0.0
+                                                        ],
+                                                        "size": [
+                                                            "100.0%y+0.0px",
+                                                            "100.0%+0.0px"
+                                                        ]
+                                                    }
+                                                },
+                                                {
+                                                    "growth_guide_item_4@parterner_wiki_common_toggle.base_growth_guide_item": {
+                                                        "offset": [
+                                                            "301.2%y+0.0px",
+                                                            0.0
+                                                        ],
+                                                        "size": [
+                                                            "100.0%y+0.0px",
+                                                            "100.0%+0.0px"
+                                                        ]
+                                                    }
+                                                },
+                                                {
+                                                    "growth_guide_item_5@parterner_wiki_common_toggle.base_growth_guide_item": {
+                                                        "offset": [
+                                                            "451.8%y+0.0px",
+                                                            0.0
+                                                        ],
+                                                        "size": [
+                                                            "100.0%y+0.0px",
+                                                            "100.0%+0.0px"
+                                                        ]
+                                                    }
+                                                },
+                                                {
+                                                    "growth_guide_item_6@parterner_wiki_common_toggle.base_growth_guide_item": {
+                                                        "offset": [
+                                                            "602.4%y+0.0px",
+                                                            0.0
+                                                        ],
+                                                        "size": [
+                                                            "100.0%y+0.0px",
+                                                            "100.0%+0.0px"
+                                                        ]
+                                                    }
+                                                },
+                                                {
+                                                    "growth_guide_item_7@parterner_wiki_common_toggle.base_growth_guide_item": {
+                                                        "offset": [
+                                                            "753.0%y+0.0px",
+                                                            0.0
+                                                        ],
+                                                        "size": [
+                                                            "100.0%y+0.0px",
+                                                            "100.0%+0.0px"
+                                                        ]
+                                                    }
+                                                },
+                                                {
+                                                    "growth_guide_item_8@parterner_wiki_common_toggle.base_growth_guide_item": {
+                                                        "offset": [
+                                                            "903.6%y+0.0px",
+                                                            0.0
+                                                        ],
+                                                        "size": [
+                                                            "100.0%y+0.0px",
+                                                            "100.0%+0.0px"
+                                                        ]
+                                                    }
+                                                },
+                                                {
+                                                    "growth_guide_item_9@parterner_wiki_common_toggle.base_growth_guide_item": {
+                                                        "offset": [
+                                                            "1054.2%y+0.0px",
+                                                            0.0
+                                                        ],
+                                                        "size": [
+                                                            "100.0%y+0.0px",
+                                                            "100.0%+0.0px"
+                                                        ]
+                                                    }
+                                                },
+                                                {
+                                                    "growth_guide_item_10@parterner_wiki_common_toggle.base_growth_guide_item": {
+                                                        "offset": [
+                                                            "1204.8%y+0.0px",
+                                                            0.0
+                                                        ],
+                                                        "size": [
+                                                            "100.0%y+0.0px",
+                                                            "100.0%+0.0px"
+                                                        ]
+                                                    }
+                                                },
+                                                {
+                                                    "growth_guide_item_11@parterner_wiki_common_toggle.base_growth_guide_item": {
+                                                        "offset": [
+                                                            "1355.4%y+0.0px",
+                                                            0.0
+                                                        ],
+                                                        "size": [
+                                                            "100.0%y+0.0px",
+                                                            "100.0%+0.0px"
+                                                        ]
+                                                    }
+                                                },
+                                                {
+                                                    "growth_guide_item_12@parterner_wiki_common_toggle.base_growth_guide_item": {
+                                                        "offset": [
+                                                            "1506.0%y+0.0px",
+                                                            0.0
+                                                        ],
+                                                        "size": [
+                                                            "100.0%y+0.0px",
+                                                            "100.0%+0.0px"
+                                                        ]
+                                                    }
+                                                },
+                                                {
+                                                    "growth_guide_item_13@parterner_wiki_common_toggle.base_growth_guide_item": {
+                                                        "offset": [
+                                                            "1656.6%y+0.0px",
+                                                            0.0
+                                                        ],
+                                                        "size": [
+                                                            "100.0%y+0.0px",
+                                                            "100.0%+0.0px"
+                                                        ]
+                                                    }
+                                                },
+                                                {
+                                                    "growth_guide_item_14@parterner_wiki_common_toggle.base_growth_guide_item": {
+                                                        "offset": [
+                                                            "1807.2%y+0.0px",
+                                                            0.0
+                                                        ],
+                                                        "size": [
+                                                            "100.0%y+0.0px",
+                                                            "100.0%+0.0px"
+                                                        ]
+                                                    }
+                                                },
+                                                {
+                                                    "growth_guide_item_15@parterner_wiki_common_toggle.base_growth_guide_item": {
+                                                        "offset": [
+                                                            "1957.8%y+0.0px",
+                                                            0.0
+                                                        ],
+                                                        "size": [
+                                                            "100.0%y+0.0px",
+                                                            "100.0%+0.0px"
+                                                        ]
+                                                    }
+                                                },
+                                                {
+                                                    "growth_guide_item_16@parterner_wiki_common_toggle.base_growth_guide_item": {
+                                                        "offset": [
+                                                            "2108.4%y+0.0px",
+                                                            0.0
+                                                        ],
+                                                        "size": [
+                                                            "100.0%y+0.0px",
+                                                            "100.0%+0.0px"
+                                                        ]
+                                                    }
+                                                },
+                                                {
+                                                    "growth_guide_item_17@parterner_wiki_common_toggle.base_growth_guide_item": {
+                                                        "offset": [
+                                                            "2259.0%y+0.0px",
+                                                            0.0
+                                                        ],
+                                                        "size": [
+                                                            "100.0%y+0.0px",
+                                                            "100.0%+0.0px"
+                                                        ]
+                                                    }
+                                                },
+                                                {
+                                                    "growth_guide_item_18@parterner_wiki_common_toggle.base_growth_guide_item": {
+                                                        "offset": [
+                                                            "2409.6%y+0.0px",
+                                                            0.0
+                                                        ],
+                                                        "size": [
+                                                            "100.0%y+0.0px",
+                                                            "100.0%+0.0px"
+                                                        ]
+                                                    }
+                                                },
+                                                {
+                                                    "growth_guide_item_19@parterner_wiki_common_toggle.base_growth_guide_item": {
+                                                        "offset": [
+                                                            "2560.2%y+0.0px",
+                                                            0.0
+                                                        ],
+                                                        "size": [
+                                                            "100.0%y+0.0px",
+                                                            "100.0%+0.0px"
+                                                        ]
+                                                    }
+                                                }
+                                            ],
+                                            "offset": [
+                                                0,
+                                                "35.25%+0.0px"
+                                            ],
+                                            "size": [
+                                                "100.0%+0.0px",
+                                                "29.49%+0.0px"
+                                            ],
+                                            "type": "panel"
+                                        }
+                                    },
+                                    {
+                                        "empty_line_2": {
+                                            "size": [
+                                                "100.0%+0.0px",
+                                                "5.76%+0.0px"
+                                            ],
+                                            "type": "panel"
+                                        }
+                                    },
+                                    {
+                                        "third_panel": {
+                                            "controls": [
+                                                {
+                                                    "growth_guide_item_link_2@parterner_wiki_common_toggle.base_growth_guide_item_link": {
+                                                        "anchor_from": "left_middle",
+                                                        "anchor_to": "left_middle",
+                                                        "offset": [
+                                                            "4390.0%y+0.0px",
+                                                            0
+                                                        ],
+                                                        "size": [
+                                                            "1882.0%y+0.0px",
+                                                            "8.0%+0.0px"
+                                                        ]
+                                                    }
+                                                },
+                                                {
+                                                    "growth_guide_item_20@parterner_wiki_common_toggle.base_growth_guide_item": {
+                                                        "offset": [
+                                                            "301.2%y+0.0px",
+                                                            0.0
+                                                        ],
+                                                        "size": [
+                                                            "100.0%y+0.0px",
+                                                            "100.0%+0.0px"
+                                                        ]
+                                                    }
+                                                },
+                                                {
+                                                    "growth_guide_item_21@parterner_wiki_common_toggle.base_growth_guide_item": {
+                                                        "offset": [
+                                                            "451.8%y+0.0px",
+                                                            0.0
+                                                        ],
+                                                        "size": [
+                                                            "100.0%y+0.0px",
+                                                            "100.0%+0.0px"
+                                                        ]
+                                                    }
+                                                }
+                                            ],
+                                            "offset": [
+                                                0,
+                                                0.0
+                                            ],
+                                            "size": [
+                                                "100.0%+0.0px",
+                                                "29.49%+0.0px"
+                                            ],
+                                            "type": "panel"
+                                        }
+                                    }
+                                ],
+                                "layer": 1,
+                                "offset": [
+                                    "9.8%+0.0px",
+                                    "4.9%+0.0px"
+                                ],
+                                "size": [
+                                    "89.51%+0.0px",
+                                    "90.2%+0.0px"
+                                ],
+                                "type": "stack_panel"
+                            }
+                        },
+                        {
+                            "growthGuideView": {
+                                "$button_name": "common",
+                                "anchor_from": "center",
+                                "anchor_to": "center",
+                                "controls": [
+                                    {
+                                        "growth_guide_item_link_0@parterner_wiki_common_toggle.base_growth_guide_item_link": {
+                                            "controls": [],
+                                            "offset": [
+                                                110.0,
+                                                8
+                                            ],
+                                            "size": [
+                                                46,
+                                                2
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "growth_guide_item_link_1@parterner_wiki_common_toggle.base_growth_guide_item_link": {
+                                            "controls": [],
+                                            "offset": [
+                                                -18.0,
+                                                44
+                                            ],
+                                            "size": [
+                                                780,
+                                                2
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "growth_guide_item_link_2@parterner_wiki_common_toggle.base_growth_guide_item_link": {
+                                            "controls": [],
+                                            "offset": [
+                                                110.0,
+                                                80
+                                            ],
+                                            "size": [
+                                                46,
+                                                2
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "growth_guide_item_0@parterner_wiki_common_toggle.base_growth_guide_item": {
+                                            "offset": [
+                                                102.0,
+                                                -6.0
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "growth_guide_item_1@parterner_wiki_common_toggle.base_growth_guide_item": {
+                                            "offset": [
+                                                148.0,
+                                                -6.0
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "growth_guide_item_2@parterner_wiki_common_toggle.base_growth_guide_item": {
+                                            "offset": [
+                                                -36.0,
+                                                30.0
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "growth_guide_item_3@parterner_wiki_common_toggle.base_growth_guide_item": {
+                                            "offset": [
+                                                10.0,
+                                                30.0
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "growth_guide_item_4@parterner_wiki_common_toggle.base_growth_guide_item": {
+                                            "offset": [
+                                                56.0,
+                                                30.0
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "growth_guide_item_5@parterner_wiki_common_toggle.base_growth_guide_item": {
+                                            "offset": [
+                                                102.0,
+                                                30.0
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "growth_guide_item_6@parterner_wiki_common_toggle.base_growth_guide_item": {
+                                            "offset": [
+                                                148.0,
+                                                30.0
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "growth_guide_item_7@parterner_wiki_common_toggle.base_growth_guide_item": {
+                                            "offset": [
+                                                194.0,
+                                                30.0
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "growth_guide_item_8@parterner_wiki_common_toggle.base_growth_guide_item": {
+                                            "offset": [
+                                                240.0,
+                                                30.0
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "growth_guide_item_9@parterner_wiki_common_toggle.base_growth_guide_item": {
+                                            "offset": [
+                                                286.0,
+                                                30.0
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "growth_guide_item_10@parterner_wiki_common_toggle.base_growth_guide_item": {
+                                            "offset": [
+                                                332.0,
+                                                30.0
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "growth_guide_item_11@parterner_wiki_common_toggle.base_growth_guide_item": {
+                                            "offset": [
+                                                378.0,
+                                                30.0
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "growth_guide_item_12@parterner_wiki_common_toggle.base_growth_guide_item": {
+                                            "offset": [
+                                                424.0,
+                                                30.0
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "growth_guide_item_13@parterner_wiki_common_toggle.base_growth_guide_item": {
+                                            "offset": [
+                                                470.0,
+                                                30.0
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "growth_guide_item_14@parterner_wiki_common_toggle.base_growth_guide_item": {
+                                            "offset": [
+                                                516.0,
+                                                30.0
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "growth_guide_item_15@parterner_wiki_common_toggle.base_growth_guide_item": {
+                                            "offset": [
+                                                562.0,
+                                                30.0
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "growth_guide_item_16@parterner_wiki_common_toggle.base_growth_guide_item": {
+                                            "offset": [
+                                                608.0,
+                                                30.0
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "growth_guide_item_17@parterner_wiki_common_toggle.base_growth_guide_item": {
+                                            "offset": [
+                                                654.0,
+                                                30.0
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "growth_guide_item_18@parterner_wiki_common_toggle.base_growth_guide_item": {
+                                            "offset": [
+                                                700.0,
+                                                30.0
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "growth_guide_item_19@parterner_wiki_common_toggle.base_growth_guide_item": {
+                                            "offset": [
+                                                746.0,
+                                                30.0
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "growth_guide_item_20@parterner_wiki_common_toggle.base_growth_guide_item": {
+                                            "offset": [
+                                                102.0,
+                                                66.0
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "growth_guide_item_21@parterner_wiki_common_toggle.base_growth_guide_item": {
+                                            "offset": [
+                                                148.0,
+                                                66.0
+                                            ]
+                                        }
+                                    }
+                                ],
+                                "layer": 1,
+                                "offset": [
+                                    44.0,
+                                    0.0
+                                ],
+                                "size": [
+                                    "100.0%+-56.0px",
+                                    90
+                                ],
+                                "type": "panel",
+                                "visible": false
+                            }
+                        },
+                        {
+                            "guideLeftSelect@parterner_wiki_common_toggle.common_select": {
+                                "$enabled": false,
+                                "$middle_icon": "textures/ui/left_arrow_icon",
+                                "size": [
+                                    "8.0%+0.0px",
+                                    "100%"
+                                ]
+                            }
+                        },
+                        {
+                            "guideRightSelect@parterner_wiki_common_toggle.common_select": {
+                                "$anchor_from": "right_middle",
+                                "$anchor_to": "right_middle",
+                                "$middle_icon": "textures/ui/right_arrow_icon",
+                                "size": [
+                                    "8.0%+0.0px",
+                                    "100%"
+                                ]
+                            }
+                        }
+                    ],
+                    "layer": 1,
+                    "offset": [
+                        0,
+                        0
+                    ],
+                    "size": [
+                        "100.0%+0.0px",
+                        "62.56%+0.0px"
+                    ],
+                    "type": "panel",
+                    "visible": true
+                }
+            },
+            {
+                "introduceBg": {
+                    "anchor_from": "bottom_middle",
+                    "anchor_to": "bottom_middle",
+                    "controls": [
+                        {
+                            "introduceHead": {
+                                "anchor_from": "top_middle",
+                                "anchor_to": "top_middle",
+                                "color": [
+                                    0.1,
+                                    0.1,
+                                    0.1
+                                ],
+                                "controls": [
+                                    {
+                                        "label0": {
+                                            "$wiki_guide_introduce_head_text_size|default": 0.8,
+                                            "anchor_from": "left_middle",
+                                            "anchor_to": "left_middle",
+                                            "color": [
+                                                1,
+                                                1,
+                                                1
+                                            ],
+                                            "controls": [],
+                                            "font_scale_factor": "$wiki_guide_introduce_head_text_size",
+                                            "font_size": "normal",
+                                            "font_type": "smooth",
+                                            "layer": 1,
+                                            "offset": [
+                                                "1.04%+0.0px",
+                                                0.0
+                                            ],
+                                            "shadow": false,
+                                            "size": [
+                                                "98.96%+0.0px",
+                                                "default"
+                                            ],
+                                            "text": "成长指引标题",
+                                            "text_alignment": "left",
+                                            "type": "label",
+                                            "visible": true
+                                        }
+                                    }
+                                ],
+                                "layer": 1,
+                                "offset": [
+                                    0,
+                                    "5.23%+0.0px"
+                                ],
+                                "size": [
+                                    "97.0%+0.0px",
+                                    "13.07%+0.0px"
+                                ],
+                                "texture": "textures/ui/White",
+                                "type": "image",
+                                "visible": true
+                            }
+                        },
+                        {
+                            "introduceContent": {
+                                "anchor_from": "bottom_middle",
+                                "anchor_to": "bottom_middle",
+                                "controls": [
+                                    {
+                                        "introduceImage": {
+                                            "anchor_from": "top_left",
+                                            "anchor_to": "top_left",
+                                            "controls": [],
+                                            "layer": 1,
+                                            "offset": [
+                                                "1.04%+0.0px",
+                                                "-4.26%+0.0px"
+                                            ],
+                                            "size": [
+                                                "20.0%+0.0px",
+                                                "default"
+                                            ],
+                                            "texture": "textures/ui/wiki/wiki_90",
+                                            "type": "image",
+                                            "uv": [
+                                                0,
+                                                0
+                                            ],
+                                            "uv_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "visible": true
+                                        }
+                                    },
+                                    {
+                                        "introduceTextPanel": {
+                                            "anchor_from": "top_right",
+                                            "anchor_to": "top_right",
+                                            "controls": [
+                                                {
+                                                    "introduceText": {
+                                                        "$wiki_guide_introduce_content_text_size|default": 0.8,
+                                                        "anchor_from": "top_left",
+                                                        "anchor_to": "top_left",
+                                                        "color": [
+                                                            1,
+                                                            1,
+                                                            1
+                                                        ],
+                                                        "controls": [],
+                                                        "font_scale_factor": "$wiki_guide_introduce_content_text_size",
+                                                        "font_size": "normal",
+                                                        "font_type": "smooth",
+                                                        "layer": 1,
+                                                        "offset": [
+                                                            0,
+                                                            "4.26%+0.0px"
+                                                        ],
+                                                        "shadow": false,
+                                                        "size": [
+                                                            "100%",
+                                                            "default"
+                                                        ],
+                                                        "text": "成长指引详细说明成长指引详细说明成长指引详细说明成长指引详细说明成长指引详细说明成长指引详细说明成长指引详细说明",
+                                                        "text_alignment": "left",
+                                                        "type": "label",
+                                                        "visible": true
+                                                    }
+                                                }
+                                            ],
+                                            "layer": 1,
+                                            "offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "size": [
+                                                "77.92%+0.0px",
+                                                "100.0%+0.0px"
+                                            ],
+                                            "type": "panel",
+                                            "visible": true
+                                        }
+                                    }
+                                ],
+                                "layer": 1,
+                                "offset": [
+                                    0,
+                                    0
+                                ],
+                                "size": [
+                                    "96.97%+0.0px",
+                                    "81.71%+0.0px"
+                                ],
+                                "type": "panel",
+                                "visible": true
+                            }
+                        }
+                    ],
+                    "is_new_nine_slice": true,
+                    "layer": 1,
+                    "nine_slice_buttom": 6,
+                    "nine_slice_left": 6,
+                    "nine_slice_right": 6,
+                    "nine_slice_top": 6,
+                    "offset": [
+                        0,
+                        0
+                    ],
+                    "size": [
+                        "100.0%+0.0px",
+                        "35.0%+0.0px"
+                    ],
+                    "texture": "textures/ui/growth_guide_bg",
+                    "type": "image",
+                    "uv": [
+                        0,
+                        0
+                    ],
+                    "uv_size": [
+                        0,
+                        0
+                    ],
+                    "visible": true
+                }
+            }
+        ],
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%+-10.0px",
+            "100.0%+-10.0px"
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "main": {
+        "controls": [
+            {}
+        ],
+        "type": "screen"
+    },
+    "namespace": "parterner_wiki_common_toggle",
+    "resultBG": {
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "controls": [
+            {
+                "resultLabel@parterner_wiki_common_toggle.resultLabel": {}
+            },
+            {
+                "wikiNotFoundBtn@parterner_wiki_common_toggle.wikiNotFoundBtn": {}
+            }
+        ],
+        "layer": 1,
+        "nineslice_size": 2,
+        "offset": [
+            0.0,
+            0
+        ],
+        "size": [
+            "100.0%+0.0px",
+            "100.0%cm+20.0px"
+        ],
+        "texture": "textures/ui/pet_visible_bg",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            0,
+            0
+        ],
+        "visible": true
+    },
+    "resultLabel": {
+        "$wiki_world_search_not_found_text_size|default": 1.0,
+        "anchor_from": "left_middle",
+        "anchor_to": "left_middle",
+        "color": [
+            1,
+            1,
+            1
+        ],
+        "font_scale_factor": "$wiki_world_search_not_found_text_size",
+        "font_size": "normal",
+        "font_type": "smooth",
+        "layer": 1,
+        "offset": [
+            "2.0%",
+            0
+        ],
+        "shadow": false,
+        "size": [
+            "94.0%-60.0px",
+            "default"
+        ],
+        "text": "2结果：“生”",
+        "text_alignment": "left",
+        "type": "label",
+        "visible": true
+    },
+    "scroll_background_image": {
+        "$background_niceslice_size|default": 0,
+        "nineslice_size": "$background_niceslice_size",
+        "texture": "$scroll_background_texture",
+        "type": "image"
+    },
+    "scroll_box_image": {
+        "$scroll_box_niceslice_size|default": 0,
+        "nineslice_size": "$scroll_box_niceslice_size",
+        "texture": "$scroll_box_texture",
+        "type": "image"
+    },
+    "scroll_track_image": {
+        "$scroll_track_niceslice_size|default": 0,
+        "layer": 3,
+        "nineslice_size": "$scroll_track_niceslice_size",
+        "size": [
+            3,
+            "100%"
+        ],
+        "texture": "$scroll_track_texture",
+        "type": "image"
+    },
+    "visibleBg": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "layer": 1,
+        "nineslice_size": 2,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "texture": "textures/ui/pet_visible_bg",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            0,
+            0
+        ],
+        "visible": true
+    },
+    "wikiCategoryContentPanel": {
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "visibleBg1@parterner_wiki_common_toggle.visibleBg": {}
+            },
+            {
+                "empty_panel": {
+                    "anchor_from": "top_middle",
+                    "anchor_to": "top_middle",
+                    "size": [
+                        "100.0%+0.0px",
+                        "19.0%+0.0px"
+                    ],
+                    "type": "panel"
+                }
+            },
+            {
+                "wikiCategoryContentStackPanel@parterner_wiki_common_toggle.wikiCategoryContentStackPanel": {
+                    "anchor_from": "top_left",
+                    "anchor_to": "top_left",
+                    "offset": [
+                        0,
+                        "3.0%x+0.0px"
+                    ],
+                    "size": [
+                        "100.0%+0.0px",
+                        "80.0%+0.0px"
+                    ]
+                }
+            }
+        ],
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%+0.0px",
+            "15.0%x+0.0px"
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "wikiCategoryContentRow": {
+        "anchor_from": "left_middle",
+        "anchor_to": "left_middle",
+        "controls": [
+            {
+                "wikiItem@parterner_wiki_common_toggle.wikiItem": {
+                    "size": [
+                        "32.5%+0.0px",
+                        "78.65%+0.0px"
+                    ]
+                }
+            }
+        ],
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "orientation": "horizontal",
+        "size": [
+            "100.0%+0.0px",
+            "12.12%x+0.0px"
+        ],
+        "type": "stack_panel",
+        "visible": true
+    },
+    "wikiCategoryContentStackPanel": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "controls": [
+            {
+                "wikiCategoryContentRow@parterner_wiki_common_toggle.wikiCategoryContentRow": {
+                    "anchor_from": "left_middle",
+                    "anchor_to": "left_middle",
+                    "size": [
+                        "100.0%+0.0px",
+                        "100.0%+0.0px"
+                    ]
+                }
+            }
+        ],
+        "layer": 1,
+        "offset": [
+            4,
+            5
+        ],
+        "orientation": "vertical",
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "type": "stack_panel",
+        "visible": true
+    },
+    "wikiCategoryItem": {
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "content_padding_1": {
+                    "size": [
+                        "100.0%+0.0px",
+                        8
+                    ],
+                    "type": "panel"
+                }
+            },
+            {
+                "wikiCategoryTitle@parterner_wiki_common_toggle.wikiCategoryTitle": {}
+            },
+            {
+                "wikiCategoryContentPanel@parterner_wiki_common_toggle.wikiCategoryContentPanel": {}
+            }
+        ],
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%+0.0px",
+            "100.0%c+0.0px"
+        ],
+        "type": "stack_panel",
+        "visible": true
+    },
+    "wikiCategoryTitle": {
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "color": [
+            1,
+            1,
+            1
+        ],
+        "font_scale_factor": 1.0,
+        "font_size": "normal",
+        "font_type": "smooth",
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "shadow": false,
+        "size": [
+            "100.0%+0.0px",
+            "default"
+        ],
+        "text": "游戏模式",
+        "text_alignment": "left",
+        "type": "label",
+        "visible": true
+    },
+    "wikiContentPanel": {
+        "anchor_from": "bottom_middle",
+        "anchor_to": "bottom_middle",
+        "controls": [
+            {
+                "wikiContentScrollingPanel@parterner_wiki_common_toggle.wikiContentScrollingPanel": {}
+            }
+        ],
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%+0.0px",
+            "100.0%-38.0px"
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "wikiContentScrollingPanel@common.scrolling_panel": {
+        "$scrolling_content": "parterner_wiki_common_toggle.wikiScrollContentPanel",
+        "$show_background": false,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "type": "scroll_view",
+        "visible": true
+    },
+    "wikiDetailImagePanel": {
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "controls": [
+            {
+                "visibleBg@parterner_wiki_common_toggle.visibleBg": {
+                    "size": [
+                        "100%",
+                        "100%-8px"
+                    ],
+                    "visible": false
+                }
+            },
+            {
+                "wikiDetailImage": {
+                    "anchor_from": "center",
+                    "anchor_to": "center",
+                    "layer": 2,
+                    "offset": [
+                        0,
+                        0
+                    ],
+                    "size": [
+                        "100%-16px",
+                        "100%-16px"
+                    ],
+                    "texture": "textures/ui/guide_default",
+                    "type": "image"
+                }
+            },
+            {
+                "backgroundImage": {
+                    "clip_direction": "left",
+                    "clip_ratio": 0.0,
+                    "color": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "fill": true,
+                    "layer": 1,
+                    "size": [
+                        "100.0%+0.0px",
+                        "100.0%+0.0px"
+                    ],
+                    "texture": "textures/netease/common/image/default",
+                    "type": "image"
+                }
+            }
+        ],
+        "layer": 4,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%",
+            "100%-109px"
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "wikiDetailScrollContent": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "controls": [
+            {
+                "wikiDetailText": {
+                    "anchor_from": "top_left",
+                    "anchor_to": "top_left",
+                    "color": [
+                        1,
+                        1,
+                        1
+                    ],
+                    "font_size": "normal",
+                    "font_type": "smooth",
+                    "layer": 4,
+                    "line_padding": 4.0,
+                    "shadow": false,
+                    "size": [
+                        "100%",
+                        "default"
+                    ],
+                    "text": "百科详情内容",
+                    "text_alignment": "left",
+                    "type": "label",
+                    "visible": true
+                }
+            }
+        ],
+        "layer": 3,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%",
+            "100.0%c+0.0px"
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "wikiDetailScrollPanel@common.scrolling_panel": {
+        "$scrolling_content": "parterner_wiki_common_toggle.wikiDetailScrollContent",
+        "$show_background": false,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "layer": 3,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%-8px",
+            "100.0%-8px"
+        ],
+        "type": "scroll_view",
+        "visible": true
+    },
+    "wikiDetailStackPanel": {
+        "controls": [
+            {
+                "wikiDetailImagePanel@parterner_wiki_common_toggle.wikiDetailImagePanel": {
+                    "size": [
+                        "100.0%",
+                        "36.5%x+0.0px"
+                    ]
+                }
+            },
+            {
+                "wikiRelationContentPanel@parterner_wiki_common_toggle.wikiRelationContentPanel": {
+                    "size": [
+                        "100.0%",
+                        "30.0%x+0.0px"
+                    ]
+                }
+            },
+            {
+                "wikiNoRelationContentPanel@parterner_wiki_common_toggle.wikiNoRelationContentPanel": {
+                    "size": [
+                        "100.0%",
+                        "30.0%x+0.0px"
+                    ]
+                }
+            }
+        ],
+        "layer": 1,
+        "size": [
+            "100.0%+0.0px",
+            "default"
+        ],
+        "type": "stack_panel"
+    },
+    "wikiDetailTitle": {
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "controls": [
+            {
+                "visibleBg@parterner_wiki_common_toggle.visibleBg": {
+                    "visible": false
+                }
+            },
+            {
+                "wikiDetailTitleLabel": {
+                    "anchor_from": "center",
+                    "anchor_to": "center",
+                    "color": [
+                        1,
+                        1,
+                        1
+                    ],
+                    "font_size": "normal",
+                    "font_type": "smooth",
+                    "layer": 2,
+                    "shadow": false,
+                    "size": [
+                        "100.0%",
+                        "default"
+                    ],
+                    "text": "百科详情标题",
+                    "text_alignment": "center",
+                    "type": "label",
+                    "visible": true
+                }
+            },
+            {
+                "returnPanel": {
+                    "anchor_from": "top_left",
+                    "anchor_to": "top_left",
+                    "controls": [
+                        {
+                            "button@common.button": {
+                                "$control_alpha": 1.0,
+                                "$default_texture": "textures/netease/common/button/default",
+                                "$hover_texture": "textures/netease/common/button/hover",
+                                "$is_new_nine_slice": false,
+                                "$label_color": [
+                                    1,
+                                    1,
+                                    1
+                                ],
+                                "$label_font_scale_factor": 1.0,
+                                "$label_font_size": "large",
+                                "$label_layer": 3,
+                                "$label_offset": [
+                                    0,
+                                    0
+                                ],
+                                "$label_text": "",
+                                "$nine_slice_buttom": 0,
+                                "$nine_slice_left": 0,
+                                "$nine_slice_right": 0,
+                                "$nine_slice_top": 0,
+                                "$nineslice_size": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                ],
+                                "$pressed_button_name": "%netease_editor_template_namespace.click",
+                                "$pressed_texture": "textures/netease/common/button/pressed",
+                                "$texture_layer": 2,
+                                "alpha": 0.0,
+                                "anchor_from": "top_middle",
+                                "anchor_to": "top_middle",
+                                "bindings": [
+                                    {
+                                        "binding_collection_name": "",
+                                        "binding_condition": "always_when_visible",
+                                        "binding_type": "collection_details"
+                                    }
+                                ],
+                                "button_mappings": [],
+                                "controls": [
+                                    {
+                                        "default@netease_editor_template_namespace.default": {}
+                                    },
+                                    {
+                                        "hover@netease_editor_template_namespace.hover": {}
+                                    },
+                                    {
+                                        "pressed@netease_editor_template_namespace.pressed": {}
+                                    },
+                                    {
+                                        "button_label@netease_editor_template_namespace.button_label": {}
+                                    }
+                                ],
+                                "default_control": "default",
+                                "hover_control": "hover",
+                                "is_handle_button_move_event": true,
+                                "layer": 2,
+                                "pressed_control": "pressed",
+                                "propagate_alpha": true,
+                                "size": [
+                                    "150.0%+0.0px",
+                                    "180.0%+0.0px"
+                                ],
+                                "type": "button"
+                            }
+                        },
+                        {
+                            "stack_panel": {
+                                "controls": [
+                                    {
+                                        "panel(0)": {
+                                            "controls": [
+                                                {
+                                                    "image": {
+                                                        "clip_direction": "left",
+                                                        "clip_ratio": 0.0,
+                                                        "layer": 1,
+                                                        "size": [
+                                                            "80.0%+0.0px",
+                                                            "80.0%+0.0px"
+                                                        ],
+                                                        "texture": "textures/ui/pet/parterner/icon06_02",
+                                                        "type": "image"
+                                                    }
+                                                }
+                                            ],
+                                            "size": [
+                                                "30.0%+0.0px",
+                                                "100.0%+0.0px"
+                                            ],
+                                            "type": "panel"
+                                        }
+                                    },
+                                    {
+                                        "empty_panel": {
+                                            "size": [
+                                                "5.0%+0.0px",
+                                                "100.0%+0.0px"
+                                            ],
+                                            "type": "panel"
+                                        }
+                                    },
+                                    {
+                                        "panel": {
+                                            "controls": [
+                                                {
+                                                    "label": {
+                                                        "anchor_from": "left_middle",
+                                                        "anchor_to": "left_middle",
+                                                        "font_scale_factor": 0.9,
+                                                        "font_type": "smooth",
+                                                        "text": "返回",
+                                                        "text_alignment": "center",
+                                                        "type": "label"
+                                                    }
+                                                }
+                                            ],
+                                            "size": [
+                                                "60.0%+0.0px",
+                                                "100.0%+0.0px"
+                                            ],
+                                            "type": "panel"
+                                        }
+                                    }
+                                ],
+                                "layer": 1,
+                                "orientation": "horizontal",
+                                "size": [
+                                    "100.0%+0.0px",
+                                    "100.0%+0.0px"
+                                ],
+                                "type": "stack_panel"
+                            }
+                        }
+                    ],
+                    "layer": 1,
+                    "offset": [
+                        "3.0%+2.0px",
+                        3
+                    ],
+                    "size": [
+                        "12.0%+0.0px",
+                        "60.0%+0.0px"
+                    ],
+                    "type": "panel"
+                }
+            }
+        ],
+        "layer": 3,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100%",
+            20
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "wikiItem": {
+        "anchor_from": "left_middle",
+        "anchor_to": "left_middle",
+        "controls": [
+            {
+                "empty_panel": {
+                    "size": [
+                        "8.0%+0.0px",
+                        "100.0%+0.0px"
+                    ],
+                    "type": "panel"
+                }
+            },
+            {
+                "wikiItemBtn@parterner_wiki_common_toggle.wikiItem_element": {
+                    "size": [
+                        "92.0%+0.0px",
+                        "100.0%+0.0px"
+                    ]
+                }
+            }
+        ],
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "orientation": "horizontal",
+        "size": [
+            "30.0%+0.0px",
+            "70.5%+0.0px"
+        ],
+        "type": "stack_panel",
+        "visible": true
+    },
+    "wikiItem_element@common.button": {
+        "$control_alpha": "$wiki_world_content_text_size",
+        "$default_texture": "textures/ui/btn_light_default",
+        "$hover_texture": "textures/ui/btn_hover",
+        "$is_new_nine_slice": false,
+        "$label_color": [
+            0.2588235294117647,
+            0.2588235294117647,
+            0.2588235294117647
+        ],
+        "$label_font_scale_factor": 1.0,
+        "$label_font_size": "normal",
+        "$label_layer": 3,
+        "$label_offset": [
+            0,
+            0
+        ],
+        "$label_text": "生存模式",
+        "$nine_slice_buttom": 0,
+        "$nine_slice_left": 0,
+        "$nine_slice_right": 0,
+        "$nine_slice_top": 0,
+        "$nineslice_size": [
+            2.0,
+            2.0,
+            2.0,
+            2.0
+        ],
+        "$pressed_button_name": "%netease_editor_template_namespace.click",
+        "$pressed_texture": "textures/ui/btn_pressed",
+        "$texture_layer": 2,
+        "$wiki_world_content_text_size|default": 1.0,
+        "anchor_from": "left_middle",
+        "anchor_to": "left_middle",
+        "bindings": [
+            {
+                "binding_collection_name": "",
+                "binding_condition": "always_when_visible",
+                "binding_type": "collection_details"
+            }
+        ],
+        "button_mappings": [],
+        "controls": [
+            {
+                "default@netease_editor_template_namespace.default": {}
+            },
+            {
+                "hover@netease_editor_template_namespace.hover": {}
+            },
+            {
+                "pressed@netease_editor_template_namespace.pressed": {}
+            },
+            {
+                "button_label@netease_editor_template_namespace.button_label": {}
+            }
+        ],
+        "default_control": "default",
+        "hover_control": "hover",
+        "is_handle_button_move_event": true,
+        "layer": 2,
+        "pressed_control": "pressed",
+        "size": [
+            "100.0%-4.0px",
+            "100.0%+0.0px"
+        ],
+        "type": "button"
+    },
+    "wikiNoRelationContentPanel": {
+        "anchor_from": "bottom_middle",
+        "anchor_to": "bottom_middle",
+        "controls": [
+            {
+                "visibleBg@parterner_wiki_common_toggle.visibleBg": {
+                    "size": [
+                        "100.0%",
+                        "100.0%-4px"
+                    ],
+                    "visible": false
+                }
+            },
+            {
+                "noRelationLabel": {
+                    "alpha": 0.5,
+                    "layer": 2,
+                    "text": "无相关词条",
+                    "type": "label"
+                }
+            }
+        ],
+        "layer": 5,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%",
+            85
+        ],
+        "type": "panel",
+        "visible": false
+    },
+    "wikiNotFoundBtn@common.button": {
+        "$default_text_color": [
+            0.26,
+            0.26,
+            0.26
+        ],
+        "$default_texture": "textures/ui/btn_light_default",
+        "$hover_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$hover_texture": "textures/ui/btn_hover",
+        "$label_text": "上报词条",
+        "$nineslice_size": 2,
+        "$pressed_button_name": "",
+        "$pressed_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$pressed_texture": "textures/ui/btn_pressed",
+        "$texture_layer": 1,
+        "anchor_from": "right_middle",
+        "anchor_to": "right_middle",
+        "controls": [
+            {
+                "default@parterner_common_toggles.default": {}
+            },
+            {
+                "hover@parterner_common_toggles.hover": {}
+            },
+            {
+                "pressed@parterner_common_toggles.pressed": {}
+            }
+        ],
+        "default_control": "default",
+        "hover_control": "hover",
+        "is_handle_button_move_event": true,
+        "layer": 2,
+        "offset": [
+            "-2.0%",
+            0
+        ],
+        "pressed_control": "pressed",
+        "size": [
+            60,
+            20
+        ],
+        "type": "button",
+        "visible": true
+    },
+    "wikiPanel": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "controls": [
+            {
+                "wikiSearchEditBox@parterner_wiki_common_toggle.wikiSearchEditBox": {
+                    "layer": 30,
+                    "size": [
+                        "100.0%+0.0px",
+                        "9.09%+0.0px"
+                    ]
+                }
+            },
+            {
+                "wikiContentPanel@parterner_wiki_common_toggle.wikiContentPanel": {
+                    "size": [
+                        "100.0%+0.0px",
+                        "88.48%+0.0px"
+                    ]
+                }
+            },
+            {
+                "wikiResultPanel@parterner_wiki_common_toggle.wikiResultPanel": {
+                    "size": [
+                        "100.0%+0.0px",
+                        "89.7%+0.0px"
+                    ]
+                }
+            }
+        ],
+        "layer": 10,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%+-10.0px",
+            "100.0%+-8.0px"
+        ],
+        "type": "panel",
+        "visible": false
+    },
+    "wikiRelationContentPanel": {
+        "anchor_from": "bottom_middle",
+        "anchor_to": "bottom_middle",
+        "controls": [
+            {
+                "relationLabel": {
+                    "anchor_from": "top_left",
+                    "anchor_to": "top_left",
+                    "color": [
+                        1,
+                        1,
+                        1
+                    ],
+                    "font_scale_factor": 1.0,
+                    "font_size": "normal",
+                    "font_type": "smooth",
+                    "layer": 2,
+                    "offset": [
+                        "3%",
+                        6
+                    ],
+                    "shadow": false,
+                    "size": [
+                        "100%",
+                        "default"
+                    ],
+                    "text": "包含词条：",
+                    "text_alignment": "left",
+                    "type": "label",
+                    "visible": true
+                }
+            },
+            {
+                "empty_panel": {
+                    "size": [
+                        "100.0%+0.0px",
+                        "3.2%x+0.0px"
+                    ],
+                    "type": "panel"
+                }
+            },
+            {
+                "wikiRelationRow0": {
+                    "controls": [
+                        {
+                            "wikiRelationRowContent@parterner_wiki_common_toggle.wikiRelationRow": {
+                                "offset": [
+                                    0,
+                                    22
+                                ]
+                            }
+                        }
+                    ],
+                    "layer": 6,
+                    "size": [
+                        "100.0%+0.0px",
+                        "11.17%x+0.0px"
+                    ],
+                    "type": "stack_panel"
+                }
+            },
+            {
+                "wikiRelationRow1": {
+                    "controls": [
+                        {
+                            "wikiRelationRowContent@parterner_wiki_common_toggle.wikiRelationRow": {
+                                "offset": [
+                                    0,
+                                    48
+                                ]
+                            }
+                        }
+                    ],
+                    "layer": 6,
+                    "size": [
+                        "100.0%+0.0px",
+                        "11.17%x+0.0px"
+                    ],
+                    "type": "stack_panel"
+                }
+            }
+        ],
+        "layer": 5,
+        "size": [
+            "100.0%+0.0px",
+            "default"
+        ],
+        "type": "stack_panel",
+        "visible": true
+    },
+    "wikiRelationRow": {
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "padding1": {
+                    "size": [
+                        "3%",
+                        "100%"
+                    ],
+                    "type": "panel"
+                }
+            },
+            {
+                "wikiRelation0@parterner_wiki_common_toggle.wikiItem": {
+                    "size": [
+                        "30%",
+                        "100.0%+0.0px"
+                    ]
+                }
+            },
+            {
+                "padding2": {
+                    "size": [
+                        "3%",
+                        "100%"
+                    ],
+                    "type": "panel"
+                }
+            },
+            {
+                "wikiRelation1@parterner_wiki_common_toggle.wikiItem": {
+                    "size": [
+                        "30%",
+                        "100.0%+0.0px"
+                    ]
+                }
+            },
+            {
+                "padding3": {
+                    "size": [
+                        "3%",
+                        "100%"
+                    ],
+                    "type": "panel"
+                }
+            },
+            {
+                "wikiRelation2@parterner_wiki_common_toggle.wikiItem": {
+                    "size": [
+                        "30%",
+                        "100.0%+0.0px"
+                    ]
+                }
+            }
+        ],
+        "layer": 6,
+        "offset": [
+            0,
+            0
+        ],
+        "orientation": "horizontal",
+        "size": [
+            "100.0%",
+            "9.54%x+0.0px"
+        ],
+        "type": "stack_panel",
+        "visible": true
+    },
+    "wikiResultContentBtn@common.button": {
+        "$default_text_color": [
+            0.26,
+            0.26,
+            0.26
+        ],
+        "$default_texture": "textures/ui/btn_light_default",
+        "$hover_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$hover_texture": "textures/ui/btn_hover",
+        "$nineslice_size": 2,
+        "$pressed_button_name": "",
+        "$pressed_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$pressed_texture": "textures/ui/btn_pressed",
+        "$texture_layer": 1,
+        "$wiki_world_search_result_element_btn_size|default": [
+            "100.0%+0.0px",
+            "12.5%x+0.0px"
+        ],
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "default@parterner_common_toggles.default": {}
+            },
+            {
+                "hover@parterner_common_toggles.hover": {}
+            },
+            {
+                "pressed@parterner_common_toggles.pressed": {}
+            },
+            {
+                "wikiResultContentImage@parterner_wiki_common_toggle.wikiResultContentImage": {
+                    "offset": [
+                        "1.56%+0.0px",
+                        0.0
+                    ],
+                    "size": [
+                        "25%+0.0px",
+                        "90.0%+0.0px"
+                    ]
+                }
+            },
+            {
+                "wikiResultContentTitle@parterner_wiki_common_toggle.wikiResultContentTitle": {
+                    "offset": [
+                        "29.5%+0.0px",
+                        "17.5%+0.0px"
+                    ],
+                    "size": [
+                        "70%+0.0px",
+                        "default"
+                    ]
+                }
+            },
+            {
+                "wikiResultContentDesc@parterner_wiki_common_toggle.wikiResultContentDesc": {
+                    "offset": [
+                        "29.5%+0.0px",
+                        "-17.5%+0.0px"
+                    ],
+                    "size": [
+                        "70%+0.0px",
+                        "default"
+                    ]
+                }
+            }
+        ],
+        "default_control": "default",
+        "hover_control": "hover",
+        "is_handle_button_move_event": true,
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "pressed_control": "pressed",
+        "size": "$wiki_world_search_result_element_btn_size",
+        "type": "button"
+    },
+    "wikiResultContentDesc": {
+        "$wiki_world_search_result_element_desc_text_size|default": 1.0,
+        "anchor_from": "bottom_left",
+        "anchor_to": "bottom_left",
+        "color": [
+            0.26,
+            0.26,
+            0.26
+        ],
+        "font_scale_factor": "$wiki_world_search_result_element_desc_text_size",
+        "font_size": "normal",
+        "font_type": "smooth",
+        "layer": 3,
+        "offset": [
+            64.0,
+            -7.0
+        ],
+        "shadow": false,
+        "size": [
+            100.0,
+            "default"
+        ],
+        "text": "Hello World!",
+        "text_alignment": "left",
+        "type": "label",
+        "visible": true
+    },
+    "wikiResultContentImage": {
+        "anchor_from": "left_middle",
+        "anchor_to": "left_middle",
+        "layer": 3,
+        "offset": [
+            5.0,
+            0.0
+        ],
+        "size": [
+            50.0,
+            30.0
+        ],
+        "texture": "textures/netease/common/image/default",
+        "type": "image",
+        "visible": true
+    },
+    "wikiResultContentPanel": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "controls": [
+            {
+                "wikiResultContentBtn@parterner_wiki_common_toggle.wikiResultContentBtn": {
+                    "visible": false
+                }
+            }
+        ],
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "wikiResultContentTitle": {
+        "$wiki_world_search_result_element_title_text_size|default": 1.3,
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "color": [
+            0.26,
+            0.26,
+            0.26
+        ],
+        "font_scale_factor": "$wiki_world_search_result_element_title_text_size",
+        "font_size": "normal",
+        "font_type": "smooth",
+        "layer": 3,
+        "offset": [
+            64.0,
+            7.0
+        ],
+        "shadow": false,
+        "size": [
+            100.0,
+            "default"
+        ],
+        "text": "Hello World!",
+        "text_alignment": "left",
+        "type": "label",
+        "visible": true
+    },
+    "wikiResultPanel": {
+        "anchor_from": "bottom_middle",
+        "anchor_to": "bottom_middle",
+        "controls": [
+            {
+                "resultBG@parterner_wiki_common_toggle.resultBG": {}
+            },
+            {
+                "wikiResultView@parterner_wiki_common_toggle.wikiResultView": {}
+            }
+        ],
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%+0.0px",
+            "100.0%-34.0px"
+        ],
+        "type": "panel",
+        "visible": false
+    },
+    "wikiResultView@common.scrolling_panel": {
+        "$scroll_background_image_control": "parterner_wiki_common_toggle.scroll_background_image",
+        "$scroll_background_texture": "textures/ui/ScrollRail",
+        "$scroll_box_mouse_image_control": "parterner_wiki_common_toggle.scroll_box_image",
+        "$scroll_box_texture": "textures/ui/newTouchScrollBox",
+        "$scroll_box_touch_image_control": "parterner_wiki_common_toggle.scroll_box_image",
+        "$scroll_track_image_control": "parterner_wiki_common_toggle.scroll_track_image",
+        "$scroll_track_texture": "textures/ui/ScrollRail",
+        "$scrolling_content": "parterner_wiki_common_toggle.wikiResultContentPanel",
+        "$show_background": false,
+        "anchor_from": "bottom_middle",
+        "anchor_to": "bottom_middle",
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%+0.0px",
+            "100.0%-34.0px"
+        ],
+        "type": "scroll_view",
+        "visible": true
+    },
+    "wikiScrollContentPanel": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "controls": [
+            {
+                "wikiCategoryItem@parterner_wiki_common_toggle.wikiCategoryItem": {}
+            }
+        ],
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%+0.0px",
+            "default"
+        ],
+        "type": "stack_panel",
+        "visible": true
+    },
+    "wikiSearchEditBox@common.text_edit_box": {
+        "$edit_box_default_texture": "textures/ui/edit_box_indent",
+        "$edit_box_hover_texture": "textures/ui/edit_box_indent_hover",
+        "$font_size": "normal",
+        "$is_new_nine_slice": false,
+        "$nine_slice_buttom": 0,
+        "$nine_slice_left": 0,
+        "$nine_slice_right": 0,
+        "$nine_slice_top": 0,
+        "$place_holder_text": "请输入内容",
+        "$place_holder_text_color": [
+            0.5,
+            0.5,
+            0.5
+        ],
+        "$text_background_default": "parterner_wiki_common_toggle.edit_box_background_default",
+        "$text_background_hover": "parterner_wiki_common_toggle.edit_box_background_hover",
+        "$text_box_name": "%parterner_wiki_section.OnWikiSearchInput",
+        "$text_box_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$text_edit_box_content_binding_name": "#parterner_wiki_section.ReturnWikiSearchString",
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "enabled_newline": false,
+        "layer": 1,
+        "max_length": 512,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%+0.0px",
+            30
+        ],
+        "type": "edit_box",
+        "visible": true
+    },
+    "wiki_left_main_panel": {
+        "controls": [
+            {
+                "empty_line_1": {
+                    "controls": [],
+                    "size": [
+                        "100.0%+0.0px",
+                        "2.72%+0.0px"
+                    ],
+                    "type": "panel"
+                }
+            },
+            {
+                "nav_panel": {
+                    "controls": [
+                        {
+                            "empty_panel_1": {
+                                "layer": 1,
+                                "size": [
+                                    "1.0%+0.0px",
+                                    "100.0%+0.0px"
+                                ],
+                                "type": "panel"
+                            }
+                        },
+                        {
+                            "grow_wiki_nav": {
+                                "controls": [
+                                    {
+                                        "button@common.button": {
+                                            "$control_alpha": 1.0,
+                                            "$default_texture": "textures/ui/btn_light_default",
+                                            "$hover_texture": "textures/ui/btn_hover",
+                                            "$is_new_nine_slice": false,
+                                            "$label_color": [
+                                                0.2862745098039216,
+                                                0.2862745098039216,
+                                                0.2862745098039216
+                                            ],
+                                            "$label_font_scale_factor": 0.4,
+                                            "$label_font_size": "large",
+                                            "$label_layer": 3,
+                                            "$label_offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "$label_text": "成长指引",
+                                            "$nine_slice_buttom": 0,
+                                            "$nine_slice_left": 0,
+                                            "$nine_slice_right": 0,
+                                            "$nine_slice_top": 0,
+                                            "$nineslice_size": [
+                                                2.0,
+                                                2.0,
+                                                2.0,
+                                                2.0
+                                            ],
+                                            "$pressed_button_name": "%netease_editor_template_namespace.click",
+                                            "$pressed_texture": "textures/ui/btn_pressed",
+                                            "$texture_layer": 2,
+                                            "bindings": [
+                                                {
+                                                    "binding_collection_name": "",
+                                                    "binding_condition": "always_when_visible",
+                                                    "binding_type": "collection_details"
+                                                }
+                                            ],
+                                            "button_mappings": [],
+                                            "controls": [
+                                                {
+                                                    "default@netease_editor_template_namespace.default": {
+                                                        "controls": []
+                                                    }
+                                                },
+                                                {
+                                                    "hover@netease_editor_template_namespace.hover": {
+                                                        "controls": []
+                                                    }
+                                                },
+                                                {
+                                                    "pressed@netease_editor_template_namespace.pressed": {
+                                                        "controls": []
+                                                    }
+                                                },
+                                                {
+                                                    "button_label@netease_editor_template_namespace.button_label": {
+                                                        "controls": []
+                                                    }
+                                                }
+                                            ],
+                                            "default_control": "default",
+                                            "hover_control": "hover",
+                                            "is_handle_button_move_event": true,
+                                            "layer": 2,
+                                            "pressed_control": "pressed",
+                                            "size": [
+                                                "100.0%+0.0px",
+                                                "100.0%+0.0px"
+                                            ],
+                                            "type": "button"
+                                        }
+                                    }
+                                ],
+                                "size": [
+                                    "30.6%+0.0px",
+                                    "100.0%+0.0px"
+                                ],
+                                "type": "panel"
+                            }
+                        },
+                        {
+                            "world_wiki_nav": {
+                                "controls": [
+                                    {
+                                        "button@common.button": {
+                                            "$control_alpha": 1.0,
+                                            "$default_texture": "textures/ui/btn_light_default",
+                                            "$hover_texture": "textures/ui/btn_hover",
+                                            "$is_new_nine_slice": false,
+                                            "$label_color": [
+                                                0.2862745098039216,
+                                                0.2862745098039216,
+                                                0.2862745098039216
+                                            ],
+                                            "$label_font_scale_factor": 0.4,
+                                            "$label_font_size": "large",
+                                            "$label_layer": 3,
+                                            "$label_offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "$label_text": "世界百科",
+                                            "$nine_slice_buttom": 0,
+                                            "$nine_slice_left": 0,
+                                            "$nine_slice_right": 0,
+                                            "$nine_slice_top": 0,
+                                            "$nineslice_size": [
+                                                2.0,
+                                                2.0,
+                                                2.0,
+                                                2.0
+                                            ],
+                                            "$pressed_button_name": "%netease_editor_template_namespace.click",
+                                            "$pressed_texture": "textures/ui/btn_pressed",
+                                            "$texture_layer": 2,
+                                            "bindings": [
+                                                {
+                                                    "binding_collection_name": "",
+                                                    "binding_condition": "always_when_visible",
+                                                    "binding_type": "collection_details"
+                                                }
+                                            ],
+                                            "button_mappings": [],
+                                            "controls": [
+                                                {
+                                                    "default@netease_editor_template_namespace.default": {
+                                                        "controls": []
+                                                    }
+                                                },
+                                                {
+                                                    "hover@netease_editor_template_namespace.hover": {
+                                                        "controls": []
+                                                    }
+                                                },
+                                                {
+                                                    "pressed@netease_editor_template_namespace.pressed": {
+                                                        "controls": []
+                                                    }
+                                                },
+                                                {
+                                                    "button_label@netease_editor_template_namespace.button_label": {
+                                                        "controls": []
+                                                    }
+                                                }
+                                            ],
+                                            "default_control": "default",
+                                            "hover_control": "hover",
+                                            "is_handle_button_move_event": true,
+                                            "layer": 2,
+                                            "pressed_control": "pressed",
+                                            "size": [
+                                                "100.0%+0.0px",
+                                                "100.0%+0.0px"
+                                            ],
+                                            "type": "button"
+                                        }
+                                    }
+                                ],
+                                "size": [
+                                    "30.6%+0.0px",
+                                    "100.0%+0.0px"
+                                ],
+                                "type": "panel"
+                            }
+                        }
+                    ],
+                    "layer": 10,
+                    "orientation": "horizontal",
+                    "size": [
+                        "100.0%+0.0px",
+                        "10.2%+0.0px"
+                    ],
+                    "type": "stack_panel"
+                }
+            },
+            {
+                "content_panel": {
+                    "anchor_from": "top_left",
+                    "anchor_to": "top_left",
+                    "controls": [
+                        {
+                            "guidePanel_1@parterner_wiki_common_toggle.guidePanel": {
+                                "size": [
+                                    "97.54%+0.0px",
+                                    "96.6%+0.0px"
+                                ],
+                                "visible": false
+                            }
+                        },
+                        {
+                            "wikiPanel_1@parterner_wiki_common_toggle.wikiPanel": {
+                                "size": [
+                                    "97.54%+0.0px",
+                                    "97.28%+0.0px"
+                                ],
+                                "visible": false
+                            }
+                        }
+                    ],
+                    "size": [
+                        "100.0%+0.0px",
+                        "87.0%+0.0px"
+                    ],
+                    "type": "panel"
+                }
+            }
+        ],
+        "layer": 1,
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "type": "stack_panel"
+    },
+    "worldWikiDetailLeftPanel": {
+        "anchor_from": "bottom_left",
+        "anchor_to": "bottom_left",
+        "controls": [
+            {
+                "padding1": {
+                    "size": [
+                        "100%",
+                        4
+                    ],
+                    "type": "panel"
+                }
+            },
+            {
+                "wikiDetailTitle@parterner_wiki_common_toggle.wikiDetailTitle": {
+                    "size": [
+                        "100%",
+                        "6.49%+0.0px"
+                    ]
+                }
+            },
+            {
+                "panel": {
+                    "layer": 1,
+                    "size": [
+                        "100.0%+0.0px",
+                        "1.0%+0.0px"
+                    ],
+                    "type": "panel"
+                }
+            },
+            {
+                "content_srollview@common.scrolling_panel": {
+                    "$background_nine_slice_buttom": 0,
+                    "$background_nine_slice_left": 0,
+                    "$background_nine_slice_right": 0,
+                    "$background_nine_slice_top": 0,
+                    "$background_nineslice_size": [
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "$box_nine_slice_buttom": 0,
+                    "$box_nine_slice_left": 0,
+                    "$box_nine_slice_right": 0,
+                    "$box_nine_slice_top": 0,
+                    "$box_nineslice_size": [
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "$is_background_nine_slice": false,
+                    "$is_box_nine_slice": false,
+                    "$is_track_nine_slice": false,
+                    "$scroll_background_image_control": "netease_editor_template_namespace.scroll_background_image",
+                    "$scroll_background_texture": "textures/ui/ScrollRail",
+                    "$scroll_box_mouse_image_control": "netease_editor_template_namespace.scroll_box_image",
+                    "$scroll_box_texture": "textures/ui/newTouchScrollBox",
+                    "$scroll_box_touch_image_control": "netease_editor_template_namespace.scroll_box_image",
+                    "$scroll_track_image_control": "netease_editor_template_namespace.scroll_track_image",
+                    "$scroll_track_texture": "textures/ui/ScrollRail",
+                    "$scrolling_content": "parterner_wiki_common_toggle.wikiDetailStackPanel",
+                    "$show_background": false,
+                    "$track_nine_slice_buttom": 0,
+                    "$track_nine_slice_left": 0,
+                    "$track_nine_slice_right": 0,
+                    "$track_nine_slice_top": 0,
+                    "$track_nineslice_size": [
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "layer": 9,
+                    "size": [
+                        "100.0%+0.0px",
+                        "91.0%+0.0px"
+                    ]
+                }
+            }
+        ],
+        "layer": 3,
+        "offset": [
+            4,
+            0
+        ],
+        "size": [
+            "96.0%+0.0px",
+            "91.12%+0.0px"
+        ],
+        "type": "stack_panel",
+        "visible": true
+    },
+    "worldWikiDetailRightPanel": {
+        "controls": [
+            {
+                "visibleBg@parterner_wiki_common_toggle.visibleBg": {
+                    "size": [
+                        "100%",
+                        "100.0%+0.0px"
+                    ]
+                }
+            },
+            {
+                "wikiDetailRightPanel": {
+                    "anchor_from": "top_left",
+                    "anchor_to": "top_left",
+                    "controls": [
+                        {
+                            "wikiDetailScrollPanel@parterner_wiki_common_toggle.wikiDetailScrollPanel": {}
+                        }
+                    ],
+                    "layer": 3,
+                    "offset": [
+                        0,
+                        0
+                    ],
+                    "size": [
+                        "100%",
+                        "100.0%+0.0px"
+                    ],
+                    "type": "panel",
+                    "visible": true
+                }
+            }
+        ],
+        "layer": 3,
+        "size": [
+            "95.9%+0.0px",
+            "85.9%+0.0px"
+        ],
+        "type": "panel"
+    }
+}

@@ -1,0 +1,23 @@
+#ifndef _UNIFORM_EXTRA_VECTOR_CONSTANTS_H
+#define _UNIFORM_EXTRA_VECTOR_CONSTANTS_H
+
+#include "uniformMacro.h"
+
+#ifdef MCPE_PLATFORM_NX
+layout(binding = 1) uniform SfxConstants {
+#endif
+// BEGIN_UNIFORM_BLOCK(SfxConstants) - unfortunately this macro does not work on old Amazon platforms so using above 3 lines instead
+UNIFORM vec4 EXTRA_VECTOR1;
+UNIFORM vec4 EXTRA_VECTOR2;
+UNIFORM vec4 EXTRA_VECTOR3;
+UNIFORM vec4 EXTRA_VECTOR4;
+UNIFORM vec4 SUN_DIR;
+UNIFORM vec4 WATER_TEXTURE_UV_RANGE;
+UNIFORM vec4 SKY_NEAR_COLOR;
+UNIFORM vec4 SKY_FAR_COLOR;
+UNIFORM vec4 RAIN_NEAR_COLOR;
+UNIFORM vec4 RAIN_FAR_COLOR;
+UNIFORM vec4 COLOR_MAPPING_PARAM;
+END_UNIFORM_BLOCK
+
+#endif

@@ -1,0 +1,1254 @@
+{
+  "namespace": "report",
+  //---------------------------------------------------------------------------
+  // SCREEN
+  //---------------------------------------------------------------------------
+
+  "report_screen@common.base_screen": {
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_cancel",
+        "to_button_id": "button.menu_exit",
+        "mapping_type": "global"
+      },
+      {
+        "from_button_id": "button.menu_exit",
+        "to_button_id": "button.menu_exit",
+        "mapping_type": "global"
+      }
+    ],
+
+    "$screen_content": "report.report_screen_content",
+    "$screen_bg_content": "common.screen_background"
+  },
+
+  //---------------------------------------------------------------------------
+  // CONTENT
+  //---------------------------------------------------------------------------
+
+  "report_screen_content": {
+    "type": "stack_panel",
+    "size": [ "100%", "100%" ],
+    "orientation": "vertical",
+    "anchor_to": "top_middle",
+    "anchor_from": "top_middle",
+    "controls": [
+      { "top_bar_panel@report.top_bar_panel": {} },
+      { "content_panel@report.content_panel": {} }
+    ]
+  },
+
+  "top_bar_panel": {
+    "type": "panel",
+    "size": [ "100%", 23 ],
+
+    "controls": [
+      { "top_bar@report.top_bar": {} },
+      {
+        "back_button@report.back_button": {
+          "anchor_to": "left_middle",
+          "anchor_from": "left_middle",
+          "bindings": [
+            {
+              "binding_name": "(not #is_using_gamepad)",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "gamepad_helper_b@common.gamepad_helper_b": {
+          "size": [ "100%c", 16 ],
+          "offset": [ 1, -6 ],
+          "anchor_to": "left_middle",
+          "anchor_from": "left_middle",
+
+          "$icon_description_bind_type": "global",
+          "$icon_description_bind": "#b_button_text",
+          "$gamepad_helper_visible_binding_name": "#is_using_gamepad"
+        }
+      },
+      { "title_label@report.title_label": {} }
+    ]
+  },
+
+  "content_panel": {
+    "type": "panel",
+    "size": [ "default", "fill" ],
+    "controls": [
+      {
+        "content_stack_panel": {
+          "type": "stack_panel",
+          "orientation": "vertical",
+          "size": [ "88%", "100%" ],
+          "controls": [
+            {
+              "content_padding_1": {
+                "type": "panel",
+                "size": [ "100%", 4 ]
+              }
+            },
+            { "world_label@report.world_label": {} },
+            {
+              "content_padding_2": {
+                "type": "panel",
+                "size": [ "100%", 4 ]
+              }
+            },
+            { "player_and_report_panel@report.player_and_report_panel": {} }
+          ]
+        }
+      }
+    ]
+  },
+
+  "player_and_report_panel": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100%", "fill" ],
+    "controls": [
+      { "selector_area@report.selector_area": {} },
+      { "content_area@report.content_area": {} }
+    ]
+  },
+
+  // left side
+  "selector_area@common.modal_area_panel_base": {
+    "size": [ "154px", "95%" ],
+    "$menu_cancel_button_id": "button.menu_exit",
+    "$modal_binding_name": "#selector_area_focused",
+    "layer": 2,
+    "controls": [
+      {
+        "player_scrolling_panel@common.scrolling_panel": {
+          "$show_background": false,
+          "$scrolling_content": "report.players_grid_panel"
+        }
+      }
+    ]
+  },
+
+  // right side
+  "content_area@common.modal_area_panel_base": {
+    "size": [ "fill", "95%" ],
+    "$menu_cancel_button_id": "button.back_to_selector_area",
+    "$modal_binding_name": "#content_area_focused",
+    "layer": 1,
+    "controls": [
+      {
+        "report_options_background": {
+          "type": "panel",
+          "controls": [
+            {
+              "report_options_background_image@report.banner_background": {
+                "size": [ "100% + 2px", "100%" ],
+                "controls": [
+                    {
+                      "report_options_with_voice_panel@report.report_options_with_voice_panel" : {}
+                    }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "inactive_modal_pane_fade@common.inactive_modal_pane_fade": {
+          "bindings": [
+            {
+              "binding_name": "#selector_area_focused",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "players_grid_panel": {
+    "type": "panel",
+    "size": [ "100%", "100%c" ],
+    "controls": [
+      { "players_grid@report.players_grid": {} }
+    ]
+  },
+
+  "players_grid": {
+    "type": "grid",
+    "size": [ "100%", "default" ],
+    "grid_item_template": "report.player_grid_item",
+    "grid_dimension_binding": "#players_grid_dimension",
+    "collection_name": "players_collection",
+    "anchor_to": "top_left",
+    "anchor_from": "top_left",
+    "bindings": [
+      {
+        "binding_name": "#players_grid_dimension"
+      }
+    ]
+  },
+
+  "player_grid_item": {
+    "type": "panel",
+    "size": [ "100%", 27 ],
+    "controls": [
+      {
+        "player_toggle@report.player_toggle": {
+          "size": [ "100%", "100% + 1px" ],
+          "anchor_from": "top_middle",
+          "anchor_to": "top_middle"
+        }
+      },
+      {
+        "inactive_modal_pane_fade@common.inactive_modal_pane_fade": {
+          "texture": "textures/ui/permissions_player_fade_overlay",
+          "bindings": [
+            {
+              "binding_name": "#content_area_focused",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "report_options_with_voice_panel": {
+    "type": "panel",
+    "size": [ "100%", "100%" ],
+    "controls": [
+      {
+        "player_name":{
+          "type": "label",
+          "text": "玩家名称：",
+          "offset": ["5%", "10%-3px"],
+          "size": [50, 50],
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "layer": 2
+        }
+      },
+      {
+        "selected_player_growth_level_panel": {
+          "ignored": "(not $is_netease)",
+          "visible": "#is_growth_level_show",
+          "bindings": [
+            {
+              "binding_name": "#is_growth_level_show",
+              "binding_name_override": "#visible"
+            }
+          ],
+          "type": "panel",
+          "size": [ 20, 20 ],
+          "offset": ["5%+50px", "10%-8px"],
+          "anchor_to": "top_left",
+          "anchor_from": "top_left",
+          "controls": [
+            {
+              "selected_player_growth_level_texture": {
+                "type": "image",
+                "texture": "#selected_player_growth_level_icon_texture",
+                "size": [ 16, 16 ],
+                "layer": 2,
+                "bindings": [
+                  {
+                    "binding_name": "#selected_player_growth_level_icon_texture",
+                    "binding_name_override": "#texture"
+                  }
+                ]
+              }
+            },
+            {
+              "selected_player_growth_level_frame": {
+                "type": "image",
+                "texture": "#selected_player_growth_level_icon_frame",
+                "size": [ 16, 16 ],
+                "layer": 1,
+                "bindings": [
+                  {
+                    "binding_name": "#selected_player_growth_level_icon_frame",
+                    "binding_name_override": "#texture"
+                  }
+                ]
+              }
+            },
+            {
+              "selected_player_growth_level_star": {
+                "type": "image",
+                "texture": "#selected_player_growth_level_icon_star",
+                "size": [ 16, 16 ],
+                "layer": 3,
+                "bindings": [
+                  {
+                    "binding_name": "#selected_player_growth_level_icon_star",
+                    "binding_name_override": "#texture"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "player_name_title": {
+          "type": "label",
+          "text": "#pn_title",
+          "offset": ["5%+70px", "10%-3px"],
+          "size": [100, 50],
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "bindings": [
+            {
+              "binding_name": "#player_name_title",
+              "binding_name_override": "#pn_title"
+            }
+          ],
+          "layer": 2
+        }
+      },
+      {
+        "options_panel_normal": {
+          "type": "panel",
+          "size": [ "100%", "100%" ],
+          "bindings": [
+            {
+              "binding_name": "(not #voice_feature_visible)",
+              "binding_name_override": "#visible"
+            }
+          ],
+          "controls": [
+            {
+              "inner_friend_panel@report.inner_friend_panel": {}
+            },
+            {
+              "inner_report_panel@report.inner_report_panel": {}
+            },
+            {
+              "inner_shield_panel@report.inner_shield_panel": {}
+            },
+            {
+              "inner_kick_panel@report.inner_kick_panel": {}
+            }
+          ]
+        }
+      },
+      {
+        "options_panel_with_voice": {
+          "type": "panel",
+          "size": [ "100%", "100%" ],
+          "bindings": [
+            {
+              "binding_name": "#voice_feature_visible",
+              "binding_name_override": "#visible"
+            }
+          ],
+          "controls": [
+            {
+              "scrolling_panel@common.scrolling_panel": {
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
+                "offset": [ "-20%", "15%" ],
+                "size": [ "100%", "80%" ],
+                "$show_background": false,
+                "$scrolling_content": "report.voice_options_content_panel",
+                "$scroll_size": [ 5, "100% - 4px" ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "inner_panel_template": {
+    "type": "panel",
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "size": [ "100%", "100%c" ],
+    "controls": [
+      {
+        "option_label@report.option_label": {}
+      },
+      {
+        "report_button@report.report_button": {}
+      }
+    ]
+  },
+
+  // 无语音功能时的4个选项（间距较大）
+  "inner_friend_panel@report.inner_panel_template": {
+    "offset": ["-20%", "20%"],
+    "$option_name": "netease.report.text.friend",
+    "$bp_name": "button.report_friend",
+    "$b_text": "netease.report.option.friend",
+    "$panel_prefix": "friend"
+  },
+
+  "inner_report_panel@report.inner_panel_template": {
+    "offset": ["-20%", "38%"],
+    "$option_name": "netease.report.text.report",
+    "$bp_name": "button.report_report",
+    "$b_text": "netease.report.option.report",
+    "$panel_prefix": "report"
+  },
+
+  "inner_shield_panel": {
+    "type": "panel",
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "size": [ "100%", "100%c" ],
+    "offset": ["-20%", "56%"],
+    "$panel_prefix": "shield",
+    "controls": [
+      {
+        "option_label@report.option_label": {
+          "$option_name": "netease.report.text.shield"
+        }
+      },
+      {
+        "option_toggle@report.option_toggle": {
+          "size": [ "50%", 28 ],
+          "offset": [0, 0],
+          "anchor_from": "right_middle",
+          "anchor_to": "right_middle"
+        }
+      }
+    ]
+  },
+
+  "inner_kick_panel@report.inner_panel_template": {
+    "offset": ["-20%", "74%"],
+    "$option_name": "netease.report.text.kick",
+    "$bp_name": "button.report_kick",
+    "$b_text": "netease.report.option.kick",
+    "$panel_prefix": "kick"
+  },
+
+  // 有语音功能时的6个选项（使用滚动面板）
+  "voice_options_content_panel": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "size": [ "100%", "100%c" ],
+    "controls": [
+      {
+        "inner_friend_panel_voice@report.inner_friend_panel_voice": {}
+      },
+      {
+        "inner_report_panel_voice@report.inner_report_panel_voice": {}
+      },
+      {
+        "inner_shield_panel_voice@report.inner_shield_panel_voice": {}
+      },
+      {
+        "inner_shield_voice_panel@report.inner_shield_voice_panel": {}
+      },
+      {
+        "inner_shield_ban_voice_panel@report.inner_shield_ban_voice_panel": {}
+      },
+      {
+        "inner_kick_panel_voice@report.inner_kick_panel_voice": {}
+      }
+    ]
+  },
+
+  "inner_friend_panel_voice@report.inner_panel_template": {
+    "offset": [ "-20%", 0 ],
+    "$option_name": "netease.report.text.friend",
+    "$bp_name": "button.report_friend",
+    "$b_text": "netease.report.option.friend",
+    "$panel_prefix": "friend"
+  },
+
+  "inner_report_panel_voice@report.inner_panel_template": {
+    "offset": [ "-20%", 0 ],
+    "$option_name": "netease.report.text.report",
+    "$bp_name": "button.report_report",
+    "$b_text": "netease.report.option.report",
+    "$panel_prefix": "report"
+  },
+
+  "inner_shield_panel_voice": {
+    "type": "panel",
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "size": [ "100%", "100%c" ],
+    "offset": [ "-20%", 0 ],
+    "$panel_prefix": "shield",
+    "controls": [
+      {
+        "option_label@report.option_label": {
+          "$option_name": "netease.report.text.shield"
+        }
+      },
+      {
+        "option_toggle@report.option_toggle": {
+          "size": [ "50%", 28 ],
+          "offset": [0, 0],
+          "anchor_from": "right_middle",
+          "anchor_to": "right_middle"
+        }
+      }
+    ]
+  },
+
+  "inner_shield_voice_panel": {
+    "type": "panel",
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "size": [ "100%", "100%c" ],
+    "offset": [ "-20%", 0 ],
+    "$panel_prefix": "shield_voice",
+    "controls": [
+      {
+        "option_label@report.option_label": {
+          "$option_name": "netease.report.voice.shield"
+        }
+      },
+      {
+        "option_toggle@report.option_toggle": {
+          "$toggle_name": "shield_voice_toggle",
+          "$toggle_state_binding_name": "#shield_voice_toggle_state",
+          "size": [ "50%", 28 ],
+          "offset": [0, 0],
+          "anchor_from": "right_middle",
+          "anchor_to": "right_middle"
+        }
+      }
+    ]
+  },
+
+  "inner_shield_ban_voice_panel": {
+    "type": "panel",
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "size": [ "100%", "100%c" ],
+    "offset": [ "-20%", 0 ],
+    "$panel_prefix": "ban_voice",
+    "controls": [
+      {
+        "option_label@report.option_label": {
+          "$option_name": "netease.report.voice.ban"
+        }
+      },
+      {
+        "option_toggle@report.option_toggle": {
+          "$toggle_name": "ban_voice_toggle",
+          "$toggle_state_binding_name": "#ban_voice_toggle_state",
+          "size": [ "50%", 28 ],
+          "offset": [0, 0],
+          "anchor_from": "right_middle",
+          "anchor_to": "right_middle"
+        }
+      }
+    ]
+  },
+
+  "inner_kick_panel_voice@report.inner_panel_template": {
+    "offset": [ "-20%", 0 ],
+    "$option_name": "netease.report.text.kick",
+    "$bp_name": "button.report_kick",
+    "$b_text": "netease.report.option.kick",
+    "$panel_prefix": "kick"
+  },
+
+  "vertical_padding": {
+    "type": "panel",
+    "size": [ 0, 28 ]
+  },
+
+  "toggle_panel": {
+    "anchor_to": "top_left",
+    "anchor_from": "top_left",
+    "type": "panel",
+    "size": ["100%", "100%"],
+    "controls": [
+      {
+        "bad_player_panel@report.bad_player_panel": {}
+      },
+      {
+        "bad_nickname_panel@report.bad_nickname_panel": {}
+      },
+      {
+        "language_violence_panel@report.language_violence_panel": {}
+      },
+      {
+        "bad_information_panel@report.bad_information_panel": {}
+      },
+      {
+        "game_plug_panel@report.game_plug_panel": {}
+      },
+      {
+        "other_panel@report.other_panel": {}
+      },
+      {
+        "voice_report_panel@report.voice_report_panel": {
+          "bindings": [
+            {
+              "binding_name": "#voice_feature_visible",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "messages_text": {
+    "type": "panel",
+    "size": [ "100%", "100%c" ],
+    "controls": [
+      {
+        "text": {
+          "type": "label",
+          "color": "$chat_text_color",
+          "localize": false,
+          "size": [ "100%", "default" ],
+          "text": "#text",
+          "font_type": "$chat_font_type",
+          "font_scale_factor": "$chat_font_scale_factor",
+          "line_padding": "$chat_line_spacing"
+        }
+      }
+    ],
+    "bindings": [
+      {
+        "binding_name": "#chat_visible",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  "chat_record_grid_panel": {
+    "type": "panel",
+    "size": [ "100%", "100%c" ],
+    "controls": [
+      { "chat_record_grid@report.chat_record_grid": {} }
+    ]
+  },
+
+  "chat_record_grid": {
+    "type": "grid",
+    "size": [ "100%", "default" ],
+    "grid_item_template": "report.chat_record_template",
+    "grid_dimension_binding": "#chat_record_grid_dimension",
+    "collection_name": "chat_record_collection",
+    "anchor_to": "top_left",
+    "anchor_from": "top_left",
+    "bindings": [
+      {
+        "binding_name": "#chat_record_grid_dimension"
+      }
+    ]
+  },
+
+  "chat_record_template": {
+    "type": "panel",
+    "anchor_to": "top_left",
+    "anchor_from": "top_left",
+    "size": [ "100%", 24],
+    "controls": [
+      {
+        "chat_record_label@report.chat_record_label": {}
+      },
+      {
+        "chat_record_toggle@report.chat_record_toggle": {}
+      }
+    ]
+  },
+
+  "chat_record_panel@common.scrolling_panel": {
+    "type": "panel",
+    "size": [ "100%", "100%" ],
+    "anchor_from": "bottom_left",
+    "anchor_to": "bottom_left",
+    "offset": [ 0,0 ],
+    "$scrolling_content": "report.chat_record_grid_panel",
+    "$scroll_size": [ 5, "100%-4px" ],
+    "$jump_to_bottom_on_update": true,
+    "$show_background": false
+  },
+
+  "content_toggle@common.toggle": {
+    "checked_control": "default",
+    "unchecked_control": "unchecked",
+    "checked_hover_control": "hover",
+    "unchecked_hover_control": "unchecked_hover",
+    "checked_locked_control": "default",
+    "unchecked_locked_control": "unchecked",
+    "checked_locked_hover_control": "hover",
+    "unchecked_locked_hover_control": "unchecked_hover",
+
+    "$toggle_name": "('#' + $panel_prefix + _item_dropdown)",
+    "$toggle_state_binding_name": "#toggle_check",
+    "$focus_override_right": "FOCUS_OVERRIDE_STOP",
+
+    "bindings":[
+      {
+        "binding_name": "('#' + $panel_prefix + _item_selected)",
+        "binding_name_override": "#toggle_state"
+      }
+    ],
+
+    "controls":[
+      {
+        "default@report.report_checkbox":{
+          "$button_state": "default",
+          "$checked_state": true
+        }
+      },
+      {
+        "hover@report.report_checkbox":{
+          "$button_state": "hover",
+          "$checked_state": true,
+          "layer": 4
+        }
+      },
+      {
+        "unchecked@report.report_checkbox":{
+          "$button_state": "default",
+          "$checked_state": false
+        }
+      },
+      {
+        "unchecked_hover@report.report_checkbox":{
+          "$button_state": "hover",
+          "$checked_state": false,
+          "layer": 4
+        }
+      }
+    ]
+  },
+
+  "report_checkbox": {
+    "type": "panel",
+    "size": [ 20, "default" ],
+
+    "$checked_state|default": false,
+    "$button_state|default": "default",
+
+    "controls":[
+      {
+        "selected_checkbox_image@common.checkbox_image":{
+          "$checked_image": "textures/ui/checkbox_check",
+
+          "variables":[
+            {
+              "requires": "($checked_state and $button_state = hover)",
+              "$checked_image": "textures/ui/checkbox_checkHover"
+            },
+            {
+              "requires": "(not $checked_state and $button_state = default)",
+              "$checked_image": "textures/ui/checkbox_space"
+            },
+            {
+              "requires": "(not $checked_state and $button_state = hover)",
+              "$checked_image": "textures/ui/checkbox_spaceHover"
+            }
+          ],
+
+          "texture": "$checked_image",
+          "offset": [ 1, 0 ]
+        }
+      }
+    ]
+  },
+
+  "toggle_template_panel": {
+    "type": "panel",
+    "anchor_to": "top_left",
+    "anchor_from": "top_left",
+    "controls": [
+      {
+        "content_toggle@report.content_toggle": {
+          "anchor_to": "top_left",
+          "anchor_from": "top_left",
+          "size": ["20%", "100%"],
+          "offset": [0, 0]
+        }
+      },
+      {
+        "option_label@report.option_label": {
+          "anchor_to": "top_left",
+          "anchor_from": "top_left",
+          "offset": ["20%", 3],
+          "size": ["80%", "100%"]
+        }
+      }
+    ]
+  },
+
+  "bad_player_panel@report.toggle_template_panel": {
+    "size": ["50%", "20%"],
+    "offset": [0, 0],
+    "$panel_prefix": "bad_player",
+    "$option_name": "netease.report.report.option.bad_player"
+  },
+
+  "bad_nickname_panel@report.toggle_template_panel": {
+    "size": ["50%", "20%"],
+    "offset": ["50%", 0],
+    "$panel_prefix": "bad_nickname",
+    "$option_name": "netease.report.report.option.bad_nickname"
+  },
+
+  "language_violence_panel@report.toggle_template_panel": {
+    "size": ["50%", "20%"],
+    "offset": [0, "25%"],
+    "$panel_prefix": "language_violence",
+    "$option_name": "netease.report.report.option.language_violence"
+  },
+
+  "bad_information_panel@report.toggle_template_panel": {
+    "size": ["50%", "20%"],
+    "offset": ["50%", "25%"],
+    "$panel_prefix": "bad_information",
+    "$option_name": "netease.report.report.option.bad_information"
+  },
+
+  "game_plug_panel@report.toggle_template_panel": {
+    "size": ["50%", "20%"],
+    "offset": [0, "50%"],
+    "$panel_prefix": "game_plug",
+    "$option_name": "netease.report.report.option.game_plug"
+  },
+
+  "other_panel@report.toggle_template_panel": {
+    "size": ["50%", "20%"],
+    "offset": ["50%", "50%"],
+    "$panel_prefix": "other",
+    "$option_name": "netease.report.report.option.other"
+  },
+
+  "voice_report_panel@report.toggle_template_panel": {
+    "size": ["50%", "20%"],
+    "offset": [0, "75%"],
+    "$panel_prefix": "voice_report",
+    "$option_name": "netease.report.report.option.voice_report"
+  },
+
+
+  //---------------------------------------------------------------------------
+  // IMAGES
+  //---------------------------------------------------------------------------
+
+  "top_bar": {
+    "type": "image",
+    "texture": "textures/ui/StoreTopBar"
+  },
+
+  "banner_background": {
+    "type": "image",
+    "texture": "textures/ui/Banners"
+  },
+
+  "player_growth_level_texture": {
+    "type": "image",
+    "texture": "#player_growth_level_icon_texture",
+    "size": [ 20, 20 ],
+    "layer": 2,
+    "bindings": [
+      {
+        "binding_name": "#player_growth_level_icon_texture",
+        "binding_name_override": "#texture",
+        "binding_type": "collection",
+        "binding_collection_name": "players_collection"
+      }
+    ]
+  },
+
+  "player_growth_level_frame": {
+    "type": "image",
+    "texture": "#player_growth_level_icon_frame",
+    "size": [ 20, 20 ],
+    "layer": 1,
+    "bindings": [
+      {
+        "binding_name": "#player_growth_level_icon_frame",
+        "binding_name_override": "#texture",
+        "binding_type": "collection",
+        "binding_collection_name": "players_collection"
+      }
+    ]
+  },
+
+  "player_growth_level_star": {
+    "type": "image",
+    "texture": "#player_growth_level_icon_star",
+    "size": [ 20, 20 ],
+    "layer": 3,
+    "bindings": [
+      {
+        "binding_name": "#player_growth_level_icon_star",
+        "binding_name_override": "#texture",
+        "binding_type": "collection",
+        "binding_collection_name": "players_collection"
+      }
+    ]
+  },
+
+  "player_local_icon": {
+    "type": "image",
+    "texture": "textures/ui/lan_icon",
+    "size": [ 13, 13 ],
+    "layer": 1,
+    "bindings": [
+      {
+        "binding_name": "#local_icon_visible",
+        "binding_type": "collection",
+        "binding_collection_name": "players_collection",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  "player_gamer_pic": {
+    "type": "image",
+    "texture": "#texture",
+    "size": [ 18, 18 ],
+    "layer": 1,
+    "texture_file_system": "#texture_source",
+    "bindings": [
+      {
+        "binding_name": "#texture",
+        "binding_type": "collection",
+        "binding_collection_name": "players_collection"
+      },
+      {
+        "binding_name": "#texture_source",
+        "binding_name_override": "#texture_file_system",
+        "binding_type": "collection",
+        "binding_collection_name": "players_collection"
+      },
+      {
+        "binding_name": "#gamerpic_visible",
+        "binding_type": "collection",
+        "binding_collection_name": "players_collection",
+        "binding_name_override": "#visible"
+      }
+    ],
+    "controls": [
+      {
+        "player_panel_black_border@common.square_image_border_white": {
+          "size": [ "100% + 2px", "100% + 2px" ],
+          "color": [ 0, 0, 0 ],
+          "anchor_from": "center",
+          "anchor_to": "center"
+        }
+      }
+    ]
+  },
+
+
+  //---------------------------------------------------------------------------
+  // BUTTONS
+  //---------------------------------------------------------------------------
+
+  "back_button@common_buttons.no_background_content_button": {
+    "layer": 2,
+    "$button_text|default": "gui.back",
+    "$button_content": "report.back_button_content",
+    "$button_type_panel": "common_buttons.form_fitting_button_content_panel",
+    "$button_text_binding_type|default": "none",
+    "$button_binding_condition|default": "none",
+    "$button_text_grid_collection_name|default": "",
+    "$focus_id": "back_button",
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_select",
+        "to_button_id": "button.menu_exit",
+        "mapping_type": "pressed"
+      },
+      {
+        "from_button_id": "button.menu_ok",
+        "to_button_id": "button.menu_exit",
+        "mapping_type": "focused"
+      }
+    ]
+  },
+
+  "back_button_content": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100%c", 16 ],
+    "controls": [
+      {
+        "chevron_panel": {
+          "type": "panel",
+          "size": [ "100%c", "100%c" ],
+          "controls": [
+            {
+              "left_chevron@common.chevron_image": {
+                "texture": "textures/ui/chevron_left",
+                "offset": [ 0, 1 ],
+                "color": "$text_color"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "back_button_padding": {
+          "type": "panel",
+          "size": [ 4, "100%" ]
+        }
+      },
+      {
+        "label_panel": {
+          "type": "panel",
+          "size": [ "100%c", "100%c" ],
+          "controls": [
+            {
+              "label@common_buttons.new_ui_binding_button_label": {
+                "offset": [ 0, 0 ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "report_button_template@common_buttons.light_text_button": {
+    "size": [ "50%", 28 ],
+    "offset": [0, 0]
+  },
+
+  "report_button@report.report_button_template": {
+    "$pressed_button_name": "$bp_name",
+    "$button_text": "$b_text",
+    "anchor_from": "right_middle",
+    "anchor_to": "right_middle",
+    "bindings": [
+      {
+        "binding_name": "('#' + $panel_prefix + _ + report_button)",
+        "binding_name_override": "#enabled"
+      }
+    ]
+  },
+
+  //---------------------------------------------------------------------------
+  // TOGGLES
+  //---------------------------------------------------------------------------
+
+  "player_toggle@common_toggles.dark_image_toggle_collection": {
+    "$toggle_name": "player_toggle",
+    "$toggle_binding_type": "collection",
+    "$toggle_grid_collection_name": "players_collection",
+    "$toggle_state_binding_name": "#player_toggle_state",
+    "$radio_toggle_group": true,
+    "$button_content": "report.player_button_content"
+  },
+
+    "player_button_content": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "anchor_from": "left_middle",
+    "anchor_to": "left_middle",
+    "size": [ "100% - 4px", "100% - 4px" ],
+    "layer": 3,
+    "controls": [
+      {
+        "player_level_panel@report.player_level_panel": {
+          "visible": "#is_growth_level_show",
+          "bindings": [
+            {
+              "binding_name": "#is_growth_level_show",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      { "player_pic_panel@report.player_pic_panel": {} },
+      {
+        "player_button_padding_1": {
+          "type": "panel",
+          "size": [ 4, 0 ]
+        }
+      },
+      {
+        "gamertag_panel": {
+          "type": "panel",
+          "size": [ "fill", "100%" ],
+          "controls": [
+            {
+              "gamertag_label@report.gamertag_label": {
+                "offset": [ 0, 1 ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "icon_panel_voice": {
+          "type": "panel",
+          "layer": 1,
+          "size": [ "100%c", "100%" ],
+          "controls": [
+            {
+              "dropdown_icon_image": {
+                "type": "image",
+                "texture": "textures/gui/newgui/voice_icon03.png",
+                "size": [ 15, 15 ]
+              }
+            }
+          ],
+          "bindings": [
+            {
+              "binding_name": "#player_is_speaking",
+              "binding_type": "collection",
+              "binding_collection_name": "players_collection",
+              "binding_name_override": "#visible",
+              "binding_condition": "always"
+            }
+          ]
+        }
+      },
+      {
+        "player_button_padding_2": {
+          "type": "panel",
+          "size": [ 4, 0 ]
+        }
+      },
+      {
+        "icon_panel": {
+          "type": "panel",
+          "layer": 1,
+          "size": [ "100%c", "100%" ],
+          "controls": [
+            {
+              "dropdown_icon_image": {
+                "type": "image",
+                "texture": "textures/ui/report_friend",
+                "size": [ 15, 15 ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "player_button_padding_2": {
+          "type": "panel",
+          "size": [ 4, 0 ]
+        }
+      }
+    ]
+  },
+
+  "player_level_panel": {
+    "type": "panel",
+    "size": [ 20, "100%" ],
+    "offset": [ 1, 0 ],
+    "anchor_to": "left_middle",
+    "anchor_from": "left_middle",
+    "controls": [
+      { "player_growth_level_texture@report.player_growth_level_texture": {} },
+      { "player_growth_level_frame@report.player_growth_level_frame": {} },
+      { "player_growth_level_star@report.player_growth_level_star": {} }
+    ]
+  },
+
+  "player_pic_panel": {
+    "type": "panel",
+    "size": [ 20, "100%" ],
+    "offset": [ 1, 0 ],
+    "anchor_to": "left_middle",
+    "anchor_from": "left_middle",
+    "controls": [
+      { "player_gamer_pic@report.player_gamer_pic": {} },
+      { "player_local_icon@report.player_local_icon": {} }
+    ]
+  },
+
+  "option_toggle@common_toggles.switch_toggle_collection": {
+    "$toggle_name": "option_toggle",
+    "$toggle_state_binding_name": "#option_toggle_state",
+    "bindings": [
+      {
+        "binding_name": "('#' + $panel_prefix + _ + report_toggle)",
+        "binding_name_override": "#enabled"
+      }
+    ]
+  },
+
+  "chat_record_toggle@report.content_toggle": {
+    "anchor_to": "top_left",
+    "anchor_from": "top_left",
+    "size": [7, "100%"],
+    "offset": ["100%-14px", 0],
+    "$toggle_name": "chat_record_toggle",
+    "$toggle_binding_type": "collection",
+    "$toggle_grid_collection_name": "chat_record_collection",
+    "$toggle_state_binding_name": "#toggle_check",
+    "$focus_override_right": "FOCUS_OVERRIDE_STOP",
+    "bindings": [
+      {
+        "binding_name": "#chat_record_toggle",
+        "binding_type": "collection",
+        "binding_name_override": "#toggle_state",
+        "binding_collection_name": "chat_record_collection"
+      }
+    ]
+  },
+  //---------------------------------------------------------------------------
+  // LABELS
+  //---------------------------------------------------------------------------
+
+  "title_label": {
+    "type": "label",
+    "size": [ "default", "default" ],
+    "text": "netease.report.title",
+    "color": "$title_text_color",
+    "layer": 2
+  },
+
+  "world_label": {
+    "type": "label",
+    "size": [ "default", "default" ],
+    "text": "pauseScreen.currentWorld",
+    "color": "$main_header_text_color",
+    "layer": 1
+  },
+
+  "gamertag_label": {
+    "type": "label",
+    "color": "$main_header_text_color",
+    "text": "#gamertag",
+    "anchor_from": "left_middle",
+    "anchor_to": "left_middle",
+    "layer": 2,
+    "bindings": [
+      {
+        "binding_name": "#gamertag",
+        "binding_type": "collection",
+        "binding_collection_name": "players_collection"
+      }
+    ]
+  },
+
+  "option_label": {
+    "type": "label",
+    "size": [ "50%", "default" ],
+    "text": "$option_name",
+    "color": "$main_header_text_color",
+    "layer": 2
+  },
+
+  "chat_record_label": {
+    "anchor_to": "center",
+    "anchor_from": "center",
+    "offset": [ -7, 0 ],
+    "type": "label",
+    "size": [ "100%-21px", "100%" ],
+    "text": "#chat_record_text",
+    "color": "$main_header_text_color",
+    "layer": 2,
+    "bindings": [
+      {
+        "binding_name": "#chat_record_text",
+        "binding_type": "collection",
+        "binding_collection_name": "chat_record_collection"
+      }
+    ]
+  }
+
+}

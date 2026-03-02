@@ -1,0 +1,63 @@
+{
+    "particleeffect": {
+        "independent": false,
+        "direction": {
+            "max": "1.0 0.5 0.0",
+            "value": "Direction",
+            "min": "0.0 0.0 0.0"
+        },
+        "numparticles": {
+            "value": "3"
+        },
+        "colorfade": [
+            {
+                "color": "0.7608 0.7020 1.0000 0.5804",
+                "time": "0.00"
+            },
+            {
+                "color": "0.5922 0.8784 1.0000 1.0000",
+                "time": "0.28"
+            },
+            {
+                "color": "0.6863 0.7020 1.0000 0.6786",
+                "time": "0.80"
+            }
+        ],
+        "emissionrate": {
+            "max": "3.0",
+            "min": "2.0"
+        },
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.1 0.1 0.2"
+        },
+        "texture": {
+            "name": "textures/sfxs/pet_seamonster/xy_seamonster_lizi"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "timetolive": {
+            "max": "0.6",
+            "min": "0.8"
+        },
+        "depthtest": {
+            "enable": "true"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.5",
+            "min": "0.3"
+        },
+        "particlesize": {
+            "max": "0.03 0.03",
+            "min": "0.05 0.05"
+        }
+    }
+}

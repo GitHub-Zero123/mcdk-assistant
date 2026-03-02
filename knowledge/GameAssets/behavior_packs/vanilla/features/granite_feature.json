@@ -1,0 +1,24 @@
+{
+    "format_version": "1.13.0",
+    "minecraft:ore_feature": {
+        "description": {
+            "identifier": "minecraft:granite_feature"
+        },
+        "count": 64,
+        "replace_rules": [
+            {
+                "places_block": {
+                    "name": "minecraft:stone",
+                    "states": {
+                        "stone_type": "granite"
+                    }
+                },
+                "may_replace": [
+                    {
+                        "name": "minecraft:stone"
+                    }
+                ]
+            }
+        ]
+    }
+}

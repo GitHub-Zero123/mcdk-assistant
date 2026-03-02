@@ -1,0 +1,32 @@
+{
+    "format_version": "1.14",
+    "minecraft:recipe_material_reduction": {
+        "description": {
+            "identifier": "minecraft:grass"
+        },
+        "input": "minecraft:grass",
+        "output": [
+            {
+                "count": 15,
+                "item": "minecraft:element_6"
+            },
+            {
+                "count": 64,
+                "item": "minecraft:element_8"
+            },
+            {
+                "count": 6,
+                "item": "minecraft:element_8"
+            },
+            {
+                "count": 8,
+                "item": "minecraft:element_7"
+            },
+            {
+                "count": 7,
+                "item": "minecraft:element_15"
+            }
+        ],
+        "tags": "material_reducer"
+    }
+}

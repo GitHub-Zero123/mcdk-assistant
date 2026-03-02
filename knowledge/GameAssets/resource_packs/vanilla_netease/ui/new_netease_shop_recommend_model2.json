@@ -1,0 +1,1250 @@
+{
+    "btn_buy@common.button": {
+        "$control_alpha": 1.0,
+        "$default_texture": "textures/ui/netease_shop/btn01",
+        "$hover_texture": "textures/ui/netease_shop/btn01_hover",
+        "$is_new_nine_slice": false,
+        "$label_color": [
+            1,
+            1,
+            1
+        ],
+        "$label_font_scale_factor": 1.0,
+        "$label_font_size": "large",
+        "$label_layer": 3,
+        "$label_offset": [
+            0,
+            0
+        ],
+        "$label_text": "",
+        "$nine_slice_buttom": 2,
+        "$nine_slice_left": 2,
+        "$nine_slice_right": 2,
+        "$nine_slice_top": 2,
+        "$nineslice_size": [
+            2.0,
+            2.0,
+            2.0,
+            2.0
+        ],
+        "$pressed_button_name": "%recommendUi.click",
+        "$pressed_texture": "textures/ui/netease_shop/btn01_click",
+        "$texture_layer": 2,
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "bindings": [
+            {
+                "binding_collection_name": "",
+                "binding_condition": "always_when_visible",
+                "binding_type": "collection_details"
+            }
+        ],
+        "button_mappings": [],
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "default@new_netease_shop_recommend_model2.default": {}
+            },
+            {
+                "hover@new_netease_shop_recommend_model2.hover": {}
+            },
+            {
+                "pressed@new_netease_shop_recommend_model2.pressed": {}
+            },
+            {
+                "button_label@new_netease_shop_recommend_model2.button_label": {}
+            },
+            {
+                "pnl_price_normal@new_netease_shop_recommend_model2.pnl_price_normal": {}
+            },
+            {
+                "pnl_price_discount@new_netease_shop_recommend_model2.pnl_price_discount": {}
+            }
+        ],
+        "draggable": "not_draggable",
+        "enabled": true,
+        "is_handle_button_move_event": true,
+        "layer": 12,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "visible": true
+    },
+    "btn_close@common.button": {
+        "$control_alpha": 1.0,
+        "$default_texture": "textures/ui/netease_shop/btn05",
+        "$hover_texture": "textures/ui/netease_shop/btn05_click",
+        "$is_new_nine_slice": false,
+        "$label_color": [
+            1,
+            1,
+            1
+        ],
+        "$label_font_scale_factor": 1.0,
+        "$label_font_size": "large",
+        "$label_layer": 3,
+        "$label_offset": [
+            0,
+            0
+        ],
+        "$label_text": "",
+        "$nine_slice_buttom": 0,
+        "$nine_slice_left": 0,
+        "$nine_slice_right": 0,
+        "$nine_slice_top": 0,
+        "$nineslice_size": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "$pressed_button_name": "%recommendUi.click",
+        "$pressed_texture": "textures/ui/netease_shop/btn05_click",
+        "$texture_layer": 2,
+        "alpha": 1.0,
+        "anchor_from": "top_right",
+        "anchor_to": "top_right",
+        "bindings": [
+            {
+                "binding_collection_name": "",
+                "binding_condition": "always_when_visible",
+                "binding_type": "collection_details"
+            }
+        ],
+        "button_mappings": [],
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "default@new_netease_shop_recommend_model2.default": {}
+            },
+            {
+                "hover@new_netease_shop_recommend_model2.hover": {}
+            },
+            {
+                "pressed@new_netease_shop_recommend_model2.pressed": {}
+            },
+            {
+                "button_label@new_netease_shop_recommend_model2.button_label": {}
+            }
+        ],
+        "draggable": "not_draggable",
+        "enabled": true,
+        "is_handle_button_move_event": true,
+        "layer": 3,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            -4,
+            3
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            14,
+            14
+        ],
+        "visible": true
+    },
+    "button_label": {
+        "alpha": "$control_alpha",
+        "color": "$label_color",
+        "font_scale_factor": "$label_font_scale_factor",
+        "font_size": "$label_font_size",
+        "font_type": "smooth",
+        "layer": "$label_layer",
+        "max_size": [
+            "100%",
+            "100%"
+        ],
+        "offset": "$label_offset",
+        "shadow": false,
+        "text": "$label_text",
+        "text_alignment": "center",
+        "type": "label"
+    },
+    "default": {
+        "alpha": "$control_alpha",
+        "is_new_nine_slice": "$is_new_nine_slice",
+        "layer": "$texture_layer",
+        "nine_slice_buttom": "$nine_slice_buttom",
+        "nine_slice_left": "$nine_slice_left",
+        "nine_slice_right": "$nine_slice_right",
+        "nine_slice_top": "$nine_slice_top",
+        "nineslice_size": "$nineslice_size",
+        "texture": "$default_texture",
+        "type": "image"
+    },
+    "hover": {
+        "alpha": "$control_alpha",
+        "is_new_nine_slice": "$is_new_nine_slice",
+        "layer": "$texture_layer",
+        "nine_slice_buttom": "$nine_slice_buttom",
+        "nine_slice_left": "$nine_slice_left",
+        "nine_slice_right": "$nine_slice_right",
+        "nine_slice_top": "$nine_slice_top",
+        "nineslice_size": "$nineslice_size",
+        "texture": "$hover_texture",
+        "type": "image"
+    },
+    "img_bg": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_direction": "left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clip_ratio": 0.0,
+        "clips_children": false,
+        "controls": [
+            {
+                "lb_title@new_netease_shop_recommend_model2.lb_title": {}
+            },
+            {
+                "btn_close@new_netease_shop_recommend_model2.btn_close": {}
+            },
+            {
+                "pnl_content@new_netease_shop_recommend_model2.pnl_content": {}
+            }
+        ],
+        "enabled": true,
+        "fill": false,
+        "grayscale": false,
+        "is_new_nine_slice": false,
+        "keep_ratio": false,
+        "layer": 1,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "nine_slice_buttom": 10,
+        "nine_slice_left": 8,
+        "nine_slice_right": 8,
+        "nine_slice_top": 20,
+        "nineslice_size": [
+            8.0,
+            20.0,
+            8.0,
+            10.0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "texture": "textures/ui/netease_shop/panel02",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            32,
+            64
+        ],
+        "visible": true
+    },
+    "img_limit_bg": {
+        "alpha": 1.0,
+        "anchor_from": "bottom_middle",
+        "anchor_to": "bottom_middle",
+        "clip_direction": "left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clip_ratio": 0.0,
+        "clips_children": false,
+        "controls": [
+            {
+                "lb_limit_num@new_netease_shop_recommend_model2.lb_limit_num": {}
+            }
+        ],
+        "enabled": true,
+        "fill": false,
+        "grayscale": false,
+        "is_new_nine_slice": false,
+        "keep_ratio": false,
+        "layer": 9,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "nine_slice_buttom": 0,
+        "nine_slice_left": 0,
+        "nine_slice_right": 0,
+        "nine_slice_top": 0,
+        "nineslice_size": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "100.0%+0.0px",
+            12
+        ],
+        "texture": "textures/ui/netease_shop/panel08_bg_text",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            16,
+            16
+        ],
+        "visible": true
+    },
+    "img_loading": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_direction": "left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clip_ratio": 0.0,
+        "clips_children": false,
+        "controls": [
+            {
+                "lb_loading_desc@new_netease_shop_recommend_model2.lb_loading_desc": {}
+            }
+        ],
+        "enabled": true,
+        "fill": false,
+        "grayscale": false,
+        "is_new_nine_slice": false,
+        "keep_ratio": false,
+        "layer": 25,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "nine_slice_buttom": 2,
+        "nine_slice_left": 2,
+        "nine_slice_right": 2,
+        "nine_slice_top": 2,
+        "nineslice_size": [
+            2.0,
+            2.0,
+            2.0,
+            2.0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "texture": "textures/ui/netease_shop/btn01_unuse",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            16,
+            16
+        ],
+        "visible": true
+    },
+    "img_pic": {
+        "alpha": 1.0,
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "clip_direction": "left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clip_ratio": 0.0,
+        "clips_children": false,
+        "controls": [
+            {
+                "img_limit_bg@new_netease_shop_recommend_model2.img_limit_bg": {}
+            }
+        ],
+        "enabled": true,
+        "fill": false,
+        "grayscale": false,
+        "is_new_nine_slice": false,
+        "keep_ratio": false,
+        "layer": 8,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "nine_slice_buttom": 0,
+        "nine_slice_left": 0,
+        "nine_slice_right": 0,
+        "nine_slice_top": 0,
+        "nineslice_size": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "100.0%+0.0px",
+            "48.0%x+0.0px"
+        ],
+        "texture": "textures/ui/netease_shop/img01@3x",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            617,
+            298
+        ],
+        "visible": true
+    },
+    "img_price_discount_icon": {
+        "alpha": 1.0,
+        "anchor_from": "left_middle",
+        "anchor_to": "left_middle",
+        "clip_direction": "left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clip_ratio": 0.0,
+        "clips_children": false,
+        "enabled": true,
+        "fill": false,
+        "grayscale": false,
+        "is_new_nine_slice": false,
+        "keep_ratio": true,
+        "layer": 20,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "nine_slice_buttom": 0,
+        "nine_slice_left": 0,
+        "nine_slice_right": 0,
+        "nine_slice_top": 0,
+        "nineslice_size": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "offset": [
+            4,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            16,
+            16
+        ],
+        "texture": "textures/ui/netease_shop/icon_prize01",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            64,
+            64
+        ],
+        "visible": true
+    },
+    "img_price_discount_line": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_direction": "left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clip_ratio": 0.0,
+        "clips_children": false,
+        "enabled": true,
+        "fill": false,
+        "grayscale": false,
+        "is_new_nine_slice": true,
+        "keep_ratio": false,
+        "layer": 1,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "nine_slice_buttom": 0,
+        "nine_slice_left": 0,
+        "nine_slice_right": 0,
+        "nine_slice_top": 0,
+        "nineslice_size": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "100.0%+0.0px",
+            1
+        ],
+        "texture": "textures/ui/netease_shop/panel08_bg_text",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            16,
+            16
+        ],
+        "visible": true
+    },
+    "img_price_discount_percent_bg": {
+        "alpha": 1.0,
+        "anchor_from": "right_middle",
+        "anchor_to": "right_middle",
+        "clip_direction": "left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clip_ratio": 0.0,
+        "clips_children": false,
+        "controls": [
+            {
+                "lb_price_discount_percent@new_netease_shop_recommend_model2.lb_price_discount_percent": {}
+            }
+        ],
+        "enabled": true,
+        "fill": false,
+        "grayscale": false,
+        "is_new_nine_slice": false,
+        "keep_ratio": false,
+        "layer": 23,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "nine_slice_buttom": 2,
+        "nine_slice_left": 0,
+        "nine_slice_right": 2,
+        "nine_slice_top": 2,
+        "nineslice_size": [
+            0.0,
+            2.0,
+            2.0,
+            2.0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "40.0%+0.0px",
+            "100.0%+-2.0px"
+        ],
+        "texture": "textures/ui/netease_shop/tag01",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            16,
+            16
+        ],
+        "visible": true
+    },
+    "img_price_normal_icon": {
+        "alpha": 1.0,
+        "anchor_from": "left_middle",
+        "anchor_to": "left_middle",
+        "clip_direction": "left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clip_ratio": 0.0,
+        "clips_children": false,
+        "enabled": true,
+        "fill": false,
+        "grayscale": false,
+        "is_new_nine_slice": false,
+        "keep_ratio": true,
+        "layer": 18,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "nine_slice_buttom": 0,
+        "nine_slice_left": 0,
+        "nine_slice_right": 0,
+        "nine_slice_top": 0,
+        "nineslice_size": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "offset": [
+            17,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            16,
+            16
+        ],
+        "texture": "textures/ui/netease_shop/icon_prize01",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            64,
+            64
+        ],
+        "visible": true
+    },
+    "lb_limit_num": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "color": [
+            1,
+            1,
+            1
+        ],
+        "enabled": true,
+        "font_scale_factor": 0.8199999928474426,
+        "font_size": "normal",
+        "font_type": "smooth",
+        "layer": 10,
+        "line_padding": 0.0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "shadow": false,
+        "size": [
+            "default",
+            "default"
+        ],
+        "text": "限购 10/10",
+        "text_alignment": "center",
+        "type": "label",
+        "visible": true
+    },
+    "lb_loading_desc": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "color": [
+            0.6980392156862745,
+            0.6980392156862745,
+            0.6980392156862745
+        ],
+        "enabled": true,
+        "font_scale_factor": 0.9399999976158142,
+        "font_size": "normal",
+        "font_type": "smooth",
+        "layer": 26,
+        "line_padding": 0.0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "shadow": false,
+        "size": [
+            "default",
+            "default"
+        ],
+        "text": "购买价格加载中…",
+        "text_alignment": "center",
+        "type": "label",
+        "visible": true
+    },
+    "lb_price_discount": {
+        "alpha": 1.0,
+        "anchor_from": "left_middle",
+        "anchor_to": "left_middle",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "color": [
+            0.2588235294117647,
+            0.2588235294117647,
+            0.2588235294117647
+        ],
+        "enabled": true,
+        "font_scale_factor": 0.9399999976158142,
+        "font_size": "normal",
+        "font_type": "smooth",
+        "layer": 21,
+        "line_padding": 0.0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            22,
+            -3
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "shadow": false,
+        "size": [
+            "default",
+            "default"
+        ],
+        "text": "5000",
+        "text_alignment": "left",
+        "type": "label",
+        "visible": true
+    },
+    "lb_price_discount_org": {
+        "alpha": 1.0,
+        "anchor_from": "left_middle",
+        "anchor_to": "left_middle",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "color": [
+            0.4,
+            0.4,
+            0.4
+        ],
+        "controls": [
+            {
+                "img_price_discount_line@new_netease_shop_recommend_model2.img_price_discount_line": {}
+            }
+        ],
+        "enabled": true,
+        "font_scale_factor": 0.699999988079071,
+        "font_size": "normal",
+        "font_type": "smooth",
+        "layer": 22,
+        "line_padding": 0.0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            22,
+            4
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "shadow": false,
+        "size": [
+            "default",
+            "default"
+        ],
+        "text": "10000",
+        "text_alignment": "left",
+        "type": "label",
+        "visible": true
+    },
+    "lb_price_discount_percent": {
+        "alpha": 1.0,
+        "anchor_from": "right_middle",
+        "anchor_to": "right_middle",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "color": [
+            1,
+            1,
+            1
+        ],
+        "enabled": true,
+        "font_scale_factor": 1.049999952316284,
+        "font_size": "normal",
+        "font_type": "smooth",
+        "layer": 24,
+        "line_padding": 0.0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            -3,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "shadow": false,
+        "size": [
+            "default",
+            "default"
+        ],
+        "text": "-50%%",
+        "text_alignment": "right",
+        "type": "label",
+        "visible": true
+    },
+    "lb_price_normal": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "color": [
+            0.2588235294117647,
+            0.2588235294117647,
+            0.2588235294117647
+        ],
+        "enabled": true,
+        "font_scale_factor": 0.9399999976158142,
+        "font_size": "normal",
+        "font_type": "smooth",
+        "layer": 17,
+        "line_padding": 0.0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            4,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "shadow": false,
+        "size": [
+            "default",
+            "default"
+        ],
+        "text": "5000",
+        "text_alignment": "left",
+        "type": "label",
+        "visible": true
+    },
+    "lb_title": {
+        "alpha": 1.0,
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "color": [
+            0.2588235294117647,
+            0.2588235294117647,
+            0.2588235294117647
+        ],
+        "enabled": true,
+        "font_scale_factor": 0.8199999928474426,
+        "font_size": "normal",
+        "font_type": "smooth",
+        "layer": 2,
+        "line_padding": 0.0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            6
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "shadow": false,
+        "size": [
+            "default",
+            "default"
+        ],
+        "text": "推荐",
+        "text_alignment": "center",
+        "type": "label",
+        "visible": true
+    },
+    "main": {
+        "absorbs_input": true,
+        "always_accepts_input": false,
+        "controls": [
+            {
+                "main_pnl@new_netease_shop_recommend_model2.main_pnl": {}
+            }
+        ],
+        "force_render_below": false,
+        "is_showing_menu": true,
+        "render_game_behind": true,
+        "render_only_when_topmost": true,
+        "should_steal_mouse": false,
+        "type": "screen"
+    },
+    "main_pnl": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "img_bg@new_netease_shop_recommend_model2.img_bg": {}
+            }
+        ],
+        "enabled": true,
+        "layer": 0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "140.0%y+0.0px",
+            "70.0%+0.0px"
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "namespace": "new_netease_shop_recommend_model2",
+    "pnl_buy": {
+        "alpha": 1.0,
+        "anchor_from": "bottom_middle",
+        "anchor_to": "bottom_middle",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "btn_buy@new_netease_shop_recommend_model2.btn_buy": {}
+            },
+            {
+                "img_loading@new_netease_shop_recommend_model2.img_loading": {}
+            }
+        ],
+        "enabled": true,
+        "layer": 11,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "34.0%+0.0px",
+            24
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "pnl_content": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "img_pic@new_netease_shop_recommend_model2.img_pic": {}
+            },
+            {
+                "pnl_buy@new_netease_shop_recommend_model2.pnl_buy": {}
+            }
+        ],
+        "enabled": true,
+        "layer": 7,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0.0,
+            4
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "100.0%+-24.0px",
+            "100.0%+-42.0px"
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "pnl_price_discount": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "img_price_discount_icon@new_netease_shop_recommend_model2.img_price_discount_icon": {}
+            },
+            {
+                "lb_price_discount@new_netease_shop_recommend_model2.lb_price_discount": {}
+            },
+            {
+                "lb_price_discount_org@new_netease_shop_recommend_model2.lb_price_discount_org": {}
+            },
+            {
+                "img_price_discount_percent_bg@new_netease_shop_recommend_model2.img_price_discount_percent_bg": {}
+            }
+        ],
+        "enabled": true,
+        "layer": 19,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "type": "panel",
+        "visible": false
+    },
+    "pnl_price_normal": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "lb_price_normal@new_netease_shop_recommend_model2.lb_price_normal": {}
+            },
+            {
+                "img_price_normal_icon@new_netease_shop_recommend_model2.img_price_normal_icon": {}
+            }
+        ],
+        "enabled": true,
+        "layer": 16,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "type": "panel",
+        "visible": false
+    },
+    "pressed": {
+        "alpha": "$control_alpha",
+        "is_new_nine_slice": "$is_new_nine_slice",
+        "layer": "$texture_layer",
+        "nine_slice_buttom": "$nine_slice_buttom",
+        "nine_slice_left": "$nine_slice_left",
+        "nine_slice_right": "$nine_slice_right",
+        "nine_slice_top": "$nine_slice_top",
+        "nineslice_size": "$nineslice_size",
+        "texture": "$pressed_texture",
+        "type": "image"
+    }
+}

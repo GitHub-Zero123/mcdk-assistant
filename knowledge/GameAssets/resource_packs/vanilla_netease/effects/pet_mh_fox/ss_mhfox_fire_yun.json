@@ -1,0 +1,71 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "0.0 0.0 -0.1",
+            "value": "Direction",
+            "min": "0.0 0.0 0.0"
+        },
+        "dampingforce": {
+            "value": "2.0"
+        },
+        "faceCameraMode": {
+            "value": "Direction Horizontal"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.4980 0.2627 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.2549 0.2549 0.1250",
+                "time": "23.4%"
+            },
+            {
+                "color": "1.0000 0.0431 0.0431 0.1161",
+                "time": "77.9%"
+            },
+            {
+                "color": "0.6902 0.0431 0.0431 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "emissionrate": {
+            "max": "14.0",
+            "min": "12.0"
+        },
+        "texture": {
+            "name": "textures/sfxs/pet_mh_fox/ss_mhfox_fire_sun"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "timetolive": {
+            "max": "0.4",
+            "min": "0.3"
+        },
+        "velocity": {
+            "max": "0.1",
+            "min": "0.1"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "particlesize": {
+            "max": "0.5 0.5",
+            "min": "0.5 0.5"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.2 1.2",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.75 0.75",
+                "time": "100.0%"
+            }
+        ],
+        "numparticles": {
+            "value": "16"
+        }
+    }
+}

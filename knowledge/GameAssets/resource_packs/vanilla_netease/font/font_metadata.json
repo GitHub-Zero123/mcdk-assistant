@@ -1,0 +1,251 @@
+// Example format: https://dev-mc.visualstudio.com/Minecraft/_wiki/wikis/Minecraft.wiki?wikiVersion=GBwikiMaster&pagePath=%2FTeam%20Wikis%2FPersona%20Wiki%2FFonts%2FTechnical%20Details&pageId=2679&anchor=font_metadata.json-format
+
+// Note: when defining ranges for fonts remember that glyphs are stored in sheets of 256 characters.
+//     : The code is written in such a way that if two fonts would have glyphs on the same sheet
+//     : it will take the last one from the above list (the font overrides it).  This will be the current
+//     : behavior until we actually run into a problem
+
+
+// Special Aliases
+// RuneFont - used on enchanting tables and books (look for "font_type": "rune")
+// DefaultFont - used for debug text, and in world text
+// UnicodeFont - used for labels that specify font_type "unicode"
+// SmoothFontLatin  - used for labels that specify font_type "smooth"
+// UIFont - used for the ui if a font type is provided
+
+// if you make your font alias in the list of aliases that matches the above, the default loaded ones
+// created in MinecraftGame::_initPostC will be overridden (assuming Use TTF Overrides is set to true in settings)
+{
+  "version" : 1,
+  // font_name should never be one of the reserved aliases
+  // the repository uses the list of stored fonts to restore textures on reload
+  // and since aliases and fonts are treated the same in the repo, the base font's reload
+  // wouldn't be called if an alias's name matched a font_name
+  // so don't name a font_name the same as an alias.
+  "fonts": [
+    {
+      "font_format": "ttf",
+      "font_name": "MinecraftTenOriginal",
+      "version": 1,
+      "font_file": "font/minecraft-ten",
+      "lowPerformanceCompatible": false
+    },
+    {
+      "font_format": "ttf",
+      "font_name": "MinecraftSevenOriginal",
+      "target_font_render_size": 20,
+      "version": 1,
+      "font_file": "font/minecraft-seven",
+      "lowPerformanceCompatible": false
+    },
+    {
+      "font_format": "msdf",
+      "font_name": "OldSmoothFont",
+      "font_file": "font/smooth/smooth_"
+    },
+    // NETEASE_COMMON_MOD
+    {
+      "font_format": "ttf",
+      "font_name": "MC_TEN",
+      "version": 1,
+      "font_file": "font/MC_TEN",
+      "lowPerformanceCompatible": true,
+      "isCocosFont" : true
+    },
+    {
+      "font_format": "ttf",
+      "font_name": "FZLTHJW_1",
+      "version": 1,
+      "font_file": "font/FZLTHJW_1",
+      "lowPerformanceCompatible": true,
+      "isCocosFont" : true,
+      "isFallbackFont" : true
+    },
+    {
+      "font_format": "ttf",
+      "font_name": "FZLTZHJW_2",
+      "version": 1,
+      "font_file": "font/FZLTZHJW_2",
+      "lowPerformanceCompatible": true,
+      "isCocosFont" : true
+    },
+    {
+      "font_format": "ttf",
+      "font_name": "HanYiLiLiangHeiJian",
+      "version": 1,
+      "font_file": "font/HanYiLiLiangHeiJian",
+      "lowPerformanceCompatible": true,
+      "isCocosFont" : true
+    },
+    {
+      "font_format": "ttf",
+      "font_name": "FZLTDHJW_3",
+      "version": 1,
+      "font_file": "font/FZLTDHJW_3",
+      "lowPerformanceCompatible": true,
+      "isCocosFont" : true
+    },
+	{
+      "font_format": "ttf",
+      "font_name": "unifont-16.0.04",
+      "version": 1,
+      "font_file": "font/unifont-16.0.04",
+      "lowPerformanceCompatible": true,
+	  "isLazyLoadCocosFont": false,
+      "isCocosFont" : true
+    }
+  ],
+  "font_aliases": [
+  {
+      "alias": "MinecraftSeven",
+      "fonts": [
+      {
+          "font_reference": "noto-sans-regular",
+          "font_ranges": [
+            {
+              "first": 8192,
+              "last": 8447
+            },
+            {
+              "first": 65280,
+              "last": 65535
+            }
+          ]
+        },
+        {
+          "font_reference": "MinecraftSevenOriginal"
+        }
+      ]
+    },
+    {
+      "alias": "MinecraftTen",
+      "fonts": [
+        {
+          "font_reference": "MinecraftTenOriginal"
+        },
+        {
+          "font_reference": "noto-sans-regular",
+          "font_ranges": [
+            {
+              "first": 8192,
+              "last": 8447
+            },
+            {
+              "first": 65280,
+              "last": 65535
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "alias": "UIFont",
+      "fonts": [
+        {
+          "font_reference": "default8"
+        }
+      ]
+    },
+    {
+      "alias": "UnicodeFont",
+      "fonts": [
+        {
+          "font_reference": "default8"
+        }
+      ]
+    },
+    {
+      "alias": "SmoothFontLatin",
+
+      "fonts": [
+        {
+          "font_reference": "OldSmoothFont"
+        },
+        {
+          "font_reference": "UnicodeFont",
+          "font_ranges": [
+            {
+              "first": 54620,
+              "last": 54620
+            },
+            {
+              "first": 44397,
+              "last": 44397
+            },
+            {
+              "first": 50612,
+              "last": 50612
+            },
+            {
+              "first": 45824,
+              "last": 45824
+            },
+            {
+              "first": 48124,
+              "last": 48124
+            },
+            {
+              "first": 57344,
+              "last": 63743
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "alias": "MinecraftTenEmoticon",
+      "fonts": [
+        {
+          "font_reference": "MinecraftTen"
+        },
+        {
+          "font_reference": "UnicodeFont",
+          "font_ranges": [
+            {
+              "first": 57344,
+              "last": 63743
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "alias": "SmoothSmall",
+      "font_scale_factor": 1,
+      "fonts": [
+        {
+          "font_reference": "OldSmoothFont"
+        },
+        {
+          "font_reference": "UnicodeFont",
+          "font_ranges": [
+            {
+              "first": 54620,
+              "last": 54620
+            },
+            {
+              "first": 44397,
+              "last": 44397
+            },
+            {
+              "first": 50612,
+              "last": 50612
+            },
+            {
+              "first": 45824,
+              "last": 45824
+            },
+            {
+              "first": 48124,
+              "last": 48124
+            },
+            {
+              "first": 57344,
+              "last": 63743
+            }
+          ]
+        }
+      ]
+    }
+  ]    
+}

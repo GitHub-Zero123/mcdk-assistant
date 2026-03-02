@@ -1,0 +1,592 @@
+{
+  "namespace": "edu_world_templates",
+  /* Table of Contents
+    Misc Definitions
+    Template Creation Buttons
+    Template Button
+    Template Grid
+    Screen
+  */
+
+  //---------------------------------------------------------------------------
+  // Misc Definitions
+  //---------------------------------------------------------------------------
+
+  "section_header": {
+    "type": "stack_panel",
+    "size": [ "100%", "100%c" ],
+    "controls": [
+      {
+        "header_text": {
+          "type": "label",
+          "color": "$main_header_text_color",
+          "text": "$header_text",
+          "$header_bindings|default": [],
+          "bindings": "$header_bindings"
+        }
+      },
+      { "padding@common.empty_panel": { "size": [ "100%", 3 ] } }
+    ]
+  },
+
+  "template_image": {
+    "type": "image",
+    "force_texture_reload": true,
+    "keep_ratio": false,
+    "property_bag": {
+      "is_local": "$is_local"
+    },
+    "bindings": [
+      {
+        "binding_type": "collection_details",
+        "binding_collection_name": "template_column",
+        "binding_collection_prefix": "column"
+      },
+      {
+        "binding_type": "collection_details",
+        "binding_collection_name": "template_row",
+        "binding_collection_prefix": "row"
+      },
+      {
+        "binding_name": "#template_texture",
+        "binding_name_override": "#texture",
+        "binding_type": "global"
+      },
+      {
+        "binding_name": "#template_texture_source",
+        "binding_name_override": "#texture_file_system",
+        "binding_type": "global"
+      },
+      {
+        "binding_name": "#template_texture_zip",
+        "binding_name_override": "#zip_folder",
+        "binding_type": "global"
+      }
+    ]
+  },
+
+  "template_label_def": {
+    "type": "label",
+    "text": "$text_binding",
+    "color": "$text_color",
+    "font_type": "smooth",
+
+    "property_bag": {
+      "is_local": "$is_local"
+    },
+    "bindings": [
+      {
+        "binding_type": "collection_details",
+        "binding_collection_name": "template_column",
+        "binding_collection_prefix": "column"
+      },
+      {
+        "binding_type": "collection_details",
+        "binding_collection_name": "template_row",
+        "binding_collection_prefix": "row"
+      },
+      {
+        "binding_name": "$text_binding",
+        "binding_type": "global"
+      }
+    ]
+  },
+
+  "template_name@edu_world_templates.template_label_def": {
+    "$text_binding": "#template_name",
+    "$text_color": "$dark_button_default_text_color",
+    "max_size": [ "100%", 30 ]
+  },
+
+  "template_subtext_1@edu_world_templates.template_label_def": {
+    "$text_binding": "#template_subtext_1",
+    "$text_color": "$light_button_secondary_default_text_color",
+    "max_size": [ "100%", 15 ]
+  },
+
+  "template_subtext_2@edu_world_templates.template_label_def": {
+    "$text_binding": "#template_subtext_2",
+    "$text_color": "$light_button_secondary_default_text_color",
+    "max_size": [ "100%", 15 ]
+  },
+
+  //---------------------------------------------------------------------------
+  // Template Creation Buttons
+  //---------------------------------------------------------------------------
+
+  "template_use_button_def@common_buttons.light_text_button": {
+    "$font_type": "MinecraftTen",
+    "$new_ui_label_offset": [ 0, -2 ],
+    "size": [ "100%", 18 ],
+    "$border_visible": false,
+    "$button_bindings": [
+      {
+        "binding_type": "collection_details",
+        "binding_collection_name": "template_column",
+        "binding_collection_prefix": "column"
+      },
+      {
+        "binding_type": "collection_details",
+        "binding_collection_name": "template_row",
+        "binding_collection_prefix": "row"
+      }
+    ]
+  },
+
+  "template_buttons": {
+    "type": "stack_panel",
+    "size": [ "100% - 4px", "100%c" ],
+    "offset": [ 0, 2 ],
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle",
+    "controls": [
+      {
+        "create_new@edu_world_templates.template_use_button_def": {
+          "$button_text": "edu.templates.create_new",
+          "$pressed_button_name": "button.templates.local_template_create"
+        }
+      },
+      { "button_padding@edu_worlds.nested_button_padding": {} },
+      {
+        "delete@edu_world_templates.template_use_button_def": {
+          "$button_text": "edu.templates.delete",
+          "$pressed_button_name": "button.templates.local_template_delete",
+          "bindings": [
+            {
+              "binding_name": "#delete_template_visible",
+              "binding_name_override": "#visible",
+              "binding_condition": "once"
+            },
+            {
+              "binding_type": "collection_details",
+              "binding_collection_name": "template_column",
+              "binding_collection_prefix": "column"
+            },
+            {
+              "binding_type": "collection_details",
+              "binding_collection_name": "template_row",
+              "binding_collection_prefix": "row"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  //---------------------------------------------------------------------------
+  // Template Button
+  //---------------------------------------------------------------------------
+
+  "template_button@common_buttons.transparent_label_nestable_button": {
+    "variables": [
+      {
+        "requires": "$is_local",
+        "$pressed_button_name": "button.templates.local_nestable",
+        "$has_special_nested_controls": true,
+        "$nested_content_controls": "edu_world_templates.template_buttons",
+        "$special_nested_content_bindings": [
+          {
+            "binding_type": "collection_details",
+            "binding_collection_name": "template_column",
+            "binding_collection_prefix": "column"
+          },
+          {
+            "binding_type": "collection_details",
+            "binding_collection_name": "template_row",
+            "binding_collection_prefix": "row"
+          },
+          {
+            "binding_name": "#template_controls_visiblity",
+            "binding_name_override": "#visible",
+            "binding_type": "global"
+          }
+        ],
+        "$special_nested_button_bindings": [
+          {
+            "binding_type": "collection_details",
+            "binding_collection_name": "template_column",
+            "binding_collection_prefix": "column"
+          },
+          {
+            "binding_type": "collection_details",
+            "binding_collection_name": "template_row",
+            "binding_collection_prefix": "row"
+          },
+          {
+            "binding_name": "(not #template_controls_visiblity)",
+            "binding_name_override": "#enabled",
+            "binding_type": "global"
+          }
+        ]
+      }
+    ],
+
+    "$use_parent_size": true,
+    "$nestable_button_size": [ "100%", "100%" ],
+
+    "$nested_button_content_size": [ "100%", "fill" ],
+    "$nested_content_control": "edu_world_templates.template_image",
+
+    "$nested_button_label_size": [ "100%", 30 ],
+    "$nested_label_control": "common_buttons.nested_six_part_label_control",
+    "$left_top_label_definition": "edu_world_templates.template_name",
+    "$left_bottom_label_definition": "edu_world_templates.template_subtext_1",
+    "$right_bottom_label_definition": "edu_world_templates.template_subtext_2",
+
+    "$transparent_label_color": [ 0, 0, 0 ],
+    "$transparent_label_hover_color": [ 0, 0.45, 0 ],
+    "$transparent_label_pressed_color": [ 0, 0.45, 0 ],
+    "$nested_transparent_label_alpha": 0.7
+  },
+
+  //---------------------------------------------------------------------------
+  // Template Grid
+  //---------------------------------------------------------------------------
+
+  "template_item_button": {
+    "type": "panel",
+    "$is_local|default": false,
+    "controls": [
+      {
+        "template@edu_world_templates.template_button": {
+          "property_bag": {
+            "is_local": "$is_local"
+          },
+          "bindings": [
+            {
+              "binding_type": "collection_details",
+              "binding_collection_name": "template_column",
+              "binding_collection_prefix": "column"
+            },
+            {
+              "binding_type": "collection_details",
+              "binding_collection_name": "template_row",
+              "binding_collection_prefix": "row"
+            }
+          ]
+        }
+      }
+    ],
+    "property_bag": {
+      "is_local": "$is_local"
+    },
+    "bindings": [
+      {
+        "binding_type": "collection_details",
+        "binding_collection_name": "template_column",
+        "binding_collection_prefix": "column"
+      },
+      {
+        "binding_type": "collection_details",
+        "binding_collection_name": "template_row",
+        "binding_collection_prefix": "row"
+      },
+      {
+        "binding_name": "#in_bounds",
+        "binding_name_override": "#visible",
+        "binding_type": "global"
+      }
+    ]
+  },
+
+  "template_item": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "fill", "100%cm" ],
+    "controls": [
+      { "left_padding@common.empty_panel": { "size": [ 2, "100%sm" ] } },
+      // Since we scroll on y we will fill on x and set y size to screenshot ratio + label size
+      { "button@edu_world_templates.template_item_button": { "size": [ "fill", "56.25%x + 31px" ] } },
+      { "right_padding@common.empty_panel": { "size": [ 2, "100%sm" ] } }
+    ]
+  },
+
+  "template_row_panel": {
+    "type": "stack_panel",
+    "size": [ "100%", "100%c" ],
+    "anchor_to": "top_middle",
+    "anchor_from": "top_middle",
+    "controls": [
+      {
+        "template_row_item": {
+          "type": "panel",
+          "size": [ "100%", "100%c" ],
+          "controls": [
+            {
+              "template_row": {
+                "type": "stack_panel",
+                "orientation": "horizontal",
+                "size": [ "100% + 4px", "100%cm" ],
+                "collection_name": "template_column",
+                "factory": {
+                  "name": "template_item_factory",
+                  "control_name": "edu_world_templates.template_item"
+                },
+                "bindings": [
+                  {
+                    "binding_name": "#template_column_count",
+                    "binding_name_override": "#collection_length"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "divider": {
+          "type": "panel",
+          "size": [ "100%", 11 ],
+          "controls": [
+            {
+              "line": {
+                "type": "image",
+                "texture": "textures/ui/White",
+                "size": [ "100%", 1 ],
+                "alpha": 0.05
+              }
+            }
+          ],
+          "property_bag": {
+            "is_local": "$is_local"
+          },
+          "bindings": [
+            {
+              "binding_type": "collection_details",
+              "binding_collection_name": "template_row",
+              "binding_collection_prefix": "row"
+            },
+            {
+              "binding_name": "#divider_visible",
+              "binding_name_override": "#visible",
+              "binding_type": "global"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "template_grid": {
+    "type": "stack_panel",
+    "size": [ "100%", "100%c" ],
+    "collection_name": "template_row",
+    "orientation": "vertical",
+    "factory": {
+      "name": "template_row_factory",
+      "control_name": "edu_world_templates.template_row_panel"
+    },
+    "property_bag": {
+      "is_local": "$is_local"
+    },
+    "bindings": [
+      {
+        "binding_name": "#template_row_count",
+        "binding_name_override": "#collection_length",
+        "binding_type": "global"
+      }
+    ]
+  },
+
+  //---------------------------------------------------------------------------
+  // Screen
+  //---------------------------------------------------------------------------
+
+  "local_section": {
+    "type": "stack_panel",
+    "size": [ "100%", "100%c" ],
+    "controls": [
+      { "search_padding@common.empty_panel": { "size": [ "100%", 3 ] } },
+      { "info_banner@edu_world_templates.info_banner": {} },
+      { "info_padding@common.empty_panel": { "size": [ "100%", 6 ] } },
+      { "no_templates_banner@edu_world_templates.no_templates_banner": {} },
+      {
+        "local_worlds@edu_world_templates.template_grid": {
+          "$is_local": true
+        }
+      }
+    ]
+  },
+
+  "all_templates": {
+    "type": "stack_panel",
+    "size": [ "100% - 8px", "100%c" ],
+    "controls": [
+      { "local_templates@edu_world_templates.local_section": {} },
+      { "bottom_padding@common.empty_panel": { "size": [ "100%", 11 ] } }
+    ]
+  },
+
+  "template_scroll_panel": {
+    "type": "panel",
+    "size": [ "100% - 8px", "100%" ],
+    "controls": [
+      {
+        "world_scroll@common.scrolling_panel": {
+          "size": [ "100%", "100%" ],
+          "$scrolling_content": "edu_world_templates.all_templates",
+          "$show_background": false,
+          "$scroll_bar_left_padding_size": [ 0, 0 ],
+          "$scroll_bar_right_padding_size": [ 1, 0 ],
+          "$scroll_size": [ 5, "100% - 11px" ],
+          "$scroll_size_touch": "$scroll_size",
+          "$scroll_track_anchor": "top_middle",
+          "$scrolling_content_anchor_from": "top_middle",
+          "$scrolling_content_anchor_to": "top_middle"
+        }
+      }
+    ]
+  },
+
+  "info_banner": {
+    "type": "image",
+    "texture": "textures/ui/Black",
+    "size": [ "100%", "100%cm" ],
+    "alpha": 0.7,
+    "controls": [
+      {
+        "border@common.non_interact_focus_border_button": {
+          "tts_inherit_siblings": true,
+          "$default_focus_border_control": "edu_common.border",
+          "size": [ "100%", "100%sm + 4px" ],
+          "bindings": [
+            {
+              "binding_name": "#tts_enabled",
+              "binding_name_override": "#enabled"
+            }
+          ]
+        }
+      },
+      {
+        "description": {
+          "type": "label",
+          "color": "$body_text_color",
+          "font_type": "smooth",
+          "text": "edu.templates.info_banner",
+          "size": [ "100% - 10px", "default" ]
+        }
+      }
+    ]
+  },
+
+  "no_templates_banner": {
+    "type": "image",
+    "texture": "textures/ui/edu_no_templates_background",
+    "layer": 1,
+    "size": [ "100%", 140 ],
+    "controls": [
+      {
+        "border@common.non_interact_focus_border": {
+          "size": [ "100%", "100%" ],
+          "color": [ 0.117, 0.117, 0.121, 1.0 ]
+        }
+      },
+      {
+        "banner_contents_panel": {
+          "type": "stack_panel",
+          "size": [ "100%", "100%" ],
+          "orientation": "vertical",
+          "controls": [
+            { "info_padding_top@common.empty_panel": { "size": [ "100%", 8 ] } },
+            {
+              "image_wrapper": {
+                "type": "panel",
+                "size": [ "100%", "100%c" ],
+                "controls": [
+                  {
+                    "no_templates_image": {
+                      "type": "image",
+                      "texture": "textures/ui/edu_templates_empty",
+                      "size": [ 256, 96 ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "text_wrapper": {
+                "type": "panel",
+                "size": [ "100%", 20 ],
+                "controls": [
+                  {
+                    "tts_border@common.non_interact_focus_border_button": {
+                      "tts_inherit_siblings": true,
+                      "size": [ "100%", "100%" ],
+                      "offset": [ 0, 4 ],
+                      "bindings": [
+                        {
+                          "binding_name": "#tts_enabled",
+                          "binding_name_override": "#enabled"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "no_templates_text": {
+                      "type": "label",
+                      "size": [ "100% - 8px", "100%" ],
+                      "offset": [ 0, 4 ],
+                      "font_type": "smooth",
+                      "text_alignment": "center",
+                      "text": "edu.templates.empty_banner"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "bindings": [
+      {
+        "binding_name": "#no_templates_banner",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  "screen_content": {
+    "type": "stack_panel",
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle",
+    "size": [ "100%", "100%" ],
+    "controls": [
+      {
+        "title@edu_common.edu_screen_header": {
+          "$title_text": "edu.templates.title",
+          "$title_is_templates_screen": true
+        }
+      },
+      {
+        "search_bar@edu_common.worlds_and_templates_search_bar": {
+          "$place_holder_text": "edu.templates.search_placeholder",
+          "$text_box_name": "#template_search_box",
+          "$toggle_button_label": "edu.worlds_screen.title",
+          "$goingToTemplates": false
+        }
+      },
+      {
+        "template_scroll_panel_item": {
+          "type": "panel",
+          "size": [ "100%", "fill" ],
+          "controls": [
+            { "worlds@edu_world_templates.template_scroll_panel": {} }
+          ]
+        }
+      }
+    ]
+  },
+
+  "edu_world_templates_screen@common.base_screen": {
+    "$screen_content": "edu_world_templates.screen_content",
+    "$screen_bg_content": "common.screen_background",
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_cancel",
+        "to_button_id": "button.menu_exit",
+        "mapping_type": "global"
+      }
+    ]
+  }
+}

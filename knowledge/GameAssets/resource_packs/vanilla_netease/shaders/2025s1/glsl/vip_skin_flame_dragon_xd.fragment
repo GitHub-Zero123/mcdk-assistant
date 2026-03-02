@@ -1,0 +1,118 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+precision highp float;
+
+#include "fragmentVersionCentroidUV.h"
+#include "uniformEntityConstants.h"
+
+#include "uniformPerFrameConstants.h"
+#include "uniformShaderConstants.h"
+#include "fresnel.h"
+#include "util.h"
+
+LAYOUT_BINDING(0) uniform sampler2D TEXTURE_0; // albedo
+LAYOUT_BINDING(1) uniform sampler2D TEXTURE_1; // flame
+
+#define UV_SCALE vec2(-1.0,-1.0)// <name: uv缩放>
+#define UV_FLOW vec2(0.0,0.0)// <name: uv流动速度>
+#define FLOW_AXIS 0.0000// <name:流动坐标轴_0X1Y2Z>
+
+// 0 MUL 1 ADD
+#define GRADIENT_MODE 0.0000// <name: 渐变模式_0乘1加>
+#define GRADIENT_COLOR vec3(206,218,186)// <name: 渐变色起点,color:255>
+#define DELTA_COLOR_HORIZONTAL vec3(45.0,45.0,45.0)// <name: 横向渐变色变化,color:255>
+#define DELTA_COLOR_VERTICAL vec3(0,0,0)// <name: 纵向渐变色变化,color:255>
+
+#define FRESNEL_OFFSET 0.0000// <name: 边缘反射亮度>
+#define FRESNEL_COLOR vec3(0.0,0.0,0.0)// <name: 边缘反射色,color:255>
+#define EMISSIVE 1.0000// <name:是否自发光>
+
+const float PI = 3.1415926535;
+const float INV_PI = 1.0 / PI;
+const float FROM_255_TO_1 = 1.0 / 255.0;
+
+const vec2 uv_scale = UV_SCALE;
+const vec3 fresnel_color = FRESNEL_COLOR * FROM_255_TO_1;
+
+const vec3 gradient_color = GRADIENT_COLOR * FROM_255_TO_1;
+const vec3 delta_color_horizontal = DELTA_COLOR_HORIZONTAL * FROM_255_TO_1;
+const vec3 delta_color_vertical = DELTA_COLOR_VERTICAL * FROM_255_TO_1;
+
+varying vec4 light;
+varying vec4 fogColor;
+
+varying vec3 OSPosition;
+varying vec3 OSNormal; // abs() and normalize()
+varying vec3 viewSpaceNormal;
+
+void main()
+{
+	if (OSPosition.y <= 0.5) {
+		// discard under ground pixels for flame dragons
+		discard;
+	}
+	/********** Albedo **********/
+	vec4 color = texture2D(TEXTURE_0, uv);
+
+	if (EMISSIVE <= 0.5){
+		color = color * light;
+	}
+
+	/********** Flame Effect **********/
+	
+	vec2 flame_uv = vec2(0.0, 0.0);
+
+	// get face orientation
+	if (FLOW_AXIS == 0.0){ // X
+		mediump float st = step(0.99, OSNormal.x); // st == 1.0 means X face
+		flame_uv.x = OSPosition.x;
+		flame_uv.y = (OSPosition.y + OSPosition.z);
+		flame_uv = st * OSPosition.yz + (1.0 - st) * flame_uv;
+	}else if (FLOW_AXIS == 1.0){ // Y
+		mediump float st = step(0.99, OSNormal.y); // st == 1.0 means Y face
+		flame_uv.x = OSPosition.y;
+		flame_uv.y = (OSPosition.x + OSPosition.z);
+		flame_uv = st * OSPosition.xz + (1.0 - st) * flame_uv;
+	}else{ // Z
+		mediump float st = step(0.99, OSNormal.z); // st == 1.0 means Z face
+		flame_uv.x = OSPosition.z;
+		flame_uv.y = (OSPosition.x + OSPosition.y);
+		flame_uv = st * OSPosition.xy + (1.0 - st) * flame_uv;
+	}
+	flame_uv = fract(flame_uv * uv_scale + TIME * UV_FLOW);
+	
+	vec3 flameColor = texture2D(TEXTURE_1, flame_uv).rgb;
+
+	/********** Gradient Color Effect **********/
+	vec2 gradient_uv = abs(flame_uv - 0.5) * 2.0;
+	gradient_uv = sqrt(gradient_uv);
+	vec3 gradientColor = gradient_color
+		+ delta_color_horizontal * gradient_uv.x
+		+ delta_color_vertical * gradient_uv.y;
+
+	/********** Fresnel Effect **********/
+	vec3 fresColor = fresnel_color * fresnel_ex(normalize(viewSpaceNormal), vec3(0.0, 0.0, 1.0), FRESNEL_OFFSET, 1.0, 2.0);
+
+	/********** Gradient Effect **********/
+	if (GRADIENT_MODE < 0.5){
+		// MUL mode
+		flameColor = flameColor * gradientColor;
+	}else{
+		// ADD mode
+		flameColor = flameColor + gradientColor;
+	}
+
+	vec3 shaderColor = flameColor + fresColor;
+
+	/********** Mixture **********/
+	float colorStep = step(color.a, 0.5);
+	color.rgb = (1.0 - colorStep) * color.rgb + colorStep * shaderColor;
+	color.a = 1.0;
+
+#ifdef USE_OVERLAY
+	color.rgb = mix(color.rgb, OVERLAY_COLOR.rgb, OVERLAY_COLOR.a);
+#endif // USE_OVERLAY
+
+	gl_FragColor = color;
+	gl_FragColor.a = 1.0;
+}

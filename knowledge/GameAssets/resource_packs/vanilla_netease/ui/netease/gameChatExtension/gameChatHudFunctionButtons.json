@@ -1,0 +1,403 @@
+{
+    "main": {
+        "controls": [
+            {
+                "chat_button@common.button": {
+                    "$control_alpha": 1.0,
+                    "$default_texture": "",
+                    "$hover_texture": "",
+                    "$is_new_nine_slice": false,
+                    "$label_color": [
+                        1,
+                        1,
+                        1
+                    ],
+                    "$label_font_scale_factor": 1.0,
+                    "$label_font_size": "large",
+                    "$label_layer": 3,
+                    "$label_offset": [
+                        0,
+                        0
+                    ],
+                    "$label_text": "",
+                    "$nine_slice_buttom": 0,
+                    "$nine_slice_left": 0,
+                    "$nine_slice_right": 0,
+                    "$nine_slice_top": 0,
+                    "$nineslice_size": [
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "$pressed_button_name": "%netease_editor_template_namespace.click",
+                    "$pressed_texture": "",
+                    "$texture_layer": 2,
+                    "anchor_from": "top_right",
+                    "anchor_to": "top_right",
+                    "bindings": [
+                        {
+                            "binding_collection_name": "",
+                            "binding_condition": "always_when_visible",
+                            "binding_type": "collection_details"
+                        }
+                    ],
+                    "button_mappings": [],
+                    "controls": [
+                        {
+                            "default@netease_editor_template_namespace.default": {}
+                        },
+                        {
+                            "hover@netease_editor_template_namespace.hover": {}
+                        },
+                        {
+                            "pressed@netease_editor_template_namespace.pressed": {}
+                        },
+                        {
+                            "button_label@netease_editor_template_namespace.button_label": {}
+                        },
+                        {
+                            "image": {
+                                "clip_direction": "left",
+                                "clip_ratio": 0.0,
+                                "layer": 10,
+                                "texture": "textures/ui/gameChatExtension/common/common_button3_hover",
+                                "type": "image"
+                            }
+                        },
+                        {
+                            "icon": {
+                                "clip_direction": "left",
+                                "clip_ratio": 0.0,
+                                "controls": [
+                                    {
+                                        "hint": {
+                                            "anchor_from": "top_right",
+                                            "anchor_to": "bottom_left",
+                                            "clip_direction": "left",
+                                            "clip_ratio": 0.0,
+                                            "controls": [
+                                                {
+                                                    "label": {
+                                                        "font_scale_factor": 0.5,
+                                                        "font_type": "smooth",
+                                                        "layer": 1,
+                                                        "text": "22",
+                                                        "text_alignment": "center",
+                                                        "type": "label"
+                                                    }
+                                                }
+                                            ],
+                                            "layer": 1,
+                                            "offset": [
+                                                "-20.0%+0.0px",
+                                                "20.0%x+0.0px"
+                                            ],
+                                            "size": [
+                                                "50.0%+0.0px",
+                                                "100.0%x+0.0px"
+                                            ],
+                                            "texture": "textures/ui/gameChatExtension/common/common_tixing",
+                                            "type": "image",
+                                            "visible": false
+                                        }
+                                    }
+                                ],
+                                "layer": 11,
+                                "offset": [
+                                    0.0,
+                                    -1
+                                ],
+                                "size": [
+                                    "50.0%+0.0px",
+                                    "40.0%+0.0px"
+                                ],
+                                "texture": "textures/ui/gameChatExtension/icon/news",
+                                "type": "image"
+                            }
+                        }
+                    ],
+                    "default_control": "default",
+                    "hover_control": "hover",
+                    "is_handle_button_move_event": true,
+                    "offset": [
+                        "-2.0%+0.0px",
+                        "33.0%+0.0px"
+                    ],
+                    "pressed_control": "pressed",
+                    "size": [
+                        "100.0%y+0.0px",
+                        "8.4%+0.0px"
+                    ],
+                    "type": "button"
+                }
+            },
+            {
+                "social_button@common.button": {
+                    "$control_alpha": 1.0,
+                    "$default_texture": "",
+                    "$hover_texture": "",
+                    "$is_new_nine_slice": false,
+                    "$label_color": [
+                        1,
+                        1,
+                        1
+                    ],
+                    "$label_font_scale_factor": 1.0,
+                    "$label_font_size": "large",
+                    "$label_layer": 3,
+                    "$label_offset": [
+                        0,
+                        0
+                    ],
+                    "$label_text": "",
+                    "$nine_slice_buttom": 0,
+                    "$nine_slice_left": 0,
+                    "$nine_slice_right": 0,
+                    "$nine_slice_top": 0,
+                    "$nineslice_size": [
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "$pressed_button_name": "%netease_editor_template_namespace.click",
+                    "$pressed_texture": "",
+                    "$texture_layer": 2,
+                    "anchor_from": "top_right",
+                    "anchor_to": "top_right",
+                    "bindings": [
+                        {
+                            "binding_collection_name": "",
+                            "binding_condition": "always_when_visible",
+                            "binding_type": "collection_details"
+                        }
+                    ],
+                    "button_mappings": [],
+                    "controls": [
+                        {
+                            "default@netease_editor_template_namespace.default": {}
+                        },
+                        {
+                            "hover@netease_editor_template_namespace.hover": {}
+                        },
+                        {
+                            "pressed@netease_editor_template_namespace.pressed": {}
+                        },
+                        {
+                            "button_label@netease_editor_template_namespace.button_label": {}
+                        },
+                        {
+                            "image": {
+                                "clip_direction": "left",
+                                "clip_ratio": 0.0,
+                                "layer": 10,
+                                "texture": "textures/ui/gameChatExtension/common/common_button3_hover",
+                                "type": "image"
+                            }
+                        },
+                        {
+                            "icon": {
+                                "clip_direction": "left",
+                                "clip_ratio": 0.0,
+                                "controls": [
+                                    {
+                                        "hint": {
+                                            "anchor_from": "top_right",
+                                            "anchor_to": "bottom_left",
+                                            "clip_direction": "left",
+                                            "clip_ratio": 0.0,
+                                            "controls": [
+                                                {
+                                                    "label": {
+                                                        "font_scale_factor": 0.5,
+                                                        "font_type": "smooth",
+                                                        "layer": 1,
+                                                        "text": "22",
+                                                        "text_alignment": "center",
+                                                        "type": "label"
+                                                    }
+                                                }
+                                            ],
+                                            "layer": 1,
+                                            "offset": [
+                                                "-20.0%+0.0px",
+                                                "20.0%x+0.0px"
+                                            ],
+                                            "size": [
+                                                "50.0%+0.0px",
+                                                "100.0%x+0.0px"
+                                            ],
+                                            "texture": "textures/ui/gameChatExtension/common/common_tixing",
+                                            "type": "image",
+                                            "visible": false
+                                        }
+                                    }
+                                ],
+                                "layer": 11,
+                                "offset": [
+                                    0.0,
+                                    -1
+                                ],
+                                "size": [
+                                    "50.0%+0.0px",
+                                    "42.0%+0.0px"
+                                ],
+                                "texture": "textures/ui/gameChatExtension/icon/friend",
+                                "type": "image"
+                            }
+                        }
+                    ],
+                    "default_control": "default",
+                    "hover_control": "hover",
+                    "is_handle_button_move_event": true,
+                    "layer": 15,
+                    "offset": [
+                        "-2.0%+0.0px",
+                        "42.4%+0.0px"
+                    ],
+                    "pressed_control": "pressed",
+                    "size": [
+                        "100.0%y+0.0px",
+                        "8.4%+0.0px"
+                    ],
+                    "type": "button"
+                }
+            },
+            {
+                "talk_button@common.button": {
+                    "$control_alpha": 1.0,
+                    "$default_texture": "",
+                    "$hover_texture": "",
+                    "$is_new_nine_slice": false,
+                    "$label_color": [
+                        1,
+                        1,
+                        1
+                    ],
+                    "$label_font_scale_factor": 1.0,
+                    "$label_font_size": "large",
+                    "$label_layer": 3,
+                    "$label_offset": [
+                        0,
+                        0
+                    ],
+                    "$label_text": "",
+                    "$nine_slice_buttom": 0,
+                    "$nine_slice_left": 0,
+                    "$nine_slice_right": 0,
+                    "$nine_slice_top": 0,
+                    "$nineslice_size": [
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "$pressed_button_name": "%netease_editor_template_namespace.click",
+                    "$pressed_texture": "",
+                    "$texture_layer": 2,
+                    "anchor_from": "top_right",
+                    "anchor_to": "top_right",
+                    "bindings": [
+                        {
+                            "binding_collection_name": "",
+                            "binding_condition": "always_when_visible",
+                            "binding_type": "collection_details"
+                        }
+                    ],
+                    "button_mappings": [],
+                    "controls": [
+                        {
+                            "default@netease_editor_template_namespace.default": {}
+                        },
+                        {
+                            "hover@netease_editor_template_namespace.hover": {}
+                        },
+                        {
+                            "pressed@netease_editor_template_namespace.pressed": {}
+                        },
+                        {
+                            "button_label@netease_editor_template_namespace.button_label": {}
+                        },
+                        {
+                            "image": {
+                                "clip_direction": "left",
+                                "clip_ratio": 0.0,
+                                "layer": 10,
+                                "texture": "textures/ui/gameChatExtension/common/common_button3_hover",
+                                "type": "image"
+                            }
+                        },
+                        {
+                            "icon": {
+                                "clip_direction": "left",
+                                "clip_ratio": 0.0,
+                                "controls": [
+                                    {
+                                        "hint": {
+                                            "anchor_from": "top_right",
+                                            "anchor_to": "bottom_left",
+                                            "clip_direction": "left",
+                                            "clip_ratio": 0.0,
+                                            "controls": [
+                                                {
+                                                    "label": {
+                                                        "font_scale_factor": 0.5,
+                                                        "font_type": "smooth",
+                                                        "layer": 1,
+                                                        "text": "22",
+                                                        "text_alignment": "center",
+                                                        "type": "label"
+                                                    }
+                                                }
+                                            ],
+                                            "layer": 1,
+                                            "offset": [
+                                                "-20.0%+0.0px",
+                                                "20.0%x+0.0px"
+                                            ],
+                                            "size": [
+                                                "50.0%+0.0px",
+                                                "100.0%x+0.0px"
+                                            ],
+                                            "texture": "textures/ui/gameChatExtension/common/common_tixing",
+                                            "type": "image",
+                                            "visible": false
+                                        }
+                                    }
+                                ],
+                                "layer": 11,
+                                "offset": [
+                                    0.0,
+                                    0.0
+                                ],
+                                "size": [
+                                    "50.0%+0.0px",
+                                    "42.0%+0.0px"
+                                ],
+                                "texture": "textures/ui/gameChatExtension/icon/news1",
+                                "type": "image"
+                            }
+                        }
+                    ],
+                    "default_control": "default",
+                    "hover_control": "hover",
+                    "is_handle_button_move_event": true,
+                    "layer": 28,
+                    "offset": [
+                        "-2.0%+0.0px",
+                        "51.8%+0.0px"
+                    ],
+                    "pressed_control": "pressed",
+                    "size": [
+                        "100.0%y+0.0px",
+                        "8.4%+0.0px"
+                    ],
+                    "type": "button"
+                }
+            }
+        ],
+        "type": "screen"
+    },
+    "namespace": "gameChatHudFunctionButtons"
+}

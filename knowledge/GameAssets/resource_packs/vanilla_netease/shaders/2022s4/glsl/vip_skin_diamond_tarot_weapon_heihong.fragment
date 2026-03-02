@@ -1,0 +1,43 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+precision highp float;
+
+#include "fragmentVersionCentroidUV.h"
+#include "uniformWorldConstants.h"
+#include "uniformEntityConstants.h"
+
+#include "uniformPerFrameConstants.h"
+#include "uniformShaderConstants.h"
+#include "util.h"
+
+LAYOUT_BINDING(0) uniform sampler2D TEXTURE_0; // base map
+LAYOUT_BINDING(1) uniform sampler2D TEXTURE_1; // dispersion
+
+const float FROM_255_TO_1 = 1.0 / 255.0;
+
+varying vec3 worldNormal;
+varying vec3 worldViewDir;
+
+#define Color_F vec3(255.0,0.0,0.0)//<name:颜色>
+#define COLOR_MODE 1.0000//<name:颜色模式0乘1加>
+#define MIN_ALPHA 0.8000//<name:最小透明度>
+#define __xx__ 1.0000//<name:光照-------------->
+#define FRES_SCALE 1.00//<name:反射强度缩放>
+#define FRES_BIAS 0.20//<name:反射强度加减>
+#define ETA 1.6000//<name:折射率>
+#define DISPARSION_F 1.0000//<name:折射光强度>
+#define dispersionSpeed_F 0.5000//<name:折射光流动速度>
+#define __yy__ 0.0//<name:闪点-------------->
+#define shineInt_F 1.00//<name:闪点强度>
+#define StarsDensity_F 0.5000//<name:闪点密度>
+#define STAR_SIZE 4.0000//<name:闪点大小>
+#define UV_PARA vec2(1.0,256.0)//<name:闪烁速度_闪烁划分大小>
+#define UV_SCALE vec2(2.0,2.0)//<name:闪点UV缩放>
+
+const vec3 colorF = Color_F * FROM_255_TO_1;
+
+#include "2022s3_diamond_util.h"
+
+void main() {
+	gl_FragColor = diamond();
+}

@@ -1,0 +1,69 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "0.5412 0.9804 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.0000 0.8353 1.0000 0.7679",
+                "time": "54.7%"
+            },
+            {
+                "color": "0.0000 0.6000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "0.0 0.0 1.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Inwards"
+        },
+        "emissionrate": {
+            "max": "4.0",
+            "min": "6.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.8 0.8 0.2"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "layer": 3,
+        "numparticles": {
+            "value": "6"
+        },
+        "particlesize": {
+            "max": "0.08 0.08",
+            "min": "0.05 0.05"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "ani": {
+                "fps": "8",
+                "name": "textures/sfxs/2025s5/xy_s5feng_fz_yan",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s5/xy_s5feng_fz_yan"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.6",
+            "min": "0.5"
+        },
+        "velocity": {
+            "max": "0.5",
+            "min": "0.8"
+        }
+    }
+}

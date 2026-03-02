@@ -1,0 +1,89 @@
+{
+    "particleeffect": {
+        "layer": 14,
+        "emissionrate": {
+            "max": "1.0",
+            "min": "1.0"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "particlesize": {
+            "max": "1.9 1.9",
+            "min": "1.9 1.9"
+        },
+        "activetime": {
+            "value": "0.4"
+        },
+        "numparticles": {
+            "value": "30"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": false,
+                "name": "textures/sfxs/pet_dragon/ss_myth_dragon_fire",
+                "fps": "28"
+            },
+            "name": "textures/sfxs/pet_dragon/ss_myth_dragon_fire"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "delay": 2.4,
+        "timetolive": {
+            "max": "0.8",
+            "min": "0.8"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.0 0.0",
+                "time": "0.00"
+            },
+            {
+                "scale": "0.25 0.25",
+                "time": "0.63"
+            },
+            {
+                "scale": "0.36 0.36",
+                "time": "0.99"
+            },
+            {
+                "scale": "0.96 0.96",
+                "time": "1.47"
+            },
+            {
+                "scale": "1.6 1.6",
+                "time": "2.00"
+            }
+        ],
+        "independent": false,
+        "direction": {
+            "max": "0.0 1.0 0.0",
+            "value": "Direction",
+            "min": "0.0 0.0 0.0"
+        },
+        "dampingforce": {
+            "value": "2.0"
+        },
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.0 0.0 0.0"
+        },
+        "emitterscale": [],
+        "rotationRange": {
+            "max": "1.0 1.0 1.0",
+            "min": "0.0 0.0 0.0"
+        },
+        "colorfade": [],
+        "depthtest": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "velocity": {
+            "max": "2.5",
+            "min": "2.5"
+        }
+    }
+}

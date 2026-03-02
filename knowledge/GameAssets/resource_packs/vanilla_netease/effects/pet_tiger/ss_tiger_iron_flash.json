@@ -1,0 +1,48 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "value": "Direction",
+            "min": "-1.0 -1.0 -1.0"
+        },
+        "faceCameraMode": {
+            "value": "Direction"
+        },
+        "emitterScaleCurve": [],
+        "enableloop": {
+            "enable": "true"
+        },
+        "emittersize": {
+            "value": "1.0 0.0 0.0"
+        },
+        "thickness": {
+            "value": "1.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "inactivetime": {
+            "max": "0.0",
+            "min": "0.0"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": false,
+                "name": "textures/sfxs/pet_tiger/ss_tiger_iron_flash_1",
+                "fps": "16"
+            },
+            "name": "textures/sfxs/pet_tiger/ss_tiger_iron_flash_6"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        },
+        "numparticles": {
+            "value": "3"
+        }
+    }
+}

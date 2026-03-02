@@ -1,0 +1,64 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.5"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.2143",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "5.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "dampingforce": {
+            "value": "0.03"
+        },
+        "depthtest": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "-1.0 0.0 0.0",
+            "min": "-1.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "300.0",
+            "min": "300.0"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "layer": 3,
+        "numparticles": {
+            "value": "1"
+        },
+        "offsetInCamera": {
+            "value": "5.0"
+        },
+        "particlesize": {
+            "max": "15.0 13.0",
+            "min": "15.0 13.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "name": "textures/sfxs/2025s1/cs_s3kjys_skinA_birth_sxk01"
+        },
+        "timetolive": {
+            "max": "13.35",
+            "min": "13.35"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

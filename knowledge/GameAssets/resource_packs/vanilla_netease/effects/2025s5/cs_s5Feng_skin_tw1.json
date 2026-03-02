@@ -1,0 +1,135 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.7143",
+                "time": "3.9%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "10.8%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "47.4%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.9643",
+                "time": "81.3%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.3482",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "0.0 0.0 -0.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "3000.0",
+            "min": "3000.0"
+        },
+        "enableloop": {
+            "enable": "true"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Horizontal"
+        },
+        "numparticles": {
+            "value": "1"
+        },
+        "particlesize": {
+            "max": "0.2 1.0",
+            "min": "0.2 1.0"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "60.0%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "22",
+                "name": "textures/sfxs/2025s5/cs_s5Feng_skin_ql2",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s5/cs_s5Feng_skin_ql1"
+        },
+        "timetolive": {
+            "max": "30.0",
+            "min": "30.0"
+        },
+        "trail": {
+            "colorfade": [
+                {
+                    "color": "1.0 1.0 1.0 0.0",
+                    "time": "0.000%"
+                },
+                {
+                    "color": "1.0 1.0 1.0 0.5892857142857143",
+                    "time": "4.211%"
+                },
+                {
+                    "color": "1.0 1.0 1.0 0.6160714285714286",
+                    "time": "40.789%"
+                },
+                {
+                    "color": "1.0 1.0 1.0 0.3035714285714286",
+                    "time": "73.947%"
+                },
+                {
+                    "color": "1.0 1.0 1.0 0.0",
+                    "time": "100.000%"
+                }
+            ],
+            "facemode": 1,
+            "lifetime": 0.4,
+            "maxnum": 64,
+            "mindistance": 0.01,
+            "texmode": 2,
+            "textile": "1.0 1.0",
+            "useparticlecolor": true,
+            "useparticlewidth": true,
+            "widthfade": [
+                {
+                    "time": "0.0%",
+                    "value": "0.8500000000000002"
+                },
+                {
+                    "time": "100.0%",
+                    "value": "0.9999999999999998"
+                }
+            ],
+            "worldspace": true
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

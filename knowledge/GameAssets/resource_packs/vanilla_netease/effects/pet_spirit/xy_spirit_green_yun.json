@@ -1,0 +1,68 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "value": "Direction",
+            "min": "0.0 0.0 -1.0"
+        },
+        "numparticles": {
+            "value": "4"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "colorfade": [
+            {
+                "color": "0.9686 0.8784 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.2588 0.9412 0.2143",
+                "time": "21.8%"
+            },
+            {
+                "color": "0.8431 0.4392 1.0000 0.0714",
+                "time": "75.8%"
+            },
+            {
+                "color": "0.9569 0.7216 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "emissionrate": {
+            "max": "5.0",
+            "min": "5.0"
+        },
+        "texture": {
+            "name": "textures/sfxs/pet_spirit/xy_spirit_green_yun"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "timetolive": {
+            "max": "0.7",
+            "min": "0.7000000000000001"
+        },
+        "velocity": {
+            "max": "0.1",
+            "min": "0.1"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "particlesize": {
+            "max": "0.4 0.4",
+            "min": "0.5 0.5"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.8 0.8",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.8 0.8",
+                "time": "100.0%"
+            }
+        ]
+    }
+}

@@ -1,0 +1,62 @@
+{
+    "particleeffect": {
+        "enablecolor": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "value": "Direction",
+            "min": "0.0 0.0 0.0"
+        },
+        "activetime": {
+            "value": "0.53"
+        },
+        "numparticles": {
+            "value": "1"
+        },
+        "independent": false,
+        "emissionrate": {
+            "max": "90.0",
+            "min": "80.0"
+        },
+        "emitterScaleCurve": [],
+        "layer": 2,
+        "texture": {
+            "ani": {
+                "shuffle": false,
+                "name": "textures/sfxs/pet_mtr/ty_camera_play_redpacket_yanhua",
+                "fps": "30"
+            },
+            "name": "textures/sfxs/pet_mtr/ty_camera_play_redpacket_yanhua"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "delay": 2.6,
+        "timetolive": {
+            "max": "0.48",
+            "min": "0.58"
+        },
+        "depthtest": {
+            "enable": "true"
+        },
+        "emittersize": {
+            "value": "0.0 0.0 0.0"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        },
+        "emitterscale": [],
+        "particlesize": {
+            "max": "0.5 0.5",
+            "min": "0.5 0.5"
+        }
+    }
+}

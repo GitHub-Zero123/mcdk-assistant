@@ -1,0 +1,58 @@
+{
+    "particleeffect": {
+        "colorfade": [
+            {
+                "color": "1.0000 0.4078 0.2275 0.7679",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.1020 0.0745 1.0000",
+                "time": "50.8%"
+            },
+            {
+                "color": "0.6667 0.1843 0.0392 0.7679",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "20.0",
+            "min": "20.0"
+        },
+        "numparticles": {
+            "value": "1"
+        },
+        "particlesize": {
+            "max": "0.22 0.22",
+            "min": "0.22 0.22"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "2.1 2.1",
+                "time": "0.0%"
+            },
+            {
+                "scale": "2.36 2.36",
+                "time": "52.3%"
+            },
+            {
+                "scale": "2.12 2.12",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/pet_squid/cs_squid_s5Fire_sun"
+        },
+        "timetolive": {
+            "max": "2.0",
+            "min": "2.0"
+        }
+    }
+}

@@ -1,0 +1,80 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.2"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "0.0000 0.4314 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.0000 0.9529 1.0000 0.2589",
+                "time": "3.9%"
+            },
+            {
+                "color": "0.0000 0.6824 1.0000 0.0536",
+                "time": "73.4%"
+            },
+            {
+                "color": "0.0000 0.3843 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "delay": 1.28,
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "80.0",
+            "min": "80.0"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Horizontal"
+        },
+        "numparticles": {
+            "value": "2"
+        },
+        "particlesize": {
+            "max": "3.0 3.0",
+            "min": "3.0 3.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.69 0.69",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.9 0.9",
+                "time": "9.0%"
+            },
+            {
+                "scale": "1.005 1.005",
+                "time": "31.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "16",
+                "name": "",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s1/custom_sun"
+        },
+        "timetolive": {
+            "max": "3.6",
+            "min": "3.6"
+        }
+    }
+}

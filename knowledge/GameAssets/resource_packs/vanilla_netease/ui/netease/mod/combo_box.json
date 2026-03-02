@@ -1,0 +1,1117 @@
+{
+    "Icon": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_direction": "left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clip_ratio": 0.0,
+        "clips_children": false,
+        "enabled": true,
+        "fill": false,
+        "grayscale": false,
+        "is_new_nine_slice": false,
+        "keep_ratio": true,
+        "layer": 1,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "nine_slice_buttom": 0,
+        "nine_slice_left": 0,
+        "nine_slice_right": 0,
+        "nine_slice_top": 0,
+        "nineslice_size": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "50.0%+0.0px",
+            "50.0%+0.0px"
+        ],
+        "texture": "textures/ui/arrow",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            0,
+            0
+        ],
+        "visible": false
+    },
+    "buttonBG@common.button": {
+        "$control_alpha": 1.0,
+        "$default_texture": "$default_item_texture",
+        "$hover_texture": "$hover_item_texture",
+        "$pressed_texture": "$pressed_item_texture",
+        "$is_new_nine_slice": false,
+        "$label_color": [
+            1,
+            1,
+            1
+        ],
+        "$label_font_scale_factor": 1.0,
+        "$label_font_size": "large",
+        "$label_layer": 3,
+        "$label_offset": [
+            0,
+            0
+        ],
+        "$label_text": "",
+        "$nine_slice_buttom": 0,
+        "$nine_slice_left": 0,
+        "$nine_slice_right": 0,
+        "$nine_slice_top": 0,
+        "$nineslice_size": "$item_nineslice_size",
+        "$pressed_button_name": "%combo_box.click",
+        "$texture_layer": 2,
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "bindings": [
+            {
+                "binding_collection_name": "",
+                "binding_condition": "always_when_visible",
+                "binding_type": "collection_details"
+            }
+        ],
+        "button_mappings": [],
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "default@combo_box.default": {}
+            },
+            {
+                "hover@combo_box.hover": {}
+            },
+            {
+                "pressed@combo_box.pressed": {}
+            },
+            {
+                "button_label@combo_box.button_label": {}
+            }
+        ],
+        "draggable": "not_draggable",
+        "enabled": true,
+        "is_handle_button_move_event": true,
+        "layer": 0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "visible": true
+    },
+    "button_label": {
+        "alpha": "$control_alpha",
+        "color": "$label_color",
+        "font_scale_factor": "$label_font_scale_factor",
+        "font_size": "$label_font_size",
+        "font_type": "smooth",
+        "layer": "$label_layer",
+        "max_size": [
+            "100%",
+            "100%"
+        ],
+        "offset": "$label_offset",
+        "shadow": false,
+        "text": "$label_text",
+        "text_alignment": "center",
+        "type": "label"
+    },
+    "comboBoxContent": {
+        "alpha": 1.0,
+        "anchor_from": "bottom_middle",
+        "anchor_to": "top_middle",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "contentButton@combo_box.contentButton": {}
+            },
+            {
+                "comboBoxScrollview@combo_box.comboBoxScrollview": {}
+            }
+        ],
+        "enabled": true,
+        "layer": 1000,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": "$content_size",
+        "type": "panel",
+        "visible": false
+    },
+    "comboBoxPanel": {
+        "$content_size|default": [
+            "100.0%+0.0px",
+            100
+        ],
+        "$item_size|default": [
+            "100.0%+0.0px",
+            "10.0%x+0.0px"
+        ],
+        "$title_label|default": "combo_box.titleLabel",
+        "$content_label|default": "combo_box.label",
+        "$title_down_image|default": "combo_box.dropdownImage",
+        "$title_up_image|default": "combo_box.dropupImage",
+        "$default_title_texture|default": "textures/ui/button_borderless_light",
+        "$hover_title_texture|default": "textures/ui/button_borderless_lighthover",
+        "$pressed_title_texture|default": "textures/ui/button_borderless_lightpressed",
+        "$title_nineslice_size|default": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "$default_item_texture|default": "textures/ui/button_borderless_light",
+        "$hover_item_texture|default": "textures/ui/button_borderless_lighthover",
+        "$pressed_item_texture|default": "textures/ui/button_borderless_lightpressed",
+        "$item_nineslice_size|default": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "$scroll_background_texture|default": "textures/ui/ScrollRail",
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "comboBoxTitlePanel@combo_box.comboBoxTitlePanel": {}
+            },
+            {
+                "comboBoxContent@combo_box.comboBoxContent": {}
+            }
+        ],
+        "enabled": true,
+        "layer": 0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0.0,
+            0.0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            120,
+            20
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "comboBoxScrollview@common.scrolling_panel": {
+        "$background_nine_slice_buttom": 0,
+        "$background_nine_slice_left": 0,
+        "$background_nine_slice_right": 0,
+        "$background_nine_slice_top": 0,
+        "$background_nineslice_size": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "$box_nine_slice_buttom": 0,
+        "$box_nine_slice_left": 0,
+        "$box_nine_slice_right": 0,
+        "$box_nine_slice_top": 0,
+        "$box_nineslice_size": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "$is_background_nine_slice": false,
+        "$is_box_nine_slice": false,
+        "$is_track_nine_slice": false,
+        "$scroll_background_image_control": "combo_box.scroll_background_image",
+        "$scroll_box_mouse_image_control": "combo_box.scroll_box_image",
+        "$scroll_box_texture": "textures/ui/newTouchScrollBox",
+        "$scroll_box_touch_image_control": "combo_box.scroll_box_image",
+        "$scroll_track_image_control": "combo_box.scroll_track_image",
+        "$scroll_track_texture": "textures/ui/ScrollRail",
+        "$scrolling_content": "combo_box.dropdownContent",
+        "$track_nine_slice_buttom": 0,
+        "$track_nine_slice_left": 0,
+        "$track_nine_slice_right": 0,
+        "$track_nine_slice_top": 0,
+        "$track_nineslice_size": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "enabled": true,
+        "layer": 11,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": true,
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "type": "scroll_view",
+        "visible": true
+    },
+    "comboBoxScrollviewContent0": {
+        "absorbs_input": true,
+        "always_accepts_input": false,
+        "controls": [
+            {
+                "dropdownContent@combo_box.dropdownContent": {}
+            }
+        ],
+        "force_render_below": false,
+        "is_showing_menu": true,
+        "render_game_behind": true,
+        "render_only_when_topmost": true,
+        "should_steal_mouse": false,
+        "type": "screen"
+    },
+    "comboBoxTitlePanel": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "titleButton@combo_box.titleButton": {}
+            },
+            {
+                "titleContentPanel@combo_box.titleContentPanel": {}
+            }
+        ],
+        "enabled": true,
+        "layer": 1,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "contentButton@common.button": {
+        "$control_alpha": 1.0,
+        "$default_texture": "",
+        "$hover_texture": "",
+        "$is_new_nine_slice": false,
+        "$label_color": [
+            1,
+            1,
+            1
+        ],
+        "$label_font_scale_factor": 1.0,
+        "$label_font_size": "large",
+        "$label_layer": 3,
+        "$label_offset": [
+            0,
+            0
+        ],
+        "$label_text": "",
+        "$nine_slice_buttom": 0,
+        "$nine_slice_left": 0,
+        "$nine_slice_right": 0,
+        "$nine_slice_top": 0,
+        "$nineslice_size": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "$pressed_button_name": "%combo_box.click",
+        "$pressed_texture": "",
+        "$texture_layer": 2,
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "bindings": [
+            {
+                "binding_collection_name": "",
+                "binding_condition": "always_when_visible",
+                "binding_type": "collection_details"
+            }
+        ],
+        "button_mappings": [],
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "default@combo_box.default": {}
+            },
+            {
+                "hover@combo_box.hover": {}
+            },
+            {
+                "pressed@combo_box.pressed": {}
+            },
+            {
+                "button_label@combo_box.button_label": {}
+            }
+        ],
+        "draggable": "not_draggable",
+        "enabled": true,
+        "is_handle_button_move_event": true,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            2000,
+            2000
+        ],
+        "visible": true
+    },
+    "contentItemContent": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "buttonBG@combo_box.buttonBG": {}
+            },
+            {
+                "dropdownItemStack@combo_box.dropdownItemStack": {}
+            }
+        ],
+        "enabled": true,
+        "layer": 1,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": "$item_size",
+        "type": "panel",
+        "visible": false
+    },
+    "contentItemIcon": {
+        "alpha": 1.0,
+        "anchor_from": "left_middle",
+        "anchor_to": "left_middle",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "Icon@combo_box.Icon": {}
+            }
+        ],
+        "enabled": true,
+        "layer": 1,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "100.0%y+0.0px",
+            "100.0%+0.0px"
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "contentItemLabel": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "label@$content_label": {}
+            }
+        ],
+        "enabled": true,
+        "layer": 1,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "default": {
+        "alpha": "$control_alpha",
+        "is_new_nine_slice": "$is_new_nine_slice",
+        "layer": "$texture_layer",
+        "nine_slice_buttom": "$nine_slice_buttom",
+        "nine_slice_left": "$nine_slice_left",
+        "nine_slice_right": "$nine_slice_right",
+        "nine_slice_top": "$nine_slice_top",
+        "nineslice_size": "$nineslice_size",
+        "texture": "$default_texture",
+        "type": "image"
+    },
+    "dropdownContent": {
+        "alpha": 1.0,
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "contentItemContent@combo_box.contentItemContent": {}
+            }
+        ],
+        "enabled": true,
+        "layer": 1,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "orientation": "vertical",
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "100.0%+0.0px",
+            "default"
+        ],
+        "type": "stack_panel",
+        "use_priority": false,
+        "visible": true
+    },
+    "dropdownImage": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_direction": "left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clip_ratio": 0.0,
+        "clips_children": false,
+        "enabled": true,
+        "fill": false,
+        "grayscale": false,
+        "is_new_nine_slice": false,
+        "keep_ratio": true,
+        "layer": 1,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "nine_slice_buttom": 0,
+        "nine_slice_left": 0,
+        "nine_slice_right": 0,
+        "nine_slice_top": 0,
+        "nineslice_size": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "30.0%+0.0px",
+            "30.0%+0.0px"
+        ],
+        "texture": "textures/ui/dropdown_chevron",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            0,
+            0
+        ],
+        "visible": true
+    },
+    "dropdownImagePanel": {
+        "alpha": 1.0,
+        "anchor_from": "right_middle",
+        "anchor_to": "right_middle",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "dropdownImage@$title_down_image": {}
+            },
+            {
+                "dropupImage@$title_up_image": {}
+            }
+        ],
+        "enabled": true,
+        "layer": 8,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "100.0%y+0.0px",
+            "100.0%+0.0px"
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "dropdownItemStack": {
+        "alpha": 1.0,
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": true,
+        "controls": [
+            {
+                "contentItemIcon@combo_box.contentItemIcon": {}
+            },
+            {
+                "contentItemLabel@combo_box.contentItemLabel": {}
+            }
+        ],
+        "enabled": true,
+        "layer": 1,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "dropupImage": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_direction": "left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clip_ratio": 0.0,
+        "clips_children": false,
+        "enabled": true,
+        "fill": false,
+        "grayscale": false,
+        "is_new_nine_slice": false,
+        "keep_ratio": true,
+        "layer": 1,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "nine_slice_buttom": 0,
+        "nine_slice_left": 0,
+        "nine_slice_right": 0,
+        "nine_slice_top": 0,
+        "nineslice_size": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "30.0%+0.0px",
+            "30.0%+0.0px"
+        ],
+        "texture": "textures/ui/x_dropdown_hover",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            0,
+            0
+        ],
+        "visible": false
+    },
+    "hover": {
+        "alpha": "$control_alpha",
+        "is_new_nine_slice": "$is_new_nine_slice",
+        "layer": "$texture_layer",
+        "nine_slice_buttom": "$nine_slice_buttom",
+        "nine_slice_left": "$nine_slice_left",
+        "nine_slice_right": "$nine_slice_right",
+        "nine_slice_top": "$nine_slice_top",
+        "nineslice_size": "$nineslice_size",
+        "texture": "$hover_texture",
+        "type": "image"
+    },
+    "label": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "color": [
+            0.3,
+            0.3,
+            0.3
+        ],
+        "enabled": true,
+        "font_scale_factor": 1.0,
+        "font_size": "normal",
+        "font_type": "smooth",
+        "layer": 1,
+        "line_padding": 0.0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "shadow": false,
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "text": "",
+        "text_alignment": "center",
+        "type": "label",
+        "visible": true
+    },
+    "main": {
+        "absorbs_input": true,
+        "always_accepts_input": false,
+        "controls": [
+            {
+                "comboBoxPanel@combo_box.comboBoxPanel": {}
+            }
+        ],
+        "force_render_below": false,
+        "is_showing_menu": true,
+        "render_game_behind": true,
+        "render_only_when_topmost": true,
+        "should_steal_mouse": false,
+        "type": "screen"
+    },
+    "namespace": "combo_box",
+    "pressed": {
+        "alpha": "$control_alpha",
+        "is_new_nine_slice": "$is_new_nine_slice",
+        "layer": "$texture_layer",
+        "nine_slice_buttom": "$nine_slice_buttom",
+        "nine_slice_left": "$nine_slice_left",
+        "nine_slice_right": "$nine_slice_right",
+        "nine_slice_top": "$nine_slice_top",
+        "nineslice_size": "$nineslice_size",
+        "texture": "$pressed_texture",
+        "type": "image"
+    },
+    "scroll_background_image": {
+        "is_new_nine_slice": "$is_background_nine_slice",
+        "nine_slice_buttom": "$background_nine_slice_buttom",
+        "nine_slice_left": "$background_nine_slice_left",
+        "nine_slice_right": "$background_nine_slice_right",
+        "nine_slice_top": "$background_nine_slice_top",
+        "nineslice_size": "$background_nineslice_size",
+        "texture": "$scroll_background_texture",
+        "type": "image"
+    },
+    "scroll_box_image": {
+        "is_new_nine_slice": "$is_box_nine_slice",
+        "nine_slice_buttom": "$box_nine_slice_buttom",
+        "nine_slice_left": "$box_nine_slice_left",
+        "nine_slice_right": "$box_nine_slice_right",
+        "nine_slice_top": "$box_nine_slice_top",
+        "nineslice_size": "$box_nineslice_size",
+        "texture": "$scroll_box_texture",
+        "type": "image"
+    },
+    "scroll_track_image": {
+        "is_new_nine_slice": "$is_track_nine_slice",
+        "layer": 3,
+        "nine_slice_buttom": "$track_nine_slice_buttom",
+        "nine_slice_left": "$track_nine_slice_left",
+        "nine_slice_right": "$track_nine_slice_right",
+        "nine_slice_top": "$track_nine_slice_top",
+        "nineslice_size": "$track_nineslice_size",
+        "size": [
+            3,
+            "100%"
+        ],
+        "texture": "$scroll_track_texture",
+        "type": "image"
+    },
+    "titleButton@common.button": {
+        "$control_alpha": 1.0,
+        "$default_texture": "$default_title_texture",
+        "$hover_texture": "$hover_title_texture",
+        "$pressed_texture": "$pressed_title_texture",
+        "$is_new_nine_slice": false,
+        "$label_color": [
+            1,
+            1,
+            1
+        ],
+        "$label_font_scale_factor": 1.0,
+        "$label_font_size": "large",
+        "$label_layer": 3,
+        "$label_offset": [
+            0,
+            0
+        ],
+        "$label_text": "",
+        "$nine_slice_buttom": 0,
+        "$nine_slice_left": 0,
+        "$nine_slice_right": 0,
+        "$nine_slice_top": 0,
+        "$nineslice_size": "$title_nineslice_size",
+        "$pressed_button_name": "%combo_box.click",
+        "$texture_layer": 2,
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "bindings": [
+            {
+                "binding_collection_name": "",
+                "binding_condition": "always_when_visible",
+                "binding_type": "collection_details"
+            }
+        ],
+        "button_mappings": [],
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "default@combo_box.default": {}
+            },
+            {
+                "hover@combo_box.hover": {}
+            },
+            {
+                "pressed@combo_box.pressed": {}
+            },
+            {
+                "button_label@combo_box.button_label": {}
+            }
+        ],
+        "draggable": "not_draggable",
+        "enabled": true,
+        "is_handle_button_move_event": true,
+        "layer": 2,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "visible": true
+    },
+    "titleContentPanel": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "titleIcon@combo_box.contentItemIcon": {}
+            },
+            {
+                "titleLabel@$title_label": {}
+            },
+            {
+                "dropdownImagePanel@combo_box.dropdownImagePanel": {}
+            }
+        ],
+        "enabled": true,
+        "layer": 6,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "titleLabel": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "color": [
+            0.3,
+            0.3,
+            0.3
+        ],
+        "enabled": true,
+        "font_scale_factor": 1.0,
+        "font_size": "normal",
+        "font_type": "smooth",
+        "layer": 7,
+        "line_padding": 0.0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "shadow": false,
+        "size": [
+            "80.0%",
+            "48.0%+0.0px"
+        ],
+        "text": "请选择内容",
+        "text_alignment": "center",
+        "type": "label",
+        "visible": true
+    }
+}

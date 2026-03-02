@@ -1,0 +1,106 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "0.6118 0.0157 0.0157 0.4196",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.0000 0.0157 1.0000",
+                "time": "15.8%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "57.9%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.5625",
+                "time": "71.3%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "constantforce": {
+            "value": "0.0 0.5 0.0"
+        },
+        "dampingforce": {
+            "value": "0.5"
+        },
+        "direction": {
+            "max": "0.0 0.2 1.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "disorder": {
+            "increment": "0.1",
+            "interval": "0.35",
+            "max": "-0.3 -0.2 -0.19999999999999998",
+            "min": "0.19999999999999998 0.19999999999999998 0.19999999999999998"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.2 0.2 0.2"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "particlesize": {
+            "max": "0.05 0.05",
+            "min": "0.03 0.03"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "false"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.0 0.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.9 0.9",
+                "time": "13.0%"
+            },
+            {
+                "scale": "0.88 0.88",
+                "time": "56.7%"
+            },
+            {
+                "scale": "0.5 0.5",
+                "time": "79.0%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "16",
+                "name": "textures/sfxs/pet_dino/cs_dino_s6FireDragon_hlz",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/pet_dino/cs_dino_s6FireDragon_hlz"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "1.0",
+            "min": "0.5"
+        },
+        "velocity": {
+            "max": "0.6",
+            "min": "0.3"
+        }
+    }
+}

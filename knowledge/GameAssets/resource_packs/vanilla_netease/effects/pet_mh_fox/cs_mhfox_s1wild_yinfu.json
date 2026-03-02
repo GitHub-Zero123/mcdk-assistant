@@ -1,0 +1,70 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "value": "Direction",
+            "min": "0.0 0.0 0.0"
+        },
+        "numparticles": {
+            "value": "2"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "50.3%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.7500",
+                "time": "76.8%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.6 0.7 0.6"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Cylinder"
+        },
+        "timetolive": {
+            "max": "1.0",
+            "min": "0.5"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": false,
+                "name": "textures/sfxs/pet_mh_fox/cs_mhfox_s1wild_yinfu",
+                "fps": "18"
+            },
+            "name": "textures/sfxs/pet_mh_fox/cs_mhfox_s1wild_yinfu"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "1.0",
+            "min": "0.2"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "particlesize": {
+            "max": "0.12 0.12",
+            "min": "0.05 0.05"
+        }
+    }
+}

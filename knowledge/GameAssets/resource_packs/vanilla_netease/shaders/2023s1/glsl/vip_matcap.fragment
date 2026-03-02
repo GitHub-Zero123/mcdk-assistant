@@ -1,0 +1,65 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+precision mediump float;
+
+#include "fragmentVersionCentroidUV.h"
+#include "uniformWorldConstants.h"
+#include "uniformEntityConstants.h"
+
+#include "uniformPerFrameConstants.h"
+#include "uniformShaderConstants.h"
+#include "fresnel.h"
+#include "util.h"
+
+LAYOUT_BINDING(0) uniform sampler2D TEXTURE_0; // base map
+LAYOUT_BINDING(1) uniform sampler2D TEXTURE_1; // matcap0
+LAYOUT_BINDING(2) uniform sampler2D TEXTURE_2; // matcap1
+LAYOUT_BINDING(3) uniform sampler2D TEXTURE_3; // matcap2
+
+const float FROM_255_TO_1 = 1.0 / 255.0;
+
+varying vec4 light;
+varying vec4 fogColor;
+
+varying vec3 viewVS;
+varying vec3 normalVS;
+varying vec3 positionOS;
+
+void main() {
+	vec3 ref = normalize(reflect(viewVS, normalVS) + vec3(0.0, 0.0, 1.0));
+	vec2 matcap_uv = ref.xy * 0.5 + 0.5;
+	matcap_uv.y = 1.0 - matcap_uv.y;
+
+	lowp vec4 col = texture2D(TEXTURE_0, uv);
+	lowp vec4 m0 = texture2D(TEXTURE_1, matcap_uv);
+	lowp vec4 m1 = texture2D(TEXTURE_2, matcap_uv);
+	lowp vec4 m2 = texture2D(TEXTURE_3, matcap_uv);
+
+	// gamma fix
+	col.rgb = sqrt(col.rgb);
+
+	// 0.00 : base map with no environment lighting
+	// 0.25 : use matcap 0
+	// 0.50 : use matcap 1
+	// 0.75 : use matcap 2
+	// 1.00 : base map
+
+	// if alpha = 0.0, disable environment lighting and use base color
+	lowp float envLighting = step(0.05, col.a);
+
+	lowp float use0 = step(col.a, 0.3) * envLighting;
+	lowp float use1 = step(col.a, 0.6) * step(0.301, col.a);
+	lowp float use2 = step(col.a, 0.8) * step(0.601, col.a);
+	lowp float useBase = step(0.801, col.a) + 1.0 - envLighting;
+	col.rgb *= use0 * m0.rgb + use1 * m1.rgb + use2 * m2.rgb + useBase * col.rgb;
+
+	col.rgb *= light.rgb * envLighting + (1.0 - envLighting);
+
+	col.rgb = mix(col.rgb, OVERLAY_COLOR.rgb, OVERLAY_COLOR.a);
+
+	// apply fog
+	col.rgb = mix(col.rgb, fogColor.rgb, fogColor.a);
+	col.a = 1.0; // for RN gift page
+
+	gl_FragColor = col;
+}

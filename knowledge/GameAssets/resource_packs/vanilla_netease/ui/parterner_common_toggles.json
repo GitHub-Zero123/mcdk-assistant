@@ -1,0 +1,944 @@
+{
+    "button_label": {
+        "$label_color|default": [
+            1,
+            1,
+            1
+        ],
+        "$label_font_size|default": "normal",
+        "$label_layer|default": 1,
+        "$label_offset|default": [
+            0,
+            0
+        ],
+        "$label_text|default": "",
+        "color": "$label_color",
+        "font_size": "$label_font_size",
+        "font_type": "smooth",
+        "layer": "$label_layer",
+        "max_size": [
+            "100%",
+            "100%"
+        ],
+        "offset": "$label_offset",
+        "shadow": false,
+        "text": "$label_text",
+        "text_alignment": "center",
+        "type": "label"
+    },
+    "common_icon_btn@common.button": {
+        "$button_offset": [
+            0,
+            0
+        ],
+        "$default_text_color": [
+            0.26,
+            0.26,
+            0.26
+        ],
+        "$default_texture": "textures/ui/btn_light_default",
+        "$hover_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$hover_texture": "textures/ui/btn_hover",
+        "$middle_icon_texture": "textures/ui/exchange_icon",
+        "$nineslice_size": 2,
+        "$pressed_button_name": "",
+        "$pressed_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$pressed_texture": "textures/ui/btn_pressed",
+        "$texture_layer": 2,
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "default@parterner_common_toggles.default": {}
+            },
+            {
+                "hover@parterner_common_toggles.hover": {}
+            },
+            {
+                "pressed@parterner_common_toggles.pressed": {}
+            },
+            {
+                "common_img": {
+                    "anchor_from": "center",
+                    "anchor_to": "center",
+                    "fill": true,
+                    "layer": 3,
+                    "size": [
+                        "80%",
+                        "80%"
+                    ],
+                    "texture": "$middle_icon_texture",
+                    "type": "image"
+                }
+            }
+        ],
+        "default_control": "default",
+        "hover_control": "hover",
+        "is_handle_button_move_event": true,
+        "layer": 5,
+        "offset": "$button_offset",
+        "pressed_control": "pressed",
+        "size": [
+            18.0,
+            18.0
+        ],
+        "type": "button",
+        "visible": true
+    },
+    "common_right_panel": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "controls": [],
+        "layer": 10,
+        "size": [
+            "100%",
+            "100%"
+        ],
+        "type": "panel"
+    },
+    "default": {
+        "$alpha|default": 1,
+        "$label_color": "$default_text_color",
+        "$nineslice_size|default": 0,
+        "alpha": "$alpha",
+        "controls": [
+            {
+                "label@parterner_common_toggles.button_label": {}
+            }
+        ],
+        "layer": "$texture_layer",
+        "nineslice_size": "$nineslice_size",
+        "texture": "$default_texture",
+        "type": "image"
+    },
+    "dressItemBG": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "layer": -1,
+        "nineslice_size": 2,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "texture": "textures/ui/pet_ani_bg",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            0,
+            0
+        ],
+        "visible": true
+    },
+    "dressItemName": {
+        "anchor_from": "bottom_middle",
+        "anchor_to": "top_middle",
+        "color": [
+            0.69,
+            0.69,
+            0.69
+        ],
+        "controls": [
+            {
+                "dressUsingImage@parterner_common_toggles.dressUsingImage": {
+                    "anchor_from": "top_left",
+                    "anchor_to": "top_left",
+                    "offset": [
+                        0.0,
+                        0
+                    ],
+                    "size": [
+                        "100.0%y+0.0px",
+                        "100.0%+0.0px"
+                    ]
+                }
+            }
+        ],
+        "font_scale_factor": 1.0,
+        "font_size": "normal",
+        "font_type": "smooth",
+        "layer": 4,
+        "offset": [
+            0.0,
+            0.0
+        ],
+        "shadow": false,
+        "size": [
+            100.0,
+            13.0
+        ],
+        "text": "暗黑小火龙",
+        "text_alignment": "center",
+        "type": "label",
+        "visible": true
+    },
+    "dressItemPreviewBtn@common.button": {
+        "$default_text_color": [
+            0.26,
+            0.26,
+            0.26
+        ],
+        "$default_texture": "textures/ui/btn_dark_default",
+        "$hover_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$hover_texture": "textures/ui/btn_hover",
+        "$nineslice_size": 2,
+        "$pressed_button_name": "",
+        "$pressed_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$pressed_texture": "textures/ui/btn_pressed",
+        "$texture_layer": 2,
+        "anchor_from": "top_right",
+        "anchor_to": "top_right",
+        "controls": [
+            {
+                "default@parterner_common_toggles.default": {}
+            },
+            {
+                "hover@parterner_common_toggles.hover": {}
+            },
+            {
+                "pressed@parterner_common_toggles.pressed": {}
+            },
+            {
+                "dressItemPreviewImage@parterner_common_toggles.dressItemPreviewImage": {}
+            }
+        ],
+        "default_control": "default",
+        "hover_control": "hover",
+        "is_handle_button_move_event": true,
+        "layer": 7,
+        "offset": [
+            0,
+            0
+        ],
+        "pressed_control": "pressed",
+        "size": [
+            15,
+            15
+        ],
+        "type": "button",
+        "visible": true
+    },
+    "dressItemPreviewImage": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "layer": 3,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "texture": "textures/ui/pet_ani_preview",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            0,
+            0
+        ],
+        "visible": true
+    },
+    "dressItemSelectBtn@common.button": {
+        "$default_text_color": [
+            0.26,
+            0.26,
+            0.26
+        ],
+        "$default_texture": "",
+        "$hover_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$hover_texture": "",
+        "$pressed_button_name": "",
+        "$pressed_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$pressed_texture": "",
+        "$texture_layer": 2,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "controls": [
+            {
+                "default@parterner_common_toggles.default": {}
+            },
+            {
+                "hover@parterner_common_toggles.hover": {}
+            },
+            {
+                "pressed@parterner_common_toggles.pressed": {}
+            }
+        ],
+        "default_control": "default",
+        "hover_control": "hover",
+        "is_handle_button_move_event": true,
+        "layer": 6,
+        "offset": [
+            0,
+            0
+        ],
+        "pressed_control": "pressed",
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "type": "button",
+        "visible": true
+    },
+    "dressItemSelected": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "layer": 1,
+        "nineslice_size": 2,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%+2.0px",
+            "100.0%+2.0px"
+        ],
+        "texture": "textures/ui/active_01",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            0,
+            0
+        ],
+        "visible": false
+    },
+    "dressLockImage": {
+        "anchor_from": "bottom_right",
+        "anchor_to": "bottom_right",
+        "layer": 5,
+        "offset": [
+            2.0,
+            2.0
+        ],
+        "size": [
+            20.0,
+            20.0
+        ],
+        "texture": "textures/ui/pet_ani_lock",
+        "type": "image",
+        "visible": true
+    },
+    "dressUsingImage": {
+        "anchor_from": "left_middle",
+        "anchor_to": "right_middle",
+        "layer": 1,
+        "offset": [
+            0.0,
+            0.0
+        ],
+        "size": [
+            13,
+            13
+        ],
+        "texture": "textures/ui/pet_using",
+        "type": "image",
+        "visible": true
+    },
+    "dropButton@common.button": {
+        "$default_text_color": [
+            0.26,
+            0.26,
+            0.26
+        ],
+        "$default_texture": "textures/ui/cell_image",
+        "$hover_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$hover_texture": "textures/ui/cell_image",
+        "$pressed_button_name": "",
+        "$pressed_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$pressed_texture": "textures/ui/cell_image",
+        "$texture_layer": -10,
+        "alpha": 0.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "button_mappings": [],
+        "controls": [
+            {
+                "default@parterner_common_toggles.default": {}
+            },
+            {
+                "hover@parterner_common_toggles.hover": {}
+            },
+            {
+                "pressed@parterner_common_toggles.pressed": {}
+            }
+        ],
+        "default_control": "default",
+        "hover_control": "hover",
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "pressed_control": "pressed",
+        "propagate_alpha": true,
+        "size": [
+            "100%",
+            "100%"
+        ],
+        "type": "button",
+        "visible": true
+    },
+    "hintBg": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "layer": 1,
+        "nineslice_size": 5,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "texture": "textures/ui/hint_tip_bg",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            0,
+            0
+        ],
+        "visible": true
+    },
+    "hintLabel": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "color": [
+            1,
+            1,
+            1
+        ],
+        "font_scale_factor": 1.0,
+        "font_size": "normal",
+        "font_type": "smooth",
+        "layer": 2,
+        "offset": [
+            0,
+            0
+        ],
+        "shadow": false,
+        "size": [
+            "100.0%+0.0px",
+            "default"
+        ],
+        "text": "已解散并隐藏你的伙伴",
+        "text_alignment": "center",
+        "type": "label",
+        "visible": true
+    },
+    "hintPanel": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "controls": [
+            {
+                "hintBg@parterner_common_toggles.hintBg": {}
+            },
+            {
+                "hintLabel@parterner_common_toggles.hintLabel": {}
+            }
+        ],
+        "layer": 500,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "40.0%+0.0px",
+            30.0
+        ],
+        "type": "panel",
+        "visible": false
+    },
+    "hover": {
+        "$alpha|default": 1,
+        "$label_color": "$hover_text_color",
+        "$nineslice_size|default": 0,
+        "alpha": "$alpha",
+        "controls": [
+            {
+                "label@parterner_common_toggles.button_label": {}
+            }
+        ],
+        "layer": "$texture_layer",
+        "nineslice_size": "$nineslice_size",
+        "texture": "$hover_texture",
+        "type": "image"
+    },
+    "itemDetail": {
+        "$offset|default": [
+            0,
+            "-16px"
+        ],
+        "anchor_from": "bottom_middle",
+        "anchor_to": "bottom_middle",
+        "controls": [
+            {
+                "itemDetailBg": {
+                    "alpha": "#itemDetailAlpha",
+                    "bindings": [
+                        {
+                            "binding_condition": "always_when_visible",
+                            "binding_name": "#itemDetailAlpha",
+                            "binding_name_override": "#alpha"
+                        }
+                    ],
+                    "controls": [
+                        {
+                            "itemDetailText": {
+                                "layer": 1,
+                                "text": "",
+                                "type": "label"
+                            }
+                        }
+                    ],
+                    "layer": 30,
+                    "nineslice_size": 4,
+                    "propagate_alpha": true,
+                    "size": [
+                        "100%c + 8px",
+                        "100%c + 8px"
+                    ],
+                    "texture": "textures/ui/purpleBorder",
+                    "type": "image"
+                }
+            }
+        ],
+        "layer": 30,
+        "offset": "$offset",
+        "size": [
+            "100%c",
+            "100%c"
+        ],
+        "type": "panel"
+    },
+    "locked": {
+        "$label_color": "$locked_text_color",
+        "$nineslice_size|default": 0,
+        "controls": [
+            {
+                "label@parterner_common_toggles.button_label": {}
+            }
+        ],
+        "layer": "$texture_layer",
+        "nineslice_size": "$nineslice_size",
+        "texture": "$locked_texture",
+        "type": "image"
+    },
+    "namespace": "parterner_common_toggles",
+    "petDressItem": {
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "dressItemName@parterner_common_toggles.dressItemName": {
+                    "size": [
+                        "100.0%+0.0px",
+                        "25.0%x+0.0px"
+                    ],
+                    "text": "狐狸"
+                }
+            },
+            {
+                "dressLockImage@parterner_common_toggles.dressLockImage": {
+                    "size": [
+                        "35.7%+0.0px",
+                        "100.0%x+0.0px"
+                    ]
+                }
+            },
+            {
+                "dressItemSelectBtn@parterner_common_toggles.dressItemSelectBtn": {}
+            },
+            {
+                "dressItemPreviewBtn@parterner_common_toggles.dressItemPreviewBtn": {
+                    "size": [
+                        "26.79%+0.0px",
+                        "100.0%x+0.0px"
+                    ]
+                }
+            },
+            {
+                "dressItemBG@parterner_common_toggles.dressItemBG": {}
+            },
+            {
+                "dressItemSelected@parterner_common_toggles.dressItemSelected": {
+                    "texture": "textures/ui/pet/parterner/active_01"
+                }
+            }
+        ],
+        "layer": 1,
+        "offset": [
+            "1%+0.0px",
+            0.0
+        ],
+        "size": [
+            56.0,
+            56.0
+        ],
+        "texture": "textures/netease/common/image/default",
+        "type": "image",
+        "visible": true
+    },
+    "petDressItemElement": {
+        "controls": [
+            {
+                "dressItemSelectBtn@parterner_common_toggles.dressItemSelectBtn": {
+                    "anchor_from": "top_middle",
+                    "anchor_to": "top_middle",
+                    "size": [
+                        "100.0%+0.0px",
+                        "100.0%x+0.0px"
+                    ]
+                }
+            },
+            {
+                "dressItemName@parterner_common_toggles.dressItemName": {
+                    "anchor_to": "bottom_middle",
+                    "font_scale_factor": 0.8,
+                    "size": [
+                        "100.0%+0.0px",
+                        "18.0%x+0.0px"
+                    ]
+                }
+            },
+            {
+                "dressLockImage@parterner_common_toggles.dressLockImage": {
+                    "offset": [
+                        0,
+                        "-15.98%+0.0px"
+                    ],
+                    "size": [
+                        "19.57%+0.0px",
+                        "100.0%x+0.0px"
+                    ]
+                }
+            },
+            {
+                "dressItemPreviewBtn@parterner_common_toggles.dressItemPreviewBtn": {
+                    "size": [
+                        "22.28%+0.0px",
+                        "100.0%x+0.0px"
+                    ],
+                    "visible": false
+                }
+            },
+            {
+                "dressItemBG@parterner_common_toggles.dressItemBG": {
+                    "anchor_from": "top_middle",
+                    "anchor_to": "top_middle",
+                    "offset": [
+                        0,
+                        "1.5%+0.0px"
+                    ],
+                    "size": [
+                        "96.0%+0.0px",
+                        "100.0%x+0.0px"
+                    ],
+                    "visible": false
+                }
+            },
+            {
+                "dressItemSelected@parterner_common_toggles.dressItemSelected": {
+                    "anchor_from": "top_middle",
+                    "anchor_to": "top_middle",
+                    "size": [
+                        "100.0%+0.0px",
+                        "100.0%x+0.0px"
+                    ],
+                    "texture": "textures/ui/pet/parterner/active_01"
+                }
+            },
+            {
+                "petDressItem": {
+                    "anchor_from": "top_middle",
+                    "anchor_to": "top_middle",
+                    "clip_direction": "left",
+                    "clip_ratio": 0.0,
+                    "offset": [
+                        0.0,
+                        "1.5%+0.0px"
+                    ],
+                    "size": [
+                        "96.0%+0.0px",
+                        "100.0%x+0.0px"
+                    ],
+                    "texture": "textures/netease/common/image/default",
+                    "type": "image"
+                }
+            }
+        ],
+        "layer": 1,
+        "size": [
+            92,
+            "119.0%x+0.0px"
+        ],
+        "type": "panel"
+    },
+    "pressed": {
+        "$alpha|default": 1,
+        "$label_color": "$pressed_text_color",
+        "$nineslice_size|default": 0,
+        "alpha": "$alpha",
+        "controls": [
+            {
+                "label@parterner_common_toggles.button_label": {}
+            }
+        ],
+        "layer": "$texture_layer",
+        "nineslice_size": "$nineslice_size",
+        "texture": "$pressed_texture",
+        "type": "image"
+    },
+    "progressiveBar@parterner_left_common_toggles.bag_progressBar": {
+        "$barMaskSize": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "$progressBarSize": [
+            18,
+            3
+        ]
+    },
+    "unlockHint": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "controls": [
+            {
+                "hintPanel": {
+                    "controls": [
+                        {
+                            "hintTitle": {
+                                "anchor_from": "top_middle",
+                                "anchor_to": "top_middle",
+                                "color": [
+                                    0.762,
+                                    0.762,
+                                    0.762
+                                ],
+                                "layer": 1,
+                                "offset": [
+                                    0,
+                                    2
+                                ],
+                                "shadow": true,
+                                "size": [
+                                    "default",
+                                    16
+                                ],
+                                "text": "解锁条件",
+                                "text_alignment": "center",
+                                "type": "label"
+                            }
+                        },
+                        {
+                            "hintText": {
+                                "anchor_from": "top_middle",
+                                "anchor_to": "top_middle",
+                                "layer": 1,
+                                "offset": [
+                                    0,
+                                    16
+                                ],
+                                "size": [
+                                    "default",
+                                    14
+                                ],
+                                "text": "",
+                                "text_alignment": "center",
+                                "type": "label"
+                            }
+                        }
+                    ],
+                    "layer": 30,
+                    "size": [
+                        "100%c",
+                        28
+                    ],
+                    "type": "panel"
+                }
+            }
+        ],
+        "layer": 50,
+        "nineslice_size": 4,
+        "size": [
+            "100%c",
+            "100%c + 8px"
+        ],
+        "texture": "textures/ui/hint_tip_bg",
+        "type": "image",
+        "visible": false
+    },
+    "item_arrange_panel": {
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "item_arrange_btn@common.button": {
+                    "$control_alpha": 1.0,
+                    "$default_texture": "textures/ui/recipe_book_button_borderless_light",
+                    "$hover_texture": "textures/ui/recipe_book_button_borderless_light",
+                    "$is_new_nine_slice": false,
+                    "$label_color": [
+                        1,
+                        1,
+                        1
+                    ],
+                    "$label_font_scale_factor": 1.0,
+                    "$label_font_size": "large",
+                    "$label_layer": 3,
+                    "$label_offset": [
+                        0,
+                        0
+                    ],
+                    "$label_text": "",
+                    "$nine_slice_buttom": 0,
+                    "$nine_slice_left": 0,
+                    "$nine_slice_right": 0,
+                    "$nine_slice_top": 0,
+                    "$nineslice_size": [
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "$pressed_button_name": "%netease_editor_template_namespace.click",
+                    "$pressed_texture": "textures/ui/recipe_book_button_borderless_lightpressednohover",
+                    "$texture_layer": 2,
+                    "bindings": [
+                        {
+                            "binding_collection_name": "",
+                            "binding_condition": "always_when_visible",
+                            "binding_type": "collection_details"
+                        }
+                    ],
+                    "button_mappings": [],
+                    "controls": [
+                        {
+                            "default@netease_editor_template_namespace.default": {
+                                "visible": false
+                            }
+                        },
+                        {
+                            "hover@netease_editor_template_namespace.hover": {
+                                "visible": false
+                            }
+                        },
+                        {
+                            "pressed@netease_editor_template_namespace.pressed": {}
+                        },
+                        {
+                            "button_label@netease_editor_template_namespace.button_label": {}
+                        },
+                        {
+                            "item_arrange_image": {
+                                "clip_direction": "left",
+                                "clip_ratio": 0.0,
+                                "layer": 5,
+                                "size": [
+                                    "100.0%+0.0px",
+                                    "100.0%+0.0px"
+                                ],
+                                "texture": "textures/ui/pet/parterner/icon36",
+                                "type": "image"
+                            }
+                        }
+                    ],
+                    "default_control": "default",
+                    "hover_control": "hover",
+                    "is_handle_button_move_event": true,
+                    "pressed_control": "pressed",
+                    "propagate_alpha": true,
+                    "size": [
+                        "92.0%+0.0px",
+                        "92.0%+0.0px"
+                    ],
+                    "type": "button"
+                }
+            },
+            {
+                "border": {
+                    "controls": [
+                        {
+                            "border_image": {
+                                "clip_direction": "left",
+                                "clip_ratio": 0.0,
+                                "color": [
+                                    0.07450980392156863,
+                                    0.07450980392156863,
+                                    0.07450980392156863
+                                ],
+                                "layer": 1,
+                                "size": [
+                                    "100.0%+0.0px",
+                                    "100.0%+0.0px"
+                                ],
+                                "texture": "textures/ui/focus_border_white",
+                                "type": "image"
+                            }
+                        }
+                    ],
+                    "size": [
+                        "100.0%+0.0px",
+                        "100.0%+0.0px"
+                    ],
+                    "type": "panel"
+                }
+            }
+        ],
+        "layer": 1,
+        "size": [
+            18,
+            18
+        ],
+        "type": "panel",
+        "visible": false
+    }
+}

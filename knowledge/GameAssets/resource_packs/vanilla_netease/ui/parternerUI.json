@@ -1,0 +1,573 @@
+{
+   "bottom_quick_items_list_panel@crafting.drop_item_panel" : {
+      "controls" : [
+         {
+            "custom_hotbar" : {
+               "controls" : [
+                  {
+                     "bg@common.common_panel" : {
+                        "$show_close_button" : false
+                     }
+                  },
+                  {
+                     "custom_hotbar_grid@parterner_left_common_toggles.bag_grid" : {
+                        "$bag_grid_num|default" : 9,
+                        "anchor_from" : "center",
+                        "anchor_to" : "center",
+                        "size" : [ 252, 28 ]
+                     }
+                  }
+               ],
+               "size" : [ 260, 36 ],
+               "type" : "input_panel"
+            }
+         }
+      ],
+      "size" : [ 260, 36 ]
+   },
+   "classic_bottom_quick_items_list_panel@crafting.drop_item_panel" : {
+      "controls" : [
+         {
+            "custom_hotbar" : {
+               "controls" : [
+                  {
+                     "bg@common.common_panel" : {
+                        "$show_close_button" : false
+                     }
+                  },
+                  {
+                     "custom_hotbar_grid@parterner_left_common_toggles.bag_grid" : {
+                        "$bag_grid_num|default" : 9,
+                        "anchor_from" : "center",
+                        "anchor_to" : "center",
+                        "size" : [ 162, 18 ],
+                        "visible" : false
+                     }
+                  }
+               ],
+               "size" : [ 162, 18 ],
+               "type" : "input_panel"
+            }
+         }
+      ],
+      "size" : [ 162, 18 ]
+   },
+   "classic_parterner_content_panel" : {
+      "anchor_from" : "center",
+      "anchor_to" : "center",
+      "controls" : [
+         {
+            "left_panel@parternerUI.classic_parterner_left_content_panel" : {}
+         },
+         {
+            "right_panel@parternerUI.classic_parterner_right_content_panel" : {}
+         },
+         {
+            "main_drop_area_panel" : {
+               "anchor_from" : "center",
+               "anchor_to" : "center",
+               "controls" : [
+                  {
+                     "button@common.button" : {
+                        "$control_alpha" : 1.0,
+                        "$default_texture" : "textures/netease/common/button/default",
+                        "$hover_texture" : "textures/netease/common/button/hover",
+                        "$is_new_nine_slice" : false,
+                        "$label_color" : [ 1, 1, 1 ],
+                        "$label_font_scale_factor" : 1.0,
+                        "$label_font_size" : "large",
+                        "$label_layer" : 3,
+                        "$label_offset" : [ 0, 0 ],
+                        "$label_text" : "Button",
+                        "$nine_slice_buttom" : 0,
+                        "$nine_slice_left" : 0,
+                        "$nine_slice_right" : 0,
+                        "$nine_slice_top" : 0,
+                        "$nineslice_size" : [ 0, 0, 0, 0 ],
+                        "$pressed_button_name" : "%netease_editor_template_namespace.click",
+                        "$pressed_texture" : "textures/netease/common/button/pressed",
+                        "$texture_layer" : 2,
+                        "alpha" : 0.0,
+                        "anchor_from" : "center",
+                        "anchor_to" : "center",
+                        "bindings" : [
+                           {
+                              "binding_collection_name" : "",
+                              "binding_condition" : "always_when_visible",
+                              "binding_type" : "collection_details"
+                           }
+                        ],
+                        "button_mappings" : [],
+                        "controls" : [
+                           {
+                              "default@netease_editor_template_namespace.default" : {}
+                           },
+                           {
+                              "hover@netease_editor_template_namespace.hover" : {}
+                           },
+                           {
+                              "pressed@netease_editor_template_namespace.pressed" : {}
+                           },
+                           {
+                              "button_label@netease_editor_template_namespace.button_label" : {}
+                           }
+                        ],
+                        "default_control" : "default",
+                        "hover_control" : "hover",
+                        "is_handle_button_move_event" : false,
+                        "layer" : 1,
+                        "pressed_control" : "pressed",
+                        "propagate_alpha" : true,
+                        "size" : [ "100.0%+0.0px", "100.0%+0.0px" ],
+                        "sound_volume" : 0.0,
+                        "type" : "button"
+                     }
+                  }
+               ],
+               "layer" : -10,
+               "offset" : [ "0.0%", "0.0%" ],
+               "size" : [ 5000, 5000 ],
+               "type" : "panel"
+            }
+         },
+         {
+            "bottom_quick_items_list_panel_1@parternerUI.bottom_quick_items_list_panel" : {
+               "anchor_from" : "bottom_left",
+               "anchor_to" : "bottom_middle",
+               "offset" : [ 0.0, 36 ],
+               "visible" : false
+            }
+         },
+         {
+            "itemDetail_1@parterner_common_toggles.itemDetail" : {
+               "anchor_from" : "bottom_left",
+               "visible" : false
+            }
+         },
+         {
+            "unlockHint_1@parterner_common_toggles.unlockHint" : {
+               "anchor_from" : "left_middle"
+            }
+         },
+         {
+            "hintPanel_1@parterner_common_toggles.hintPanel" : {
+               "anchor_from" : "left_middle",
+               "anchor_to" : "center",
+               "size" : [ "50.0%+0.0px", 30.0 ]
+            }
+         }
+      ],
+      "layer" : 10,
+      "size" : [ 176, 166 ],
+      "type" : "panel"
+   },
+   "classic_parterner_left_content_panel" : {
+      "anchor_from" : "top_left",
+      "anchor_to" : "top_right",
+      "controls" : [
+         {
+            "left_background@common.common_panel" : {
+               "$show_close_button" : false,
+               "controls" : [
+                  {
+                     "bg_image@$dialog_background" : {
+                        "layer" : 1
+                     }
+                  }
+               ]
+            }
+         },
+         {
+            "parterner_fact_content_left_panel@parterner_left_common_toggles.parterner_fact_content_left_panel" : {
+               "$bag_grid_custom_layer" : 10,
+               "$bag_item_num_text_size" : 0.80,
+               "$func_and_toggle_desc_text_size" : 0.60,
+               "$func_and_toggle_name_text_size" : 0.80,
+               "$item_button_size" : [ 23.340, 23.340 ],
+               "$nav_btn_text_size" : 0.50,
+               "$parterner_bag_itemImg_size" : [ 20, 20 ],
+               "$parterner_func_config_text_scale" : 0.80,
+               "$progressBarSize" : [ 15, 1.70 ],
+               "$wiki_guide_introduce_head_text_size": 0.65,
+               "$wiki_guide_introduce_content_text_size": 0.6,
+               "$wiki_world_content_text_size": 0.8,
+               "$wiki_world_search_result_element_title_text_size": 1.0,
+               "$wiki_world_search_result_element_desc_text_size": 0.8,
+               "layer" : 5
+            }
+         },
+         {
+            "left_drop_area@parterner_common_toggles.dropButton" : {
+               "layer" : 11,
+               "sound_volume" : 0.0,
+               "is_handle_button_move_event" : false
+            }
+         },
+         {
+            "top_nav_btn_cover_panel" : {
+               "anchor_from" : "top_middle",
+               "anchor_to" : "bottom_middle",
+               "controls" : [
+                  {
+                     "left_nav_btn_cover_image" : {
+                        "alpha" : 0.0,
+                        "clip_direction" : "left",
+                        "clip_ratio" : 0.0,
+                        "color" : [ 0.0, 0.0, 0.0 ],
+                        "controls" : [
+                           {
+                              "button@common.button" : {
+                                 "$control_alpha" : 1.0,
+                                 "$default_texture" : "textures/netease/common/button/default",
+                                 "$hover_texture" : "textures/netease/common/button/hover",
+                                 "$is_new_nine_slice" : false,
+                                 "$label_color" : [ 1, 1, 1 ],
+                                 "$label_font_scale_factor" : 1.0,
+                                 "$label_font_size" : "large",
+                                 "$label_layer" : 3,
+                                 "$label_offset" : [ 0, 0 ],
+                                 "$label_text" : "Button",
+                                 "$nine_slice_buttom" : 0,
+                                 "$nine_slice_left" : 0,
+                                 "$nine_slice_right" : 0,
+                                 "$nine_slice_top" : 0,
+                                 "$nineslice_size" : [ 0, 0, 0, 0 ],
+                                 "$pressed_button_name" : "%netease_editor_template_namespace.click",
+                                 "$pressed_texture" : "textures/netease/common/button/pressed",
+                                 "$texture_layer" : 2,
+                                 "alpha" : 0.0,
+                                 "bindings" : [
+                                    {
+                                       "binding_collection_name" : "",
+                                       "binding_condition" : "always_when_visible",
+                                       "binding_type" : "collection_details"
+                                    }
+                                 ],
+                                 "button_mappings" : [],
+                                 "controls" : [
+                                    {
+                                       "default@netease_editor_template_namespace.default" : {}
+                                    },
+                                    {
+                                       "hover@netease_editor_template_namespace.hover" : {}
+                                    },
+                                    {
+                                       "pressed@netease_editor_template_namespace.pressed" : {}
+                                    },
+                                    {
+                                       "button_label@netease_editor_template_namespace.button_label" : {}
+                                    }
+                                 ],
+                                 "default_control" : "default",
+                                 "hover_control" : "hover",
+                                 "is_handle_button_move_event" : true,
+                                 "layer" : 50,
+                                 "pressed_control" : "pressed",
+                                 "propagate_alpha" : true,
+                                 "size" : [ "100.0%+0.0px", "100.0%+0.0px" ],
+                                 "type" : "button"
+                              }
+                           }
+                        ],
+                        "fill" : true,
+                        "layer" : 100,
+                        "size" : [ "100.0%+0.0px", "100.0%+0.0px" ],
+                        "texture" : "textures/ui/background_panel",
+                        "type" : "image"
+                     }
+                  }
+               ],
+               "layer" : 100,
+               "size" : [ "100.0%+0.0px", 27 ],
+               "type" : "panel"
+            }
+         }
+      ],
+      "layer" : 5,
+      "offset" : [ "0.0px", "0.0%" ],
+      "size" : [ 150, 166 ],
+      "type" : "panel"
+   },
+   "classic_parterner_right_content_panel@parterner_common_toggles.common_right_panel" : {
+      "anchor_from" : "top_right",
+      "anchor_to" : "top_right",
+      "controls" : [
+         {
+            "right_content_panel@parterner_right_common_toggles.common_right_content_panel" : {
+               "$paper_doll_offset" : [ 0, -80 ],
+               "$paper_doll_scale_default" : 1.0,
+               "$parterner_func_visible" : false,
+               "$parterner_name_panel_size" : [ "8.17%+0.0px", "3.95%+0.0px" ],
+               "$summon_stable_label_text_scale" : 0.90,
+               "anchor_from" : "top_middle",
+               "anchor_to" : "top_middle",
+               "offset" : [ "0.0px", "1.13%+0.0px" ],
+               "size" : [ "97.92%+0.0px", "98.88%+0.0px" ]
+            }
+         },
+         {
+            "right_drop_area@parterner_common_toggles.dropButton" : {
+               "layer" : 7,
+               "sound_volume" : 0.0,
+               "is_handle_button_move_event" : false
+            }
+         }
+      ],
+      "size" : [ "100%", "100%" ]
+   },
+   "namespace" : "parternerUI",
+   "parterner_content_panel" : {
+      "anchor_from" : "center",
+      "anchor_to" : "center",
+      "controls" : [
+         {
+            "left_panel@parternerUI.parterner_left_content_panel" : {}
+         },
+         {
+            "right_panel@parternerUI.parterner_right_content_panel" : {}
+         },
+         {
+            "main_drop_area_panel" : {
+               "anchor_from" : "center",
+               "anchor_to" : "center",
+               "controls" : [
+                  {
+                     "button@common.button" : {
+                        "$control_alpha" : 1.0,
+                        "$default_texture" : "textures/netease/common/button/default",
+                        "$hover_texture" : "textures/netease/common/button/hover",
+                        "$is_new_nine_slice" : false,
+                        "$label_color" : [ 1, 1, 1 ],
+                        "$label_font_scale_factor" : 1.0,
+                        "$label_font_size" : "large",
+                        "$label_layer" : 3,
+                        "$label_offset" : [ 0, 0 ],
+                        "$label_text" : "Button",
+                        "$nine_slice_buttom" : 0,
+                        "$nine_slice_left" : 0,
+                        "$nine_slice_right" : 0,
+                        "$nine_slice_top" : 0,
+                        "$nineslice_size" : [ 0, 0, 0, 0 ],
+                        "$pressed_button_name" : "%netease_editor_template_namespace.click",
+                        "$pressed_texture" : "textures/netease/common/button/pressed",
+                        "$texture_layer" : 2,
+                        "alpha" : 0.0,
+                        "anchor_from" : "center",
+                        "anchor_to" : "center",
+                        "bindings" : [
+                           {
+                              "binding_collection_name" : "",
+                              "binding_condition" : "always_when_visible",
+                              "binding_type" : "collection_details"
+                           }
+                        ],
+                        "button_mappings" : [],
+                        "controls" : [
+                           {
+                              "default@netease_editor_template_namespace.default" : {}
+                           },
+                           {
+                              "hover@netease_editor_template_namespace.hover" : {}
+                           },
+                           {
+                              "pressed@netease_editor_template_namespace.pressed" : {}
+                           },
+                           {
+                              "button_label@netease_editor_template_namespace.button_label" : {}
+                           }
+                        ],
+                        "default_control" : "default",
+                        "hover_control" : "hover",
+                        "is_handle_button_move_event" : false,
+                        "layer" : 1,
+                        "pressed_control" : "pressed",
+                        "propagate_alpha" : true,
+                        "size" : [ "100.0%+0.0px", "100.0%+0.0px" ],
+                        "sound_volume" : 0.0,
+                        "type" : "button",
+                        "visible" : false
+                     }
+                  },
+                  {
+                     "image" : {
+                        "clip_direction" : "left",
+                        "clip_ratio" : 0.0,
+                        "color" : [ 0.09019607843137255, 0.3333333333333333, 0.1176470588235294 ],
+                        "layer" : 0,
+                        "size" : [ "100.0%+0.0px", "100.0%+0.0px" ],
+                        "texture" : "textures/netease/common/image/default",
+                        "type" : "image",
+                        "visible" : false
+                     }
+                  }
+               ],
+               "layer" : -26,
+               "offset" : [ "0.0%", "0.0%" ],
+               "size" : [ 5000, 5000 ],
+               "type" : "panel"
+            }
+         },
+         {
+            "bottom_quick_items_list_panel_1@parternerUI.bottom_quick_items_list_panel" : {
+               "anchor_from" : "bottom_left",
+               "anchor_to" : "bottom_middle",
+               "offset" : [ 0.0, 36 ],
+               "visible" : false
+            }
+         },
+         {
+            "itemDetail_1@parterner_common_toggles.itemDetail" : {
+               "anchor_from" : "bottom_left",
+               "visible" : false
+            }
+         },
+         {
+            "unlockHint_1@parterner_common_toggles.unlockHint" : {
+               "anchor_from" : "left_middle"
+            }
+         },
+         {
+            "hintPanel_1@parterner_common_toggles.hintPanel" : {
+               "anchor_from" : "left_middle",
+               "anchor_to" : "center",
+               "size" : [ "50.0%+0.0px", 30.0 ]
+            }
+         }
+      ],
+      "layer" : 10,
+      "size" : [ "100%", "100%" ],
+      "type" : "panel"
+   },
+   "parterner_left_content_panel" : {
+      "anchor_from" : "top_left",
+      "anchor_to" : "top_right",
+      "controls" : [
+         // {
+         //    "left_background@common.common_panel" : {
+         //       "$show_close_button" : false,
+         //       "controls" : [
+         //          {
+         //             "bg_image@$dialog_background" : {
+         //                "layer" : 1
+         //             }
+         //          }
+         //       ]
+         //    }
+         // },
+         {
+            "parterner_fact_content_left_panel@parterner_left_common_toggles.parterner_fact_content_left_panel" : {
+               "layer" : 5
+            }
+         },
+         {
+            "left_drop_area@parterner_common_toggles.dropButton" : {
+               "layer" : 11,
+               "sound_volume" : 0.0,
+               "visible" : false,
+               "is_handle_button_move_event" : false
+
+            }
+         },
+         {
+            "left_nav_btn_cover_panel" : {
+               "anchor_from" : "top_left",
+               "anchor_to" : "top_right",
+               "controls" : [
+                  {
+                     "left_nav_btn_cover_image" : {
+                        "alpha" : 0.50,
+                        "clip_direction" : "left",
+                        "clip_ratio" : 0.0,
+                        "color" : [ 0.0, 0.0, 0.0 ],
+                        "controls" : [
+                           {
+                              "button@common.button" : {
+                                 "$control_alpha" : 1.0,
+                                 "$default_texture" : "textures/netease/common/button/default",
+                                 "$hover_texture" : "textures/netease/common/button/hover",
+                                 "$is_new_nine_slice" : false,
+                                 "$label_color" : [ 1, 1, 1 ],
+                                 "$label_font_scale_factor" : 1.0,
+                                 "$label_font_size" : "large",
+                                 "$label_layer" : 3,
+                                 "$label_offset" : [ 0, 0 ],
+                                 "$label_text" : "Button",
+                                 "$nine_slice_buttom" : 0,
+                                 "$nine_slice_left" : 0,
+                                 "$nine_slice_right" : 0,
+                                 "$nine_slice_top" : 0,
+                                 "$nineslice_size" : [ 0, 0, 0, 0 ],
+                                 "$pressed_button_name" : "%netease_editor_template_namespace.click",
+                                 "$pressed_texture" : "textures/netease/common/button/pressed",
+                                 "$texture_layer" : 2,
+                                 "alpha" : 0.0,
+                                 "bindings" : [
+                                    {
+                                       "binding_collection_name" : "",
+                                       "binding_condition" : "always_when_visible",
+                                       "binding_type" : "collection_details"
+                                    }
+                                 ],
+                                 "button_mappings" : [],
+                                 "controls" : [
+                                    {
+                                       "default@netease_editor_template_namespace.default" : {}
+                                    },
+                                    {
+                                       "hover@netease_editor_template_namespace.hover" : {}
+                                    },
+                                    {
+                                       "pressed@netease_editor_template_namespace.pressed" : {}
+                                    },
+                                    {
+                                       "button_label@netease_editor_template_namespace.button_label" : {}
+                                    }
+                                 ],
+                                 "default_control" : "default",
+                                 "hover_control" : "hover",
+                                 "is_handle_button_move_event" : true,
+                                 "layer" : 50,
+                                 "pressed_control" : "pressed",
+                                 "propagate_alpha" : true,
+                                 "size" : [ "100.0%+0.0px", "100.0%+0.0px" ],
+                                 "type" : "button"
+                              }
+                           }
+                        ],
+                        "fill" : true,
+                        "layer" : 100,
+                        "size" : [ "100.0%+0.0px", "100.0%+0.0px" ],
+                        "texture" : "textures/ui/background_panel",
+                        "type" : "image"
+                     }
+                  }
+               ],
+               "layer" : 100,
+               "size" : [ 31, "100.0%+0.0px" ],
+               "type" : "panel"
+            }
+         }
+      ],
+      "layer" : 5,
+      "offset" : [ "-4px", "0.0%" ],
+      "size" : [ "100%-4px", "100%" ],
+      "type" : "panel"
+   },
+   "parterner_right_content_panel@parterner_common_toggles.common_right_panel" : {
+      "controls" : [
+         {
+            "right_content_panel@parterner_right_common_toggles.common_right_content_panel" : {
+               "$parterner_func_visible" : true
+            }
+         },
+         {
+            "right_drop_area@parterner_common_toggles.dropButton" : {
+               "layer" : 7,
+               "sound_volume" : 0.0,
+               "visible" : false,
+               "is_handle_button_move_event" : false
+            }
+         }
+      ]
+   }
+}

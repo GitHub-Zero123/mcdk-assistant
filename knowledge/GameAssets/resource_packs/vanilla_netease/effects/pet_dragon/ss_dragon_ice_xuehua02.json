@@ -1,0 +1,73 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "value": "Direction",
+            "min": "-1.0 0.0 0.0"
+        },
+        "numparticles": {
+            "value": "8"
+        },
+        "colorfade": [
+            {
+                "color": "0.5294 0.9922 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.6745 0.9765 1.0000 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "emissionrate": {
+            "max": "10.0",
+            "min": "8.0"
+        },
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.15 0.5 1.7"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "timetolive": {
+            "max": "0.8",
+            "min": "0.5"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": true,
+                "name": "textures/sfxs/pet_dragon/ss_dragon_ice_xuehua",
+                "fps": "4"
+            },
+            "name": "textures/sfxs/pet_dragon/ss_dragon_ice_xuehua"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.1",
+            "min": "0.1"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "particlesize": {
+            "max": "0.06 0.06",
+            "min": "0.03 0.03"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.14 1.14",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.45 0.45",
+                "time": "100.0%"
+            }
+        ]
+    }
+}

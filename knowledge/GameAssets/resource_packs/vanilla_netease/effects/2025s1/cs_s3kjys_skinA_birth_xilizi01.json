@@ -1,0 +1,92 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "1.0"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.6745 0.1451 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.6824 0.1294 1.0000",
+                "time": "20.8%"
+            },
+            {
+                "color": "1.0000 0.6549 0.1725 1.0000",
+                "time": "76.6%"
+            },
+            {
+                "color": "1.0000 0.4431 0.0745 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "delay": 1.8,
+        "depthtest": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "12.0",
+            "min": "12.0"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "layer": 5,
+        "numparticles": {
+            "value": "12"
+        },
+        "particlesize": {
+            "max": "1.0 1.0",
+            "min": "0.4 0.4"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 666.0",
+            "min": "0.0 0.0 -666.0"
+        },
+        "rotationSpeedRange": {
+            "max": "0.0 0.0 -50.0",
+            "min": "0.0 0.0 50.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "2.2 2.2",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.15 1.15",
+                "time": "8.0%"
+            },
+            {
+                "scale": "0.75 0.75",
+                "time": "14.0%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "96.3%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s1/cs_s3kjys_skinA_birth_xingguang01"
+        },
+        "timetolive": {
+            "max": "0.35",
+            "min": "0.6"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

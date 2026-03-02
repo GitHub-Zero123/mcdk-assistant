@@ -1,0 +1,89 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "value": "Direction",
+            "min": "0.0 -1.0 0.0"
+        },
+        "numparticles": {
+            "value": "7"
+        },
+        "pointFiltering": true,
+        "colorfade": [
+            {
+                "color": "0.0745 0.3529 1.0000 0.3750",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "20.3%"
+            },
+            {
+                "color": "0.8549 0.4824 1.0000 0.3214",
+                "time": "37.1%"
+            },
+            {
+                "color": "1.0000 1.0000 0.0000 0.8482",
+                "time": "63.7%"
+            },
+            {
+                "color": "1.0000 0.9176 0.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "emissionrate": {
+            "max": "5.0",
+            "min": "4.0"
+        },
+        "emitterScaleCurve": [],
+        "enableloop": {
+            "enable": "true"
+        },
+        "emittersize": {
+            "value": "0.2 0.4 1.5"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "timetolive": {
+            "max": "0.8",
+            "min": "0.5"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": false,
+                "name": "textures/sfxs/pet_dragon/ss_dragon_huiyuan_starry",
+                "fps": "16"
+            },
+            "name": "textures/sfxs/pet_dragon/ss_dragon_huiyuan_starry"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.5",
+            "min": "0.3"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "particlesize": {
+            "max": "0.02 0.02",
+            "min": "0.04 0.04"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.2 1.2",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.8 0.8",
+                "time": "100.0%"
+            }
+        ]
+    }
+}

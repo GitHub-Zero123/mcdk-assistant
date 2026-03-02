@@ -1,0 +1,107 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.1"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "0.0000 0.5333 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.0000 0.5333 1.0000 0.0000",
+                "time": "10.8%"
+            },
+            {
+                "color": "0.0000 0.4000 1.0000 0.6429",
+                "time": "17.9%"
+            },
+            {
+                "color": "0.0000 0.4000 1.0000 0.9911",
+                "time": "31.1%"
+            },
+            {
+                "color": "0.0000 0.4000 1.0000 1.0000",
+                "time": "74.5%"
+            },
+            {
+                "color": "0.0000 0.1804 1.0000 0.7946",
+                "time": "89.2%"
+            },
+            {
+                "color": "0.0000 0.1804 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "dampingforce": {
+            "value": "2.0"
+        },
+        "direction": {
+            "max": "1.0 0.0 0.0",
+            "min": "1.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "3000.0",
+            "min": "3000.0"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Direction Horizontal"
+        },
+        "inactivetime": {
+            "value": "2.0"
+        },
+        "layer": 2,
+        "numparticles": {
+            "value": "1"
+        },
+        "particlesize": {
+            "max": "-0.04 0.04",
+            "min": "-0.04 0.04"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "85.0 0.0 180.0",
+            "min": "85.0 0.0 180.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.5 1.5",
+                "time": "8.0%"
+            },
+            {
+                "scale": "1.5 1.5",
+                "time": "27.0%"
+            },
+            {
+                "scale": "2.65 2.65",
+                "time": "50.0%"
+            },
+            {
+                "scale": "4.15 4.15",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "16",
+                "name": "textures/sfxs/2025s1/ss_s3kjys_skinB_miaobian1",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s1/ss_s3kjys_skinB_miaobian1"
+        },
+        "velocity": {
+            "max": "0.4",
+            "min": "0.4"
+        }
+    }
+}

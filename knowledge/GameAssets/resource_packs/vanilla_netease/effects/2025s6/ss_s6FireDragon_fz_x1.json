@@ -1,0 +1,47 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "direction": {
+            "max": "0.0 0.0 1.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "18.0",
+            "min": "9.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "1.0599999999999998 1.0599999999999998 0.0"
+        },
+        "emittertype": {
+            "value": "Cylinder"
+        },
+        "particlesize": {
+            "max": "0.4 0.4",
+            "min": "0.25 0.25"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "ani": {
+                "fps": "20",
+                "name": "textures/sfxs/2025s6/ss_s6FireDragon_fz_x1",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s6/ss_s6FireDragon_fz_x1"
+        },
+        "thickness": {
+            "value": "0.1"
+        },
+        "velocity": {
+            "max": "1.6",
+            "min": "1.0"
+        }
+    }
+}

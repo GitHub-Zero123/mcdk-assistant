@@ -1,0 +1,65 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 0.4980 1.0000",
+                "time": "0.00"
+            },
+            {
+                "color": "1.0000 1.0000 0.4980 0.7843",
+                "time": "0.50"
+            },
+            {
+                "color": "1.0000 0.6667 0.0000 0.0000",
+                "time": "1.00"
+            }
+        ],
+        "depthtest": {
+            "enable": "true"
+        },
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 0.0 -1.0",
+            "value": "Direction"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "1.5 1.5 0.0"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "enableloop": {
+            "enable": "true"
+        },
+        "independent": false,
+        "particlesize": {
+            "max": "0.1 0.1",
+            "min": "0.05 0.05"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "0.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "7",
+                "name": "textures/particle/s4/xy_2019Q4_fazhen_huiyuanziyuan_02_lizi",
+                "shuffle": false
+            },
+            "name": "textures/particle/s4/xy_2019Q4_fazhen_huiyuanziyuan_02_lizi"
+        },
+        "thickness": {
+            "value": "0"
+        }
+    }
+}

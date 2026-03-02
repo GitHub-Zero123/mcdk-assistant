@@ -1,0 +1,28 @@
+{
+    "format_version": "1.13.0",
+    "minecraft:ore_feature": {
+        "description": {
+            "identifier": "minecraft:gold_ore_feature"
+        },
+        "count": 9,
+        "discard_chance_on_air_exposure": 0.5,
+        "replace_rules": [
+            {
+                "places_block": "minecraft:gold_ore",
+                "may_replace": [
+                    {
+                        "name": "minecraft:stone"
+                    }
+                ]
+            },
+            {
+                "places_block": "minecraft:deepslate_gold_ore",
+                "may_replace": [
+                    {
+                        "name": "minecraft:deepslate"
+                    }
+                ]
+            }
+        ]
+    }
+}

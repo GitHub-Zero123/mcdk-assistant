@@ -1,0 +1,105 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.2"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.9911",
+                "time": "7.4%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.9464",
+                "time": "43.4%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "constantforce": {
+            "value": "0.0 0.0 -5.0"
+        },
+        "dampingforce": {
+            "value": "4.5"
+        },
+        "delay": 2.9,
+        "depthtest": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Outwards"
+        },
+        "disorder": {
+            "increment": "0.25",
+            "interval": "0.3",
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0"
+        },
+        "emissionrate": {
+            "max": "3000.0",
+            "min": "3000.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "2.0 1.0 0.5"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "layer": 6,
+        "numparticles": {
+            "value": "25"
+        },
+        "particlesize": {
+            "max": "0.45 0.45",
+            "min": "0.2 0.2"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "20.0 20.0 666.0",
+            "min": "-20.0 -20.0 -666.0"
+        },
+        "rotationSpeedRange": {
+            "max": "120.0 120.0 333.0",
+            "min": "-120.0 -120.0 -333.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.8 0.8",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s5/cs_s5Feng_skin_birth_yumao01"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "1.0",
+            "min": "0.5"
+        },
+        "velocity": {
+            "max": "20.0",
+            "min": "5.0"
+        }
+    }
+}

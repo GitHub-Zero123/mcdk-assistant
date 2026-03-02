@@ -1,0 +1,107 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.1608 0.1333 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.3098 0.2196 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.2353 0.2471 1.0000",
+                "time": "11.8%"
+            },
+            {
+                "color": "1.0000 0.2235 0.2235 1.0000",
+                "time": "39.5%"
+            },
+            {
+                "color": "1.0000 0.3882 0.3882 1.0000",
+                "time": "55.5%"
+            },
+            {
+                "color": "1.0000 0.2627 0.2627 1.0000",
+                "time": "71.1%"
+            },
+            {
+                "color": "1.0000 0.1176 0.3098 1.0000",
+                "time": "79.7%"
+            },
+            {
+                "color": "0.8000 0.2039 0.2039 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "0.3 1.0 0.0",
+            "min": "-0.1 0.0 0.0",
+            "value": "Direction"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.5 0.6 0.1"
+        },
+        "emittertype": {
+            "value": "Hemisphere"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "numparticles": {
+            "value": "6"
+        },
+        "particlesize": {
+            "max": "0.02 0.02",
+            "min": "0.01 0.01"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.94 0.94",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.06 0.06",
+                "time": "20.0%"
+            },
+            {
+                "scale": "0.84 0.84",
+                "time": "41.0%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "63.0%"
+            },
+            {
+                "scale": "0.84 0.84",
+                "time": "80.3%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s1/star_01"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "1.2",
+            "min": "0.8"
+        },
+        "velocity": {
+            "max": "0.5",
+            "min": "0.2"
+        }
+    }
+}

@@ -1,0 +1,58 @@
+{
+    "particleeffect": {
+        "independent": false,
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "value": "Direction",
+            "min": "-1.0 0.0 0.0"
+        },
+        "dampingforce": {
+            "value": "0.5"
+        },
+        "numparticles": {
+            "value": "5"
+        },
+        "colorfade": [],
+        "emissionrate": {
+            "max": "5.0",
+            "min": "2.0"
+        },
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.3 0.3 0.3"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": false,
+                "name": "textures/sfxs/pet_seamonster/ss_jinli_seamonster_paopao",
+                "fps": "8"
+            },
+            "name": "textures/sfxs/pet_seamonster/ss_jinli_seamonster_paopao"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "timetolive": {
+            "max": "0.8",
+            "min": "0.5"
+        },
+        "depthtest": {
+            "enable": "true"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.5",
+            "min": "0.2"
+        },
+        "particlesize": {
+            "max": "0.12 0.12",
+            "min": "0.04 0.04"
+        }
+    }
+}

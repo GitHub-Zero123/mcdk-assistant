@@ -1,0 +1,40 @@
+{
+    "format_version": 2,
+    "header": {
+        "description": "resourcePack.edu_server.description",
+        "name": "resourcePack.edu_server.name",
+        "uuid": "9b2ee940-33c4-4894-8b81-9ae65dc8353c",
+        "version": [
+            0,
+            0,
+            1
+        ],
+        "min_engine_version": [
+            1,
+            14,
+            0
+        ]
+    },
+    "modules": [
+        {
+            "description": "resourcePack.edu_server.description",
+            "type": "data",
+            "uuid": "c166d609-900e-4040-8870-2741505f3a1f",
+            "version": [
+                0,
+                0,
+                1
+            ]
+        }
+    ],
+    "dependencies": [
+        {
+            "uuid": "9c4f525e-74c9-406e-add9-e1f9059d4da2",
+            "version": [
+                0,
+                0,
+                1
+            ]
+        }
+    ]
+}

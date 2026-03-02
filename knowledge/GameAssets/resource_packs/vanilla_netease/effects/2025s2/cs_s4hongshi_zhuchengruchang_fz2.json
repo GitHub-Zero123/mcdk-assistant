@@ -1,0 +1,89 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "2.5"
+        },
+        "colorfade": [
+            {
+                "color": "0.7725 0.1608 0.1608 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.5843 0.0980 0.0980 0.6518",
+                "time": "7.9%"
+            },
+            {
+                "color": "0.3608 0.0275 0.0275 0.6339",
+                "time": "34.5%"
+            },
+            {
+                "color": "0.3373 0.0431 0.0431 0.6518",
+                "time": "86.3%"
+            },
+            {
+                "color": "0.2314 0.0667 0.0667 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "delay": 0.3,
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "50.0",
+            "min": "50.0"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Horizontal"
+        },
+        "layer": 2,
+        "numparticles": {
+            "value": "2"
+        },
+        "particlesize": {
+            "max": "3.0 3.0",
+            "min": "3.0 3.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.0 0.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.88 0.88",
+                "time": "3.0%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "11.0%"
+            },
+            {
+                "scale": "1.84 1.84",
+                "time": "14.7%"
+            },
+            {
+                "scale": "2.25 2.25",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s2/cs_s4hongshi_zhuchengruchang_sun"
+        },
+        "timetolive": {
+            "max": "4.6",
+            "min": "4.6"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

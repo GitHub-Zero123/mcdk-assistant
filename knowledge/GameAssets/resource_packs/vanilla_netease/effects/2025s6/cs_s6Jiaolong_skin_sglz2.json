@@ -1,0 +1,71 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "8.0",
+            "min": "8.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.1 0.6 0.1"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "layer": 3,
+        "numparticles": {
+            "value": "8"
+        },
+        "offsetInCamera": {
+            "value": "-0.18"
+        },
+        "particlesize": {
+            "max": "0.03 0.03",
+            "min": "0.03 0.03"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "32.0%"
+            },
+            {
+                "scale": "0.8 0.8",
+                "time": "65.7%"
+            },
+            {
+                "scale": "0.02 0.02",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "0",
+                "name": "textures/sfxs/2025s6/cs_s6Jiaolong_skin_sglx",
+                "shuffle": true
+            },
+            "name": "textures/sfxs/2025s6/cs_s6Jiaolong_skin_sglx"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.5",
+            "min": "0.5"
+        }
+    }
+}

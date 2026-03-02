@@ -1,0 +1,96 @@
+{
+    "particleeffect": {
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.1607",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "26.6%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.8661",
+                "time": "65.8%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "constantforce": {
+            "value": "0.05 0.05 0.0"
+        },
+        "dampingforce": {
+            "value": "0.5"
+        },
+        "direction": {
+            "max": "1.0 -1.0 -1.0",
+            "min": "1.0 1.0 1.0",
+            "value": "Direction"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.1 0.1 0.1"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "numparticles": {
+            "value": "4"
+        },
+        "particlesize": {
+            "max": "0.02 0.02",
+            "min": "0.01 0.01"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "rotationSpeedRange": {
+            "max": "0.0 0.0 -150.0",
+            "min": "0.0 0.0 150.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.34 0.34",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.98 0.98",
+                "time": "31.3%"
+            },
+            {
+                "scale": "0.92 0.92",
+                "time": "71.3%"
+            },
+            {
+                "scale": "0.54 0.54",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "0",
+                "name": "textures/sfxs/2025s6/ss_s6FlowerDragon_weapon_hb1",
+                "shuffle": true
+            },
+            "name": "textures/sfxs/2025s6/ss_s6FlowerDragon_weapon_hb1"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "1.3",
+            "min": "0.7"
+        },
+        "velocity": {
+            "max": "0.3",
+            "min": "0.1"
+        }
+    }
+}

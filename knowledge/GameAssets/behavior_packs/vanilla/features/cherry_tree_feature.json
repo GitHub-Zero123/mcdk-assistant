@@ -1,0 +1,83 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:tree_feature": {
+    "description": {
+      "identifier": "minecraft:cherry_tree_feature"
+    },
+    "cherry_trunk": {
+      "trunk_block": "minecraft:cherry_log",
+      "trunk_height": {
+        "base": 7,
+        "intervals": [ 1 ]
+      },
+      "branches": {
+        "tree_type_weights": {
+          "one_branch": 10,
+          "two_branches": 10,
+          "two_branches_and_trunk": 10
+        },
+        "branch_horizontal_length": {
+          "range_min": 2,
+          "range_max": 4
+        },
+        "branch_start_offset_from_top": {
+          "range_min": -4,
+          "range_max": -3
+        },
+        "branch_end_offset_from_top": {
+          "range_min": -1,
+          "range_max": 0
+        },
+        "branch_canopy": {
+          "cherry_canopy": {
+            "leaf_block": "minecraft:cherry_leaves",
+            "height": 5,
+            "radius": 4,
+            "wide_bottom_layer_hole_chance": 25,
+            "corner_hole_chance": 50,
+            "hanging_leaves_chance": 16.6666,
+            "hanging_leaves_extension_chance": 33.3333
+          }
+        }
+      }
+    },
+    "cherry_canopy": {
+      "leaf_block": "minecraft:cherry_leaves",
+      "height": 5,
+      "radius": 4,
+      "wide_bottom_layer_hole_chance": 25,
+      "corner_hole_chance": 50,
+      "hanging_leaves_chance": 16.6666,
+      "hanging_leaves_extension_chance": 33.3333
+    },
+    // Blocks the tree can be placed on.
+    "may_grow_on": [
+      { "tags": "query.any_tag('dirt')" }
+    ],
+    // Any "may_grow_on" block that is not specified here will be replaced with the first block in this list.
+    "base_block": [
+      "minecraft:dirt",
+      "minecraft:coarse_dirt"
+    ],
+    // Blocks to ignore when checking for clearance around the tree. Already includes all blocks specified in "may_replace".
+    "may_grow_through": [
+      { "tags": "query.any_tag('dirt')" }
+    ],
+    // Blocks that can be replaced by the tree's trunk and canopy.
+    "may_replace": [
+      "minecraft:air",
+      "minecraft:snow_layer",
+      // All leaves (except self)
+      "minecraft:acacia_leaves",
+      "minecraft:azalea_leaves",
+      "minecraft:azalea_leaves_flowered",
+      "minecraft:birch_leaves",
+      "minecraft:dark_oak_leaves",
+      "minecraft:jungle_leaves",
+      "minecraft:mangrove_leaves",
+      "minecraft:oak_leaves",
+      "minecraft:pale_oak_leaves",
+      "minecraft:spruce_leaves"
+    ]
+  }
+}

@@ -1,0 +1,64 @@
+{
+    "particleeffect": {
+        "colorfade": [
+            {
+                "color": "0.3176 0.7569 0.7059 0.6696",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.5059 0.7725 0.8510 0.4107",
+                "time": "56.8%"
+            },
+            {
+                "color": "0.0941 0.2941 0.3333 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 0.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "6.0",
+            "min": "6.0"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Direction Horizontal"
+        },
+        "numparticles": {
+            "value": "5"
+        },
+        "particlesize": {
+            "max": "2.0 2.3",
+            "min": "2.0 2.3"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "false"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 180.0",
+            "min": "0.0 0.0 180.0"
+        },
+        "texture": {
+            "ani": {
+                "fps": "12",
+                "name": "textures/sfxs/2025s1/cs_s3guofeng_horse_di_01",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s1/cs_s3guofeng_horse_di_01"
+        },
+        "timetolive": {
+            "max": "0.6",
+            "min": "0.6"
+        },
+        "velocity": {
+            "max": "0.1",
+            "min": "0.1"
+        }
+    }
+}

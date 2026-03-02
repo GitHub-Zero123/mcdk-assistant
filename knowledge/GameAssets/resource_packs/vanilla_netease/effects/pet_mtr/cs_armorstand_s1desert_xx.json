@@ -1,0 +1,72 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "value": "Direction",
+            "min": "-1.0 -1.0 -1.0"
+        },
+        "numparticles": {
+            "value": "3"
+        },
+        "colorfade": [
+            {
+                "color": "0.9804 1.0000 0.5647 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.7098 0.0314 1.0000",
+                "time": "58.2%"
+            },
+            {
+                "color": "1.0000 0.5490 0.0000 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "emissionrate": {
+            "max": "3.0",
+            "min": "1.0"
+        },
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.5 0.8 0.5"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "timetolive": {
+            "max": "0.5",
+            "min": "0.4"
+        },
+        "texture": {
+            "name": "textures/sfxs/pet_mtr/cs_armorstand_s1desert_xx2"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.0 0.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.78 0.78",
+                "time": "56.3%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            }
+        ]
+    }
+}

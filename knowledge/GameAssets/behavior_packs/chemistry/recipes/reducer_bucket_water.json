@@ -1,0 +1,28 @@
+{
+    "format_version": "1.14",
+    "minecraft:recipe_material_reduction": {
+        "description": {
+            "identifier": "minecraft:bucket:8"
+        },
+        "input": "minecraft:bucket:8",
+        "output": [
+            {
+                "count": 64,
+                "item": "minecraft:element_1"
+            },
+            {
+                "count": 3,
+                "item": "minecraft:element_1"
+            },
+            {
+                "count": 33,
+                "item": "minecraft:element_8"
+            },
+            {
+                "count": 1,
+                "item": "minecraft:bucket"
+            }
+        ],
+        "tags": "material_reducer"
+    }
+}

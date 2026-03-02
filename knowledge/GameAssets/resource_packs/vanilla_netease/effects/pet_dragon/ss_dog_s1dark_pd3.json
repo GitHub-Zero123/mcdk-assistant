@@ -1,0 +1,78 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "value": "Direction",
+            "min": "0.0 0.0 0.0"
+        },
+        "numparticles": {
+            "value": "8"
+        },
+        "pointFiltering": true,
+        "emittertype": {
+            "value": "Box"
+        },
+        "emissionrate": {
+            "max": "8.0",
+            "min": "8.0"
+        },
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.1 0.0 0.01"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "trail": {
+            "textile": "0.5 0.5",
+            "facemode": 0,
+            "maxnum": 200,
+            "colorfade": [
+                {
+                    "color": "0.3333333333333333 0.6666666666666666 1.0 0.0",
+                    "time": "0.000%"
+                },
+                {
+                    "color": "0.3333333333333333 1.0 1.0 0.5178571428571428",
+                    "time": "14.211%"
+                },
+                {
+                    "color": "0.3333333333333333 1.0 1.0 0.1517857142857143",
+                    "time": "40.000%"
+                },
+                {
+                    "color": "0.5254901960784314 1.0 0.9607843137254902 0.008928571428571397",
+                    "time": "61.316%"
+                },
+                {
+                    "color": "0.6666666666666666 0.6666666666666666 1.0 0.0",
+                    "time": "100.000%"
+                }
+            ],
+            "useparticlewidth": true,
+            "useparticlecolor": false,
+            "worldspace": true,
+            "texmode": 0,
+            "mindistance": 0.01,
+            "lifetime": 0.15
+        },
+        "timetolive": {
+            "max": "0.4",
+            "min": "0.4"
+        },
+        "texture": {
+            "name": "textures/sfxs/pet_dragon/cs_loong_horseB_tuowei01"
+        },
+        "emitterscale": [],
+        "blend": {
+            "name": "add"
+        },
+        "particlesize": {
+            "max": "0.09 0.09",
+            "min": "0.09 0.09"
+        }
+    }
+}

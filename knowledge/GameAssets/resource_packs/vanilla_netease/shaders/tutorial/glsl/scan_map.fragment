@@ -1,0 +1,40 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+precision highp float;
+
+#include "fragmentVersionCentroidUV.h"
+#include "uniformPerFrameConstants.h"
+#include "uniformWorldConstants.h"
+#include "uniformRenderChunkConstants.h"
+#line 9
+
+LAYOUT_BINDING(0) uniform sampler2D TEXTURE_0;
+LAYOUT_BINDING(1) uniform sampler2D TEXTURE_1;
+LAYOUT_BINDING(2) uniform sampler2D TEXTURE_2;
+
+uniform vec4 EXTRA_VECTOR1; // (red 扫描颜色r, green 扫描颜色g, blue 扫描颜色b, freq 频率)
+
+highp vec3 get_world_position(vec2 uv, float z) {
+	highp vec4 pos_clip = vec4(uv, z, 1.0) * 2.0 - 1.0;
+	highp vec4 pos_world = inverse(PROJ*WORLDVIEW) * pos_clip;
+	return pos_world.xyz / pos_world.w;
+}
+
+void main() {
+	vec4 color = texture2D(TEXTURE_0, uv);
+	float depth = texture2D(TEXTURE_2, uv).r;
+
+	highp vec3 world_pos = get_world_position(uv, depth);
+    world_pos -= mod(CHUNK_ORIGIN_AND_SCALE.xyz, 1.0);
+	float dist = length(world_pos);
+    
+	float peak = mod(TIME * EXTRA_VECTOR1.a * 10.0, 100.0);
+	float fade = 1.0 - clamp((peak - 90.0) / (100.0 - 90.0), 0.0, 1.0);
+	float highlight_area = clamp(1.0 - (abs(dist - peak) * 0.1), 0.0, 1.0) * fade;
+
+	vec3 grid = 1.0 - abs(mod(world_pos, 1.0) * 20.0 - 1.0);
+	float border_area = clamp(max(grid.r, max(grid.g, grid.b)), 0.0, 1.0);
+
+	color.rgb = mix(color.rgb, vec3(EXTRA_VECTOR1.r, EXTRA_VECTOR1.g, EXTRA_VECTOR1.b), highlight_area * border_area);
+	gl_FragColor = color;
+}

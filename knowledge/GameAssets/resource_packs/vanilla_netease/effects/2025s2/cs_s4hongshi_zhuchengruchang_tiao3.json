@@ -1,0 +1,93 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "1.0"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.5922 0.4039 0.7232",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.2431 0.1451 0.7143",
+                "time": "16.8%"
+            },
+            {
+                "color": "1.0000 0.0824 0.0824 0.6429",
+                "time": "67.9%"
+            },
+            {
+                "color": "0.2000 0.0275 0.0275 0.0089",
+                "time": "100.0%"
+            }
+        ],
+        "dampingforce": {
+            "value": "0.5"
+        },
+        "delay": 2.8,
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 0.1 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "2.0",
+            "min": "4.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "1.0 1.0 1.0"
+        },
+        "emittertype": {
+            "value": "Cylinder"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "layer": 8,
+        "numparticles": {
+            "value": "3"
+        },
+        "particlesize": {
+            "max": "0.8 0.8",
+            "min": "1.4 1.4"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.18 1.18",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.2 1.2",
+                "time": "68.7%"
+            },
+            {
+                "scale": "1.2 1.2",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "0",
+                "name": "textures/sfxs/2025s2/cs_s4hongshi_zhuchengruchang_tiaolz",
+                "shuffle": true
+            },
+            "name": "textures/sfxs/2025s2/cs_s4hongshi_zhuchengruchang_tiaolz"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "1.0",
+            "min": "0.6"
+        },
+        "velocity": {
+            "max": "3.0",
+            "min": "6.0"
+        }
+    }
+}

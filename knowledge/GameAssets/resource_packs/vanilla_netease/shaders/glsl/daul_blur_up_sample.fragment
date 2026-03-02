@@ -1,0 +1,76 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+
+
+#include "fragmentVersionCentroidUV.h"
+
+#include "util.h"
+
+LAYOUT_BINDING(0) uniform sampler2D TEXTURE_0;
+
+#ifdef LAST_RENDER_PASS
+LAYOUT_BINDING(1) uniform sampler2D TEXTURE_1;
+LAYOUT_BINDING(2) uniform sampler2D TEXTURE_2;
+#endif
+
+uniform vec4 EXTRA_VECTOR1;  // (threshold, intensity, radius, max_brightness)
+uniform vec4 EXTRA_VECTOR4;  // Screen Info vec4(width, height, pixelWidth, pixelHeight)
+
+#ifdef LAST_RENDER_PASS
+float luminance(vec3 color){
+    return color.r * 0.3333 + color.g * 0.3333 + color.b * 0.3333;
+}
+#endif
+
+void main(){
+    vec2 pixelSize = EXTRA_VECTOR4.zw;
+
+	float radius = EXTRA_VECTOR1.z;
+
+    vec4 cc = texture(TEXTURE_0, uv).rgba;
+
+    vec3 c0 = texture(TEXTURE_0, uv + vec2(pixelSize.x * -1.0, pixelSize.y * 1.0) * radius).rgb;
+
+    vec3 c1 = texture(TEXTURE_0, uv + vec2(pixelSize.x * 1.0, pixelSize.y * 1.0) * radius).rgb;
+
+    vec3 c2 = texture(TEXTURE_0, uv + vec2(pixelSize.x * -1.0, pixelSize.y * -1.0) * radius).rgb;
+
+    vec3 c3 = texture(TEXTURE_0, uv + vec2(pixelSize.x * 1.0, pixelSize.y * -1.0) * radius).rgb;
+
+    vec3 c4 = texture(TEXTURE_0, uv + vec2(0.0 , pixelSize.y * 2.0) * radius).rgb;
+
+    vec3 c5 = texture(TEXTURE_0, uv + vec2(pixelSize.x * 2.0 , 0.0) * radius).rgb;
+
+    vec3 c6 = texture(TEXTURE_0, uv + vec2(0.0 , pixelSize.y * -2.0) * radius).rgb;
+
+    vec3 c7 = texture(TEXTURE_0, uv + vec2(pixelSize.x * -2.0 , 0.0) * radius).rgb;  
+    
+    vec3 result = (c0 + c1 + c2 + c3 + c4 + c5 + c6 + c7) * 0.125;
+    
+#if defined(LAST_RENDER_PASS)
+    float lum = luminance(result.rgb);
+
+#ifdef RNGL
+    vec4 dest = texture(TEXTURE_2, uv).rgba;
+#else
+	vec3 dest = texture(TEXTURE_1, uv).rgb;
+#endif
+
+    float intensity = EXTRA_VECTOR1.y;
+
+#if defined(LAST_RENDER_PASS)
+    result = clamp(result, vec3(0.0), vec3(EXTRA_VECTOR1.a)) * intensity + dest.rgb;
+#else
+    result = result * intensity + dest.rgb;
+#endif
+
+#ifdef RNGL
+    gl_FragColor = vec4(result.rgb, dest.a);
+#else
+    gl_FragColor = vec4(result.rgb, 1.0);
+#endif
+
+#else
+    gl_FragColor = vec4(result.rgb, cc.a);
+#endif
+}

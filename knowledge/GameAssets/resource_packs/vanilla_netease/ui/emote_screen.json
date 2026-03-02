@@ -1,0 +1,1600 @@
+{
+    "_button@common.button": {
+        "$control_alpha": 1.0,
+        "$default_text_color": [
+            0.26,
+            0.26,
+            0.26
+        ],
+        "$default_texture": "textures/netease/common/button/default",
+        "$hover_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$hover_texture": "textures/netease/common/button/hover",
+        "$is_new_nine_slice": false,
+        "$label_color": [
+            1,
+            1,
+            1
+        ],
+        "$label_font_scale_factor": 0.7000000000000001,
+        "$label_font_size": "large",
+        "$label_layer": 3,
+        "$label_offset": [
+            0,
+            0
+        ],
+        "$label_text": "使用",
+        "$nine_slice_buttom": 0,
+        "$nine_slice_left": 0,
+        "$nine_slice_right": 0,
+        "$nine_slice_top": 0,
+        "$nineslice_size": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "$pressed_button_name": "",
+        "$pressed_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$pressed_texture": "textures/netease/common/button/pressed",
+        "$texture_layer": 2,
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "bindings": [
+            {
+                "binding_collection_name": "",
+                "binding_condition": "always_when_visible",
+                "binding_type": "collection_details"
+            }
+        ],
+        "button_mappings": [],
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "default@emote_screen.default": {}
+            },
+            {
+                "hover@emote_screen.hover": {}
+            },
+            {
+                "pressed@emote_screen.pressed": {}
+            },
+            {
+                "button_label@emote_screen.button_label": {}
+            }
+        ],
+        "default_control": "default",
+        "draggable": "not_draggable",
+        "enabled": true,
+        "hover_control": "hover",
+        "is_handle_button_move_event": true,
+        "layer": 2,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            -1.0,
+            67.5
+        ],
+        "pressed_control": "pressed",
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            58,
+            23
+        ],
+        "type": "button",
+        "visible": true
+    },
+    "buttonWithImageBg@emote_screen._button": {
+        "$control_alpha": 1.0,
+        "$default_text_color": [
+            1.0,
+            1.0,
+            1.0
+        ],
+        "$default_texture": "textures/ui/emote/panel09",
+        "$hover_texture": "textures/ui/emote/panel09_s",
+        "$is_new_nine_slice": false,
+        "$label_color": [
+            1,
+            1,
+            1
+        ],
+        "$label_font_scale_factor": 1.0,
+        "$label_font_size": "normal",
+        "$label_layer": 3,
+        "$label_offset": [
+            0,
+            "62%+0.0px"
+        ],
+        "$label_text": "",
+        "$nine_slice_buttom": 0,
+        "$nine_slice_left": 0,
+        "$nine_slice_right": 0,
+        "$nine_slice_top": 0,
+        "$nineslice_size": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "$pressed_button_name": "",
+        "$pressed_texture": "textures/ui/emote/panel09",
+        "$texture_layer": 2,
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "bindings": [
+            {
+                "binding_collection_name": "",
+                "binding_condition": "always_when_visible",
+                "binding_type": "collection_details"
+            }
+        ],
+        "button_mappings": [],
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "default@emote_screen.default": {
+                    "$label_color": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "visible": true
+                }
+            },
+            {
+                "hover@emote_screen.hover": {
+                    "visible": true
+                }
+            },
+            {
+                "pressed@emote_screen.pressed": {
+                    "visible": true
+                }
+            },
+            {
+                "button_label@emote_screen.button_label": {
+                    "size": [
+                        "default",
+                        "default"
+                    ],
+                    "text": "",
+                    "visible": true
+                }
+            },
+            {
+                "image": {
+                    "alpha": 1.0,
+                    "anchor_from": "center",
+                    "anchor_to": "center",
+                    "clip_direction": "left",
+                    "clip_offset": [
+                        0,
+                        0
+                    ],
+                    "clip_ratio": 0.0,
+                    "clips_children": false,
+                    "enabled": true,
+                    "fill": false,
+                    "grayscale": false,
+                    "is_new_nine_slice": false,
+                    "keep_ratio": false,
+                    "layer": 3,
+                    "max_size": [
+                        0,
+                        0
+                    ],
+                    "min_size": [
+                        0,
+                        0
+                    ],
+                    "nine_slice_buttom": 0,
+                    "nine_slice_left": 0,
+                    "nine_slice_right": 0,
+                    "nine_slice_top": 0,
+                    "nineslice_size": [
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "offset": [
+                        0,
+                        0
+                    ],
+                    "priority": 0,
+                    "propagate_alpha": false,
+                    "size": [
+                        "52.0%+0.0px",
+                        "52.0%+0.0px"
+                    ],
+                    "texture": "textures/netease/common/image/default",
+                    "type": "image",
+                    "uv": [
+                        0,
+                        0
+                    ],
+                    "uv_size": [
+                        0,
+                        0
+                    ],
+                    "visible": false
+                }
+            }
+        ],
+        "default_control": "default",
+        "draggable": "not_draggable",
+        "enabled": true,
+        "hover_control": "hover",
+        "is_handle_button_move_event": true,
+        "layer": 2,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "pressed_control": "pressed",
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "15.0%+0.0px",
+            "18.0%+0.0px"
+        ],
+        "type": "button",
+        "visible": true
+    },
+    "button_label": {
+        "$label_color|default": [
+            1,
+            1,
+            1
+        ],
+        "$label_font_size|default": "normal",
+        "$label_layer|default": 1,
+        "$label_offset|default": [
+            0,
+            0
+        ],
+        "$label_text|default": "",
+        "color": "$label_color",
+        "font_size": "$label_font_size",
+        "font_type": "smooth",
+        "layer": "$label_layer",
+        "max_size": [
+            "100%",
+            "100%"
+        ],
+        "offset": "$label_offset",
+        "shadow": false,
+        "text": "$label_text",
+        "text_alignment": "center",
+        "type": "label"
+    },
+    "default": {
+        "$alpha|default": 1,
+        "$label_color": "$default_text_color",
+        "$nineslice_size|default": 0,
+        "alpha": "$alpha",
+        "controls": [
+            {
+                "label@petUI.button_label": {}
+            }
+        ],
+        "layer": "$texture_layer",
+        "nineslice_size": "$nineslice_size",
+        "texture": "$default_texture",
+        "type": "image"
+    },
+    "emote_screen_main": {
+        "absorbs_input": true,
+        "always_accepts_input": false,
+        "controls": [
+            {
+                "panel@emote_screen.emote_screen_panel": {}
+            }
+        ],
+        "force_render_below": false,
+        "is_showing_menu": true,
+        "render_game_behind": true,
+        "render_only_when_topmost": true,
+        "should_steal_mouse": false,
+        "type": "screen"
+    },
+    "emote_screen_panel": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "imageBg": {
+                    "alpha": 1.0,
+                    "anchor_from": "center",
+                    "anchor_to": "center",
+                    "clip_direction": "left",
+                    "clip_offset": [
+                        0,
+                        0
+                    ],
+                    "clip_ratio": 0.0,
+                    "clips_children": false,
+                    "enabled": true,
+                    "fill": false,
+                    "grayscale": false,
+                    "is_new_nine_slice": false,
+                    "keep_ratio": false,
+                    "layer": 1,
+                    "max_size": [
+                        0,
+                        0
+                    ],
+                    "min_size": [
+                        0,
+                        0
+                    ],
+                    "nine_slice_bottom": 3,
+                    "nine_slice_buttom": 0,
+                    "nine_slice_left": 3,
+                    "nine_slice_right": 3,
+                    "nine_slice_top": 3,
+                    "nineslice_size": [
+                        10,
+                        26,
+                        10,
+                        10
+                    ],
+                    "offset": [
+                        0,
+                        0
+                    ],
+                    "priority": 0,
+                    "propagate_alpha": false,
+                    "size": [
+                        "100.0%+0.0px",
+                        "100.0%+0.0px"
+                    ],
+                    "texture": "textures/ui/panel10@3x",
+                    "type": "image",
+                    "uv": [
+                        0.0,
+                        0.0
+                    ],
+                    "uv_size": [
+                        0,
+                        0
+                    ],
+                    "visible": true
+                }
+            },
+            {
+                "main_panel": {
+                    "alpha": 1.0,
+                    "anchor_from": "center",
+                    "anchor_to": "center",
+                    "clip_offset": [
+                        0,
+                        0
+                    ],
+                    "clips_children": false,
+                    "controls": [
+                        {
+                            "padding_panel": {
+                                "alpha": 1.0,
+                                "anchor_from": "center",
+                                "anchor_to": "center",
+                                "clip_offset": [
+                                    0,
+                                    0
+                                ],
+                                "clips_children": false,
+                                "controls": [],
+                                "enabled": true,
+                                "layer": 1,
+                                "max_size": [
+                                    0,
+                                    0
+                                ],
+                                "min_size": [
+                                    0,
+                                    0
+                                ],
+                                "offset": [
+                                    0,
+                                    0
+                                ],
+                                "priority": 0,
+                                "propagate_alpha": false,
+                                "size": [
+                                    "100.0%+0.0px",
+                                    5
+                                ],
+                                "type": "panel",
+                                "visible": true
+                            }
+                        },
+                        {
+                            "title_panel": {
+                                "alpha": 1.0,
+                                "anchor_from": "center",
+                                "anchor_to": "center",
+                                "clip_offset": [
+                                    0,
+                                    0
+                                ],
+                                "clips_children": false,
+                                "controls": [
+                                    {
+                                        "title_label": {
+                                            "alpha": 1.0,
+                                            "anchor_from": "center",
+                                            "anchor_to": "center",
+                                            "clip_offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "clips_children": false,
+                                            "color": [
+                                                0.0,
+                                                0.0,
+                                                0.0
+                                            ],
+                                            "enabled": true,
+                                            "font_scale_factor": 1.0,
+                                            "font_size": "normal",
+                                            "font_type": "default",
+                                            "layer": 2,
+                                            "line_padding": 0.0,
+                                            "max_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "min_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "priority": 0,
+                                            "propagate_alpha": false,
+                                            "shadow": false,
+                                            "size": [
+                                                "default",
+                                                "100.0%+0.0px"
+                                            ],
+                                            "text": "表情管理",
+                                            "text_alignment": "center",
+                                            "type": "label",
+                                            "visible": true
+                                        }
+                                    },
+                                    {
+                                        "close_button@common.button": {
+                                            "$control_alpha": 1.0,
+                                            "$default_text_color": [
+                                                1,
+                                                1,
+                                                1
+                                            ],
+                                            "$default_texture": "textures/ui/close_button_default",
+                                            "$hover_text_color": [
+                                                1,
+                                                1,
+                                                1
+                                            ],
+                                            "$hover_texture": "textures/ui/close_button_hover",
+                                            "$is_new_nine_slice": false,
+                                            "$label_color": [
+                                                1,
+                                                1,
+                                                1
+                                            ],
+                                            "$label_font_scale_factor": 1.0,
+                                            "$label_font_size": "large",
+                                            "$label_layer": 3,
+                                            "$label_offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "$label_text": "",
+                                            "$nine_slice_buttom": 0,
+                                            "$nine_slice_left": 0,
+                                            "$nine_slice_right": 0,
+                                            "$nine_slice_top": 0,
+                                            "$nineslice_size": [
+                                                0,
+                                                0,
+                                                0,
+                                                0
+                                            ],
+                                            "$pressed_button_name": "",
+                                            "$pressed_text_color": [
+                                                1,
+                                                1,
+                                                1
+                                            ],
+                                            "$pressed_texture": "textures/ui/close_button_pressed",
+                                            "$texture_layer": 2,
+                                            "alpha": 1.0,
+                                            "anchor_from": "top_right",
+                                            "anchor_to": "top_right",
+                                            "bindings": [
+                                                {
+                                                    "binding_collection_name": "",
+                                                    "binding_condition": "always_when_visible",
+                                                    "binding_type": "collection_details"
+                                                }
+                                            ],
+                                            "button_mappings": [],
+                                            "clip_offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "clips_children": false,
+                                            "controls": [
+                                                {
+                                                    "default@emote_screen.default": {}
+                                                },
+                                                {
+                                                    "hover@emote_screen.hover": {}
+                                                },
+                                                {
+                                                    "pressed@emote_screen.pressed": {}
+                                                },
+                                                {
+                                                    "button_label@emote_screen.button_label": {}
+                                                }
+                                            ],
+                                            "default_control": "default",
+                                            "draggable": "not_draggable",
+                                            "enabled": true,
+                                            "hover_control": "hover",
+                                            "is_handle_button_move_event": true,
+                                            "layer": 2,
+                                            "max_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "min_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "offset": [
+                                                "-3.0%+0.0px",
+                                                "0.0px"
+                                            ],
+                                            "pressed_control": "pressed",
+                                            "priority": 0,
+                                            "propagate_alpha": false,
+                                            "size": [
+                                                15,
+                                                15
+                                            ],
+                                            "type": "button",
+                                            "visible": true
+                                        }
+                                    }
+                                ],
+                                "enabled": true,
+                                "layer": 1,
+                                "max_size": [
+                                    0,
+                                    0
+                                ],
+                                "min_size": [
+                                    0,
+                                    0
+                                ],
+                                "offset": [
+                                    0,
+                                    0
+                                ],
+                                "priority": 0,
+                                "propagate_alpha": false,
+                                "size": [
+                                    "100.0%+0.0px",
+                                    18
+                                ],
+                                "type": "panel",
+                                "visible": true
+                            }
+                        },
+                        {
+                            "padding_panel(0)": {
+                                "alpha": 1.0,
+                                "anchor_from": "center",
+                                "anchor_to": "center",
+                                "clip_offset": [
+                                    0,
+                                    0
+                                ],
+                                "clips_children": false,
+                                "controls": [],
+                                "enabled": true,
+                                "layer": 1,
+                                "max_size": [
+                                    0,
+                                    0
+                                ],
+                                "min_size": [
+                                    0,
+                                    0
+                                ],
+                                "offset": [
+                                    0,
+                                    0
+                                ],
+                                "priority": 0,
+                                "propagate_alpha": false,
+                                "size": [
+                                    "100.0%+0.0px",
+                                    7
+                                ],
+                                "type": "panel",
+                                "visible": true
+                            }
+                        },
+                        {
+                            "bottom_panel": {
+                                "alpha": 1.0,
+                                "anchor_from": "bottom_middle",
+                                "anchor_to": "bottom_middle",
+                                "clip_offset": [
+                                    0,
+                                    0
+                                ],
+                                "clips_children": false,
+                                "controls": [
+                                    {
+                                        "padding_panel(0)": {
+                                            "alpha": 1.0,
+                                            "anchor_from": "center",
+                                            "anchor_to": "center",
+                                            "clip_offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "clips_children": false,
+                                            "controls": [],
+                                            "enabled": true,
+                                            "layer": 1,
+                                            "max_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "min_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "priority": 0,
+                                            "propagate_alpha": false,
+                                            "size": [
+                                                "2.0%+0.0px",
+                                                "100.0%+0.0px"
+                                            ],
+                                            "type": "panel",
+                                            "visible": true
+                                        }
+                                    },
+                                    {
+                                        "left_panel": {
+                                            "alpha": 1.0,
+                                            "anchor_from": "bottom_left",
+                                            "anchor_to": "bottom_left",
+                                            "clip_offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "clips_children": false,
+                                            "controls": [
+                                                {
+                                                    "padding_panel(0)": {
+                                                        "alpha": 1.0,
+                                                        "anchor_from": "center",
+                                                        "anchor_to": "center",
+                                                        "clip_offset": [
+                                                            0,
+                                                            0
+                                                        ],
+                                                        "clips_children": false,
+                                                        "enabled": true,
+                                                        "layer": 1,
+                                                        "max_size": [
+                                                            0,
+                                                            0
+                                                        ],
+                                                        "min_size": [
+                                                            0,
+                                                            0
+                                                        ],
+                                                        "offset": [
+                                                            0,
+                                                            0
+                                                        ],
+                                                        "priority": 0,
+                                                        "propagate_alpha": false,
+                                                        "size": [
+                                                            7,
+                                                            "100.0%+0.0px"
+                                                        ],
+                                                        "type": "panel",
+                                                        "visible": true
+                                                    }
+                                                },
+                                                {
+                                                    "preview_panel": {
+                                                        "alpha": 1.0,
+                                                        "anchor_from": "center",
+                                                        "anchor_to": "center",
+                                                        "clip_offset": [
+                                                            0,
+                                                            0
+                                                        ],
+                                                        "clips_children": false,
+                                                        "controls": [
+                                                            {
+                                                                "image": {
+                                                                    "alpha": 1.0,
+                                                                    "anchor_from": "center",
+                                                                    "anchor_to": "center",
+                                                                    "clip_direction": "left",
+                                                                    "clip_offset": [
+                                                                        0,
+                                                                        0
+                                                                    ],
+                                                                    "clip_ratio": 0.0,
+                                                                    "clips_children": false,
+                                                                    "enabled": true,
+                                                                    "fill": false,
+                                                                    "grayscale": false,
+                                                                    "is_new_nine_slice": true,
+                                                                    "keep_ratio": false,
+                                                                    "layer": 1,
+                                                                    "max_size": [
+                                                                        0,
+                                                                        0
+                                                                    ],
+                                                                    "min_size": [
+                                                                        0,
+                                                                        0
+                                                                    ],
+                                                                    "nine_slice_bottom": 4,
+                                                                    "nine_slice_buttom": 0,
+                                                                    "nine_slice_left": 4,
+                                                                    "nine_slice_right": 4,
+                                                                    "nine_slice_top": 4,
+                                                                    "nineslice_size": [
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0
+                                                                    ],
+                                                                    "offset": [
+                                                                        0,
+                                                                        0
+                                                                    ],
+                                                                    "priority": 0,
+                                                                    "propagate_alpha": false,
+                                                                    "size": [
+                                                                        "100.0%+0.0px",
+                                                                        "100.0%+0.0px"
+                                                                    ],
+                                                                    "texture": "textures/ui/emote/panel11",
+                                                                    "type": "image",
+                                                                    "uv": [
+                                                                        0.0,
+                                                                        0.0
+                                                                    ],
+                                                                    "uv_size": [
+                                                                        0.0,
+                                                                        0.0
+                                                                    ],
+                                                                    "visible": true
+                                                                }
+                                                            },
+                                                            {
+                                                                "viewer_panel@emote_screen.skin_viewer_panel": {}
+                                                            }
+                                                        ],
+                                                        "enabled": true,
+                                                        "layer": 1,
+                                                        "max_size": [
+                                                            0,
+                                                            0
+                                                        ],
+                                                        "min_size": [
+                                                            0,
+                                                            0
+                                                        ],
+                                                        "offset": [
+                                                            0,
+                                                            0
+                                                        ],
+                                                        "priority": 0,
+                                                        "propagate_alpha": false,
+                                                        "size": [
+                                                            "100.0%+-7.0px",
+                                                            "100.0%+-7.0px"
+                                                        ],
+                                                        "type": "panel",
+                                                        "visible": true
+                                                    }
+                                                }
+                                            ],
+                                            "enabled": true,
+                                            "layer": 1,
+                                            "max_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "min_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "offset": [
+                                                "0.0%+0.0px",
+                                                "0.0%+0.0px"
+                                            ],
+                                            "orientation": "horizontal",
+                                            "priority": 0,
+                                            "propagate_alpha": false,
+                                            "size": [
+                                                "28.0%+0.0px",
+                                                "100.0%+0.0px"
+                                            ],
+                                            "type": "stack_panel",
+                                            "visible": true
+                                        }
+                                    },
+                                    {
+                                        "right_panel": {
+                                            "alpha": 1.0,
+                                            "anchor_from": "bottom_right",
+                                            "anchor_to": "bottom_right",
+                                            "clip_offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "clips_children": false,
+                                            "controls": [
+                                                {
+                                                    "button1@emote_screen.buttonWithImageBg": {
+                                                        "$label_font_scale_factor": 0.3,
+                                                        "$label_text": "",
+                                                        "anchor_from": "top_left",
+                                                        "anchor_to": "top_left",
+                                                        "offset": [
+                                                            "2.0px",
+                                                            "2.0%+0.0px"
+                                                        ]
+                                                    }
+                                                },
+                                                {
+                                                    "button2@emote_screen.buttonWithImageBg": {
+                                                        "$label_font_scale_factor": 0.3,
+                                                        "anchor_from": "top_left",
+                                                        "anchor_to": "top_left",
+                                                        "offset": [
+                                                            "15.0%+2.0px",
+                                                            "2.0%+0.0px"
+                                                        ]
+                                                    }
+                                                },
+                                                {
+                                                    "button3@emote_screen.buttonWithImageBg": {
+                                                        "$label_font_scale_factor": 0.3,
+                                                        "$label_text": "",
+                                                        "anchor_from": "top_left",
+                                                        "anchor_to": "top_left",
+                                                        "offset": [
+                                                            "30.0%+2.0px",
+                                                            "2.0%+0.0px"
+                                                        ]
+                                                    }
+                                                },
+                                                {
+                                                    "button4@emote_screen.buttonWithImageBg": {
+                                                        "$label_font_scale_factor": 0.3,
+                                                        "$label_text": "",
+                                                        "anchor_from": "top_left",
+                                                        "anchor_to": "top_left",
+                                                        "offset": [
+                                                            "45.0%+2.0px",
+                                                            "2.0%+0.0px"
+                                                        ]
+                                                    }
+                                                },
+                                                {
+                                                    "button5@emote_screen.buttonWithImageBg": {
+                                                        "$label_font_scale_factor": 0.3,
+                                                        "$label_text": "",
+                                                        "anchor_from": "top_left",
+                                                        "anchor_to": "top_left",
+                                                        "offset": [
+                                                            "60.0%+2.0px",
+                                                            "2.0%+0.0px"
+                                                        ]
+                                                    }
+                                                },
+                                                {
+                                                    "button6@emote_screen.buttonWithImageBg": {
+                                                        "$label_font_scale_factor": 0.3,
+                                                        "$label_text": "",
+                                                        "anchor_from": "top_left",
+                                                        "anchor_to": "top_left",
+                                                        "offset": [
+                                                            "75.0%+2.0px",
+                                                            "2.0%+0.0px"
+                                                        ]
+                                                    }
+                                                },
+                                                {
+                                                    "bottom_panel": {
+                                                        "alpha": 1.0,
+                                                        "anchor_from": "bottom_right",
+                                                        "anchor_to": "bottom_right",
+                                                        "clip_offset": [
+                                                            0,
+                                                            0
+                                                        ],
+                                                        "clips_children": false,
+                                                        "controls": [
+                                                            {
+                                                                "button_template@emote_screen.rectbuttonwithimg": {
+                                                                    "offset": [
+                                                                        0,
+                                                                        0
+                                                                    ],
+                                                                    "visible": false
+                                                                }
+                                                            },
+                                                            {
+                                                                "scroll_view@common.scrolling_panel": {
+                                                                    "$background_niceslice_size": 2,
+                                                                    "$box_nine_slice_buttom": 0,
+                                                                    "$box_nine_slice_left": 0,
+                                                                    "$box_nine_slice_right": 0,
+                                                                    "$box_nine_slice_top": 0,
+                                                                    "$box_nineslice_size": [
+                                                                        0,
+                                                                        0,
+                                                                        0,
+                                                                        0
+                                                                    ],
+                                                                    "$is_background_nine_slice": true,
+                                                                    "$is_box_nine_slice": false,
+                                                                    "$is_track_nine_slice": false,
+                                                                    "$scroll_background_image_control": "petUI.scroll_background_image",
+                                                                    "$scroll_background_texture": "textures/ui/emote/panel12",
+                                                                    "$scroll_box_mouse_image_control": "petUI.scroll_box_image",
+                                                                    "$scroll_box_texture": "textures/ui/newTouchScrollBox",
+                                                                    "$scroll_box_touch_image_control": "petUI.scroll_box_image",
+                                                                    "$scroll_track_image_control": "petUI.scroll_track_image",
+                                                                    "$scroll_track_texture": "textures/ui/ScrollRail",
+                                                                    "$scrolling_content": "emote_screen.scroll_view_content",
+                                                                    "$show_background": true,
+                                                                    "$show_background|default": true,
+                                                                    "$track_nine_slice_buttom": 0,
+                                                                    "$track_nine_slice_left": 0,
+                                                                    "$track_nine_slice_right": 0,
+                                                                    "$track_nine_slice_top": 0,
+                                                                    "$track_nineslice_size": [
+                                                                        0,
+                                                                        0,
+                                                                        0,
+                                                                        0
+                                                                    ],
+                                                                    "alpha": 1.0,
+                                                                    "anchor_from": "center",
+                                                                    "anchor_to": "center",
+                                                                    "clip_offset": [
+                                                                        0,
+                                                                        0
+                                                                    ],
+                                                                    "clips_children": false,
+                                                                    "enabled": true,
+                                                                    "layer": 1,
+                                                                    "max_size": [
+                                                                        0,
+                                                                        0
+                                                                    ],
+                                                                    "min_size": [
+                                                                        0,
+                                                                        0
+                                                                    ],
+                                                                    "offset": [
+                                                                        0,
+                                                                        0
+                                                                    ],
+                                                                    "priority": 0,
+                                                                    "propagate_alpha": true,
+                                                                    "size": [
+                                                                        "100.0%+0.0px",
+                                                                        "100.0%+0.0px"
+                                                                    ],
+                                                                    "visible": true
+                                                                }
+                                                            },
+                                                            {
+                                                                "row_template": {
+                                                                    "alpha": 1.0,
+                                                                    "anchor_from": "center",
+                                                                    "anchor_to": "center",
+                                                                    "clip_offset": [
+                                                                        0,
+                                                                        0
+                                                                    ],
+                                                                    "clips_children": false,
+                                                                    "enabled": true,
+                                                                    "layer": 1,
+                                                                    "max_size": [
+                                                                        0,
+                                                                        0
+                                                                    ],
+                                                                    "min_size": [
+                                                                        0,
+                                                                        0
+                                                                    ],
+                                                                    "offset": [
+                                                                        0,
+                                                                        0
+                                                                    ],
+                                                                    "priority": 0,
+                                                                    "propagate_alpha": false,
+                                                                    "size": [
+                                                                        100,
+                                                                        100
+                                                                    ],
+                                                                    "type": "panel",
+                                                                    "visible": false
+                                                                }
+                                                            },
+                                                            {
+                                                                "image": {
+                                                                    "clip_ratio": 0.0,
+                                                                    "is_new_nine_slice": true,
+                                                                    "keep_ratio": false,
+                                                                    "layer": 100,
+                                                                    "max_size": [
+                                                                        0,
+                                                                        0
+                                                                    ],
+                                                                    "min_size": [
+                                                                        0,
+                                                                        0
+                                                                    ],
+                                                                    "nine_slice_buttom": 8,
+                                                                    "nine_slice_left": 8,
+                                                                    "nine_slice_right": 8,
+                                                                    "nine_slice_top": 8,
+                                                                    "offset": [
+                                                                        0,
+                                                                        0
+                                                                    ],
+                                                                    "size": [
+                                                                        "100.0%+0.0px",
+                                                                        "100.0%+0.0px"
+                                                                    ],
+                                                                    "texture": "textures/ui/emote/panel13",
+                                                                    "type": "image",
+                                                                    "uv": [
+                                                                        0.0,
+                                                                        0.0
+                                                                    ],
+                                                                    "uv_size": [
+                                                                        0.0,
+                                                                        0.0
+                                                                    ]
+                                                                }
+                                                            }
+                                                        ],
+                                                        "enabled": true,
+                                                        "layer": 1,
+                                                        "max_size": [
+                                                            0,
+                                                            0
+                                                        ],
+                                                        "min_size": [
+                                                            0,
+                                                            0
+                                                        ],
+                                                        "offset": [
+                                                            -6,
+                                                            -8
+                                                        ],
+                                                        "priority": 0,
+                                                        "propagate_alpha": false,
+                                                        "size": [
+                                                            "98.0%+-7.0px",
+                                                            "71.0%+-7.0px"
+                                                        ],
+                                                        "type": "panel",
+                                                        "visible": true
+                                                    }
+                                                }
+                                            ],
+                                            "enabled": true,
+                                            "layer": 1,
+                                            "max_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "min_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "offset": [
+                                                "0.0%+-8.0px",
+                                                "-5.0%+0.0px"
+                                            ],
+                                            "priority": 0,
+                                            "propagate_alpha": false,
+                                            "size": [
+                                                "70.0%+-8.0px",
+                                                "100.0%+0.0px"
+                                            ],
+                                            "type": "panel",
+                                            "visible": true
+                                        }
+                                    }
+                                ],
+                                "enabled": true,
+                                "layer": 1,
+                                "max_size": [
+                                    0,
+                                    0
+                                ],
+                                "min_size": [
+                                    0,
+                                    0
+                                ],
+                                "offset": [
+                                    0,
+                                    0
+                                ],
+                                "orientation": "horizontal",
+                                "priority": 0,
+                                "propagate_alpha": false,
+                                "size": [
+                                    "100.0%+0.0px",
+                                    "100.0%+-38.0px"
+                                ],
+                                "type": "stack_panel",
+                                "visible": true
+                            }
+                        }
+                    ],
+                    "enabled": true,
+                    "layer": 2,
+                    "max_size": [
+                        0,
+                        0
+                    ],
+                    "min_size": [
+                        0,
+                        0
+                    ],
+                    "offset": [
+                        0,
+                        0
+                    ],
+                    "orientation": "vertical",
+                    "priority": 0,
+                    "propagate_alpha": false,
+                    "size": [
+                        "100.0%+0.0px",
+                        "100.0%+0.0px"
+                    ],
+                    "type": "stack_panel",
+                    "visible": true
+                }
+            }
+        ],
+        "enabled": true,
+        "layer": 1,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "80.0%+0.0px",
+            "90.0%+0.0px"
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "grid": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "collection_name": "test_grid",
+        "enabled": true,
+        "grid_dimensions": [
+            8.0,
+            3.0
+        ],
+        "grid_item_template": "emote_screen.rectbuttonwithimg",
+        "grid_rescaling_type": "none",
+        "layer": 1,
+        "max_size": [
+            0,
+            0
+        ],
+        "maximum_grid_items": 0,
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": true,
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "type": "grid",
+        "visible": false
+    },
+    "hover": {
+        "$alpha|default": 1,
+        "$label_color": "$hover_text_color",
+        "$nineslice_size|default": 0,
+        "alpha": "$alpha",
+        "controls": [
+            {
+                "label@petUI.button_label": {}
+            }
+        ],
+        "layer": "$texture_layer",
+        "nineslice_size": "$nineslice_size",
+        "texture": "$hover_texture",
+        "type": "image"
+    },
+    "locked": {
+        "$label_color": "$locked_text_color",
+        "$nineslice_size|default": 0,
+        "controls": [
+            {
+                "label@petUI.button_label": {}
+            }
+        ],
+        "layer": "$texture_layer",
+        "nineslice_size": "$nineslice_size",
+        "texture": "$locked_texture",
+        "type": "image"
+    },
+    "namespace": "emote_screen",
+    "pressed": {
+        "$alpha|default": 1,
+        "$label_color": "$pressed_text_color",
+        "$nineslice_size|default": 0,
+        "alpha": "$alpha",
+        "controls": [
+            {
+                "label@petUI.button_label": {}
+            }
+        ],
+        "layer": "$texture_layer",
+        "nineslice_size": "$nineslice_size",
+        "texture": "$pressed_texture",
+        "type": "image"
+    },
+    "rectbuttonwithimg@emote_screen._button": {
+        "$default_text_color": [
+            1.0,
+            1.0,
+            1.0
+        ],
+        "$default_texture": "",
+        "$hover_texture": "textures/ui/active_01@3x",
+        "$label_font_size": "normal",
+        "$label_offset": [
+            0,
+            "32.0%+0.0px"
+        ],
+        "$label_text": "",
+        "$nineslice_size": [
+            2.0,
+            2.0,
+            2.0,
+            2.0
+        ],
+        "$pressed_texture": "textures/ui/active_01@3x",
+        "controls": [
+            {
+                "default@emote_screen.default": {}
+            },
+            {
+                "hover@emote_screen.hover": {}
+            },
+            {
+                "pressed@emote_screen.pressed": {}
+            },
+            {
+                "button_label@emote_screen.button_label": {}
+            },
+            {
+                "image": {
+                    "alpha": 1.0,
+                    "anchor_from": "center",
+                    "anchor_to": "center",
+                    "clip_direction": "left",
+                    "clip_offset": [
+                        0,
+                        0
+                    ],
+                    "clip_ratio": 0.0,
+                    "clips_children": false,
+                    "enabled": true,
+                    "fill": false,
+                    "grayscale": false,
+                    "is_new_nine_slice": false,
+                    "keep_ratio": false,
+                    "layer": 4,
+                    "max_size": [
+                        0,
+                        0
+                    ],
+                    "min_size": [
+                        0,
+                        0
+                    ],
+                    "nine_slice_buttom": 0,
+                    "nine_slice_left": 0,
+                    "nine_slice_right": 0,
+                    "nine_slice_top": 0,
+                    "nineslice_size": [
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "offset": [
+                        0,
+                        "-6.0%+0.0px"
+                    ],
+                    "priority": 0,
+                    "propagate_alpha": false,
+                    "size": [
+                        "50.0%+0.0px",
+                        "48.0%+0.0px"
+                    ],
+                    "texture": "textures/netease/common/image/default",
+                    "type": "image",
+                    "uv": [
+                        0,
+                        0
+                    ],
+                    "uv_size": [
+                        0,
+                        0
+                    ],
+                    "visible": true
+                }
+            }
+        ],
+        "offset": [
+            0,
+            0.0
+        ],
+        "size": [
+            54,
+            68
+        ]
+    },
+    "screen@common.base_screen": {
+        "$screen_content": "emote_screen.emote_screen_panel",
+        "absorbs_input": true,
+        "always_accepts_input": false,
+        "force_render_below": false,
+        "is_showing_menu": true,
+        "render_game_behind": true,
+        "render_only_when_topmost": true,
+        "should_steal_mouse": false,
+        "button_mappings": [
+            {
+                "from_button_id": "button.menu_cancel",
+                "to_button_id": "button.menu_exit",
+                "mapping_type": "global"
+            }
+        ]
+    },
+    "scroll_background_image": {
+        "$background_niceslice_size|default": 0,
+        "nineslice_size": "$background_niceslice_size",
+        "texture": "$scroll_background_texture",
+        "type": "image"
+    },
+    "scroll_box_image": {
+        "$scroll_box_niceslice_size|default": 0,
+        "nineslice_size": "$scroll_box_niceslice_size",
+        "texture": "$scroll_box_texture",
+        "type": "image"
+    },
+    "scroll_track_image": {
+        "$scroll_track_niceslice_size|default": 0,
+        "layer": 3,
+        "nineslice_size": "$scroll_track_niceslice_size",
+        "size": [
+            3,
+            "100%"
+        ],
+        "texture": "$scroll_track_texture",
+        "type": "image"
+    },
+    "scroll_view_content": {
+        "alpha": 1.0,
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [],
+        "enabled": true,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "orientation": "vertical",
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "100.0%+0.0px",
+            "default"
+        ],
+        "type": "stack_panel",
+        "use_priority": false,
+        "visible": true
+    },
+    "skin_viewer_panel": {
+        "anchor_from": "bottom_middle",
+        "anchor_to": "bottom_middle",
+        "button_mappings": [
+            {
+                "button_up_right_of_first_refusal": true,
+                "from_button_id": "button.menu_select",
+                "mapping_type": "pressed",
+                "to_button_id": "button.turn_doll"
+            }
+        ],
+        "controls": [
+            {
+                "paper_doll_panel": {
+                    "controls": [
+                        {
+                            "paper_doll": {
+                                "anchor_from": "bottom_middle",
+                                "anchor_to": "bottom_middle",
+                                "animation_reset_name": "screen_animation_reset",
+                                "anims": [
+                                    "@common.screen_exit_size_animation_push",
+                                    "@common.screen_exit_size_animation_pop",
+                                    "@common.screen_entrance_size_animation_push",
+                                    "@common.screen_entrance_size_animation_pop"
+                                ],
+                                "bindings": [
+                                    {
+                                        "binding_name": "#paper_doll_skin"
+                                    },
+                                    {
+                                        "binding_type": "view",
+                                        "source_control_name": "viewer_panel",
+                                        "source_property_name": "#gesture_delta_source",
+                                        "target_property_name": "#gesture_delta_source"
+                                    },
+                                    {
+                                        "binding_type": "view",
+                                        "source_control_name": "viewer_panel",
+                                        "source_property_name": "#gesture_mouse_delta_x",
+                                        "target_property_name": "#gesture_mouse_delta_x"
+                                    },
+                                    {
+                                        "binding_condition": "always",
+                                        "binding_name": "#is_appearance_visible",
+                                        "binding_name_override": "#visible"
+                                    }
+                                ],
+                                "camera_tilt_degrees": -10,
+                                "layer": 2,
+                                "offset": [
+                                    0,
+                                    -22
+                                ],
+                                "renderer": "paper_doll_renderer",
+                                "rotation": "gesture_x",
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "starting_rotation": 30,
+                                "type": "custom"
+                            }
+                        }
+                    ],
+                    "size": [
+                        "100%",
+                        "100% - 10px"
+                    ],
+                    "type": "panel"
+                }
+            }
+        ],
+        "gesture_tracking_button": "button.turn_doll",
+        "offset": [
+            0,
+            -16
+        ],
+        "size": [
+            "100%",
+            "100% - 24px"
+        ],
+        "tts_ignore_count": true,
+        "type": "input_panel"
+    }
+}

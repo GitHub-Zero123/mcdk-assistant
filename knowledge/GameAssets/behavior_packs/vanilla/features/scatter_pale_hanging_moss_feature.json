@@ -1,0 +1,27 @@
+{
+    "format_version": "1.13.0",
+    "minecraft:scatter_feature": {
+        "description": {
+            "identifier": "minecraft:scatter_pale_hanging_moss_feature"
+        },
+        "iterations": 20,
+        "scatter_chance": 100.0,
+        "x": {
+            "extent": [
+                -4,
+                4
+            ],
+            "distribution": "uniform"
+        },
+        "z": {
+            "extent": [
+                -4,
+                4
+            ],
+            "distribution": "uniform"
+        },
+        "y": 0,
+        "project_input_to_floor": false,
+        "places_feature": "minecraft:pale_hanging_moss_snap_to_ceiling_feature"
+    }
+}

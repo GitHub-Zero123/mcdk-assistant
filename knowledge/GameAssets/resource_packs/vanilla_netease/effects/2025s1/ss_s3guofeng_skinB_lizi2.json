@@ -1,0 +1,59 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.3412 0.5922 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.3412 0.5922 1.0000",
+                "time": "19.7%"
+            },
+            {
+                "color": "1.0000 0.3412 0.5922 1.0000",
+                "time": "38.3%"
+            },
+            {
+                "color": "0.0902 1.0000 0.8039 1.0000",
+                "time": "56.8%"
+            },
+            {
+                "color": "0.0902 1.0000 0.8039 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "dampingforce": {
+            "value": "1.2"
+        },
+        "direction": {
+            "max": "0.0 1.0 0.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.5 0.5 0.5"
+        },
+        "emittertype": {
+            "value": "Cone"
+        },
+        "particlesize": {
+            "max": "0.03 0.03",
+            "min": "0.01 0.01"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "name": "textures/sfxs/2025s1/ss_s3guofeng_skinB__01"
+        },
+        "thickness": {
+            "value": "0.0"
+        }
+    }
+}

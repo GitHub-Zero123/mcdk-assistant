@@ -1,0 +1,77 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.2"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "74.5%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "dampingforce": {
+            "value": "5.0"
+        },
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "70.0",
+            "min": "70.0"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "particlesize": {
+            "max": "0.07 0.07",
+            "min": "0.03 0.03"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "false"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.0 0.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.25 1.25",
+                "time": "10.3%"
+            },
+            {
+                "scale": "1.9 1.9",
+                "time": "29.0%"
+            },
+            {
+                "scale": "1.9 1.9",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "0",
+                "name": "textures/sfxs/2025s6/ss_s6Cyber_weaponB_dxd1",
+                "shuffle": true
+            },
+            "name": "textures/sfxs/2025s6/ss_s6Cyber_weaponB_dxd1"
+        },
+        "timetolive": {
+            "max": "0.5",
+            "min": "0.2"
+        },
+        "velocity": {
+            "max": "5.0",
+            "min": "5.0"
+        }
+    }
+}

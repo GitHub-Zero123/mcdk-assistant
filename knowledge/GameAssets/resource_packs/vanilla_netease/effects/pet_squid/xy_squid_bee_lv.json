@@ -1,0 +1,85 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "1.0 0.0 1.0",
+            "value": "Direction",
+            "min": "1.0 0.0 1.0"
+        },
+        "numparticles": {
+            "value": "6"
+        },
+        "colorfade": [
+            {
+                "color": "0.4157 1.0000 0.5020 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 0.4980 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "emissionrate": {
+            "max": "6.0",
+            "min": "4.0"
+        },
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.4 0.4 0.3"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "emittertype": {
+            "value": "Cone"
+        },
+        "timetolive": {
+            "max": "1.2",
+            "min": "0.7"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": false,
+                "name": "/pet_squid",
+                "fps": "1"
+            },
+            "name": "textures/sfxs/pet_squid/xixy_squid_bee_lizi.png"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.5",
+            "min": "0.3"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "particlesize": {
+            "max": "0.05 0.05",
+            "min": "0.05 0.05"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.0 0.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.4 0.4",
+                "time": "32.3%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "51.7%"
+            },
+            {
+                "scale": "0.36 0.36",
+                "time": "68.0%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            }
+        ]
+    }
+}

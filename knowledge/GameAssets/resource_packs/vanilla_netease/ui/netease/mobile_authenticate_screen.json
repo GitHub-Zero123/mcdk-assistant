@@ -1,0 +1,831 @@
+{
+    "namespace": "mobile_authenticate",
+    // button -> exit guide screen
+    "button_cancel@common.button": {
+        "$default_color": [
+            0,
+            0,
+            0
+        ],
+        "$default_texture": "textures/netease/voice_trans/btn02@3x",
+        "$hover_texture": "textures/netease/voice_trans/btn02_click@3x",
+        "$labelText": "mobileAuthenticate.guide.cancel",
+        "$label_font_size": "normal",
+        "$nine_slice_buttom": 0,
+        "$nine_slice_left": 0,
+        "$nine_slice_right": 0,
+        "$nine_slice_top": 0,
+        "$pressed_button_name": "mobile_authenticate_guide_cancel",
+        "$text_offset": [
+            0,
+            0
+        ],
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "controls": [
+            {
+                "default": {
+                    "is_new_nine_slice": true,
+                    "nine_slice_buttom": "$nine_slice_buttom",
+                    "nine_slice_left": "$nine_slice_left",
+                    "nine_slice_right": "$nine_slice_right",
+                    "nine_slice_top": "$nine_slice_top",
+                    "texture": "$default_texture",
+                    "type": "image"
+                }
+            },
+            {
+                "hover": {
+                    "is_new_nine_slice": true,
+                    "nine_slice_buttom": "$nine_slice_buttom",
+                    "nine_slice_left": "$nine_slice_left",
+                    "nine_slice_right": "$nine_slice_right",
+                    "nine_slice_top": "$nine_slice_top",
+                    "texture": "$hover_texture",
+                    "type": "image"
+                }
+            },
+            {
+                "pressed": {
+                    "is_new_nine_slice": true,
+                    "nine_slice_buttom": "$nine_slice_buttom",
+                    "nine_slice_left": "$nine_slice_left",
+                    "nine_slice_right": "$nine_slice_right",
+                    "nine_slice_top": "$nine_slice_top",
+                    "texture": "$hover_texture",
+                    "type": "image"
+                }
+            },
+            {
+                "button_label": {
+                    "layer": 2,
+                    "color": "$default_color",
+                    "font_size": "$label_font_size",
+                    "max_size": [
+                        "100%",
+                        "100%"
+                    ],
+                    "offset": "$text_offset",
+                    "shadow": false,
+                    "text": "$labelText",
+                    "type": "label"
+                }
+            }
+        ],
+        "offset": [
+            "-23.500000%+0 px",
+            "33.000000%+0px"
+        ],
+        "size": [
+            "43.000000%+0 px",
+            "20.000000%+0px"
+        ],
+        "visible": true
+    },
+    // button -> go binding screen
+    "button_binding@common.button": {
+        "$default_color": [
+            0,
+            0,
+            0
+        ],
+        "$default_texture": "textures/netease/voice_trans/btn02@3x",
+        "$hover_texture": "textures/netease/voice_trans/btn02_click@3x",
+        "$labelText": "mobileAuthenticate.guide.binding",
+        "$label_font_size": "normal",
+        "$nine_slice_buttom": 0,
+        "$nine_slice_left": 0,
+        "$nine_slice_right": 0,
+        "$nine_slice_top": 0,
+        "$pressed_button_name": "go_mobile_authenticate",
+        "$text_offset": [
+            0,
+            0
+        ],
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "controls": [
+            {
+                "default": {
+                    "is_new_nine_slice": true,
+                    "nine_slice_buttom": "$nine_slice_buttom",
+                    "nine_slice_left": "$nine_slice_left",
+                    "nine_slice_right": "$nine_slice_right",
+                    "nine_slice_top": "$nine_slice_top",
+                    "texture": "$default_texture",
+                    "type": "image"
+                }
+            },
+            {
+                "hover": {
+                    "is_new_nine_slice": true,
+                    "nine_slice_buttom": "$nine_slice_buttom",
+                    "nine_slice_left": "$nine_slice_left",
+                    "nine_slice_right": "$nine_slice_right",
+                    "nine_slice_top": "$nine_slice_top",
+                    "texture": "$hover_texture",
+                    "type": "image"
+                }
+            },
+            {
+                "pressed": {
+                    "is_new_nine_slice": true,
+                    "nine_slice_buttom": "$nine_slice_buttom",
+                    "nine_slice_left": "$nine_slice_left",
+                    "nine_slice_right": "$nine_slice_right",
+                    "nine_slice_top": "$nine_slice_top",
+                    "texture": "$hover_texture",
+                    "type": "image"
+                }
+            },
+            {
+                "button_label": {
+                    "color": "$default_color",
+                    "font_size": "$label_font_size",
+                    "layer": 2,
+                    "max_size": [
+                        "100%",
+                        "100%"
+                    ],
+                    "offset": "$text_offset",
+                    "shadow": false,
+                    "text": "$labelText",
+                    "type": "label"
+                }
+            }
+        ],
+        "offset": [
+            "23.500000%+0 px",
+            "33.000000%+0px"
+        ],
+        "size": [
+            "43.000000%+0 px",
+            "20.000000%+0px"
+        ],
+        "visible": true
+    },
+    // label -> guide to binding
+    "label_content": {
+        "anchor_from": "center",
+        "anchor_to": "top_left",
+        "auto_expand": false,
+        "color": [
+            1,
+            1,
+            1
+        ],
+        "font_size": "normal",
+        "offset": [
+            "-40.67797%+0px",
+            "-36.48648%+0px"
+        ],
+        "shadow": false,
+        "size": [
+            "82.20341%+0px",
+            "51.35135%+0px"
+        ],
+        "text": "mobileAuthenticate.guide.content",
+        "text_alignment": "left",
+        "type": "label",
+        "visible": true
+    },
+    // main guide node
+    "image_main": {
+        "anchor_from": "top_right",
+        "anchor_to": "top_right",
+        "controls": [
+            {
+                "button_cancel@mobile_authenticate.button_cancel": {}
+            },
+            {
+                "button_binding@mobile_authenticate.button_binding": {}
+            },
+            {
+                "label_content@mobile_authenticate.label_content": {}
+            }
+        ],
+        "is_new_nine_slice": true,
+        "nine_slice_buttom": 0,
+        "nine_slice_left": 0,
+        "nine_slice_right": 0,
+        "nine_slice_top": 0,
+        "offset": [
+            "-36.000000%+0 px",
+            "8.646620%+0px"
+        ],
+        "size": [
+            "27.93427%+0px",
+            "27.81955%+0px"
+        ],
+        "texture": "textures/netease/voice_trans/panel01@3x",
+        "texture_file_system": "",
+        "type": "image",
+        "zip_folder": "",
+        "visible": "#show_guide",
+        "bindings": [
+            {
+                "binding_name": "#show_guide",
+                "binding_name_override": "#visible"
+            }
+        ]
+    },
+    // main guide screen
+    "mobile_authenticate_guide@common.base_screen": {
+        "button_mappings": [
+            {
+                "from_button_id": "button.menu_cancel",
+                "to_button_id": "button.menu_exit",
+                "mapping_type": "global"
+            },
+            {
+                "from_button_id": "button.menu_exit",
+                "to_button_id": "button.menu_exit",
+                "mapping_type": "global"
+            }
+        ],
+        "$screen_content": "mobile_authenticate.image_main"
+        //"$screen_bg_content": "common.screen_background",
+        //"$screen_background_alpha": 0
+    },
+    // to del
+    "mobile_authenticate_screen1": {
+        "type": "stack_panel",
+        "size": [
+            "100%",
+            "100%c"
+        ],
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "number_edit@settings_common.option_text_edit": {
+                    "$option_label": "mobileAuthenticate.number.title",
+                    "$text_edit_box_text_type": "NumberChars",
+                    "$option_binding_name": "#mobile_phone_number",
+                    "$text_box_name": "number_edit_box",
+                    "$focus_override_right": "FOCUS_OVERRIDE_STOP"
+                }
+            },
+            {
+                "code_edit@settings_common.option_text_edit_with_text_button": {
+                    "$option_label": "mobileAuthenticate.code.title",
+                    "$option_binding_name": "#random_tick_speed",
+                    "$max_text_edit_length": 6,
+                    "$option_place_holder_text": "mobileAuthenticate.code.hint",
+                    "$text_edit_box_text_type": "NumberChars",
+                    "$option_text_edit_control_size": [
+                        "70%",
+                        "100%"
+                    ],
+                    "$text_box_name": "code_edit_box",
+                    "$button_text": "mobileAuthenticate.code.request",
+                    "$pressed_button_name": "request_code"
+                }
+            }
+        ]
+    },
+
+
+    // mobile number title
+    "mobile_number_label_panel": {
+        "type": "panel",
+        "size": [
+            "100%",
+            "100%c"
+        ],
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "number_label": {
+                    "type": "label",
+                    "text_alignment": "left",
+                    "color": "$main_header_text_color",
+                    "size": [
+                        "100%",
+                        "default"
+                    ],
+                    "offset": [
+                        0,
+                        0
+                    ],
+                    "layer": 1,
+                    "text": "mobileAuthenticate.number.title",
+                    "visible": true,
+                    "locked_alpha": 0.5
+                }
+            },
+            {
+                "warning_label": {
+                    "type": "label",
+                    "text_alignment": "right",
+                    "color": [ 1.0, 0.333, 0.333 ],
+                    "size": [
+                        "100%",
+                        "default"
+                    ],
+                    "offset": [
+                        0,
+                        0
+                    ],
+                    "bindings": [
+                        {
+                            "binding_name": "#number_error",
+                            "binding_name_override": "#visible"
+                        }
+                    ],
+                    "layer": 1,
+                    "text": "mobileAuthenticate.number.error",
+                    "visible": "#number_error",
+                    "locked_alpha": 0.5
+                }
+            },
+            {
+                "placeholder_label": {
+                    "type": "label",
+                    "text_alignment": "left",
+                    "color": [ 1.0, 0.333, 0.333 ],
+                    "size": [
+                        "100%",
+                        "default"
+                    ],
+                    "offset": [
+                        0,
+                        0
+                    ],
+                    "bindings": [
+                        {
+                            "binding_name": "(not #number_error)",
+                            "binding_name_override": "#visible"
+                        }
+                    ],
+                    "layer": 1,
+                    "text": "",
+                    "locked_alpha": 0.5
+                }
+            }
+        ]
+    },
+    // verify code title
+    "verify_code_label_panel": {
+        "type": "panel",
+        "size": [
+            "100%",
+            "100%c"
+        ],
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "number_label": {
+                    "type": "label",
+                    "text_alignment": "left",
+                    "color": "$main_header_text_color",
+                    "size": [
+                        "100%",
+                        "default"
+                    ],
+                    "offset": [
+                        0,
+                        0
+                    ],
+                    "layer": 1,
+                    "text": "mobileAuthenticate.code.title",
+                    "visible": true,
+                    "locked_alpha": 0.5
+                }
+            },
+            {
+                "warning_label": {
+                    "type": "label",
+                    "text_alignment": "right",
+                    "color": [ 1.0, 0.333, 0.333 ],
+                    "size": [
+                        "100%",
+                        "default"
+                    ],
+                    "offset": [
+                        0,
+                        0
+                    ],
+                    "bindings": [
+                        {
+                            "binding_name": "#code_error",
+                            "binding_name_override": "#visible"
+                        }
+                    ],
+                    "layer": 1,
+                    "text": "",
+                    "visible": "#code_error",
+                    "locked_alpha": 0.5
+                }
+            }
+        ]
+    },
+
+    "result_label_panel": {
+        "type": "panel",
+        "size": [
+            "100%",
+            "100%c"
+        ],
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "number_label": {
+                    "type": "label",
+                    "text_alignment": "left",
+                    "color": "$main_header_text_color",
+                    "size": [
+                        "100%",
+                        "default"
+                    ],
+                    "offset": [
+                        0,
+                        0
+                    ],
+                    "layer": 1,
+                    "text": "#text",
+                    "bindings": [
+                        {
+                            "binding_name": "#result_text",
+                            "binding_name_override": "#text"
+                        }
+                    ],
+                    "visible": true,
+                    "locked_alpha": 0.5
+                }
+            },
+            {
+                "place_label": {
+                    "type": "label",
+                    "text_alignment": "right",
+                    "color": [ 1.0, 0.333, 0.333 ],
+                    "size": [
+                        "100%",
+                        "default"
+                    ],
+                    "offset": [
+                        0,
+                        0
+                    ],
+                    
+                    "layer": 1,
+                    "text": "",
+                    "visible": true,
+                    "locked_alpha": 0.5
+                }
+            }
+        ]
+    },
+
+    // mobile number edit
+    "mobile_number_edit": {
+        "type": "stack_panel",
+        "orientation": "horizontal",
+        "size": [
+            "100%",
+            "30px"
+        ],
+        "controls": [
+            {
+                "mobile_number_edit@common.text_edit_box": {
+                    "size": [
+                        "100%",
+                        "100%"
+                    ],
+                    "max_length": 11,
+                    "$text_edit_box_text_type": "NumberChars",
+                    "$option_binding_name": "#mobile_number",
+                    "$text_edit_box_content_binding_name": "$option_binding_name",
+                    "$text_edit_box_binding_collection_name": "$option_binding_name",
+                    "$text_box_enabled_binding_name": "#mobile_number_enabled",
+                    "$text_box_name": "mobile_number_text_box",
+                    "$place_holder_text": ""
+                }
+            }
+        ]
+    },
+    // verify code edit
+    "verify_code_edit": {
+        "type": "stack_panel",
+        "orientation": "horizontal",
+        "size": [
+            "100%",
+            "30px"
+        ],
+        "controls": [
+            {
+                "text_box@common.text_edit_box": {
+                    "size": [
+                        "75%",
+                        "100%"
+                    ],
+                    "max_length": 6,
+                    "$text_box_name": "verify_code_text_box",
+                    "$option_binding_name": "#verify_code",
+                    "$text_edit_box_text_type": "NumberChars",
+                    "$text_edit_box_content_binding_name": "$option_binding_name",
+                    "$text_edit_box_binding_collection_name": "$option_binding_name",
+                    "$text_box_enabled_binding_name": "#verify_code_enabled",
+                    "$place_holder_text": "mobileAuthenticate.code.hint"
+                }
+            },
+            {
+                "button@common_buttons.dark_text_button": {
+                    "$pressed_button_name|default": "request_code",
+                    "$button_text": "#request_code_text",
+                    "$button_text_binding_type": "global",
+                    "bindings": [
+                        {
+                        "binding_name": "#request_code_enabled",
+                        "binding_name_override": "#enabled"
+                        }
+                    ],
+                    "size": [
+                        "fill",
+                        "100%"
+                    ]
+                    
+                }
+            }
+        ]
+    },
+    // button panel
+    "mobile_authenticate_button_panel": {
+        "type": "panel",
+        "anchor_to": "bottom_middle",
+        "anchor_from": "bottom_middle",
+        "size": [
+            "100%-14px",
+            32
+        ],
+        "offset": [
+            0,
+            -7
+        ],
+        "controls": [
+            {
+                "mobile_authenticate_cancel_button@common_buttons.light_text_button": {
+                    "anchor_to": "left_middle",
+                    "anchor_from": "left_middle",
+                    "size": [
+                        "50%-1px",
+                        "30px"
+                    ],
+                    "$pressed_button_name": "mobile_authenticate_cancel",
+                    "$button_text": "mobileAuthenticate.cancel"
+                    //"$left_focus_number|default": 0,
+                    //"default_focus_precedence": "$left_focus_number"
+                }
+            },
+            {
+                "mobile_authenticate_binding_button@common_buttons.light_text_button": {
+                    "anchor_to": "right_middle",
+                    "anchor_from": "right_middle",
+                    "size": [
+                        "50%-1px",
+                        "30px"
+                    ],
+                    "$pressed_button_name": "mobile_authenticate_binding",
+                    "$button_text": "mobileAuthenticate.binding",
+                    "bindings": [
+                        {
+                        "binding_name": "#mobile_binding_enabled",
+                        "binding_name_override": "#enabled"
+                        }
+                    ]
+                    //"$right_focus_number|default": 1,
+                    //"default_focus_precedence": "$right_focus_number"
+                }
+            }
+        ]
+    },
+    // dialog content panel
+    "content_panel": {
+        "type": "stack_panel",
+        "size": [
+            "100%",
+            "100%c"
+        ],
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "mobile_number_label_panel@mobile_authenticate.mobile_number_label_panel": {}
+            },
+            {
+                "mobile_number_edit@mobile_authenticate.mobile_number_edit": {}
+            },
+            {
+                "verify_code_label_panel@mobile_authenticate.verify_code_label_panel": {}
+            },
+            {
+                "verify_code_edit@mobile_authenticate.verify_code_edit": {}
+            }
+            // {
+            //     "code_edit@settings_common.option_text_edit_with_text_button": {
+            //         "$option_binding_name": "#verify_code",
+            //         "size": [
+            //             "100%",
+            //             "30px"
+            //         ],
+            //         "$text_edit_box_label_size": [
+            //             0,
+            //             0
+            //         ],
+            //         "$max_text_edit_length": 6,
+            //         "$option_place_holder_text": "mobileAuthenticate.code.hint",
+            //         "$text_edit_box_text_type": "NumberChars",
+            //         "$option_text_edit_control_size": [
+            //             "70%",
+            //             "100%"
+            //         ],
+            //         "$text_box_name": "code_edit_box",
+            //         "$button_text": "mobileAuthenticate.code.request",
+            //         "$pressed_button_name": "request_code"
+            //     }
+            // }
+        ]
+    },
+    "result_content_panel": {
+        "type": "stack_panel",
+        "size": [
+            "100%",
+            "100%c"
+        ],
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "result_label_panel@mobile_authenticate.result_label_panel": {}
+            }
+            
+        ]
+    },
+    // main node
+    "mobile_authenticate_main": {
+        "type": "panel",
+        "controls": [
+            {
+                "modal_input@popup_dialog.modal_input_panel": {
+                    "controls": [
+                        {
+                            "mobile_authenticate_dialog_with_buttons@mobile_authenticate.mobile_authenticate_dialog_with_buttons": {
+                                "$visibility_source_control_name|default": "mobile_authenticate_dialog_with_buttons"
+                            }
+                        },
+                        {
+                            "mobile_authenticate_result_dialog_with_buttons@mobile_authenticate.mobile_authenticate_result_dialog_with_buttons": {
+                                "$visibility_source_control_name|default": "mobile_authenticate_result_dialog_with_buttons"
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+        
+
+    },
+    // binding result 
+    "mobile_authenticate_result_button_panel": {
+        "type": "panel",
+        "anchor_to": "bottom_middle",
+        "anchor_from": "bottom_middle",
+        "size": [
+            "100%-14px",
+            32
+        ],
+        "offset": [
+            0,
+            -7
+        ],
+        "controls": [
+            {
+                "mobile_authenticate_cancel_button@common_buttons.light_text_button": {
+                    "size": [
+                        "100%",
+                        "100%"
+                    ],
+                    "$pressed_button_name": "mobile_authenticate_result",
+                    "$button_text": "gui.confirm"
+                    //"$left_focus_number|default": 0,
+                    //"default_focus_precedence": "$left_focus_number"
+                }
+            }
+            
+        ]
+    },
+    // binding result 
+    "mobile_authenticate_result_dialog_with_buttons": {
+            "type": "panel",
+            "anchor_to": "center",
+            "anchor_from": "center",
+            "size": [ 214, 130 ],
+            "bindings": [
+                {
+                    "binding_name": "(not #show_main_screen)",
+                    "binding_name_override": "#visible"
+                }
+            ],
+            "controls": [
+                {
+                    "background_with_buttons@common.common_panel": {
+                        "$dialog_background": "dialog_background_hollow_2",
+                        "$fill_alpha": 1
+                    }
+                },
+                {
+                    "title@popup_dialog.modal_title_text": {
+                        "text": "mobileAuthenticate.title",
+                        "text_alignment": "center"
+                    }
+                },
+                {
+                    "content_panel@mobile_authenticate.result_content_panel": {
+                        "anchor_from": "top_middle",
+                        "anchor_to": "top_middle",
+                        "offset": [
+                            0,
+                            23
+                        ],
+                        "size": [
+                            "100% - 20px",
+                            "100% - 62px"
+                        ]
+                    }
+                },
+                {
+                    "button_panel@mobile_authenticate.mobile_authenticate_result_button_panel": {}
+                }
+            ]
+        
+
+    },
+    // child node to main
+    "mobile_authenticate_dialog_with_buttons": {
+        "type": "panel",
+        "anchor_to": "center",
+        "anchor_from": "center",
+        "size": [
+            280,
+            169
+        ],
+        "bindings": [
+            {
+                "binding_name": "#show_main_screen",
+                "binding_name_override": "#visible"
+            }
+        ],
+        "controls": [
+            {
+                "background_with_buttons@common.common_panel": {
+                    "$dialog_background": "dialog_background_hollow_2",
+                    "$fill_alpha": 0.85
+                }
+            },
+            {
+                "title@popup_dialog.modal_title_text": {
+                    "text": "mobileAuthenticate.title",
+                    "text_alignment": "center"
+                }
+            },
+            {
+                "content_panel@mobile_authenticate.content_panel": {
+                    "anchor_from": "top_middle",
+                    "anchor_to": "top_middle",
+                    "offset": [
+                        0,
+                        23
+                    ],
+                    "size": [
+                        "100% - 20px",
+                        "100% - 62px"
+                    ]
+                }
+            },
+            {
+                "button_panel@mobile_authenticate.mobile_authenticate_button_panel": {}
+            }
+        ]
+    },
+    // main screen
+    "mobile_authenticate_screen@common.base_screen": {
+        "button_mappings": [
+            {
+                "from_button_id": "button.menu_cancel",
+                "to_button_id": "button.menu_exit",
+                "mapping_type": "focused"
+            },
+            {
+                "from_button_id": "button.menu_exit",
+                "to_button_id": "button.menu_exit",
+                "mapping_type": "focused"
+            }
+        ],
+        "$screen_content": "mobile_authenticate.mobile_authenticate_main"
+        //"$screen_bg_content": "common.screen_background",
+        
+    }
+}

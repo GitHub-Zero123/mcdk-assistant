@@ -1,0 +1,134 @@
+{
+    "format_version": "1.13.0",
+    "minecraft:feature_rules": {
+        "description": {
+            "identifier": "minecraft:overworld_surface_flowers_feature",
+            "places_feature": "minecraft:legacy:overworld_flower_feature"
+        },
+        "conditions": {
+            "placement_pass": "surface_pass",
+            "minecraft:biome_filter": [
+                {
+                    "any_of": [
+                        {
+                            "test": "has_biome_tag",
+                            "value": "overworld"
+                        },
+                        {
+                            "test": "has_biome_tag",
+                            "value": "overworld_generation"
+                        }
+                    ]
+                },
+                {
+                    "test": "has_biome_tag",
+                    "operator": "not",
+                    "value": "jungle"
+                },
+                {
+                    "test": "has_biome_tag",
+                    "operator": "not",
+                    "value": "flower_forest"
+                },
+                {
+                    "test": "has_biome_tag",
+                    "operator": "not",
+                    "value": "swamp"
+                },
+                {
+                    "test": "has_biome_tag",
+                    "operator": "not",
+                    "value": "mangrove_swamp"
+                },
+                {
+                    "test": "has_biome_tag",
+                    "operator": "not",
+                    "value": "mesa"
+                },
+                {
+                    "test": "has_biome_tag",
+                    "operator": "not",
+                    "value": "mooshroom_island"
+                },
+                {
+                    "test": "has_biome_tag",
+                    "operator": "not",
+                    "value": "plains"
+                },
+                {
+                    "test": "has_biome_tag",
+                    "operator": "not",
+                    "value": "cherry_grove"
+                },
+                {
+                    "test": "has_biome_tag",
+                    "operator": "not",
+                    "value": "pale_garden"
+                },
+                {
+                    "any_of": [
+                        {
+                            "all_of": [
+                                {
+                                    "test": "has_biome_tag",
+                                    "operator": "not",
+                                    "value": "forest"
+                                },
+                                {
+                                    "test": "has_biome_tag",
+                                    "operator": "not",
+                                    "value": "forest_generation"
+                                }
+                            ]
+                        },
+                        {
+                            "test": "has_biome_tag",
+                            "value": "extreme_hills"
+                        },
+                        {
+                            "test": "has_biome_tag",
+                            "value": "taiga"
+                        }
+                    ]
+                },
+                {
+                    "any_of": [
+                        {
+                            "test": "has_biome_tag",
+                            "operator": "not",
+                            "value": "savanna"
+                        },
+                        {
+                            "test": "has_biome_tag",
+                            "value": "mutated"
+                        }
+                    ]
+                }
+            ]
+        },
+        "distribution": {
+            "iterations": 2,
+            "x": {
+                "distribution": "uniform",
+                "extent": [
+                    0,
+                    16
+                ]
+            },
+            "y": {
+                "distribution": "uniform",
+                "extent": [
+                    0,
+                    "query.heightmap(variable.worldx, variable.worldz) + 32"
+                ]
+            },
+            "z": {
+                "distribution": "uniform",
+                "extent": [
+                    0,
+                    16
+                ]
+            }
+        }
+    }
+}

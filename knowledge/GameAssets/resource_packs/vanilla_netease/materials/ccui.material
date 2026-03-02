@@ -1,0 +1,1062 @@
+{
+    "materials": {
+        "version": "1.0.0",
+        "ccui_base": {
+            "+defines": [
+                "ENABLE_FULL_PRECISION_POSITION"
+            ],
+            "vertexShader": "shaders/ccui/ui_pos_color_uv.vertex",
+            "fragmentShader": "shaders/ccui/ui_base_image.fragment",
+            "+states": [
+                "DisableCulling",
+                "DisableDepthTest",
+                "DisableDepthWrite",
+                "Blending"
+            ],
+            "+samplerStates": [
+                {
+                    "samplerIndex": 0,
+                    "textureFilter": "Bilinear"
+                },
+                {
+                    "samplerIndex": 1,
+                    "textureFilter": "Bilinear"
+                }
+            ],
+            "vertexFieldsFullPrecisionVertex": 1,
+            "vertexFields": [
+                {
+                    "field": "Position"
+                },
+                {
+                    "field": "Color"
+                },
+                {
+                    "field": "UV0"
+                }
+            ]
+        },
+        "ccui_base_fp16": {
+            "vertexShader": "shaders/ccui/ui_pos_color_uv.vertex",
+            "fragmentShader": "shaders/ccui/ui_base_image.fragment",
+            "+states": [
+                "DisableCulling",
+                "DisableDepthTest",
+                "DisableDepthWrite",
+                "Blending"
+            ],
+            "+samplerStates": [
+                {
+                    "samplerIndex": 0,
+                    "textureFilter": "Bilinear"
+                },
+                {
+                    "samplerIndex": 1,
+                    "textureFilter": "Bilinear"
+                }
+            ],
+            "vertexFields": [
+                {
+                    "field": "Position"
+                },
+                {
+                    "field": "Color"
+                },
+                {
+                    "field": "UV0"
+                }
+            ]
+        },
+        "ccui_base_image:ccui_base": {
+            "vertexShader": "shaders/ccui/ui_pos_color_uv.vertex",
+            "fragmentShader": "shaders/ccui/ui_base_image.fragment"
+        },
+        "ccui_base_image_notexture_color:ccui_base_image": {
+            "+defines": [
+                "ENABLE_VERTEX_COLOR"
+            ],
+            "vertexFields": [
+                {
+                    "field": "Position"
+                },
+                {
+                    "field": "Color"
+                }
+            ],
+            "variants": [
+                {
+                    "graying": {
+                        "+defines": [
+                            "ENABLE_GRAYING"
+                        ]
+                    }
+                }
+            ]
+        },
+        "ccui_base_image_notexture_color_clip:ccui_base_image_notexture_color": {
+            "+states": [
+                "EnableStencilTest"
+            ],
+            "frontFace": {
+                "stencilFunc": "Equal",
+                "stencilFailOp": "Keep",
+                "stencilDepthFailOp": "Keep",
+                "stencilPassOp": "Keep"
+            },
+            "backFace": {
+                "stencilFunc": "Equal",
+                "stencilFailOp": "Keep",
+                "stencilDepthFailOp": "Keep",
+                "stencilPassOp": "Keep"
+            },
+            "stencilReadMask": 255,
+            "stencilWriteMask": 255,
+            "stencilRefOverride": 0,
+            "variants": [
+                {
+                    "graying": {
+                        "+defines": [
+                            "ENABLE_GRAYING"
+                        ]
+                    }
+                }
+            ]
+        },
+        "ccui_base_image_notexture_color_inverseclip:ccui_base_image_notexture_color_clip": {
+            "frontFace": {
+                "stencilFunc": "NotEqual",
+                "stencilFailOp": "Keep",
+                "stencilDepthFailOp": "Keep",
+                "stencilPassOp": "Keep"
+            },
+            "backFace": {
+                "stencilFunc": "NotEqual",
+                "stencilFailOp": "Keep",
+                "stencilDepthFailOp": "Keep",
+                "stencilPassOp": "Keep"
+            },
+            "variants": [
+                {
+                    "graying": {
+                        "+defines": [
+                            "ENABLE_GRAYING"
+                        ]
+                    }
+                }
+            ]
+        },
+        "ccui_base_image_texture_color:ccui_base_image_notexture_color": {
+            "+defines": [
+                "ENABLE_VERTEX_COLOR",
+                "ENABLE_DIFFUSE_TEXTURE"
+            ],
+            "+samplerStates": [
+                {
+                    "samplerIndex": 0,
+                    "textureFilter": "Bilinear"
+                }
+            ],
+            "vertexFields": [
+                {
+                    "field": "Position"
+                },
+                {
+                    "field": "Color"
+                },
+                {
+                    "field": "UV0"
+                }
+            ],
+            "variants": [
+                {
+                    "graying": {
+                        "+defines": [
+                            "ENABLE_GRAYING"
+                        ]
+                    }
+                }
+            ]
+        },
+        "ccui_base_image_texture_color_clip:ccui_base_image_texture_color": {
+            "+states": [
+                "EnableStencilTest"
+            ],
+            "frontFace": {
+                "stencilFunc": "Equal",
+                "stencilFailOp": "Keep",
+                "stencilDepthFailOp": "Keep",
+                "stencilPassOp": "Keep"
+            },
+            "backFace": {
+                "stencilFunc": "Equal",
+                "stencilFailOp": "Keep",
+                "stencilDepthFailOp": "Keep",
+                "stencilPassOp": "Keep"
+            },
+            "stencilReadMask": 255,
+            "stencilWriteMask": 255,
+            "stencilRefOverride": 0,
+            "variants": [
+                {
+                    "graying": {
+                        "+defines": [
+                            "ENABLE_GRAYING"
+                        ]
+                    }
+                }
+            ]
+        },
+        "ccui_base_image_texture_color_inverseclip:ccui_base_image_texture_color_clip": {
+            "frontFace": {
+                "stencilFunc": "NotEqual",
+                "stencilFailOp": "Keep",
+                "stencilDepthFailOp": "Keep",
+                "stencilPassOp": "Keep"
+            },
+            "backFace": {
+                "stencilFunc": "NotEqual",
+                "stencilFailOp": "Keep",
+                "stencilDepthFailOp": "Keep",
+                "stencilPassOp": "Keep"
+            },
+            "variants": [
+                {
+                    "graying": {
+                        "+defines": [
+                            "ENABLE_GRAYING"
+                        ]
+                    }
+                }
+            ]
+        },
+        "ccui_base_text:ccui_base_fp16": {
+            "vertexShader": "shaders/ccui/ui_base_text.vertex",
+            "fragmentShader": "shaders/ccui/ui_base_text.fragment",
+            "+defines": [
+                "ENABLE_TEXT_COLOR_GRADIENT"
+            ]
+        },
+        "ccui_base_text_texture_color:ccui_base_text": {
+            "+defines": [
+                "ENABLE_VERTEX_COLOR",
+                "ENABLE_DIFFUSE_TEXTURE"
+            ],
+            "+samplerStates": [
+                {
+                    "samplerIndex": 0,
+                    "textureFilter": "Bilinear"
+                }
+            ]
+        },
+        "ccui_base_text_texture_color_clip:ccui_base_text_texture_color": {
+            "+states": [
+                "EnableStencilTest"
+            ],
+            "frontFace": {
+                "stencilFunc": "Equal",
+                "stencilFailOp": "Keep",
+                "stencilDepthFailOp": "Keep",
+                "stencilPassOp": "Keep"
+            },
+            "backFace": {
+                "stencilFunc": "Equal",
+                "stencilFailOp": "Keep",
+                "stencilDepthFailOp": "Keep",
+                "stencilPassOp": "Keep"
+            },
+            "stencilReadMask": 255,
+            "stencilWriteMask": 255,
+            "stencilRefOverride": 0
+        },
+        "ccui_base_text_texture_color_inverseclip:ccui_base_text_texture_color_clip": {
+            "frontFace": {
+                "stencilFunc": "NotEqual",
+                "stencilFailOp": "Keep",
+                "stencilDepthFailOp": "Keep",
+                "stencilPassOp": "Keep"
+            },
+            "backFace": {
+                "stencilFunc": "NotEqual",
+                "stencilFailOp": "Keep",
+                "stencilDepthFailOp": "Keep",
+                "stencilPassOp": "Keep"
+            }
+        },
+        "ccui_clip_image_notexture_color_enter:ccui_base_image": {
+            "vertexShader": "shaders/ccui/ui_pos_color_uv.vertex",
+            "fragmentShader": "shaders/ccui/ui_clip_image.fragment",
+            "+states": [
+                "StencilWrite",
+                "EnableStencilTest",
+                "DisableColorWrite"
+            ],
+            "frontFace": {
+                "stencilFunc": "Always",
+                "stencilFailOp": "Increase",
+                "stencilDepthFailOp": "Increase",
+                "stencilPassOp": "Increase"
+            },
+            "backFace": {
+                "stencilFunc": "Always",
+                "stencilFailOp": "Increase",
+                "stencilDepthFailOp": "Increase",
+                "stencilPassOp": "Increase"
+            },
+            "stencilWriteMask": 255,
+            "stencilRefOverride": 0,
+            "+defines": [
+                "ENABLE_VERTEX_COLOR"
+            ],
+            "vertexFields": [
+                {
+                    "field": "Position"
+                },
+                {
+                    "field": "Color"
+                }
+            ]
+        },
+        "ccui_clip_image_texture_color_enter:ccui_clip_image_notexture_color_enter": {
+            "+defines": [
+                "ENABLE_VERTEX_COLOR",
+                "ENABLE_DIFFUSE_TEXTURE"
+            ],
+            "+samplerStates": [
+                {
+                    "samplerIndex": 0,
+                    "textureFilter": "Bilinear"
+                }
+            ],
+            "vertexFields": [
+                {
+                    "field": "Position"
+                },
+                {
+                    "field": "Color"
+                },
+                {
+                    "field": "UV0"
+                }
+            ]
+        },
+        "ccui_clip_image_notexture_color_leave:ccui_clip_image_notexture_color_enter": {
+            "frontFace": {
+                "stencilFunc": "Always",
+                "stencilFailOp": "Decrease",
+                "stencilDepthFailOp": "Decrease",
+                "stencilPassOp": "Decrease"
+            },
+            "backFace": {
+                "stencilFunc": "Always",
+                "stencilFailOp": "Decrease",
+                "stencilDepthFailOp": "Decrease",
+                "stencilPassOp": "Decrease"
+            }
+        },
+        "ccui_clip_image_texture_color_leave:ccui_clip_image_texture_color_enter": {
+            "frontFace": {
+                "stencilFunc": "Always",
+                "stencilFailOp": "Decrease",
+                "stencilDepthFailOp": "Decrease",
+                "stencilPassOp": "Decrease"
+            },
+            "backFace": {
+                "stencilFunc": "Always",
+                "stencilFailOp": "Decrease",
+                "stencilDepthFailOp": "Decrease",
+                "stencilPassOp": "Decrease"
+            }
+        },
+        "ccui_show_image_texture_color:ccui_base_image_texture_color": {
+            "vertexShader": "shaders/ccui/ui_pos_color_uv.vertex",
+            "fragmentShader": "shaders/ccui/ui_show_image.fragment",
+            "+defines": [
+                "ENABLE_VERTEX_COLOR",
+                "ENABLE_DIFFUSE_TEXTURE",
+                "ENABLE_FLIP_V"
+            ],
+            "blendSrc": "One",
+            "blendDst": "OneMinusSrcAlpha",
+            "variants": [
+                {
+                    "graying": {
+                        "+defines": [
+                            "ENABLE_GRAYING"
+                        ]
+                    }
+                }
+            ]
+        },
+        "ccui_show_image_texture_color_clip:ccui_show_image_texture_color": {
+            "+states": [
+                "EnableStencilTest"
+            ],
+            "frontFace": {
+                "stencilFunc": "Equal",
+                "stencilFailOp": "Keep",
+                "stencilDepthFailOp": "Keep",
+                "stencilPassOp": "Keep"
+            },
+            "backFace": {
+                "stencilFunc": "Equal",
+                "stencilFailOp": "Keep",
+                "stencilDepthFailOp": "Keep",
+                "stencilPassOp": "Keep"
+            },
+            "stencilReadMask": 255,
+            "stencilWriteMask": 255,
+            "stencilRefOverride": 0,
+            "variants": [
+                {
+                    "graying": {
+                        "+defines": [
+                            "ENABLE_GRAYING"
+                        ]
+                    }
+                }
+            ]
+        },
+        "ccui_show_image_texture_color_inverseclip:ccui_show_image_texture_color_clip": {
+            "frontFace": {
+                "stencilFunc": "NotEqual",
+                "stencilFailOp": "Keep",
+                "stencilDepthFailOp": "Keep",
+                "stencilPassOp": "Keep"
+            },
+            "backFace": {
+                "stencilFunc": "NotEqual",
+                "stencilFailOp": "Keep",
+                "stencilDepthFailOp": "Keep",
+                "stencilPassOp": "Keep"
+            },
+            "variants": [
+                {
+                    "graying": {
+                        "+defines": [
+                            "ENABLE_GRAYING"
+                        ]
+                    }
+                }
+            ]
+        },
+        "ccui_live_image_texture_color:ccui_base_image_texture_color": {
+            "vertexShader": "shaders/ccui/ui_pos_color_uv.vertex",
+            "fragmentShader": "shaders/ccui/ui_live_image.fragment",
+            "+defines": [
+                "ENABLE_VERTEX_COLOR",
+                "ENABLE_DIFFUSE_TEXTURE"
+            ],
+            "variants": [
+                {
+                    "graying": {
+                        "+defines": [
+                            "ENABLE_GRAYING"
+                        ]
+                    }
+                }
+            ]
+        },
+        "ccui_live_image_texture_color_clip:ccui_live_image_texture_color": {
+            "+states": [
+                "EnableStencilTest"
+            ],
+            "frontFace": {
+                "stencilFunc": "Equal",
+                "stencilFailOp": "Keep",
+                "stencilDepthFailOp": "Keep",
+                "stencilPassOp": "Keep"
+            },
+            "backFace": {
+                "stencilFunc": "Equal",
+                "stencilFailOp": "Keep",
+                "stencilDepthFailOp": "Keep",
+                "stencilPassOp": "Keep"
+            },
+            "stencilReadMask": 255,
+            "stencilWriteMask": 255,
+            "stencilRefOverride": 0,
+            "variants": [
+                {
+                    "graying": {
+                        "+defines": [
+                            "ENABLE_GRAYING"
+                        ]
+                    }
+                }
+            ]
+        },
+        "ccui_live_image_texture_color_inverseclip:ccui_live_image_texture_color_clip": {
+            "frontFace": {
+                "stencilFunc": "NotEqual",
+                "stencilFailOp": "Keep",
+                "stencilDepthFailOp": "Keep",
+                "stencilPassOp": "Keep"
+            },
+            "backFace": {
+                "stencilFunc": "NotEqual",
+                "stencilFailOp": "Keep",
+                "stencilDepthFailOp": "Keep",
+                "stencilPassOp": "Keep"
+            },
+            "variants": [
+                {
+                    "graying": {
+                        "+defines": [
+                            "ENABLE_GRAYING"
+                        ]
+                    }
+                }
+            ]
+        },
+        "ccui_live_image_texture_color_oes:ccui_base_image_texture_color": {
+            "vertexShader": "shaders/ccui/ui_pos_color_uv.vertex",
+            "fragmentShader": "shaders/ccui/ui_live_image_oes.fragment",
+            "+defines": [
+                "ENABLE_VERTEX_COLOR",
+                "ENABLE_DIFFUSE_TEXTURE"
+            ],
+            "variants": [
+                {
+                    "graying": {
+                        "+defines": [
+                            "ENABLE_GRAYING"
+                        ]
+                    }
+                }
+            ]
+        },
+        "ccui_live_image_texture_color_clip_oes:ccui_live_image_texture_color_oes": {
+            "+states": [
+                "EnableStencilTest"
+            ],
+            "frontFace": {
+                "stencilFunc": "Equal",
+                "stencilFailOp": "Keep",
+                "stencilDepthFailOp": "Keep",
+                "stencilPassOp": "Keep"
+            },
+            "backFace": {
+                "stencilFunc": "Equal",
+                "stencilFailOp": "Keep",
+                "stencilDepthFailOp": "Keep",
+                "stencilPassOp": "Keep"
+            },
+            "stencilReadMask": 255,
+            "stencilWriteMask": 255,
+            "stencilRefOverride": 0,
+            "variants": [
+                {
+                    "graying": {
+                        "+defines": [
+                            "ENABLE_GRAYING"
+                        ]
+                    }
+                }
+            ]
+        },
+        "ccui_live_image_texture_color_inverseclip_oes:ccui_live_image_texture_color_clip_oes": {
+            "frontFace": {
+                "stencilFunc": "NotEqual",
+                "stencilFailOp": "Keep",
+                "stencilDepthFailOp": "Keep",
+                "stencilPassOp": "Keep"
+            },
+            "backFace": {
+                "stencilFunc": "NotEqual",
+                "stencilFailOp": "Keep",
+                "stencilDepthFailOp": "Keep",
+                "stencilPassOp": "Keep"
+            },
+            "variants": [
+                {
+                    "graying": {
+                        "+defines": [
+                            "ENABLE_GRAYING"
+                        ]
+                    }
+                }
+            ]
+        },
+        "ccui_particle_texture_color:ccui_base_image_texture_color": {
+            "vertexShader": "shaders/ccui/ui_pos_color_uv.vertex",
+            "fragmentShader": "shaders/ccui/ui_particle.fragment",
+            "+defines": [
+                "ENABLE_VERTEX_COLOR",
+                "ENABLE_DIFFUSE_TEXTURE"
+            ],
+            "blendDst": "One",
+            "variants": [
+                {
+                    "graying": {
+                        "+defines": [
+                            "ENABLE_GRAYING"
+                        ]
+                    }
+                }
+            ]
+        },
+        "ccui_particle_texture_color_clip:ccui_particle_texture_color": {
+            "+states": [
+                "EnableStencilTest"
+            ],
+            "frontFace": {
+                "stencilFunc": "Equal",
+                "stencilFailOp": "Keep",
+                "stencilDepthFailOp": "Keep",
+                "stencilPassOp": "Keep"
+            },
+            "backFace": {
+                "stencilFunc": "Equal",
+                "stencilFailOp": "Keep",
+                "stencilDepthFailOp": "Keep",
+                "stencilPassOp": "Keep"
+            },
+            "stencilReadMask": 255,
+            "stencilWriteMask": 255,
+            "stencilRefOverride": 0,
+            "variants": [
+                {
+                    "graying": {
+                        "+defines": [
+                            "ENABLE_GRAYING"
+                        ]
+                    }
+                }
+            ]
+        },
+        "ccui_particle_texture_color_inverseclip:ccui_particle_texture_color_clip": {
+            "frontFace": {
+                "stencilFunc": "NotEqual",
+                "stencilFailOp": "Keep",
+                "stencilDepthFailOp": "Keep",
+                "stencilPassOp": "Keep"
+            },
+            "backFace": {
+                "stencilFunc": "NotEqual",
+                "stencilFailOp": "Keep",
+                "stencilDepthFailOp": "Keep",
+                "stencilPassOp": "Keep"
+            },
+            "variants": [
+                {
+                    "graying": {
+                        "+defines": [
+                            "ENABLE_GRAYING"
+                        ]
+                    }
+                }
+            ]
+        },
+        "ccui_circular_image_notexture_color:ccui_base_image": {
+            "vertexShader": "shaders/ccui/ui_pos_color_uv.vertex",
+            "fragmentShader": "shaders/ccui/ui_circular_image.fragment",
+            "+defines": [
+                "ENABLE_VERTEX_COLOR",
+                "ENABLE_TEXCOORD1",
+                "ENABLE_CIRCULAR_PARAM"
+            ],
+            "vertexFields": [
+                {
+                    "field": "Position"
+                },
+                {
+                    "field": "Color"
+                },
+                {
+                    "field": "UV1"
+                }
+            ],
+            "variants": [
+                {
+                    "graying": {
+                        "+defines": [
+                            "ENABLE_GRAYING"
+                        ]
+                    }
+                }
+            ]
+        },
+        "ccui_circular_image_notexture_color_clip:ccui_circular_image_notexture_color": {
+            "+states": [
+                "EnableStencilTest"
+            ],
+            "frontFace": {
+                "stencilFunc": "Equal",
+                "stencilFailOp": "Keep",
+                "stencilDepthFailOp": "Keep",
+                "stencilPassOp": "Keep"
+            },
+            "backFace": {
+                "stencilFunc": "Equal",
+                "stencilFailOp": "Keep",
+                "stencilDepthFailOp": "Keep",
+                "stencilPassOp": "Keep"
+            },
+            "stencilReadMask": 255,
+            "stencilWriteMask": 255,
+            "stencilRefOverride": 0,
+            "variants": [
+                {
+                    "graying": {
+                        "+defines": [
+                            "ENABLE_GRAYING"
+                        ]
+                    }
+                }
+            ]
+        },
+        "ccui_circular_image_notexture_color_inverseclip:ccui_circular_image_notexture_color_clip": {
+            "frontFace": {
+                "stencilFunc": "NotEqual",
+                "stencilFailOp": "Keep",
+                "stencilDepthFailOp": "Keep",
+                "stencilPassOp": "Keep"
+            },
+            "backFace": {
+                "stencilFunc": "NotEqual",
+                "stencilFailOp": "Keep",
+                "stencilDepthFailOp": "Keep",
+                "stencilPassOp": "Keep"
+            },
+            "variants": [
+                {
+                    "graying": {
+                        "+defines": [
+                            "ENABLE_GRAYING"
+                        ]
+                    }
+                }
+            ]
+        },
+        "ccui_circular_image_texture_color:ccui_circular_image_notexture_color": {
+            "+defines": [
+                "ENABLE_VERTEX_COLOR",
+                "ENABLE_DIFFUSE_TEXTURE"
+            ],
+            "+samplerStates": [
+                {
+                    "samplerIndex": 0,
+                    "textureFilter": "Bilinear"
+                }
+            ],
+            "vertexFields": [
+                {
+                    "field": "Position"
+                },
+                {
+                    "field": "Color"
+                },
+                {
+                    "field": "UV0"
+                },
+                {
+                    "field": "UV1"
+                }
+            ],
+            "variants": [
+                {
+                    "graying": {
+                        "+defines": [
+                            "ENABLE_GRAYING"
+                        ]
+                    }
+                }
+            ]
+        },
+        "ccui_circular_image_texture_color_clip:ccui_circular_image_texture_color": {
+            "+states": [
+                "EnableStencilTest"
+            ],
+            "frontFace": {
+                "stencilFunc": "Equal",
+                "stencilFailOp": "Keep",
+                "stencilDepthFailOp": "Keep",
+                "stencilPassOp": "Keep"
+            },
+            "backFace": {
+                "stencilFunc": "Equal",
+                "stencilFailOp": "Keep",
+                "stencilDepthFailOp": "Keep",
+                "stencilPassOp": "Keep"
+            },
+            "stencilReadMask": 255,
+            "stencilWriteMask": 255,
+            "stencilRefOverride": 0,
+            "variants": [
+                {
+                    "graying": {
+                        "+defines": [
+                            "ENABLE_GRAYING"
+                        ]
+                    }
+                }
+            ]
+        },
+        "ccui_circular_image_texture_color_inverseclip:ccui_circular_image_texture_color_clip": {
+            "frontFace": {
+                "stencilFunc": "NotEqual",
+                "stencilFailOp": "Keep",
+                "stencilDepthFailOp": "Keep",
+                "stencilPassOp": "Keep"
+            },
+            "backFace": {
+                "stencilFunc": "NotEqual",
+                "stencilFailOp": "Keep",
+                "stencilDepthFailOp": "Keep",
+                "stencilPassOp": "Keep"
+            },
+            "variants": [
+                {
+                    "graying": {
+                        "+defines": [
+                            "ENABLE_GRAYING"
+                        ]
+                    }
+                }
+            ]
+        },
+        "ccui_render_node_image_texture_color:ccui_base_image": {
+            "vertexShader": "shaders/ccui/ui_pos_color_uv.vertex",
+            "fragmentShader": "shaders/ccui/ui_render_node_image.fragment",
+            "+defines": [
+                "ENABLE_VERTEX_COLOR",
+                "ENABLE_DIFFUSE_TEXTURE",
+                "ENABLE_TEXCOORD1",
+                "ENABLE_RENDERNODE_PARAM"
+            ],
+            "+samplerStates": [
+                {
+                    "samplerIndex": 0,
+                    "textureFilter": "Bilinear"
+                }
+            ],
+            "vertexFields": [
+                {
+                    "field": "Position"
+                },
+                {
+                    "field": "Color"
+                },
+                {
+                    "field": "UV0"
+                },
+                {
+                    "field": "UV1"
+                }
+            ],
+            "variants": [
+                {
+                    "graying": {
+                        "+defines": [
+                            "ENABLE_GRAYING"
+                        ]
+                    }
+                }
+            ]
+        },
+        "ccui_render_node_image_texture_color_clip:ccui_render_node_image_texture_color": {
+            "+states": [
+                "EnableStencilTest"
+            ],
+            "frontFace": {
+                "stencilFunc": "Equal",
+                "stencilFailOp": "Keep",
+                "stencilDepthFailOp": "Keep",
+                "stencilPassOp": "Keep"
+            },
+            "backFace": {
+                "stencilFunc": "Equal",
+                "stencilFailOp": "Keep",
+                "stencilDepthFailOp": "Keep",
+                "stencilPassOp": "Keep"
+            },
+            "stencilReadMask": 255,
+            "stencilWriteMask": 255,
+            "stencilRefOverride": 0,
+            "variants": [
+                {
+                    "graying": {
+                        "+defines": [
+                            "ENABLE_GRAYING"
+                        ]
+                    }
+                }
+            ]
+        },
+        "ccui_render_node_image_texture_color_inverseclip:ccui_render_node_image_texture_color_clip": {
+            "frontFace": {
+                "stencilFunc": "NotEqual",
+                "stencilFailOp": "Keep",
+                "stencilDepthFailOp": "Keep",
+                "stencilPassOp": "Keep"
+            },
+            "backFace": {
+                "stencilFunc": "NotEqual",
+                "stencilFailOp": "Keep",
+                "stencilDepthFailOp": "Keep",
+                "stencilPassOp": "Keep"
+            },
+            "variants": [
+                {
+                    "graying": {
+                        "+defines": [
+                            "ENABLE_GRAYING"
+                        ]
+                    }
+                }
+            ]
+        },
+        "ccui_puppet_texture_color:ccui_base_image_texture_color": {
+            "vertexShader": "shaders/ccui/ui_puppet.vertex",
+            "fragmentShader": "shaders/ccui/ui_puppet.fragment",
+            "vertexFields": [
+                {
+                    "field": "Position"
+                },
+                {
+                    "field": "Color"
+                },
+                {
+                    "field": "Normal"
+                },
+                {
+                    "field": "UV0"
+                }
+            ],
+            "variants": [
+                {
+                    "highlight": {
+                        "+defines": [
+                            "ENABLE_HIGHLIGHT"
+                        ]
+                    }
+                }
+            ]
+        },
+        "ccui_puppet_texture_color_clip:ccui_puppet_texture_color": {
+            "+states": [
+                "EnableStencilTest"
+            ],
+            "frontFace": {
+                "stencilFunc": "LessEqual",
+                "stencilFailOp": "Keep",
+                "stencilDepthFailOp": "Keep",
+                "stencilPassOp": "Keep"
+            },
+            "backFace": {
+                "stencilFunc": "LessEqual",
+                "stencilFailOp": "Keep",
+                "stencilDepthFailOp": "Keep",
+                "stencilPassOp": "Keep"
+            },
+            "stencilReadMask": 255,
+            "stencilWriteMask": 255,
+            "stencilRefOverride": 0,
+            "variants": [
+                {
+                    "highlight": {
+                        "+defines": [
+                            "ENABLE_HIGHLIGHT"
+                        ]
+                    }
+                }
+            ]
+        },
+        "ccui_mtext_texture_color:ccui_base_image": {
+            "vertexShader": "shaders/ccui/ui_pos_color_uv.vertex",
+            "fragmentShader": "shaders/ccui/ui_mtext.fragment",
+            "+defines": [
+                "ENABLE_VERTEX_COLOR",
+                "ENABLE_DIFFUSE_TEXTURE"
+            ],
+            "+samplerStates": [
+                {
+                    "samplerIndex": 0,
+                    "textureFilter": "Bilinear"
+                }
+            ]
+        },
+        "ccui_mtext_texture_color_clip:ccui_mtext_texture_color": {
+            "+states": [
+                "EnableStencilTest"
+            ],
+            "frontFace": {
+                "stencilFunc": "Equal",
+                "stencilFailOp": "Keep",
+                "stencilDepthFailOp": "Keep",
+                "stencilPassOp": "Keep"
+            },
+            "backFace": {
+                "stencilFunc": "Equal",
+                "stencilFailOp": "Keep",
+                "stencilDepthFailOp": "Keep",
+                "stencilPassOp": "Keep"
+            },
+            "stencilReadMask": 255,
+            "stencilWriteMask": 255,
+            "stencilRefOverride": 0
+        },
+        "ccui_mtext_texture_color_inverseclip:ccui_mtext_texture_color_clip": {
+            "frontFace": {
+                "stencilFunc": "NotEqual",
+                "stencilFailOp": "Keep",
+                "stencilDepthFailOp": "Keep",
+                "stencilPassOp": "Keep"
+            },
+            "backFace": {
+                "stencilFunc": "NotEqual",
+                "stencilFailOp": "Keep",
+                "stencilDepthFailOp": "Keep",
+                "stencilPassOp": "Keep"
+            }
+        },
+        "ccui_mtext_texture_color_nearest:ccui_base_image": {
+            "vertexShader": "shaders/ccui/ui_pos_color_uv.vertex",
+            "fragmentShader": "shaders/ccui/ui_mtext.fragment",
+            "+defines": [
+                "ENABLE_VERTEX_COLOR",
+                "ENABLE_DIFFUSE_TEXTURE"
+            ],
+            "+samplerStates": [
+                {
+                    "samplerIndex": 0,
+                    "textureFilter": "Point"
+                }
+            ]
+        },
+        "ccui_mtext_texture_color_clip_nearest:ccui_mtext_texture_color_nearest": {
+            "+states": [
+                "EnableStencilTest"
+            ],
+            "frontFace": {
+                "stencilFunc": "Equal",
+                "stencilFailOp": "Keep",
+                "stencilDepthFailOp": "Keep",
+                "stencilPassOp": "Keep"
+            },
+            "backFace": {
+                "stencilFunc": "Equal",
+                "stencilFailOp": "Keep",
+                "stencilDepthFailOp": "Keep",
+                "stencilPassOp": "Keep"
+            },
+            "stencilReadMask": 255,
+            "stencilWriteMask": 255,
+            "stencilRefOverride": 0
+        },
+        "ccui_mtext_texture_color_inverseclip_nearest:ccui_mtext_texture_color_clip_nearest": {
+            "frontFace": {
+                "stencilFunc": "NotEqual",
+                "stencilFailOp": "Keep",
+                "stencilDepthFailOp": "Keep",
+                "stencilPassOp": "Keep"
+            },
+            "backFace": {
+                "stencilFunc": "NotEqual",
+                "stencilFailOp": "Keep",
+                "stencilDepthFailOp": "Keep",
+                "stencilPassOp": "Keep"
+            }
+        }
+    }
+}

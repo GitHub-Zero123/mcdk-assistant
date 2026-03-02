@@ -1,0 +1,50 @@
+{
+    "particleeffect": {
+        "enablecolor": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "value": "Direction",
+            "min": "-1.0 -1.0 -1.0"
+        },
+        "dampingforce": {
+            "value": "8.0"
+        },
+        "numparticles": {
+            "value": "8"
+        },
+        "pointFiltering": true,
+        "activetime": {
+            "value": "0.2"
+        },
+        "emissionrate": {
+            "max": "200.0",
+            "min": "200.0"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": false,
+                "name": "textures/sfxs/pet_squid/ss_squid_ghast_yan2",
+                "fps": "40"
+            },
+            "name": "textures/sfxs/pet_squid/ss_squid_ghast_yan2"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "delay": 2.1,
+        "timetolive": {
+            "max": "0.4",
+            "min": "0.2"
+        },
+        "velocity": {
+            "max": "5.0",
+            "min": "4.0"
+        },
+        "particlesize": {
+            "max": "0.18 0.18",
+            "min": "0.12 0.12"
+        }
+    }
+}

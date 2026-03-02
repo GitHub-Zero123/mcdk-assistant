@@ -1,0 +1,46 @@
+{
+    "format_version": "1.13.0",
+    "minecraft:feature_rules": {
+        "description": {
+            "identifier": "minecraft:warm_ocean_after_surface_coral_crust_feature",
+            "places_feature": "minecraft:coral_crust_feature"
+        },
+        "conditions": {
+            "placement_pass": "after_surface_pass",
+            "minecraft:biome_filter": [
+                {
+                    "test": "has_biome_tag",
+                    "operator": "==",
+                    "value": "warm"
+                },
+                {
+                    "test": "has_biome_tag",
+                    "operator": "==",
+                    "value": "ocean"
+                }
+            ]
+        },
+        "distribution": {
+            "iterations": 1,
+            "scatter_chance": {
+                "numerator": 1,
+                "denominator": 3
+            },
+            "x": {
+                "distribution": "uniform",
+                "extent": [
+                    0,
+                    10
+                ]
+            },
+            "y": "query.above_top_solid(variable.worldx, variable.worldz)",
+            "z": {
+                "distribution": "uniform",
+                "extent": [
+                    0,
+                    10
+                ]
+            }
+        }
+    }
+}

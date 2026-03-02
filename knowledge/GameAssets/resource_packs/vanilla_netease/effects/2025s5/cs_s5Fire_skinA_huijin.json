@@ -1,0 +1,93 @@
+{
+    "particleeffect": {
+        "colorfade": [
+            {
+                "color": "1.0000 0.9412 0.4745 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.9529 0.2549 1.0000",
+                "time": "16.1%"
+            },
+            {
+                "color": "1.0000 0.7882 0.1451 1.0000",
+                "time": "45.8%"
+            },
+            {
+                "color": "0.8196 0.5059 0.0000 1.0000",
+                "time": "72.9%"
+            },
+            {
+                "color": "0.4000 0.1137 0.0000 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 0.0 1.0",
+            "value": "Direction"
+        },
+        "disorder": {
+            "increment": "0.1",
+            "interval": "0.3",
+            "max": "-0.2 -0.2 -0.2",
+            "min": "0.2 0.2 0.2"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.4 0.23 0.35"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "numparticles": {
+            "value": "8"
+        },
+        "particlesize": {
+            "max": "0.12 0.12",
+            "min": "0.06 0.06"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "false"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.34 0.34",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.02 1.02",
+                "time": "14.7%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "41.0%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "0",
+                "name": "textures/sfxs/2025s5/cs_s5Fire_skin_lizi",
+                "shuffle": true
+            },
+            "name": "textures/sfxs/2025s5/cs_s5Fire_skin_lizi"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "1.2",
+            "min": "0.6"
+        },
+        "velocity": {
+            "max": "0.7000000000000001",
+            "min": "0.40000000000000013"
+        }
+    }
+}

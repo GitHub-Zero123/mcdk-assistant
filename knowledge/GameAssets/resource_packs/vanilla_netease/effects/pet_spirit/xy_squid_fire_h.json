@@ -1,0 +1,74 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "0.0 0.0 0.5",
+            "value": "Direction",
+            "min": "0.0 0.0 1.0"
+        },
+        "dampingforce": {
+            "value": "5.0"
+        },
+        "numparticles": {
+            "value": "3"
+        },
+        "pointFiltering": true,
+        "enabletexture": {
+            "enable": true
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.9196",
+                "time": "35.5%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.9107",
+                "time": "100.0%"
+            }
+        ],
+        "emissionrate": {
+            "max": "5.0",
+            "min": "2.0"
+        },
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.1 0.3 0.1"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": false,
+                "name": "textures/sfxs/pet_spirit/xy_squid_fire_h01",
+                "fps": "8"
+            },
+            "name": "textures/sfxs/pet_spirit/xy_squid_fire_h01"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "1.0",
+            "min": "0.5"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 180.0",
+            "min": "0.0 0.0 180.0"
+        },
+        "particlesize": {
+            "max": "0.15 0.15",
+            "min": "0.07 0.07"
+        }
+    }
+}

@@ -1,0 +1,87 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "0.9529 1.0000 0.3961 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.2784 1.0000 0.8431 0.7768",
+                "time": "18.4%"
+            },
+            {
+                "color": "0.2745 0.9843 1.0000 0.4196",
+                "time": "35.3%"
+            },
+            {
+                "color": "0.2863 0.5373 1.0000 0.2857",
+                "time": "71.8%"
+            },
+            {
+                "color": "0.3686 0.3490 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "12.0",
+            "min": "12.0"
+        },
+        "layer": 4,
+        "numparticles": {
+            "value": "12"
+        },
+        "particlesize": {
+            "max": "1.0 0.9999999999999999",
+            "min": "0.5 0.5"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 666.0",
+            "min": "0.0 0.0 -666.0"
+        },
+        "rotationSpeedRange": {
+            "max": "0.0 0.0 20.0",
+            "min": "0.0 0.0 -35.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.75 0.75",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.1 1.1",
+                "time": "26.3%"
+            },
+            {
+                "scale": "1.2 1.2",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "0",
+                "name": "textures/sfxs/2025s2/cs_s4nanwu_skin_gx01",
+                "shuffle": true
+            },
+            "name": "textures/sfxs/2025s2/cs_s4nanwu_skin_gx01"
+        },
+        "timetolive": {
+            "max": "1.2",
+            "min": "0.8"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

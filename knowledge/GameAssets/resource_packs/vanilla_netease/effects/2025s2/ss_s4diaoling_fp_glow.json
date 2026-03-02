@@ -1,0 +1,78 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.1"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "0.0000 0.9529 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.0000 0.4824 1.0000 1.0000",
+                "time": "55.5%"
+            },
+            {
+                "color": "0.5020 0.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 0.0 1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "3.0",
+            "min": "3.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.0 0.0 0.0"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Rotate Y"
+        },
+        "layer": 4,
+        "numparticles": {
+            "value": "3"
+        },
+        "particlesize": {
+            "max": "0.7 0.8",
+            "min": "0.7 0.8"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "false"
+        },
+        "texture": {
+            "ani": {
+                "fps": "70",
+                "name": "textures/sfxs/2025s2/ss_s4diaoling_fp_glow",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s2/ss_s4diaoling_fp_glow"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.3",
+            "min": "0.3"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

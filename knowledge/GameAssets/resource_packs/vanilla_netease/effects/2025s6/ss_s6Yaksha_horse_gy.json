@@ -1,0 +1,44 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "0.7216 0.0745 1.0000 0.2321",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.7843 0.1255 1.0000 0.1964",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "5.0",
+            "min": "5.0"
+        },
+        "layer": 2,
+        "numparticles": {
+            "value": "5"
+        },
+        "particlesize": {
+            "max": "0.6 0.6",
+            "min": "0.6 0.6"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "name": "textures/sfxs/2025s6/ss_s6Yaksha_horse_gy2"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

@@ -1,0 +1,164 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.45"
+        },
+        "dampingforce": {
+            "value": "3.0"
+        },
+        "delay": 2.15,
+        "depthtest": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "0.7999999999999999 1.0 0.0",
+            "min": "-0.7999999999999999 0.7 0.0",
+            "value": "Direction"
+        },
+        "disorder": {
+            "increment": "0.5",
+            "interval": "0.2",
+            "max": "-0.1 -0.1 -0.1",
+            "min": "0.1 0.1 0.1"
+        },
+        "emissionrate": {
+            "max": "75.0",
+            "min": "75.0"
+        },
+        "emitterScaleCurve": [
+            {
+                "leftPoint": {
+                    "x": 0.0,
+                    "y": 0.06000000000000005
+                },
+                "rightPoint": {
+                    "x": 0.0,
+                    "y": 0.2400000000000002
+                },
+                "x": 0.0,
+                "y": 0.06000000000000005
+            },
+            {
+                "leftPoint": {
+                    "x": 0.23,
+                    "y": 0.28
+                },
+                "rightPoint": {
+                    "x": 0.30833333333333335,
+                    "y": 0.6399999999999999
+                },
+                "x": 0.2733333333333333,
+                "y": 0.5
+            },
+            {
+                "leftPoint": {
+                    "x": 0.3383333333333333,
+                    "y": 0.8
+                },
+                "rightPoint": {
+                    "x": 0.3433333333333333,
+                    "y": 0.9000000000000004
+                },
+                "x": 0.3433333333333333,
+                "y": 0.9199999999999999
+            },
+            {
+                "leftPoint": {
+                    "x": 0.45,
+                    "y": 1.0800000000000005
+                },
+                "rightPoint": {
+                    "x": 0.45,
+                    "y": 0.0
+                },
+                "x": 0.45,
+                "y": 0.98
+            }
+        ],
+        "emitterscale": [
+            {
+                "time": "0.0",
+                "value": "0.060"
+            },
+            {
+                "time": "0.027160493827160494",
+                "value": "0.093"
+            },
+            {
+                "time": "0.11506172839506171",
+                "value": "0.210"
+            },
+            {
+                "time": "0.2733333333333333",
+                "value": "0.500"
+            },
+            {
+                "time": "0.3433333333333333",
+                "value": "0.920"
+            },
+            {
+                "time": "0.19833333333333333",
+                "value": "0.485"
+            },
+            {
+                "time": "0.45",
+                "value": "0.980"
+            }
+        ],
+        "emittersize": {
+            "value": "0.20000000000000004 0.2 0.20000000000000004"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "layer": 4,
+        "numparticles": {
+            "value": "75"
+        },
+        "particlesize": {
+            "max": "0.05 0.05",
+            "min": "0.02 0.02"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "false"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.0 0.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.68 1.68",
+                "time": "14.0%"
+            },
+            {
+                "scale": "0.45 0.45",
+                "time": "56.3%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "0",
+                "name": "textures/sfxs/2025s5/cs_s5Fire_skin_birth_bloomlz01",
+                "shuffle": true
+            },
+            "name": "textures/sfxs/2025s5/cs_s5Fire_skin_birth_bloomlz01"
+        },
+        "thickness": {
+            "value": "0.1"
+        },
+        "timetolive": {
+            "max": "1.2",
+            "min": "0.75"
+        },
+        "velocity": {
+            "max": "2.0",
+            "min": "1.2"
+        }
+    }
+}

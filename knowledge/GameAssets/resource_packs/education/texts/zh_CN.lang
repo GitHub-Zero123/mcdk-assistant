@@ -1,0 +1,550 @@
+﻿authentication.popup.setup.title=账户设置	#
+authentication.popup.setup.firstPage.body=欢迎来到 Minecraft Education！%1%1在我们开始之前，我们需要验证您的年龄。为此，我们将打开您的网页浏览器，要求您使用个人 Microsoft 账号登录。%1%1如果您没有个人 Microsoft 账号，请不用担心... 您可以在登录页面上创建一个账号。		### %1 will be replaced with a new line so two will result in an empty line seperating the two pieces of text
+authentication.popup.setup.firstPage.learnMore=为什么我需要验证我的年龄？	#
+authentication.popup.setup.firstPage.button=立即验证	#
+authentication.popup.setup.secondPage.body=我们在您的网页浏览器中打开了账号设置页面。请在该页面登录您的个人 Microsoft 账号并验证您的年龄。%1%1完成后请告知我们。		### %1 will be replaced with a new line so two will result in an empty line seperating the two pieces of text
+authentication.popup.setup.secondPage.openAgain=重新打开“帐户设置”页面。	#
+authentication.popup.setup.secondPage.button=完成了	#
+authentication.popup.demoLink=尝试演示课程。	#
+
+classroomSettings.uriResource.header.title=资源链接	#
+classroomSettings.uriResource.header.description=在游戏菜单上创建一个新按钮，为您的世界添加一个通往评估工具、网站或其他资源的链接。	#
+classroomSettings.uriResource.name.placeHolder=打开链接（默认）		### Text before (Default) should match pause.externalLink
+classroomSettings.uriResource.name.title=资源按钮名称	#
+classroomSettings.uriResource.uri.placeHolder=需启用按钮	#
+classroomSettings.uriResource.uri.title=资源按钮 URL	#
+classroomSettings.uriResource.uri.warning.invalidUri=仅支持以“http”或“https”开头的网址。	#
+classroomSettings.uriResource.uri.warning.emptyUri=不要忘记添加一个 URL 来启用您的按钮。	#
+
+commands.codebuilder.description=为一个玩家设置代码编辑器。	#
+commands.codebuilder.invalidRuntimeAction=无效的运行时操作。	#
+commands.resourceuri.description=在游戏菜单中设置资源 URI	#
+commands.resourceuri.named=资源 URI 设置为“%s”，按钮名称“%s”	#
+commands.resourceuri.default=资源 URI 设置为“%s”	#
+commands.resourceuri.clear=资源 URI 已删除	#
+commands.summon.failed.npc.edu=您需要世界建造者权限才能召唤 NPC		###
+commands.takepicture.description=拍摄用户的照片或从用户的角度拍照片。	#
+commands.takepicture.cameranotfound=无法找到摄像机。	#
+commands.takepicture.cameranotspawned=无法生成摄像机。	#
+
+createWorldScreen.allowdestructiveitems=允许毁灭性物品	#
+createWorldScreen.allowmobs=允许生物	#
+createWorldScreen.classroomsettings.toggle=显示教室设置	#
+createWorldScreen.classroom.settings=教室设置	#
+createWorldScreen.commands=允许命令	#
+createWorldScreen.help=获取有关教室设置的帮助	#
+createWorldScreen.immutableworld=永恒不变的世界	#
+createWorldScreen.perfectweather=最佳天气	#
+createWorldScreen.playerdamage=玩家伤害	#
+createWorldScreen.pvpdamage=玩家 VS 玩家伤害	#
+
+edu.cloudError.generic.code=错误代码： 	#
+edu.cloudError.generic.download.title=世界下载失败		##### {MaxLength="45"}
+edu.cloudError.generic.linkDescription=了解有关此错误的更多信息	#
+edu.cloudError.generic.message=将您的世界上传到云端时出错了。	#
+edu.cloudError.generic.download.message=从云端下载您的世界时出错了。	#
+edu.cloudError.generic.upload.title=上传失败 	##### {MaxLength="45"}
+edu.cloudError.largeWorld.message=此世界只能保存到这个本地设备。云端上传支持的最大文件大小为 250MB。	#
+edu.cloudError.largeWorld.title=世界太大了 	##### {MaxLength="45"}
+edu.cloudError.local.download.title=世界下载错误 	##### {MaxLength="45"}
+edu.cloudError.local.download.message=从云端下载最新版本时出现问题。您可以打开上次在此设备上保存的版本，并在之后决定要保留哪个世界版本。	#
+edu.cloudError.local.download.linkDescription=了解有关下载错误的更多信息	#
+edu.cloudError.local.download.open=打开	#
+edu.cloudError.local.sync.title=世界同步错误 	##### {MaxLength="45"}
+edu.cloudError.local.sync.message=同步至云端时出现问题。您的世界可能已过期。您仍可以在此设备上打开最后保存的版本。	#
+edu.cloudError.notfound.download.message=我们无法在云端找到这个世界。退出并返回“我的世界”以获取您的世界的刷新视图。	#
+edu.cloudError.notfound.download.title=在 OneDrive 上找不到文件 	##### {MaxLength="45"}
+edu.cloudError.outOfStorage.linkDescription=如何在 OneDrive 上空间不足时备份世界 	##### {MaxLength="64"}
+edu.cloudError.outOfStorage.download.message=您的设备空间不足！为什么不删除一些不需要的东西，便于您保存新内容？	#
+edu.cloudError.outOfStorage.message=您的 OneDrive 空间不足，无法保存此世界。	#
+edu.cloudError.outOfStorage.title=未能成功上传至云端 	##### {MaxLength="45"}
+edu.cloudError.unauthorized.download.message=您没有权限下载此文件。请求主机管理员查看您的 OneDrive 设置。	#
+edu.cloudError.unauthorized.download.title=权限错误		##### {MaxLength="45"}
+edu.cloudError.unauthorized.linkDescription=如何检查 OneDrive 设置	#
+edu.cloudError.unauthorized.message=您没有权限访问云存储。如果您想要备份世界文件并保持设备间的同步，请检查您的 OneDrive 设置。	#
+edu.cloudError.unauthorized.title=云端访问权限问题 	##### {MaxLength="45"}
+edu.cloudError.uploadFailed.message=请再次尝试上传至云端。	#
+edu.cloudError.uploadFailed.linkDescription=获取有关此错误的帮助	#
+
+item.spawn_egg.entity.npc.failed.edu=您需要世界建造者限才能生成 NPC	#
+item.worldbuilder.block.failed.edu=你需要世界建造者权限才能放置此方块	#
+
+library.connection.failed.body=我们无法连接到库。这可能是由于您的计算机处于脱机状态，或是对库目录的访问受到阻止。	#
+library.connection.failed.help=获取帮助	#
+library.connection.noWorldFound.title=未找到世界	#
+library.connection.noWorldFound.body=似乎这个类别中没有世界。	#
+library.noLessonsFound.title=未找到课程	#
+library.noLessonsFound.body=此类别当前为空。我们一直在添加新的课程，请稍后再返回查看！	#
+library.tip.noAzureNotebook=Python 课程适用于 Windows 和 MacOS。	#
+library.findMoreWorlds=发现更多的世界	#
+library.leaveFeedback=留下反馈	#
+library.title=库	#
+library.searchResults=“%1”的结果	#
+library.item.createdBy=作者：%s	#
+library.item.age=年龄：%1	#
+
+## Example for how the duration section will be used:
+## Duration: 10 Minutes (this is a combination of library.item.duration, library.item.duration.multipleMinutes, and the number 10)
+## Duration: 1 Hour (this is a combination of library.item.duration, library.item.duration.hour, and the number 1)
+library.item.duration=持续时间：%1	#
+library.item.duration.minute=%1 分	#
+library.item.duration.multipleMinutes=%1 分	#
+library.item.duration.hour=%1 小时	#
+library.item.duration.multipleHours=%1 小时	#
+
+library.item.difficulty=难度：%1	#
+library.item.difficulty.beginner=初学者	#
+library.item.difficulty.intermediate=中级	#
+library.item.difficulty.advanced=高级	#
+
+library.item.tags=标签：	#
+library.item.tagsAll=所有标签：	#
+library.item.tagsAll.tts=显示更多标签	#
+library.item.button.signin=登录以解锁	#
+library.item.button.create=创建世界	#
+library.item.button.share=分享链接	#
+library.item.button.shareEducator=分配或共享	#
+library.item.button.plan=课程计划	#
+library.item.button.resources=资源	#
+library.item.progress.body=正在下载你的世界。这可能需要几分钟时间。	#
+library.item.progress.title=正在下载世界...	#
+library.item.description=说明	#
+library.item.overview=概览	#
+library.item.expandable.readLess=折叠内容	#
+library.item.expandable.readMore=阅读更多	#
+
+library.item.section.languages=支持的预言	#
+library.item.section.languages.tip=如果此课程不能以您的首选语言提供，则沉浸式阅读器可用于翻译课程内文本，包括书籍、告示牌、告示板和非用户角色对话。	#
+library.item.section.questions=基本问题	#
+library.item.section.generic_objectives=目标	#
+library.item.section.objectives=探索目标	#
+library.item.section.prep=教师准备和笔记	#
+library.item.section.activities=用户活动	#
+library.item.section.assessment=评估	#
+library.item.section.extensions=延伸	#
+
+library.prompt.inGameLink=此操作将保存并退出您当前的游戏和多人游戏连接，是否确定退出？	#
+library.fetchingItem=正在连接库……	#
+library.fetchingItem.failed=抱歉，我们无法在库中找到该物品。	#
+library.welcome.1=欢迎来到 Minecraft Education Library！	#
+library.welcome.2=这个库是我们打造的一个新功能，可以让教师和学生们方便地在游戏中找到和导入教育内容。在这个版本中，您将在我们的网站上看到我们的一些可供您导入和使用的最受欢迎的世界，以及访问完整的世界库的链接。	#
+library.welcome.3=我们正致力于在接下来的几个月中为更多类型的内容和功能添加支持。请通过点击反馈按钮让我们知道您的想法。	#
+
+library.item.sharepopup.title.simple=共享链接	#
+library.item.sharepopup.title.educator=分配或共享	#
+library.item.sharepopup.title.addResource=添加一个资源	#
+library.item.sharepopup.shareText.noResource.educator=分配本世界或共享链接。	#
+library.item.sharepopup.shareText.noResource.simple=共享通向这个世界的链接。	#
+library.item.sharepopup.shareText.resource.educator=您的世界已准备好分配或共享！	#
+library.item.sharepopup.shareText.resource.simple=您的世界已准备好共享！	#
+library.item.sharepopup.shareLink=分享链接	#
+library.item.sharepopup.body=分享通向这个世界的链接。	#
+library.item.sharepopup.copy=复制	#
+library.item.sharepopup.copyButton=复制链接	#
+library.item.sharepopup.addResourceButton=添加一个资源	#
+library.item.sharepopup.secondaryText=在共享之前，您是否要向世界添加评估工具、Flipgrid 主题或网站？	#
+library.item.sharepopup.addResource.labelOne=复制测验、Flipgrid 主题或网站的 URL，并将其粘贴到下方。	#
+library.item.sharepopup.addResource.labelTwo=此操作将在游戏菜单上创建一个新按钮，以便玩家可以随时从世界内访问该资源。	#
+library.item.sharepopup.addResource.learnMoreLinkText=了解更多	#
+library.item.sharepopup.addResource.urlLabel=资源按钮 URL：	#
+library.item.sharepopup.addResource.urlHintText=需启用按钮	#
+library.item.sharepopup.addResource.buttonNameLabel=资源按钮名称：	#
+library.item.sharepopup.addResource.buttonNameHintText=打开链接（默认）		### Text before (Default) should match pause.externalLink
+library.item.sharepopup.addResource.doneButton=完成	#
+library.item.sharepopup.addResource.cancelButton=取消	#
+library.item.sharepopup.addResource.deleteButton=删除	#
+library.item.sharepopup.addResource.invalidSchema=请输入以“http”或“https”开头的网址以继续。	#
+library.item.sharepopup.editResourceLabel=以下是我们将添加到游戏菜单的按钮预览，任何打开世界的人都可见。	#
+library.item.sharepopup.editResource.button.accessibility=编辑资源 URL	#
+library.item.share.toast.title=链接已复制到您的剪贴板。	#
+
+library.item.share.toast.teams=已在您的网络浏览器中打开 Microsoft 团队。	#
+library.item.share.toast.email=已打开电子邮件。	#
+library.item.share.toast.classrooms=已在您的网络浏览器中打开 Google 课堂。	#
+library.item.teams.msgTxt=%1，在Minecraft Education中查看这个世界。	#
+library.item.sharepopup.shareButton=分享给团队	#
+
+library.category.title.demo=Minecraft Education演示课程	#
+library.category.description.demo=欢迎来到 Minecraft Education 演示课程！我们邀请您探索这些课程，以了解 Minecraft 如何培养 STEM 技能、释放创造力并让用户参与协作和解决问题。	#
+
+library.category.label.biomes=生物群系和世界	#
+library.category.title.biomes=生物群系和世界	#
+library.category.description.biomes=使用这个世界和生物群系的集合，以帮助在 Minecraft Education 中开始创建课程。	#
+
+library.category.label.biomes.biome=生物群系	#
+library.category.title.biomes.biome=生物群系	#
+library.category.description.biomes.biome=在《Minecraft》中，生物群系是以独特的地理特征、植物和动物为特征的区域。	#
+
+library.category.label.biomes.featured=精选世界	#
+library.category.title.biomes.featured=精选世界	#
+
+library.category.label.buildChallenges=每月建造挑战	#
+library.category.title.buildChallenges=每月建造挑战	#
+library.category.description.buildChallenges=通过这些易于实施的课堂、训练营或俱乐部活动，激发用户的创造力，加强 21 世纪技能。	#
+
+library.category.label.howToPlay=游戏指南	#
+library.category.description.howToPlay=这些世界和活动都是作为入门级探索而创建的，旨在帮助您探索如何在课堂、训练营或俱乐部上使用 Minecraft Education。	#
+
+library.category.label.howToPlay.startHere=从这里开始	#
+library.category.title.howToPlay.startHere=从这里开始	#
+library.category.description.howToPlay.startHere=每个教程世界都旨在帮助您探索不同的技能，以支持在您的课堂、训练营或俱乐部中使用 Minecraft Education。	#
+
+library.category.label.howToPlay.additional=附加教程	#
+library.category.title.howToPlay.additional=附加教程	#
+
+library.category.label.SEL=社会情感	#
+library.category.title.SEL=社会情感	#
+library.category.description.SEL=这些世界和活动能够帮助提升社会情感学习。其内容包含情绪健康、同理心和为自己的选择负责任。	#
+
+library.category.label.digitalCitizen=数字公民	#
+library.category.title.digitalCitizen=数字公民	#
+library.category.description.digitalCitizen=这些世界和活动侧重于培养数字公民，引导用户高素质地浏览媒体、保护隐私并积极参与网络社区。	#
+
+library.category.label.equity_and_inclusion=公平与包容	#this has already been localized	#
+library.category.title.equity_and_inclusion=公平与包容	#this has already been localized	#
+library.category.description.equity_and_inclusion=这些世界和活动将着重介绍公平与包容的含义。其概念包括社会正义、身份及认同。	#change in capitalization only, has otherwise been localized	#
+
+library.category.label.lessons=课程	#
+library.category.title.lessons=课程	#
+
+library.category.label.lessons.genericAdditional=附加课程	#
+library.category.title.lessons.genericAdditional=附加课程	#
+
+library.category.label.languageArts=语言艺术学科	#
+library.category.title.languageArts=语言艺术学科	#
+
+library.category.label.languageArts.litStudies=文学研究	#
+library.category.title.languageArts.litStudies=文学研究	#
+
+library.category.label.languageArts.litStudies.treasureIsland=金银岛	#
+library.category.title.languageArts.litStudies.treasureIsland=金银岛	#
+library.category.description.languageArts.litStudies.treasureIsland=这一系列课程旨在通过对罗伯特·路易斯·史蒂文森的“金银岛”的研究，帮助教授英语语言艺术概念。	#
+
+library.category.label.languageArts.litStudies.kensukesKingdom=健介的王国	#
+library.category.title.languageArts.litStudies.kensukesKingdom=健介的王国	#
+library.category.description.languageArts.litStudies.kensukesKingdom=这一系列课程旨在通过对迈克尔·莫普尔戈的“健介的王国”的研究，帮助教授英语语言艺术概念。	#
+
+library.category.label.languageArts.litStudies.swissFamily=海角乐园	#
+library.category.title.languageArts.litStudies.swissFamily=海角乐园	#
+library.category.description.languageArts.litStudies.swissFamily=这一系列课程旨在通过对“鲁宾逊漂流记”和“海角乐园”的研究，帮助教授英语语言艺术概念。	#
+
+library.category.label.science=科学	#
+library.category.title.science=科学	#
+
+library.category.label.science.chemistry=化学	#
+library.category.title.science.chemistry=化学	#
+
+library.category.label.science.biology=生物学	#
+library.category.title.science.biology=生物学	#
+
+library.category.label.science.rangers=WE ARE THE RANGERS	#
+library.category.title.science.rangers=We are the Rangers	#
+library.category.description.science.rangers=这五个课程和独特的《Minecraft》的世界跨越了多个主题领域和年龄段。通过所提供的课程，用户们可以穿越非洲平原进行冒险、调查运转的港口、犀牛孤儿院和护林员站，并一路上解决问题和探索技能。	#
+
+library.category.label.science.extinction=生物多样性灭绝危机	#
+library.category.title.science.extinction=生物多样性灭绝危机	#
+library.category.description.science.extinction=我们与世界野生动物基金会合作开发了这个内容包，其中包含一个沉浸式的《Minecraft》的世界和多个基于标准的课程。探索这些资源，对生态系统、保护和生物多样性进行实践探索。	#
+
+library.category.label.history=历史与文化	#
+library.category.title.history=历史与文化	#
+
+library.category.label.history.oregonTrail=俄勒冈小道	#
+library.category.title.history.oregonTrail=俄勒冈小道	#
+library.category.description.history.oregonTrail=通过与哈考特出版社合作，Minecraft Education 为您带来了俄勒冈小道探索。使用这些贯穿了您整个课程的俄勒冈小道探索活动，开始一场伟大的冒险——在穿越了北美崎岖地形的俄勒冈小道上旅行。	#
+
+library.category.label.computerScience=计算机科学	#
+library.category.title.computerScience=计算机科学	#
+
+library.category.label.computerScience.hourOfCode=编程一小时	#
+library.category.title.computerScience.hourOfCode=编程一小时	#
+library.category.description.computerScience.hourOfCode=编程一小时开始于 2013 年，是以一个小时为单位的计算机科学入门课程，旨在表明人人都能够学会编程的基本知识。这些课程为在《我的世界》中编程提供了有趣的入门体验，适合所有年龄段的学习者。	#
+
+library.category.label.computerScience.computingWithMinecraft=使用《我的世界》进行计算	#
+library.category.title.computerScience.computingWithMinecraft=使用《我的世界》进行计算	#
+library.category.description.computerScience.computingWithMinecraft=使用这些基于 CSTA 标准的计算机科学课程建造您自己的城市。探索基本的计算机科学概念，包括循环、算法、条件、调试、迭代等等。	#
+
+library.category.label.computerScience.codingWithMinecraft=使用 Minecraft 进行编程	#
+library.category.title.computerScience.codingWithMinecraft=使用 Minecraft 进行编程	#
+library.category.description.computerScience.codingWithMinecraft=通过这些基于 CSTA 标准的计算机科学课程探索条件、函数、坐标、AI 等等。	#
+
+library.category.label.computerScience.codingFun1=趣味编程基础：1	#
+library.category.title.computerScience.codingFun1=趣味编程基础：1	#
+library.category.description.computerScience.codingFun1=利用代码了解不同的动物、它们面临的挑战及帮助它们的方法！使用算法、序列和循环来解决有趣的编程谜题。	#
+
+library.category.label.computerScience.codingFun2=趣味编程基础：2	#
+library.category.title.computerScience.codingFun2=趣味编程基础：2	#
+library.category.description.computerScience.codingFun2=前往月球、水星、金星、火星、木星和海王星！了解如何调试代码并学习运用条件、运算符和循环，同时帮助代理机器人在整个太阳系中收集材料。	#
+
+library.category.label.computerScience.codingFun3=趣味编程基础：3	#
+library.category.title.computerScience.codingFun3=趣味编程基础：3	#
+library.category.description.computerScience.codingFun3=穿越时空，领略史前时代到遥远未来的魅力！亲眼见证恐龙纪元、古罗马引水渠及狂野西部，同时学习使用变量、事件、条件和函数。	#
+
+library.category.label.computerScience.ai=人工智能	#
+library.category.title.computerScience.ai=人工智能	#
+library.category.description.computerScience.ai=本课程与 Microsoft AI for Earth 共同创建，学生可在一系列令人兴奋的真实场景中了解人工智能的力量。学生们将帮助偏远地区的居民，保护野生动物和生态系统，并研究气候变化。简单的自引导教程能让学生通过一系列步骤体验人工智能的概念发展，包括数据收集、数据集创建、AI 部署和分析结果。	#
+
+library.category.label.computerScience.blockBased=基于方块的编码	#
+library.category.title.computerScience.blockBased=基于方块的编码	#
+
+library.category.label.computerScience.python=Python	#
+library.category.title.computerScience.python=Python	#
+
+library.category.label.computerScience.python.python101=Python 入门	#
+library.category.title.computerScience.python.python101=Python 入门	#
+library.category.description.computerScience.python101=开始在 Minecraft 中用 Python 编程吧！了解 Python 的基础知识，包含语法、数据类型、变量、条件、“for”循环、条件循环、列表和函数。	#
+
+library.category.label.computerScience.python.python_islands=Python 群岛	#
+library.category.title.computerScience.python.python_islands=Python 群岛	#
+library.category.description.computerScience.python.python_islands=欢迎来到浮岛王国！这个神秘的王国高高地漂浮在下方的世界之上。在这一课程集合中，学生将学习 Python 的基本知识，通过完成各个世界的一系列任务。完成这些任务，帮助王国繁荣发展！	#
+
+library.category.label.computerScience.languageAgnostic=语言无关	#
+library.category.title.computerScience.languageAgnostic=语言无关	#
+library.category.description.computerScience.languageAgnostic=如果您想专门学习特定的代码概念，这里为您提供了一个完美的起点！了解如何运用循环、序列、条件、变量和函数。在这些课程中，您可以选择在方块、Python 或 JavaScript 中编写代码。	#
+
+library.category.label.computerScience.featuredLessons=精选课程	#
+library.category.title.computerScience.featuredLessons=精选课程	#
+library.category.description.computerScience.featuredLessons=这里列举了一些最受大家欢迎的编程课程！	#
+
+library.category.label.math=数学	#
+library.category.title.math=数学	#
+
+library.category.label.math.fractions=分数	#
+library.category.title.math.fractions=分数	#
+library.category.description.math.fractions=尝试探索这些课程资源来帮助用户探索分数。	#
+
+library.category.label.art=艺术设计	#
+library.category.title.art=艺术设计	#
+
+library.category.label.commonCore=共同核心，%1 级	#
+library.category.title.commonCore=共同核心，%1 级	#
+library.category.description.commonCoreMath=这些引人入胜的活动旨在为数学教育提供支持，并且符合每一项共同核心数学标准。	#
+
+library.notification.label.resourceUri=此世界通过一个通往其他资源的链接进行共享。创建世界后，请在游戏菜单上寻找“%1”按钮。	#
+
+library.search.title=库搜索	#
+library.search.placeholder=搜索库... 	### This string can only be 15 characters. If the string is too long, just "Search..." is OK.
+library.search.singleResult="%s" 在整个库里有 1 个搜索结果	#
+library.search.multipleResults="%s" 在整个库里有 %1 个搜索结果	#
+library.search.sortMethod.lexicographic.ascending=从 A 到 Z 排序	#
+library.search.sortMethod.relevance=按相关性排序	#
+
+menu.eduPlayScreen.header=开始游戏	#
+menu.ai_lesson_crafter=课程合成器 	###Lesson Crafter is the name of our AI Lesson generator for teachers. Lesson as in classroom teaching, crafter as in creating or generating a new teaching plan
+menu.eduLocalStorage=本地存储	#
+menu.eduCloudStorage=云存储	#
+menu.eduCloudStorage.caps=云存储设置	#
+
+newAndFeatured.name=新品与精选		### This will appear on a button on our home screen, so needs to remain short after translation. If the translation for "New & Featured" is too long, the category label can be translated as "featured".  Please try for less than 20 characters including spaces
+newAndFeatured.description=这个系列包含新入库的课程和世界、每月亮点以及一直以来最受欢迎的内容。希望您能有新的发现！		### "Library" here is a destination, refers to the name for the EDU-equivalent of the Marketplace. Please treat this as a proper noun.
+
+options.eduCloud.toggleCloud=启用备份世界到 OneDrive	#
+options.eduCloud.folder.body=查看并下载存储在“%s”OneDrive 文件夹中的世界。		### Token in quotes will be "Minecraft Education" or "Minecraft Education Preview". Both are brand names and will not be localized.
+options.eduCloud.folder.header=访问 OneDrive	#
+options.eduCloud.oneDrive=OneDrive	#
+options.eduCloud.learnMore.text=了解有关云存储的更多信息	#
+
+options.cloudStorage=云存储	#
+options.cloudStorageTitle=云存储设置	#
+options.cloudFileNameTitle=OneDrive 文件名称	#
+options.cloudFileLastChangedTitle=最后更改的 OneDrive 文件	#
+options.cloudHelpText=了解有关云存储的更多信息	#
+options.cloudToggleCloudSave=启用备份世界到 OneDrive	#
+options.cloudNotAvailableText=不可用	#
+
+popup.title.eduCloudConflictResolution=同步错误		##### {MaxLength="45"}
+popup.message.eduConflictResolution.description=啊哦。您在此设备上的世界与云端的世界不同步。你想做什么？%1您可以使两个世界文件都与本地版本相同，都与云端版本相同，或者...同时保留两者！保留两者将使本地文件成为副本，与下面引用的 OneDrive 版本区分开。		### %1 will be replaced with a newline. LOCAL should match the word used in popup.buttons.eduConflictResolution.local, CLOUD should match the word used in popup.buttons.eduConflictResolution.cloud, KEEP BOTH should match popup.buttons.eduConflictResolution.both
+popup.message.eduConflictResolution.localWorldName=本地世界名称：“%1”		### %1 will be the name of the local world wrapped in quotes
+popup.message.eduConflictResolution.localWorldDate=本地世界上次更改时间：%1（本地）		### %1 will be the date
+popup.message.eduConflictResolution.cloudName=OneDrive 文件名称：“%1”		### %1 will be the name of the world on OneDrive wrapped in quotes
+popup.message.eduConflictResolution.cloudDate=OneDrive 世界上次更新时间：%1（本地）		### %1 will be the date
+popup.buttons.eduConflictResolution.local=保留本地	#
+popup.buttons.eduConflictResolution.cloud=保留云端	#
+popup.buttons.eduConflictResolution.both=保留两者	#
+
+progressScreen.title.eduCloudFetch=云同步	#
+progressScreen.message.eduFetchingCloudWorld=正在检查...	#
+progressScreen.title.eduCloudUpload=正在上传至云端	#
+progressScreen.message.eduUploadingCloudWorld=正在上传...	#
+progressScreen.message.eduFinishedCloudUpload=完成！	#
+progressScreen.title.eduCloudDownload=从云端下载	#
+progressScreen.message.eduDownloadingCloudWorld=正在下载...	#
+progressScreen.message.eduImportingCloudWorld=正在导入...	#
+progressScreen.message.eduInitializingCloudWorldDownload=正在初始化...	#
+progressScreen.message.eduFinishedCloudDownload=完成！	#
+progressScreen.message.eduLaunchingCloudWorld=启动中……	#
+progressScreen.message.eduCanceledCloudOperation=正在取消...	#
+progressScreen.title.eduCanceledCloudOperation=已取消云操作	#
+progressScreen.message.eduSyncingCloud=正在同步...	#
+progressScreen.title.eduSyncingCloud=正在与云端同步	#
+
+resourceUri.launch.success=已打开资源链接。	#
+resourceUri.launch.failure=无法打开资源链接。此 URL 似乎不受支持。	#
+
+resourceUri.tooltip.infotext=此可编辑的链接可用于连接《我的世界》的世界和在线资源。	#
+resourceUri.tooltip.infotext.disabled=您可以在设置 > 教室中将 URL 添加至资源链接字段以启用此按钮。	#
+resourceUri.tooltip.label=资源链接	#
+
+signin.acceptTerms=接受条款	#
+signin.welcome.header.line1=欢迎来到	#
+signin.welcome.header.line2=《Minecraft Education》	#
+signin.welcome.body=使用您的学校或组织账户登录以继续。	#
+signin.welcome.footer=如果您没有账户，请尝试演示课程。	#
+signin.demo.header=尝试探索演示课程	#
+signin.demo.body=在 Minecraft Education 免费演示课程中开始您的旅程，所有用户均可享受。	#
+signin.progress.title=正在下载资源	#
+
+toast.genericLinkOpened=已在您的网页浏览器中打开链接。	#
+
+structure_block.export.default_name=我的建筑方块	#
+
+joincode.invalid.title=加入代码不正确	#
+joincode.invalid.body=您输入的 %1 个加入代码不正确。请与主机确认，以确保您拥有正确的代码，或者也可以尝试通过连接 ID 加入。	#
+joincode.invalid.button.tryagain=再试一次	#
+joincode.invalid.button.enterip=输入连接 ID	#
+joincode.invalid.abuse.body=您输入的加入代码过多，请使用连接 ID。	#
+
+joincode.item.sharepopup.title.simple=分享链接	#
+joincode.popup.body=分享一个链接，邀请其他用户探索您的世界。请注意，此链接仅在您为主办者时有效。	#
+joincode.share.body=%1 邀请您一起探索 Minecraft Education 中的世界。点击此链接开始一起建设！（%2，主办者为 %1）	#
+joincode.share.subject=Minecraft Education 多用户邀请	#
+
+manage.delete.notification=%1 已被删除。	#
+
+pause.externalLink=打开链接	#
+
+share.classroom.tts=使用 Google Classroom 分享链接	#
+share.mail.tts=使用电子邮件分享链接	#
+share.teams.tts=使用 Microsoft Teams 分享链接	#
+share.clipboard.tts=将链接复制到剪贴板	#
+share.deviceShare.tts=使用您的设备的分享菜单分享	#
+
+## TAG LOCALIZATION SECTION ##
+tag.ages_0_3=0-3	#	#
+tag.ages_4_5=4-5	#	#
+tag.ages_6_8=6-8	#	#
+tag.ages_9_12=9-12	#	#
+tag.ages_13_16=13-16	#	#
+tag.ages_16_18=16-18	#	#
+tag.ages_18_plus=18+	#	#
+tag.addition=加法	#	#
+tag.advanced=高级	#	#
+tag.adventure=冒险	#	#
+tag.all_ages=所有年龄段	#	#
+tag.animals=动物	#	#
+tag.aquatic=水生	#	#
+tag.architecture=建筑	#	#
+tag.art_and_design=艺术设计	#	#
+tag.beginner=初学者	#	#
+tag.biodiversity=生物多样性	#	#
+tag.biology=生物学	#	#
+tag.biome=生物群系	#	#
+tag.biomes_and_worlds=生物群系和世界	#	#
+tag.bridges=桥梁	#referring to the structure	#
+tag.build_challenge=建筑挑战	#	#
+tag.character=字符	#	#
+tag.chemistry=化学	#	#
+tag.citizenship=公民	#	#
+tag.city=城市	#	#
+tag.climate=气候	#	#
+tag.code_to_learn_stem=STEM	#abbreviation for Science Technology Engineering and Math	#
+tag.coding_course_1=代理机器人	#Leave this in English ... this is a pun based on the name "Agent" for our coding robot	#
+tag.coding_course_2=使用 Minecraft 进行编程	#	#
+tag.coding_in_minecraft=使用 Minecraft 进行编程	#	#
+tag.collaboration=多人协作	#	#
+tag.color=颜色	#	#
+tag.common_core_math_grade_3=普通数学基础三年级	#	#
+tag.common_core_math_grade_4=普通数学基础四年级	#	#
+tag.common_core_math_grade_5=普通数学基础五年级	#	#
+tag.communication=通信	#	#
+tag.computer_science=计算机科学	#	#
+tag.computing_in_minecraft=在 Minecraft 中计算	#	#
+tag.creative=创作	#	#
+tag.creative_writing=创意写作	#	#
+tag.creativity=创造力	#	#
+tag.critical_thinking=批判性思维	#	#
+tag.division=除法	#	#
+tag.earth_day=地球日	#	#
+tag.ecology=生态	#	#
+tag.economy=经济	#	#
+tag.energy=能源	#	#
+tag.environment=环境	#	#
+tag.featured=精选	#	#
+tag.fractions=分数	#	#
+tag.game_design=课程设计	#	#
+tag.geography=地理	#	#
+tag.geology=地质	#	#
+tag.history_and_culture=历史与文化	#	#
+tag.hour_of_code=编程一小时	#	#
+tag.how_to_play=游戏指南	#	#
+tag.intermediate=中级	#	#
+tag.kensukes_kingdom=岛王	#	#
+tag.language_arts=语言艺术学科	#	#
+tag.leadership=领导力	#	#
+tag.lesson=课程	#	#
+tag.literature=文学	#	#
+tag.math=数学	#	#
+tag.multiplayer=多人游戏	#	#
+tag.multiplication=乘法	#	#
+tag.museum=博物馆	#	#
+tag.music=音乐	#	#
+tag.mythology=神话	#	#
+tag.ocean=海洋	#	#
+tag.oregon_trail=俄勒冈小道	#	#
+tag.pattern=图案	#	#
+tag.personal_narrative=个人叙事	#	#
+tag.physics=物理	#	#
+tag.pixel_art=像素艺术	#	#
+tag.pop_culture=流行文化	#	#
+tag.probability=概率	#	#
+tag.project_based_learning=专题学习	#	#
+tag.robinson_crusoe=鲁宾逊漂流记	#	#
+tag.science=科学	#	#
+tag.seasonal=季节性	#	#
+tag.single_player=单人	#	#
+tag.social_emotional_learning=社会情感学习	#	#
+tag.special_education=特殊教育	#	#
+tag.spelling=拼写	#	#
+tag.story=故事	#	#
+tag.subtraction=减法	#	#
+tag.survival=生存	#	#
+tag.swiss_family_robinson=海角乐园	#	#
+tag.technology=技术	#	#
+tag.treasure_island=金银岛	#	#
+tag.tutorial=教程	#	#
+tag.we_are_the_rangers=We are the Rangers	#	#
+tag.world_languages=世界语言	#	#
+tag.wwf=世界自然基金会	#	#
+####### ----- new entries below this line ---- ######
+tag.digital_citizenship=数字公民	#see for example: https://www.iste.org/learn/digital-citizenship	#
+tag.python=Python	#coding language	#
+tag.javascript=Javascript	#coding language	#
+tag.blocks=方块	#	#
+tag.makecode=MakeCode	#This is the name of the coding IDE available at https://minecraft.makecode.com/	#
+tag.azure_notebooks=Azure Notebooks	#See for example: https://notebooks.azure.com/	#
+tag.loops=循环	#coding concept in which a block of code is repeated a designated number of times	#
+tag.conditionals=条件	#coding concept of an 'if' or 'if/then' expression	#
+tag.variables=变量	#coding concept of using a name to hold one or more values (e.g. the results of a calculation or query)	#
+tag.functions=功能	#coding concept referring to self-contained modules of code that accomplish a certain task	#
+tag.operators=运算符	#coding concepts like AND and OR and > which behave like functions	#
+tag.problem_solving=解决问题	#	#
+tag.artificial_intelligence=人工智能	#	#
+tag.coding=编程	#the process of creating and maintaining code for computer programs	#
+tag.coding_fundamentals_1=趣味编程基础：1	#	#
+tag.coding_fundamentals_2=趣味编程基础：2	#	#
+tag.coding_fundamentals_3=趣味编程基础：3	#	#
+tag.coding_tutorials=编程教程	#	#
+tag.python101=Python 入门	#Python coding language	#
+tag.bees=蜜蜂	#	#
+tag.space=空格	# refers to outer space	#
+tag.esports=电子竞技	#	#
+tag.toybox=玩具盒	#	#
+tag.featured_coding=精选编程	#	#
+tag.equity_and_inclusion=公平与包容	#	#
+tag.python_islands=Python 群岛 #	#
+## END TAG LOCALIZATION SECTION ##
+
+worlds.storage.permission.needed=我们没有更改此设置的权限。	#
+worlds.storage.permission.settings=请打开 Android 设置并更新 Minecraft Education 的应用程序权限，允许访问存储功能。	#
+worlds.storage.android.settings=打开 Android 设置	#
+worlds.storage.permission.dialog.title=需要设备权限	#
+worlds.storage.missing=您的世界不见了吗？请尝试更改《我的世界》的存储位置：	#

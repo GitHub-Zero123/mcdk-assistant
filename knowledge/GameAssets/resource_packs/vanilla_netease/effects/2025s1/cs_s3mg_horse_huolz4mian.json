@@ -1,0 +1,75 @@
+{
+    "particleeffect": {
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "71.8%"
+            },
+            {
+                "color": "0.2353 0.0549 0.0549 1.0000",
+                "time": "87.4%"
+            },
+            {
+                "color": "0.1294 0.0000 0.0000 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "dampingforce": {
+            "value": "0.1"
+        },
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "min": "-0.1 0.1 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "10.0",
+            "min": "20.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "1.0 0.2 0.7"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "layer": 3,
+        "numparticles": {
+            "value": "15"
+        },
+        "particlesize": {
+            "max": "0.25 0.25",
+            "min": "0.35 0.35"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "texture": {
+            "ani": {
+                "fps": "20",
+                "name": "textures/sfxs/2025s1/cs_s3mg_horse_huolz",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s1/cs_s3mg_horse_huolz"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.8",
+            "min": "0.6"
+        },
+        "velocity": {
+            "max": "0.1",
+            "min": "0.2"
+        }
+    }
+}

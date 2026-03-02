@@ -1,0 +1,103 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "value": "Direction",
+            "min": "0.0 0.0 0.0"
+        },
+        "numparticles": {
+            "value": "2"
+        },
+        "pointFiltering": true,
+        "enabletexture": {
+            "enable": true
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "emissionrate": {
+            "max": "50.0",
+            "min": "50.0"
+        },
+        "enableloop": {
+            "enable": "true"
+        },
+        "layer": 3,
+        "relative": {
+            "enable": "true"
+        },
+        "trail": {
+            "textile": "1.0 1.0",
+            "facemode": 0,
+            "maxnum": 50,
+            "colorfade": [
+                {
+                    "color": "0.9176470588235294 0.19215686274509805 0.9411764705882353 1.0",
+                    "time": "0.000%"
+                },
+                {
+                    "color": "0.5725490196078431 0.2 1.0 0.9821428571428571",
+                    "time": "27.368%"
+                },
+                {
+                    "color": "0.27058823529411763 0.3411764705882353 1.0 0.6071428571428572",
+                    "time": "52.368%"
+                },
+                {
+                    "color": "0.22745098039215686 0.40784313725490196 1.0 0.2410714285714286",
+                    "time": "75.789%"
+                },
+                {
+                    "color": "0.3411764705882353 0.6588235294117647 1.0 0.0",
+                    "time": "100.000%"
+                }
+            ],
+            "useparticlewidth": true,
+            "useparticlecolor": true,
+            "worldspace": true,
+            "texmode": 0,
+            "mindistance": 0.01,
+            "widthfade": [
+                {
+                    "value": "0.5400000000000001",
+                    "time": "0.0%"
+                },
+                {
+                    "value": "1.2400000000000002",
+                    "time": "100.0%"
+                }
+            ],
+            "lifetime": 0.65
+        },
+        "timetolive": {
+            "max": "2.99",
+            "min": "2.99"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": false,
+                "name": "textures/sfxs/pet_mh_fox/cs_mhfox_s1wild_wuxianpu",
+                "fps": "12"
+            },
+            "name": "textures/sfxs/pet_mh_fox/cs_mhfox_s1wild_wuxianpu"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "particlesize": {
+            "max": "0.18 0.25",
+            "min": "0.18 0.25"
+        }
+    }
+}

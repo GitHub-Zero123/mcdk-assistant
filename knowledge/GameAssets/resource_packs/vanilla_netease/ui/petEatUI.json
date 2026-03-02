@@ -1,0 +1,2011 @@
+{
+    "main": {
+        "absorbs_input": true,
+        "always_accepts_input": true,
+        "controls": [
+            {
+                "panel": {
+                    "alpha": 1.0,
+                    "anchor_from": "center",
+                    "anchor_to": "center",
+                    "clip_offset": [
+                        0,
+                        0
+                    ],
+                    "clips_children": false,
+                    "controls": [
+                        {
+                            "button1@common.button": {
+                                "$control_alpha": 1.0,
+                                "$default_texture": "textures/ui/pet/panel02_1@3x",
+                                "$hover_texture": "textures/ui/pet/panel02_1@3x",
+                                "$is_new_nine_slice": false,
+                                "$label_color": [
+                                    1,
+                                    1,
+                                    1
+                                ],
+                                "$label_font_scale_factor": 0.699999988079071,
+                                "$label_font_size": "normal",
+                                "$label_layer": 3,
+                                "$label_offset": [
+                                    0.0,
+                                    16.0
+                                ],
+                                "$label_text": "\n",
+                                "$nine_slice_buttom": 0,
+                                "$nine_slice_left": 0,
+                                "$nine_slice_right": 0,
+                                "$nine_slice_top": 0,
+                                "$nineslice_size": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                ],
+                                "$pressed_button_name": "%petMain.click",
+                                "$pressed_texture": "",
+                                "$texture_layer": 2,
+                                "alpha": 1.0,
+                                "anchor_from": "center",
+                                "anchor_to": "center",
+                                "bindings": [
+                                    {
+                                        "binding_collection_name": "",
+                                        "binding_condition": "always_when_visible",
+                                        "binding_type": "collection_details"
+                                    }
+                                ],
+                                "button_mappings": [],
+                                "clip_offset": [
+                                    0,
+                                    0
+                                ],
+                                "clips_children": false,
+                                "controls": [
+                                    {
+                                        "label": {
+                                            "alpha": 1.0,
+                                            "anchor_from": "center",
+                                            "anchor_to": "center",
+                                            "clip_offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "clips_children": false,
+                                            "color": [
+                                                1,
+                                                1,
+                                                1
+                                            ],
+                                            "controls": [],
+                                            "enabled": true,
+                                            "font_scale_factor": 0.9,
+                                            "font_size": "normal",
+                                            "layer": 30,
+                                            "line_padding": 0,
+                                            "max_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "min_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "offset": [
+                                                0.0,
+                                                10.5
+                                            ],
+                                            "priority": 0,
+                                            "propagate_alpha": false,
+                                            "shadow": false,
+                                            "size": [
+                                                81,
+                                                11
+                                            ],
+                                            "text": "玩耍",
+                                            "text_alignment": "center",
+                                            "type": "label",
+                                            "visible": true
+                                        }
+                                    },
+                                    {
+                                        "image1": {
+                                            "alpha": 1.0,
+                                            "anchor_from": "center",
+                                            "anchor_to": "center",
+                                            "clip_direction": "left",
+                                            "clip_offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "clip_ratio": 0.0,
+                                            "clips_children": false,
+                                            "controls": [],
+                                            "enabled": true,
+                                            "fill": false,
+                                            "grayscale": false,
+                                            "is_new_nine_slice": false,
+                                            "keep_ratio": true,
+                                            "layer": 21,
+                                            "max_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "min_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "nine_slice_buttom": 0,
+                                            "nine_slice_left": 0,
+                                            "nine_slice_right": 0,
+                                            "nine_slice_top": 0,
+                                            "nineslice_size": [
+                                                0,
+                                                0,
+                                                0,
+                                                0
+                                            ],
+                                            "offset": [
+                                                0.0,
+                                                -3.5
+                                            ],
+                                            "priority": 0,
+                                            "propagate_alpha": false,
+                                            "size": [
+                                                18,
+                                                18
+                                            ],
+                                            "texture": "textures/ui/pet/icon19@3x",
+                                            "type": "image",
+                                            "uv": [
+                                                0,
+                                                0
+                                            ],
+                                            "uv_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "visible": true
+                                        }
+                                    },
+                                    {
+                                        "default@netease_editor_template_namespace.default": {}
+                                    },
+                                    {
+                                        "hover@netease_editor_template_namespace.hover": {}
+                                    },
+                                    {
+                                        "pressed@netease_editor_template_namespace.pressed": {}
+                                    },
+                                    {
+                                        "imageBg": {
+                                            "alpha": 0.51,
+                                            "anchor_from": "center",
+                                            "anchor_to": "center",
+                                            "clip_direction": "left",
+                                            "clip_offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "clip_ratio": 0.0,
+                                            "clips_children": false,
+                                            "controls": [],
+                                            "enabled": true,
+                                            "fill": false,
+                                            "grayscale": false,
+                                            "is_new_nine_slice": false,
+                                            "keep_ratio": true,
+                                            "layer": 1,
+                                            "max_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "min_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "nine_slice_buttom": 0,
+                                            "nine_slice_left": 0,
+                                            "nine_slice_right": 0,
+                                            "nine_slice_top": 0,
+                                            "nineslice_size": [
+                                                0,
+                                                0,
+                                                0,
+                                                0
+                                            ],
+                                            "offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "priority": 0,
+                                            "propagate_alpha": false,
+                                            "size": [
+                                                36,
+                                                36
+                                            ],
+                                            "texture": "textures/ui/pet/panel02_1@3x",
+                                            "type": "image",
+                                            "uv": [
+                                                0,
+                                                0
+                                            ],
+                                            "uv_size": [
+                                                36,
+                                                40
+                                            ],
+                                            "visible": true
+                                        }
+                                    },
+                                    {
+                                        "imageClose": {
+                                            "clip_direction": "left",
+                                            "clip_ratio": 0.0,
+                                            "controls": [],
+                                            "layer": 100,
+                                            "max_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "min_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "offset": [
+                                                0.0,
+                                                -3.5
+                                            ],
+                                            "size": [
+                                                18,
+                                                18
+                                            ],
+                                            "texture": "textures/ui/pet/pet_skill_close",
+                                            "type": "image",
+                                            "uv": [
+                                                0,
+                                                0
+                                            ],
+                                            "uv_size": [
+                                                64,
+                                                64
+                                            ],
+                                            "visible": false
+                                        }
+                                    }
+                                ],
+                                "draggable": "not_draggable",
+                                "enabled": true,
+                                "is_handle_button_move_event": true,
+                                "layer": 60,
+                                "max_size": [
+                                    0,
+                                    0
+                                ],
+                                "min_size": [
+                                    0,
+                                    0
+                                ],
+                                "offset": [
+                                    2.5,
+                                    -10.0
+                                ],
+                                "priority": 0,
+                                "propagate_alpha": false,
+                                "size": [
+                                    36,
+                                    36
+                                ],
+                                "visible": true
+                            }
+                        },
+                        {
+                            "button2@common.button": {
+                                "$control_alpha": 1.0,
+                                "$default_texture": "textures/ui/pet/panel02_1@3x",
+                                "$hover_texture": "textures/ui/pet/panel02_1@3x",
+                                "$is_new_nine_slice": false,
+                                "$label_color": [
+                                    1,
+                                    1,
+                                    1
+                                ],
+                                "$label_font_scale_factor": 0.699999988079071,
+                                "$label_font_size": "normal",
+                                "$label_layer": 3,
+                                "$label_offset": [
+                                    0.0,
+                                    16.0
+                                ],
+                                "$label_text": "",
+                                "$nine_slice_buttom": 0,
+                                "$nine_slice_left": 0,
+                                "$nine_slice_right": 0,
+                                "$nine_slice_top": 0,
+                                "$nineslice_size": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                ],
+                                "$pressed_button_name": "%petMain.click",
+                                "$pressed_texture": "",
+                                "$texture_layer": 2,
+                                "alpha": 0.7,
+                                "anchor_from": "center",
+                                "anchor_to": "center",
+                                "bindings": [
+                                    {
+                                        "binding_collection_name": "",
+                                        "binding_condition": "always_when_visible",
+                                        "binding_type": "collection_details"
+                                    }
+                                ],
+                                "button_mappings": [],
+                                "clip_offset": [
+                                    0,
+                                    0
+                                ],
+                                "clips_children": false,
+                                "controls": [
+                                    {
+                                        "imageClose": {
+                                            "clip_direction": "left",
+                                            "clip_ratio": 0.0,
+                                            "controls": [],
+                                            "layer": 100,
+                                            "max_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "min_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "offset": [
+                                                0.0,
+                                                -3.5
+                                            ],
+                                            "size": [
+                                                18,
+                                                18
+                                            ],
+                                            "texture": "textures/ui/pet/pet_skill_close",
+                                            "type": "image",
+                                            "uv": [
+                                                0,
+                                                0
+                                            ],
+                                            "uv_size": [
+                                                64,
+                                                64
+                                            ],
+                                            "visible": false
+                                        }
+                                    },
+                                    {
+                                        "imageBg": {
+                                            "alpha": 0.52,
+                                            "anchor_from": "center",
+                                            "anchor_to": "center",
+                                            "clip_direction": "left",
+                                            "clip_offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "clip_ratio": 0.0,
+                                            "clips_children": false,
+                                            "enabled": true,
+                                            "fill": false,
+                                            "grayscale": false,
+                                            "is_new_nine_slice": false,
+                                            "keep_ratio": true,
+                                            "layer": 1,
+                                            "max_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "min_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "nine_slice_buttom": 0,
+                                            "nine_slice_left": 0,
+                                            "nine_slice_right": 0,
+                                            "nine_slice_top": 0,
+                                            "nineslice_size": [
+                                                0,
+                                                0,
+                                                0,
+                                                0
+                                            ],
+                                            "offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "priority": 0,
+                                            "propagate_alpha": false,
+                                            "size": [
+                                                36,
+                                                36
+                                            ],
+                                            "texture": "textures/ui/pet/panel02_1@3x",
+                                            "type": "image",
+                                            "uv": [
+                                                0,
+                                                0
+                                            ],
+                                            "uv_size": [
+                                                36,
+                                                40
+                                            ],
+                                            "visible": true
+                                        }
+                                    },
+                                    {
+                                        "label": {
+                                            "alpha": 1.0,
+                                            "anchor_from": "center",
+                                            "anchor_to": "center",
+                                            "clip_offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "clips_children": false,
+                                            "color": [
+                                                1,
+                                                1,
+                                                1
+                                            ],
+                                            "controls": [],
+                                            "enabled": true,
+                                            "font_scale_factor": 0.9,
+                                            "font_size": "normal",
+                                            "font_type": "smooth",
+                                            "layer": 30,
+                                            "line_padding": 0,
+                                            "max_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "min_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "offset": [
+                                                1.0,
+                                                14.0
+                                            ],
+                                            "priority": 0,
+                                            "propagate_alpha": false,
+                                            "shadow": false,
+                                            "size": [
+                                                100,
+                                                18
+                                            ],
+                                            "text": "玩耍",
+                                            "text_alignment": "center",
+                                            "type": "label",
+                                            "visible": true
+                                        }
+                                    },
+                                    {
+                                        "image2": {
+                                            "alpha": 1.0,
+                                            "anchor_from": "center",
+                                            "anchor_to": "center",
+                                            "clip_direction": "left",
+                                            "clip_offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "clip_ratio": 0.0,
+                                            "clips_children": false,
+                                            "controls": [],
+                                            "enabled": true,
+                                            "fill": false,
+                                            "grayscale": false,
+                                            "is_new_nine_slice": false,
+                                            "keep_ratio": true,
+                                            "layer": 26,
+                                            "max_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "min_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "nine_slice_buttom": 0,
+                                            "nine_slice_left": 0,
+                                            "nine_slice_right": 0,
+                                            "nine_slice_top": 0,
+                                            "nineslice_size": [
+                                                0,
+                                                0,
+                                                0,
+                                                0
+                                            ],
+                                            "offset": [
+                                                0.5,
+                                                -3.5
+                                            ],
+                                            "priority": 0,
+                                            "propagate_alpha": false,
+                                            "size": [
+                                                18,
+                                                18
+                                            ],
+                                            "texture": "textures/ui/pet/icon19@3x",
+                                            "type": "image",
+                                            "uv": [
+                                                0,
+                                                0
+                                            ],
+                                            "uv_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "visible": true
+                                        }
+                                    },
+                                    {
+                                        "default@netease_editor_template_namespace.default": {}
+                                    },
+                                    {
+                                        "hover@netease_editor_template_namespace.hover": {}
+                                    },
+                                    {
+                                        "pressed@netease_editor_template_namespace.pressed": {}
+                                    }
+                                ],
+                                "draggable": "not_draggable",
+                                "enabled": true,
+                                "is_handle_button_move_event": true,
+                                "layer": 27,
+                                "max_size": [
+                                    0,
+                                    0
+                                ],
+                                "min_size": [
+                                    0,
+                                    0
+                                ],
+                                "offset": [
+                                    34.5,
+                                    -9.5
+                                ],
+                                "priority": 0,
+                                "propagate_alpha": false,
+                                "size": [
+                                    36,
+                                    36
+                                ],
+                                "visible": true
+                            }
+                        },
+                        {
+                            "button3@common.button": {
+                                "$control_alpha": 1.0,
+                                "$default_texture": "textures/ui/pet/panel02_1@3x",
+                                "$hover_texture": "textures/ui/pet/panel02_1@3x",
+                                "$is_new_nine_slice": false,
+                                "$label_color": [
+                                    1,
+                                    1,
+                                    1
+                                ],
+                                "$label_font_scale_factor": 0.699999988079071,
+                                "$label_font_size": "normal",
+                                "$label_layer": 3,
+                                "$label_offset": [
+                                    0.0,
+                                    16.0
+                                ],
+                                "$label_text": "",
+                                "$nine_slice_buttom": 0,
+                                "$nine_slice_left": 0,
+                                "$nine_slice_right": 0,
+                                "$nine_slice_top": 0,
+                                "$nineslice_size": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                ],
+                                "$pressed_button_name": "%petMain.click",
+                                "$pressed_texture": "",
+                                "$texture_layer": 2,
+                                "alpha": 0.7,
+                                "anchor_from": "center",
+                                "anchor_to": "center",
+                                "bindings": [
+                                    {
+                                        "binding_collection_name": "",
+                                        "binding_condition": "always_when_visible",
+                                        "binding_type": "collection_details"
+                                    }
+                                ],
+                                "button_mappings": [],
+                                "clip_offset": [
+                                    0,
+                                    0
+                                ],
+                                "clips_children": false,
+                                "controls": [
+                                    {
+                                        "imageClose": {
+                                            "clip_direction": "left",
+                                            "clip_ratio": 0.0,
+                                            "controls": [],
+                                            "layer": 100,
+                                            "max_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "min_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "offset": [
+                                                0.0,
+                                                -3.5
+                                            ],
+                                            "size": [
+                                                18,
+                                                18
+                                            ],
+                                            "texture": "textures/ui/pet/pet_skill_close",
+                                            "type": "image",
+                                            "uv": [
+                                                0,
+                                                0
+                                            ],
+                                            "uv_size": [
+                                                64,
+                                                64
+                                            ],
+                                            "visible": false
+                                        }
+                                    },
+                                    {
+                                        "imageBg": {
+                                            "alpha": 0.52,
+                                            "anchor_from": "center",
+                                            "anchor_to": "center",
+                                            "clip_direction": "left",
+                                            "clip_offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "clip_ratio": 0.0,
+                                            "clips_children": false,
+                                            "controls": [],
+                                            "enabled": true,
+                                            "fill": false,
+                                            "grayscale": false,
+                                            "is_new_nine_slice": false,
+                                            "keep_ratio": true,
+                                            "layer": 1,
+                                            "max_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "min_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "nine_slice_buttom": 0,
+                                            "nine_slice_left": 0,
+                                            "nine_slice_right": 0,
+                                            "nine_slice_top": 0,
+                                            "nineslice_size": [
+                                                0,
+                                                0,
+                                                0,
+                                                0
+                                            ],
+                                            "offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "priority": 0,
+                                            "propagate_alpha": false,
+                                            "size": [
+                                                36,
+                                                36
+                                            ],
+                                            "texture": "textures/ui/pet/panel02_1@3x",
+                                            "type": "image",
+                                            "uv": [
+                                                0,
+                                                0
+                                            ],
+                                            "uv_size": [
+                                                36,
+                                                40
+                                            ],
+                                            "visible": true
+                                        }
+                                    },
+                                    {
+                                        "label": {
+                                            "alpha": 1.0,
+                                            "anchor_from": "center",
+                                            "anchor_to": "center",
+                                            "clip_offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "clips_children": false,
+                                            "color": [
+                                                1,
+                                                1,
+                                                1
+                                            ],
+                                            "controls": [],
+                                            "enabled": true,
+                                            "font_scale_factor": 0.9,
+                                            "font_size": "normal",
+                                            "font_type": "smooth",
+                                            "layer": 30,
+                                            "line_padding": 0,
+                                            "max_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "min_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "offset": [
+                                                1.0,
+                                                14.5
+                                            ],
+                                            "priority": 0,
+                                            "propagate_alpha": false,
+                                            "shadow": false,
+                                            "size": [
+                                                100,
+                                                19
+                                            ],
+                                            "text": "玩耍",
+                                            "text_alignment": "center",
+                                            "type": "label",
+                                            "visible": true
+                                        }
+                                    },
+                                    {
+                                        "image3": {
+                                            "alpha": 1.0,
+                                            "anchor_from": "top_left",
+                                            "anchor_to": "top_left",
+                                            "clip_direction": "left",
+                                            "clip_offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "clip_ratio": 0.0,
+                                            "clips_children": false,
+                                            "controls": [],
+                                            "enabled": true,
+                                            "fill": false,
+                                            "grayscale": false,
+                                            "is_new_nine_slice": false,
+                                            "keep_ratio": true,
+                                            "layer": 31,
+                                            "max_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "min_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "nine_slice_buttom": 0,
+                                            "nine_slice_left": 0,
+                                            "nine_slice_right": 0,
+                                            "nine_slice_top": 0,
+                                            "nineslice_size": [
+                                                0,
+                                                0,
+                                                0,
+                                                0
+                                            ],
+                                            "offset": [
+                                                10.0,
+                                                6.0
+                                            ],
+                                            "priority": 0,
+                                            "propagate_alpha": false,
+                                            "size": [
+                                                18,
+                                                18
+                                            ],
+                                            "texture": "textures/ui/pet/icon19@3x",
+                                            "type": "image",
+                                            "uv": [
+                                                0,
+                                                0
+                                            ],
+                                            "uv_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "visible": true
+                                        }
+                                    },
+                                    {
+                                        "default@netease_editor_template_namespace.default": {}
+                                    },
+                                    {
+                                        "hover@netease_editor_template_namespace.hover": {}
+                                    },
+                                    {
+                                        "pressed@netease_editor_template_namespace.pressed": {}
+                                    }
+                                ],
+                                "draggable": "not_draggable",
+                                "enabled": true,
+                                "is_handle_button_move_event": true,
+                                "layer": 32,
+                                "max_size": [
+                                    0,
+                                    0
+                                ],
+                                "min_size": [
+                                    0,
+                                    0
+                                ],
+                                "offset": [
+                                    51.5,
+                                    17.0
+                                ],
+                                "priority": 0,
+                                "propagate_alpha": false,
+                                "size": [
+                                    36,
+                                    36
+                                ],
+                                "visible": true
+                            }
+                        },
+                        {
+                            "button4@common.button": {
+                                "$control_alpha": 1.0,
+                                "$default_texture": "textures/ui/pet/panel02_1@3x",
+                                "$hover_texture": "textures/ui/pet/panel02_1@3x",
+                                "$is_new_nine_slice": false,
+                                "$label_color": [
+                                    1,
+                                    1,
+                                    1
+                                ],
+                                "$label_font_scale_factor": 0.699999988079071,
+                                "$label_font_size": "normal",
+                                "$label_layer": 3,
+                                "$label_offset": [
+                                    0.0,
+                                    16.0
+                                ],
+                                "$label_text": "",
+                                "$nine_slice_buttom": 0,
+                                "$nine_slice_left": 0,
+                                "$nine_slice_right": 0,
+                                "$nine_slice_top": 0,
+                                "$nineslice_size": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                ],
+                                "$pressed_button_name": "%petMain.click",
+                                "$pressed_texture": "",
+                                "$texture_layer": 2,
+                                "alpha": 1.0,
+                                "anchor_from": "center",
+                                "anchor_to": "center",
+                                "bindings": [
+                                    {
+                                        "binding_collection_name": "",
+                                        "binding_condition": "always_when_visible",
+                                        "binding_type": "collection_details"
+                                    }
+                                ],
+                                "button_mappings": [],
+                                "clip_offset": [
+                                    0,
+                                    0
+                                ],
+                                "clips_children": false,
+                                "controls": [
+                                    {
+                                        "imageClose": {
+                                            "clip_direction": "left",
+                                            "clip_ratio": 0.0,
+                                            "controls": [],
+                                            "layer": 100,
+                                            "max_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "min_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "offset": [
+                                                0.0,
+                                                -3.5
+                                            ],
+                                            "size": [
+                                                18,
+                                                18
+                                            ],
+                                            "texture": "textures/ui/pet/pet_skill_close",
+                                            "type": "image",
+                                            "uv": [
+                                                0,
+                                                0
+                                            ],
+                                            "uv_size": [
+                                                64,
+                                                64
+                                            ],
+                                            "visible": false
+                                        }
+                                    },
+                                    {
+                                        "imageBg": {
+                                            "alpha": 0.48,
+                                            "anchor_from": "center",
+                                            "anchor_to": "center",
+                                            "clip_direction": "left",
+                                            "clip_offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "clip_ratio": 0.0,
+                                            "clips_children": false,
+                                            "controls": [],
+                                            "enabled": true,
+                                            "fill": false,
+                                            "grayscale": false,
+                                            "is_new_nine_slice": false,
+                                            "keep_ratio": true,
+                                            "layer": 1,
+                                            "max_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "min_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "nine_slice_buttom": 0,
+                                            "nine_slice_left": 0,
+                                            "nine_slice_right": 0,
+                                            "nine_slice_top": 0,
+                                            "nineslice_size": [
+                                                0,
+                                                0,
+                                                0,
+                                                0
+                                            ],
+                                            "offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "priority": 0,
+                                            "propagate_alpha": false,
+                                            "size": [
+                                                36,
+                                                36
+                                            ],
+                                            "texture": "textures/ui/pet/panel02_1@3x",
+                                            "type": "image",
+                                            "uv": [
+                                                0,
+                                                0
+                                            ],
+                                            "uv_size": [
+                                                36,
+                                                40
+                                            ],
+                                            "visible": true
+                                        }
+                                    },
+                                    {
+                                        "label": {
+                                            "alpha": 1.0,
+                                            "anchor_from": "center",
+                                            "anchor_to": "center",
+                                            "clip_offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "clips_children": false,
+                                            "color": [
+                                                1,
+                                                1,
+                                                1
+                                            ],
+                                            "enabled": true,
+                                            "font_scale_factor": 0.9,
+                                            "font_size": "normal",
+                                            "font_type": "smooth",
+                                            "layer": 30,
+                                            "line_padding": 0,
+                                            "max_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "min_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "offset": [
+                                                1.0,
+                                                15.0
+                                            ],
+                                            "priority": 0,
+                                            "propagate_alpha": false,
+                                            "shadow": false,
+                                            "size": [
+                                                100,
+                                                18
+                                            ],
+                                            "text": "玩耍",
+                                            "text_alignment": "center",
+                                            "type": "label",
+                                            "visible": true
+                                        }
+                                    },
+                                    {
+                                        "image4": {
+                                            "alpha": 1.0,
+                                            "anchor_from": "top_left",
+                                            "anchor_to": "top_left",
+                                            "clip_direction": "left",
+                                            "clip_offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "clip_ratio": 0.0,
+                                            "clips_children": false,
+                                            "controls": [],
+                                            "enabled": true,
+                                            "fill": false,
+                                            "grayscale": false,
+                                            "is_new_nine_slice": false,
+                                            "keep_ratio": true,
+                                            "layer": 11,
+                                            "max_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "min_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "nine_slice_buttom": 0,
+                                            "nine_slice_left": 0,
+                                            "nine_slice_right": 0,
+                                            "nine_slice_top": 0,
+                                            "nineslice_size": [
+                                                0,
+                                                0,
+                                                0,
+                                                0
+                                            ],
+                                            "offset": [
+                                                10.0,
+                                                6.5
+                                            ],
+                                            "priority": 0,
+                                            "propagate_alpha": false,
+                                            "size": [
+                                                18,
+                                                18
+                                            ],
+                                            "texture": "textures/ui/pet/icon19@3x",
+                                            "type": "image",
+                                            "uv": [
+                                                0,
+                                                0
+                                            ],
+                                            "uv_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "visible": true
+                                        }
+                                    },
+                                    {
+                                        "default@netease_editor_template_namespace.default": {}
+                                    },
+                                    {
+                                        "hover@netease_editor_template_namespace.hover": {}
+                                    },
+                                    {
+                                        "pressed@netease_editor_template_namespace.pressed": {}
+                                    }
+                                ],
+                                "draggable": "not_draggable",
+                                "enabled": true,
+                                "is_handle_button_move_event": true,
+                                "layer": 12,
+                                "max_size": [
+                                    0,
+                                    0
+                                ],
+                                "min_size": [
+                                    0,
+                                    0
+                                ],
+                                "offset": [
+                                    36.5,
+                                    46.0
+                                ],
+                                "priority": 0,
+                                "propagate_alpha": false,
+                                "size": [
+                                    36,
+                                    36
+                                ],
+                                "visible": true
+                            }
+                        },
+                        {
+                            "button5@common.button": {
+                                "$control_alpha": 1.0,
+                                "$default_texture": "textures/ui/pet/panel02_1@3x",
+                                "$hover_texture": "textures/ui/pet/panel02_1@3x",
+                                "$is_new_nine_slice": false,
+                                "$label_color": [
+                                    1,
+                                    1,
+                                    1
+                                ],
+                                "$label_font_scale_factor": 0.699999988079071,
+                                "$label_font_size": "normal",
+                                "$label_layer": 3,
+                                "$label_offset": [
+                                    0.0,
+                                    16.0
+                                ],
+                                "$label_text": "",
+                                "$nine_slice_buttom": 0,
+                                "$nine_slice_left": 0,
+                                "$nine_slice_right": 0,
+                                "$nine_slice_top": 0,
+                                "$nineslice_size": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                ],
+                                "$pressed_button_name": "%petMain.click",
+                                "$pressed_texture": "",
+                                "$texture_layer": 2,
+                                "alpha": 1.0,
+                                "anchor_from": "center",
+                                "anchor_to": "center",
+                                "bindings": [
+                                    {
+                                        "binding_collection_name": "",
+                                        "binding_condition": "always_when_visible",
+                                        "binding_type": "collection_details"
+                                    }
+                                ],
+                                "button_mappings": [],
+                                "clip_offset": [
+                                    0,
+                                    0
+                                ],
+                                "clips_children": false,
+                                "controls": [
+                                    {
+                                        "imageClose": {
+                                            "clip_direction": "left",
+                                            "clip_ratio": 0.0,
+                                            "controls": [],
+                                            "layer": 100,
+                                            "max_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "min_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "offset": [
+                                                0.0,
+                                                -3.5
+                                            ],
+                                            "size": [
+                                                18,
+                                                18
+                                            ],
+                                            "texture": "textures/ui/pet/pet_skill_close",
+                                            "type": "image",
+                                            "uv": [
+                                                0,
+                                                0
+                                            ],
+                                            "uv_size": [
+                                                64,
+                                                64
+                                            ],
+                                            "visible": false
+                                        }
+                                    },
+                                    {
+                                        "imageBg": {
+                                            "alpha": 0.51,
+                                            "anchor_from": "center",
+                                            "anchor_to": "center",
+                                            "clip_direction": "left",
+                                            "clip_offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "clip_ratio": 0.0,
+                                            "clips_children": false,
+                                            "controls": [],
+                                            "enabled": true,
+                                            "fill": false,
+                                            "grayscale": false,
+                                            "is_new_nine_slice": false,
+                                            "keep_ratio": true,
+                                            "layer": 1,
+                                            "max_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "min_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "nine_slice_buttom": 0,
+                                            "nine_slice_left": 0,
+                                            "nine_slice_right": 0,
+                                            "nine_slice_top": 0,
+                                            "nineslice_size": [
+                                                0,
+                                                0,
+                                                0,
+                                                0
+                                            ],
+                                            "offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "priority": 0,
+                                            "propagate_alpha": false,
+                                            "size": [
+                                                36,
+                                                36
+                                            ],
+                                            "texture": "textures/ui/pet/panel02_1@3x",
+                                            "type": "image",
+                                            "uv": [
+                                                0,
+                                                0
+                                            ],
+                                            "uv_size": [
+                                                36,
+                                                40
+                                            ],
+                                            "visible": true
+                                        }
+                                    },
+                                    {
+                                        "label": {
+                                            "alpha": 1.0,
+                                            "anchor_from": "center",
+                                            "anchor_to": "center",
+                                            "clip_offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "clips_children": false,
+                                            "color": [
+                                                1,
+                                                1,
+                                                1
+                                            ],
+                                            "controls": [],
+                                            "enabled": true,
+                                            "font_scale_factor": 0.9,
+                                            "font_size": "normal",
+                                            "font_type": "smooth",
+                                            "layer": 30,
+                                            "line_padding": 0,
+                                            "max_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "min_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "offset": [
+                                                0.0,
+                                                15.0
+                                            ],
+                                            "priority": 0,
+                                            "propagate_alpha": false,
+                                            "shadow": false,
+                                            "size": [
+                                                100,
+                                                18
+                                            ],
+                                            "text": "玩耍",
+                                            "text_alignment": "center",
+                                            "type": "label",
+                                            "visible": true
+                                        }
+                                    },
+                                    {
+                                        "image5": {
+                                            "alpha": 1.0,
+                                            "anchor_from": "top_left",
+                                            "anchor_to": "top_left",
+                                            "clip_direction": "left",
+                                            "clip_offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "clip_ratio": 0.0,
+                                            "clips_children": false,
+                                            "controls": [],
+                                            "enabled": true,
+                                            "fill": false,
+                                            "grayscale": false,
+                                            "is_new_nine_slice": false,
+                                            "keep_ratio": true,
+                                            "layer": 3,
+                                            "max_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "min_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "nine_slice_buttom": 0,
+                                            "nine_slice_left": 0,
+                                            "nine_slice_right": 0,
+                                            "nine_slice_top": 0,
+                                            "nineslice_size": [
+                                                0,
+                                                0,
+                                                0,
+                                                0
+                                            ],
+                                            "offset": [
+                                                8.0,
+                                                6.5
+                                            ],
+                                            "priority": 0,
+                                            "propagate_alpha": false,
+                                            "size": [
+                                                18,
+                                                18
+                                            ],
+                                            "texture": "textures/ui/pet/icon19@3x",
+                                            "type": "image",
+                                            "uv": [
+                                                0,
+                                                0
+                                            ],
+                                            "uv_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "visible": true
+                                        }
+                                    },
+                                    {
+                                        "default@netease_editor_template_namespace.default": {}
+                                    },
+                                    {
+                                        "hover@netease_editor_template_namespace.hover": {}
+                                    },
+                                    {
+                                        "pressed@netease_editor_template_namespace.pressed": {}
+                                    }
+                                ],
+                                "draggable": "not_draggable",
+                                "enabled": true,
+                                "is_handle_button_move_event": true,
+                                "layer": 2,
+                                "max_size": [
+                                    0,
+                                    0
+                                ],
+                                "min_size": [
+                                    0,
+                                    0
+                                ],
+                                "offset": [
+                                    4.0,
+                                    47.0
+                                ],
+                                "priority": 0,
+                                "propagate_alpha": false,
+                                "size": [
+                                    36,
+                                    36
+                                ],
+                                "visible": true
+                            }
+                        },
+                        {
+                            "button6@common.button": {
+                                "$control_alpha": 1.0,
+                                "$default_texture": "textures/ui/pet/panel02_1@3x",
+                                "$hover_texture": "textures/ui/pet/panel02_1@3x",
+                                "$is_new_nine_slice": false,
+                                "$label_color": [
+                                    1,
+                                    1,
+                                    1
+                                ],
+                                "$label_font_scale_factor": 0.699999988079071,
+                                "$label_font_size": "normal",
+                                "$label_layer": 3,
+                                "$label_offset": [
+                                    0.0,
+                                    16.0
+                                ],
+                                "$label_text": "",
+                                "$nine_slice_buttom": 0,
+                                "$nine_slice_left": 0,
+                                "$nine_slice_right": 0,
+                                "$nine_slice_top": 0,
+                                "$nineslice_size": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                ],
+                                "$pressed_button_name": "%petMain.click",
+                                "$pressed_texture": "",
+                                "$texture_layer": 2,
+                                "alpha": 1.0,
+                                "anchor_from": "center",
+                                "anchor_to": "center",
+                                "bindings": [
+                                    {
+                                        "binding_collection_name": "",
+                                        "binding_condition": "always_when_visible",
+                                        "binding_type": "collection_details"
+                                    }
+                                ],
+                                "button_mappings": [],
+                                "clip_offset": [
+                                    0,
+                                    0
+                                ],
+                                "clips_children": false,
+                                "controls": [
+                                    {
+                                        "imageClose": {
+                                            "clip_direction": "left",
+                                            "clip_ratio": 0.0,
+                                            "layer": 100,
+                                            "max_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "min_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "offset": [
+                                                0.0,
+                                                -3.5
+                                            ],
+                                            "size": [
+                                                18,
+                                                18
+                                            ],
+                                            "texture": "textures/ui/pet/pet_skill_close",
+                                            "type": "image",
+                                            "uv": [
+                                                0,
+                                                0
+                                            ],
+                                            "uv_size": [
+                                                64,
+                                                64
+                                            ],
+                                            "visible": false
+                                        }
+                                    },
+                                    {
+                                        "imageBg": {
+                                            "alpha": 0.51,
+                                            "anchor_from": "center",
+                                            "anchor_to": "center",
+                                            "clip_direction": "left",
+                                            "clip_offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "clip_ratio": 0.0,
+                                            "clips_children": false,
+                                            "controls": [],
+                                            "enabled": true,
+                                            "fill": false,
+                                            "grayscale": false,
+                                            "is_new_nine_slice": false,
+                                            "keep_ratio": true,
+                                            "layer": 1,
+                                            "max_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "min_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "nine_slice_buttom": 0,
+                                            "nine_slice_left": 0,
+                                            "nine_slice_right": 0,
+                                            "nine_slice_top": 0,
+                                            "nineslice_size": [
+                                                0,
+                                                0,
+                                                0,
+                                                0
+                                            ],
+                                            "offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "priority": 0,
+                                            "propagate_alpha": false,
+                                            "size": [
+                                                36,
+                                                36
+                                            ],
+                                            "texture": "textures/ui/pet/panel02_1@3x",
+                                            "type": "image",
+                                            "uv": [
+                                                0,
+                                                0
+                                            ],
+                                            "uv_size": [
+                                                36,
+                                                40
+                                            ],
+                                            "visible": true
+                                        }
+                                    },
+                                    {
+                                        "label": {
+                                            "alpha": 1.0,
+                                            "anchor_from": "center",
+                                            "anchor_to": "center",
+                                            "clip_offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "clips_children": false,
+                                            "color": [
+                                                1,
+                                                1,
+                                                1
+                                            ],
+                                            "enabled": true,
+                                            "font_scale_factor": 0.9,
+                                            "font_size": "normal",
+                                            "font_type": "smooth",
+                                            "layer": 30,
+                                            "line_padding": 0,
+                                            "max_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "min_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "offset": [
+                                                0.0,
+                                                14.0
+                                            ],
+                                            "priority": 0,
+                                            "propagate_alpha": false,
+                                            "shadow": false,
+                                            "size": [
+                                                100,
+                                                18
+                                            ],
+                                            "text": "玩耍",
+                                            "text_alignment": "center",
+                                            "type": "label",
+                                            "visible": true
+                                        }
+                                    },
+                                    {
+                                        "image6": {
+                                            "alpha": 1.0,
+                                            "anchor_from": "top_left",
+                                            "anchor_to": "top_left",
+                                            "clip_direction": "left",
+                                            "clip_offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "clip_ratio": 0.0,
+                                            "clips_children": false,
+                                            "controls": [],
+                                            "enabled": true,
+                                            "fill": false,
+                                            "grayscale": false,
+                                            "is_new_nine_slice": false,
+                                            "keep_ratio": true,
+                                            "layer": 6,
+                                            "max_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "min_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "nine_slice_buttom": 0,
+                                            "nine_slice_left": 0,
+                                            "nine_slice_right": 0,
+                                            "nine_slice_top": 0,
+                                            "nineslice_size": [
+                                                0,
+                                                0,
+                                                0,
+                                                0
+                                            ],
+                                            "offset": [
+                                                9.0,
+                                                6.5
+                                            ],
+                                            "priority": 0,
+                                            "propagate_alpha": false,
+                                            "size": [
+                                                18,
+                                                18
+                                            ],
+                                            "texture": "textures/ui/pet/icon19@3x",
+                                            "type": "image",
+                                            "uv": [
+                                                0,
+                                                0
+                                            ],
+                                            "uv_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "visible": true
+                                        }
+                                    },
+                                    {
+                                        "default@netease_editor_template_namespace.default": {}
+                                    },
+                                    {
+                                        "hover@netease_editor_template_namespace.hover": {}
+                                    },
+                                    {
+                                        "pressed@netease_editor_template_namespace.pressed": {}
+                                    }
+                                ],
+                                "draggable": "not_draggable",
+                                "enabled": true,
+                                "is_handle_button_move_event": true,
+                                "layer": 7,
+                                "max_size": [
+                                    0,
+                                    0
+                                ],
+                                "min_size": [
+                                    0,
+                                    0
+                                ],
+                                "offset": [
+                                    -13.5,
+                                    18.0
+                                ],
+                                "priority": 0,
+                                "propagate_alpha": false,
+                                "size": [
+                                    36,
+                                    36
+                                ],
+                                "visible": true
+                            }
+                        },
+                        {
+                            "buttonBack@common.button": {
+                                "$control_alpha": 1.0,
+                                "$default_texture": "textures/ui/pet/panel01@3x",
+                                "$hover_texture": "textures/ui/pet/panel01@3x",
+                                "$is_new_nine_slice": false,
+                                "$label_color": [
+                                    1,
+                                    1,
+                                    1
+                                ],
+                                "$label_font_scale_factor": 0.699999988079071,
+                                "$label_font_size": "normal",
+                                "$label_layer": 3,
+                                "$label_offset": [
+                                    0.0,
+                                    16.0
+                                ],
+                                "$label_text": "",
+                                "$nine_slice_buttom": 0,
+                                "$nine_slice_left": 0,
+                                "$nine_slice_right": 0,
+                                "$nine_slice_top": 0,
+                                "$nineslice_size": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                ],
+                                "$pressed_button_name": "%petMain.click",
+                                "$pressed_texture": "",
+                                "$texture_layer": 2,
+                                "alpha": 1.0,
+                                "anchor_from": "center",
+                                "anchor_to": "center",
+                                "bindings": [
+                                    {
+                                        "binding_collection_name": "",
+                                        "binding_condition": "always_when_visible",
+                                        "binding_type": "collection_details"
+                                    }
+                                ],
+                                "button_mappings": [],
+                                "clip_offset": [
+                                    0,
+                                    0
+                                ],
+                                "clips_children": false,
+                                "controls": [
+                                    {
+                                        "image": {
+                                            "alpha": 1.0,
+                                            "anchor_from": "center",
+                                            "anchor_to": "center",
+                                            "clip_direction": "left",
+                                            "clip_offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "clip_ratio": 0.0,
+                                            "clips_children": false,
+                                            "enabled": true,
+                                            "fill": false,
+                                            "grayscale": false,
+                                            "is_new_nine_slice": false,
+                                            "keep_ratio": true,
+                                            "layer": 5,
+                                            "max_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "min_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "nine_slice_buttom": 0,
+                                            "nine_slice_left": 0,
+                                            "nine_slice_right": 0,
+                                            "nine_slice_top": 0,
+                                            "nineslice_size": [
+                                                0,
+                                                0,
+                                                0,
+                                                0
+                                            ],
+                                            "offset": [
+                                                0.5,
+                                                -4.0
+                                            ],
+                                            "priority": 0,
+                                            "propagate_alpha": false,
+                                            "size": [
+                                                20,
+                                                20
+                                            ],
+                                            "texture": "textures/ui/pet_icon",
+                                            "type": "image",
+                                            "uv": [
+                                                0,
+                                                0
+                                            ],
+                                            "uv_size": [
+                                                64,
+                                                64
+                                            ],
+                                            "visible": true
+                                        }
+                                    },
+                                    {
+                                        "imageBg": {
+                                            "alpha": 0.51,
+                                            "anchor_from": "center",
+                                            "anchor_to": "center",
+                                            "clip_direction": "left",
+                                            "clip_offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "clip_ratio": 0.0,
+                                            "clips_children": false,
+                                            "controls": [],
+                                            "enabled": true,
+                                            "fill": false,
+                                            "grayscale": false,
+                                            "is_new_nine_slice": false,
+                                            "keep_ratio": true,
+                                            "layer": 1,
+                                            "max_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "min_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "nine_slice_buttom": 0,
+                                            "nine_slice_left": 0,
+                                            "nine_slice_right": 0,
+                                            "nine_slice_top": 0,
+                                            "nineslice_size": [
+                                                0,
+                                                0,
+                                                0,
+                                                0
+                                            ],
+                                            "offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "priority": 0,
+                                            "propagate_alpha": false,
+                                            "size": [
+                                                36,
+                                                36
+                                            ],
+                                            "texture": "textures/ui/pet/panel01@3x",
+                                            "type": "image",
+                                            "uv": [
+                                                0,
+                                                0
+                                            ],
+                                            "uv_size": [
+                                                36,
+                                                40
+                                            ],
+                                            "visible": true
+                                        }
+                                    },
+                                    {
+                                        "label": {
+                                            "alpha": 1.0,
+                                            "anchor_from": "center",
+                                            "anchor_to": "center",
+                                            "clip_offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "clips_children": false,
+                                            "color": [
+                                                1,
+                                                1,
+                                                1
+                                            ],
+                                            "enabled": true,
+                                            "font_scale_factor": 0.9,
+                                            "font_size": "normal",
+                                            "font_type": "smooth",
+                                            "layer": 30,
+                                            "line_padding": 0,
+                                            "max_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "min_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "offset": [
+                                                0.0,
+                                                14.0
+                                            ],
+                                            "priority": 0,
+                                            "propagate_alpha": false,
+                                            "shadow": false,
+                                            "size": [
+                                                100,
+                                                18
+                                            ],
+                                            "text": "返回",
+                                            "text_alignment": "center",
+                                            "type": "label",
+                                            "visible": true
+                                        }
+                                    },
+                                    {
+                                        "default@netease_editor_template_namespace.default": {}
+                                    },
+                                    {
+                                        "hover@netease_editor_template_namespace.hover": {}
+                                    },
+                                    {
+                                        "pressed@netease_editor_template_namespace.pressed": {}
+                                    }
+                                ],
+                                "draggable": "not_draggable",
+                                "enabled": true,
+                                "is_handle_button_move_event": true,
+                                "layer": 7,
+                                "max_size": [
+                                    0,
+                                    0
+                                ],
+                                "min_size": [
+                                    0,
+                                    0
+                                ],
+                                "offset": [
+                                    18.5,
+                                    18.0
+                                ],
+                                "priority": 0,
+                                "propagate_alpha": false,
+                                "size": [
+                                    36,
+                                    36
+                                ],
+                                "visible": true
+                            }
+                        }
+                    ],
+                    "enabled": true,
+                    "layer": 0,
+                    "max_size": [
+                        0,
+                        0
+                    ],
+                    "min_size": [
+                        0,
+                        0
+                    ],
+                    "offset": [
+                        "12.5%+0.0px",
+                        "12.0%+0.0px"
+                    ],
+                    "priority": 0,
+                    "propagate_alpha": false,
+                    "size": [
+                        100,
+                        100
+                    ],
+                    "type": "panel",
+                    "visible": false
+                }
+            }
+        ],
+        "force_render_below": false,
+        "is_showing_menu": true,
+        "render_game_behind": true,
+        "render_only_when_topmost": true,
+        "should_steal_mouse": false,
+        "type": "screen"
+    },
+    "namespace": "petEatUI"
+}

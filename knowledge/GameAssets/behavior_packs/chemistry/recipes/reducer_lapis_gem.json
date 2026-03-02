@@ -1,0 +1,33 @@
+{
+   "format_version" : "1.14",
+   "minecraft:recipe_material_reduction" : {
+      "description" : {
+         "identifier" : "minecraft:dye:4"
+		 //lapis lazuli gem
+      },
+      "input" : "minecraft:dye:4",
+      "output" : [
+         {
+            "count" : 13,
+            "item" : "minecraft:element_11"
+         },
+         {
+            "count" : 8,
+            "item" : "minecraft:element_16"
+         },
+         {
+            "count" : 13,
+            "item" : "minecraft:element_13"
+         },
+         {
+            "count" : 53,
+            "item" : "minecraft:element_8"
+         },
+         {
+            "count" : 13,
+            "item" : "minecraft:element_14"
+         }
+      ],
+      "tags" : "material_reducer"
+   }
+}

@@ -1,0 +1,79 @@
+{
+    "particleeffect": {
+        "rotationSpeedRange": {
+            "max": "0.0 0.0 -30.0",
+            "min": "0.0 0.0 30.0"
+        },
+        "independent": false,
+        "direction": {
+            "max": "0.0 -1.0 0.0",
+            "value": "Direction",
+            "min": "0.0 0.0 0.0"
+        },
+        "numparticles": {
+            "value": "5"
+        },
+        "colorfade": [
+            {
+                "color": "0.0000 1.0000 1.0000 0.2946",
+                "time": "0.00"
+            },
+            {
+                "color": "0.0000 0.8196 1.0000 1.0000",
+                "time": "0.04"
+            },
+            {
+                "color": "0.0000 1.0000 1.0000 1.0000",
+                "time": "0.33"
+            },
+            {
+                "color": "1.0000 1.0000 0.0000 1.0000",
+                "time": "0.36"
+            },
+            {
+                "color": "1.0000 1.0000 0.4980 0.0000",
+                "time": "1.00"
+            }
+        ],
+        "emissionrate": {
+            "max": "3.0",
+            "min": "5.0"
+        },
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.35 0.4 0.35"
+        },
+        "texture": {
+            "name": "textures/sfxs/pet_mtr/ss_armorstand_space_star02"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "timetolive": {
+            "max": "0.6",
+            "min": "1.0"
+        },
+        "depthtest": {
+            "enable": "true"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.1",
+            "min": "0.2"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 45.0",
+            "min": "0.0 0.0 45.0"
+        },
+        "particlesize": {
+            "max": "0.04 0.04",
+            "min": "0.02 0.02"
+        }
+    }
+}

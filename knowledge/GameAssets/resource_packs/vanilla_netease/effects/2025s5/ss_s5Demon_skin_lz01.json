@@ -1,0 +1,80 @@
+{
+    "particleeffect": {
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "35.8%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "constantforce": {
+            "value": "-0.7 0.4 0.0"
+        },
+        "dampingforce": {
+            "value": "0.5"
+        },
+        "direction": {
+            "max": "-1.0 0.5 0.5",
+            "min": "0.5 0.15 0.15",
+            "value": "Direction"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.20000000000000004 0.20000000000000004 0.30000000000000004"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "particlesize": {
+            "max": "0.15 0.15",
+            "min": "0.05 0.05"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.96 0.96",
+                "time": "19.0%"
+            },
+            {
+                "scale": "0.86 0.86",
+                "time": "59.0%"
+            },
+            {
+                "scale": "0.2 0.2",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s5/ss_s5Demon_skin_lz01"
+        },
+        "thickness": {
+            "value": "0.20000000000000004"
+        },
+        "timetolive": {
+            "max": "0.7999999999999999",
+            "min": "0.5"
+        },
+        "velocity": {
+            "max": "0.7",
+            "min": "0.1"
+        }
+    }
+}

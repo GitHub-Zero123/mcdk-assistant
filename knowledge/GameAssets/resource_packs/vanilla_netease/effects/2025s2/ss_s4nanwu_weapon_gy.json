@@ -1,0 +1,47 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "0.5765 0.9804 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.3961 1.0000 1.0000 0.2054",
+                "time": "16.8%"
+            },
+            {
+                "color": "0.4941 0.9098 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "5.0",
+            "min": "5.0"
+        },
+        "numparticles": {
+            "value": "5"
+        },
+        "particlesize": {
+            "max": "0.2 0.2",
+            "min": "0.2 0.2"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "name": "textures/sfxs/2025s2/ss_s4nanwu_weapon_gy"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

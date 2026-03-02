@@ -1,0 +1,13 @@
+{
+    "format_version": "1.10",
+    "minecraft:item": {
+        "description": {
+            "identifier": "minecraft:board"
+        },
+        "components": {
+            "minecraft:creative_category": {
+                "parent": "itemGroup.name.chalkboard"
+            }
+        }
+    }
+}

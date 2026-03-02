@@ -1,0 +1,253 @@
+{
+    "content": [
+        {
+            "path": "contents.json"
+        },
+        {
+            "path": "manifest.json"
+        },
+        {
+            "path": "pack_icon.png"
+        },
+        {
+            "path": "scripts/vanilla-gametest-beta.js"
+        },
+        {
+            "path": "structures/APITests/armor_stand.mcstructure"
+        },
+        {
+            "path": "structures/APITests/assert_can_reach_location.mcstructure"
+        },
+        {
+            "path": "structures/APITests/assert_entity_present.mcstructure"
+        },
+        {
+            "path": "structures/APITests/assert_is_waterlogged.mcstructure"
+        },
+        {
+            "path": "structures/APITests/assert_item_entity_count_is.mcstructure"
+        },
+        {
+            "path": "structures/APITests/assert_redstone_power.mcstructure"
+        },
+        {
+            "path": "structures/APITests/cauldron.mcstructure"
+        },
+        {
+            "path": "structures/APITests/connectivity.mcstructure"
+        },
+        {
+            "path": "structures/APITests/create_explosion_advanced.mcstructure"
+        },
+        {
+            "path": "structures/APITests/create_explosion_basic.mcstructure"
+        },
+        {
+            "path": "structures/APITests/get_velocity_minecart.mcstructure"
+        },
+        {
+            "path": "structures/APITests/get_velocity_snow.mcstructure"
+        },
+        {
+            "path": "structures/APITests/grow_pointed_dripstone.mcstructure"
+        },
+        {
+            "path": "structures/APITests/jukebox.mcstructure"
+        },
+        {
+            "path": "structures/APITests/maybe_fill_cauldron.mcstructure"
+        },
+        {
+            "path": "structures/APITests/pulse_redstone.mcstructure"
+        },
+        {
+            "path": "structures/APITests/rotate_direction.mcstructure"
+        },
+        {
+            "path": "structures/APITests/spawn_item.mcstructure"
+        },
+        {
+            "path": "structures/APITests/spread_from_face_toward_direction.mcstructure"
+        },
+        {
+            "path": "structures/APITests/teleport_keep_velocity_mob.mcstructure"
+        },
+        {
+            "path": "structures/APITests/vines.mcstructure"
+        },
+        {
+            "path": "structures/APITests/walk_to_location_far.mcstructure"
+        },
+        {
+            "path": "structures/BlockTests/beforePlayerPlace.mcstructure"
+        },
+        {
+            "path": "structures/ComponentTests/animal_pen.mcstructure"
+        },
+        {
+            "path": "structures/ComponentTests/aquarium.mcstructure"
+        },
+        {
+            "path": "structures/ComponentTests/glass_cage.mcstructure"
+        },
+        {
+            "path": "structures/ComponentTests/health_component.mcstructure"
+        },
+        {
+            "path": "structures/ComponentTests/large_animal_pen.mcstructure"
+        },
+        {
+            "path": "structures/ComponentTests/large_glass_cage.mcstructure"
+        },
+        {
+            "path": "structures/ComponentTests/leashable_component.mcstructure"
+        },
+        {
+            "path": "structures/ComponentTests/platform.mcstructure"
+        },
+        {
+            "path": "structures/ComponentTests/rideable_component.mcstructure"
+        },
+        {
+            "path": "structures/DripstoneTests/stalactite_fall.mcstructure"
+        },
+        {
+            "path": "structures/DripstoneTests/stalactite_fall_bedrock.mcstructure"
+        },
+        {
+            "path": "structures/DripstoneTests/stalactite_fall_no_dupe.mcstructure"
+        },
+        {
+            "path": "structures/DripstoneTests/stalactite_hurt.mcstructure"
+        },
+        {
+            "path": "structures/DripstoneTests/stalagmite_break.mcstructure"
+        },
+        {
+            "path": "structures/DripstoneTests/stalagmite_hurt.mcstructure"
+        },
+        {
+            "path": "structures/DripstoneTests/stalagmite_stalactite_separation.mcstructure"
+        },
+        {
+            "path": "structures/DripstoneTests/thickness_update.mcstructure"
+        },
+        {
+            "path": "structures/Generic/flat_5x5x5.mcstructure"
+        },
+        {
+            "path": "structures/MobTests/axolotl_lure.mcstructure"
+        },
+        {
+            "path": "structures/MobTests/drowning_test.mcstructure"
+        },
+        {
+            "path": "structures/MobTests/effect_durations.mcstructure"
+        },
+        {
+            "path": "structures/MobTests/golem_vs_pillager.mcstructure"
+        },
+        {
+            "path": "structures/MobTests/mobtests.drowning_test.mcstructure"
+        },
+        {
+            "path": "structures/MobTests/piglin_should_drop_different_loots.mcstructure"
+        },
+        {
+            "path": "structures/MobTests/ravager_flowing_water_edge_fall.mcstructure"
+        },
+        {
+            "path": "structures/MobTests/silverfish_no_suffocate.mcstructure"
+        },
+        {
+            "path": "structures/MobTests/small_mobs_breathe_in_boats.mcstructure"
+        },
+        {
+            "path": "structures/MobTests/small_mobs_keep_head_above_water.mcstructure"
+        },
+        {
+            "path": "structures/MobTests/zombie_burn.mcstructure"
+        },
+        {
+            "path": "structures/RedstoneTests/comparator_container.mcstructure"
+        },
+        {
+            "path": "structures/RedstoneTests/comparator_logic.mcstructure"
+        },
+        {
+            "path": "structures/RedstoneTests/dust_loop_depowering.mcstructure"
+        },
+        {
+            "path": "structures/RedstoneTests/dust_loop_depowering_bedrock.mcstructure"
+        },
+        {
+            "path": "structures/RedstoneTests/dust_propagation.mcstructure"
+        },
+        {
+            "path": "structures/RedstoneTests/dust_propagation_bedrock.mcstructure"
+        },
+        {
+            "path": "structures/RedstoneTests/itemframe_override.mcstructure"
+        },
+        {
+            "path": "structures/RedstoneTests/itemframe_override_bedrock.mcstructure"
+        },
+        {
+            "path": "structures/RedstoneTests/lever_power.mcstructure"
+        },
+        {
+            "path": "structures/RedstoneTests/observer_clock.mcstructure"
+        },
+        {
+            "path": "structures/RedstoneTests/repeater_clock.mcstructure"
+        },
+        {
+            "path": "structures/RedstoneTests/repeater_delay.mcstructure"
+        },
+        {
+            "path": "structures/RedstoneTests/repeater_delay_bedrock.mcstructure"
+        },
+        {
+            "path": "structures/RedstoneTests/repeater_delay_lines.mcstructure"
+        },
+        {
+            "path": "structures/RedstoneTests/repeater_lock.mcstructure"
+        },
+        {
+            "path": "structures/RedstoneTests/repeater_regeneration.mcstructure"
+        },
+        {
+            "path": "structures/RedstoneTests/rs_latch.mcstructure"
+        },
+        {
+            "path": "structures/RedstoneTests/rs_latch_bedrock.mcstructure"
+        },
+        {
+            "path": "structures/RedstoneTests/subtractor_logic.mcstructure"
+        },
+        {
+            "path": "structures/RedstoneTests/torch_monostable.mcstructure"
+        },
+        {
+            "path": "structures/RedstoneTests/torch_monostable_bedrock.mcstructure"
+        },
+        {
+            "path": "structures/RedstoneTests/torch_nand.mcstructure"
+        },
+        {
+            "path": "structures/RedstoneTests/torch_nor.mcstructure"
+        },
+        {
+            "path": "structures/RedstoneTests/wireredirect_nonconductor.mcstructure"
+        },
+        {
+            "path": "structures/RedstoneTests/wireredirect_nonconductor_bedrock.mcstructure"
+        },
+        {
+            "path": "structures/RedstoneTests/wire_redirect.mcstructure"
+        },
+        {
+            "path": "structures/RedstoneTests/wire_redirect_bedrock.mcstructure"
+        }
+    ]
+}

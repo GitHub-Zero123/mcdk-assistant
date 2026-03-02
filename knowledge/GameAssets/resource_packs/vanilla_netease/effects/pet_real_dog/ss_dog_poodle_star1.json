@@ -1,0 +1,80 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "value": "Direction",
+            "min": "-1.0 -1.0 -1.0"
+        },
+        "numparticles": {
+            "value": "4"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "emissionrate": {
+            "max": "5.0",
+            "min": "3.0"
+        },
+        "emitterScaleCurve": [],
+        "layer": 2,
+        "emittersize": {
+            "value": "0.15 0.2 0.55"
+        },
+        "thickness": {
+            "value": "0.15"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Hemisphere"
+        },
+        "timetolive": {
+            "max": "0.6",
+            "min": "0.3"
+        },
+        "texture": {
+            "name": "textures/sfxs/pet_real_dog/ss_dog_poodle_star1"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        },
+        "offsetInCamera": {
+            "value": "-0.1"
+        },
+        "particlesize": {
+            "max": "0.06 0.06",
+            "min": "0.05 0.05"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.0 0.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.88 0.88",
+                "time": "20.0%"
+            },
+            {
+                "scale": "0.88 0.88",
+                "time": "30.0%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            }
+        ]
+    }
+}

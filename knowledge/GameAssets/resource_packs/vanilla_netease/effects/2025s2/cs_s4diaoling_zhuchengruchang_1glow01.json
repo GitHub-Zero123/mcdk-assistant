@@ -1,0 +1,82 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.2"
+        },
+        "colorfade": [
+            {
+                "color": "0.0000 0.0078 0.2078 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.0235 0.0000 0.2118 0.4643",
+                "time": "3.4%"
+            },
+            {
+                "color": "0.0000 0.0000 0.1765 0.4375",
+                "time": "84.0%"
+            },
+            {
+                "color": "0.0000 0.0000 0.1765 0.0268",
+                "time": "92.9%"
+            },
+            {
+                "color": "0.0000 0.0000 0.1765 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "delay": 0.05,
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "3000.0",
+            "min": "3000.0"
+        },
+        "faceCameraMode": {
+            "value": "Horizontal"
+        },
+        "layer": 0,
+        "numparticles": {
+            "value": "1"
+        },
+        "particlesize": {
+            "max": "6.0 6.0",
+            "min": "5.0 5.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.3 0.3",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.95 0.95",
+                "time": "2.0%"
+            },
+            {
+                "scale": "0.95 0.95",
+                "time": "33.0%"
+            },
+            {
+                "scale": "2.0 2.0",
+                "time": "34.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s2/cs_s4diaoling_zhuchengruchang_sun"
+        },
+        "timetolive": {
+            "max": "4.5",
+            "min": "4.5"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

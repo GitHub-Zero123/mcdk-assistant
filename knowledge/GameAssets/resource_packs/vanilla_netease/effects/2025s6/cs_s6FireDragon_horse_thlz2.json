@@ -1,0 +1,80 @@
+{
+    "particleeffect": {
+        "colorfade": [
+            {
+                "color": "1.0000 0.8863 0.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.2510 0.0000 1.0000",
+                "time": "49.5%"
+            },
+            {
+                "color": "0.5255 0.0000 0.0000 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "constantforce": {
+            "value": "0.0 0.5 0.0"
+        },
+        "dampingforce": {
+            "value": "0.4"
+        },
+        "direction": {
+            "max": "1.0 0.3 0.0",
+            "min": "1.0 0.3 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "8.0",
+            "min": "4.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.2 0.05 0.1"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Direction Horizontal"
+        },
+        "numparticles": {
+            "value": "6"
+        },
+        "particlesize": {
+            "max": "0.55 0.6",
+            "min": "0.65 0.7"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "-15.0 90.0 0.0",
+            "min": "-15.0 90.0 0.0"
+        },
+        "texture": {
+            "ani": {
+                "fps": "20",
+                "name": "textures/sfxs/2025s6/cs_s6FireDragon_horse_tfh",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s6/cs_s6FireDragon_horse_tfh"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.4",
+            "min": "0.6"
+        },
+        "velocity": {
+            "max": "0.6",
+            "min": "0.4"
+        }
+    }
+}

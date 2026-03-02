@@ -1,0 +1,106 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "value": "Direction",
+            "min": "-1.0 -1.0 -1.0"
+        },
+        "dampingforce": {
+            "value": "2.5"
+        },
+        "emitterpath": [
+            {
+                "offset": "0.3 0.3 0.0",
+                "time": "0.0"
+            },
+            {
+                "offset": "0.3 -0.3 0.0",
+                "time": "0.2"
+            },
+            {
+                "offset": "-0.3 -0.3 0.0",
+                "time": "0.3"
+            },
+            {
+                "offset": "-0.3 0.3 0.0",
+                "time": "0.35"
+            },
+            {
+                "offset": "0.3 0.3 0.0",
+                "time": "0.4"
+            }
+        ],
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 0.4980 0.6964",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.8510 0.0000 0.9464",
+                "time": "8.7%"
+            },
+            {
+                "color": "1.0000 0.5333 0.0000 1.0000",
+                "time": "40.3%"
+            },
+            {
+                "color": "1.0000 0.3647 0.0000 0.7857",
+                "time": "67.6%"
+            },
+            {
+                "color": "1.0000 0.2667 0.0824 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "emissionrate": {
+            "max": "50.0",
+            "min": "30.0"
+        },
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.17 0.17 0.1"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "emittertype": {
+            "value": "Cylinder"
+        },
+        "timetolive": {
+            "max": "0.5",
+            "min": "0.8"
+        },
+        "texture": {
+            "name": "textures/sfxs/pet_mh_fox/ss_mhfox_fire_fangkuai00"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.1",
+            "min": "0.1"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "particlesize": {
+            "max": "0.02 0.02",
+            "min": "0.05 0.05"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.06 0.06",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.24 0.24",
+                "time": "32.3%"
+            },
+            {
+                "scale": "0.04 0.04",
+                "time": "100.0%"
+            }
+        ]
+    }
+}

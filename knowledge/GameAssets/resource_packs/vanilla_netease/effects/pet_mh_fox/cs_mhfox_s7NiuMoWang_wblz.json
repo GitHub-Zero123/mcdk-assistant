@@ -1,0 +1,88 @@
+{
+    "particleeffect": {
+        "colorfade": [
+            {
+                "color": "1.0000 0.7255 0.8510 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.5843 0.8000 1.0000",
+                "time": "40.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "69.5%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "-0.2 0.2 -0.20000000000000004",
+            "min": "-0.30000000000000004 0.10000000000000003 -0.1",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "10.0",
+            "min": "4.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.5 0.35 0.34"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "layer": 4,
+        "numparticles": {
+            "value": "4"
+        },
+        "particlesize": {
+            "max": "0.07 0.07",
+            "min": "0.04999999999999999 0.04999999999999999"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.58 0.58",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.5 0.5",
+                "time": "37.3%"
+            },
+            {
+                "scale": "0.4 0.4",
+                "time": "60.7%"
+            },
+            {
+                "scale": "0.18 0.18",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "1",
+                "name": "textures/sfxs/pet_mh_fox/cs_mhfox_s6Jiaolong_sj2",
+                "shuffle": true
+            },
+            "name": "textures/sfxs/pet_mh_fox/cs_mhfox_s7NiuMoWang_lz"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.6",
+            "min": "0.8"
+        },
+        "velocity": {
+            "max": "0.30000000000000004",
+            "min": "0.20000000000000004"
+        }
+    }
+}

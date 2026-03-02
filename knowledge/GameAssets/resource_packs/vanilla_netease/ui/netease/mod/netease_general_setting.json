@@ -1,0 +1,888 @@
+{
+    "config_grid": {
+        "type": "stack_grid",
+        "size": [
+            "100%+0px",
+            "default"
+        ],
+        "layer": 10,
+        "collection_name": "config_grid",
+        "orientation": "vertical",
+        "property_bag": {
+            "#config.size": 10
+        },
+        "bindings": [
+            {
+                "binding_name_override": "#StackGridItemsCount",
+                "binding_condition": "always",
+                "binding_name": "#config.size"
+            }
+        ],
+        "controls": [
+            {
+                "config_item@netease_general_setting.config_item": {}
+            }
+        ]
+    },
+    "config_item": {
+        "type": "stack_panel",
+        "size": [
+            "100%+0px",
+            "default"
+        ],
+        "layer": 1,
+        "controls": [
+            {
+                "title_panel": {
+                    "type": "panel",
+                    "size": [
+                        "default",
+                        10.0
+                    ],
+                    "layer": 1,
+                    "controls": [
+                        {
+                            "label": {
+                                "type": "label",
+                                "anchor_from": "left_middle",
+                                "anchor_to": "left_middle",
+                                "layer": 10,
+                                "font_type": "default",
+                                "text": "#config.title",
+                                "text_alignment": "center",
+                                "bindings": [
+                                    {
+                                        "binding_name_override": "#config.title",
+                                        "binding_collection_name": "config_grid",
+                                        "binding_type": "collection",
+                                        "binding_name": "#config.title"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "value_panel": {
+                    "type": "panel",
+                    "size": [
+                        "default",
+                        20.0
+                    ],
+                    "layer": 1,
+                    "bindings": [
+                        {
+                            "binding_name_override": "#visible",
+                            "binding_collection_name": "config_grid",
+                            "binding_type": "collection",
+                            "binding_name": "#config.panel.visible"
+                        }
+                    ],
+                    "controls": [
+                        {
+                            "switch_panel": {
+                                "type": "panel",
+                                "layer": 1,
+                                "bindings": [
+                                    {
+                                        "binding_name_override": "#visible",
+                                        "binding_collection_name": "config_grid",
+                                        "binding_type": "collection",
+                                        "binding_name": "#config.switch.visible"
+                                    }
+                                ],
+                                "controls": [
+                                    {
+                                        "switch_toggle@common_toggles.switch_toggle_collection": {
+                                            "type": "panel",
+                                            "$default_texture": "textures/ui/toggle_off",
+                                            "$hover_texture": "textures/ui/toggle_on",
+                                            "$pressed_no_hover_texture": "textures/ui/toggle_on_hover",
+                                            "$pressed_texture": "textures/ui/toggle_off_hover",
+                                            "$toggle_binding_type": "collection",
+                                            "$toggle_enabled_binding_name": "#config.enabled",
+                                            "$toggle_enabled_binding_type": "collection",
+                                            "$toggle_grid_collection_name": "config_grid",
+                                            "$toggle_name": "#SettingScreen.OnToggleChange",
+                                            "$toggle_state_binding_name": "#config.toggle.checked",
+                                            "anchor_from": "left_middle",
+                                            "anchor_to": "left_middle",
+                                            "size": [
+                                                40.0,
+                                                "default"
+                                            ],
+                                            "layer": 1,
+                                            "bindings": [
+                                                {
+                                                    "binding_type": "collection_details",
+                                                    "binding_collection_name": "config_grid",
+                                                    "binding_condition": "always_when_visible"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "input_panel": {
+                                "type": "panel",
+                                "layer": 1,
+                                "bindings": [
+                                    {
+                                        "binding_name_override": "#visible",
+                                        "binding_collection_name": "config_grid",
+                                        "binding_type": "collection",
+                                        "binding_name": "#config.input.visible"
+                                    }
+                                ],
+                                "controls": [
+                                    {
+                                        "locked": {
+                                            "type": "image",
+                                            "layer": 20,
+                                            "alpha": 0.6,
+                                            "clip_direction": "left",
+                                            "clip_ratio": 0.0,
+                                            "color": [
+                                                0.3,
+                                                0.3,
+                                                0.3
+                                            ],
+                                            "fill": true,
+                                            "texture": "textures/ui/white_background",
+                                            "bindings": [
+                                                {
+                                                    "binding_name_override": "#visible",
+                                                    "binding_collection_name": "config_grid",
+                                                    "binding_type": "collection",
+                                                    "binding_name": "(not #config.enabled)"
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "edit_box@common.text_edit_box": {
+                                            "type": "edit_box",
+                                            "$edit_box_default_texture": "textures/ui/edit_box_indent",
+                                            "$edit_box_hover_texture": "textures/ui/edit_box_indent_hover",
+                                            "$font_scale_factor": 1.0,
+                                            "$font_size": "normal",
+                                            "$is_new_nine_slice": false,
+                                            "$nine_slice_buttom": 0,
+                                            "$nine_slice_left": 0,
+                                            "$nine_slice_right": 0,
+                                            "$nine_slice_top": 0,
+                                            "$nineslice_size": [
+                                                0,
+                                                0,
+                                                0,
+                                                0
+                                            ],
+                                            "$place_holder_text": "请输入内容",
+                                            "$place_holder_text_color": [
+                                                0.5,
+                                                0.5,
+                                                0.5
+                                            ],
+                                            "$text_background_default": "netease_editor_template_namespace.edit_box_background_default",
+                                            "$text_background_hover": "netease_editor_template_namespace.edit_box_background_hover",
+                                            "$text_box_enabled_binding_name": "#config.enabled",
+                                            "$text_box_name": "%SettingScreen.OnInputChangeCallback",
+                                            "$text_box_text_color": [
+                                                1,
+                                                1,
+                                                1
+                                            ],
+                                            "$text_edit_box_content_binding_name": "#config.input.text",
+                                            "$text_edit_box_content_binding_type": "collection",
+                                            "$text_edit_box_enabled_binding_type": "collection",
+                                            "$text_edit_box_grid_collection_name": "config_grid",
+                                            "$text_edit_box_label_anchor_point": "right_middle",
+                                            "$text_edit_box_label_min_size": [
+                                                "100%",
+                                                0
+                                            ],
+                                            "$text_edit_box_label_size": [
+                                                "default",
+                                                "default"
+                                            ],
+                                            "layer": 1,
+                                            "max_length": 512
+                                        }
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "dropdown_panel": {
+                                "type": "panel",
+                                "layer": 1,
+                                "bindings": [
+                                    {
+                                        "binding_name_override": "#visible",
+                                        "binding_collection_name": "config_grid",
+                                        "binding_type": "collection",
+                                        "binding_name": "#config.dropdown.visible"
+                                    }
+                                ],
+                                "controls": [
+                                    {
+                                        "locked": {
+                                            "type": "image",
+                                            "layer": 20,
+                                            "alpha": 0.6,
+                                            "clip_direction": "left",
+                                            "clip_ratio": 0.0,
+                                            "color": [
+                                                0.3,
+                                                0.3,
+                                                0.3
+                                            ],
+                                            "fill": true,
+                                            "texture": "textures/ui/white_background",
+                                            "bindings": [
+                                                {
+                                                    "binding_name_override": "#visible",
+                                                    "binding_collection_name": "config_grid",
+                                                    "binding_type": "collection",
+                                                    "binding_name": "(not #config.enabled)"
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "comboBoxPanel@combo_box.comboBoxPanel": {
+                                            "size": [
+                                                "default",
+                                                "default"
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "slider_panel": {
+                                "type": "panel",
+                                "layer": 1,
+                                "bindings": [
+                                    {
+                                        "binding_name_override": "#visible",
+                                        "binding_collection_name": "config_grid",
+                                        "binding_type": "collection",
+                                        "binding_name": "#config.slider.visible"
+                                    }
+                                ],
+                                "controls": [
+                                    {
+                                        "slider@common.slider": {
+                                            "$background_default_control": "common.slider_background",
+                                            "$background_hover_control": "common.slider_background_hover",
+                                            "$progress_default_clip_direction": "left",
+                                            "$progress_default_control": "common.slider_progress",
+                                            "$progress_hover_clip_direction": "left",
+                                            "$progress_hover_control": "common.slider_progress_hover",
+                                            "$slider_binding_type": "collection",
+                                            "$slider_box_hover_layout": "common.slider_button_hover_layout",
+                                            "$slider_box_indent_layout": "common.slider_button_indent_layout",
+                                            "$slider_box_layout": "common.slider_button_layout",
+                                            "$slider_box_locked_layout": "common.slider_button_locked_layout",
+                                            "$slider_box_size": [
+                                                10,
+                                                16
+                                            ],
+                                            "$slider_collection_name": "config_grid",
+                                            "$slider_direction": "horizontal",
+                                            "$slider_enabled_binding_name": "#config.enabled",
+                                            "$slider_enabled_binding_type": "collection",
+                                            "$slider_name": "#SettingScreen.OnSliderChange",
+                                            "$slider_step_factory_control_ids": {
+                                                "slider_step": "@common.slider_step",
+                                                "slider_step_hover": "@common.slider_step_hover",
+                                                "slider_step_progress": "@common.slider_step_progress",
+                                                "slider_step_progress_hover": "@common.slider_step_progress_hover"
+                                            },
+                                            "$slider_steps_binding_name": "#config.slider.steps",
+                                            "$slider_steps_binding_type": "collection",
+                                            "$slider_tts_text_value": "#netease_tts_text_value",
+                                            "$slider_value_binding_name": "#config.slider.value",
+                                            "size": [
+                                                "100%+-10px",
+                                                10
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "divider": {
+                    "type": "panel",
+                    "size": [
+                        "default",
+                        6.0
+                    ],
+                    "layer": 1
+                }
+            }
+        ]
+    },
+    "setting_screen": {
+        "type": "screen",
+        "controls": [
+            {
+                "image": {
+                    "type": "image",
+                    "offset": [
+                        0.0,
+                        0.5
+                    ],
+                    "layer": 1,
+                    "clip_direction": "left",
+                    "clip_ratio": 0.0,
+                    "controls": [
+                        {
+                            "top_title": {
+                                "type": "image",
+                                "anchor_from": "top_left",
+                                "anchor_to": "top_left",
+                                "size": [
+                                    "default",
+                                    22.0
+                                ],
+                                "layer": 1,
+                                "clip_direction": "left",
+                                "clip_ratio": 0.0,
+                                "texture": "textures/ui/StoreTopBar",
+                                "controls": [
+                                    {
+                                        "label": {
+                                            "type": "label",
+                                            "color": [
+                                                0.1294117647058824,
+                                                0.1294117647058824,
+                                                0.1294117647058824
+                                            ],
+                                            "font_type": "default",
+                                            "text": "模组信息",
+                                            "text_alignment": "center"
+                                        }
+                                    },
+                                    {
+                                        "exit@common.button": {
+                                            "type": "button",
+                                            "$control_alpha": 1.0,
+                                            "$default_texture": "textures/ui/chevron_left",
+                                            "$hover_texture": "textures/ui/chevron_left",
+                                            "$is_new_nine_slice": false,
+                                            "$label_color": [
+                                                1,
+                                                1,
+                                                1
+                                            ],
+                                            "$label_font_scale_factor": 1.0,
+                                            "$label_font_size": "large",
+                                            "$label_layer": 3,
+                                            "$label_offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "$label_text": "",
+                                            "$nine_slice_buttom": 0,
+                                            "$nine_slice_left": 0,
+                                            "$nine_slice_right": 0,
+                                            "$nine_slice_top": 0,
+                                            "$nineslice_size": [
+                                                0,
+                                                0,
+                                                0,
+                                                0
+                                            ],
+                                            "$pressed_button_name": "%SettingScreen.OnCloseClick",
+                                            "$pressed_texture": "textures/ui/chevron_left",
+                                            "$texture_layer": 2,
+                                            "anchor_from": "left_middle",
+                                            "anchor_to": "left_middle",
+                                            "offset": [
+                                                4.0,
+                                                -1.0
+                                            ],
+                                            "size": [
+                                                8.0,
+                                                12.0
+                                            ],
+                                            "layer": 2,
+                                            "default_control": "default",
+                                            "hover_control": "hover",
+                                            "is_handle_button_move_event": true,
+                                            "pressed_control": "pressed",
+                                            "bindings": [
+                                                {
+                                                    "binding_type": "collection_details",
+                                                    "binding_collection_name": "",
+                                                    "binding_condition": "always_when_visible"
+                                                }
+                                            ],
+                                            "controls": [
+                                                {
+                                                    "default@netease_editor_template_namespace.default": {
+                                                        "color": [
+                                                            0.3333,
+                                                            0.3333,
+                                                            0.3333
+                                                        ]
+                                                    }
+                                                },
+                                                {
+                                                    "hover@netease_editor_template_namespace.hover": {
+                                                        "color": [
+                                                            0.6039,
+                                                            0.6039,
+                                                            0.6039
+                                                        ]
+                                                    }
+                                                },
+                                                {
+                                                    "pressed@netease_editor_template_namespace.pressed": {
+                                                        "color": [
+                                                            0,
+                                                            0,
+                                                            0
+                                                        ]
+                                                    }
+                                                },
+                                                {
+                                                    "button_label@netease_editor_template_namespace.button_label": {}
+                                                }
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "container": {
+                                "type": "image",
+                                "anchor_from": "bottom_middle",
+                                "anchor_to": "bottom_middle",
+                                "size": [
+                                    "default",
+                                    "100%+-22px"
+                                ],
+                                "layer": 1,
+                                "clip_direction": "left",
+                                "clip_ratio": 0.0,
+                                "controls": [
+                                    {
+                                        "mod_list_bg": {
+                                            "type": "image",
+                                            "anchor_from": "top_left",
+                                            "anchor_to": "top_left",
+                                            "size": [
+                                                "40%+0px",
+                                                "default"
+                                            ],
+                                            "layer": 1,
+                                            "clip_direction": "left",
+                                            "clip_ratio": 0.0,
+                                            "texture": "textures/ui/ScrollRail",
+                                            "controls": [
+                                                {
+                                                    "mod_list_container": {
+                                                        "type": "image",
+                                                        "size": [
+                                                            "95%+0px",
+                                                            "95%+0px"
+                                                        ],
+                                                        "layer": 1,
+                                                        "clip_direction": "left",
+                                                        "clip_ratio": 0.0,
+                                                        "controls": [
+                                                            {
+                                                                "scroll_view@common.scrolling_panel": {
+                                                                    "$background_nine_slice_buttom": 0,
+                                                                    "$background_nine_slice_left": 0,
+                                                                    "$background_nine_slice_right": 0,
+                                                                    "$background_nine_slice_top": 0,
+                                                                    "$background_nineslice_size": [
+                                                                        0,
+                                                                        0,
+                                                                        0,
+                                                                        0
+                                                                    ],
+                                                                    "$box_nine_slice_buttom": 0,
+                                                                    "$box_nine_slice_left": 0,
+                                                                    "$box_nine_slice_right": 0,
+                                                                    "$box_nine_slice_top": 0,
+                                                                    "$box_nineslice_size": [
+                                                                        0,
+                                                                        0,
+                                                                        0,
+                                                                        0
+                                                                    ],
+                                                                    "$is_background_nine_slice": false,
+                                                                    "$is_box_nine_slice": false,
+                                                                    "$is_track_nine_slice": false,
+                                                                    "$scroll_background_image_control": "netease_editor_template_namespace.scroll_background_image",
+                                                                    "$scroll_background_texture": "textures/ui/ScrollRail",
+                                                                    "$scroll_box_mouse_image_control": "netease_editor_template_namespace.scroll_box_image",
+                                                                    "$scroll_box_texture": "textures/ui/newTouchScrollBox",
+                                                                    "$scroll_box_touch_image_control": "netease_editor_template_namespace.scroll_box_image",
+                                                                    "$scroll_track_image_control": "netease_editor_template_namespace.scroll_track_image",
+                                                                    "$scroll_track_texture": "textures/ui/ScrollHandle",
+                                                                    "$scrolling_content": "netease_general_setting.mod_grid",
+                                                                    "$show_background": false,
+                                                                    "$track_nine_slice_buttom": 0,
+                                                                    "$track_nine_slice_left": 0,
+                                                                    "$track_nine_slice_right": 0,
+                                                                    "$track_nine_slice_top": 0,
+                                                                    "$track_nineslice_size": [
+                                                                        0,
+                                                                        0,
+                                                                        0,
+                                                                        0
+                                                                    ],
+                                                                    "anchor_from": "top_left",
+                                                                    "anchor_to": "top_left",
+                                                                    "layer": 9,
+                                                                    "size": [
+                                                                        "100%+0px",
+                                                                        "100%+0px"
+                                                                    ]
+                                                                }
+                                                            }
+                                                        ]
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "mod_content_bg": {
+                                            "type": "image",
+                                            "anchor_from": "top_right",
+                                            "anchor_to": "top_right",
+                                            "size": [
+                                                "60%+0px",
+                                                "default"
+                                            ],
+                                            "layer": 1,
+                                            "clip_direction": "left",
+                                            "clip_ratio": 0.0,
+                                            "texture": "textures/ui/ScrollRail",
+                                            "controls": [
+                                                {
+                                                    "mod_content": {
+                                                        "type": "image",
+                                                        "size": [
+                                                            "95%+0px",
+                                                            "95%+0px"
+                                                        ],
+                                                        "layer": 1,
+                                                        "clip_direction": "left",
+                                                        "clip_ratio": 0.0,
+                                                        "texture": "textures/ui/ScrollRail",
+                                                        "controls": [
+                                                            {
+                                                                "mod_title": {
+                                                                    "type": "image",
+                                                                    "anchor_from": "top_middle",
+                                                                    "anchor_to": "top_middle",
+                                                                    "size": [
+                                                                        "default",
+                                                                        15.0
+                                                                    ],
+                                                                    "layer": 1,
+                                                                    "clip_direction": "left",
+                                                                    "clip_ratio": 0.0,
+                                                                    "controls": [
+                                                                        {
+                                                                            "label": {
+                                                                                "type": "label",
+                                                                                "anchor_from": "top_left",
+                                                                                "anchor_to": "top_left",
+                                                                                "size": [
+                                                                                    "default",
+                                                                                    10.0
+                                                                                ],
+                                                                                "font_type": "default",
+                                                                                "text": "#current.name",
+                                                                                "bindings": [
+                                                                                    {
+                                                                                        "binding_name_override": "#current.name",
+                                                                                        "binding_name": "#current.name"
+                                                                                    }
+                                                                                ]
+                                                                            }
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            },
+                                                            {
+                                                                "mod_body": {
+                                                                    "type": "image",
+                                                                    "anchor_from": "top_middle",
+                                                                    "anchor_to": "top_middle",
+                                                                    "offset": [
+                                                                        0.0,
+                                                                        15.0
+                                                                    ],
+                                                                    "size": [
+                                                                        "default",
+                                                                        "100%+-15px"
+                                                                    ],
+                                                                    "layer": 1,
+                                                                    "clip_direction": "left",
+                                                                    "clip_ratio": 0.0,
+                                                                    "controls": [
+                                                                        {
+                                                                            "scroll_view@common.scrolling_panel": {
+                                                                                "$background_nine_slice_buttom": 0,
+                                                                                "$background_nine_slice_left": 0,
+                                                                                "$background_nine_slice_right": 0,
+                                                                                "$background_nine_slice_top": 0,
+                                                                                "$background_nineslice_size": [
+                                                                                    0,
+                                                                                    0,
+                                                                                    0,
+                                                                                    0
+                                                                                ],
+                                                                                "$box_nine_slice_buttom": 0,
+                                                                                "$box_nine_slice_left": 0,
+                                                                                "$box_nine_slice_right": 0,
+                                                                                "$box_nine_slice_top": 0,
+                                                                                "$box_nineslice_size": [
+                                                                                    0,
+                                                                                    0,
+                                                                                    0,
+                                                                                    0
+                                                                                ],
+                                                                                "$is_background_nine_slice": false,
+                                                                                "$is_box_nine_slice": false,
+                                                                                "$is_track_nine_slice": false,
+                                                                                "$scroll_background_image_control": "netease_editor_template_namespace.scroll_background_image",
+                                                                                "$scroll_background_texture": "textures/ui/ScrollRail",
+                                                                                "$scroll_box_mouse_image_control": "netease_editor_template_namespace.scroll_box_image",
+                                                                                "$scroll_box_texture": "textures/ui/newTouchScrollBox",
+                                                                                "$scroll_box_touch_image_control": "netease_editor_template_namespace.scroll_box_image",
+                                                                                "$scroll_track_image_control": "netease_editor_template_namespace.scroll_track_image",
+                                                                                "$scroll_track_texture": "textures/ui/ScrollRail",
+                                                                                "$scrolling_content": "netease_general_setting.config_grid",
+                                                                                "$show_background": false,
+                                                                                "$track_nine_slice_buttom": 0,
+                                                                                "$track_nine_slice_left": 0,
+                                                                                "$track_nine_slice_right": 0,
+                                                                                "$track_nine_slice_top": 0,
+                                                                                "$track_nineslice_size": [
+                                                                                    0,
+                                                                                    0,
+                                                                                    0,
+                                                                                    0
+                                                                                ],
+                                                                                "layer": 9
+                                                                            }
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            }
+                                                        ]
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "mod_divider": {
+                                            "type": "image",
+                                            "anchor_from": "left_middle",
+                                            "anchor_to": "left_middle",
+                                            "offset": [
+                                                "40%+0px",
+                                                0.0
+                                            ],
+                                            "size": [
+                                                4.0,
+                                                "default"
+                                            ],
+                                            "layer": 1,
+                                            "clip_direction": "left",
+                                            "clip_ratio": 0.0,
+                                            "texture": "textures/ui/HowToPlayDivider"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "mod_grid": {
+        "type": "grid",
+        "size": [
+            "100%+0px",
+            "default"
+        ],
+        "layer": 1,
+        "collection_name": "mod_grid",
+        "grid_dimension_binding": "#mod.size",
+        "grid_dimensions": [
+            1,
+            9
+        ],
+        "grid_item_template": "netease_general_setting.mod_item",
+        "bindings": [
+            {
+                "binding_type": "global",
+                "binding_name": "#mod.size"
+            }
+        ]
+    },
+    "mod_item": {
+        "type": "image",
+        "size": [
+            "default",
+            30.0
+        ],
+        "layer": 1,
+        "clip_direction": "left",
+        "clip_ratio": 0.0,
+        "controls": [
+            {
+                "bt_panel": {
+                    "type": "image",
+                    "size": [
+                        "100%+0px",
+                        "100%+0px"
+                    ],
+                    "layer": 1,
+                    "clip_direction": "left",
+                    "clip_ratio": 0.0,
+                    "controls": [
+                        {
+                            "button@common.button": {
+                                "type": "button",
+                                "$control_alpha": 1.0,
+                                "$default_texture": "textures/netease/common/button/default",
+                                "$hover_texture": "textures/netease/common/button/hover",
+                                "$is_new_nine_slice": true,
+                                "$label_color": [
+                                    1,
+                                    1,
+                                    1
+                                ],
+                                "$label_font_scale_factor": 1.0,
+                                "$label_font_size": "normal",
+                                "$label_layer": 3,
+                                "$label_offset": [
+                                    0,
+                                    0
+                                ],
+                                "$label_text": "",
+                                "$nine_slice_buttom": 10,
+                                "$nine_slice_left": 10,
+                                "$nine_slice_right": 10,
+                                "$nine_slice_top": 10,
+                                "$nineslice_size": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                ],
+                                "$pressed_button_name": "%SettingScreen.OnModClick",
+                                "$pressed_texture": "textures/netease/common/button/pressed",
+                                "$texture_layer": 2,
+                                "layer": 2,
+                                "default_control": "default",
+                                "hover_control": "hover",
+                                "is_handle_button_move_event": true,
+                                "pressed_control": "pressed",
+                                "bindings": [
+                                    {
+                                        "binding_type": "collection_details",
+                                        "binding_collection_name": "mod_grid",
+                                        "binding_condition": "always_when_visible"
+                                    }
+                                ],
+                                "controls": [
+                                    {
+                                        "default@netease_editor_template_namespace.default": {}
+                                    },
+                                    {
+                                        "hover@netease_editor_template_namespace.hover": {}
+                                    },
+                                    {
+                                        "pressed@netease_editor_template_namespace.pressed": {}
+                                    },
+                                    {
+                                        "btn_icon": {
+                                            "type": "image",
+                                            "anchor_from": "left_middle",
+                                            "anchor_to": "left_middle",
+                                            "offset": [
+                                                "5%+0px",
+                                                0.0
+                                            ],
+                                            "size": [
+                                                "100%y+0px",
+                                                "100%+-8px"
+                                            ],
+                                            "layer": 5,
+                                            "clip_direction": "left",
+                                            "clip_ratio": 0.0,
+                                            "texture": "textures/netease/common/image/default",
+                                            "bindings": [
+                                                {
+                                                    "binding_name_override": "#texture",
+                                                    "binding_collection_name": "mod_grid",
+                                                    "binding_type": "collection",
+                                                    "binding_name": "#mod.icon"
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "label": {
+                                            "type": "label",
+                                            "anchor_from": "left_middle",
+                                            "anchor_to": "left_middle",
+                                            "offset": [
+                                                "25%+0px",
+                                                0.0
+                                            ],
+                                            "layer": 5,
+                                            "color": [
+                                                0.1647058823529412,
+                                                0.1647058823529412,
+                                                0.1647058823529412
+                                            ],
+                                            "font_scale_factor": 1.2,
+                                            "font_type": "default",
+                                            "text": "#mod.name",
+                                            "text_alignment": "center",
+                                            "bindings": [
+                                                {
+                                                    "binding_name_override": "#mod.name",
+                                                    "binding_collection_name": "mod_grid",
+                                                    "binding_type": "collection",
+                                                    "binding_name": "#mod.name"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "namespace": "netease_general_setting"
+}

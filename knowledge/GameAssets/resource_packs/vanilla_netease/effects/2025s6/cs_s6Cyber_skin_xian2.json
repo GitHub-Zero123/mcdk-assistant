@@ -1,0 +1,69 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "1.2"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "0.1255 0.9569 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.0000 0.8196 1.0000 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "delay": 1.5,
+        "depthtest": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "0.0 0.0 1.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "5.0",
+            "min": "5.0"
+        },
+        "emitterpath": [
+            {
+                "offset": "0.0 0.0 0.0",
+                "rotation": "0.0 0.0 0.0",
+                "time": "0.0"
+            }
+        ],
+        "faceCameraMode": {
+            "value": "Direction Horizontal"
+        },
+        "layer": 3,
+        "numparticles": {
+            "value": "5"
+        },
+        "particlesize": {
+            "max": "1.2 0.4",
+            "min": "1.0 0.3"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "90.0 -30.0 -10.0",
+            "min": "90.0 30.0 -10.0"
+        },
+        "rotationSpeedRange": {
+            "max": "0.0 0.0 20.0",
+            "min": "0.0 0.0 20.0"
+        },
+        "texture": {
+            "name": "textures/sfxs/2025s6/cs_s6Cyber_skin_xian2"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.1"
+        }
+    }
+}

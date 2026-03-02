@@ -1,0 +1,79 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "value": "Direction",
+            "min": "0.0 0.0 -1.0"
+        },
+        "numparticles": {
+            "value": "4"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "22.4%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "76.1%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "emissionrate": {
+            "max": "6.0",
+            "min": "4.0"
+        },
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.4 0.4 0.4"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "texture": {
+            "name": "textures/sfxs/pet_spirit/xy_spirit_green_lizi"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.1",
+            "min": "0.2"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "particlesize": {
+            "max": "0.1 0.1",
+            "min": "0.05 0.05"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.85 0.85",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "49.7%"
+            },
+            {
+                "scale": "0.66 0.66",
+                "time": "100.0%"
+            }
+        ]
+    }
+}

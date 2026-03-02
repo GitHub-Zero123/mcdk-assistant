@@ -1,0 +1,122 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "0.0 1.0 0.0",
+            "value": "Direction",
+            "min": "0.0 0.4 0.0"
+        },
+        "dampingforce": {
+            "value": "0.6"
+        },
+        "numparticles": {
+            "value": "2"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "colorfade": [
+            {
+                "color": "0.0000 1.0000 0.4980 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.0000 0.3333 1.0000 0.8482",
+                "time": "8.4%"
+            },
+            {
+                "color": "0.0000 0.6667 0.4980 0.2946",
+                "time": "18.7%"
+            },
+            {
+                "color": "0.3333 0.0000 1.0000 0.8304",
+                "time": "26.6%"
+            },
+            {
+                "color": "0.6667 0.0000 0.0000 0.2946",
+                "time": "38.4%"
+            },
+            {
+                "color": "1.0000 1.0000 0.0000 0.8304",
+                "time": "46.8%"
+            },
+            {
+                "color": "1.0000 0.3333 0.4980 0.2768",
+                "time": "55.3%"
+            },
+            {
+                "color": "0.3333 1.0000 0.4980 0.8482",
+                "time": "63.7%"
+            },
+            {
+                "color": "0.0000 0.3333 1.0000 0.2857",
+                "time": "70.5%"
+            },
+            {
+                "color": "0.6667 1.0000 0.4980 0.7946",
+                "time": "79.5%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "emissionrate": {
+            "max": "5.0",
+            "min": "2.0"
+        },
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.7499999999999999 0.10000000000000003 0.7499999999999999"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Cylinder"
+        },
+        "texture": {
+            "name": "textures/sfxs/pet_cat/xy_cat_guitar_005"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.5",
+            "min": "0.2"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "particlesize": {
+            "max": "0.1 0.1",
+            "min": "0.05 0.05"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.15 1.15",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.84 0.84",
+                "time": "22.0%"
+            },
+            {
+                "scale": "1.44 1.44",
+                "time": "39.7%"
+            },
+            {
+                "scale": "1.02 1.02",
+                "time": "60.0%"
+            },
+            {
+                "scale": "1.5 1.5",
+                "time": "80.0%"
+            },
+            {
+                "scale": "0.93 0.93",
+                "time": "100.0%"
+            }
+        ]
+    }
+}

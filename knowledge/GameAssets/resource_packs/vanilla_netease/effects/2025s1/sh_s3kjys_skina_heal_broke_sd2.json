@@ -1,0 +1,57 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.1"
+        },
+        "dampingforce": {
+            "value": "5.0"
+        },
+        "depthtest": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "40.0",
+            "min": "90.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "3.0 0.0 3.0"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "particlesize": {
+            "max": "0.7 0.7",
+            "min": "0.3 0.3"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "ani": {
+                "fps": "11",
+                "name": "textures/sfxs/2025s1/sh_s3kjys_skina_heal_broke_sd",
+                "shuffle": true
+            },
+            "name": "textures/sfxs/2025s1/sh_s3kjys_skina_heal_broke_sd"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.6",
+            "min": "0.4"
+        },
+        "velocity": {
+            "max": "18.0",
+            "min": "10.0"
+        }
+    }
+}

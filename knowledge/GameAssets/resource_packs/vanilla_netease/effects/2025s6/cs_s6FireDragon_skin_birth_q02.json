@@ -1,0 +1,99 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.2"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "15.5%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.5625",
+                "time": "44.2%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "delay": 5.9,
+        "direction": {
+            "max": "0.0 1.0 0.0",
+            "min": "0.0 1.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "3000.0",
+            "min": "3000.0"
+        },
+        "emitterpath": [
+            {
+                "offset": "0.30000000000000004 0.0 0.0",
+                "rotation": "0.0 0.0 0.0",
+                "time": "0.0"
+            }
+        ],
+        "enabletexture": {
+            "enable": true
+        },
+        "layer": 6,
+        "numparticles": {
+            "value": "1"
+        },
+        "particlesize": {
+            "max": "0.6 -0.6",
+            "min": "0.6 -0.6"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "-80.0 -210.0 90.0",
+            "min": "-80.0 -210.0 90.0"
+        },
+        "rotationSpeedRange": {
+            "max": "0.0 15.0 -25.0",
+            "min": "0.0 15.0 -25.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.5 1.5",
+                "time": "0.0%"
+            },
+            {
+                "scale": "2.95 2.95",
+                "time": "5.0%"
+            },
+            {
+                "scale": "3.3 3.3",
+                "time": "40.0%"
+            },
+            {
+                "scale": "3.55 3.55",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "30",
+                "name": "textures/sfxs/2025s6/cs_s6FireDragon_skin_birth_q02",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s6/cs_s6FireDragon_skin_birth_q02"
+        },
+        "timetolive": {
+            "max": "0.5",
+            "min": "0.5"
+        },
+        "velocity": {
+            "max": "0.1",
+            "min": "0.1"
+        }
+    }
+}

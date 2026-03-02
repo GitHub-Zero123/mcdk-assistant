@@ -1,0 +1,57 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+#line 3
+precision highp float;
+#include "uniformPerFrameConstants.h"
+#include "neteaseModelFragmentUtil.h"
+
+LAYOUT_BINDING(0) uniform sampler2D TEXTURE_0; // basecolor
+LAYOUT_BINDING(1) uniform sampler2D TEXTURE_1; // base_mask01
+LAYOUT_BINDING(2) uniform sampler2D TEXTURE_2; // inside_color
+LAYOUT_BINDING(3) uniform sampler2D TEXTURE_3; // small01
+
+#define GLITTER_COLOR vec3(255,197,221)//<name:闪点颜色,color:255>
+#define TWICE_MORE_SPARKLE 1.0000//<name:开启双层闪点>
+#define GLITTER_INTENSITY 5000.0000//<name:闪点亮度>
+#define GLITTER_SIZE 0.0060//<name:闪点大小>
+
+#define MASK_UV_SCALE0 vec2(5.0,5.0)//<name:遮罩0缩放>
+#define MASK_UV_FLOW0 vec2(0.05,0.126)//<name:遮罩0流动>
+
+#define MASK_UV_SCALE1 vec2(23.0,23.0)//<name:遮罩1缩放>
+#define MASK_UV_FLOW1 vec2(-0.1,-0.416)//<name:遮罩1流动>
+
+#define INSIDE_NOISE_UV_SCALE vec2(4.0,4.0)//<name:内部色缩放>
+#define INSIDE_NOISE_UV_FLOW vec2(0.15,0.15)//<name:内部流动>
+
+#define IS_USE_ALPHA 1.0000//<name:是否使用透明度>
+#define EMISSIVE_SHADER_ENABLED 1.0000//<name:内部发光>
+#define EMISSIVE_BASECOLOR_ENABLED 1.0000//<name:本体发光>
+
+const vec3 glitterColor = GLITTER_COLOR / 255.0;
+
+varying vec4 light;
+varying vec4 fogColor;
+
+varying vec3 positionWS;
+varying vec3 positionVS;
+varying vec3 normalVS;
+varying vec3 absNormalWS;
+
+#include "2023s4_glitter_util.h"
+
+void main() {
+	vec4 color = vip_glitter();
+
+	// 杂项的内置宏功能
+	neteaseModelCommonFrag(color);
+	// 加入受击变红等效果
+	applyOverlayColor(color);
+	// 附魔变色效果 使用TEXTURE_1
+	applyGlint(TEXTURE_1, color);
+
+	// 雾效果
+	applyFog(color, fogColor);
+
+	gl_FragColor = color;
+}

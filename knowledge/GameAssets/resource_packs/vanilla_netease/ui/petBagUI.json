@@ -1,0 +1,734 @@
+{
+    "namespace": "petBagUI",
+    "main@common.base_screen": {
+        "$screen_content": "petBagUI.petBagPanel"
+    },
+    "petBagPanel": {
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "type": "panel",
+        "controls": [
+            {
+                "headerContentStackPanel@petBagUI.headerContentStackPanel": {}
+            },
+            {
+                "background@petBagUI.background": {}
+            },
+            {
+                "itemDetail@petBagUI.itemDetail": {}
+            },
+            {
+                "unlockHint@petBagUI.unlockHint": {}
+            },
+            {
+                "dropArea@petBagUI.dropButton": {
+                    "layer": 3
+                }
+            },
+            {
+                "progressiveBar@petBagUI.progressBar": {
+                    "$progressBarSize": [
+                        18,
+                        3
+                    ],
+                    "$barMaskSize": [
+                        "100.0%+0.0px",
+                        "100.0%+0.0px"
+                    ]
+                }
+            }
+        ],
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "visible": true
+    },
+    "headerContentStackPanel": {
+        "type": "stack_panel",
+        "orientation": "vertical",
+        "size": [
+            "100%",
+            "100%"
+        ],
+        "layer": 2,
+        "controls": [
+            {
+                "header@petBagUI.header": {}
+            },
+            {
+                "contentPanel@petBagUI.contentPanel": {}
+            }
+        ]
+    },
+    "contentPanel": {
+        "type": "panel",
+        "controls": [
+            {
+                "leftPanel@petBagUI.leftPanel": {}
+            },
+            {
+                "rightPanel@petBagUI.rightPanel": {}
+            },
+            {
+                "flyImgTemplate@petBagUI.flyImg": {}
+            }
+        ]
+    },
+    "leftPanel": {
+        "anchor_from": "left_middle",
+        "anchor_to": "left_middle",
+        "controls": [
+            {
+                "bagContent@petBagUI.bagContent": {}
+            }
+        ],
+        "layer": 0,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "50%",
+            "100%"
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "rightPanel": {
+        "anchor_from": "right_middle",
+        "anchor_to": "right_middle",
+        "controls": [
+            {
+                "petBagContent@petBagUI.petBagContent": {}
+            }
+        ],
+        "layer": 0,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "50%",
+            "100%"
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "flyImg": {
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "layer": 33,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            24,
+            24
+        ],
+        "type": "custom",
+        "visible": true,
+        "renderer": "inventory_item_renderer"
+    },
+    "background": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "nineslice_size": 4,
+        "layer": 2,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "texture": "textures/ui/background_panel",
+        "type": "image",
+        "visible": true
+    },
+    "header": {
+        "type": "panel",
+        "size": [
+            "100%",
+            28
+        ],
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "controls": [
+            {
+                "closeBtn@petBagUI.closeBtn": {}
+            },
+            {
+                "headerName1@petBagUI.headerName": {
+                    "$header_name": "物品栏",
+                    "offset": [
+                        "-25%",
+                        0
+                    ]
+                }
+            },
+            {
+                "headerName2@petBagUI.headerName": {
+                    "$header_name": "伙伴背包",
+                    "offset": [
+                        "25%",
+                        0
+                    ]
+                }
+            },
+            {
+                "headerBg@petBagUI.headerBg": {}
+            }
+        ]
+    },
+    "headerBg": {
+        "texture": "textures/ui/header_bar",
+        "type": "image",
+        "layer": 3,
+        "nineslice_size": [
+            3,
+            3,
+            3,
+            6
+        ],
+        "visible": true
+    },
+    "headerName": {
+        "$header_name|default": "",
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "color": [
+            0,
+            0,
+            0
+        ],
+        "font_size": "normal",
+        "font_type": "smooth",
+        "layer": 23,
+        "offset": [
+            0,
+            0
+        ],
+        "shadow": false,
+        "size": [
+            60,
+            "50%"
+        ],
+        "text": "$header_name",
+        "text_alignment": "center",
+        "type": "label",
+        "visible": true
+    },
+    "button_label": {
+        "color": "$label_color",
+        "font_size": "$label_font_size",
+        "font_type": "smooth",
+        "layer": "$label_layer",
+        "max_size": [
+            "100%",
+            "100%"
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "shadow": false,
+        "text": "$label_text",
+        "text_alignment": "center",
+        "type": "label"
+    },
+    "closeBtn@common.button": {
+        "$default_texture": "",
+        "$hover_texture": "",
+        "$label_color": [
+            0,
+            0,
+            0
+        ],
+        "$label_font_size": "normal",
+        "$label_layer": 3,
+        "$label_offset": [
+            0,
+            0
+        ],
+        "$label_text": "x",
+        "$pressed_button_name": "",
+        "$pressed_texture": "",
+        "$texture_layer": 2,
+        "anchor_from": "top_right",
+        "anchor_to": "top_right",
+        "controls": [
+            {
+                "default@petBagUI.default": {}
+            },
+            {
+                "hover@petBagUI.hover": {}
+            },
+            {
+                "pressed@petBagUI.pressed": {}
+            },
+            {
+                "button_label@petBagUI.button_label": {}
+            }
+        ],
+        "layer": 22,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            28,
+            "100%"
+        ],
+        "type": "button",
+        "visible": true
+    },
+    "bagContent": {
+        "type": "panel",
+        "offset": [
+            0,
+            -16
+        ],
+        "size": [
+            "80%",
+            "84%"
+        ],
+        "anchor_to": "center",
+        "anchor_from": "center",
+        "controls": [
+            {
+                "scrollingPanel@petBagUI.scrollingPanel": {}
+            },
+            {
+                "dropArea@petBagUI.dropButton": {}
+            }
+        ]
+    },
+    "petBagContent": {
+        "type": "panel",
+        "offset": [
+            0,
+            -16
+        ],
+        "size": [
+            "80%",
+            "84%"
+        ],
+        "anchor_to": "center",
+        "anchor_from": "center",
+        "controls": [
+            {
+                "scrollingPanel@petBagUI.scrollingPanel": {
+                    "$bag_grid_num": 6
+                }
+            }
+        ]
+    },
+    "scrollingPanel@common.scrolling_panel": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "layer": 1,
+        "$scrolling_pane_size": [
+            "100%",
+            "100%"
+        ],
+        "$scrolling_content": "petBagUI.bagGrid",
+        "$scroll_box_mouse_image_control": "common-classic.button_state_default",
+        "$scroll_size": [
+            "8px",
+            "100%"
+        ],
+        "visible": true
+    },
+    "bagGrid": {
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "grid_rescaling_type": "horizontal",
+        "collection_name": "bag_grid",
+        "grid_item_template": "petBagUI.itemBtn",
+        "layer": 4,
+        "maximum_grid_items": "$bag_grid_num",
+        "$bag_grid_num|default": 36,
+        "size": [
+            "100%",
+            "default"
+        ],
+        "type": "grid",
+        "visible": true
+    },
+    "itemBtn@common.button": {
+        "$default_texture": "textures/ui/cell_image",
+        "$hover_texture": "textures/ui/cell_image",
+        "$pressed_button_name": "",
+        "$pressed_texture": "textures/ui/cell_image",
+        "$texture_layer": 2,
+        "$item_button_anchor_from|default": "center",
+        "$item_button_anchor_to|default": "center",
+        "anchor_from": "$item_button_anchor_from",
+        "anchor_to": "$item_button_anchor_to",
+        "is_handle_button_move_event": true,
+        "button_mappings": [],
+        "controls": [
+            {
+                "selectedImg@petBagUI.selectedImg": {}
+            },
+            {
+                "default@petBagUI.default": {}
+            },
+            {
+                "hover@petBagUI.hover": {}
+            },
+            {
+                "pressed@petBagUI.pressed": {}
+            },
+            {
+                "itemImg@petBagUI.itemImg": {}
+            },
+            {
+                "durabilityBar@petBagUI.progressBar": {}
+            },
+            {
+                "itemLockYellow@petBagUI.itemLockYellow": {}
+            },
+            {
+                "itemLockRed@petBagUI.itemLockRed": {}
+            },
+            {
+                "lockedImg": {
+                    "texture": "textures/ui/White",
+                    "type": "image",
+                    "alpha": 0.3,
+                    "color": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "size": [
+                        "100% - 2px",
+                        "100% - 2px"
+                    ],
+                    "controls": [
+                        {
+                            "img": {
+                                "texture": "textures/ui/pet_ani_lock",
+                                "type": "image",
+                                "layer": 1
+                            }
+                        }
+                    ],
+                    "visible": false,
+                    "layer": 10
+                }
+            }
+        ],
+        "$item_button_layer|default": 1,
+        "$item_button_offset|default": [
+            0,
+            0
+        ],
+        "$item_button_size|default": [
+            28,
+            28
+        ],
+        "default_control": "default",
+        "hover_control": "hover",
+        "layer": "$item_button_layer",
+        "offset": "$item_button_offset",
+        "pressed_control": "pressed",
+        "size": "$item_button_size",
+        "type": "button",
+        "visible": true
+    },
+    "itemLockYellow": {
+        "type": "image",
+        "texture": "textures/ui/item_lock_yellow",
+        "layer": 4,
+        "visible": false
+    },
+    "itemLockRed": {
+        "type": "image",
+        "texture": "textures/ui/item_lock_red",
+        "layer": 4,
+        "visible": false
+    },
+    "itemImg": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "controls": [
+            {
+                "itemNum@petBagUI.itemNum": {}
+            }
+        ],
+        "layer": 3,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            24,
+            24
+        ],
+        "type": "custom",
+        "visible": true,
+        "renderer": "inventory_item_renderer"
+    },
+    "itemNum": {
+        "anchor_from": "bottom_right",
+        "anchor_to": "bottom_right",
+        "font_size": "normal",
+        "font_type": "smooth",
+        "layer": 4,
+        "offset": [
+            2,
+            3
+        ],
+        "shadow": true,
+        "size": [
+            "55%",
+            "40%"
+        ],
+        "text": "",
+        "type": "label",
+        "text_alignment": "right",
+        "visible": true
+    },
+    "selectedImg": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "layer": 5,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%+4.0px",
+            "100.0%+4.0px"
+        ],
+        "texture": "textures/ui/pocket_ui_highlight_selected_slot",
+        "type": "image",
+        "nineslice_size": 4,
+        "visible": false
+    },
+    "pressed": {
+        "layer": "$texture_layer",
+        "texture": "$pressed_texture",
+        "type": "image",
+        "nineslice_size": 1
+    },
+    "hover": {
+        "layer": "$texture_layer",
+        "texture": "$hover_texture",
+        "type": "image",
+        "nineslice_size": 1
+    },
+    "default": {
+        "layer": "$texture_layer",
+        "texture": "$default_texture",
+        "type": "image",
+        "nineslice_size": 1
+    },
+    "itemDetail": {
+        "type": "panel",
+        "anchor_to": "bottom_middle",
+        "anchor_from": "bottom_middle",
+        "size": [
+            "100%c",
+            "100%c"
+        ],
+        "offset": "$offset",
+        "layer": 30,
+        "$offset|default": [
+            0,
+            "-16px"
+        ],
+        "controls": [
+            {
+                "itemDetailBg": {
+                    "type": "image",
+                    "size": [
+                        "100%c + 8px",
+                        "100%c + 8px"
+                    ],
+                    "layer": 30,
+                    "bindings": [
+                        {
+                            "binding_condition": "always_when_visible",
+                            "binding_name": "#itemDetailAlpha",
+                            "binding_name_override": "#alpha"
+                        }
+                    ],
+                    "alpha": "#itemDetailAlpha",
+                    "propagate_alpha": true,
+                    "texture": "textures/ui/purpleBorder",
+                    "nineslice_size": 4,
+                    "controls": [
+                        {
+                            "itemDetailText": {
+                                "type": "label",
+                                "layer": 1,
+                                "text": ""
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "unlockHint": {
+        "type": "image",
+        "anchor_to": "center",
+        "anchor_from": "center",
+        "texture": "textures/ui/hint_tip_bg",
+        "nineslice_size": 4,
+        "size": [
+            "100%c",
+            "100%c + 8px"
+        ],
+        "layer": 50,
+        "controls": [
+            {
+                "hintPanel": {
+                    "type": "panel",
+                    "size": [
+                        "100%c",
+                        28
+                    ],
+                    "layer": 30,
+                    "controls": [
+                        {
+                            "hintTitle": {
+                                "anchor_from": "top_middle",
+                                "anchor_to": "top_middle",
+                                "type": "label",
+                                "color": [
+                                    0.762,
+                                    0.762,
+                                    0.762
+                                ],
+                                "size": [
+                                    "default",
+                                    16
+                                ],
+                                "offset": [
+                                    0,
+                                    2
+                                ],
+                                "shadow": true,
+                                "layer": 1,
+                                "text": "解锁条件",
+                                "text_alignment": "center"
+                            }
+                        },
+                        {
+                            "hintText": {
+                                "anchor_from": "top_middle",
+                                "anchor_to": "top_middle",
+                                "type": "label",
+                                "size": [
+                                    "default",
+                                    14
+                                ],
+                                "offset": [
+                                    0,
+                                    16
+                                ],
+                                "layer": 1,
+                                "text_alignment": "center",
+                                "text": ""
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "visible": false
+    },
+    "progressBar": {
+        "type": "image",
+        "layer": 20,
+        "$progressBarSize|default": [
+            18,
+            2
+        ],
+        "$progressBarOffset|default": [
+            0,
+            8
+        ],
+        "controls": [
+            {
+                "barMask": {
+                    "anchor_from": "center",
+                    "anchor_to": "center",
+                    "color": [
+                        0,
+                        1,
+                        0
+                    ],
+                    "layer": 21,
+                    "offset": [
+                        0,
+                        0
+                    ],
+                    "size": "$barMaskSize",
+                    "$barMaskSize|default": [
+                        "100.0%+0.0px",
+                        1
+                    ],
+                    "nineslice_size": 1,
+                    "clip_direction": "left",
+                    "texture": "textures/ui/white_bg",
+                    "type": "image",
+                    "visible": true
+                }
+            }
+        ],
+        "texture": "textures/ui/white_bg",
+        "nineslice_size": 1,
+        "color": [
+            0.3,
+            0.3,
+            0.3
+        ],
+        "offset": "$progressBarOffset",
+        "size": "$progressBarSize",
+        "visible": false
+    },
+    "dropButton@common.button": {
+        "$default_texture": "textures/ui/cell_image",
+        "$hover_texture": "textures/ui/cell_image",
+        "$pressed_button_name": "",
+        "$pressed_texture": "textures/ui/cell_image",
+        "$texture_layer": -10,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "button_mappings": [],
+        "controls": [
+            {
+                "default@petBagUI.default": {}
+            },
+            {
+                "hover@petBagUI.hover": {}
+            },
+            {
+                "pressed@petBagUI.pressed": {}
+            }
+        ],
+        "default_control": "default",
+        "hover_control": "hover",
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "pressed_control": "pressed",
+        "size": [
+            "100%",
+            "100%"
+        ],
+        "type": "button",
+        "visible": true
+    }
+}

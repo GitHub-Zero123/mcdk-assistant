@@ -1,0 +1,42 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+
+
+#include "fragmentVersionCentroidUV.h"
+
+#include "util.h"
+
+LAYOUT_BINDING(0) uniform sampler2D TEXTURE_0;
+
+uniform vec4 COLOR_AJUSTMENT_VECTOR4_1; // { brightness , saturation, constrast , colorIntensity}
+uniform vec4 COLOR_AJUSTMENT_VECTOR4_2; // { colorTint }
+
+vec4 color_adjustment_base()
+{ 
+    vec4 color = texture(TEXTURE_0, uv);
+    // brightness
+    float brightness = COLOR_AJUSTMENT_VECTOR4_1.x;
+    vec3 finalColor = color.rgb * brightness;
+
+    // saturation
+    float saturation = COLOR_AJUSTMENT_VECTOR4_1.y;
+    float luma = dot(color.rgb, vec3(0.2126729, 0.7151522, 0.0721750));
+    finalColor = mix(vec3(luma,luma,luma), finalColor, saturation); 
+
+    // contrast
+    float contrast = COLOR_AJUSTMENT_VECTOR4_1.z;
+    vec3 midpoint = vec3(0.21763, 0.21763, 0.21763);
+    finalColor = mix(midpoint, finalColor, contrast);
+    
+    // color tint
+    float intensity = COLOR_AJUSTMENT_VECTOR4_1.w;
+    vec3 colorTint = COLOR_AJUSTMENT_VECTOR4_2.rgb;
+    finalColor = mix(finalColor.rgb, finalColor.rgb * colorTint.rgb, intensity);
+    
+    return vec4(finalColor, color.a);
+}
+
+void main(){
+
+    gl_FragColor = color_adjustment_base();
+}

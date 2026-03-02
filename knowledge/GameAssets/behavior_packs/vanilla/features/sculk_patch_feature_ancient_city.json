@@ -1,0 +1,20 @@
+{
+    "format_version": "1.16.0",
+    "minecraft:sculk_patch_feature": {
+        "description": {
+            "identifier": "minecraft:sculk_patch_feature_ancient_city"
+        },
+        "can_place_sculk_patch_on": [],
+        "central_block": "minecraft:sculk_catalyst",
+        "central_block_placement_chance": 0.5,
+        "cursor_count": 10,
+        "charge_amount": 32,
+        "spread_attempts": 64,
+        "growth_rounds": 0,
+        "spread_rounds": 1,
+        "extra_growth_chance": {
+            "range_min": 1,
+            "range_max": 3
+        }
+    }
+}

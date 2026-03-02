@@ -1,0 +1,102 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "0.0 0.0 1.0",
+            "value": "Direction",
+            "min": "0.0 0.0 1.0"
+        },
+        "prewarm": true,
+        "disorder": {
+            "max": "-0.1 -0.1 -0.1",
+            "interval": "0.3",
+            "increment": "0.0",
+            "min": "0.1 0.1 0.1"
+        },
+        "colorfade": [
+            {
+                "color": "0.6118 0.2941 1.0000 0.0000",
+                "time": "0.00"
+            },
+            {
+                "color": "1.0000 0.4941 0.9922 1.0000",
+                "time": "0.14"
+            },
+            {
+                "color": "0.8196 0.5922 1.0000 0.5268",
+                "time": "0.30"
+            },
+            {
+                "color": "1.0000 0.4000 0.9725 1.0000",
+                "time": "0.45"
+            },
+            {
+                "color": "0.6784 0.3961 1.0000 0.3571",
+                "time": "0.63"
+            },
+            {
+                "color": "0.5961 0.2627 1.0000 0.0000",
+                "time": "0.80"
+            }
+        ],
+        "emissionrate": {
+            "max": "3.0",
+            "min": "3.0"
+        },
+        "emitterScaleCurve": [],
+        "layer": 15,
+        "emittersize": {
+            "value": "0.7 0.7 0.6"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "emittertype": {
+            "value": "Cylinder"
+        },
+        "timetolive": {
+            "max": "0.6",
+            "min": "0.8"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": false,
+                "name": "/pet_cat",
+                "fps": "16"
+            },
+            "name": "textures/sfxs/pet_cat/cs_567_weapon_FGLZ"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.1",
+            "min": "0.1"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "particlesize": {
+            "max": "0.06 0.06",
+            "min": "0.03 0.03"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.08 1.08",
+                "time": "0.00"
+            },
+            {
+                "scale": "0.6 0.6",
+                "time": "0.57"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "2.00"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "2.00"
+            }
+        ]
+    }
+}

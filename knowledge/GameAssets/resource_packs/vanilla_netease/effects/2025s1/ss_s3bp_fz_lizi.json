@@ -1,0 +1,74 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "20.3%"
+            },
+            {
+                "color": "1.0000 0.8471 0.0667 1.0000",
+                "time": "44.7%"
+            },
+            {
+                "color": "1.0000 0.7608 0.0314 1.0000",
+                "time": "74.2%"
+            },
+            {
+                "color": "1.0000 1.0000 0.2400 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "dampingforce": {
+            "value": "0.8"
+        },
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.5 0.5 0.5",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "20.0",
+            "min": "20.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.9 0.9 0.2"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "numparticles": {
+            "value": "15"
+        },
+        "particlesize": {
+            "max": "0.08 0.08",
+            "min": "0.05 0.05"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "name": "textures/sfxs/2025s1/ss_s3bp_fz_lizi"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.5",
+            "min": "0.3"
+        },
+        "velocity": {
+            "max": "0.4",
+            "min": "0.2"
+        }
+    }
+}

@@ -1,0 +1,126 @@
+{
+    "particleeffect": {
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "56.1%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.9821",
+                "time": "65.8%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.7946",
+                "time": "79.2%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "constantforce": {
+            "value": "0.01 0.02 0.0"
+        },
+        "dampingforce": {
+            "value": "0.44999999999999996"
+        },
+        "direction": {
+            "max": "0.0 -1.0 0.0",
+            "min": "0.0 1.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "40.0",
+            "min": "40.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterpath": [
+            {
+                "offset": "0.0 0.0 0.0",
+                "rotation": "180.0 180.0 15.0",
+                "time": "0.0"
+            },
+            {
+                "offset": "0.0 0.0 0.0",
+                "rotation": "180.0 180.0 90.0",
+                "time": "0.01"
+            },
+            {
+                "offset": "0.0 0.0 0.0",
+                "rotation": "180.0 180.0 15.0",
+                "time": "0.02"
+            }
+        ],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.0 0.0 0.08"
+        },
+        "emittertype": {
+            "value": "Cylinder"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Direction"
+        },
+        "layer": 2,
+        "numparticles": {
+            "value": "80"
+        },
+        "particlesize": {
+            "max": "0.04 0.04",
+            "min": "0.02 0.02"
+        },
+        "pointFiltering": true,
+        "prewarm": true,
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.0 0.0",
+                "time": "48.3%"
+            },
+            {
+                "scale": "0.75 0.75",
+                "time": "59.7%"
+            },
+            {
+                "scale": "1.24 1.24",
+                "time": "71.3%"
+            },
+            {
+                "scale": "0.88 0.88",
+                "time": "82.7%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "0",
+                "name": "textures/sfxs/2025s6/cs_s6FireDragon_weapon_lz01",
+                "shuffle": true
+            },
+            "name": "textures/sfxs/2025s6/cs_s6FireDragon_weapon_lz01"
+        },
+        "thickness": {
+            "value": "1.0"
+        },
+        "timetolive": {
+            "max": "2.0",
+            "min": "2.0"
+        },
+        "velocity": {
+            "max": "0.4",
+            "min": "0.2"
+        }
+    }
+}

@@ -1,0 +1,123 @@
+{
+    "particleeffect": {
+        "constantforce": {
+            "value": "0.0 2.5 0.0"
+        },
+        "layer": 2,
+        "pointFiltering": true,
+        "enabletexture": {
+            "enable": true
+        },
+        "emissionrate": {
+            "max": "1.5",
+            "min": "0.5"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "offsetInCamera": {
+            "value": "-0.2"
+        },
+        "particlesize": {
+            "max": "0.09 0.09",
+            "min": "0.04 0.04"
+        },
+        "numparticles": {
+            "value": "2"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": false,
+                "name": "textures/sfxs/pet_real_dog/ss_dog_poodle_heart1",
+                "fps": "20"
+            },
+            "name": "textures/sfxs/pet_real_dog/ss_dog_poodle_heart1"
+        },
+        "thickness": {
+            "value": "0.4"
+        },
+        "timetolive": {
+            "max": "1.2",
+            "min": "0.8"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.99 0.99",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.99 0.99",
+                "time": "35.0%"
+            },
+            {
+                "scale": "1.02 1.02",
+                "time": "56.3%"
+            },
+            {
+                "scale": "0.9 0.9",
+                "time": "71.0%"
+            },
+            {
+                "scale": "0.72 0.72",
+                "time": "85.7%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "value": "Direction",
+            "min": "-1.0 -1.0 -1.0"
+        },
+        "dampingforce": {
+            "value": "9.0"
+        },
+        "emitterScaleCurve": [],
+        "enableloop": {
+            "enable": "true"
+        },
+        "emittersize": {
+            "value": "0.3 0.3 0.1"
+        },
+        "inactivetime": {
+            "max": "1.0",
+            "min": "0.0"
+        },
+        "emitterscale": [],
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.1696",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.7411",
+                "time": "4.5%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "13.9%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "64.5%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.3125",
+                "time": "86.1%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "emittertype": {
+            "value": "Box"
+        },
+        "velocity": {
+            "max": "1.5",
+            "min": "0.9"
+        }
+    }
+}

@@ -1,0 +1,80 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.2"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "0.6627 0.9961 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.5216 0.8118 1.0000 0.9911",
+                "time": "31.8%"
+            },
+            {
+                "color": "0.2196 0.7373 0.9216 0.9911",
+                "time": "74.7%"
+            },
+            {
+                "color": "0.1020 0.4941 0.7020 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "dampingforce": {
+            "value": "2.0"
+        },
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "70.0",
+            "min": "70.0"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "particlesize": {
+            "max": "0.04 0.04",
+            "min": "0.02 0.02"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "false"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.0 0.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.81 0.81",
+                "time": "8.7%"
+            },
+            {
+                "scale": "1.29 1.29",
+                "time": "26.0%"
+            },
+            {
+                "scale": "1.26 1.26",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s5/cs_s5Tidal_weapon_lizi02"
+        },
+        "timetolive": {
+            "max": "0.5",
+            "min": "0.2"
+        },
+        "velocity": {
+            "max": "2.0",
+            "min": "2.0"
+        }
+    }
+}

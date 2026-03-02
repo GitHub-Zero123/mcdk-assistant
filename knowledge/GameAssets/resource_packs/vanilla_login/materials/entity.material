@@ -1,0 +1,765 @@
+{
+  "materials": {
+    "version": "1.0.0",
+    
+    "entity_alphatest_login": {
+      "vertexShader": "shaders/entity.vertex",
+      "vrGeometryShader": "shaders/entity.geometry",
+      "fragmentShader": "shaders/entity.fragment",
+      "vertexFields": [
+        { "field": "Position" },
+        { "field": "Normal" },
+        { "field": "UV0" }
+      ],
+      "variants": [
+        {
+          "skinning": {
+            "+defines": [ "USE_SKINNING" ],
+            "vertexFields": [
+              { "field": "Position" },
+              { "field": "BoneId0" },
+              { "field": "Normal" },
+              { "field": "UV0" }
+            ]
+          }
+        },
+        {
+          "skinning_color": {
+            "+defines": [ "USE_SKINNING", "USE_OVERLAY" ],
+            "+states": [ "Blending" ],
+            "vertexFields": [
+              { "field": "Position" },
+              { "field": "BoneId0" },
+              { "field": "Color" },
+              { "field": "Normal" },
+              { "field": "UV0" }
+            ]
+          }
+        },
+        {
+          "local_light_num_0": {
+            "+defines": [
+              "MCPE_NETEASE",
+              "RNGL_LOCAL_LIGHT"
+            ]
+          }
+        },
+        {
+          "skinning_local_light_num_0": {
+            "+defines": [
+              "USE_SKINNING",
+              "MCPE_NETEASE",
+              "RNGL_LOCAL_LIGHT"
+            ],
+            "vertexFields": [
+              {
+                "field": "Position"
+              },
+              {
+                "field": "BoneId0"
+              },
+              {
+                "field": "Normal"
+              },
+              {
+                "field": "UV0"
+              }
+            ]
+          }
+        },
+        {
+          "skinning_color_local_light_num_0": {
+            "+defines": [
+              "USE_SKINNING",
+              "USE_OVERLAY",
+              "MCPE_NETEASE",
+              "RNGL_LOCAL_LIGHT"
+            ],
+            "vertexFields": [
+              {
+                "field": "Position"
+              },
+              {
+                "field": "BoneId0"
+              },
+              {
+                "field": "Color"
+              },
+              {
+                "field": "Normal"
+              },
+              {
+                "field": "UV0"
+              }
+            ]
+          }
+        },
+        {
+          "local_light_num_1": {
+            "+defines": [
+              "MCPE_NETEASE",
+              "RNGL_LOCAL_LIGHT",
+              "NETEASE_LOCAL_LIGHT_NUM_1"
+            ]
+          }
+        },
+        {
+          "skinning_local_light_num_1": {
+            "+defines": [
+              "USE_SKINNING",
+              "MCPE_NETEASE",
+              "RNGL_LOCAL_LIGHT",
+              "NETEASE_LOCAL_LIGHT_NUM_1"
+            ],
+            "vertexFields": [
+              {
+                "field": "Position"
+              },
+              {
+                "field": "BoneId0"
+              },
+              {
+                "field": "Normal"
+              },
+              {
+                "field": "UV0"
+              }
+            ]
+          }
+        },
+        {
+          "skinning_color_local_light_num_1": {
+            "+defines": [
+              "USE_SKINNING",
+              "USE_OVERLAY",
+              "MCPE_NETEASE",
+              "RNGL_LOCAL_LIGHT",
+              "NETEASE_LOCAL_LIGHT_NUM_1"
+            ],
+            "vertexFields": [
+              {
+                "field": "Position"
+              },
+              {
+                "field": "BoneId0"
+              },
+              {
+                "field": "Color"
+              },
+              {
+                "field": "Normal"
+              },
+              {
+                "field": "UV0"
+              }
+            ]
+          }
+        },
+        {
+          "local_light_num_2": {
+            "+defines": [
+              "MCPE_NETEASE",
+              "RNGL_LOCAL_LIGHT",
+              "NETEASE_LOCAL_LIGHT_NUM_1",
+              "NETEASE_LOCAL_LIGHT_NUM_2"
+            ]
+          }
+        },
+        {
+          "skinning_local_light_num_2": {
+            "+defines": [
+              "USE_SKINNING",
+              "MCPE_NETEASE",
+              "RNGL_LOCAL_LIGHT",
+              "NETEASE_LOCAL_LIGHT_NUM_1",
+              "NETEASE_LOCAL_LIGHT_NUM_2"
+            ],
+            "vertexFields": [
+              {
+                "field": "Position"
+              },
+              {
+                "field": "BoneId0"
+              },
+              {
+                "field": "Normal"
+              },
+              {
+                "field": "UV0"
+              }
+            ]
+          }
+        },
+        {
+          "skinning_color_local_light_num_2": {
+            "+defines": [
+              "USE_SKINNING",
+              "USE_OVERLAY",
+              "MCPE_NETEASE",
+              "RNGL_LOCAL_LIGHT",
+              "NETEASE_LOCAL_LIGHT_NUM_1",
+              "NETEASE_LOCAL_LIGHT_NUM_2"
+            ],
+            "vertexFields": [
+              {
+                "field": "Position"
+              },
+              {
+                "field": "BoneId0"
+              },
+              {
+                "field": "Color"
+              },
+              {
+                "field": "Normal"
+              },
+              {
+                "field": "UV0"
+              }
+            ]
+          }
+        },
+        {
+          "local_light_num_3": {
+            "+defines": [
+              "MCPE_NETEASE",
+              "RNGL_LOCAL_LIGHT",
+              "NETEASE_LOCAL_LIGHT_NUM_1",
+              "NETEASE_LOCAL_LIGHT_NUM_2",
+              "NETEASE_LOCAL_LIGHT_NUM_3"
+            ]
+          }
+        },
+        {
+          "skinning_local_light_num_3": {
+            "+defines": [
+              "USE_SKINNING",
+              "MCPE_NETEASE",
+              "RNGL_LOCAL_LIGHT",
+              "NETEASE_LOCAL_LIGHT_NUM_1",
+              "NETEASE_LOCAL_LIGHT_NUM_2",
+              "NETEASE_LOCAL_LIGHT_NUM_3"
+            ],
+            "vertexFields": [
+              {
+                "field": "Position"
+              },
+              {
+                "field": "BoneId0"
+              },
+              {
+                "field": "Normal"
+              },
+              {
+                "field": "UV0"
+              }
+            ]
+          }
+        },
+        {
+          "skinning_color_local_light_num_3": {
+            "+defines": [
+              "USE_SKINNING",
+              "USE_OVERLAY",
+              "MCPE_NETEASE",
+              "RNGL_LOCAL_LIGHT",
+              "NETEASE_LOCAL_LIGHT_NUM_1",
+              "NETEASE_LOCAL_LIGHT_NUM_2",
+              "NETEASE_LOCAL_LIGHT_NUM_3"
+            ],
+            "vertexFields": [
+              {
+                "field": "Position"
+              },
+              {
+                "field": "BoneId0"
+              },
+              {
+                "field": "Color"
+              },
+              {
+                "field": "Normal"
+              },
+              {
+                "field": "UV0"
+              }
+            ]
+          }
+        }
+      ],
+      "+defines": [ "USE_OVERLAY", "ALPHA_TEST" ],
+      "+states": [ "DisableCulling" ],
+      "+samplerStates": [
+          {
+            "samplerIndex": 0,
+            "textureFilter": "Point"
+          },
+
+          {
+            "samplerIndex": 1,
+            "textureWrap": "Repeat"
+          }
+        ],
+      "msaaSupport": "Both"
+    },
+
+    // ---------------------------
+    // player in RNGL, but with light (so do not use RNGL_UNLIT)
+    "rngl_player:entity_alphatest_login": {
+      "+defines": [ "USE_BRIGHT", "RNGL_LIGHT" ]
+    },
+    "rngl_player_bloom:rngl_player": {
+      //"+defines": [ "USE_BLOOM" ]
+    },
+    "rngl_player_animated:rngl_player": {
+      "+defines": [ "USE_UV_ANIM" ]
+    },
+
+    // ---------------------------
+    // netease skeleton in RNGL, but without light (only diffuse texture)
+    "rngl_model_base": {
+      "vertexShader": "shaders/netease_entity_skeleton.vertex",
+      "vrGeometryShader": "shaders/entity.geometry",
+      "fragmentShader": "shaders/netease_entity_skeleton.fragment",
+      "defines": [ "USE_SKINNING", "USE_OVERLAY", "NETEASE_SKINNING", "RNGL_UNLIT" ],
+      "vertexFields": [
+        { "field": "Position" },
+        { "field": "Normal" },
+        { "field": "BoneId0" },
+        { "field": "UV0" }
+      ],
+      "samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point"
+        }
+      ],
+      "msaaSupport": "Both",
+      "variants": [
+        {
+          "skinning": {
+            "+defines": [ "USE_SKINNING" ],
+            "vertexFields": [
+              { "field": "Position" },
+              { "field": "BoneId0" },
+              { "field": "Normal" },
+              { "field": "UV0" }
+            ]
+          }
+        },
+        {
+          "skinning_color": {
+            "+defines": [ "USE_SKINNING", "USE_OVERLAY" ],
+            "+states": [ "Blending" ],
+            "vertexFields": [
+              { "field": "Position" },
+              { "field": "BoneId0" },
+              { "field": "Color" },
+              { "field": "Normal" },
+              { "field": "UV0" }
+            ]
+          }
+        },
+        {
+          "local_light_num_0": {
+            "+defines": [
+              "MCPE_NETEASE",
+              "RNGL_LOCAL_LIGHT"
+            ]
+          }
+        },
+        {
+          "skinning_local_light_num_0": {
+            "+defines": [
+              "USE_SKINNING",
+              "MCPE_NETEASE",
+              "RNGL_LOCAL_LIGHT"
+            ],
+            "vertexFields": [
+              {
+                "field": "Position"
+              },
+              {
+                "field": "BoneId0"
+              },
+              {
+                "field": "Normal"
+              },
+              {
+                "field": "UV0"
+              }
+            ]
+          }
+        },
+        {
+          "skinning_color_local_light_num_0": {
+            "+defines": [
+              "USE_SKINNING",
+              "USE_OVERLAY",
+              "MCPE_NETEASE",
+              "RNGL_LOCAL_LIGHT"
+            ],
+            "vertexFields": [
+              {
+                "field": "Position"
+              },
+              {
+                "field": "BoneId0"
+              },
+              {
+                "field": "Color"
+              },
+              {
+                "field": "Normal"
+              },
+              {
+                "field": "UV0"
+              }
+            ]
+          }
+        },
+        {
+          "local_light_num_1": {
+            "+defines": [
+              "MCPE_NETEASE",
+              "RNGL_LOCAL_LIGHT",
+              "NETEASE_LOCAL_LIGHT_NUM_1"
+            ]
+          }
+        },
+        {
+          "skinning_local_light_num_1": {
+            "+defines": [
+              "USE_SKINNING",
+              "MCPE_NETEASE",
+              "RNGL_LOCAL_LIGHT",
+              "NETEASE_LOCAL_LIGHT_NUM_1"
+            ],
+            "vertexFields": [
+              {
+                "field": "Position"
+              },
+              {
+                "field": "BoneId0"
+              },
+              {
+                "field": "Normal"
+              },
+              {
+                "field": "UV0"
+              }
+            ]
+          }
+        },
+        {
+          "skinning_color_local_light_num_1": {
+            "+defines": [
+              "USE_SKINNING",
+              "USE_OVERLAY",
+              "MCPE_NETEASE",
+              "RNGL_LOCAL_LIGHT",
+              "NETEASE_LOCAL_LIGHT_NUM_1"
+            ],
+            "vertexFields": [
+              {
+                "field": "Position"
+              },
+              {
+                "field": "BoneId0"
+              },
+              {
+                "field": "Color"
+              },
+              {
+                "field": "Normal"
+              },
+              {
+                "field": "UV0"
+              }
+            ]
+          }
+        },
+        {
+          "local_light_num_2": {
+            "+defines": [
+              "MCPE_NETEASE",
+              "RNGL_LOCAL_LIGHT",
+              "NETEASE_LOCAL_LIGHT_NUM_1",
+              "NETEASE_LOCAL_LIGHT_NUM_2"
+            ]
+          }
+        },
+        {
+          "skinning_local_light_num_2": {
+            "+defines": [
+              "USE_SKINNING",
+              "MCPE_NETEASE",
+              "RNGL_LOCAL_LIGHT",
+              "NETEASE_LOCAL_LIGHT_NUM_1",
+              "NETEASE_LOCAL_LIGHT_NUM_2"
+            ],
+            "vertexFields": [
+              {
+                "field": "Position"
+              },
+              {
+                "field": "BoneId0"
+              },
+              {
+                "field": "Normal"
+              },
+              {
+                "field": "UV0"
+              }
+            ]
+          }
+        },
+        {
+          "skinning_color_local_light_num_2": {
+            "+defines": [
+              "USE_SKINNING",
+              "USE_OVERLAY",
+              "MCPE_NETEASE",
+              "RNGL_LOCAL_LIGHT",
+              "NETEASE_LOCAL_LIGHT_NUM_1",
+              "NETEASE_LOCAL_LIGHT_NUM_2"
+            ],
+            "vertexFields": [
+              {
+                "field": "Position"
+              },
+              {
+                "field": "BoneId0"
+              },
+              {
+                "field": "Color"
+              },
+              {
+                "field": "Normal"
+              },
+              {
+                "field": "UV0"
+              }
+            ]
+          }
+        },
+        {
+          "local_light_num_3": {
+            "+defines": [
+              "MCPE_NETEASE",
+              "RNGL_LOCAL_LIGHT",
+              "NETEASE_LOCAL_LIGHT_NUM_1",
+              "NETEASE_LOCAL_LIGHT_NUM_2",
+              "NETEASE_LOCAL_LIGHT_NUM_3"
+            ]
+          }
+        },
+        {
+          "skinning_local_light_num_3": {
+            "+defines": [
+              "USE_SKINNING",
+              "MCPE_NETEASE",
+              "RNGL_LOCAL_LIGHT",
+              "NETEASE_LOCAL_LIGHT_NUM_1",
+              "NETEASE_LOCAL_LIGHT_NUM_2",
+              "NETEASE_LOCAL_LIGHT_NUM_3"
+            ],
+            "vertexFields": [
+              {
+                "field": "Position"
+              },
+              {
+                "field": "BoneId0"
+              },
+              {
+                "field": "Normal"
+              },
+              {
+                "field": "UV0"
+              }
+            ]
+          }
+        },
+        {
+          "skinning_color_local_light_num_3": {
+            "+defines": [
+              "USE_SKINNING",
+              "USE_OVERLAY",
+              "MCPE_NETEASE",
+              "RNGL_LOCAL_LIGHT",
+              "NETEASE_LOCAL_LIGHT_NUM_1",
+              "NETEASE_LOCAL_LIGHT_NUM_2",
+              "NETEASE_LOCAL_LIGHT_NUM_3"
+            ],
+            "vertexFields": [
+              {
+                "field": "Position"
+              },
+              {
+                "field": "BoneId0"
+              },
+              {
+                "field": "Color"
+              },
+              {
+                "field": "Normal"
+              },
+              {
+                "field": "UV0"
+              }
+            ]
+          }
+        }
+      ]
+    },
+
+    "rngl_model:rngl_model_base": {
+      "+defines": [ "USE_BRIGHT" ],
+      "variants": [
+        {
+          "cpu": {
+            "-defines": [ "USE_SKINNING" ],
+            "vertexFields": [
+              { "field": "Position" },
+              { "field": "Normal" },
+              { "field": "UV0" }
+            ]
+          }
+        }
+      ]
+    },
+    "rngl_model_alpha:rngl_model": {
+      "+states": [
+        "DisableCulling",
+        "Blending"
+      ]
+    },
+    "rngl_model_linear:rngl_model": {
+      "+states": [ "DisableCulling" ],
+      "samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Bilinear"
+        }
+      ]
+    },
+
+    "rngl_model_lambert:rngl_model": {
+      "+defines": [ "RNGL_LIGHT" ],
+      "-defines": [ "RNGL_UNLIT" ]
+    },
+
+    // model with extra texture
+    "rngl_model_shadow:rngl_model": {
+      "vertexShader": "shaders/shadowmap_skeleton.vertex",
+      "fragmentShader": "shaders/shadowmap_skeleton.fragment",
+      "-defines": [ "USE_BRIGHT" ],
+      "+defines": [ "RNGL_SHADOW" ],
+      "+samplerStates": [
+        {
+          "samplerIndex": 1,
+          "textureWrap": "Clamp",
+          "textureFilter": "Point"
+        }
+      ]
+    },
+
+    "rngl_model_shadow_alpha:rngl_model_shadow": {
+      "+defines": [ "RNGL_SHADOW_TRANSPARENT" ],
+      "variants": [ { "caster": { "+defines": [ "RNGL_SHADOW_CASTER" ] } } ]
+    },
+
+    "rngl_model_shadow_soft:rngl_model_shadow": {
+      "+defines": [ "RNGL_SHADOW_SOFT" ],
+      "variants": [ { "debug": { "+defines": [ "RNGL_SHADOW_DEBUG" ] } } ]
+    },
+
+    "rngl_model_shadow_slow:rngl_model_shadow_soft": {
+      "+defines": [ "RNGL_SHADOW_SLOW" ]
+    },
+
+    //reflect
+    "rngl_model_reflect:rngl_model_linear": {
+      "+defines": [ "RNGL_REFLECT", "UNIFORM_VIEW_POS"],
+      
+      "+samplerStates": [
+        {
+          "samplerIndex": 1,
+          "textureWrap": "Clamp",
+          "textureFilter": "Bilinear"
+        }
+      ]
+    },
+
+    // model with extra uv
+    "rngl_lightmap": {
+      "vertexShader": "shaders/lightmap_skeleton.vertex",
+      "fragmentShader": "shaders/lightmap_skeleton.fragment",
+      "defines": [ "USE_LIGHTMAP", "RNGL_UNLIT" ],
+      //"+defines": [ "USE_SKINNING", "NETEASE_SKINNING" ],  // fps on ios drops dramatically if compiled
+      "vertexFields": [
+        { "field": "Position" },
+        { "field": "Normal" },
+        { "field": "BoneId0" },
+        { "field": "UV0" },
+        { "field": "UV1" }
+      ],
+      "samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point"
+        },
+        {
+          "samplerIndex": 1,
+          "textureFilter": "Bilinear"
+        }
+      ],
+      "msaaSupport": "Both",
+
+      "variants": [
+        {
+          "cpu": {
+            "-defines": [ "USE_SKINNING" ],
+            "vertexFields": [
+              { "field": "Position" },
+              { "field": "Normal" },
+              { "field": "UV0" },
+              { "field": "UV1" }
+            ]
+          }
+        }
+      ]
+    },
+
+    "rngl_lightmap_alpha:rngl_lightmap": {
+      "blendSrc": "SourceAlpha",
+      "blendDst": "OneMinusSrcAlpha",
+      "alphaSrc": "One",
+      "alphaDst": "OneMinusSrcAlpha",
+      "+states": [
+        "Blending"
+      ]
+    },
+
+    "rngl_lightmap_multiply:rngl_lightmap": {
+      "blendSrc": "DestColor",
+      "blendDst": "OneMinusSrcAlpha",
+      "+states": [
+        "DisableAlphaWrite",
+        "DisableDepthWrite",
+        "DisableDepthTest",
+        "Blending"
+      ]
+    },
+
+    "rngl_lightmap_sad:rngl_lightmap": {
+      "-defines": [ "USE_LIGHTMAP" ]
+    },
+    "rngl_lightmap_alpha_sad:rngl_lightmap_alpha": {
+      "-defines": [ "USE_LIGHTMAP" ]
+    },
+    "rngl_lightmap_extra_pass:rngl_lightmap_alpha": {
+      "+defines": [ "USE_ALPHA_PASS" ]
+    }
+  }
+}

@@ -1,0 +1,80 @@
+{
+    "particleeffect": {
+        "delay": 2.1,
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "value": "Direction",
+            "min": "0.0 0.0 0.0"
+        },
+        "activetime": {
+            "value": "0.3"
+        },
+        "numparticles": {
+            "value": "5"
+        },
+        "pointFiltering": true,
+        "colorfade": [
+            {
+                "color": "1.0000 0.8510 0.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.4157 0.0000 0.5179",
+                "time": "12.4%"
+            },
+            {
+                "color": "1.0000 1.0000 0.0000 0.9821",
+                "time": "29.7%"
+            },
+            {
+                "color": "1.0000 1.0000 0.0000 0.4911",
+                "time": "47.9%"
+            },
+            {
+                "color": "0.9961 1.0000 0.9843 0.8214",
+                "time": "74.5%"
+            },
+            {
+                "color": "1.0000 1.0000 0.2400 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "emissionrate": {
+            "max": "200.0",
+            "min": "200.0"
+        },
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "1.0 1.0 1.0"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "inactivetime": {
+            "max": "0.03",
+            "min": "0.01"
+        },
+        "texture": {
+            "name": "textures/sfxs/pet_squid/cs_myth_horse_fllz"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        },
+        "particlesize": {
+            "max": "0.04 0.04",
+            "min": "0.02 0.02"
+        },
+        "timetolive": {
+            "max": "0.4",
+            "min": "0.15"
+        }
+    }
+}

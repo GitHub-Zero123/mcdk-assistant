@@ -1,0 +1,16 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+#include "fragmentVersionCentroidUV.h"
+#include "util.h"
+
+varying vec4 fogColor;
+
+void main()
+{
+	vec4 color = vec4(0.59, 0.031, 0.0039, 1.0);
+
+	//apply fog
+	color.rgb = mix( color.rgb, fogColor.rgb, fogColor.a ) * 1.3;
+
+	gl_FragColor = color;
+}

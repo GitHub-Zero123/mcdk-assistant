@@ -1,0 +1,305 @@
+{
+    "main": {
+        "controls": [
+            {
+                "permission_req_main": {
+                    "controls": [
+                        {
+                            "left_background@common.common_panel": {
+                                "$show_close_button": false,
+                                "controls": [
+                                    {
+                                        "bg_image@$dialog_background": {
+                                            "layer": 1
+                                        }
+                                    }
+                                ],
+                                "layer": 2
+                            }
+                        },
+                        {
+                            "title_panel": {
+                                "anchor_from": "top_middle",
+                                "anchor_to": "top_middle",
+                                "controls": [
+                                    {
+                                        "label": {
+                                            "anchor_from": "top_middle",
+                                            "anchor_to": "top_middle",
+                                            "color": [
+                                                0.2588235294117647,
+                                                0.2588235294117647,
+                                                0.2588235294117647
+                                            ],
+                                            "font_type": "default",
+                                            "layer": 2,
+                                            "offset": [
+                                                0.0,
+                                                0
+                                            ],
+                                            "text": "提示",
+                                            "text_alignment": "center",
+                                            "type": "label"
+                                        }
+                                    }
+                                ],
+                                "layer": 3,
+                                "offset": [
+                                    0.0,
+                                    "6.89%+0.0px"
+                                ],
+                                "size": [
+                                    "10.85%+0.0px",
+                                    "6.3%+0.0px"
+                                ],
+                                "type": "panel"
+                            }
+                        },
+                        {
+                            "content_panel": {
+                                "anchor_from": "bottom_middle",
+                                "anchor_to": "bottom_middle",
+                                "controls": [
+                                    {
+                                        "background": {
+                                            "clip_direction": "left",
+                                            "clip_ratio": 0.0,
+                                            "is_new_nine_slice": true,
+                                            "layer": 1,
+                                            "nine_slice_buttom": 10,
+                                            "nine_slice_left": 10,
+                                            "nine_slice_right": 10,
+                                            "nine_slice_top": 10,
+                                            "nineslice_size": [
+                                                0.0,
+                                                0.0,
+                                                0.0,
+                                                0.0
+                                            ],
+                                            "size": [
+                                                "100.0%+0.0px",
+                                                "100.0%+0.0px"
+                                            ],
+                                            "texture": "textures/ui/pet/parterner/panel04_3x",
+                                            "type": "image"
+                                        }
+                                    },
+                                    {
+                                        "tip_label_panel": {
+                                            "anchor_from": "top_left",
+                                            "anchor_to": "top_left",
+                                            "controls": [
+                                                {
+                                                    "label": {
+                                                        "anchor_from": "top_left",
+                                                        "anchor_to": "top_left",
+                                                        "font_type": "default",
+                                                        "size": [
+                                                            "100.0%+0.0px",
+                                                            "default"
+                                                        ],
+                                                        "text": "仅供测试仅供测试仅供测试仅供测试仅供测试仅供测试仅供测试仅供测试仅供测试仅供测试仅供测试仅供测试仅供测试仅供测试仅供测试仅供测试仅",
+                                                        "type": "label"
+                                                    }
+                                                }
+                                            ],
+                                            "layer": 3,
+                                            "offset": [
+                                                "4.49%+0.0px",
+                                                "9.89%+0.0px"
+                                            ],
+                                            "size": [
+                                                "90.0%+0.0px",
+                                                "12.65%+0.0px"
+                                            ],
+                                            "type": "panel"
+                                        }
+                                    }
+                                ],
+                                "layer": 3,
+                                "offset": [
+                                    0.0,
+                                    "-32.28%+0.0px"
+                                ],
+                                "size": [
+                                    "90.68%+0.0px",
+                                    "49.8%+0.0px"
+                                ],
+                                "type": "panel"
+                            }
+                        },
+                        {
+                            "btn_stack_panel": {
+                                "anchor_from": "bottom_middle",
+                                "anchor_to": "bottom_middle",
+                                "controls": [
+                                    {
+                                        "cancel_btn@common.button": {
+                                            "$control_alpha": 1.0,
+                                            "$default_texture": "textures/ui/btn_light_default",
+                                            "$hover_texture": "textures/ui/btn_hover",
+                                            "$is_new_nine_slice": false,
+                                            "$label_color": [
+                                                0.2588235294117647,
+                                                0.2588235294117647,
+                                                0.2588235294117647
+                                            ],
+                                            "$label_font_scale_factor": 1.0,
+                                            "$label_font_size": "normal",
+                                            "$label_layer": 3,
+                                            "$label_offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "$label_text": "取消",
+                                            "$nine_slice_buttom": 0,
+                                            "$nine_slice_left": 0,
+                                            "$nine_slice_right": 0,
+                                            "$nine_slice_top": 0,
+                                            "$nineslice_size": [
+                                                2.0,
+                                                2.0,
+                                                2.0,
+                                                2.0
+                                            ],
+                                            "$pressed_button_name": "%netease_editor_template_namespace.click",
+                                            "$pressed_texture": "textures/ui/btn_pressed",
+                                            "$texture_layer": 2,
+                                            "anchor_from": "left_middle",
+                                            "anchor_to": "left_middle",
+                                            "bindings": [
+                                                {
+                                                    "binding_collection_name": "",
+                                                    "binding_condition": "always_when_visible",
+                                                    "binding_type": "collection_details"
+                                                }
+                                            ],
+                                            "button_mappings": [],
+                                            "controls": [
+                                                {
+                                                    "default@netease_editor_template_namespace.default": {}
+                                                },
+                                                {
+                                                    "hover@netease_editor_template_namespace.hover": {}
+                                                },
+                                                {
+                                                    "pressed@netease_editor_template_namespace.pressed": {}
+                                                },
+                                                {
+                                                    "button_label@netease_editor_template_namespace.button_label": {}
+                                                }
+                                            ],
+                                            "default_control": "default",
+                                            "hover_control": "hover",
+                                            "is_handle_button_move_event": true,
+                                            "layer": 2,
+                                            "offset": [
+                                                "4.75%+0.0px",
+                                                0.0
+                                            ],
+                                            "pressed_control": "pressed",
+                                            "size": [
+                                                "44.41%+0.0px",
+                                                "100.0%+0.0px"
+                                            ],
+                                            "type": "button"
+                                        }
+                                    },
+                                    {
+                                        "confitm_btn@common.button": {
+                                            "$control_alpha": 1.0,
+                                            "$default_texture": "textures/ui/btn_light_default",
+                                            "$hover_texture": "textures/ui/btn_hover",
+                                            "$is_new_nine_slice": false,
+                                            "$label_color": [
+                                                0.2588235294117647,
+                                                0.2588235294117647,
+                                                0.2588235294117647
+                                            ],
+                                            "$label_font_scale_factor": 1.0,
+                                            "$label_font_size": "normal",
+                                            "$label_layer": 3,
+                                            "$label_offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "$label_text": "确定",
+                                            "$nine_slice_buttom": 0,
+                                            "$nine_slice_left": 0,
+                                            "$nine_slice_right": 0,
+                                            "$nine_slice_top": 0,
+                                            "$nineslice_size": [
+                                                2.0,
+                                                2.0,
+                                                2.0,
+                                                2.0
+                                            ],
+                                            "$pressed_button_name": "%netease_editor_template_namespace.click",
+                                            "$pressed_texture": "textures/ui/btn_pressed",
+                                            "$texture_layer": 2,
+                                            "anchor_from": "right_middle",
+                                            "anchor_to": "right_middle",
+                                            "bindings": [
+                                                {
+                                                    "binding_collection_name": "",
+                                                    "binding_condition": "always_when_visible",
+                                                    "binding_type": "collection_details"
+                                                }
+                                            ],
+                                            "button_mappings": [],
+                                            "controls": [
+                                                {
+                                                    "default@netease_editor_template_namespace.default": {}
+                                                },
+                                                {
+                                                    "hover@netease_editor_template_namespace.hover": {}
+                                                },
+                                                {
+                                                    "pressed@netease_editor_template_namespace.pressed": {}
+                                                },
+                                                {
+                                                    "button_label@netease_editor_template_namespace.button_label": {}
+                                                }
+                                            ],
+                                            "default_control": "default",
+                                            "hover_control": "hover",
+                                            "is_handle_button_move_event": true,
+                                            "layer": 2,
+                                            "offset": [
+                                                "-4.75%+0.0px",
+                                                0.0
+                                            ],
+                                            "pressed_control": "pressed",
+                                            "size": [
+                                                "44.41%+0.0px",
+                                                "100.0%+0.0px"
+                                            ],
+                                            "type": "button"
+                                        }
+                                    }
+                                ],
+                                "layer": 3,
+                                "offset": [
+                                    0.0,
+                                    "-5.5%+0.0px"
+                                ],
+                                "size": [
+                                    "100.0%+0.0px",
+                                    "23.62%+0.0px"
+                                ],
+                                "type": "panel"
+                            }
+                        }
+                    ],
+                    "size": [
+                        147.5,
+                        127.5
+                    ],
+                    "type": "panel"
+                }
+            }
+        ],
+        "type": "screen"
+    },
+    "namespace": "permission_req_confirm"
+}

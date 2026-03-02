@@ -1,0 +1,56 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+precision highp float;
+#include "uniformPerFrameConstants.h"
+#include "neteaseModelFragmentUtil.h"
+#include "uniformRenderChunkConstants.h"
+#line 8
+
+LAYOUT_BINDING(0) uniform sampler2D TEXTURE_0;
+LAYOUT_BINDING(1) uniform sampler2D TEXTURE_1;
+#if defined(GLINT) && defined(USE_BLOOM)
+LAYOUT_BINDING(2) uniform sampler2D TEXTURE_2;
+#endif
+// LAYOUT_BINDING(3) uniform sampler2D TEXTURE_3; // 最多允许四张贴图
+
+varying vec4 light;
+varying vec4 fogColor;
+varying vec3 positionWS;
+varying vec3 normalWS;
+
+void main() {
+	// 根据uv获取纹理色 如果是用了NO_TEXTURE宏则会返回 1.0
+	vec4 color = getSampledColor(TEXTURE_0, uv);
+
+	// 杂项的内置宏功能
+	neteaseModelCommonFrag(color);
+
+	// 加入受击变红等效果
+	applyOverlayColor(color);
+
+	// 附魔变色效果 使用TEXTURE_1
+	applyGlint(TEXTURE_1, color);
+
+	// 雾效果
+	applyFog(color, fogColor);
+
+	// 光照计算
+	// 高处白光
+	vec3 lightColor = vec3(1.0f, 1.0f, 1.0f);
+	vec3 lightPos = vec3(200.0f, 1000.0f, 200.0f);
+	// 环境光
+    vec3 ambient = vec3(0.2) * lightColor;
+	// 漫反射光
+    vec3 lightDir = normalize(lightPos - positionWS);
+    float diff = max(dot(normalWS, lightDir), 0.0);
+    vec3 diffuse = diff * lightColor;
+	// 镜面反射光
+    vec3 viewDir = normalize(VIEW_POS.xyz - positionWS);
+	// Blinn-Phong 反射光
+	vec3 halfwayDir = normalize(lightDir + viewDir);  
+	float spec = pow(max(dot(normalWS, halfwayDir), 0.0), 32.0);
+	vec3 specular = lightColor * spec;
+    color.rgb *= clamp(diffuse + specular + ambient, 0.3, 1.0);
+
+	gl_FragColor = color;
+}

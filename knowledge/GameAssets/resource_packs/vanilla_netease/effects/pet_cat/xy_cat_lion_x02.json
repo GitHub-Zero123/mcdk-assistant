@@ -1,0 +1,93 @@
+{
+    "particleeffect": {
+        "delay": 0.5,
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "value": "Direction",
+            "min": "0.0 0.0 0.0"
+        },
+        "numparticles": {
+            "value": "1"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.5490 0.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.6667 0.0000 1.0000",
+                "time": "19.7%"
+            },
+            {
+                "color": "1.0000 0.6667 0.0000 0.3214",
+                "time": "44.2%"
+            },
+            {
+                "color": "1.0000 0.6667 0.0000 0.7054",
+                "time": "68.9%"
+            },
+            {
+                "color": "1.0000 0.6667 0.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "emitterScaleCurve": [],
+        "layer": 5,
+        "emittersize": {
+            "value": "0.5 0.5 0.1"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "inactivetime": {
+            "value": "1.0"
+        },
+        "texture": {
+            "name": "textures/sfxs/pet_cat/xy_cat_lion_x_00"
+        },
+        "emitterscale": [],
+        "timetolive": {
+            "max": "1.0",
+            "min": "0.7"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "particlesize": {
+            "max": "0.15 0.15",
+            "min": "0.08 0.08"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.18 0.18",
+                "time": "0.7%"
+            },
+            {
+                "scale": "0.58 0.58",
+                "time": "19.7%"
+            },
+            {
+                "scale": "0.16 0.16",
+                "time": "43.3%"
+            },
+            {
+                "scale": "0.58 0.58",
+                "time": "66.7%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "99.7%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            }
+        ]
+    }
+}

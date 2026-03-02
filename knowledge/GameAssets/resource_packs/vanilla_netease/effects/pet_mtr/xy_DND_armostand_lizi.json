@@ -1,0 +1,70 @@
+{
+    "particleeffect": {
+        "enablecolor": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "value": "Direction",
+            "min": "0.0 -1.0 0.0"
+        },
+        "numparticles": {
+            "value": "5"
+        },
+        "emissionrate": {
+            "max": "5.0",
+            "min": "3.0"
+        },
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.15 0.05 0.02"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "timetolive": {
+            "max": "0.8",
+            "min": "0.5"
+        },
+        "texture": {
+            "name": "textures/sfxs/pet_mtr/xy_DND_armostand_fllz"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.2",
+            "min": "0.1"
+        },
+        "particlesize": {
+            "max": "0.04 0.04",
+            "min": "0.02 0.02"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.0 0.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.26 1.26",
+                "time": "17.0%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "51.7%"
+            },
+            {
+                "scale": "1.32 1.32",
+                "time": "74.0%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            }
+        ]
+    }
+}

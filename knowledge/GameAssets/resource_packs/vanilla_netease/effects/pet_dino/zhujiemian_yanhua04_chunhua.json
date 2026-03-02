@@ -1,0 +1,78 @@
+{
+    "particleeffect": {
+        "constantforce": {
+            "value": "0.0 -0.8 0.0"
+        },
+        "layer": 7,
+        "emissionrate": {
+            "max": "50.0",
+            "min": "30.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "particlesize": {
+            "max": "1.5 1.5",
+            "min": "1.5 1.5"
+        },
+        "activetime": {
+            "value": "1.0"
+        },
+        "numparticles": {
+            "value": "1"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": false,
+                "name": "textures/sfxs/pet_dino/zhujiemian_yanhua_chunhua02",
+                "fps": "16"
+            },
+            "name": "textures/sfxs/pet_dino/zhujiemian_yanhua_chunhua02"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "delay": 2.66,
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.4 1.4",
+                "time": "30.0%"
+            },
+            {
+                "scale": "1.55 1.55",
+                "time": "100.0%"
+            }
+        ],
+        "independent": false,
+        "direction": {
+            "max": "0.0 1.0 0.0",
+            "value": "Direction",
+            "min": "0.0 1.0 0.0"
+        },
+        "dampingforce": {
+            "value": "3.0"
+        },
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.0 0.0 0.0"
+        },
+        "inactivetime": {
+            "value": "2.1"
+        },
+        "emitterscale": [],
+        "colorfade": [],
+        "depthtest": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "blend": {
+            "name": "add"
+        }
+    }
+}

@@ -1,0 +1,88 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.1"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.6339",
+                "time": "10.8%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.6071",
+                "time": "72.6%"
+            },
+            {
+                "color": "1.0000 0.9098 0.7765 0.1786",
+                "time": "82.9%"
+            },
+            {
+                "color": "1.0000 0.8471 0.5804 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "delay": 0.08,
+        "direction": {
+            "max": "0.0 -1.0 0.0",
+            "min": "0.0 -1.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "200.0",
+            "min": "200.0"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Rotate Y"
+        },
+        "layer": 3,
+        "numparticles": {
+            "value": "1"
+        },
+        "offsetInCamera": {
+            "value": "-0.1"
+        },
+        "particlesize": {
+            "max": "0.8 1.2",
+            "min": "0.8 1.2"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.6 0.6",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "5.0%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "22",
+                "name": "textures/sfxs/2025s1/cs_s3kjys_skinA_victory_inside01",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s1/cs_s3kjys_skinA_victory_inside01"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

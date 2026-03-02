@@ -1,0 +1,70 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "1.0"
+        },
+        "colorfade": [
+            {
+                "color": "0.9020 0.3412 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.5373 0.2275 1.0000 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "0.0 1.0 0.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.3 0.3 0.3"
+        },
+        "emittertype": {
+            "value": "Cone"
+        },
+        "inactivetime": {
+            "value": "3.0"
+        },
+        "particlesize": {
+            "max": "0.1 0.1",
+            "min": "0.06 0.06"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "false"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.81 0.81",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.11 1.11",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "10",
+                "name": "textures/sfxs/2025s1/cs_s3guofeng_horseB_smoke",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s1/cs_s3guofeng_horseB_smoke"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.6",
+            "min": "0.5"
+        },
+        "velocity": {
+            "max": "0.5",
+            "min": "0.3"
+        }
+    }
+}

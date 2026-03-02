@@ -1,0 +1,73 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.1"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.6518",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.7857",
+                "time": "14.2%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.8571",
+                "time": "33.2%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.7857",
+                "time": "65.8%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "3000.0",
+            "min": "3000.0"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Horizontal"
+        },
+        "numparticles": {
+            "value": "1"
+        },
+        "particlesize": {
+            "max": "1.4 1.4",
+            "min": "1.4 1.4"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "1.3%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "14",
+                "name": "textures/sfxs/2025s2/cs_s4hongshi_skin_victory_bd",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s2/cs_s4hongshi_skin_victory_bd"
+        },
+        "timetolive": {
+            "max": "0.5",
+            "min": "0.5"
+        }
+    }
+}

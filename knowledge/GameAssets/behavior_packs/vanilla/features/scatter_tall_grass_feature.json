@@ -1,0 +1,32 @@
+{
+    "format_version": "1.13.0",
+    "minecraft:scatter_feature": {
+        "description": {
+            "identifier": "minecraft:scatter_tall_grass_feature"
+        },
+        "iterations": 90,
+        "x": {
+            "distribution": "triangle",
+            "extent": [
+                -8,
+                8
+            ]
+        },
+        "y": {
+            "distribution": "triangle",
+            "extent": [
+                -4,
+                4
+            ]
+        },
+        "z": {
+            "distribution": "triangle",
+            "extent": [
+                -8,
+                8
+            ]
+        },
+        "coordinate_eval_order": "zyx",
+        "places_feature": "minecraft:tall_grass_feature"
+    }
+}

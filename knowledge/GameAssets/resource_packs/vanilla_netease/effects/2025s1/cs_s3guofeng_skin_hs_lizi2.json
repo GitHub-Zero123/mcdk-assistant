@@ -1,0 +1,74 @@
+{
+    "particleeffect": {
+        "colorfade": [
+            {
+                "color": "0.7608 1.0000 0.9922 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.4941 0.9529 1.0000 1.0000",
+                "time": "48.7%"
+            },
+            {
+                "color": "0.2588 0.7059 1.0000 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "0.0 -1.0 0.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "10.0",
+            "min": "8.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.5 0.5 0.5"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "numparticles": {
+            "value": "8"
+        },
+        "particlesize": {
+            "max": "0.1 0.1",
+            "min": "0.08 0.08"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "false"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.25 0.25",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.9 0.9",
+                "time": "51.0%"
+            },
+            {
+                "scale": "0.15 0.15",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s1/cs_s3guofeng_skin_hs_kuai2_5"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.7",
+            "min": "0.5"
+        },
+        "velocity": {
+            "max": "0.2",
+            "min": "0.3"
+        }
+    }
+}

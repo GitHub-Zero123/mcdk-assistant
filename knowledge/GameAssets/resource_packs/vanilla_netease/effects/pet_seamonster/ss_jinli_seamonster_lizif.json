@@ -1,0 +1,69 @@
+{
+    "particleeffect": {
+        "independent": false,
+        "direction": {
+            "max": "-1.0 0.0 0.0",
+            "value": "Direction",
+            "min": "0.0 0.0 0.0"
+        },
+        "dampingforce": {
+            "value": "3.0"
+        },
+        "numparticles": {
+            "value": "8"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.6667 0.0000 0.0000",
+                "time": "0.00"
+            },
+            {
+                "color": "1.0000 0.6667 0.0000 1.0000",
+                "time": "0.28"
+            },
+            {
+                "color": "0.0000 1.0000 1.0000 1.0000",
+                "time": "0.82"
+            },
+            {
+                "color": "0.0000 0.6667 1.0000 0.0000",
+                "time": "1.00"
+            }
+        ],
+        "emissionrate": {
+            "max": "8.0",
+            "min": "8.0"
+        },
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.7 0.8 0.25"
+        },
+        "texture": {
+            "name": "textures/sfxs/pet_seamonster/ss_jinli_seamonster_lizif"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "timetolive": {
+            "max": "0.3",
+            "min": "1.0"
+        },
+        "depthtest": {
+            "enable": "true"
+        },
+        "emitterscale": [],
+        "blend": {
+            "name": "add"
+        },
+        "particlesize": {
+            "max": "0.03 0.03",
+            "min": "0.01 0.01"
+        }
+    }
+}

@@ -1,0 +1,82 @@
+{
+    "main": {
+        "controls": [
+            {
+                "dismount_btn@common.button": {
+                    "$control_alpha": 1.0,
+                    "$default_texture": "textures/ui/horse/btn02",
+                    "$hover_texture": "textures/ui/horse/btn02",
+                    "$is_new_nine_slice": false,
+                    "$label_color": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "$label_font_scale_factor": 1.0,
+                    "$label_font_size": "normal",
+                    "$label_layer": 3,
+                    "$label_offset": [
+                        0,
+                        0
+                    ],
+                    "$label_text": "",
+                    "$nine_slice_buttom": 0,
+                    "$nine_slice_left": 0,
+                    "$nine_slice_right": 0,
+                    "$nine_slice_top": 0,
+                    "$nineslice_size": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "$pressed_button_name": "%netease_editor_template_namespace.click",
+                    "$pressed_texture": "textures/ui/horse/btn02_mask",
+                    "$texture_layer": 2,
+                    "anchor_from": "bottom_middle",
+                    "anchor_to": "bottom_middle",
+                    "bindings": [
+                        {
+                            "binding_collection_name": "",
+                            "binding_condition": "always_when_visible",
+                            "binding_type": "collection_details"
+                        }
+                    ],
+                    "button_mappings": [],
+                    "controls": [
+                        {
+                            "default@netease_editor_template_namespace.default": {
+                                "texture": "textures/ui/horse/btn02"
+                            }
+                        },
+                        {
+                            "hover@netease_editor_template_namespace.hover": {}
+                        },
+                        {
+                            "pressed@netease_editor_template_namespace.pressed": {}
+                        },
+                        {
+                            "button_label@netease_editor_template_namespace.button_label": {}
+                        }
+                    ],
+                    "default_control": "default",
+                    "hover_control": "hover",
+                    "is_handle_button_move_event": true,
+                    "layer": 3,
+                    "offset": [
+                        "0.0%+-67.0px",
+                        "0.0%+-39.0px"
+                    ],
+                    "pressed_control": "pressed",
+                    "size": [
+                        50.0,
+                        24.0
+                    ],
+                    "type": "button"
+                }
+            }
+        ],
+        "type": "screen"
+    },
+    "namespace": "horseForceDismount"
+}

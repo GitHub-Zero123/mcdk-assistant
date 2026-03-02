@@ -1,0 +1,121 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "value": "Direction",
+            "min": "-1.0 -1.0 -1.0"
+        },
+        "dampingforce": {
+            "value": "0.1"
+        },
+        "pointFiltering": true,
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 0.0000 1.0000",
+                "time": "14.2%"
+            },
+            {
+                "color": "0.3608 0.8824 1.0000 1.0000",
+                "time": "39.2%"
+            },
+            {
+                "color": "0.2784 0.2549 1.0000 0.7143",
+                "time": "71.8%"
+            },
+            {
+                "color": "0.8745 0.2431 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.6 0.6 0.6"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "timetolive": {
+            "max": "0.4",
+            "min": "0.63"
+        },
+        "texture": {
+            "name": "textures/sfxs/pet_spirit/ss_spirit_s1thunder_lz"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.1",
+            "min": "0.1"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "particlesize": {
+            "max": "0.08 0.08",
+            "min": "0.04 0.04"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.25 0.25",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.037 1.037",
+                "time": "8.2%"
+            },
+            {
+                "scale": "0.45 0.45",
+                "time": "16.3%"
+            },
+            {
+                "scale": "1.013 1.013",
+                "time": "23.8%"
+            },
+            {
+                "scale": "0.25 0.25",
+                "time": "32.3%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "40.2%"
+            },
+            {
+                "scale": "0.15 0.15",
+                "time": "50.3%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "57.3%"
+            },
+            {
+                "scale": "0.25 0.25",
+                "time": "65.3%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "74.4%"
+            },
+            {
+                "scale": "0.45 0.45",
+                "time": "83.3%"
+            },
+            {
+                "scale": "0.55 0.55",
+                "time": "91.0%"
+            },
+            {
+                "scale": "0.2 0.2",
+                "time": "99.3%"
+            }
+        ]
+    }
+}

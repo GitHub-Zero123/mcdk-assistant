@@ -1,0 +1,74 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.9451 0.5020 0.2232",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.9647 1.0000 0.2627 0.1339",
+                "time": "68.2%"
+            },
+            {
+                "color": "1.0000 0.9725 0.1255 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "0.0 0.1 0.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "20.0",
+            "min": "20.0"
+        },
+        "faceCameraMode": {
+            "value": "Direction"
+        },
+        "layer": 2,
+        "particlesize": {
+            "max": "0.05 0.15",
+            "min": "0.05 0.15"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "0.0 180.0 0.0",
+            "min": "0.0 -180.0 0.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.95 0.95",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.81 0.81",
+                "time": "31.3%"
+            },
+            {
+                "scale": "1.2 1.2",
+                "time": "64.7%"
+            },
+            {
+                "scale": "0.9 0.9",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s5/ss_s5Fire_weaponB_sun"
+        },
+        "timetolive": {
+            "max": "0.4",
+            "min": "0.5"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.1"
+        }
+    }
+}

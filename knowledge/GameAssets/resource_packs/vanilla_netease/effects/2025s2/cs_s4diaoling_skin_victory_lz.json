@@ -1,0 +1,98 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.25"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "55.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "constantforce": {
+            "value": "0.0 -5.0 0.0"
+        },
+        "dampingforce": {
+            "value": "2.0"
+        },
+        "delay": 0.3,
+        "direction": {
+            "max": "0.1 0.1 0.1",
+            "min": "-0.1 0.0 -0.1",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "50.0",
+            "min": "30.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "1.0 0.5 1.0"
+        },
+        "emittertype": {
+            "value": "Cone"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Direction"
+        },
+        "numparticles": {
+            "value": "25"
+        },
+        "particlesize": {
+            "max": "0.2 0.2",
+            "min": "0.15 0.15"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.95 0.95",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.33 0.33",
+                "time": "28.0%"
+            },
+            {
+                "scale": "1.08 1.08",
+                "time": "55.0%"
+            },
+            {
+                "scale": "0.24 0.24",
+                "time": "78.3%"
+            },
+            {
+                "scale": "0.6 0.6",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s2/cs_s4diaoling_skin_victory_lz"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.25",
+            "min": "0.2"
+        },
+        "velocity": {
+            "max": "2.0",
+            "min": "2.0"
+        }
+    }
+}

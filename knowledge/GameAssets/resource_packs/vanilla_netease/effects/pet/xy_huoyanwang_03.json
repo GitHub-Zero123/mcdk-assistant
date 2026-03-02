@@ -1,0 +1,58 @@
+{
+    "particleeffect": {
+        "colorfade": [
+            {
+                "color": "1.000000 1.000000 1.000000 0.000000",
+                "time": "0.0"
+            },
+            {
+                "color": "1.000000 0.792157 0.043137 0.464286",
+                "time": "0.7815789473684209"
+            },
+            {
+                "color": "1.000000 1.000000 0.240000 0.000000",
+                "time": "3.0"
+            }
+        ],
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "5.0",
+            "min": "2.0"
+        },
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.0 0.0 0.0"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "numparticles": {
+            "value": "5"
+        },
+        "particlesize": {
+            "max": "0.2 0.2",
+            "min": "0.1 0.1"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "name": "textures/sfxs/pet/sun"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "3.0",
+            "min": "2.0"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

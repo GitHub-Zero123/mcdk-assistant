@@ -1,0 +1,63 @@
+{
+    "particleeffect": {
+        "independent": false,
+        "direction": {
+            "max": "0.0 1.0 0.0",
+            "value": "Direction",
+            "min": "0.0 0.0 0.0"
+        },
+        "numparticles": {
+            "value": "6"
+        },
+        "colorfade": [
+            {
+                "color": "0.0000 0.8353 1.0000 1.0000",
+                "time": "0.00"
+            },
+            {
+                "color": "0.4039 1.0000 0.9608 0.8839",
+                "time": "0.56"
+            },
+            {
+                "color": "0.6667 1.0000 1.0000 0.0000",
+                "time": "0.80"
+            }
+        ],
+        "emissionrate": {
+            "max": "6.0",
+            "min": "4.0"
+        },
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.1 0.0 0.45"
+        },
+        "texture": {
+            "name": "textures/sfxs/pet_tiger/ss_tiger_nianB_lizi"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "timetolive": {
+            "max": "0.8",
+            "min": "0.5"
+        },
+        "depthtest": {
+            "enable": "true"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.1",
+            "min": "0.3"
+        },
+        "particlesize": {
+            "max": "0.02 0.02",
+            "min": "0.01 0.01"
+        }
+    }
+}

@@ -1,0 +1,111 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.3"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.6353 0.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.7490 0.0000 1.0000",
+                "time": "7.4%"
+            },
+            {
+                "color": "1.0000 1.0000 0.0000 1.0000",
+                "time": "76.6%"
+            },
+            {
+                "color": "1.0000 1.0000 0.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "delay": 13.3,
+        "depthtest": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Outwards"
+        },
+        "emissionrate": {
+            "max": "25.0",
+            "min": "15.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterpath": [
+            {
+                "offset": "0.0 0.2 0.0",
+                "rotation": "0.0 0.0 0.0",
+                "time": "0.0"
+            }
+        ],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "2.0 2.4 1.5"
+        },
+        "emittertype": {
+            "value": "Cylinder"
+        },
+        "enableloop": {
+            "enable": "true"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "layer": 7,
+        "numparticles": {
+            "value": "20"
+        },
+        "particlesize": {
+            "max": "0.35 0.35",
+            "min": "0.75 0.75"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 -666.0",
+            "min": "0.0 0.0 666.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.42 0.42",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "10.0%"
+            },
+            {
+                "scale": "1.15 1.15",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "16",
+                "name": "textures/sfxs/2025s1/cs_s3kjys_skinA_birth_bzsd1",
+                "shuffle": true
+            },
+            "name": "textures/sfxs/2025s1/cs_s3kjys_skinA_birth_bzsd1"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "1.2",
+            "min": "1.0"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

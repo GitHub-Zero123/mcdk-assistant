@@ -1,0 +1,57 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "value": "Direction",
+            "min": "-1.0 -1.0 -1.0"
+        },
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.9 1.0 0.8"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "timetolive": {
+            "max": "0.6",
+            "min": "0.4"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": true,
+                "name": "textures/sfxs/pet_dog/cs_dog_s2comet_xxlz",
+                "fps": "0"
+            },
+            "name": "textures/sfxs/pet_dog/cs_dog_s2comet_xxlz"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.0",
+            "min": "0.1"
+        },
+        "particlesize": {
+            "max": "0.03 0.03",
+            "min": "0.05 0.05"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.4 0.4",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.55 1.55",
+                "time": "57.7%"
+            },
+            {
+                "scale": "0.35 0.35",
+                "time": "100.0%"
+            }
+        ]
+    }
+}

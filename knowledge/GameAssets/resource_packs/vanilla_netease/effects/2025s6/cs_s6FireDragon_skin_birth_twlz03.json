@@ -1,0 +1,143 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.25"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "12.6%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "13.2%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "63.9%"
+            }
+        ],
+        "constantforce": {
+            "value": "15.0 0.0 12.0"
+        },
+        "dampingforce": {
+            "value": "4.0"
+        },
+        "delay": 5.55,
+        "depthtest": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "0.30000000000000004 1.0 0.30000000000000004",
+            "min": "-0.30000000000000004 1.0 -0.30000000000000004",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "7.0",
+            "min": "7.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "1.0 2.0 0.2"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Direction"
+        },
+        "layer": 10,
+        "numparticles": {
+            "value": "7"
+        },
+        "particlesize": {
+            "max": "0.15 0.0",
+            "min": "0.05 0.0"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "ani": {
+                "fps": "16",
+                "name": "textures/sfxs/2025s6/cs_s6FireDragon_skin_birth_tw2",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s6/cs_s6FireDragon_skin_birth_tw2"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "trail": {
+            "colorfade": [
+                {
+                    "color": "1.0 1.0 1.0 0.0",
+                    "time": "0.000%"
+                },
+                {
+                    "color": "1.0 1.0 1.0 0.8125",
+                    "time": "8.421%"
+                },
+                {
+                    "color": "1.0 1.0 1.0 0.9375",
+                    "time": "18.421%"
+                },
+                {
+                    "color": "1.0 1.0 1.0 0.7232142857142857",
+                    "time": "57.368%"
+                },
+                {
+                    "color": "1.0 1.0 1.0 0.4821428571428571",
+                    "time": "77.895%"
+                },
+                {
+                    "color": "1.0 1.0 1.0 0.0",
+                    "time": "100.000%"
+                }
+            ],
+            "facemode": 1,
+            "lifetime": 0.5,
+            "maxnum": 100,
+            "mindistance": 0.01,
+            "texmode": 0,
+            "textile": "1.0 1.0",
+            "useparticlecolor": true,
+            "useparticlewidth": true,
+            "widthfade": [
+                {
+                    "time": "0.0%",
+                    "value": "2.0"
+                },
+                {
+                    "time": "40.666666666666664%",
+                    "value": "1.9799999999999998"
+                },
+                {
+                    "time": "77.33333333333333%",
+                    "value": "1.23"
+                },
+                {
+                    "time": "100.0%",
+                    "value": "0.0"
+                }
+            ],
+            "worldspace": true
+        },
+        "velocity": {
+            "max": "15.0",
+            "min": "10.0"
+        }
+    }
+}

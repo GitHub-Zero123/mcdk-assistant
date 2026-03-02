@@ -1,0 +1,92 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.25"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "0.9961 1.0000 0.5490 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.9451 0.5216 1.0000",
+                "time": "8.4%"
+            },
+            {
+                "color": "1.0000 0.9686 0.6078 0.8929",
+                "time": "22.9%"
+            },
+            {
+                "color": "1.0000 0.5529 0.3294 0.5893",
+                "time": "54.2%"
+            },
+            {
+                "color": "1.0000 0.2431 0.2431 0.2589",
+                "time": "77.1%"
+            },
+            {
+                "color": "1.0000 0.1922 0.1922 0.0089",
+                "time": "100.0%"
+            }
+        ],
+        "delay": 0.3,
+        "depthtest": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "numparticles": {
+            "value": "1"
+        },
+        "particlesize": {
+            "max": "2.0 2.0",
+            "min": "2.0 2.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.24 0.24",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.02 1.02",
+                "time": "15.7%"
+            },
+            {
+                "scale": "1.26 1.26",
+                "time": "38.7%"
+            },
+            {
+                "scale": "1.38 1.38",
+                "time": "62.0%"
+            },
+            {
+                "scale": "1.44 1.44",
+                "time": "81.0%"
+            },
+            {
+                "scale": "1.53 1.53",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s2/cs_s4hongshi_zhuchengruchang_sun"
+        },
+        "timetolive": {
+            "max": "0.2",
+            "min": "0.2"
+        },
+        "velocity": {
+            "max": "0.1",
+            "min": "0.1"
+        }
+    }
+}

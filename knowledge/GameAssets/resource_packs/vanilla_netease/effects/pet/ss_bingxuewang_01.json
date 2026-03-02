@@ -1,0 +1,68 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.000000 1.000000 1.000000 1.000000",
+                "time": "0.0"
+            },
+            {
+                "color": "0.521569 1.000000 1.000000 1.000000",
+                "time": "0.39473684210526316"
+            },
+            {
+                "color": "0.415686 0.521569 1.000000 0.000000",
+                "time": "1.0"
+            }
+        ],
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "10.0",
+            "min": "3.0"
+        },
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.1 0.1 0.1"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "layer": 5,
+        "numparticles": {
+            "value": "7"
+        },
+        "particlesize": {
+            "max": "0.05 0.05",
+            "min": "0.03 0.03"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "0.0"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "2.0"
+            }
+        ],
+        "texture": {
+            "name": "textures/particle/pet/xy_jiaoying_lizi"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "velocity": {
+            "max": "0.2",
+            "min": "0.1"
+        }
+    }
+}

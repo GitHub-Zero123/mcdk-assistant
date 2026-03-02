@@ -1,0 +1,88 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "0.9843 1.0000 0.0000 1.0000",
+                "time": "0.00"
+            },
+            {
+                "color": "1.0000 0.0000 0.0000 0.8750",
+                "time": "0.12"
+            },
+            {
+                "color": "1.0000 0.0000 0.0000 0.5179",
+                "time": "0.17"
+            },
+            {
+                "color": "1.0000 0.9059 0.9216 0.0000",
+                "time": "0.20"
+            }
+        ],
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Inwards"
+        },
+        "emissionrate": {
+            "max": "10.0",
+            "min": "20.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.6 0.6 0.6"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "numparticles": {
+            "value": "5"
+        },
+        "particlesize": {
+            "max": "0.02 0.02",
+            "min": "0.01 0.01"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 -360.0",
+            "min": "0.0 0.0 360.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "0.00"
+            },
+            {
+                "scale": "0.92 0.92",
+                "time": "0.64"
+            },
+            {
+                "scale": "0.56 0.56",
+                "time": "1.32"
+            },
+            {
+                "scale": "0.3 0.3",
+                "time": "2.00"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s1/ss_s3kjys_weaponA_fllz"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.1",
+            "min": "0.2"
+        },
+        "velocity": {
+            "max": "4.0",
+            "min": "2.0"
+        }
+    }
+}

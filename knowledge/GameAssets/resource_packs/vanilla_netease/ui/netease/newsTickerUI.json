@@ -1,0 +1,76 @@
+{
+    "main": {
+        "controls": [
+            {
+                "newsticker_panel": {
+                    "anchor_from": "top_middle",
+                    "controls": [
+                        {
+                            "newsticker_bg": {
+                                "clip_direction": "left",
+                                "clip_ratio": 0.0,
+                                "enabled": false,
+                                "layer": 1,
+                                "nineslice_size": [
+                                    0.0,
+                                    0.0,
+                                    0.0,
+                                    0.0
+                                ],
+                                "size": [
+                                    250.0,
+                                    30.0
+                                ],
+                                "texture": "textures/ui/newsTicker_bg",
+                                "type": "image"
+                            }
+                        },
+                        {
+                            "content_cliper": {
+                                "clips_children": true,
+                                "controls": [
+                                    {
+                                        "content": {
+                                            "anchor_from": "right_middle",
+                                            "anchor_to": "left_middle",
+                                            "enabled": false,
+                                            "font_type": "default",
+                                            "line_padding": 10.0,
+                                            "shadow": true,
+                                            "size": [
+                                                "default",
+                                                "100.0%+0.0px"
+                                            ],
+                                            "text_alignment": "center",
+                                            "type": "label"
+                                        }
+                                    }
+                                ],
+                                "enabled": false,
+                                "layer": 1,
+                                "size": [
+                                    "90.0%+0.0px",
+                                    20.0
+                                ],
+                                "type": "panel"
+                            }
+                        }
+                    ],
+                    "enabled": false,
+                    "layer": 1,
+                    "offset": [
+                        0.0,
+                        36.0
+                    ],
+                    "size": [
+                        250.0,
+                        30.0
+                    ],
+                    "type": "panel"
+                }
+            }
+        ],
+        "type": "screen"
+    },
+    "namespace": "newsTickerUI"
+}

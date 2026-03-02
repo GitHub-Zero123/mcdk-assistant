@@ -1,0 +1,107 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.2"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.8510 0.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 0.0000 1.0000",
+                "time": "15.3%"
+            },
+            {
+                "color": "1.0000 0.0000 0.0000 1.0000",
+                "time": "37.6%"
+            },
+            {
+                "color": "0.0863 0.0000 0.0000 1.0000",
+                "time": "60.8%"
+            },
+            {
+                "color": "0.0000 0.0000 0.0000 1.0000",
+                "time": "82.6%"
+            },
+            {
+                "color": "0.0000 0.0000 0.0000 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "dampingforce": {
+            "value": "1.0"
+        },
+        "direction": {
+            "max": "-1.0 -1.0 -1.0",
+            "min": "1.0 1.0 1.0",
+            "value": "Direction"
+        },
+        "disorder": {
+            "increment": "0.1",
+            "interval": "0.55",
+            "max": "-0.15 -0.15 -0.15",
+            "min": "0.15 0.15 0.15"
+        },
+        "emissionrate": {
+            "max": "30.0",
+            "min": "30.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.1 0.1 0.1"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "numparticles": {
+            "value": "8"
+        },
+        "particlesize": {
+            "max": "0.15 0.15",
+            "min": "0.1 0.1"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "false"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.34 0.34",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.02 1.02",
+                "time": "14.7%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "41.0%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "0",
+                "name": "textures/sfxs/2025s5/cs_s5Fire_skin_huijin",
+                "shuffle": true
+            },
+            "name": "textures/sfxs/2025s5/cs_s5Fire_skin_huijin"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.8",
+            "min": "0.7"
+        },
+        "velocity": {
+            "max": "3.0",
+            "min": "2.5"
+        }
+    }
+}

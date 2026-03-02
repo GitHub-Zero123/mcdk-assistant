@@ -1,0 +1,871 @@
+/*
+  == Category Variables:
+    "label": "",
+    "icon": "",
+    "child_icon": "", // Defaults to icon
+    "screenshot": "",
+    "default_color": [ 1.0, 1.0, 1.0 ],
+    "interact_color": [ 1.0, 1.0, 1.0 ],
+    "child_title": "",
+    "description": "",
+    "type": "category",
+    "screenshot_height_ratio": "", // percent of the width (ex: For a 16x9 ratio, the image height would be 56.25% of the width so "screenshot_height_ratio": "56.25%")
+    "items_per_row": 2,
+    "sub_categories": [
+      "",
+      ""
+    ]
+
+  == Worlds Variables:
+    "label": "",
+    "icon": "",
+    "child_icon": "", // Defaults to icon
+    "screenshot": "",
+    "default_color": [ 1.0, 1.0, 1.0 ],
+    "interact_color": [ 1.0, 1.0, 1.0 ],
+    "child_title": "",
+    "description": "",
+    "type": "worlds",
+    "tags": [
+      "",
+      ""
+    ]
+
+  == Notes:
+    If you add an '!' in front of a tag it will be excluded from the search
+    ex: tag.one, tag.two, !tag.three = Search for any item that has tag one and tag two but not tag three
+
+    label, child_title, and description are special in that they can be given loc strings and parameters
+    ex:
+      - en_US.lang:
+        string.math=%1 Math %2
+        string.sixthGrade=Sixth Grade
+        string.blast=Blast
+
+      - categories.json:
+        "label": [ "string.math", "string.sixthGrade", "string.blast" ] // Becomes Sixth Grade Math Blast
+*/
+{
+  // Never shown, only the callback is used
+  "home": {
+    "is_first_page": true,
+    "icon": "textures/ui/icon_bookshelf",
+    "child_title": "library.title",
+    "screenshot_height_ratio": "41.55%",
+    "type": "category",
+    "items_per_row": 2,
+    "sub_categories": [
+      "lessons",
+      "build_challenges",
+      "biomes",
+      "how_to_play"
+    ]
+  },
+
+  // For testing in non publish, we have this definition
+  "home_release": {
+    "is_first_page": true,
+    "icon": "textures/ui/icon_bookshelf",
+    "child_title": "library.title",
+    "screenshot_height_ratio": "41.55%",
+    "type": "category",
+    "items_per_row": 2,
+    "sub_categories": [
+      "lessons",
+      "build_challenges",
+      "biomes",
+      "how_to_play",
+      "old_library",
+      "empty_category"
+    ]
+  },
+
+  "demo_home": {
+    "is_first_page": true,
+    "icon": "textures/ui/icon_bookshelf",
+    "child_title": "library.category.title.demo",
+    "description": "library.category.description.demo",
+    "type": "worlds",
+    "tags": [
+      "tag.demo_general"
+    ]
+  },
+
+  //---------------------------------------------------------------------------
+  // Home Screen
+  //---------------------------------------------------------------------------
+
+  "old_library": {
+    "label": "library.title",
+    "child_title": "library.title",
+    "icon": "textures/ui/icon_bookshelf",
+    "screenshot": "textures/ui/CreateNewWorld",
+    "default_color": [ 0.8, 0.2, 0.2 ],
+    "interact_color": [ 0.8, 0.2, 0.2 ],
+    "type": "worlds",
+    "tags": []
+  },
+
+  "empty_category": {
+    "label": "Dev Empty",
+    "child_title": "Dev Empty",
+    "icon": "textures/misc/missing_texture",
+    "screenshot": "textures/ui/CreateNewWorld",
+    "default_color": [ 0.8, 0.2, 0.2 ],
+    "interact_color": [ 0.8, 0.2, 0.2 ],
+    "type": "worlds",
+    "tags": [
+      "__INVALID_TAG__"
+    ]
+  },
+
+  "lessons": {
+    "label": "library.category.label.lessons",
+    "icon": "textures/ui/icon_open_book",
+    "screenshot": "textures/ui/library/lessons/icon_root",
+    "default_color": [ 0.188, 0.6, 0.188 ],
+    "interact_color": [ 0.0, 0.45, 0.019 ],
+    "child_title": "library.category.title.lessons",
+    "type": "category",
+    "items_per_row": 3,
+    "sub_categories": [
+      "science",
+      "math",
+      "computer_science",
+      "language_arts",
+      "history",
+      "art",
+      "digital_citizenship",
+      "social_emotional",
+      "equity_and_inclusion"
+    ]
+  },
+
+  "build_challenges": {
+    "label": "library.category.label.buildChallenges",
+    "icon": "textures/items/diamond_pickaxe",
+    "screenshot": "textures/ui/library/icon_monthly_build",
+    "default_color": [ 0.188, 0.6, 0.188 ],
+    "interact_color": [ 0.0, 0.45, 0.019 ],
+    "child_title": "library.category.title.buildChallenges",
+    "description": "library.category.description.buildChallenges",
+    "type": "worlds",
+    "tags": [
+      "tag.build_challenge"
+    ]
+  },
+
+  "biomes": {
+    "label": "library.category.label.biomes",
+    "icon": "textures/ui/icon_biome",
+    "screenshot": "textures/ui/library/biomes/icon_root",
+    "default_color": [ 0.188, 0.6, 0.188 ],
+    "interact_color": [ 0.0, 0.45, 0.019 ],
+    "child_title": "library.category.title.biomes",
+    "description": "library.category.description.biomes",
+    "type": "category",
+    "items_per_row": 3,
+    "sub_categories": [
+      "biomes_biome",
+      "biomes_featured"
+    ]
+  },
+
+  "how_to_play": {
+    "label": "library.category.label.howToPlay",
+    "icon": "textures/items/compass_item",
+    "screenshot": "textures/ui/library/how_to_play/icon_root",
+    "default_color": [ 0.188, 0.6, 0.188 ],
+    "interact_color": [ 0.0, 0.45, 0.019 ],
+    "child_title": "menu.howToPlay",
+    "description": "library.category.description.howToPlay",
+    "type": "category",
+    "items_per_row": 3,
+    "sub_categories": [
+      "how_to_start",
+      "how_to_additional"
+    ]
+  },
+  
+  "new_featured": {
+    "label": "newAndFeatured.name",
+    "screenshot": "textures/ui/library/biomes/icon_featured",
+    "child_title": "newAndFeatured.name",
+    "child_icon": "textures/ui/icon_star",
+    "description": "newAndFeatured.description",
+    "type": "worlds",
+    "tags": [
+      "tag.featured"
+    ]
+  },
+
+  //---------------------------------------------------------------------------
+  // Biomes and Worlds Sub-Categories
+  //---------------------------------------------------------------------------
+
+  "biomes_biome": {
+    "label": "library.category.label.biomes.biome",
+    "screenshot": "textures/ui/library/biomes/icon_biomes",
+    "default_color": [ 0.188, 0.6, 0.188 ],
+    "interact_color": [ 0.0, 0.45, 0.019 ],
+    "child_title": "library.category.title.biomes.biome",
+    "child_icon": "textures/ui/icon_biome",
+    "description": "library.category.description.biomes.biome",
+    "type": "worlds",
+    "tags": [
+      "tag.biome"
+    ]
+  },
+
+  "biomes_featured": {
+    "label": "library.category.label.biomes.featured",
+    "screenshot": "textures/ui/library/biomes/icon_featured",
+    "default_color": [ 0.188, 0.6, 0.188 ],
+    "interact_color": [ 0.0, 0.45, 0.019 ],
+    "child_title": "library.category.title.biomes.featured",
+    "child_icon": "textures/ui/icon_biome",
+    "type": "worlds",
+    "tags": [
+      "tag.biomes_and_worlds",
+      "tag.uncategorized"
+    ]
+  },
+
+  //---------------------------------------------------------------------------
+  // Biomes and Worlds Sub-Categories
+  //---------------------------------------------------------------------------
+
+  "how_to_start": {
+    "label": "library.category.label.howToPlay.startHere",
+    "screenshot": "textures/ui/library/how_to_play/icon_start_here",
+    "default_color": [ 0.188, 0.6, 0.188 ],
+    "interact_color": [ 0.0, 0.45, 0.019 ],
+    "child_title": "library.category.title.howToPlay.startHere",
+    "child_icon": "textures/items/compass_item",
+    "description": "library.category.description.howToPlay.startHere",
+    "type": "worlds",
+    "tags": [
+      "tag.tutorial"
+    ]
+  },
+
+  "how_to_additional": {
+    "label": "library.category.label.howToPlay.additional",
+    "screenshot": "textures/ui/library/how_to_play/icon_additional",
+    "default_color": [ 0.188, 0.6, 0.188 ],
+    "interact_color": [ 0.0, 0.45, 0.019 ],
+    "child_title": "library.category.title.howToPlay.additional",
+    "child_icon": "textures/items/compass_item",
+    "type": "worlds",
+    "tags": [
+      "tag.how_to_play",
+      "tag.uncategorized"
+    ]
+  },
+
+  //---------------------------------------------------------------------------
+  // Lessons
+  //---------------------------------------------------------------------------
+
+  "language_arts": {
+    "label": "library.category.label.languageArts",
+    "icon": "textures/ui/icon_pages",
+    "screenshot": "textures/ui/library/lessons/language_arts/icon_root",
+    "default_color": [ 0.239, 0.584, 0.756 ],
+    "interact_color": [ 0.0, 0.443, 0.666 ],
+    "child_title": "library.category.title.languageArts",
+    "type": "category",
+    "items_per_row": 3,
+    "sub_categories": [
+      "la_literature_studies",
+      "la_additional"
+    ]
+  },
+
+  "science": {
+    "label": "library.category.label.science",
+    "icon": "textures/items/potion_bottle_waterBreathing",
+    "screenshot": "textures/ui/library/lessons/science/icon_root",
+    "default_color": [ 0.655, 0.404, 0.0 ],
+    "interact_color": [ 0.655, 0.404, 0.0 ],
+    "child_title": "library.category.title.science",
+    "type": "category",
+    "items_per_row": 3,
+    "sub_categories": [
+      "science_chemistry",
+      "science_biology",
+      "science_rangers",
+      "science_extinction",
+      "science_additional"
+    ]
+  },
+
+  "history": {
+    "label": "library.category.label.history",
+    "icon": "textures/ui/icon_history",
+    "screenshot": "textures/ui/library/lessons/history/icon_root",
+    "default_color": [ 0.639, 0.372, 0.650 ],
+    "interact_color": [ 0.525, 0.121, 0.541 ],
+    "child_title": "library.category.title.history",
+    "type": "category",
+    "items_per_row": 3,
+    "sub_categories": [
+      "history_oregon",
+      "history_additional"
+    ]
+  },
+
+  "computer_science": {
+    "label": "library.category.label.computerScience",
+    "icon": "textures/ui/icon_agent_padded",
+    "screenshot": "textures/ui/library/lessons/computer_science/icon_root",
+    "default_color": [ 0.0, 0.518, 0.216 ],
+    "interact_color": [ 0.0, 0.518, 0.216 ],
+    "child_title": "library.category.title.computerScience",
+    "type": "category",
+    "items_per_row": 3,
+    "sub_categories": [
+      "cs_hour_of_code",
+      "cs_block_based",
+      "cs_python",
+      "cs_coding_tutorials",
+      "cs_ai",
+      "cs_additional"
+    ]
+  },
+
+  "math": {
+    "label": "library.category.label.math",
+    "icon": "textures/ui/icon_chalkboard",
+    "screenshot": "textures/ui/library/lessons/math/icon_root",
+    "default_color": [ 0.447, 0.447, 0.447 ],
+    "interact_color": [ 0.447, 0.447, 0.447 ],
+    "child_title": "library.category.title.math",
+    "type": "category",
+    "items_per_row": 3,
+    "sub_categories": [
+      "math_common_3",
+      "math_common_4",
+      "math_common_5",
+      "math_fractions",
+      "math_additional"
+    ]
+  },
+
+  "art": {
+    "label": "library.category.label.art",
+    "icon": "textures/items/item_frame",
+    "screenshot": "textures/ui/library/lessons/icon_art",
+    "default_color": [ 0.905, 0.380, 0.372 ],
+    "interact_color": [ 0.815, 0.090, 0.078 ],
+    "child_title": "library.category.title.art",
+    "type": "worlds",
+    "tags": [
+      "tag.art_and_design"
+    ]
+  },
+
+  "digital_citizenship": {
+    "label": "library.category.label.digitalCitizen",
+    "icon": "textures/ui/icon_digital_citizenship",
+    "screenshot": "textures/ui/library/lessons/icon_digital_citizenship",
+    "default_color": [ 0.604, 0.204, 0.196 ],
+    "interact_color": [ 0.639, 0.090, 0.078 ],
+    "child_title": "library.category.title.digitalCitizen",
+    "description": "library.category.description.digitalCitizen",
+    "type": "worlds",
+    "tags": [
+      "tag.digital_citizenship"
+    ]
+  },
+
+  "social_emotional": {
+    "label": "library.category.label.SEL",
+    "icon": "textures/ui/icon_sel",
+    "screenshot": "textures/ui/library/lessons/icon_sel",
+    "default_color": [ 0.310, 0.369, 0.906 ],
+    "interact_color": [ 0.204, 0.267, 0.745 ],
+    "child_title": "library.category.title.SEL",
+    "description": "library.category.description.SEL",
+    "type": "worlds",
+    "tags": [
+      "tag.social_emotional_learning"
+    ]
+  },
+
+  "equity_and_inclusion": {
+    "label": "library.category.label.equity_and_inclusion",
+    "icon": "textures/ui/library/lessons/equityInclusion_icon",
+    "child_icon": "textures/ui/library/lessons/equityInclusion_icon",
+    "screenshot": "textures/ui/library/lessons/equity_586x330",
+    "default_color": [ 0.454, 0.29, 0.752 ],
+    "interact_color": [ 0.38, 0.196, 0.776 ],
+    "child_title": "library.category.title.equity_and_inclusion",
+    "description": "library.category.description.equity_and_inclusion",
+    "type": "worlds",
+    "tags": [
+      "tag.equity_and_inclusion"
+    ]
+  },
+
+  //---------------------------------------------------------------------------
+  // CS Sub-Categories
+  //---------------------------------------------------------------------------
+
+  "cs_hour_of_code": {
+    "label": "library.category.label.computerScience.hourOfCode",
+    "screenshot": "textures/ui/library/lessons/computer_science/icon_hoc",
+    "default_color": [ 0.0, 0.518, 0.216 ],
+    "interact_color": [ 0.0, 0.518, 0.216 ],
+    "child_title": "library.category.title.computerScience.hourOfCode",
+    "child_icon": "textures/ui/icon_agent_padded",
+    "description": "library.category.description.computerScience.hourOfCode",
+    "type": "worlds",
+    "tags": [
+      "tag.hour_of_code"
+    ]
+  },
+
+  "cs_block_based": {
+    "label": "library.category.label.computerScience.blockBased",
+    "screenshot": "textures/ui/library/lessons/computer_science/icon_block_based",
+    "default_color": [ 0.0, 0.518, 0.216 ],
+    "interact_color": [ 0.0, 0.518, 0.216 ],
+    "child_title": "library.category.title.computerScience.blockBased",
+    "child_icon": "textures/ui/icon_agent_padded",
+    "type": "category",
+    "items_per_row": 3,
+    "sub_categories": [
+      "cs_fundamentals_1",
+      "cs_fundamentals_2",
+      "cs_fundamentals_3",
+      "cs_course_1",
+      "cs_course_2"
+    ]
+  },
+
+  "cs_python": {
+    "label": "library.category.label.computerScience.python",
+    "screenshot": "textures/ui/library/lessons/computer_science/icon_python",
+    "default_color": [ 0.0, 0.518, 0.216 ],
+    "interact_color": [ 0.0, 0.518, 0.216 ],
+    "child_title": "library.category.title.computerScience.python",
+    "child_icon": "textures/ui/icon_agent_padded",
+    "type": "category",
+    "items_per_row": 3,
+    "sub_categories": [
+      "python_101",
+      "python_islands"
+    ]
+  },
+
+  "cs_coding_tutorials": {
+    "label": "library.category.label.computerScience.languageAgnostic",
+    "screenshot": "textures/ui/library/lessons/computer_science/icon_coding_tutorials",
+    "default_color": [ 0.0, 0.518, 0.216 ],
+    "interact_color": [ 0.0, 0.518, 0.216 ],
+    "child_title": "library.category.title.computerScience.languageAgnostic",
+    "child_icon": "textures/ui/icon_agent_padded",
+    "description": "library.category.description.computerScience.languageAgnostic",
+    "type": "worlds",
+    "tags": [
+      "tag.language_agnostic"
+    ]
+  },
+
+  "cs_ai": {
+    "label": "library.category.label.computerScience.ai",
+    "icon": "",
+    "child_icon": "textures/ui/icon_agent_padded",
+    "screenshot": "textures/ui/library/lessons/computer_science/AI_586x330",
+    "default_color": [ 0.0, 0.518, 0.216 ],
+    "interact_color": [ 0.0, 0.518, 0.216 ],
+    "child_title": "library.category.title.computerScience.ai",
+    "description": "library.category.description.computerScience.ai",
+    "type": "worlds",
+    "tags": [
+      "tag.artificial_intelligence"
+    ]
+  },
+
+  "cs_additional": {
+    "label": "library.category.label.computerScience.featuredLessons",
+    "screenshot": "textures/ui/library/lessons/computer_science/icon_additional",
+    "default_color": [ 0.0, 0.518, 0.216 ],
+    "interact_color": [ 0.0, 0.518, 0.216 ],
+    "child_title": "library.category.title.computerScience.featuredLessons",
+    "child_icon": "textures/ui/icon_agent_padded",
+    "description": "library.category.description.computerScience.featuredLessons",
+    "type": "worlds",
+    "tags": [
+      "tag.computer_science",
+      "tag.uncategorized"
+    ]
+  },
+
+  //---------------------------------------------------------------------------
+  // CS Block-Based Sub-Categories
+  //---------------------------------------------------------------------------
+
+  "cs_fundamentals_1": {
+    "label": "library.category.label.computerScience.codingFun1",
+    "screenshot": "textures/ui/library/lessons/computer_science/icon_code_fun_1",
+    "default_color": [ 0.0, 0.518, 0.216 ],
+    "interact_color": [ 0.0, 0.518, 0.216 ],
+    "child_title": "library.category.title.computerScience.codingFun1",
+    "child_icon": "textures/ui/icon_agent_padded",
+    "description": "library.category.description.computerScience.codingFun1",
+    "type": "worlds",
+    "tags": [
+      "tag.coding_fundamentals_1"
+    ]
+  },
+
+  "cs_fundamentals_2": {
+    "label": "library.category.label.computerScience.codingFun2",
+    "screenshot": "textures/ui/library/lessons/computer_science/icon_code_fun_2",
+    "default_color": [ 0.0, 0.518, 0.216 ],
+    "interact_color": [ 0.0, 0.518, 0.216 ],
+    "child_title": "library.category.title.computerScience.codingFun2",
+    "child_icon": "textures/ui/icon_agent_padded",
+    "description": "library.category.description.computerScience.codingFun2",
+    "type": "worlds",
+    "tags": [
+      "tag.coding_fundamentals_2"
+    ]
+  },
+
+  "cs_fundamentals_3": {
+    "label": "library.category.label.computerScience.codingFun3",
+    "screenshot": "textures/ui/library/lessons/computer_science/icon_coding_fundamentals_3",
+    "default_color": [ 0.0, 0.518, 0.216 ],
+    "interact_color": [ 0.0, 0.518, 0.216 ],
+    "child_title": "library.category.title.computerScience.codingFun3",
+    "child_icon": "textures/ui/icon_agent_padded",
+    "description": "library.category.description.computerScience.codingFun3",
+    "type": "worlds",
+    "tags": [
+      "tag.coding_fundamentals_3"
+    ]
+  },
+
+  "cs_course_1": {
+    "label": "library.category.label.computerScience.computingWithMinecraft",
+    "screenshot": "textures/ui/library/lessons/computer_science/icon_course_1",
+    "default_color": [ 0.0, 0.518, 0.216 ],
+    "interact_color": [ 0.0, 0.518, 0.216 ],
+    "child_title": "library.category.title.computerScience.computingWithMinecraft",
+    "child_icon": "textures/ui/icon_agent_padded",
+    "description": "library.category.description.computerScience.computingWithMinecraft",
+    "type": "worlds",
+    "tags": [
+      "tag.computing_in_minecraft"
+    ]
+  },
+
+  "cs_course_2": {
+    "label": "library.category.label.computerScience.codingWithMinecraft",
+    "screenshot": "textures/ui/library/lessons/computer_science/icon_course_2",
+    "default_color": [ 0.0, 0.518, 0.216 ],
+    "interact_color": [ 0.0, 0.518, 0.216 ],
+    "child_title": "library.category.title.computerScience.codingWithMinecraft",
+    "child_icon": "textures/ui/icon_agent_padded",
+    "description": "library.category.description.computerScience.codingWithMinecraft",
+    "type": "worlds",
+    "tags": [
+      "tag.coding_course_2"
+    ]
+  },
+
+  //---------------------------------------------------------------------------
+  // CS Python Sub-Categories
+  //---------------------------------------------------------------------------
+
+  // -------------------------
+  // confirm SCREENSHOT
+  // -------------------------
+  "python_101": {
+    "label": "library.category.label.computerScience.python.python101",
+    "icon": "",
+    "child_icon": "textures/ui/icon_agent_padded",
+    "screenshot": "textures/ui/library/lessons/computer_science/python101_2_586x330",
+    "default_color": [ 0.0, 0.518, 0.216 ],
+    "interact_color": [ 0.0, 0.518, 0.216 ],
+    "child_title": "library.category.title.computerScience.python.python101",
+    "description": "library.category.description.computerScience.python101",
+    "type": "worlds",
+    "tags": [
+      "tag.python101"
+    ]
+  },
+
+  "python_islands": {
+    "label": "library.category.label.computerScience.python.python_islands",
+    "icon": "",
+    "child_icon": "textures/ui/icon_agent_padded",
+    "screenshot": "textures/ui/library/lessons/computer_science/PythonIslands_586x330",
+    "default_color": [ 0.0, 0.518, 0.216 ],
+    "interact_color": [ 0.0, 0.518, 0.216 ],
+    "child_title": "library.category.title.computerScience.python.python_islands",
+    "description": "library.category.description.computerScience.python.python_islands",
+    "type": "worlds",
+    "tags": [
+      "tag.python_islands"
+    ]
+  },
+
+  //---------------------------------------------------------------------------
+  // Math Sub-Categories
+  //---------------------------------------------------------------------------
+
+  "math_common_3": {
+    "label": [ "library.category.label.commonCore", "3" ],
+    "screenshot": "textures/ui/library/lessons/math/icon_cc_grade_3",
+    "default_color": [ 0.447, 0.447, 0.447 ],
+    "interact_color": [ 0.447, 0.447, 0.447 ],
+    "child_title": [ "library.category.title.commonCore", "3" ],
+    "child_icon": "textures/ui/icon_chalkboard",
+    "description": "library.category.description.commonCoreMath",
+    "type": "worlds",
+    "tags": [
+      "tag.common_core_math_grade_3"
+    ]
+  },
+
+  "math_common_4": {
+    "label": [ "library.category.label.commonCore", "4" ],
+    "screenshot": "textures/ui/library/lessons/math/icon_cc_grade_4",
+    "default_color": [ 0.447, 0.447, 0.447 ],
+    "interact_color": [ 0.447, 0.447, 0.447 ],
+    "child_title": [ "library.category.title.commonCore", "4" ],
+    "child_icon": "textures/ui/icon_chalkboard",
+    "description": "library.category.description.commonCoreMath",
+    "type": "worlds",
+    "tags": [
+      "tag.common_core_math_grade_4"
+    ]
+  },
+
+  "math_common_5": {
+    "label": [ "library.category.label.commonCore", "5" ],
+    "screenshot": "textures/ui/library/lessons/math/icon_cc_grade_5",
+    "default_color": [ 0.447, 0.447, 0.447 ],
+    "interact_color": [ 0.447, 0.447, 0.447 ],
+    "child_title": [ "library.category.title.commonCore", "5" ],
+    "child_icon": "textures/ui/icon_chalkboard",
+    "description": "library.category.description.commonCoreMath",
+    "type": "worlds",
+    "tags": [
+      "tag.common_core_math_grade_5"
+    ]
+  },
+
+  "math_fractions": {
+    "label": "library.category.label.math.fractions",
+    "screenshot": "textures/ui/library/lessons/math/icon_fractions",
+    "default_color": [ 0.447, 0.447, 0.447 ],
+    "interact_color": [ 0.447, 0.447, 0.447 ],
+    "child_title": "library.category.title.math.fractions",
+    "child_icon": "textures/ui/icon_chalkboard",
+    "description": "library.category.description.math.fractions",
+    "type": "worlds",
+    "tags": [
+      "tag.fractions"
+    ]
+  },
+
+  "math_additional": {
+    "label": "library.category.label.lessons.genericAdditional",
+    "screenshot": "textures/ui/library/lessons/math/icon_additional",
+    "default_color": [ 0.447, 0.447, 0.447 ],
+    "interact_color": [ 0.447, 0.447, 0.447 ],
+    "child_title": "library.category.title.lessons.genericAdditional",
+    "child_icon": "textures/ui/icon_chalkboard",
+    "type": "worlds",
+    "tags": [
+      "tag.math",
+      "tag.uncategorized"
+    ]
+  },
+
+  //---------------------------------------------------------------------------
+  // Science Sub-Categories
+  //---------------------------------------------------------------------------
+
+  "science_chemistry": {
+    "label": "library.category.label.science.chemistry",
+    "screenshot": "textures/ui/library/lessons/science/icon_chemistry",
+    "default_color": [ 0.655, 0.404, 0.0 ],
+    "interact_color": [ 0.655, 0.404, 0.0 ],
+    "child_title": "library.category.title.science.chemistry",
+    "child_icon": "textures/items/potion_bottle_waterBreathing",
+    "type": "worlds",
+    "tags": [
+      "tag.chemistry"
+    ]
+  },
+
+  "science_biology": {
+    "label": "library.category.label.science.biology",
+    "screenshot": "textures/ui/library/lessons/science/icon_biology",
+    "default_color": [ 0.655, 0.404, 0.0 ],
+    "interact_color": [ 0.655, 0.404, 0.0 ],
+    "child_title": "library.category.title.science.biology",
+    "child_icon": "textures/items/potion_bottle_waterBreathing",
+    "type": "worlds",
+    "tags": [
+      "tag.biology"
+    ]
+  },
+
+  "science_rangers": {
+    "label": "library.category.label.science.rangers",
+    "screenshot": "textures/ui/library/lessons/science/icon_rangers",
+    "default_color": [ 0.655, 0.404, 0.0 ],
+    "interact_color": [ 0.655, 0.404, 0.0 ],
+    "child_title": "library.category.title.science.rangers",
+    "child_icon": "textures/items/potion_bottle_waterBreathing",
+    "description": "library.category.description.science.rangers",
+    "type": "worlds",
+    "tags": [
+      "tag.we_are_the_rangers"
+    ]
+  },
+
+  "science_extinction": {
+    "label": "library.category.label.science.extinction",
+    "screenshot": "textures/ui/library/lessons/science/icon_biodiversity",
+    "default_color": [ 0.655, 0.404, 0.0 ],
+    "interact_color": [ 0.655, 0.404, 0.0 ],
+    "child_title": "library.category.title.science.extinction",
+    "child_icon": "textures/items/potion_bottle_waterBreathing",
+    "description": "library.category.description.science.extinction",
+    "type": "worlds",
+    "tags": [
+      "tag.biodiversity"
+    ]
+  },
+
+  "science_additional": {
+    "label": "library.category.label.lessons.genericAdditional",
+    "screenshot": "textures/ui/library/lessons/science/icon_additional",
+    "default_color": [ 0.655, 0.404, 0.0 ],
+    "interact_color": [ 0.655, 0.404, 0.0 ],
+    "child_title": "library.category.title.lessons.genericAdditional",
+    "child_icon": "textures/items/potion_bottle_waterBreathing",
+    "type": "worlds",
+    "tags": [
+      "tag.science",
+      "tag.uncategorized"
+    ]
+  },
+
+  //---------------------------------------------------------------------------
+  // Language Sub and Sub-Sub-Categories
+  //---------------------------------------------------------------------------
+
+  "la_literature_studies": {
+    "label": "library.category.label.languageArts.litStudies",
+    "screenshot": "textures/ui/library/lessons/language_arts/lit_studies/icon_root",
+    "default_color": [ 0.239, 0.584, 0.756 ],
+    "interact_color": [ 0.0, 0.443, 0.666 ],
+    "child_title": "library.category.title.languageArts.litStudies",
+    "child_icon": "textures/ui/icon_pages",
+    "type": "category",
+    "items_per_row": 3,
+    "sub_categories": [
+      "la_treasure_island",
+      "la_kensukes_kingdom",
+      "la_swiss_family",
+      "la_lit_additional"
+    ]
+  },
+
+  "la_treasure_island": {
+    "label": "library.category.label.languageArts.litStudies.treasureIsland",
+    "screenshot": "textures/ui/library/lessons/language_arts/lit_studies/icon_treasure_island",
+    "default_color": [ 0.239, 0.584, 0.756 ],
+    "interact_color": [ 0.0, 0.443, 0.666 ],
+    "child_title": "library.category.title.languageArts.litStudies.treasureIsland",
+    "child_icon": "textures/ui/icon_pages",
+    "description": "library.category.description.languageArts.litStudies.treasureIsland",
+    "type": "worlds",
+    "tags": [
+      "tag.treasure_island"
+    ]
+  },
+
+  "la_kensukes_kingdom": {
+    "label": "library.category.label.languageArts.litStudies.kensukesKingdom",
+    "screenshot": "textures/ui/library/lessons/language_arts/lit_studies/icon_kensuke",
+    "default_color": [ 0.239, 0.584, 0.756 ],
+    "interact_color": [ 0.0, 0.443, 0.666 ],
+    "child_title": "library.category.title.languageArts.litStudies.kensukesKingdom",
+    "child_icon": "textures/ui/icon_pages",
+    "description": "library.category.description.languageArts.litStudies.kensukesKingdom",
+    "type": "worlds",
+    "tags": [
+      "tag.kensukes_kingdom"
+    ]
+  },
+
+  "la_swiss_family": {
+    "label": "library.category.label.languageArts.litStudies.swissFamily",
+    "screenshot": "textures/ui/library/lessons/language_arts/lit_studies/icon_robinson",
+    "default_color": [ 0.239, 0.584, 0.756 ],
+    "interact_color": [ 0.0, 0.443, 0.666 ],
+    "child_title": "library.category.title.languageArts.litStudies.swissFamily",
+    "child_icon": "textures/ui/icon_pages",
+    "description": "library.category.description.languageArts.litStudies.swissFamily",
+    "type": "worlds",
+    "tags": [
+      "tag.swiss_family_robinson"
+    ]
+  },
+
+  "la_additional": {
+    "label": "library.category.label.lessons.genericAdditional",
+    "screenshot": "textures/ui/library/lessons/language_arts/icon_additional",
+    "default_color": [ 0.239, 0.584, 0.756 ],
+    "interact_color": [ 0.0, 0.443, 0.666 ],
+    "child_title": "library.category.title.lessons.genericAdditional",
+    "child_icon": "textures/ui/icon_pages",
+    "type": "worlds",
+    "tags": [
+      "tag.language_arts",
+      "tag.uncategorized"
+    ]
+  },
+
+  //---------------------------------------------------------------------------
+  // History Sub-Categories
+  //---------------------------------------------------------------------------
+
+  "history_oregon": {
+    "label": "library.category.label.history.oregonTrail",
+    "screenshot": "textures/ui/library/lessons/history/icon_oregon_trail",
+    "default_color": [ 0.639, 0.372, 0.650 ],
+    "interact_color": [ 0.525, 0.121, 0.541 ],
+    "child_title": "library.category.title.history.oregonTrail",
+    "child_icon": "textures/ui/icon_history",
+    "description": "library.category.description.history.oregonTrail",
+    "type": "worlds",
+    "tags": [
+      "tag.oregon_trail"
+    ]
+  },
+
+  "history_additional": {
+    "label": "library.category.label.lessons.genericAdditional",
+    "screenshot": "textures/ui/library/lessons/history/icon_additional",
+    "default_color": [ 0.639, 0.372, 0.650 ],
+    "interact_color": [ 0.525, 0.121, 0.541 ],
+    "child_title": "library.category.title.lessons.genericAdditional",
+    "child_icon": "textures/ui/icon_history",
+    "type": "worlds",
+    "tags": [
+      "tag.history_and_culture",
+      "tag.uncategorized"
+    ]
+  }
+}

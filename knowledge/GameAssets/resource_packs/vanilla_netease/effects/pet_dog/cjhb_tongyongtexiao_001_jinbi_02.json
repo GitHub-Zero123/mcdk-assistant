@@ -1,0 +1,101 @@
+{
+    "particleeffect": {
+        "constantforce": {
+            "value": "0.0 0.0 -5.0"
+        },
+        "enablecolor": {
+            "enable": "false"
+        },
+        "emissionrate": {
+            "max": "5.0",
+            "min": "5.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "particlesize": {
+            "max": "0.05 0.05",
+            "min": "0.02 0.02"
+        },
+        "activetime": {
+            "value": "1.0"
+        },
+        "numparticles": {
+            "value": "5"
+        },
+        "texture": {
+            "name": "textures/sfxs/pet_dog/cjhb_tongyongtexiao_fangkuai"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.0 0.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.6 0.6",
+                "time": "10.3%"
+            },
+            {
+                "scale": "0.21 0.21",
+                "time": "18.3%"
+            },
+            {
+                "scale": "0.69 0.69",
+                "time": "28.7%"
+            },
+            {
+                "scale": "0.24 0.24",
+                "time": "35.3%"
+            },
+            {
+                "scale": "0.93 0.93",
+                "time": "43.0%"
+            },
+            {
+                "scale": "0.95 0.95",
+                "time": "88.0%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            }
+        ],
+        "independent": false,
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "value": "Direction",
+            "min": "-1.0 -1.0 -1.0"
+        },
+        "dampingforce": {
+            "value": "6.0"
+        },
+        "emitterScaleCurve": [],
+        "enableloop": {
+            "enable": "true"
+        },
+        "emittersize": {
+            "value": "0.2 0.2 0.2"
+        },
+        "inactivetime": {
+            "value": "1.0"
+        },
+        "emitterscale": [],
+        "rotationSpeedRange": {
+            "max": "0.0 0.0 5.0",
+            "min": "0.0 0.0 0.5"
+        },
+        "depthtest": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Hemisphere"
+        },
+        "velocity": {
+            "max": "1.5",
+            "min": "2.5"
+        }
+    }
+}

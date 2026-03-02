@@ -1,0 +1,103 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.1"
+        },
+        "colorfade": [
+            {
+                "color": "0.8000 0.8000 0.8000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.8000 0.8000 0.8000 1.0000",
+                "time": "83.2%"
+            },
+            {
+                "color": "0.8392 0.8392 0.8392 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "constantforce": {
+            "value": "0.0 -8.0 0.0"
+        },
+        "dampingforce": {
+            "value": "3.5"
+        },
+        "delay": 6.25,
+        "depthtest": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "0.6 1.0 0.6",
+            "min": "-0.6 0.10000000000000003 -0.6",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "1000.0",
+            "min": "1200.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.7 0.9999999999999999 0.7"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "enableloop": {
+            "enable": "true"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "layer": 6,
+        "numparticles": {
+            "value": "120"
+        },
+        "particlesize": {
+            "max": "0.1 0.1",
+            "min": "0.05 0.05"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "false"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.3 0.3",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.1 1.1",
+                "time": "5.0%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "92.3%"
+            },
+            {
+                "scale": "0.39 0.39",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "16",
+                "name": "textures/sfxs/2025s2/cs_s4nanwu_skin_birth_nitu01",
+                "shuffle": true
+            },
+            "name": "textures/sfxs/2025s2/cs_s4nanwu_skin_birth_nitu01"
+        },
+        "thickness": {
+            "value": "0.6"
+        },
+        "timetolive": {
+            "max": "0.6",
+            "min": "0.30000000000000004"
+        },
+        "velocity": {
+            "max": "7.0",
+            "min": "4.5"
+        }
+    }
+}

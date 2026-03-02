@@ -1,0 +1,28 @@
+{
+    "format_version": "1.14",
+    "minecraft:recipe_material_reduction": {
+        "description": {
+            "identifier": "minecraft:emerald_block"
+        },
+        "input": "minecraft:emerald_block",
+        "output": [
+            {
+                "count": 15,
+                "item": "minecraft:element_13"
+            },
+            {
+                "count": 25,
+                "item": "minecraft:element_4"
+            },
+            {
+                "count": 20,
+                "item": "minecraft:element_14"
+            },
+            {
+                "count": 40,
+                "item": "minecraft:element_8"
+            }
+        ],
+        "tags": "material_reducer"
+    }
+}

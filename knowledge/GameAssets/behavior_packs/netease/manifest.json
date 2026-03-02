@@ -1,0 +1,40 @@
+{
+    "format_version": 2,
+    "header": {
+        "description": "vanilla_netease",
+        "name": "vanilla_netease",
+        "uuid": "ab32420e-53c4-4f1e-94ae-4c9d51751853",
+        "version": [
+            0,
+            0,
+            1
+        ],
+        "min_engine_version": [
+            1,
+            13,
+            0
+        ]
+    },
+    "modules": [
+        {
+            "description": "vanilla_netease",
+            "type": "data",
+            "uuid": "b55cd6ce-4246-4b93-bfdf-99395b043034",
+            "version": [
+                0,
+                0,
+                1
+            ]
+        }
+    ],
+    "dependencies": [
+        {
+            "uuid": "0575c61f-a5da-4b7f-9961-ffda2908861e",
+            "version": [
+                0,
+                0,
+                1
+            ]
+        }
+    ]
+}

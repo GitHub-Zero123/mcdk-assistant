@@ -1,0 +1,94 @@
+{
+    "particleeffect": {
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.5714",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.9286",
+                "time": "18.4%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.7500",
+                "time": "63.9%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0268",
+                "time": "100.0%"
+            }
+        ],
+        "dampingforce": {
+            "value": "0.5"
+        },
+        "direction": {
+            "max": "0.0 -1.0 0.0",
+            "min": "0.0 -1.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "5.0",
+            "min": "5.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.2 0.0 0.2"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "layer": 5,
+        "particlesize": {
+            "max": "0.03 0.03",
+            "min": "0.01 0.01"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.5 0.5",
+                "time": "5.7%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "32.7%"
+            },
+            {
+                "scale": "0.78 0.78",
+                "time": "72.3%"
+            },
+            {
+                "scale": "0.42 0.42",
+                "time": "89.3%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s2/ss_s4hongshi_weaponA_lz"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "1.1",
+            "min": "0.8"
+        },
+        "velocity": {
+            "max": "0.7",
+            "min": "0.3"
+        }
+    }
+}

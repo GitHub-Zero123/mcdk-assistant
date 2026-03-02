@@ -1,0 +1,64 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "value": "Direction",
+            "min": "-1.0 -1.0 -1.0"
+        },
+        "numparticles": {
+            "value": "2"
+        },
+        "colorfade": [
+            {
+                "color": "0.6667 0.0000 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.0000 0.6000 1.0000 1.0000",
+                "time": "41.6%"
+            },
+            {
+                "color": "0.6667 0.0000 1.0000 0.8304",
+                "time": "73.7%"
+            },
+            {
+                "color": "0.6745 0.9843 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "emissionrate": {
+            "max": "2.0",
+            "min": "2.0"
+        },
+        "enableloop": {
+            "enable": "true"
+        },
+        "texture": {
+            "name": "textures/sfxs/pet_mh_fox/ss_mhfox_guofeng_glow1"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "timetolive": {
+            "max": "2.0",
+            "min": "2.0"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "particlesize": {
+            "max": "0.5 0.5",
+            "min": "0.5 0.5"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.02 1.02",
+                "time": "0.01"
+            }
+        ]
+    }
+}

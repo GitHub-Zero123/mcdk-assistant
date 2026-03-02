@@ -1,0 +1,72 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.4510 0.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.1137 0.0000 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "constantforce": {
+            "value": "-1.5 0.0 0.0"
+        },
+        "dampingforce": {
+            "value": "3.0"
+        },
+        "direction": {
+            "max": "0.0 0.0 1.0",
+            "min": "-1.0 0.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "10.0",
+            "min": "15.0"
+        },
+        "numparticles": {
+            "value": "100"
+        },
+        "particlesize": {
+            "max": "0.3 0.3",
+            "min": "0.2 0.2"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.0 0.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "20.0%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "70.0%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s1/cs_s3mg_weapon_lz"
+        },
+        "timetolive": {
+            "max": "0.7",
+            "min": "1.2"
+        },
+        "velocity": {
+            "max": "2.0",
+            "min": "1.5"
+        }
+    }
+}

@@ -1,0 +1,2523 @@
+{
+    "MainPanel": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "WindowTitle@AchievementSys.WindowTitle": {}
+            },
+            {
+                "label0@AchievementSys.label0": {}
+            },
+            {
+                "TabRight@AchievementSys.TabRight": {}
+            },
+            {
+                "TabLeft@AchievementSys.TabLeft": {}
+            },
+            {
+                "CloseBtn@common.button": {
+                    "$control_alpha": 1.0,
+                    "$default_texture": "textures/ui/custom_achievement/btn08",
+                    "$hover_texture": "textures/netease/common/button/hover",
+                    "$is_new_nine_slice": false,
+                    "$label_color": [
+                        1,
+                        1,
+                        1
+                    ],
+                    "$label_font_scale_factor": 1.169999957084656,
+                    "$label_font_size": "normal",
+                    "$label_layer": 3,
+                    "$label_offset": [
+                        0,
+                        0
+                    ],
+                    "$label_text": "",
+                    "$nine_slice_buttom": 4,
+                    "$nine_slice_left": 4,
+                    "$nine_slice_right": 4,
+                    "$nine_slice_top": 4,
+                    "$nineslice_size": [
+                        4.0,
+                        4.0,
+                        4.0,
+                        4.0
+                    ],
+                    "$pressed_button_name": "%AchievementSys.click",
+                    "$pressed_texture": "textures/ui/custom_achievement/btn07",
+                    "$texture_layer": 2,
+                    "alpha": 1.0,
+                    "anchor_from": "top_right",
+                    "anchor_to": "bottom_right",
+                    "bindings": [
+                        {
+                            "binding_collection_name": "",
+                            "binding_condition": "always_when_visible",
+                            "binding_type": "collection_details"
+                        }
+                    ],
+                    "button_mappings": [],
+                    "clip_offset": [
+                        0,
+                        0
+                    ],
+                    "clips_children": false,
+                    "controls": [
+                        {
+                            "default@AchievementSys.default": {}
+                        },
+                        {
+                            "hover@AchievementSys.hover": {}
+                        },
+                        {
+                            "pressed@AchievementSys.pressed": {}
+                        },
+                        {
+                            "button_label@AchievementSys.button_label": {}
+                        },
+                        {
+                            "image0": {
+                                "alpha": 1.0,
+                                "anchor_from": "center",
+                                "anchor_to": "center",
+                                "clip_direction": "left",
+                                "clip_offset": [
+                                    0,
+                                    0
+                                ],
+                                "clip_ratio": 0.0,
+                                "clips_children": false,
+                                "enabled": true,
+                                "fill": false,
+                                "grayscale": false,
+                                "is_new_nine_slice": false,
+                                "keep_ratio": true,
+                                "layer": 4,
+                                "max_size": [
+                                    0,
+                                    0
+                                ],
+                                "min_size": [
+                                    0,
+                                    0
+                                ],
+                                "nine_slice_buttom": 0,
+                                "nine_slice_left": 0,
+                                "nine_slice_right": 0,
+                                "nine_slice_top": 0,
+                                "nineslice_size": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                ],
+                                "offset": [
+                                    0,
+                                    0
+                                ],
+                                "priority": 0,
+                                "propagate_alpha": false,
+                                "size": [
+                                    "60.0%+0.0px",
+                                    "51.43%+0.0px"
+                                ],
+                                "texture": "textures/ui/custom_achievement/icon01",
+                                "type": "image",
+                                "uv": [
+                                    0,
+                                    0
+                                ],
+                                "uv_size": [
+                                    20,
+                                    20
+                                ],
+                                "visible": true
+                            }
+                        }
+                    ],
+                    "draggable": "not_draggable",
+                    "enabled": true,
+                    "is_handle_button_move_event": true,
+                    "max_size": [
+                        0,
+                        0
+                    ],
+                    "min_size": [
+                        0,
+                        0
+                    ],
+                    "offset": [
+                        0,
+                        5
+                    ],
+                    "priority": 0,
+                    "propagate_alpha": false,
+                    "size": [
+                        30,
+                        35
+                    ],
+                    "visible": true
+                }
+            },
+            {
+                "MainWindow": {
+                    "alpha": 1.0,
+                    "anchor_from": "center",
+                    "anchor_to": "center",
+                    "clip_direction": "up",
+                    "clip_offset": [
+                        0,
+                        0
+                    ],
+                    "clip_ratio": 0.0,
+                    "clips_children": false,
+                    "controls": [
+                        {
+                            "PopPanel@AchievementSys.PopPanel": {}
+                        },
+                        {
+                            "cut": {
+                                "alpha": 1.0,
+                                "anchor_from": "center",
+                                "anchor_to": "center",
+                                "clip_offset": [
+                                    0,
+                                    0
+                                ],
+                                "clips_children": true,
+                                "controls": [
+                                    {
+                                        "fullScreenBtn@AchievementSys.fullScreenBtn": {}
+                                    },
+                                    {
+                                        "dragpanel@AchievementSys.dragpanel": {}
+                                    }
+                                ],
+                                "enabled": true,
+                                "layer": 2,
+                                "max_size": [
+                                    0,
+                                    0
+                                ],
+                                "min_size": [
+                                    0,
+                                    0
+                                ],
+                                "offset": [
+                                    0.0,
+                                    8.0
+                                ],
+                                "priority": 0,
+                                "propagate_alpha": false,
+                                "size": [
+                                    "0.0%+227.0px",
+                                    "0.0%+129.0px"
+                                ],
+                                "type": "panel",
+                                "visible": true
+                            }
+                        }
+                    ],
+                    "enabled": true,
+                    "fill": false,
+                    "grayscale": false,
+                    "is_new_nine_slice": false,
+                    "keep_ratio": false,
+                    "layer": 6,
+                    "max_size": [
+                        0,
+                        0
+                    ],
+                    "min_size": [
+                        0,
+                        0
+                    ],
+                    "nine_slice_buttom": 10,
+                    "nine_slice_left": 8,
+                    "nine_slice_right": 8,
+                    "nine_slice_top": 24,
+                    "nineslice_size": [
+                        8.0,
+                        24.0,
+                        8.0,
+                        10.0
+                    ],
+                    "offset": [
+                        0,
+                        0
+                    ],
+                    "priority": 0,
+                    "propagate_alpha": false,
+                    "size": [
+                        240,
+                        160
+                    ],
+                    "texture": "textures/ui/custom_achievement/panel01",
+                    "type": "image",
+                    "uv": [
+                        0.0,
+                        0.0
+                    ],
+                    "uv_size": [
+                        32,
+                        64
+                    ],
+                    "visible": true
+                }
+            }
+        ],
+        "enabled": true,
+        "layer": 1,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            240,
+            160
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "NodeBtn@common.button": {
+        "$control_alpha": 1.0,
+        "$default_texture": "",
+        "$hover_texture": "",
+        "$is_new_nine_slice": false,
+        "$label_color": [
+            1,
+            1,
+            1
+        ],
+        "$label_font_scale_factor": 1.0,
+        "$label_font_size": "large",
+        "$label_layer": 3,
+        "$label_offset": [
+            0,
+            0
+        ],
+        "$label_text": "",
+        "$nine_slice_buttom": 0,
+        "$nine_slice_left": 0,
+        "$nine_slice_right": 0,
+        "$nine_slice_top": 0,
+        "$nineslice_size": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "$pressed_button_name": "%AchievementSys.click",
+        "$pressed_texture": "",
+        "$texture_layer": 2,
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "bindings": [
+            {
+                "binding_collection_name": "",
+                "binding_condition": "always_when_visible",
+                "binding_type": "collection_details"
+            }
+        ],
+        "button_mappings": [],
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "consume_event": false,
+        "controls": [
+            {
+                "default@AchievementSys.default": {}
+            },
+            {
+                "hover@AchievementSys.hover": {}
+            },
+            {
+                "pressed@AchievementSys.pressed": {}
+            },
+            {
+                "button_label@AchievementSys.button_label": {}
+            }
+        ],
+        "draggable": "not_draggable",
+        "enabled": true,
+        "is_handle_button_move_event": true,
+        "layer": 10,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            5,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            20,
+            20
+        ],
+        "visible": true
+    },
+    "PopPanel": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "PromptBox@AchievementSys.PromptBox": {}
+            }
+        ],
+        "enabled": true,
+        "layer": 30,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0.0,
+            8
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            227,
+            129
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "PromptBox": {
+        "alpha": 1.0,
+        "anchor_from": "top_left",
+        "anchor_to": "left_middle",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "image4@AchievementSys.image4": {}
+            }
+        ],
+        "enabled": true,
+        "layer": 12,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            178.0,
+            107.0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            20,
+            20
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "PromptIcon": {
+        "alpha": 1.0,
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "clip_direction": "left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clip_ratio": 0.0,
+        "clips_children": false,
+        "enabled": true,
+        "fill": false,
+        "grayscale": false,
+        "is_new_nine_slice": false,
+        "keep_ratio": true,
+        "layer": 17,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "nine_slice_buttom": 0,
+        "nine_slice_left": 0,
+        "nine_slice_right": 0,
+        "nine_slice_top": 0,
+        "nineslice_size": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "offset": [
+            6,
+            4
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            20,
+            20
+        ],
+        "texture": "textures/netease/common/image/default",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            0,
+            0
+        ],
+        "visible": true
+    },
+    "TabIcon": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_direction": "left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clip_ratio": 0.0,
+        "clips_children": false,
+        "enabled": true,
+        "fill": false,
+        "grayscale": false,
+        "is_new_nine_slice": false,
+        "keep_ratio": true,
+        "layer": 3,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "nine_slice_buttom": 0,
+        "nine_slice_left": 0,
+        "nine_slice_right": 0,
+        "nine_slice_top": 0,
+        "nineslice_size": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0.0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "60.0%+0.0px",
+            "60.0%+0.0px"
+        ],
+        "texture": "",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            0,
+            0
+        ],
+        "visible": true
+    },
+    "TabLeft@common.button": {
+        "$control_alpha": 1.0,
+        "$default_texture": "textures/ui/custom_achievement/btn02",
+        "$hover_texture": "textures/netease/common/button/hover",
+        "$is_new_nine_slice": false,
+        "$label_color": [
+            1,
+            1,
+            1
+        ],
+        "$label_font_scale_factor": 1.0,
+        "$label_font_size": "large",
+        "$label_layer": 3,
+        "$label_offset": [
+            0,
+            0
+        ],
+        "$label_text": "",
+        "$nine_slice_buttom": 1,
+        "$nine_slice_left": 1,
+        "$nine_slice_right": 1,
+        "$nine_slice_top": 1,
+        "$nineslice_size": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "$pressed_button_name": "%AchievementSys.click",
+        "$pressed_texture": "textures/ui/custom_achievement/btn03",
+        "$texture_layer": 2,
+        "alpha": 1.0,
+        "anchor_from": "bottom_left",
+        "anchor_to": "top_left",
+        "bindings": [
+            {
+                "binding_collection_name": "",
+                "binding_condition": "always_when_visible",
+                "binding_type": "collection_details"
+            }
+        ],
+        "button_mappings": [],
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "default@AchievementSys.default": {}
+            },
+            {
+                "hover@AchievementSys.hover": {}
+            },
+            {
+                "pressed@AchievementSys.pressed": {}
+            },
+            {
+                "button_label@AchievementSys.button_label": {}
+            },
+            {
+                "image1@AchievementSys.image1": {}
+            }
+        ],
+        "draggable": "not_draggable",
+        "enabled": true,
+        "is_handle_button_move_event": true,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            7
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            20,
+            20
+        ],
+        "visible": true
+    },
+    "TabRight@common.button": {
+        "$control_alpha": 1.0,
+        "$default_texture": "textures/ui/custom_achievement/btn02",
+        "$hover_texture": "textures/netease/common/button/hover",
+        "$is_new_nine_slice": false,
+        "$label_color": [
+            1,
+            1,
+            1
+        ],
+        "$label_font_scale_factor": 1.0,
+        "$label_font_size": "large",
+        "$label_layer": 3,
+        "$label_offset": [
+            0,
+            0
+        ],
+        "$label_text": "",
+        "$nine_slice_buttom": 1,
+        "$nine_slice_left": 1,
+        "$nine_slice_right": 1,
+        "$nine_slice_top": 1,
+        "$nineslice_size": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "$pressed_button_name": "%AchievementSys.click",
+        "$pressed_texture": "textures/ui/custom_achievement/btn03",
+        "$texture_layer": 2,
+        "alpha": 1.0,
+        "anchor_from": "bottom_right",
+        "anchor_to": "top_right",
+        "bindings": [
+            {
+                "binding_collection_name": "",
+                "binding_condition": "always_when_visible",
+                "binding_type": "collection_details"
+            }
+        ],
+        "button_mappings": [],
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "default@AchievementSys.default": {}
+            },
+            {
+                "hover@AchievementSys.hover": {}
+            },
+            {
+                "pressed@AchievementSys.pressed": {}
+            },
+            {
+                "button_label@AchievementSys.button_label": {}
+            },
+            {
+                "image2@AchievementSys.image2": {}
+            }
+        ],
+        "draggable": "not_draggable",
+        "enabled": true,
+        "is_handle_button_move_event": true,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            7
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            20,
+            20
+        ],
+        "visible": true
+    },
+    "TabStyle": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_direction": "up",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clip_ratio": 0.0,
+        "clips_children": false,
+        "enabled": true,
+        "fill": false,
+        "grayscale": false,
+        "is_new_nine_slice": false,
+        "keep_ratio": false,
+        "layer": 2,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "nine_slice_buttom": 4,
+        "nine_slice_left": 4,
+        "nine_slice_right": 4,
+        "nine_slice_top": 4,
+        "nineslice_size": [
+            4.0,
+            4.0,
+            4.0,
+            4.0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "texture": "textures/ui/custom_achievement/btn07",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            16,
+            18
+        ],
+        "visible": true
+    },
+    "TeplateTabBtn@common.button": {
+        "$control_alpha": 1.0,
+        "$default_texture": "",
+        "$hover_texture": "",
+        "$is_new_nine_slice": true,
+        "$label_color": [
+            1,
+            1,
+            1
+        ],
+        "$label_font_scale_factor": 1.0,
+        "$label_font_size": "large",
+        "$label_layer": 3,
+        "$label_offset": [
+            0,
+            0
+        ],
+        "$label_text": "",
+        "$nine_slice_buttom": 0,
+        "$nine_slice_left": 0,
+        "$nine_slice_right": 0,
+        "$nine_slice_top": 0,
+        "$nineslice_size": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "$pressed_button_name": "%AchievementSys.click",
+        "$pressed_texture": "",
+        "$texture_layer": 2,
+        "alpha": 1.0,
+        "anchor_from": "top_left",
+        "anchor_to": "bottom_left",
+        "bindings": [
+            {
+                "binding_collection_name": "",
+                "binding_condition": "always_when_visible",
+                "binding_type": "collection_details"
+            }
+        ],
+        "button_mappings": [],
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "default@AchievementSys.default": {}
+            },
+            {
+                "hover@AchievementSys.hover": {}
+            },
+            {
+                "pressed@AchievementSys.pressed": {}
+            },
+            {
+                "button_label@AchievementSys.button_label": {}
+            },
+            {
+                "TabIcon@AchievementSys.TabIcon": {}
+            },
+            {
+                "TabStyle@AchievementSys.TabStyle": {}
+            }
+        ],
+        "draggable": "not_draggable",
+        "enabled": true,
+        "is_handle_button_move_event": true,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            1,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            30,
+            34
+        ],
+        "visible": true
+    },
+    "Title": {
+        "alpha": 1.0,
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "color": [
+            1,
+            1,
+            1
+        ],
+        "enabled": true,
+        "font_scale_factor": 0.9399999976158142,
+        "font_size": "normal",
+        "font_type": "smooth",
+        "layer": 3,
+        "line_padding": 0.0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            11.0,
+            5.0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "shadow": false,
+        "size": [
+            80,
+            20
+        ],
+        "text": "你好世界你好世界你好世界你好世界",
+        "text_alignment": "left",
+        "type": "label",
+        "visible": true
+    },
+    "WindowTitle": {
+        "alpha": 1.0,
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "color": [
+            0.2980392156862745,
+            0.2980392156862745,
+            0.2980392156862745
+        ],
+        "enabled": true,
+        "font_scale_factor": 0.9399999976158142,
+        "font_size": "normal",
+        "font_type": "unicode",
+        "layer": 7,
+        "line_padding": 0.0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            6.0,
+            11
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "shadow": false,
+        "size": [
+            180,
+            9
+        ],
+        "text": "武器成就",
+        "text_alignment": "left",
+        "type": "label",
+        "visible": true
+    },
+    "achievementPanel": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "templatePanel@AchievementSys.templatePanel": {}
+            },
+            {
+                "TeplateTabBtn@AchievementSys.TeplateTabBtn": {}
+            },
+            {
+                "MainPanel@AchievementSys.MainPanel": {}
+            }
+        ],
+        "enabled": true,
+        "layer": 1,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            376,
+            250
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "bottom": {
+        "alpha": 1.0,
+        "anchor_from": "right_middle",
+        "anchor_to": "left_middle",
+        "clip_direction": "left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clip_ratio": 0.0,
+        "clips_children": false,
+        "enabled": true,
+        "fill": true,
+        "grayscale": false,
+        "is_new_nine_slice": false,
+        "keep_ratio": false,
+        "layer": 5,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "nine_slice_buttom": 0,
+        "nine_slice_left": 0,
+        "nine_slice_right": 0,
+        "nine_slice_top": 0,
+        "nineslice_size": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "offset": [
+            4.0,
+            10.0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            16,
+            16
+        ],
+        "texture": "textures/ui/custom_achievement/bottom",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            16,
+            16
+        ],
+        "visible": true
+    },
+    "button_label": {
+        "alpha": "$control_alpha",
+        "color": "$label_color",
+        "font_scale_factor": "$label_font_scale_factor",
+        "font_size": "$label_font_size",
+        "font_type": "smooth",
+        "layer": "$label_layer",
+        "max_size": [
+            "100%",
+            "100%"
+        ],
+        "offset": "$label_offset",
+        "shadow": false,
+        "text": "$label_text",
+        "text_alignment": "center",
+        "type": "label"
+    },
+    "checkBtn@common.button": {
+        "$control_alpha": 1.0,
+        "$default_texture": "",
+        "$hover_texture": "",
+        "$is_new_nine_slice": false,
+        "$label_color": [
+            1,
+            1,
+            1
+        ],
+        "$label_font_scale_factor": 1.0,
+        "$label_font_size": "large",
+        "$label_layer": 3,
+        "$label_offset": [
+            0,
+            0
+        ],
+        "$label_text": "",
+        "$nine_slice_buttom": 0,
+        "$nine_slice_left": 0,
+        "$nine_slice_right": 0,
+        "$nine_slice_top": 0,
+        "$nineslice_size": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "$pressed_button_name": "%AchievementSys.click",
+        "$pressed_texture": "",
+        "$texture_layer": 2,
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "bindings": [
+            {
+                "binding_collection_name": "",
+                "binding_condition": "always_when_visible",
+                "binding_type": "collection_details"
+            }
+        ],
+        "button_mappings": [],
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "default@AchievementSys.default": {}
+            },
+            {
+                "hover@AchievementSys.hover": {}
+            },
+            {
+                "pressed@AchievementSys.pressed": {}
+            },
+            {
+                "button_label@AchievementSys.button_label": {}
+            }
+        ],
+        "draggable": "not_draggable",
+        "enabled": true,
+        "is_handle_button_move_event": true,
+        "layer": 0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            -1.0,
+            0.0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "default",
+            "default"
+        ],
+        "visible": true
+    },
+    "default": {
+        "alpha": "$control_alpha",
+        "is_new_nine_slice": "$is_new_nine_slice",
+        "layer": "$texture_layer",
+        "nine_slice_buttom": "$nine_slice_buttom",
+        "nine_slice_left": "$nine_slice_left",
+        "nine_slice_right": "$nine_slice_right",
+        "nine_slice_top": "$nine_slice_top",
+        "nineslice_size": "$nineslice_size",
+        "texture": "$default_texture",
+        "type": "image"
+    },
+    "description": {
+        "alpha": 1.0,
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "color": [
+            1,
+            1,
+            1
+        ],
+        "enabled": true,
+        "font_scale_factor": 0.9399999976158142,
+        "font_size": "normal",
+        "font_type": "smooth",
+        "layer": 3,
+        "line_padding": 0.0,
+        "max_size": [
+            114.0,
+            0.0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            7.0,
+            37
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "shadow": false,
+        "size": [
+            102,
+            "default"
+        ],
+        "text": "好世界你好世界你好世界你好世界你好世界你好世界你好世界界你好世界你好世界界你好世界你好世界界你好世界你好世界界你好世界你好世界界你好世界你好世界界你好世界你好世界界你好世界你好世界界你好世界你好世界界你好世界你好世界界你好世界你好世界界你好世界你好世界界你好世界你好世界界你好世界你好世界界你好世界你好世界界你好世界你好世界界你好世界你好世界",
+        "text_alignment": "left",
+        "type": "label",
+        "visible": true
+    },
+    "downLine": {
+        "alpha": 1.0,
+        "anchor_from": "right_middle",
+        "anchor_to": "left_middle",
+        "clip_direction": "left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clip_ratio": 0.0,
+        "clips_children": false,
+        "enabled": true,
+        "fill": false,
+        "grayscale": false,
+        "is_new_nine_slice": false,
+        "keep_ratio": true,
+        "layer": 4,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "nine_slice_buttom": 0,
+        "nine_slice_left": 0,
+        "nine_slice_right": 0,
+        "nine_slice_top": 0,
+        "nineslice_size": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "offset": [
+            -8,
+            6
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            16,
+            16
+        ],
+        "texture": "textures/ui/custom_achievement/down",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            16,
+            16
+        ],
+        "visible": true
+    },
+    "dragpanel": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "input_panel1@AchievementSys.input_panel1": {}
+            }
+        ],
+        "enabled": true,
+        "layer": 1,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "0.0%+376.0px",
+            "0.0%+250.0px"
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "fullScreenBtn@common.button": {
+        "$control_alpha": 1.0,
+        "$default_texture": "",
+        "$hover_texture": "",
+        "$is_new_nine_slice": false,
+        "$label_color": [
+            1,
+            1,
+            1
+        ],
+        "$label_font_scale_factor": 1.0,
+        "$label_font_size": "large",
+        "$label_layer": 3,
+        "$label_offset": [
+            0,
+            0
+        ],
+        "$label_text": "",
+        "$nine_slice_buttom": 0,
+        "$nine_slice_left": 0,
+        "$nine_slice_right": 0,
+        "$nine_slice_top": 0,
+        "$nineslice_size": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "$pressed_button_name": "%AchievementSys.click",
+        "$pressed_texture": "",
+        "$texture_layer": 2,
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "bindings": [
+            {
+                "binding_collection_name": "",
+                "binding_condition": "always_when_visible",
+                "binding_type": "collection_details"
+            }
+        ],
+        "button_mappings": [],
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "default@AchievementSys.default": {}
+            },
+            {
+                "hover@AchievementSys.hover": {}
+            },
+            {
+                "pressed@AchievementSys.pressed": {}
+            },
+            {
+                "button_label@AchievementSys.button_label": {}
+            }
+        ],
+        "draggable": "not_draggable",
+        "enabled": true,
+        "is_handle_button_move_event": true,
+        "layer": 4,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0.0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "visible": true
+    },
+    "goal": {
+        "alpha": 1.0,
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "clip_direction": "left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clip_ratio": 0.0,
+        "clips_children": true,
+        "controls": [
+            {
+                "progress@AchievementSys.progress": {}
+            },
+            {
+                "progressTxt@AchievementSys.progressTxt": {}
+            }
+        ],
+        "enabled": true,
+        "fill": false,
+        "grayscale": false,
+        "is_new_nine_slice": false,
+        "keep_ratio": false,
+        "layer": 28,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "nine_slice_buttom": 1,
+        "nine_slice_left": 1,
+        "nine_slice_right": 1,
+        "nine_slice_top": 1,
+        "nineslice_size": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "offset": [
+            5.0,
+            26.0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            102,
+            9
+        ],
+        "texture": "textures/ui/custom_achievement/progressbar01_bg",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            284,
+            20
+        ],
+        "visible": true
+    },
+    "hover": {
+        "alpha": "$control_alpha",
+        "is_new_nine_slice": "$is_new_nine_slice",
+        "layer": "$texture_layer",
+        "nine_slice_buttom": "$nine_slice_buttom",
+        "nine_slice_left": "$nine_slice_left",
+        "nine_slice_right": "$nine_slice_right",
+        "nine_slice_top": "$nine_slice_top",
+        "nineslice_size": "$nineslice_size",
+        "texture": "$hover_texture",
+        "type": "image"
+    },
+    "icon": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_direction": "left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clip_ratio": 0.0,
+        "clips_children": false,
+        "enabled": true,
+        "fill": false,
+        "grayscale": false,
+        "is_new_nine_slice": false,
+        "keep_ratio": true,
+        "layer": 9,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "nine_slice_buttom": 0,
+        "nine_slice_left": 0,
+        "nine_slice_right": 0,
+        "nine_slice_top": 0,
+        "nineslice_size": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "offset": [
+            5,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            15,
+            15
+        ],
+        "texture": "textures/netease/common/image/default",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            0,
+            0
+        ],
+        "visible": true
+    },
+    "iconBg": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_direction": "left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clip_ratio": 0.0,
+        "clips_children": false,
+        "enabled": true,
+        "fill": false,
+        "grayscale": false,
+        "is_new_nine_slice": false,
+        "keep_ratio": false,
+        "layer": 8,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "nine_slice_buttom": 1,
+        "nine_slice_left": 1,
+        "nine_slice_right": 1,
+        "nine_slice_top": 1,
+        "nineslice_size": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "offset": [
+            5,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "0.0%+20.0px",
+            "0.0%+20.0px"
+        ],
+        "texture": "textures/ui/custom_achievement/panel03",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            16,
+            16
+        ],
+        "visible": true
+    },
+    "image1": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_direction": "left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clip_ratio": 0.0,
+        "clips_children": false,
+        "enabled": true,
+        "fill": false,
+        "grayscale": false,
+        "is_new_nine_slice": false,
+        "keep_ratio": false,
+        "layer": 5,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "nine_slice_buttom": 1,
+        "nine_slice_left": 1,
+        "nine_slice_right": 1,
+        "nine_slice_top": 1,
+        "nineslice_size": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "texture": "textures/ui/custom_achievement/icon08_click@3x",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            70,
+            70
+        ],
+        "visible": true
+    },
+    "image2": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_direction": "left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clip_ratio": 0.0,
+        "clips_children": false,
+        "enabled": true,
+        "fill": false,
+        "grayscale": false,
+        "is_new_nine_slice": false,
+        "keep_ratio": false,
+        "layer": 5,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "nine_slice_buttom": 1,
+        "nine_slice_left": 1,
+        "nine_slice_right": 1,
+        "nine_slice_top": 1,
+        "nineslice_size": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "texture": "textures/ui/custom_achievement/icon09_click@3x",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            70,
+            70
+        ],
+        "visible": true
+    },
+    "image4": {
+        "alpha": 1.0,
+        "anchor_from": "right_middle",
+        "anchor_to": "left_middle",
+        "clip_direction": "left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clip_ratio": 0.0,
+        "clips_children": false,
+        "controls": [
+            {
+                "PromptIcon@AchievementSys.PromptIcon": {}
+            },
+            {
+                "goal@AchievementSys.goal": {}
+            },
+            {
+                "Title@AchievementSys.Title": {}
+            },
+            {
+                "description@AchievementSys.description": {}
+            }
+        ],
+        "enabled": true,
+        "fill": false,
+        "grayscale": false,
+        "is_new_nine_slice": false,
+        "keep_ratio": false,
+        "layer": 7,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "nine_slice_buttom": 10,
+        "nine_slice_left": 10,
+        "nine_slice_right": 10,
+        "nine_slice_top": 10,
+        "nineslice_size": [
+            10.0,
+            10.0,
+            10.0,
+            10.0
+        ],
+        "offset": [
+            2,
+            10
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            114,
+            "100.0%c+-8.0px"
+        ],
+        "texture": "textures/ui/custom_achievement/panel04",
+        "type": "image",
+        "uv": [
+            0.0,
+            0.0
+        ],
+        "uv_size": [
+            16,
+            16
+        ],
+        "visible": true
+    },
+    "input_panel1": {
+        "alpha": 1.0,
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "button_mappings": [
+            {
+                "from_button_id": "button.multi_touch",
+                "mapping_type": "pressed",
+                "to_button_id": "#netease_to_button_id"
+            }
+        ],
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "contained": true,
+        "controls": [
+            {
+                "templateBG@AchievementSys.templateBG": {}
+            }
+        ],
+        "draggable": "both",
+        "enabled": true,
+        "layer": 0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "modal": false,
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "0.0%+376.0px",
+            "0.0%+250.0px"
+        ],
+        "type": "input_panel",
+        "visible": true
+    },
+    "label0": {
+        "alpha": 1.0,
+        "anchor_from": "bottom_middle",
+        "anchor_to": "top_middle",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "color": [
+            1,
+            1,
+            1
+        ],
+        "enabled": true,
+        "font_scale_factor": 0.7599999904632568,
+        "font_size": "large",
+        "font_type": "smooth",
+        "layer": 1,
+        "line_padding": 0.0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            9
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "shadow": false,
+        "size": [
+            145,
+            15
+        ],
+        "text": "Hello World!",
+        "text_alignment": "center",
+        "type": "label",
+        "visible": true
+    },
+    "line01": {
+        "alpha": 1.0,
+        "anchor_from": "right_middle",
+        "anchor_to": "left_middle",
+        "clip_direction": "left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clip_ratio": 0.0,
+        "clips_children": false,
+        "enabled": true,
+        "fill": false,
+        "grayscale": false,
+        "is_new_nine_slice": false,
+        "keep_ratio": false,
+        "layer": 5,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "nine_slice_buttom": 0,
+        "nine_slice_left": 0,
+        "nine_slice_right": 0,
+        "nine_slice_top": 0,
+        "nineslice_size": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            13,
+            16
+        ],
+        "texture": "textures/ui/custom_achievement/line01",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            16,
+            16
+        ],
+        "visible": true
+    },
+    "main": {
+        "absorbs_input": true,
+        "always_accepts_input": false,
+        "controls": [
+            {
+                "achievementPanel@AchievementSys.achievementPanel": {}
+            },
+            {
+                "checkBtn@AchievementSys.checkBtn": {}
+            }
+        ],
+        "force_render_below": false,
+        "is_showing_menu": true,
+        "render_game_behind": true,
+        "render_only_when_topmost": true,
+        "should_steal_mouse": false,
+        "type": "screen"
+    },
+    "namespace": "AchievementSys",
+    "pressed": {
+        "alpha": "$control_alpha",
+        "is_new_nine_slice": "$is_new_nine_slice",
+        "layer": "$texture_layer",
+        "nine_slice_buttom": "$nine_slice_buttom",
+        "nine_slice_left": "$nine_slice_left",
+        "nine_slice_right": "$nine_slice_right",
+        "nine_slice_top": "$nine_slice_top",
+        "nineslice_size": "$nineslice_size",
+        "texture": "$pressed_texture",
+        "type": "image"
+    },
+    "progress": {
+        "alpha": 1.0,
+        "anchor_from": "left_middle",
+        "anchor_to": "left_middle",
+        "clip_direction": "left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clip_ratio": 0.3300000131130219,
+        "clips_children": false,
+        "enabled": true,
+        "fill": false,
+        "grayscale": false,
+        "is_new_nine_slice": false,
+        "keep_ratio": false,
+        "layer": 13,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "nine_slice_buttom": 0,
+        "nine_slice_left": 0,
+        "nine_slice_right": 0,
+        "nine_slice_top": 0,
+        "nineslice_size": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "offset": [
+            2,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "96.0%+0.0px",
+            "50.0%+0.0px"
+        ],
+        "texture": "textures/ui/custom_achievement/progressbar01_01",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            280,
+            16
+        ],
+        "visible": true
+    },
+    "progressTxt": {
+        "alpha": 1.0,
+        "anchor_from": "right_middle",
+        "anchor_to": "right_middle",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "color": [
+            1,
+            1,
+            1
+        ],
+        "enabled": true,
+        "font_scale_factor": 0.699999988079071,
+        "font_size": "normal",
+        "font_type": "smooth",
+        "layer": 17,
+        "line_padding": 0.0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            -2,
+            -1
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "shadow": false,
+        "size": [
+            "90.0%+0.0px",
+            "80.0%+0.0px"
+        ],
+        "text": "1/2",
+        "text_alignment": "right",
+        "type": "label",
+        "visible": true
+    },
+    "templateBG": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_direction": "left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clip_ratio": 0.0,
+        "clips_children": false,
+        "enabled": true,
+        "fill": true,
+        "grayscale": false,
+        "is_new_nine_slice": false,
+        "keep_ratio": false,
+        "layer": 0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "nine_slice_buttom": 0,
+        "nine_slice_left": 0,
+        "nine_slice_right": 0,
+        "nine_slice_top": 0,
+        "nineslice_size": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "texture": "",
+        "tiled": "xy",
+        "type": "image",
+        "uv": [
+            0.0,
+            0.0
+        ],
+        "uv_size": [
+            0,
+            0
+        ],
+        "visible": true
+    },
+    "templateHorizontalLine": {
+        "alpha": 1.0,
+        "anchor_from": "right_middle",
+        "anchor_to": "left_middle",
+        "clip_direction": "left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clip_ratio": 0.0,
+        "clips_children": false,
+        "enabled": true,
+        "fill": true,
+        "grayscale": false,
+        "is_new_nine_slice": false,
+        "keep_ratio": false,
+        "layer": 7,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "nine_slice_buttom": 0,
+        "nine_slice_left": 0,
+        "nine_slice_right": 0,
+        "nine_slice_top": 0,
+        "nineslice_size": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "offset": [
+            7,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            5,
+            15
+        ],
+        "texture": "textures/ui/custom_achievement/line01",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            16,
+            16
+        ],
+        "visible": true
+    },
+    "templatePanel": {
+        "alpha": 1.0,
+        "anchor_from": "top_left",
+        "anchor_to": "left_middle",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "templateNodeBtn": {
+                    "alpha": 1.0,
+                    "anchor_from": "center",
+                    "anchor_to": "center",
+                    "clip_offset": [
+                        0,
+                        0
+                    ],
+                    "clips_children": false,
+                    "controls": [
+                        {
+                            "icon@AchievementSys.icon": {}
+                        },
+                        {
+                            "verticalLine@AchievementSys.verticalLine": {}
+                        },
+                        {
+                            "upLine@AchievementSys.upLine": {}
+                        },
+                        {
+                            "templateHorizontalLine@AchievementSys.templateHorizontalLine": {}
+                        },
+                        {
+                            "downLine@AchievementSys.downLine": {}
+                        },
+                        {
+                            "upDownLine@AchievementSys.upDownLine": {}
+                        },
+                        {
+                            "line01@AchievementSys.line01": {}
+                        },
+                        {
+                            "top@AchievementSys.top": {}
+                        },
+                        {
+                            "bottom@AchievementSys.bottom": {}
+                        },
+                        {
+                            "iconBg@AchievementSys.iconBg": {}
+                        },
+                        {
+                            "NodeBtn@AchievementSys.NodeBtn": {}
+                        }
+                    ],
+                    "enabled": true,
+                    "layer": 12,
+                    "max_size": [
+                        0,
+                        0
+                    ],
+                    "min_size": [
+                        0,
+                        0
+                    ],
+                    "offset": [
+                        5.5,
+                        2.5
+                    ],
+                    "priority": 0,
+                    "propagate_alpha": false,
+                    "size": [
+                        30,
+                        30
+                    ],
+                    "type": "panel",
+                    "visible": true
+                }
+            }
+        ],
+        "enabled": true,
+        "layer": 1,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            56.0,
+            113.0
+        ],
+        "orientation": "vertical",
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            40,
+            30
+        ],
+        "type": "stack_panel",
+        "use_priority": false,
+        "visible": true
+    },
+    "top": {
+        "alpha": 1.0,
+        "anchor_from": "right_middle",
+        "anchor_to": "left_middle",
+        "clip_direction": "left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clip_ratio": 0.0,
+        "clips_children": false,
+        "enabled": true,
+        "fill": false,
+        "grayscale": false,
+        "is_new_nine_slice": false,
+        "keep_ratio": false,
+        "layer": 5,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "nine_slice_buttom": 0,
+        "nine_slice_left": 0,
+        "nine_slice_right": 0,
+        "nine_slice_top": 0,
+        "nineslice_size": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "offset": [
+            4,
+            -7
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            16,
+            16
+        ],
+        "texture": "textures/ui/custom_achievement/top",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            16,
+            16
+        ],
+        "visible": true
+    },
+    "upDownLine": {
+        "alpha": 1.0,
+        "anchor_from": "right_middle",
+        "anchor_to": "left_middle",
+        "clip_direction": "left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clip_ratio": 0.0,
+        "clips_children": false,
+        "enabled": true,
+        "fill": false,
+        "grayscale": false,
+        "is_new_nine_slice": false,
+        "keep_ratio": true,
+        "layer": 6,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "nine_slice_buttom": 0,
+        "nine_slice_left": 0,
+        "nine_slice_right": 0,
+        "nine_slice_top": 0,
+        "nineslice_size": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "offset": [
+            -8,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            16,
+            16
+        ],
+        "texture": "textures/ui/custom_achievement/updown",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            16,
+            16
+        ],
+        "visible": true
+    },
+    "upLine": {
+        "alpha": 1.0,
+        "anchor_from": "right_middle",
+        "anchor_to": "left_middle",
+        "clip_direction": "left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clip_ratio": 0.0,
+        "clips_children": false,
+        "enabled": true,
+        "fill": false,
+        "grayscale": false,
+        "is_new_nine_slice": false,
+        "keep_ratio": true,
+        "layer": 4,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "nine_slice_buttom": 0,
+        "nine_slice_left": 0,
+        "nine_slice_right": 0,
+        "nine_slice_top": 0,
+        "nineslice_size": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "offset": [
+            -8,
+            -6
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            16,
+            16
+        ],
+        "texture": "textures/ui/custom_achievement/up",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            16,
+            16
+        ],
+        "visible": true
+    },
+    "verticalLine": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_direction": "left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clip_ratio": 0.0,
+        "clips_children": false,
+        "enabled": true,
+        "fill": false,
+        "grayscale": false,
+        "is_new_nine_slice": false,
+        "keep_ratio": false,
+        "layer": 2,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "nine_slice_buttom": 0,
+        "nine_slice_left": 0,
+        "nine_slice_right": 0,
+        "nine_slice_top": 0,
+        "nineslice_size": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "offset": [
+            21,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            16,
+            24
+        ],
+        "texture": "textures/ui/custom_achievement/line05",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            16,
+            16
+        ],
+        "visible": true
+    }
+}

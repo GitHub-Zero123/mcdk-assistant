@@ -1,0 +1,71 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "numparticles": {
+            "value": "2"
+        },
+        "particlesize": {
+            "max": "0.0 0.0",
+            "min": "0.0 0.0"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "ani": {
+                "fps": "0",
+                "name": "textures/sfxs/2025s1/ss_s3guofeng_horse_run_tw",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s1/ss_s3guofeng_horse_run_tw"
+        },
+        "timetolive": {
+            "max": "5.0",
+            "min": "5.0"
+        },
+        "trail": {
+            "colorfade": [
+                {
+                    "color": "1.0 1.0 1.0 1.0",
+                    "time": "0.000%"
+                },
+                {
+                    "color": "1.0 1.0 1.0 0.1071428571428571",
+                    "time": "55.000%"
+                },
+                {
+                    "color": "1.0 1.0 1.0 0.0",
+                    "time": "100.000%"
+                }
+            ],
+            "facemode": 1,
+            "lifetime": 0.3,
+            "maxnum": 32,
+            "mindistance": 0.01,
+            "texmode": 0,
+            "textile": "1.0 1.0",
+            "useparticlecolor": false,
+            "useparticlewidth": false,
+            "widthfade": [
+                {
+                    "time": "0.0%",
+                    "value": "0.8000000000000002"
+                },
+                {
+                    "time": "100.0%",
+                    "value": "0.30000000000000004"
+                }
+            ],
+            "worldspace": true
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

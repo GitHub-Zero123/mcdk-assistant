@@ -1,0 +1,55 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "0.01 0.01 -0.1",
+            "value": "Direction",
+            "min": "-0.01 -0.01 -0.2"
+        },
+        "numparticles": {
+            "value": "5"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "emissionrate": {
+            "max": "3.0",
+            "min": "3.0"
+        },
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.6 0.1 0.6"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": true,
+                "name": "textures/sfxs/pet_squid/ss_squid_ghast_huomiao",
+                "fps": "2"
+            },
+            "name": "textures/sfxs/pet_squid/ss_squid_ghast_huomiao"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.2",
+            "min": "0.1"
+        }
+    }
+}

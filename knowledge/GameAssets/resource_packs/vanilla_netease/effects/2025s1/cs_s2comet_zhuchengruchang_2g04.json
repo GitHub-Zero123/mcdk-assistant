@@ -1,0 +1,91 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.15"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.9882 0.6196 0.4732",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.6667 0.4980 0.4911",
+                "time": "3.4%"
+            },
+            {
+                "color": "1.0000 0.7294 0.4902 0.5179",
+                "time": "8.4%"
+            },
+            {
+                "color": "0.2902 0.7765 1.0000 0.5089",
+                "time": "12.9%"
+            },
+            {
+                "color": "0.2627 0.5961 1.0000 0.0804",
+                "time": "63.4%"
+            },
+            {
+                "color": "0.2941 0.4510 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "delay": 2.42,
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "55.0",
+            "min": "55.0"
+        },
+        "emitterpath": [
+            {
+                "offset": "0.0 0.2 0.0",
+                "rotation": "0.0 0.0 0.0",
+                "time": "0.0"
+            }
+        ],
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Rotate Y"
+        },
+        "layer": 5,
+        "numparticles": {
+            "value": "4"
+        },
+        "particlesize": {
+            "max": "9.0 9.0",
+            "min": "9.0 9.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.6 0.6",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "10.0%"
+            },
+            {
+                "scale": "1.1 1.1",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s1/cs_s2comet_zhuchengruchang_sun02"
+        },
+        "timetolive": {
+            "max": "0.35",
+            "min": "0.35"
+        }
+    }
+}

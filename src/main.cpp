@@ -86,6 +86,43 @@ int main() {
         {"search_netease_guide", "搜索网易MC独占的教学资料内容（不包含国际版通用内容）", &mcdk::SearchService::search_netease_guide},
     };
 
+    // search_game_assets 单独注册（有额外 scope 参数，返回结构不同）
+    {
+        auto tool = mcp::tool_builder("search_game_assets")
+            .with_description(
+                "模糊搜索原版 Minecraft 游戏资产文件（行为包/资源包），同时匹配文件路径名与文件内容。"
+                "scope: 0=搜索全部资产, 1=仅搜索行为包(behavior_packs), 2=仅搜索资源包(resource_packs)")
+            .with_string_param("keyword", "搜索关键词（支持文件名片段或文件内容关键词）", true)
+            .with_number_param("scope", "搜索范围：0=全部（默认），1=仅行为包，2=仅资源包", false)
+            .with_number_param("top_k", "返回结果数量上限，默认返回全部匹配", false)
+            .with_read_only_hint(true)
+            .with_idempotent_hint(true)
+            .build();
+
+        srv.register_tool(tool,
+            [&search_svc](const mcp::json& params, const std::string&) -> mcp::json {
+                std::string keyword = params.value("keyword", "");
+                if (keyword.empty())
+                    throw mcp::mcp_exception(mcp::error_code::invalid_params, "keyword is required");
+                int scope  = params.contains("scope")  && !params["scope"].is_null()  ? params["scope"].get<int>()  : 0;
+                int top_k  = params.contains("top_k")  && !params["top_k"].is_null()  ? params["top_k"].get<int>()  : -1;
+
+                auto results = search_svc.search_game_assets(keyword, scope, top_k);
+
+                mcp::json content_arr = mcp::json::array();
+                for (const auto& r : results) {
+                    content_arr.push_back({
+                        {"type",     "text"},
+                        {"text",     r.snippet},
+                        {"file",     r.rel_path},
+                        {"score",    r.score}
+                    });
+                }
+                return {{"content", content_arr}};
+            }
+        );
+    }
+
     for (auto& td : tools) {
         auto tool = mcp::tool_builder(td.name)
             .with_description(td.desc)
@@ -414,6 +451,7 @@ int main() {
 
     std::cout << "[MCDK] MCP server starting on " << conf.host << ":" << conf.port << std::endl;
     std::cout << "[MCDK] docs indexed: " << search_svc.doc_count() << std::endl;
+    std::cout << "[MCDK] game assets indexed: " << search_svc.game_assets_count() << std::endl;
 
     srv.start(true);
 

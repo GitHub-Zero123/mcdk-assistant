@@ -1,0 +1,58 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.0000 0.0157 0.2054",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.2824 0.0000 0.6875",
+                "time": "37.9%"
+            },
+            {
+                "color": "1.0000 0.2824 0.0000 0.6607",
+                "time": "59.2%"
+            },
+            {
+                "color": "1.0000 0.0000 0.0157 0.1964",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "layer": 2,
+        "numparticles": {
+            "value": "1"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.48 0.48",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.11 1.11",
+                "time": "24.0%"
+            },
+            {
+                "scale": "1.44 1.44",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s7/cs_s7NiuMoWang_weapon_sun"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

@@ -1,0 +1,52 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "2.5"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "0.2235 1.0000 0.3765 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.4471 1.0000 0.4667 0.5179",
+                "time": "47.9%"
+            },
+            {
+                "color": "0.5490 1.0000 0.5804 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "delay": 1.5,
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "particlesize": {
+            "max": "1.5 1.5",
+            "min": "1.5 1.5"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 0.0 360.0"
+        },
+        "texture": {
+            "name": "textures/sfxs/2025s6/cs_s6FlowerDragon_skin_glow"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

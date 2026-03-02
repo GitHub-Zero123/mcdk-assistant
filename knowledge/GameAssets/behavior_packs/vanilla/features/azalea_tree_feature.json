@@ -1,0 +1,92 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:tree_feature": {
+    "description": {
+      "identifier": "minecraft:azalea_tree_feature"
+    },
+    "acacia_trunk": {
+      "trunk_width": 1,
+      "trunk_height": {
+        "base": 4,
+        "intervals": [ 2 ],
+        "min_height_for_canopy": 3
+      },
+      "trunk_block": {
+        "name": "minecraft:oak_log"
+      },
+      "trunk_lean": {
+        "allow_diagonal_growth": true,
+        "lean_height": {
+          "range_min": 2,
+          "range_max": 3
+        },
+        "lean_steps": {
+          "range_min": 3,
+          "range_max": 4
+        },
+        "lean_length": {
+          "range_min": 1,
+          "range_max": 2
+        }
+      }
+    },
+    "random_spread_canopy": {
+      "canopy_height": 2,
+      "canopy_radius": 3,
+      "leaf_placement_attempts": 50,
+      "leaf_blocks": [
+        [ "minecraft:azalea_leaves", 3 ],
+        [ "minecraft:azalea_leaves_flowered", 1 ]
+      ]
+    },
+    // Blocks the tree can be placed on.
+    "may_grow_on": [
+      { "tags": "query.any_tag('dirt')" },
+      "minecraft:clay"
+    ],
+    // Any "may_grow_on" block that is not specified here will be replaced with the first block in this list.
+    "base_block": [
+      "minecraft:dirt_with_roots"
+    ],
+    // Blocks to ignore when checking for clearance around the tree. Already includes all blocks specified in "may_replace".
+    "may_grow_through": [
+      { "tags": "query.any_tag('dirt')" },
+      "minecraft:clay"
+    ],
+    // Blocks that can be replaced by the tree's trunk and canopy.
+    "may_replace": [
+      "minecraft:air",
+      "minecraft:snow_layer",
+      // All leaves
+      "minecraft:acacia_leaves",
+      "minecraft:azalea_leaves",
+      "minecraft:azalea_leaves_flowered",
+      "minecraft:birch_leaves",
+      "minecraft:cherry_leaves",
+      "minecraft:dark_oak_leaves",
+      "minecraft:jungle_leaves",
+      "minecraft:mangrove_leaves",
+      "minecraft:oak_leaves",
+      "minecraft:pale_oak_leaves",
+      "minecraft:spruce_leaves",
+      // Water
+      "minecraft:water",
+      "minecraft:flowing_water",
+      // The plants this can grow from
+      "minecraft:azalea",
+      "minecraft:flowering_azalea",
+      // An arbitrary subset of plants
+      "minecraft:moss_carpet",
+      "minecraft:short_grass",
+      "minecraft:fern",
+      "minecraft:grass_block",
+      "minecraft:air",
+      "minecraft:sunflower",
+      "minecraft:lilac",
+      "minecraft:tall_grass",
+      "minecraft:large_fern",
+      "minecraft:rose_bush",
+      "minecraft:peony"
+    ]
+  }
+}

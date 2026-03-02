@@ -1,0 +1,79 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.3"
+        },
+        "dampingforce": {
+            "value": "2.0"
+        },
+        "delay": 3.0,
+        "direction": {
+            "max": "1.0 0.5 1.0",
+            "min": "-1.0 0.5 -1.0",
+            "value": "Outwards"
+        },
+        "emissionrate": {
+            "max": "100.0",
+            "min": "100.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "1.0 1.0 1.0"
+        },
+        "emittertype": {
+            "value": "Cone"
+        },
+        "faceCameraMode": {
+            "value": "Direction"
+        },
+        "numparticles": {
+            "value": "12"
+        },
+        "particlesize": {
+            "max": "3.75 6.0",
+            "min": "1.5 2.5"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.2 0.2",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.58 0.58",
+                "time": "10.0%"
+            },
+            {
+                "scale": "0.8 0.8",
+                "time": "40.0%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "34",
+                "name": "textures/sfxs/2025s1/cs_s3guofeng_zhuchengruchang_bz_ms",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s1/cs_s3guofeng_zhuchengruchang_bz_ms"
+        },
+        "thickness": {
+            "value": "1.0"
+        },
+        "timetolive": {
+            "max": "0.4",
+            "min": "0.4"
+        },
+        "velocity": {
+            "max": "10.0",
+            "min": "10.0"
+        }
+    }
+}

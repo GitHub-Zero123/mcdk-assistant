@@ -1,0 +1,63 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.5098 0.2235 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.3922 0.2078 1.0000",
+                "time": "23.4%"
+            },
+            {
+                "color": "1.0000 0.2510 0.2627 0.9732",
+                "time": "79.5%"
+            },
+            {
+                "color": "1.0000 0.1843 0.6078 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "0.0 1.0 0.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "10.0",
+            "min": "5.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.2 0.3 0.2"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "particlesize": {
+            "max": "0.01 0.01",
+            "min": "0.02 0.02"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "name": "textures/sfxs/2025s6/ss_s6FlowerDragon_weaponA_01"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.2",
+            "min": "0.3"
+        },
+        "velocity": {
+            "max": "0.3",
+            "min": "0.4"
+        }
+    }
+}

@@ -1,0 +1,104 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "1.0"
+        },
+        "colorfade": [],
+        "dampingforce": {
+            "value": "2.0"
+        },
+        "depthtest": {
+            "enable": "true"
+        },
+        "direction": {
+            "max": "0.1 0.0 0.1",
+            "min": "-0.1 0.0 -0.1",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "8.0",
+            "min": "4.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.5 0.3 0.5"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "enablecolor": {
+            "enable": "false"
+        },
+        "enableloop": {
+            "enable": "true"
+        },
+        "inactivetime": {
+            "value": "0.1"
+        },
+        "independent": false,
+        "material": {
+            "name": "Materials/Particle.xml"
+        },
+        "particlesize": {
+            "max": "0.3 0.2",
+            "min": "0.25 0.3"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 0.0 360.0"
+        },
+        "rotationSpeedRange": {
+            "max": "0.0 0.0 300.0",
+            "min": "0.0 0.0 -200.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.608 0.608",
+                "time": "20.0%"
+            },
+            {
+                "scale": "0.745 0.745",
+                "time": "40.0%"
+            },
+            {
+                "scale": "0.697 0.697",
+                "time": "60.0%"
+            },
+            {
+                "scale": "0.714 0.714",
+                "time": "80.0%"
+            },
+            {
+                "scale": "0.708 0.708",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "1",
+                "name": "textures/sfxs/s1/yx_jiaoyin_seimei_001",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/s1/yx_jiaoyin_seimei_001"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "1.0",
+            "min": "2.0"
+        },
+        "velocity": {
+            "max": "0.1",
+            "min": "0.2"
+        }
+    }
+}

@@ -1,0 +1,65 @@
+{
+    "particleeffect": {
+        "independent": false,
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "value": "Direction",
+            "min": "0.0 0.0 0.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.2232",
+                "time": "0.00"
+            },
+            {
+                "color": "1.0000 1.0000 0.2400 0.2232",
+                "time": "1.00"
+            }
+        ],
+        "emissionrate": {
+            "max": "1.0",
+            "min": "1.0"
+        },
+        "emitterScaleCurve": [],
+        "layer": 2,
+        "texture": {
+            "ani": {
+                "shuffle": false,
+                "name": "textures/sfxs/pet_dragon/ss_myth_dragon_candle",
+                "fps": "15"
+            },
+            "name": "textures/sfxs/pet_dragon/ss_myth_dragon_candle"
+        },
+        "enableloop": {
+            "enable": "true"
+        },
+        "delay": 2.4,
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "depthtest": {
+            "enable": "true"
+        },
+        "emittersize": {
+            "value": "0.0 0.0 0.0"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "emitterscale": [],
+        "particlesize": {
+            "max": "0.05 0.05",
+            "min": "0.05 0.05"
+        }
+    }
+}

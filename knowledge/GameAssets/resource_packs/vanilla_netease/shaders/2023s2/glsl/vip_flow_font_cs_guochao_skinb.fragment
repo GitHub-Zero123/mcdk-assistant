@@ -1,0 +1,61 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+precision highp float;
+
+#include "fragmentVersionCentroidUV.h"
+#include "uniformWorldConstants.h"
+#include "uniformEntityConstants.h"
+
+#include "uniformPerFrameConstants.h"
+#include "uniformShaderConstants.h"
+#include "noise.h"
+#include "util.h"
+
+LAYOUT_BINDING(0) uniform sampler2D TEXTURE_0; // base map & alpha
+LAYOUT_BINDING(1) uniform sampler2D TEXTURE_1; // flow font
+
+#define FONT_COLOR vec3(0.0,79.0,84.0)//<name:文字颜色>
+#define DISTORT_STRENGTH 0.0500//<name:文字扭曲强度>
+#define NOISE_FLOW_SPEED 0.0400//<name:扰动速度>
+#define NOISE_DENSITY 1024.0000//<name:扰动密度>
+
+#define NOISE_COLOR vec3(167.0,255.0,255.0)//<name:雾颜色>
+#define NOISE_SCALE 0.5000//<name:雾气粗糙度>
+#define NOISE_BIAS 0.6000//<name:雾气增强>
+
+#define GLOW_COLOR vec3(52.0,229.0,255.0)//<name:辉光颜色>
+
+#define FLOAT_FONT_SPEED 0.1000//<name:流光流速>
+#define FLOAT_FONT_STRENGTH vec3(1.0,1.0,1.0)//<name:流光强度(三通道)>
+
+const float FROM_255_TO_1 = 1.0 / 255.0;
+
+const vec3 fontColor = FONT_COLOR * FROM_255_TO_1;
+const vec3 noiseColor = NOISE_COLOR * FROM_255_TO_1;
+const vec3 glowColor = GLOW_COLOR * FROM_255_TO_1;
+
+varying vec4 fogColor;
+
+void main() {
+	float noise = perlin((uv + TIME * NOISE_FLOW_SPEED) * NOISE_DENSITY, 64.0, 64.0) * NOISE_SCALE;
+
+	float distort = noise * DISTORT_STRENGTH;
+	vec3 mask = texture2D(TEXTURE_0, uv + distort).rgb;
+	float fontMask = mask.b;
+	float glowMask = max(0.0, mask.g - fontMask);
+	float fogMask = max(0.0, mask.r * clamp(noise + NOISE_BIAS, 0.0, 1.0) - fontMask - glowMask);
+	float alphaMask = max(max(0.0, fogMask), max(fontMask, glowMask));
+
+	// floating font color
+	vec2 floatFontUV = fract(uv + TIME * FLOAT_FONT_SPEED);
+	vec3 floatFontColor = texture2D(TEXTURE_1, floatFontUV).rgb;
+
+	// blending
+	vec3 finalColor = fontMask * (fontColor + floatFontColor * FLOAT_FONT_STRENGTH) + fogMask * noiseColor + glowMask * glowColor;
+
+	// apply fog
+	finalColor.rgb = mix(finalColor.rgb, fogColor.rgb, fogColor.a);
+
+	// gl_FragColor = vec4(glowMask);
+	gl_FragColor = vec4(finalColor, alphaMask);
+}

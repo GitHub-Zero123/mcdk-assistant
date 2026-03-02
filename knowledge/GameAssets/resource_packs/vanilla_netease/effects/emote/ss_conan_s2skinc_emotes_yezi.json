@@ -1,0 +1,68 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "1.2"
+        },
+        "colorfade": [
+            {
+                "color": "0.7686 1.0000 0.2196 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.1961 0.7451 0.1333 0.8839",
+                "time": "71.6%"
+            },
+            {
+                "color": "0.2549 0.6706 0.1843 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "delay": 0.2,
+        "direction": {
+            "max": "0.0 1.0 0.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "3.0",
+            "min": "5.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.7 0.2 0.0"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "numparticles": {
+            "value": "5"
+        },
+        "particlesize": {
+            "max": "0.1 0.1",
+            "min": "0.2 0.2"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 0.0 360.0"
+        },
+        "texture": {
+            "name": "textures/sfxs/emote/ss_conan_s2skinc_emotes_yezi"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.8",
+            "min": "1.0"
+        },
+        "velocity": {
+            "max": "0.5",
+            "min": "0.3"
+        }
+    }
+}

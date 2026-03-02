@@ -1,0 +1,145 @@
+{
+    "namespace": "warn_anti_addiction",
+    "warn_anti_addiction_screen@common.base_screen": {
+        "type": "screen",
+        "size": [
+            "50%y",
+            "40%"
+        ],
+        "$screen_content": "warn_anti_addiction.item_detail_dialog"
+    },
+    "item_detail_dialog": {
+        "type": "input_panel",
+        "layer": 500,
+        "size": [
+            "100%",
+            "100%"
+        ],
+        "controls": [
+            {
+                "background@common.screen_background": {
+                    "alpha": 0,
+                    "layer": 1,
+                    "size": [
+                        "150%",
+                        "150%"
+                    ]
+                }
+            },
+            {
+                "dialog_content": {
+                    "type": "panel",
+                    "layer": 2,
+                    "size": [
+                        "40%",
+                        "70%x"
+                    ],
+                    "controls": [
+                        {
+                            "common_panel@common.common_panel": {
+                                "$show_close_button": false,
+                                "$dialog_background": "dialog_background_hollow_2"
+                            }
+                        },
+                        {
+                            "hint_label": {
+                                "type": "label",
+                                "size": [
+                                    "80%",
+                                    60
+                                ],
+                                "anchor_from": "top_left",
+                                "anchor_to": "top_left",
+                                "offset": [
+                                    "10%",
+                                    "25%"
+                                ],
+                                "color": "$body_text_color",
+                                "text_alignment": "left",
+                                "font_type": "smooth",
+                                "layer": 5,
+                                "shadow": false,
+                                "text": "#text",
+                                "bindings": [
+                                    {
+                                        "binding_name": "#min_left",
+                                        "binding_name_override": "#text"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "cancel_button@common_buttons.light_text_button": {
+                                "$pressed_button_name": "button.cancel_button",
+                                "$button_text": "lanGame.searchCancel",
+                                "size": [
+                                    "50%-8px",
+                                    30
+                                ],
+                                "anchor_from": "bottom_left",
+                                "anchor_to": "bottom_left",
+                                "offset": [
+                                    7,
+                                    -7
+                                ],
+                                "visible": "#is_verified",
+                                "bindings": [
+                                    {
+                                        "binding_name": "(not #is_verified)",
+                                        "binding_name_override": "#visible"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "verify_button@common_buttons.light_text_button": {
+                                "$pressed_button_name": "button.verify_button",
+                                "$button_text": "netease.warn_anti_addiction.verify",
+                                "size": [
+                                    "50%-8px",
+                                    30
+                                ],
+                                "anchor_from": "bottom_right",
+                                "anchor_to": "bottom_right",
+                                "offset": [
+                                    -7,
+                                    -7
+                                ],
+                                "visible": "#is_verified",
+                                "bindings": [
+                                    {
+                                        "binding_name": "(not #is_verified)",
+                                        "binding_name_override": "#visible"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "close_button@common_buttons.light_text_button": {
+                                "$pressed_button_name": "button.close_button",
+                                "$button_text": "lanGame.searchCancel",
+                                "size": [
+                                    "50%-8px",
+                                    30
+                                ],
+                                "anchor_from": "bottom_middle",
+                                "anchor_to": "bottom_middle",
+                                "offset": [
+                                    0,
+                                    -7
+                                ],
+                                "visible": "#is_verified",
+                                "bindings": [
+                                    {
+                                        "binding_name": "#is_verified",
+                                        "binding_name_override": "#visible"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

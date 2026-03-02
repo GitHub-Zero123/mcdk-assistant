@@ -1,0 +1,94 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.2"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "0.5922 1.0000 1.0000 1.0000",
+                "time": "0.00"
+            },
+            {
+                "color": "0.3490 0.9137 1.0000 1.0000",
+                "time": "0.16"
+            },
+            {
+                "color": "0.3529 0.7529 1.0000 1.0000",
+                "time": "0.30"
+            }
+        ],
+        "dampingforce": {
+            "value": "2.0"
+        },
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Outwards"
+        },
+        "emissionrate": {
+            "max": "15.0",
+            "min": "20.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.1 0.1 0.1"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "enableloop": {
+            "enable": "true"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Direction"
+        },
+        "particlesize": {
+            "max": "0.1 0.1",
+            "min": "0.15 0.15"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.96 0.96",
+                "time": "0.00"
+            },
+            {
+                "scale": "1.71 1.71",
+                "time": "0.97"
+            },
+            {
+                "scale": "2.28 2.28",
+                "time": "2.00"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "36",
+                "name": "textures/sfxs/2025s5/cs_s5Tidal_weapon_shlz1",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s5/cs_s5Tidal_weapon_shlz1"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.2",
+            "min": "0.2"
+        },
+        "velocity": {
+            "max": "2.0",
+            "min": "2.0"
+        }
+    }
+}

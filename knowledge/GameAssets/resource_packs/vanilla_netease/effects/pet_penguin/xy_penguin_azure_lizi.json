@@ -1,0 +1,95 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "0.0 -1.0 0.0",
+            "value": "Direction",
+            "min": "0.0 -1.0 0.0"
+        },
+        "prewarm": true,
+        "numparticles": {
+            "value": "5"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.7294 0.4902 0.0000",
+                "time": "0.00"
+            },
+            {
+                "color": "1.0000 0.8588 0.4902 1.0000",
+                "time": "0.15"
+            },
+            {
+                "color": "1.0000 1.0000 0.3059 0.5000",
+                "time": "0.28"
+            },
+            {
+                "color": "0.3961 1.0000 0.6784 1.0000",
+                "time": "0.53"
+            },
+            {
+                "color": "0.2588 0.9294 1.0000 0.0000",
+                "time": "0.80"
+            }
+        ],
+        "emissionrate": {
+            "max": "20.0",
+            "min": "10.0"
+        },
+        "emitterScaleCurve": [],
+        "layer": 15,
+        "emittersize": {
+            "value": "0.9 1.0 0.9"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "emittertype": {
+            "value": "Cylinder"
+        },
+        "timetolive": {
+            "max": "0.6",
+            "min": "0.8"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": false,
+                "name": "/pet_penguin",
+                "fps": "16"
+            },
+            "name": "textures/sfxs/pet_penguin/cs_atlan_weapon_lizi"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.1",
+            "min": "0.1"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "particlesize": {
+            "max": "0.04 0.04",
+            "min": "0.06 0.06"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.08 1.08",
+                "time": "0.00"
+            },
+            {
+                "scale": "0.6 0.6",
+                "time": "0.57"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "2.00"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "2.00"
+            }
+        ]
+    }
+}

@@ -1,0 +1,28 @@
+{
+    "format_version": "1.16.100",
+    "minecraft:cave_carver_feature": {
+        "description": {
+            "identifier": "minecraft:underground_cave_carver_feature"
+        },
+        "fill_with": "minecraft:air",
+        "width_modifier": 0.0,
+        "skip_carve_chance": 33,
+        "y_scale": [
+            0.1,
+            0.9
+        ],
+        "height_limit": 236,
+        "horizontal_radius_multiplier": [
+            0.7,
+            1.4
+        ],
+        "vertical_radius_multiplier": [
+            0.8,
+            1.3
+        ],
+        "floor_level": [
+            -1.0,
+            -0.4
+        ]
+    }
+}

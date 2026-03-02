@@ -1,0 +1,77 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "1.1999999999999997"
+        },
+        "colorfade": [
+            {
+                "color": "0.4706 1.0000 0.9412 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.9529 0.2510 0.9821",
+                "time": "16.8%"
+            },
+            {
+                "color": "1.0000 0.9216 0.3255 0.8661",
+                "time": "35.8%"
+            },
+            {
+                "color": "0.4706 1.0000 0.9412 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "delay": 0.25,
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "layer": 4,
+        "particlesize": {
+            "max": "2.5 2.8",
+            "min": "1.5 1.8"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 666.0",
+            "min": "0.0 0.0 -666.0"
+        },
+        "rotationSpeedRange": {
+            "max": "0.0 0.0 20.0",
+            "min": "0.0 0.0 -35.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.75 0.75",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.1 1.1",
+                "time": "26.3%"
+            },
+            {
+                "scale": "1.2 1.2",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "0",
+                "name": "textures/sfxs/2025s1/sh_s3guofeng_skinA_gx01",
+                "shuffle": true
+            },
+            "name": "textures/sfxs/2025s1/sh_s3guofeng_skinA_gx01"
+        },
+        "timetolive": {
+            "max": "1.8000000000000005",
+            "min": "1.4000000000000004"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

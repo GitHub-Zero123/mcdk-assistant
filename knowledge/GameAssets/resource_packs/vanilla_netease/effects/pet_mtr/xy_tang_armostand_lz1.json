@@ -1,0 +1,68 @@
+{
+    "particleeffect": {
+        "independent": false,
+        "direction": {
+            "max": "0.4 -1.0 0.4",
+            "value": "Direction",
+            "min": "-0.4 -1.0 -0.4"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.3882 0.6235 0.7321",
+                "time": "0.00"
+            },
+            {
+                "color": "1.0000 0.2392 0.5804 0.6071",
+                "time": "0.28"
+            },
+            {
+                "color": "1.0000 0.2392 0.5059 0.5089",
+                "time": "0.50"
+            }
+        ],
+        "emissionrate": {
+            "max": "5.0",
+            "min": "3.0"
+        },
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.7 0.0 0.7000000000000001"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": false,
+                "name": "textures/sfxs/pet_mtr/xy_tang_armostand_lz1",
+                "fps": "15"
+            },
+            "name": "textures/sfxs/pet_mtr/xy_tang_armostand_lz1"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "timetolive": {
+            "max": "0.5",
+            "min": "1.0"
+        },
+        "depthtest": {
+            "enable": "true"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "1.2",
+            "min": "0.5"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "particlesize": {
+            "max": "0.15 0.15",
+            "min": "0.08 0.08"
+        }
+    }
+}

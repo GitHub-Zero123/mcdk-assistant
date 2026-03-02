@@ -1,0 +1,90 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.20000000000000015"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.5089",
+                "time": "4.5%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.5179",
+                "time": "95.5%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "constantforce": {
+            "value": "0.0 0.01 0.0"
+        },
+        "dampingforce": {
+            "value": "10.0"
+        },
+        "direction": {
+            "max": "0.0 0.01 0.0",
+            "min": "0.0 0.01 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "3000.0",
+            "min": "3000.0"
+        },
+        "emitterpath": [
+            {
+                "offset": "-5.6 0.0 -1.0",
+                "rotation": "0.0 0.0 0.0",
+                "time": "0.0"
+            }
+        ],
+        "enableloop": {
+            "enable": "true"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Direction Horizontal"
+        },
+        "numparticles": {
+            "value": "1"
+        },
+        "particlesize": {
+            "max": "0.6 0.5",
+            "min": "0.6 0.5"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "90.0 0.0 175.0",
+            "min": "90.0 0.0 175.0"
+        },
+        "texture": {
+            "ani": {
+                "fps": "14",
+                "name": "textures/sfxs/2025s5/cs_s5Fire_skin_birth_fire08",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s5/cs_s5Fire_skin_birth_fire08"
+        },
+        "timetolive": {
+            "max": "5.9",
+            "min": "5.9"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

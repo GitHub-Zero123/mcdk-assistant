@@ -1,0 +1,80 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.2"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "0.4392 1.0000 0.7961 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.3059 0.8392 1.0000 1.0000",
+                "time": "43.2%"
+            },
+            {
+                "color": "0.2000 0.5059 1.0000 1.0000",
+                "time": "72.9%"
+            },
+            {
+                "color": "0.0627 0.7059 1.0000 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "dampingforce": {
+            "value": "4.5"
+        },
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "70.0",
+            "min": "70.0"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "particlesize": {
+            "max": "0.04 0.04",
+            "min": "0.02 0.02"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "false"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.0 0.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.25 1.25",
+                "time": "10.3%"
+            },
+            {
+                "scale": "1.9 1.9",
+                "time": "29.0%"
+            },
+            {
+                "scale": "1.9 1.9",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s1/ss_s3kjys_weaponA_lizi"
+        },
+        "timetolive": {
+            "max": "0.6",
+            "min": "0.2"
+        },
+        "velocity": {
+            "max": "4.0",
+            "min": "2.0"
+        }
+    }
+}

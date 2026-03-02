@@ -1,0 +1,94 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "0.0 1.0 0.0",
+            "value": "Direction",
+            "min": "0.0 1.0 0.0"
+        },
+        "dampingforce": {
+            "value": "0.1"
+        },
+        "numparticles": {
+            "value": "6"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 0.4980 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.9882 1.0000 0.6902 0.3750",
+                "time": "6.8%"
+            },
+            {
+                "color": "0.9882 1.0000 0.6902 0.6250",
+                "time": "11.8%"
+            },
+            {
+                "color": "0.9882 1.0000 0.6902 0.7946",
+                "time": "18.7%"
+            },
+            {
+                "color": "0.9882 1.0000 0.6902 0.9643",
+                "time": "27.4%"
+            },
+            {
+                "color": "0.7922 1.0000 0.7608 1.0000",
+                "time": "36.3%"
+            },
+            {
+                "color": "0.5843 0.9804 1.0000 1.0000",
+                "time": "44.5%"
+            },
+            {
+                "color": "0.0000 1.0000 1.0000 1.0000",
+                "time": "56.6%"
+            },
+            {
+                "color": "0.0000 0.9843 1.0000 0.9107",
+                "time": "69.2%"
+            },
+            {
+                "color": "0.0980 1.0000 0.9412 0.7232",
+                "time": "83.4%"
+            },
+            {
+                "color": "0.3333 1.0000 1.0000 0.4464",
+                "time": "92.4%"
+            },
+            {
+                "color": "0.3333 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.5 0.9999999999999999 1.0999999999999999"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "timetolive": {
+            "max": "0.7",
+            "min": "0.5"
+        },
+        "texture": {
+            "name": "textures/sfxs/pet_dragon/cs_loong_horseB_fllz"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.2",
+            "min": "0.1"
+        },
+        "particlesize": {
+            "max": "0.04 0.04",
+            "min": "0.03 0.03"
+        }
+    }
+}

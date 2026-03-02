@@ -1,0 +1,65 @@
+{
+    "particleeffect": {
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "10.5%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.9375",
+                "time": "45.5%"
+            },
+            {
+                "color": "0.1451 0.0000 0.5176 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "1.0 0.0 0.0",
+            "min": "1.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "20.0",
+            "min": "20.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.2 0.2 0.2"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Direction"
+        },
+        "numparticles": {
+            "value": "20"
+        },
+        "particlesize": {
+            "max": "0.04 0.32",
+            "min": "0.02 0.16"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "texture": {
+            "name": "textures/sfxs/2025s1/ss_s3kjys_horseB_dpt_lz"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.2",
+            "min": "0.3"
+        }
+    }
+}

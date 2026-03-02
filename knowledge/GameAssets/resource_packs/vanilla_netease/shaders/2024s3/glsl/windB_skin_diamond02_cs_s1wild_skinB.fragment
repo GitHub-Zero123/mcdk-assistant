@@ -1,0 +1,130 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+precision highp float;
+
+#include "fragmentVersionCentroidUV.h"
+#include "uniformWorldConstants.h"
+#include "uniformEntityConstants.h"
+
+#include "uniformPerFrameConstants.h"
+#include "uniformShaderConstants.h"
+#include "fresnel.h"
+#include "util.h"
+
+LAYOUT_BINDING(0) uniform sampler2D TEXTURE_0; // base map
+LAYOUT_BINDING(1) uniform sampler2D TEXTURE_1; // dispersion
+
+const float FROM_255_TO_1 = 1.0 / 255.0;
+
+varying vec3 worldNormal;
+varying vec3 worldViewDir;
+
+#define Color_F vec3(212,0,231)//<name:颜色,color:255>
+#define COLOR_MODE 1.00//<name:颜色模式0乘1加>
+#define MIN_ALPHA 1.0000//<name:最小透明度>
+#define __xx__ 0.0//<name:光照-------------->
+#define FRES_SCALE 1.00//<name:反射强度缩放>
+#define FRES_BIAS 0.20//<name:反射强度加减>
+#define ETA 1.5000//<name:折射率>
+#define DISPARSION_F 0.5000//<name:折射光强度>
+#define dispersionSpeed_F 0.26//<name:折射光流动速度>
+#define __yy__ 0.0000//<name:闪点-------------->
+#define shineInt_F 1.0000//<name:闪点强度>
+#define StarsDensity_F 0.30//<name:闪点密度>
+#define STAR_SIZE 2.00//<name:闪点大小>
+#define UV_PARA vec2(1.0,256.0)//<name:闪烁速度_闪烁划分大小>
+#define UV_SCALE vec2(2.0,2.0)//<name:闪点UV缩放>
+
+const vec3 colorF = Color_F * FROM_255_TO_1;
+
+vec3 lerp3(vec3 a, vec3 b, float x){
+	return a + x * (b - a);
+}
+
+float lerp1(float a, float b, float x){
+	return a + x * (b - a);
+}
+
+float rand(vec2 uv){
+	return fract(sin(dot(uv, vec2(12.9898, 78.233))) * 43758.5453);
+}
+
+vec2 loop(vec2 value, vec2 size){
+return fract(value / size) * size;
+}
+
+vec2 random_unit_vector(vec2 pos){
+	float r = rand(pos * vec2(1.3219547, 0.5133416));
+	r *= 3.1415926535 * 2.0;
+	return vec2(
+		cos(r),
+		sin(r)
+	);
+}
+
+float perlin(vec2 uuv, float BLOCK_SIZE, float BLOCK_NUM){
+	vec2 index = floor(uuv / BLOCK_SIZE);
+	vec2 MAGIC = vec2(BLOCK_NUM, BLOCK_NUM);
+	index = fract(index / BLOCK_NUM) * BLOCK_NUM;
+	uuv = fract(uuv / BLOCK_SIZE);
+
+	vec2 v0 = loop(index, MAGIC);
+	float val0 = dot(random_unit_vector(v0), uuv);
+	v0 = loop(index + vec2(0.0, 1.0), MAGIC);
+	float val1 = dot(random_unit_vector(v0), uuv - vec2(0.0, 1.0));
+	float ret = lerp1(val0, val1, uuv.y);
+
+	v0 = loop(index + vec2(1.0, 0.0), MAGIC);
+	val0 = dot(random_unit_vector(v0), uuv - vec2(1.0, 0.0));
+	v0 = loop(index + vec2(1.0, 1.0), MAGIC);
+	val1 = dot(random_unit_vector(v0), uuv - vec2(1.0, 1.0));
+
+	return lerp1(ret, lerp1(val0, val1, uuv.y), uuv.x);
+}
+
+void main() {
+	const vec3 L = normalize(vec3(0.5, 0.5, 0.5)); // use fake light direction
+	highp vec3 viewDir = normalize(worldViewDir);
+	highp vec3 normalDir = normalize(worldNormal);
+
+	highp float fresnelVal = 1.0 - dot(normalDir, viewDir);
+	fresnelVal = clamp(FRES_BIAS + FRES_SCALE * fresnelVal * fresnelVal, 0.0, 1.0);
+
+	// refraction
+	vec3 dir = refract(viewDir, normalDir, 1.0 / ETA) * 0.5 + 0.5 + TIME * 0.04 * dispersionSpeed_F;
+	vec3 rColor = texture2D(TEXTURE_1, fract(dir.xy)).rgb * DISPARSION_F;
+	
+	// reflection
+	dir = reflect(viewDir, normalDir) * 0.5 + 0.5;
+	rColor += texture2D(TEXTURE_1, dir.xy).rgb * fresnelVal;
+
+	//sparkles
+	vec2 star_uv = floor(floor(uv * vec2(512.0, 512.0) * UV_SCALE) / STAR_SIZE);
+	vec2 move_dir = normalize(vec2(rand(star_uv * 0.4987368153), rand(-star_uv * 0.31168489)) - 0.5);
+	star_uv = star_uv + TIME * move_dir;
+	float star_val = perlin(star_uv, UV_PARA.x, UV_PARA.y) * 0.5 + 0.5;
+	star_val = smoothstep(0.8 - 0.2 * StarsDensity_F, 0.8, star_val);
+	vec3 sparCol = rColor * star_val * shineInt_F;
+
+	// ************* Mixture *************
+	vec3 result = rColor + sparCol;
+	if (COLOR_MODE == 0.0){
+		result = result * colorF;
+	}else{
+		result = result + colorF;
+	}
+
+	// base color and alpha mask
+	vec4 baseColor = texture2D(TEXTURE_0, uv);
+	mediump float alphaMask = step(0.5, baseColor.a);
+	result = alphaMask * baseColor.rgb + (1.0 - alphaMask) * result;
+#ifdef USE_OVERLAY
+	result = mix(result, OVERLAY_COLOR.rgb, OVERLAY_COLOR.a);
+#endif // USE_OVERLAY
+
+	// 1.0(use base map) or MIN_ALPHA(use shader color)
+	alphaMask += (1.0 - alphaMask) * fresnelVal; // stronger reflection brings higher alpha
+	alphaMask = max(alphaMask, MIN_ALPHA);
+
+	gl_FragColor = vec4(result, alphaMask);
+}

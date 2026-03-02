@@ -1,0 +1,68 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 0.3529 0.3125",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 0.3529 0.1786",
+                "time": "23.7%"
+            },
+            {
+                "color": "1.0000 1.0000 0.3529 0.2946",
+                "time": "49.5%"
+            },
+            {
+                "color": "1.0000 1.0000 0.3529 0.1607",
+                "time": "75.8%"
+            },
+            {
+                "color": "1.0000 1.0000 0.3529 0.3125",
+                "time": "100.0%"
+            }
+        ],
+        "constantforce": {
+            "value": "0.0 0.01 0.0"
+        },
+        "dampingforce": {
+            "value": "0.01"
+        },
+        "direction": {
+            "max": "0.0 1.0 0.0",
+            "min": "0.0 1.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "88.0",
+            "min": "88.0"
+        },
+        "faceCameraMode": {
+            "value": "Direction"
+        },
+        "numparticles": {
+            "value": "1"
+        },
+        "particlesize": {
+            "max": "0.35 0.5",
+            "min": "0.35 0.5"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "name": "textures/sfxs/2025s1/custom_sun"
+        },
+        "timetolive": {
+            "max": "5.0",
+            "min": "5.0"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

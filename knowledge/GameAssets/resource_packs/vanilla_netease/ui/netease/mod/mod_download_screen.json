@@ -1,0 +1,524 @@
+{
+    "image_button00@common.button": {
+        "$default_color": [
+            0.21176,
+            0.21176,
+            0.21176,
+            1.0
+        ],
+        "$default_texture": "textures/netease/download/btn01@3x",
+        "$hover_texture": "textures/netease/download/btn01_click@3x",
+        "$labelText": "退出",
+        "$label_font_size": "normal",
+        "$nine_slice_buttom": 0,
+        "$nine_slice_left": 0,
+        "$nine_slice_right": 0,
+        "$nine_slice_top": 0,
+        "$pressed_button_name": "%mod_download_screen.OnClickExit",
+        "$text_offset": [
+            0,
+            0
+        ],
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "controls": [
+            {
+                "default": {
+                    "is_new_nine_slice": true,
+                    "layer": 2,
+                    "nine_slice_buttom": "$nine_slice_buttom",
+                    "nine_slice_left": "$nine_slice_left",
+                    "nine_slice_right": "$nine_slice_right",
+                    "nine_slice_top": "$nine_slice_top",
+                    "texture": "$default_texture",
+                    "type": "image"
+                }
+            },
+            {
+                "hover": {
+                    "is_new_nine_slice": true,
+                    "layer": 2,
+                    "nine_slice_buttom": "$nine_slice_buttom",
+                    "nine_slice_left": "$nine_slice_left",
+                    "nine_slice_right": "$nine_slice_right",
+                    "nine_slice_top": "$nine_slice_top",
+                    "texture": "$hover_texture",
+                    "type": "image"
+                }
+            },
+            {
+                "pressed": {
+                    "is_new_nine_slice": true,
+                    "layer": 2,
+                    "nine_slice_buttom": "$nine_slice_buttom",
+                    "nine_slice_left": "$nine_slice_left",
+                    "nine_slice_right": "$nine_slice_right",
+                    "nine_slice_top": "$nine_slice_top",
+                    "texture": "$hover_texture",
+                    "type": "image"
+                }
+            },
+            {
+                "button_label": {
+                    "color": "$default_color",
+                    "font_size": "$label_font_size",
+                    "layer": 3,
+                    "max_size": [
+                        "100%",
+                        "100%"
+                    ],
+                    "offset": "$text_offset",
+                    "shadow": false,
+                    "text": "$labelText",
+                    "type": "label"
+                }
+            }
+        ],
+        "layer": 1,
+        "offset": [
+            0,
+            "30.088499%+0px"
+        ],
+        "size": [
+            "90.731712%+0 px",
+            "23.893801%+0px"
+        ],
+        "visible": true
+    },
+    "image_button0@common.button": {
+        "$default_color": [
+            0.21176,
+            0.21176,
+            0.21176,
+            1.0
+        ],
+        "$default_texture": "textures/netease/download/btn01@3x",
+        "$hover_texture": "textures/netease/download/btn01_click@3x",
+        "$labelText": "下载并加入 - 159.5MB",
+        "$label_font_size": "normal",
+        "$nine_slice_buttom": 0,
+        "$nine_slice_left": 0,
+        "$nine_slice_right": 0,
+        "$nine_slice_top": 0,
+        "$pressed_button_name": "%mod_download_screen.OnClickDownload",
+        "$text_offset": [
+            0,
+            0
+        ],
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "controls": [
+            {
+                "default": {
+                    "is_new_nine_slice": true,
+                    "layer": 2,
+                    "nine_slice_buttom": "$nine_slice_buttom",
+                    "nine_slice_left": "$nine_slice_left",
+                    "nine_slice_right": "$nine_slice_right",
+                    "nine_slice_top": "$nine_slice_top",
+                    "texture": "$default_texture",
+                    "type": "image"
+                }
+            },
+            {
+                "hover": {
+                    "is_new_nine_slice": true,
+                    "layer": 2,
+                    "nine_slice_buttom": "$nine_slice_buttom",
+                    "nine_slice_left": "$nine_slice_left",
+                    "nine_slice_right": "$nine_slice_right",
+                    "nine_slice_top": "$nine_slice_top",
+                    "texture": "$hover_texture",
+                    "type": "image"
+                }
+            },
+            {
+                "pressed": {
+                    "is_new_nine_slice": true,
+                    "layer": 2,
+                    "nine_slice_buttom": "$nine_slice_buttom",
+                    "nine_slice_left": "$nine_slice_left",
+                    "nine_slice_right": "$nine_slice_right",
+                    "nine_slice_top": "$nine_slice_top",
+                    "texture": "$hover_texture",
+                    "type": "image"
+                }
+            },
+            {
+                "button_label": {
+                    "color": "$default_color",
+                    "font_size": "$label_font_size",
+                    "layer": 3,
+                    "max_size": [
+                        "100%",
+                        "100%"
+                    ],
+                    "offset": "$text_offset",
+                    "shadow": false,
+                    "text": "$labelText",
+                    "type": "label"
+                }
+            }
+        ],
+        "layer": 1,
+        "offset": [
+            0,
+            "4.424780%+0px"
+        ],
+        "size": [
+            "90.731712%+0 px",
+            "23.893801%+0px"
+        ],
+        "visible": true
+    },
+    "image_button1@common.button": {
+        "$default_color": [
+            0.21176,
+            0.21176,
+            0.21176,
+            1.0
+        ],
+        "$default_texture": "textures/netease/download/btn02@3x",
+        "$hover_texture": "textures/netease/download/btn02_click@3x",
+        "$labelText": "取消",
+        "$label_font_size": "normal",
+        "$nine_slice_buttom": 0,
+        "$nine_slice_left": 0,
+        "$nine_slice_right": 0,
+        "$nine_slice_top": 0,
+        "$pressed_button_name": "%mod_download_screen.OnClickCancel",
+        "$text_offset": [
+            0,
+            0
+        ],
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "controls": [
+            {
+                "default": {
+                    "is_new_nine_slice": true,
+                    "layer": 2,
+                    "nine_slice_buttom": "$nine_slice_buttom",
+                    "nine_slice_left": "$nine_slice_left",
+                    "nine_slice_right": "$nine_slice_right",
+                    "nine_slice_top": "$nine_slice_top",
+                    "texture": "$default_texture",
+                    "type": "image"
+                }
+            },
+            {
+                "hover": {
+                    "is_new_nine_slice": true,
+                    "layer": 2,
+                    "nine_slice_buttom": "$nine_slice_buttom",
+                    "nine_slice_left": "$nine_slice_left",
+                    "nine_slice_right": "$nine_slice_right",
+                    "nine_slice_top": "$nine_slice_top",
+                    "texture": "$hover_texture",
+                    "type": "image"
+                }
+            },
+            {
+                "pressed": {
+                    "is_new_nine_slice": true,
+                    "layer": 2,
+                    "nine_slice_buttom": "$nine_slice_buttom",
+                    "nine_slice_left": "$nine_slice_left",
+                    "nine_slice_right": "$nine_slice_right",
+                    "nine_slice_top": "$nine_slice_top",
+                    "texture": "$hover_texture",
+                    "type": "image"
+                }
+            },
+            {
+                "button_label": {
+                    "color": "$default_color",
+                    "font_size": "$label_font_size",
+                    "layer": 3,
+                    "max_size": [
+                        "100%",
+                        "100%"
+                    ],
+                    "offset": "$text_offset",
+                    "shadow": false,
+                    "text": "$labelText",
+                    "type": "label"
+                }
+            }
+        ],
+        "layer": 1,
+        "offset": [
+            "3.956830%+0 px",
+            "26.041668%+0px"
+        ],
+        "size": [
+            "22.661869%+0 px",
+            "26.041668%+0px"
+        ],
+        "visible": true
+    },
+    "label0": {
+        "anchor_from": "center",
+        "anchor_to": "top_left",
+        "auto_expand": false,
+        "color": [
+            1,
+            1,
+            1
+        ],
+        "font_size": "normal",
+        "layer": 2,
+        "offset": [
+            "-44.87805%+0px",
+            "-28.31858%+0px"
+        ],
+        "shadow": false,
+        "size": [
+            "90.24390%+0px",
+            "35.39823%+0px"
+        ],
+        "text": "此世界游戏资源需要更新，你想下载并加入吗？（建议在WIFI环境下载更新）",
+        "text_alignment": "left",
+        "type": "label",
+        "visible": true
+    },
+    "label00": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "auto_expand": false,
+        "color": [
+            1,
+            1,
+            1
+        ],
+        "font_size": "normal",
+        "layer": 2,
+        "offset": [
+            "0.00000%+0px",
+            "-2.08334%+0px"
+        ],
+        "shadow": false,
+        "size": [
+            "91.00719%+0px",
+            "35.41666%+0px"
+        ],
+        "text": "0.00MB / 0.30MB",
+        "text_alignment": "center",
+        "type": "label",
+        "visible": true
+    },
+    "label1": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "auto_expand": false,
+        "color": [
+            0.21176,
+            0.21176,
+            0.21176,
+            1.0
+        ],
+        "font_size": "normal",
+        "layer": 1,
+        "offset": [
+            "0.00000%+0px",
+            "-30.08850%+0px"
+        ],
+        "shadow": false,
+        "size": [
+            "97.56097%+0px",
+            "26.54867%+0px"
+        ],
+        "text": "游戏资源需要更新",
+        "text_alignment": "center",
+        "type": "label",
+        "visible": true
+    },
+    "label10": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "auto_expand": false,
+        "color": [
+            0.21176,
+            0.21176,
+            0.21176,
+            1.0
+        ],
+        "font_size": "normal",
+        "layer": 1,
+        "offset": [
+            "0.00000%+0px",
+            "-28.12500%+0px"
+        ],
+        "shadow": false,
+        "size": [
+            "97.56097%+0px",
+            "26.54867%+0px"
+        ],
+        "text": "游戏资源下载中",
+        "text_alignment": "center",
+        "type": "label",
+        "visible": true
+    },
+    "main@common.base_screen": {
+        "controls": [
+            {
+                "new_image0@mod_download_screen.new_image0": {}
+            },
+            {
+                "new_image1@mod_download_screen.new_image1": {}
+            }
+        ]
+    },
+    "namespace": "mod_download_screen",
+    "new_image0": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "controls": [
+            {
+                "label0@mod_download_screen.label0": {}
+            },
+            {
+                "label1@mod_download_screen.label1": {}
+            },
+            {
+                "image_button0@mod_download_screen.image_button0": {}
+            },
+            {
+                "image_button00@mod_download_screen.image_button00": {}
+            }
+        ],
+        "is_new_nine_slice": true,
+        "layer": 30,
+        "nine_slice_buttom": 0,
+        "nine_slice_left": 0,
+        "nine_slice_right": 0,
+        "nine_slice_top": 0,
+        "offset": [
+            0,
+            "3.000000%+0px"
+        ],
+        "size": [
+            "48.12207%+0px",
+            "42.85714%+0px"
+        ],
+        "texture": "textures/netease/download/bg01@3x",
+        "texture_file_system": "",
+        "type": "image",
+        "visible": true,
+        "zip_folder": ""
+    },
+    "new_image1": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "controls": [
+            {
+                "label10@mod_download_screen.label10": {}
+            },
+            {
+                "label00@mod_download_screen.label00": {}
+            },
+            {
+                "new_image2@mod_download_screen.new_image2": {}
+            },
+            {
+                "image_button1@mod_download_screen.image_button1": {}
+            }
+        ],
+        "is_new_nine_slice": true,
+        "layer": 8,
+        "nine_slice_buttom": 0,
+        "nine_slice_left": 0,
+        "nine_slice_right": 0,
+        "nine_slice_top": 0,
+        "offset": [
+            0,
+            "2.000000%+0px"
+        ],
+        "size": [
+            "65.25822%+0px",
+            "36.09023%+0px"
+        ],
+        "texture": "textures/netease/download/bg02@3x",
+        "texture_file_system": "",
+        "type": "image",
+        "visible": true,
+        "zip_folder": ""
+    },
+    "new_image2": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "controls": [
+            {
+                "new_image3@mod_download_screen.new_image3": {}
+            },
+            {
+                "new_image4@mod_download_screen.new_image4": {}
+            }
+        ],
+        "is_new_nine_slice": true,
+        "layer": 1,
+        "nine_slice_buttom": 0,
+        "nine_slice_left": 0,
+        "nine_slice_right": 0,
+        "nine_slice_top": 0,
+        "offset": [
+            0,
+            "5.000000%+0px"
+        ],
+        "size": [
+            "84.53237%+0px",
+            "3.12500%+0px"
+        ],
+        "texture": "textures/netease/download/progress01_02@3x",
+        "texture_file_system": "",
+        "type": "image",
+        "visible": true,
+        "zip_folder": ""
+    },
+    "new_image3": {
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "is_new_nine_slice": true,
+        "layer": 2,
+        "nine_slice_buttom": 0,
+        "nine_slice_left": 0,
+        "nine_slice_right": 0,
+        "nine_slice_top": 0,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "60.000000%+0 px",
+            "100.000000%+0px"
+        ],
+        "texture": "textures/netease/download/progress01_01@3x",
+        "texture_file_system": "",
+        "type": "image",
+        "visible": true,
+        "zip_folder": ""
+    },
+    "new_image4": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "is_new_nine_slice": true,
+        "layer": 3,
+        "nine_slice_buttom": 0,
+        "nine_slice_left": 0,
+        "nine_slice_right": 0,
+        "nine_slice_top": 0,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.000000%+0 px",
+            "100.000000%+0px"
+        ],
+        "texture": "textures/netease/download/progress01_bg@3x",
+        "texture_file_system": "",
+        "type": "image",
+        "visible": true,
+        "zip_folder": ""
+    }
+}

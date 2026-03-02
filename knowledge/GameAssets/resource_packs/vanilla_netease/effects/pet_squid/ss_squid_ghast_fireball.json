@@ -1,0 +1,62 @@
+{
+    "particleeffect": {
+        "enablecolor": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "0.0 0.0 1.0",
+            "value": "Direction",
+            "min": "0.0 0.0 1.0"
+        },
+        "dampingforce": {
+            "value": "2.0"
+        },
+        "faceCameraMode": {
+            "value": "Direction"
+        },
+        "activetime": {
+            "value": "0.2"
+        },
+        "emitterpath": [
+            {
+                "offset": "0.0 0.0 0.0",
+                "time": "0.0"
+            },
+            {
+                "offset": "0.0 0.0 0.0",
+                "time": "2.0"
+            }
+        ],
+        "enableloop": {
+            "enable": "true"
+        },
+        "layer": 2,
+        "relative": {
+            "enable": "true"
+        },
+        "delay": 1.5,
+        "timetolive": {
+            "max": "0.5",
+            "min": "0.5"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": false,
+                "name": "textures/sfxs/pet_squid/ss_squid_ghast_fireball02",
+                "fps": "10"
+            },
+            "name": "textures/sfxs/pet_squid/ss_squid_ghast_fireball02"
+        },
+        "velocity": {
+            "max": "3.0",
+            "min": "3.0"
+        },
+        "particlesize": {
+            "max": "0.2 0.2",
+            "min": "0.2 0.2"
+        },
+        "numparticles": {
+            "value": "1"
+        }
+    }
+}

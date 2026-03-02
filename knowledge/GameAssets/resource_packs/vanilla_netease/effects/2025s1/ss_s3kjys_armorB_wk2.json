@@ -1,0 +1,102 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.6"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.9196",
+                "time": "61.3%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "delay": 0.6,
+        "direction": {
+            "max": "0.0 0.0 1.0",
+            "min": "0.0 0.0 1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "1.0",
+            "min": "1.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.0 0.0 0.0"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Direction Horizontal"
+        },
+        "inactivetime": {
+            "value": "0.89"
+        },
+        "layer": 3,
+        "numparticles": {
+            "value": "1"
+        },
+        "offsetInCamera": {
+            "value": "-0.2"
+        },
+        "particlesize": {
+            "max": "0.26 0.26",
+            "min": "0.26 0.26"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "90.0 180.0 180.0",
+            "min": "90.0 180.0 180.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.08 0.08",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.68 0.68",
+                "time": "53.3%"
+            },
+            {
+                "scale": "0.8 0.8",
+                "time": "100.0%"
+            },
+            {
+                "scale": "0.76 0.76",
+                "time": "99.7%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s1/ss_s3kjys_armorB_ylta_00000"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.9",
+            "min": "0.9"
+        },
+        "velocity": {
+            "max": "0.2",
+            "min": "0.2"
+        }
+    }
+}

@@ -1,0 +1,80 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.1"
+        },
+        "dampingforce": {
+            "value": "4.0"
+        },
+        "delay": 1.1,
+        "direction": {
+            "max": "0.3 1.0 0.5",
+            "min": "-0.3 1.0 -0.5",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "70.0",
+            "min": "70.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.05 0.10000000000000003 0.05"
+        },
+        "emittertype": {
+            "value": "Hemisphere"
+        },
+        "numparticles": {
+            "value": "7"
+        },
+        "particlesize": {
+            "max": "0.09 0.09",
+            "min": "0.03 0.03"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.15 0.15",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.8 1.8",
+                "time": "29.3%"
+            },
+            {
+                "scale": "0.48 0.48",
+                "time": "49.7%"
+            },
+            {
+                "scale": "1.53 1.53",
+                "time": "74.3%"
+            },
+            {
+                "scale": "0.05 0.05",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "0",
+                "name": "textures/sfxs/2025s2/cs_s4nvwu_skin_birth_star01",
+                "shuffle": true
+            },
+            "name": "textures/sfxs/2025s2/cs_s4nvwu_skin_birth_star01"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.8999999999999999",
+            "min": "0.7"
+        },
+        "velocity": {
+            "max": "7.0",
+            "min": "3.0"
+        }
+    }
+}

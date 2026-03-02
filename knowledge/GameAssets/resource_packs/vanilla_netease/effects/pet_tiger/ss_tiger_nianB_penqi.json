@@ -1,0 +1,91 @@
+{
+    "particleeffect": {
+        "independent": false,
+        "direction": {
+            "max": "0.0 -1.0 0.0",
+            "value": "Direction",
+            "min": "0.0 0.0 0.0"
+        },
+        "dampingforce": {
+            "value": "10.0"
+        },
+        "numparticles": {
+            "value": "5"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "0.0000 0.6667 1.0000 0.3214",
+                "time": "0.00"
+            },
+            {
+                "color": "0.0000 0.9098 0.9098 0.2500",
+                "time": "0.42"
+            },
+            {
+                "color": "0.6667 1.0000 1.0000 0.0000",
+                "time": "0.80"
+            }
+        ],
+        "emissionrate": {
+            "max": "5.0",
+            "min": "8.0"
+        },
+        "emitterScaleCurve": [],
+        "enableloop": {
+            "enable": "true"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": false,
+                "name": "textures/sfxs/pet_tiger/ss_tiger_nianB_guangyun",
+                "fps": "0"
+            },
+            "name": "textures/sfxs/pet_tiger/ss_tiger_nianB_guangyun"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "timetolive": {
+            "max": "0.5",
+            "min": "0.8"
+        },
+        "depthtest": {
+            "enable": "true"
+        },
+        "emittersize": {
+            "value": "0.0 0.0 0.0"
+        },
+        "velocity": {
+            "max": "0.5",
+            "min": "1.0"
+        },
+        "emitterscale": [],
+        "particlesize": {
+            "max": "0.06 0.1",
+            "min": "0.06 0.15"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.44 1.44",
+                "time": "1.0%"
+            },
+            {
+                "scale": "1.05 1.05",
+                "time": "62.3%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            }
+        ]
+    }
+}

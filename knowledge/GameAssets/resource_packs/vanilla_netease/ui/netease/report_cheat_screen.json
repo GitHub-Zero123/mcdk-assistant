@@ -1,0 +1,243 @@
+{
+    "namespace": "report_cheat",
+    "button_cancel@common.button": {
+        "$default_color": [
+            0,
+            0,
+            0
+        ],
+        "$default_texture": "textures/netease/voice_trans/btn02@3x",
+        "$hover_texture": "textures/netease/voice_trans/btn02_click@3x",
+        "$labelText": "controller.buttonTip.cancel",
+        "$label_font_size": "normal",
+        "$nine_slice_buttom": 0,
+        "$nine_slice_left": 0,
+        "$nine_slice_right": 0,
+        "$nine_slice_top": 0,
+        "$pressed_button_name": "report_cheat_cancel",
+        "$text_offset": [
+            0,
+            0
+        ],
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "controls": [
+            {
+                "default": {
+                    "is_new_nine_slice": true,
+                    "nine_slice_buttom": "$nine_slice_buttom",
+                    "nine_slice_left": "$nine_slice_left",
+                    "nine_slice_right": "$nine_slice_right",
+                    "nine_slice_top": "$nine_slice_top",
+                    "texture": "$default_texture",
+                    "type": "image"
+                }
+            },
+            {
+                "hover": {
+                    "is_new_nine_slice": true,
+                    "nine_slice_buttom": "$nine_slice_buttom",
+                    "nine_slice_left": "$nine_slice_left",
+                    "nine_slice_right": "$nine_slice_right",
+                    "nine_slice_top": "$nine_slice_top",
+                    "texture": "$hover_texture",
+                    "type": "image"
+                }
+            },
+            {
+                "pressed": {
+                    "is_new_nine_slice": true,
+                    "nine_slice_buttom": "$nine_slice_buttom",
+                    "nine_slice_left": "$nine_slice_left",
+                    "nine_slice_right": "$nine_slice_right",
+                    "nine_slice_top": "$nine_slice_top",
+                    "texture": "$hover_texture",
+                    "type": "image"
+                }
+            },
+            {
+                "button_label": {
+                    "layer": 2,
+                    "color": "$default_color",
+                    "font_size": "$label_font_size",
+                    "max_size": [
+                        "100%",
+                        "100%"
+                    ],
+                    "offset": "$text_offset",
+                    "shadow": false,
+                    "text": "$labelText",
+                    "type": "label"
+                }
+            }
+        ],
+        "offset": [
+            "-23.500000%+0 px",
+            "33.000000%+0px"
+        ],
+        "size": [
+            "43.000000%+0 px",
+            "20.000000%+0px"
+        ],
+        "visible": true
+    },
+    "button_report_cheat@common.button": {
+        "$default_color": [
+            0,
+            0,
+            0
+        ],
+        "$default_texture": "textures/netease/voice_trans/btn02@3x",
+        "$hover_texture": "textures/netease/voice_trans/btn02_click@3x",
+        "$labelText": "report_cheat.confirm",
+        "$label_font_size": "normal",
+        "$nine_slice_buttom": 0,
+        "$nine_slice_left": 0,
+        "$nine_slice_right": 0,
+        "$nine_slice_top": 0,
+        "$pressed_button_name": "go_report_cheat",
+        "$text_offset": [
+            0,
+            0
+        ],
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "controls": [
+            {
+                "default": {
+                    "is_new_nine_slice": true,
+                    "nine_slice_buttom": "$nine_slice_buttom",
+                    "nine_slice_left": "$nine_slice_left",
+                    "nine_slice_right": "$nine_slice_right",
+                    "nine_slice_top": "$nine_slice_top",
+                    "texture": "$default_texture",
+                    "type": "image"
+                }
+            },
+            {
+                "hover": {
+                    "is_new_nine_slice": true,
+                    "nine_slice_buttom": "$nine_slice_buttom",
+                    "nine_slice_left": "$nine_slice_left",
+                    "nine_slice_right": "$nine_slice_right",
+                    "nine_slice_top": "$nine_slice_top",
+                    "texture": "$hover_texture",
+                    "type": "image"
+                }
+            },
+            {
+                "pressed": {
+                    "is_new_nine_slice": true,
+                    "nine_slice_buttom": "$nine_slice_buttom",
+                    "nine_slice_left": "$nine_slice_left",
+                    "nine_slice_right": "$nine_slice_right",
+                    "nine_slice_top": "$nine_slice_top",
+                    "texture": "$hover_texture",
+                    "type": "image"
+                }
+            },
+            {
+                "button_label": {
+                    "color": "$default_color",
+                    "font_size": "$label_font_size",
+                    "layer": 2,
+                    "max_size": [
+                        "100%",
+                        "100%"
+                    ],
+                    "offset": "$text_offset",
+                    "shadow": false,
+                    "text": "$labelText",
+                    "type": "label"
+                }
+            }
+        ],
+        "offset": [
+            "23.500000%+0 px",
+            "33.000000%+0px"
+        ],
+        "size": [
+            "43.000000%+0 px",
+            "20.000000%+0px"
+        ],
+        "visible": true
+    },
+    "label_content": {
+        "anchor_from": "center",
+        "anchor_to": "top_left",
+        "auto_expand": false,
+        "color": [
+            1,
+            1,
+            1
+        ],
+        "font_size": "normal",
+        "offset": [
+            "-40.67797%+0px",
+            "-36.48648%+0px"
+        ],
+        "shadow": false,
+        "size": [
+            "82.20341%+0px",
+            "51.35135%+0px"
+        ],
+        "text": "report_cheat.content",
+        "text_alignment": "left",
+        "type": "label",
+        "visible": true
+    },
+    "image_main": {
+        "anchor_from": "top_right",
+        "anchor_to": "top_right",
+        "controls": [
+            {
+                "button_cancel@report_cheat.button_cancel": {}
+            },
+            {
+                "button_report_cheat@report_cheat.button_report_cheat": {}
+            },
+            {
+                "label_content@report_cheat.label_content": {}
+            }
+        ],
+        "is_new_nine_slice": true,
+        "nine_slice_buttom": 0,
+        "nine_slice_left": 0,
+        "nine_slice_right": 0,
+        "nine_slice_top": 0,
+        "offset": [
+            "-36.000000%+0 px",
+            "8.646620%+0px"
+        ],
+        "size": [
+            "27.93427%+0px",
+            "27.81955%+0px"
+        ],
+        "texture": "textures/netease/voice_trans/panel01@3x",
+        "texture_file_system": "",
+        "type": "image",
+        "zip_folder": "",
+        "visible": "#show_guide",
+        "bindings": [
+            {
+                "binding_name": "#show_guide",
+                "binding_name_override": "#visible"
+            }
+        ]
+    },
+    "report_cheat_screen@common.base_screen": {
+        "button_mappings": [
+            {
+                "from_button_id": "button.menu_cancel",
+                "to_button_id": "button.menu_exit",
+                "mapping_type": "global"
+            },
+            {
+                "from_button_id": "button.menu_exit",
+                "to_button_id": "button.menu_exit",
+                "mapping_type": "global"
+            }
+        ],
+        "$screen_content": "report_cheat.image_main"
+    }
+}

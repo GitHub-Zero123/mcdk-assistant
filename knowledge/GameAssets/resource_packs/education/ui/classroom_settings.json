@@ -1,0 +1,288 @@
+{
+    "namespace": "classroom_settings",
+    "classroom_section": {
+        "type": "stack_panel",
+        "size": [
+            "100%",
+            "100%c"
+        ],
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "$edu_external_link_enabled|default": false,
+        "bindings": [
+            {
+                "binding_type": "view",
+                "source_control_name": "classroom_button_toggle",
+                "source_property_name": "#toggle_state",
+                "target_property_name": "#visible"
+            }
+        ],
+        "controls": [
+            {
+                "classroom_settings_label@settings_common.option_group_label": {
+                    "$text": "createWorldScreen.classroom.settings",
+                    "$font_type": "MinecraftTen",
+                    "$font_scale_factor": 1.2
+                }
+            },
+            {
+                "allow_commands_toggle@settings_common.option_toggle": {
+                    "$tts_section_header": "createWorldScreen.cheatSettings",
+                    "$option_label": "createWorldScreen.commands",
+                    "$option_binding_name": "#allow_cheats",
+                    "$option_enabled_binding_name": "#allow_cheats_enabled",
+                    "$toggle_name": "allow_cheats",
+                    "$focus_override_right": "FOCUS_OVERRIDE_STOP",
+                    "$toggle_binding_condition": "always_when_visible"
+                }
+            },
+            {
+                "code_builder_toggle@settings_common.option_toggle": {
+                    "$tts_section_header": "createWorldScreen.cheatSettings",
+                    "ignored": "(not $education_edition)",
+                    "$option_label": "options.codeBuilder",
+                    "$option_binding_name": "#code_builder",
+                    "$option_enabled_binding_name": "#code_builder_enabled",
+                    "$toggle_name": "code_builder",
+                    "$focus_override_right": "FOCUS_OVERRIDE_STOP",
+                    "$toggle_binding_condition": "always_when_visible"
+                }
+            },
+            {
+                "always_day_toggle@settings_common.option_toggle": {
+                    "$tts_section_header": "createWorldScreen.cheatSettings",
+                    "$option_label": "createWorldScreen.alwaysDay",
+                    "$option_binding_name": "#always_day",
+                    "$option_enabled_binding_name": "#always_day_enabled",
+                    "$toggle_name": "always_day",
+                    "$focus_override_right": "FOCUS_OVERRIDE_STOP",
+                    "$toggle_binding_condition": "always_when_visible"
+                }
+            },
+            {
+                "perfect_weather@settings_common.option_toggle": {
+                    "$tts_section_header": "createWorldScreen.cheatSettings",
+                    "$option_label": "createWorldScreen.perfectweather",
+                    "$option_binding_name": "#perfect_weather",
+                    "$option_enabled_binding_name": "#perfect_weather_enabled",
+                    "$toggle_name": "perfect_weather",
+                    "$focus_override_right": "FOCUS_OVERRIDE_STOP",
+                    "$toggle_binding_condition": "always_when_visible"
+                }
+            },
+            {
+                "keep_inventory_toggle@settings_common.option_toggle": {
+                    "$tts_section_header": "createWorldScreen.cheatSettings",
+                    "$option_label": "createWorldScreen.keepInventory",
+                    "$option_binding_name": "#keep_inventory",
+                    "$option_enabled_binding_name": "#keep_inventory_enabled",
+                    "$toggle_name": "keep_inventory",
+                    "$focus_override_right": "FOCUS_OVERRIDE_STOP",
+                    "$toggle_binding_condition": "always_when_visible"
+                }
+            },
+            {
+                "allow_mobs@settings_common.option_toggle": {
+                    "$tts_section_header": "createWorldScreen.cheatSettings",
+                    "$option_label": "createWorldScreen.allowmobs",
+                    "$option_binding_name": "#allow_mobs",
+                    "$option_enabled_binding_name": "#allow_mobs_enabled",
+                    "$toggle_name": "allow_mobs",
+                    "$focus_override_right": "FOCUS_OVERRIDE_STOP",
+                    "$toggle_binding_condition": "always_when_visible"
+                }
+            },
+            {
+                "allow_destructive_items@settings_common.option_toggle": {
+                    "$tts_section_header": "createWorldScreen.cheatSettings",
+                    "$option_label": "createWorldScreen.allowdestructiveitems",
+                    "$option_binding_name": "#allow_destructive_items",
+                    "$option_enabled_binding_name": "#allow_destructive_items_enabled",
+                    "$toggle_name": "allow_destructive_items",
+                    "$focus_override_right": "FOCUS_OVERRIDE_STOP",
+                    "$toggle_binding_condition": "always_when_visible"
+                }
+            },
+            {
+                "player_damage@settings_common.option_toggle": {
+                    "$tts_section_header": "createWorldScreen.cheatSettings",
+                    "$option_label": "createWorldScreen.playerdamage",
+                    "$option_binding_name": "#player_damage",
+                    "$option_enabled_binding_name": "#player_damage_enabled",
+                    "$toggle_name": "player_damage",
+                    "$focus_override_right": "FOCUS_OVERRIDE_STOP",
+                    "$toggle_binding_condition": "always_when_visible"
+                }
+            },
+            {
+                "pvp_damage@settings_common.option_toggle": {
+                    "$tts_section_header": "createWorldScreen.cheatSettings",
+                    "$option_label": "createWorldScreen.pvpdamage",
+                    "$option_binding_name": "#pvp_damage",
+                    "$option_enabled_binding_name": "#pvp_damage_enabled",
+                    "$toggle_name": "pvp_damage",
+                    "$focus_override_right": "FOCUS_OVERRIDE_STOP",
+                    "$toggle_binding_condition": "always_when_visible"
+                }
+            },
+            {
+                "immutable_world@settings_common.option_toggle": {
+                    "$tts_section_header": "createWorldScreen.cheatSettings",
+                    "$option_label": "createWorldScreen.immutableworld",
+                    "$option_binding_name": "#immutable_world",
+                    "$option_enabled_binding_name": "#immutable_world_enabled",
+                    "$toggle_name": "immutable_world",
+                    "$focus_override_right": "FOCUS_OVERRIDE_STOP",
+                    "$toggle_binding_condition": "always_when_visible"
+                }
+            },
+            {
+                "show_border_effect@settings_common.option_toggle": {
+                    "$tts_section_header": "createWorldScreen.cheatSettings",
+                    "$option_label": "createWorldScreen.showbordereffect",
+                    "$option_binding_name": "#show_border_effect",
+                    "$option_enabled_binding_name": "#show_border_effect_enabled",
+                    "$toggle_name": "show_border_effect",
+                    "$focus_override_right": "FOCUS_OVERRIDE_STOP",
+                    "$toggle_binding_condition": "always_when_visible"
+                }
+            },
+            {
+                "external_uri_resource_panel@classroom_settings.external_uri_resource_panel": {
+                    "ignored": "(not $edu_external_link_enabled)"
+                }
+            },
+            {
+                "vertical_padding": {
+                    "type": "panel",
+                    "size": [
+                        "100%",
+                        5
+                    ]
+                }
+            },
+            {
+                "help_button@edu_common.underline_button": {
+                    "$single_line_font_scale_factor": 1,
+                    "$single_label_size": [
+                        "default",
+                        "default"
+                    ],
+                    "$pressed_button_name": "button.settings_help",
+                    "$single_line_label_text": "createWorldScreen.help",
+                    "$font_type": "smooth",
+                    "$font_size": "normal"
+                }
+            },
+            {
+                "vertical_padding2": {
+                    "type": "panel",
+                    "size": [
+                        "100%",
+                        10
+                    ]
+                }
+            }
+        ]
+    },
+    "external_uri_resource_panel": {
+        "type": "stack_panel",
+        "orientation": "vertical",
+        "size": [
+            "100%",
+            "default"
+        ],
+        "controls": [
+            {
+                "external_uri_resource_uri_title@settings_common.option_group_label": {
+                    "$text": "classroomSettings.uriResource.header.title",
+                    "$font_type": "MinecraftTen",
+                    "$font_scale_factor": 1.2,
+                    "size": [
+                        "100%",
+                        "100%c + 2px"
+                    ]
+                }
+            },
+            {
+                "external_uri_resource_uri_description@settings_common.option_group_label": {
+                    "$text": "classroomSettings.uriResource.header.description",
+                    "$font_type": "smooth"
+                }
+            },
+            {
+                "external_uri_resource_uri_description_pad": {
+                    "type": "panel",
+                    "size": [
+                        "100%",
+                        7
+                    ]
+                }
+            },
+            {
+                "external_uri_resource_uri@classroom_settings.external_uri_resource_uri": {}
+            },
+            {
+                "empty_uri_warning@edu_common.inline_notification": {
+                    "$state": "warning",
+                    "$warning_text": "classroomSettings.uriResource.uri.warning.emptyUri",
+                    "bindings": [
+                        {
+                            "binding_name": "(#resource_uri_error_status = 'EmptyUri')",
+                            "binding_name_override": "#visible"
+                        }
+                    ]
+                }
+            },
+            {
+                "invalid_uri_warning@edu_common.inline_notification": {
+                    "$state": "warning",
+                    "$warning_text": "classroomSettings.uriResource.uri.warning.invalidUri",
+                    "bindings": [
+                        {
+                            "binding_name": "(#resource_uri_error_status = 'InvalidUri')",
+                            "binding_name_override": "#visible"
+                        }
+                    ]
+                }
+            },
+            {
+                "invalid_uri_warning_pad": {
+                    "type": "panel",
+                    "size": [
+                        "100%",
+                        7
+                    ]
+                }
+            },
+            {
+                "external_uri_resource_name@classroom_settings.external_uri_resource_name": {}
+            }
+        ]
+    },
+    "external_uri_resource_name@settings_common.option_text_edit": {
+        "$option_label": "classroomSettings.uriResource.name.title",
+        "$option_place_holder_text": "classroomSettings.uriResource.name.placeHolder",
+        "$option_binding_name": "#edu_uri_resource_name",
+        "$option_enabled_binding_name": "#edu_uri_resource_name_enabled",
+        "$text_box_name": "edu_uri_resource_name_text_box",
+        "$focus_override_right": "FOCUS_OVERRIDE_STOP",
+        "$tts_override_control_value": " ",
+        "$text_edit_box_label_anchor_point": "left_middle"
+    },
+    "external_uri_resource_uri@settings_common.option_text_edit": {
+        "$option_label": "classroomSettings.uriResource.uri.title",
+        "$option_place_holder_text": "classroomSettings.uriResource.uri.placeHolder",
+        "$option_binding_name": "#edu_uri_resource_uri",
+        "$option_enabled_binding_name": "#edu_uri_resource_uri_enabled",
+        "$text_box_name": "edu_uri_resource_uri_text_box",
+        "$focus_override_right": "FOCUS_OVERRIDE_STOP",
+        "$tts_override_control_value": " ",
+        "$max_text_edit_length": 512,
+        "$option_generic_panel_size": [
+            "100%",
+            "100%c - 7px"
+        ],
+        "$text_edit_box_label_anchor_point": "left_middle"
+    }
+}

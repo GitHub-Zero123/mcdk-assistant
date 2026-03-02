@@ -1,0 +1,93 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.20000000000000004"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.00"
+            },
+            {
+                "color": "0.1608 0.7765 1.0000 1.0000",
+                "time": "0.05"
+            },
+            {
+                "color": "0.0275 0.3686 1.0000 0.9643",
+                "time": "0.27"
+            },
+            {
+                "color": "0.6196 0.1529 1.0000 0.5000",
+                "time": "0.88"
+            },
+            {
+                "color": "0.6510 0.0902 1.0000 0.0000",
+                "time": "2.00"
+            }
+        ],
+        "constantforce": {
+            "value": "0.0 -0.30000000000000004 0.0"
+        },
+        "dampingforce": {
+            "value": "2.0000000000000004"
+        },
+        "delay": 1.6,
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "300.0",
+            "min": "250.0"
+        },
+        "faceCameraMode": {
+            "value": "Direction"
+        },
+        "inactivetime": {
+            "value": "2.3000000000000003"
+        },
+        "numparticles": {
+            "value": "50"
+        },
+        "particlesize": {
+            "max": "0.05 0.5",
+            "min": "0.05 0.2"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.0 0.0",
+                "time": "0.00"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "0.30"
+            },
+            {
+                "scale": "0.3 0.3",
+                "time": "1.01"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "1.96"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2024_Q2_fangkuai"
+        },
+        "timetolive": {
+            "max": "2.0",
+            "min": "2.0"
+        },
+        "velocity": {
+            "max": "2.0999999999999996",
+            "min": "1.9999999999999996"
+        }
+    }
+}

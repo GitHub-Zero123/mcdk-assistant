@@ -1,0 +1,36 @@
+{
+    "format_version": "1.14",
+    "minecraft:recipe_material_reduction": {
+        "description": {
+            "identifier": "minecraft:end_stone"
+        },
+        "input": "minecraft:end_stone",
+        "output": [
+            {
+                "count": 59,
+                "item": "minecraft:element_14"
+            },
+            {
+                "count": 13,
+                "item": "minecraft:element_6"
+            },
+            {
+                "count": 11,
+                "item": "minecraft:element_0"
+            },
+            {
+                "count": 7,
+                "item": "minecraft:element_0"
+            },
+            {
+                "count": 3,
+                "item": "minecraft:element_0"
+            },
+            {
+                "count": 7,
+                "item": "minecraft:element_0"
+            }
+        ],
+        "tags": "material_reducer"
+    }
+}

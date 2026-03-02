@@ -1,0 +1,27 @@
+{
+    "format_version": "1.13.0",
+    "minecraft:ore_feature": {
+        "description": {
+            "identifier": "minecraft:silverfish_feature"
+        },
+        "count": 8,
+        "replace_rules": [
+            {
+                "places_block": "minecraft:infested_stone",
+                "may_replace": [
+                    {
+                        "name": "minecraft:stone"
+                    }
+                ]
+            },
+            {
+                "places_block": "minecraft:infested_deepslate",
+                "may_replace": [
+                    {
+                        "name": "minecraft:deepslate"
+                    }
+                ]
+            }
+        ]
+    }
+}

@@ -1,0 +1,248 @@
+// __multiversion__
+// This shader is an HLSL to GLSL adaptation of the CohColorMixingPS.glslhlsl
+// shader from the Gameface library. Modifications have been made to make
+// it work in the Bedrock engine and heavily depends on Gameface's
+// functionality, why some numbers and values seem arbitrary or "magic".
+
+#include "fragmentVersionSimple.h"
+#include "uniformMacro.h"
+
+#include "uniformUIStandardPrimitiveAdditionalPixelConstants.h"
+
+varying vec4 ColorOut;
+varying vec4 AdditionalOut;
+// We need this here even if we do not use it as some drivers require
+// the verying variables to match between the vertex and fragment shaders.
+varying vec3 ScreenNormalPosition;
+
+LAYOUT_BINDING(0) uniform sampler2D TEXTURE_0;
+LAYOUT_BINDING(1) uniform sampler2D TEXTURE_1;
+
+// Formulas for color mixing from https://www.w3.org/TR/compositing-1/#blending
+
+float Lum(vec3 color)
+{
+	return 0.3 * color.r + 0.59 * color.g + 0.11 * color.b;
+}
+
+vec3 ClipColor(vec3 color)
+{
+	float L = Lum(color);
+	float fmin = min(min(color.r, color.g), color.b);
+	float fmax = max(max(color.r, color.g), color.b);
+
+	if (fmin < 0.0)
+	{
+		color = L + (((color - L) * L) / (L - fmin));
+	}
+	if (fmax > 1.0)
+	{
+		color = L + (((color - L) * (1.0 - L)) / (fmax - L));
+	}
+
+	return color;
+}
+
+vec3 SetLum(vec3 color, float lum)
+{
+	float d = lum - Lum(color);
+	color += d;
+	return ClipColor(color);
+}
+
+float Sat(vec3 color)
+{
+	return max(max(color.r, color.g), color.b) -
+		min(min(color.r, color.g), color.b);
+}
+
+vec3 SetSatInner(vec3 color, float sat)
+{
+	// Here the |color| values are in ascending order, i.e.
+	// color.x <= color.y <= color.z
+
+	if (color.z > color.x)
+	{
+		color.y = (((color.y - color.x) * sat) / (color.z - color.x));
+		color.z = sat;
+	}
+	else
+	{
+		color.yz = vec2(0.0, 0.0);
+	}
+	return vec3(0.0, color.y, color.z);
+}
+
+vec3 SetSat(vec3 color, float sat)
+{
+	if (color.r <= color.g)
+	{
+		if (color.g <= color.b)
+		{
+			color.rgb = SetSatInner(color.rgb, sat);
+		}
+		else if (color.r <= color.b)
+		{
+			color.rbg = SetSatInner(color.rbg, sat);
+		}
+		else
+		{
+			color.brg = SetSatInner(color.brg, sat);
+		}
+	}
+	else if (color.r <= color.b)
+	{
+		color.grb = SetSatInner(color.grb, sat);
+	}
+	else if (color.g <= color.b)
+	{
+		color.gbr = SetSatInner(color.gbr, sat);
+	}
+	else
+	{
+		color.bgr = SetSatInner(color.bgr, sat);
+	}
+	return color;
+}
+
+vec3 ColorMixScreen(vec3 backdrop, vec3 source)
+{
+	return backdrop + source - backdrop * source;
+}
+
+vec3 ColorMixMultiply(vec3 backdrop, vec3 source)
+{
+	return backdrop * source;
+}
+
+vec3 ColorMixHardLight(vec3 backdrop, vec3 source)
+{
+	// if (Cs <= 0.5) B(Cb, Cs) = Multiply(Cb, 2 x Cs)
+	// else           B(Cb, Cs) = Screen(Cb, 2 x Cs - 1)
+	vec3 coef = step(0.5, source);
+	return mix(ColorMixScreen(backdrop, 2.0 * source - 1.0),
+		ColorMixMultiply(backdrop, 2.0 * source), coef);
+}
+
+vec3 ColorMixSoftLight(vec3 backdrop, vec3 source)
+{
+	// TODO: Check if branching perf is better, diffuseB calc is heavy
+	vec3 diffuseBCoef = step(0.25, backdrop);
+	vec3 diffuseB = mix(sqrt(backdrop),
+		((16.0 * backdrop - 12.0) * backdrop + 4.0) * backdrop,
+		diffuseBCoef);
+
+	vec3 coef = step(0.5, source);
+	return mix(backdrop + (2.0 * source - 1.0) * (diffuseB - backdrop),
+		backdrop - (1.0 - 2.0 * source) * backdrop * (1.0 - backdrop),
+		coef);
+}
+
+vec3 BlendFunction(vec3 backdrop, vec3 source, int mode)
+{
+	// Switch not supported in SM3
+	if (mode == 0)
+	{
+		// Normal mode
+		return source;
+	}
+	else if (mode == 1)
+	{
+		// Multiply
+		return ColorMixMultiply(backdrop, source);
+	}
+	else if (mode == 2)
+	{
+		// Screen
+		return ColorMixScreen(backdrop, source);
+	}
+	else if (mode == 3)
+	{
+		// Overlay
+		return ColorMixHardLight(source, backdrop); // Inverted hard-light
+	}
+	else if (mode == 4)
+	{
+		// Darken
+		return min(source, backdrop);
+	}
+	else if (mode == 5)
+	{
+		// Lighten
+		return max(source, backdrop);
+	}
+	else if (mode == 6)
+	{
+		// Color dodge
+		return min(backdrop / max(1.0 - source, 0.0001), 1.0);
+	}
+	else if (mode == 7)
+	{
+		// Color burn
+		return 1.0 - min((1.0 - backdrop) / max(source, 0.0001), 1.0);
+	}
+	else if (mode == 8)
+	{
+		// Hard light
+		return ColorMixHardLight(backdrop, source);
+	}
+	else if (mode == 9)
+	{
+		// Soft light
+		return ColorMixSoftLight(backdrop, source);
+	}
+	else if (mode == 10)
+	{
+		// Difference
+		return abs(backdrop - source);
+	}
+	else if (mode == 11)
+	{
+		// Exclusion
+		return backdrop + source - 2.0 * backdrop * source;
+	}
+	else if (mode == 12)
+	{
+		// Hue
+		return SetLum(SetSat(source, Sat(backdrop)), Lum(backdrop));
+	}
+	else if (mode == 13)
+	{
+		// Saturation
+		return SetLum(SetSat(backdrop, Sat(source)), Lum(backdrop));
+	}
+	else if (mode == 14)
+	{
+		// Color
+		return SetLum(source, Lum(backdrop));
+	}
+	else if (mode == 15)
+	{
+		// Luminosity
+		return SetLum(backdrop, Lum(source));
+	}
+	else if (mode == 16)
+	{
+		// Additive (linear-dodge)
+		return min(source + backdrop, 1.0);
+	}
+	else
+	{
+		return vec3(0.0);
+	}
+}
+
+void main() {
+	vec4 backdrop = texture2D(TEXTURE_1, AdditionalOut.zw);
+	vec4 source = texture2D(TEXTURE_0, AdditionalOut.xy) * ColorOut.a;
+
+	vec3 backdropUnprem = backdrop.rgb / max(backdrop.a, 0.0001);
+	vec3 sourceUnprem = source.rgb / max(source.a, 0.0001);
+	vec4 result =
+		(1.0 - backdrop.a) * source +
+		source.a * backdrop.a * vec4(
+			clamp(BlendFunction(backdropUnprem, sourceUnprem, int(PRIM_PROPS_0.x)), 0.0, 1.0), 1.0) +
+		(1.0 - source.a) * backdrop;
+
+	gl_FragColor = result;
+}

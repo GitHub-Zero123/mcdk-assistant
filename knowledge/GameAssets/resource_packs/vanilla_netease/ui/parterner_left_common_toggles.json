@@ -1,0 +1,2802 @@
+{
+    "convenient_func_panel_section": {
+        "controls": [
+            {
+                "stable_label_panel": {
+                    "controls": [
+                        {
+                            "left_label": {
+                                "font_type": "smooth",
+                                "text": "便捷功能：",
+                                "text_alignment": "center",
+                                "type": "label"
+                            }
+                        },
+                        {
+                            "empty_panel": {
+                                "layer": 1,
+                                "size": [
+                                    "0.0%+3.0px",
+                                    "100.0%+0.0px"
+                                ],
+                                "type": "panel"
+                            }
+                        },
+                        {
+                            "right_label_panel": {
+                                "anchor_from": "top_left",
+                                "anchor_to": "top_left",
+                                "controls": [
+                                    {
+                                        "right_label": {
+                                            "anchor_from": "top_left",
+                                            "anchor_to": "top_left",
+                                            "font_scale_factor": 0.8,
+                                            "font_type": "smooth",
+                                            "offset": [
+                                                "0.0%+0.0px",
+                                                "10.0%+0.0px"
+                                            ],
+                                            "text": "高品质伙伴皮肤拥有更多功能哦！",
+                                            "text_alignment": "center",
+                                            "type": "label"
+                                        }
+                                    }
+                                ],
+                                "layer": 1,
+                                "size": [
+                                    "60.0%+0.0px",
+                                    "100.0%+0.0px"
+                                ],
+                                "type": "panel",
+                                "visible": false
+                            }
+                        }
+                    ],
+                    "layer": 1,
+                    "orientation": "horizontal",
+                    "size": [
+                        "80.0%+0.0px",
+                        "4.7%x+0.0px"
+                    ],
+                    "type": "stack_panel"
+                }
+            },
+            {
+                "empty_line_panel": {
+                    "layer": 1,
+                    "size": [
+                        "100.0%+0.0px",
+                        "3.5%x+0.0px"
+                    ],
+                    "type": "panel"
+                }
+            },
+            {
+                "first_line_panel": {
+                    "controls": [
+                        {
+                            "block_empty_panel": {
+                                "layer": 1,
+                                "size": [
+                                    "2.28%+0.0px",
+                                    "100.0%+0.0px"
+                                ],
+                                "type": "panel"
+                            }
+                        },
+                        {
+                            "mini_map@parterner_left_common_toggles.func_and_desc_toggle_cell": {
+                                "$func_cell_name": "小地图",
+                                "$toggle_name": "#parterner_func_section.minimap_control",
+                                "$toggle_state_binding_name": "#parterner_func_section.minimap_state",
+                                "size": [
+                                    "33.85%+0.0px",
+                                    "100.0%+0.0px"
+                                ]
+                            }
+                        }
+                    ],
+                    "layer": 1,
+                    "orientation": "horizontal",
+                    "size": [
+                        "97.77%+0.0px",
+                        "14.1%x+0.0px"
+                    ],
+                    "type": "stack_panel"
+                }
+            },
+            {
+                "thingSort_line_panel": {
+                    "controls": [
+                        {
+                            "block_empty_panel": {
+                                "layer": 1,
+                                "size": [
+                                    "2.28%+0.0px",
+                                    "100.0%+0.0px"
+                                ],
+                                "type": "panel"
+                            }
+                        },
+                        {
+                            "thingSort@parterner_left_common_toggles.func_and_desc_toggle_cell": {
+                                "$func_cell_name": "物品整理",
+                                "$toggle_name": "#parterner_func_section.thing_sort_control",
+                                "$toggle_state_binding_name": "#parterner_func_section.thing_sort_state",
+                                "size": [
+                                    "33.85%+0.0px",
+                                    "100.0%+0.0px"
+                                ]
+                            }
+                        }
+                    ],
+                    "layer": 1,
+                    "orientation": "horizontal",
+                    "size": [
+                        "97.77%+0.0px",
+                        "14.1%x+0.0px"
+                    ],
+                    "type": "stack_panel"
+                }
+            },
+            {
+                "second_line_panel": {
+                    "controls": [
+                        {
+                            "block_empty_panel": {
+                                "layer": 1,
+                                "size": [
+                                    "2.28%+0.0px",
+                                    "100.0%+0.0px"
+                                ],
+                                "type": "panel"
+                            }
+                        },
+                        {
+                            "damage_display@parterner_left_common_toggles.func_and_desc_toggle_cell": {
+                                "$func_cell_name": "伤害显示",
+                                "size": [
+                                    "33.85%+0.0px",
+                                    "100.0%+0.0px"
+                                ]
+                            }
+                        }
+                    ],
+                    "layer": 1,
+                    "orientation": "horizontal",
+                    "size": [
+                        "97.77%+0.0px",
+                        "14.1%x+0.0px"
+                    ],
+                    "type": "stack_panel",
+                    "visible": false
+                }
+            },
+            {
+                "desc_line_panel": {
+                    "controls": [
+                        {
+                            "block_empty_panel": {
+                                "layer": 1,
+                                "size": [
+                                    "2.28%+0.0px",
+                                    "100.0%+0.0px"
+                                ],
+                                "type": "panel"
+                            }
+                        },
+                        {
+                            "desc_label": {
+                                "anchor_from": "top_left",
+                                "anchor_to": "top_left",
+                                "color": [
+                                    1.0,
+                                    0.3215686274509804,
+                                    0.9921568627450981
+                                ],
+                                "font_scale_factor": 0.8,
+                                "font_type": "smooth",
+                                "text": "使用史诗级伙伴皮肤，解锁以下便捷功能",
+                                "text_alignment": "center",
+                                "type": "label"
+                            }
+                        }
+                    ],
+                    "layer": 1,
+                    "orientation": "horizontal",
+                    "size": [
+                        "97.77%+0.0px",
+                        "5.0%x+0.0px"
+                    ],
+                    "type": "stack_panel",
+                    "visible": false
+                }
+            },
+            {
+                "third_line_panel": {
+                    "controls": [
+                        {
+                            "block_empty_panel": {
+                                "layer": 1,
+                                "size": [
+                                    "2.28%+0.0px",
+                                    "100.0%+0.0px"
+                                ],
+                                "type": "panel"
+                            }
+                        },
+                        {
+                            "building_preview@parterner_left_common_toggles.func_and_desc_toggle_cell": {
+                                "$func_cell_name": "建筑预览",
+                                "$toggle_name": "#parterner_func_section.building_preview_control",
+                                "$toggle_state_binding_name": "#parterner_func_section.building_preview_state",
+                                "size": [
+                                    "33.85%+0.0px",
+                                    "100.0%+0.0px"
+                                ]
+                            }
+                        }
+                    ],
+                    "layer": 1,
+                    "orientation": "horizontal",
+                    "size": [
+                        "97.77%+0.0px",
+                        "14.1%x+0.0px"
+                    ],
+                    "type": "stack_panel"
+                }
+            },
+            {
+                "fourth_line_panel": {
+                    "controls": [
+                        {
+                            "block_empty_panel": {
+                                "layer": 1,
+                                "size": [
+                                    "2.28%+0.0px",
+                                    "100.0%+0.0px"
+                                ],
+                                "type": "panel"
+                            }
+                        },
+                        {
+                            "friend_pos@parterner_left_common_toggles.func_and_desc_toggle_cell": {
+                                "$func_cell_name": "朋友坐标",
+                                "$toggle_name": "#parterner_func_section.friend_pos_control",
+                                "$toggle_state_binding_name": "#parterner_func_section.friend_pos_state",
+                                "size": [
+                                    "33.85%+0.0px",
+                                    "100.0%+0.0px"
+                                ]
+                            }
+                        }
+                    ],
+                    "layer": 1,
+                    "orientation": "horizontal",
+                    "size": [
+                        "97.77%+0.0px",
+                        "14.1%x+0.0px"
+                    ],
+                    "type": "stack_panel"
+                }
+            },
+            {
+                "fifth_line_panel": {
+                    "controls": [
+                        {
+                            "block_empty_panel": {
+                                "layer": 1,
+                                "size": [
+                                    "2.28%+0.0px",
+                                    "100.0%+0.0px"
+                                ],
+                                "type": "panel"
+                            }
+                        },
+                        {
+                            "temporary_beacon@parterner_left_common_toggles.func_and_desc_button_cell": {
+                                "$func_button_cell_btn_text": "放置",
+                                "$func_cell_name": "临时信标",
+                                "size": [
+                                    "33.85%+0.0px",
+                                    "100.0%+0.0px"
+                                ]
+                            }
+                        }
+                    ],
+                    "layer": 1,
+                    "orientation": "horizontal",
+                    "size": [
+                        "97.77%+0.0px",
+                        "14.1%x+0.0px"
+                    ],
+                    "type": "stack_panel"
+                }
+            },
+            {
+                "mobinfo_line_panel": {
+                    "controls": [
+                        {
+                            "block_empty_panel": {
+                                "layer": 1,
+                                "size": [
+                                    "2.28%+0.0px",
+                                    "100.0%+0.0px"
+                                ],
+                                "type": "panel"
+                            }
+                        },
+                        {
+                            "mobInfo@parterner_left_common_toggles.func_and_desc_toggle_cell": {
+                                "$func_cell_name": "生物信息",
+                                "$toggle_name": "#parterner_func_section.mobinfo_control",
+                                "$toggle_state_binding_name": "#parterner_func_section.mobinfo_state",
+                                "size": [
+                                    "33.85%+0.0px",
+                                    "100.0%+0.0px"
+                                ]
+                            }
+                        }
+                    ],
+                    "layer": 1,
+                    "orientation": "horizontal",
+                    "size": [
+                        "97.77%+0.0px",
+                        "14.1%x+0.0px"
+                    ],
+                    "type": "stack_panel"
+                }
+            }
+        ],
+        "layer": 1,
+        "size": [
+            "97.69%+0.0px",
+            "default"
+        ],
+        "type": "stack_panel"
+    },
+    "parterner_config_panel": {
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "stable_label_panel": {
+                    "anchor_from": "top_left",
+                    "anchor_to": "top_left",
+                    "controls": [
+                        {
+                            "label": {
+                                "$parterner_func_config_text_scale|default": 1.0,
+                                "anchor_from": "top_left",
+                                "anchor_to": "top_left",
+                                "font_scale_factor": "$parterner_func_config_text_scale",
+                                "font_type": "smooth",
+                                "text": "伙伴设置：",
+                                "text_alignment": "center",
+                                "type": "label"
+                            }
+                        }
+                    ],
+                    "offset": [
+                        "0.0%+0.0px",
+                        0.0
+                    ],
+                    "size": [
+                        "17.29%+0.0px",
+                        "21.77%x+0.0px"
+                    ],
+                    "type": "panel"
+                }
+            },
+            {
+                "empty_line_panel": {
+                    "layer": 1,
+                    "size": [
+                        "100.0%+0.0px",
+                        "3.0%x+0.0px"
+                    ],
+                    "type": "panel"
+                }
+            },
+            {
+                "first_line_panel": {
+                    "controls": [
+                        {
+                            "block_empty_panel": {
+                                "size": [
+                                    "2.28%+0.0px",
+                                    "100.0%+0.0px"
+                                ],
+                                "type": "panel"
+                            }
+                        },
+                        {
+                            "self_invisible@parterner_left_common_toggles.func_and_desc_toggle_cell": {
+                                "$func_cell_name": "本人可见",
+                                "$toggle_name": "#parterner_func_section.self_visibility_control",
+                                "$toggle_state_binding_name": "#parterner_func_section.self_visibility_state",
+                                "size": [
+                                    "33.85%+0.0px",
+                                    "100.0%+0.0px"
+                                ]
+                            }
+                        }
+                    ],
+                    "layer": 1,
+                    "orientation": "horizontal",
+                    "size": [
+                        "97.77%+0.0px",
+                        "14.12%x+0.0px"
+                    ],
+                    "type": "stack_panel"
+                }
+            },
+            {
+                "second_line_panel": {
+                    "controls": [
+                        {
+                            "block_empty_panel": {
+                                "size": [
+                                    "2.28%+0.0px",
+                                    "100.0%+0.0px"
+                                ],
+                                "type": "panel"
+                            }
+                        },
+                        {
+                            "other_invisible@parterner_left_common_toggles.func_and_desc_toggle_cell": {
+                                "$toggle_name": "#parterner_func_section.other_visibility_control",
+                                "$toggle_state_binding_name": "#parterner_func_section.other_visibility_state",
+                                "anchor_from": "top_left",
+                                "anchor_to": "top_left",
+                                "offset": [
+                                    "0.0%+0.0px",
+                                    0.0
+                                ],
+                                "size": [
+                                    "33.85%+0.0px",
+                                    "100.0%+0.0px"
+                                ]
+                            }
+                        }
+                    ],
+                    "layer": 1,
+                    "orientation": "horizontal",
+                    "size": [
+                        "97.77%+0.0px",
+                        "14.12%x+0.0px"
+                    ],
+                    "type": "stack_panel"
+                }
+            },
+            {
+                "third_line_panel": {
+                    "controls": [
+                        {
+                            "block_empty_panel": {
+                                "size": [
+                                    "2.28%+0.0px",
+                                    "100.0%+0.0px"
+                                ],
+                                "type": "panel"
+                            }
+                        },
+                        {
+                            "message_push@parterner_left_common_toggles.func_and_desc_toggle_cell": {
+                                "$func_cell_name": "消息推送",
+                                "$toggle_name": "#parterner_func_section.send_message_control",
+                                "$toggle_state_binding_name": "#parterner_func_section.send_message_state",
+                                "anchor_from": "top_left",
+                                "anchor_to": "top_left",
+                                "size": [
+                                    "33.85%+0.0px",
+                                    "100.0%+0.0px"
+                                ]
+                            }
+                        }
+                    ],
+                    "layer": 1,
+                    "orientation": "horizontal",
+                    "size": [
+                        "97.77%+0.0px",
+                        "14.12%x+0.0px"
+                    ],
+                    "type": "stack_panel"
+                }
+            },
+            {
+                "fourth_line_panel": {
+                    "controls": [
+                        {
+                            "block_empty_panel": {
+                                "size": [
+                                    "2.28%+0.0px",
+                                    "100.0%+0.0px"
+                                ],
+                                "type": "panel"
+                            }
+                        },
+                        {
+                            "trigger@parterner_left_common_toggles.func_and_desc_toggle_cell": {
+                                "$func_cell_desc": "控制伙伴是否触发压力板、红石矿、绊线钩等",
+                                "$func_cell_name": "触发机关",
+                                "$toggle_name": "#parterner_func_section.trigger_switch_control",
+                                "$toggle_state_binding_name": "#parterner_func_section.trigger_switch_state",
+                                "anchor_from": "top_left",
+                                "anchor_to": "top_left",
+                                "size": [
+                                    "33.85%+0.0px",
+                                    "100.0%+0.0px"
+                                ]
+                            }
+                        }
+                    ],
+                    "layer": 1,
+                    "orientation": "horizontal",
+                    "size": [
+                        "97.77%+0.0px",
+                        "14.12%x+0.0px"
+                    ],
+                    "type": "stack_panel"
+                }
+            },
+            {
+                "empty_line_panel_1": {
+                    "layer": 1,
+                    "size": [
+                        "100.0%+0.0px",
+                        "3.0%x+0.0px"
+                    ],
+                    "type": "panel"
+                }
+            },
+            {
+                "fifth_line_panel": {
+                    "controls": [
+                        {
+                            "block_empty_panel": {
+                                "size": [
+                                    "2.28%+0.0px",
+                                    "100.0%+0.0px"
+                                ],
+                                "type": "panel"
+                            }
+                        },
+                        {
+                            "smart_avoid@parterner_left_common_toggles.func_and_desc_toggle_cell": {
+                                "$func_cell_desc": "伙伴阻挡玩家摆放、破坏方块时进行避让",
+                                "$func_cell_name": "智能避让",
+                                "$toggle_name": "#parterner_func_section.smart_avoid_control",
+                                "$toggle_state_binding_name": "#parterner_func_section.smart_avoid_state",
+                                "anchor_from": "top_left",
+                                "anchor_to": "top_left",
+                                "size": [
+                                    "33.85%+0.0px",
+                                    "100.0%+0.0px"
+                                ]
+                            }
+                        }
+                    ],
+                    "layer": 1,
+                    "orientation": "horizontal",
+                    "size": [
+                        "97.77%+0.0px",
+                        "14.12%x+0.0px"
+                    ],
+                    "type": "stack_panel"
+                }
+            },
+            {
+                "empty_line_panel_2": {
+                    "layer": 1,
+                    "size": [
+                        "100.0%+0.0px",
+                        "3.0%x+0.0px"
+                    ],
+                    "type": "panel"
+                }
+            },
+            {
+                "sixth_line_panel": {
+                    "controls": [
+                        {
+                            "block_empty_panel": {
+                                "size": [
+                                    "2.28%+0.0px",
+                                    "100.0%+0.0px"
+                                ],
+                                "type": "panel"
+                            }
+                        },
+                        {
+                            "parterner_talk@parterner_left_common_toggles.func_and_desc_toggle_cell": {
+                                "$func_cell_desc": "伙伴会根据游戏情景主动发言",
+                                "$func_cell_name": "伙伴发言",
+                                "$toggle_name": "#parterner_func_section.parterner_talk_control",
+                                "$toggle_state_binding_name": "#parterner_func_section.parterner_talk_state",
+                                "anchor_from": "top_left",
+                                "anchor_to": "top_left",
+                                "size": [
+                                    "33.85%+0.0px",
+                                    "100.0%+0.0px"
+                                ]
+                            }
+                        }
+                    ],
+                    "layer": 1,
+                    "orientation": "horizontal",
+                    "size": [
+                        "97.77%+0.0px",
+                        "14.12%x+0.0px"
+                    ],
+                    "type": "stack_panel"
+                }
+            },
+            {
+                "empty_line_panel_3": {
+                    "layer": 1,
+                    "size": [
+                        "100.0%+0.0px",
+                        "3.0%x+0.0px"
+                    ],
+                    "type": "panel"
+                }
+            },
+            {
+                "seventh_line_panel": {
+                    "controls": [
+                        {
+                            "block_empty_panel": {
+                                "size": [
+                                    "2.28%+0.0px",
+                                    "100.0%+0.0px"
+                                ],
+                                "type": "panel"
+                            }
+                        },
+                        {
+                            "parterner_talk@parterner_left_common_toggles.func_and_desc_toggle_cell": {
+                                "$func_cell_desc": "挖矿状态伙伴自动收起",
+                                "$func_cell_name": "手持镐子自动隐藏",
+                                "$toggle_name": "#parterner_func_section.parterner_mine_control",
+                                "$toggle_state_binding_name": "#parterner_func_section.parterner_mine_state",
+                                "anchor_from": "top_left",
+                                "anchor_to": "top_left",
+                                "size": [
+                                    "33.85%+0.0px",
+                                    "100.0%+0.0px"
+                                ]
+                            }
+                        }
+                    ],
+                    "layer": 1,
+                    "orientation": "horizontal",
+                    "size": [
+                        "97.77%+0.0px",
+                        "14.12%x+0.0px"
+                    ],
+                    "type": "stack_panel"
+                }
+            },
+            {
+                "empty_line_panel_4": {
+                    "layer": 1,
+                    "size": [
+                        "100.0%+0.0px",
+                        "3.0%x+0.0px"
+                    ],
+                    "type": "panel"
+                }
+            }
+        ],
+        "layer": 1,
+        "size": [
+            "97.69%+0.0px",
+            "default"
+        ],
+        "type": "stack_panel"
+    },
+    "action_content_detail@parterner_left_common_toggles.petDressViewList": {
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "layer": 1,
+        "size": [
+            "100.0%+0.0px",
+            "default"
+        ],
+        "type": "stack_panel"
+    },
+    "appearance_content_detail@parterner_left_common_toggles.petDressViewList": {
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "layer": 1,
+        "size": [
+            "100.0%+0.0px",
+            "default"
+        ],
+        "type": "stack_panel"
+    },
+    "bagContent": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "controls": [
+            {
+                "scrollingPanel@parterner_left_common_toggles.bag_scrolling_panel": {
+                    "$bag_grid_num": 27
+                }
+            }
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "92.68%",
+            "98.81%"
+        ],
+        "type": "panel"
+    },
+    "bag_default": {
+        "layer": "$texture_layer",
+        "nineslice_size": 1,
+        "texture": "$default_texture",
+        "type": "image"
+    },
+    "bag_dropButton@common.button": {
+        "$default_texture": "textures/ui/cell_image",
+        "$hover_texture": "textures/ui/cell_image",
+        "$pressed_button_name": "",
+        "$pressed_texture": "textures/ui/cell_image",
+        "$texture_layer": -10,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "button_mappings": [],
+        "controls": [
+            {
+                "default@parterner_left_common_toggles.bag_default": {}
+            },
+            {
+                "hover@parterner_left_common_toggles.bag_hover": {}
+            },
+            {
+                "pressed@parterner_left_common_toggles.bag_pressed": {}
+            }
+        ],
+        "default_control": "default",
+        "hover_control": "hover",
+        "layer": 1,
+        "offset": [
+            0,
+            0
+        ],
+        "pressed_control": "pressed",
+        "size": [
+            "100%",
+            "100%"
+        ],
+        "type": "button",
+        "visible": true
+    },
+    "bag_grid": {
+        "$bag_grid_custom_layer|default": 4,
+        "$bag_grid_num|default": 36,
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "collection_name": "bag_grid",
+        "grid_item_template": "parterner_left_common_toggles.bag_item_btn",
+        "grid_rescaling_type": "horizontal",
+        "layer": "$bag_grid_custom_layer",
+        "maximum_grid_items": "$bag_grid_num",
+        "size": [
+            "100%",
+            "default"
+        ],
+        "type": "grid",
+        "visible": true
+    },
+    "bag_hover": {
+        "layer": "$texture_layer",
+        "nineslice_size": 1,
+        "texture": "$hover_texture",
+        "type": "image"
+    },
+    "bag_itemImg": {
+        "$parterner_bag_itemImg_size|default": [
+            24,
+            24
+        ],
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "controls": [
+            {
+                "itemNum@parterner_left_common_toggles.itemNum": {}
+            }
+        ],
+        "layer": 3,
+        "offset": [
+            0,
+            0
+        ],
+        "renderer": "inventory_item_renderer",
+        "size": "$parterner_bag_itemImg_size",
+        "type": "custom",
+        "visible": true
+    },
+    "bag_itemLockRed": {
+        "layer": 4,
+        "texture": "textures/ui/item_lock_red",
+        "type": "image",
+        "visible": false
+    },
+    "bag_itemLockYellow": {
+        "layer": 4,
+        "texture": "textures/ui/item_lock_yellow",
+        "type": "image",
+        "visible": false
+    },
+    "bag_item_btn@common.button": {
+        "$default_texture": "textures/ui/cell_image",
+        "$hover_texture": "textures/ui/cell_image",
+        "$item_button_anchor_from|default": "center",
+        "$item_button_anchor_to|default": "center",
+        "$item_button_layer|default": 1,
+        "$item_button_offset|default": [
+            0,
+            0
+        ],
+        "$item_button_size|default": [
+            28,
+            28
+        ],
+        "$pressed_button_name": "",
+        "$pressed_texture": "textures/ui/cell_image",
+        "$texture_layer": 2,
+        "anchor_from": "$item_button_anchor_from",
+        "anchor_to": "$item_button_anchor_to",
+        "button_mappings": [],
+        "controls": [
+            {
+                "selectedImg@parterner_left_common_toggles.bag_selectedImg": {}
+            },
+            {
+                "default@parterner_left_common_toggles.bag_default": {}
+            },
+            {
+                "hover@parterner_left_common_toggles.bag_hover": {}
+            },
+            {
+                "pressed@parterner_left_common_toggles.bag_pressed": {}
+            },
+            {
+                "itemImg@parterner_left_common_toggles.bag_itemImg": {}
+            },
+            {
+                "durabilityBar@parterner_left_common_toggles.bag_progressBar": {}
+            },
+            {
+                "itemLockYellow@parterner_left_common_toggles.bag_itemLockYellow": {}
+            },
+            {
+                "itemLockRed@parterner_left_common_toggles.bag_itemLockRed": {}
+            },
+            {
+                "lockedImg": {
+                    "alpha": 0.3,
+                    "color": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "controls": [
+                        {
+                            "img": {
+                                "layer": 1,
+                                "texture": "textures/ui/pet_ani_lock",
+                                "type": "image"
+                            }
+                        }
+                    ],
+                    "layer": 10,
+                    "size": [
+                        "100% - 2px",
+                        "100% - 2px"
+                    ],
+                    "texture": "textures/ui/White",
+                    "type": "image",
+                    "visible": false
+                }
+            }
+        ],
+        "default_control": "default",
+        "hover_control": "hover",
+        "is_handle_button_move_event": false,
+        "layer": "$item_button_layer",
+        "offset": "$item_button_offset",
+        "pressed_control": "pressed",
+        "size": "$item_button_size",
+        "type": "button",
+        "visible": true
+    },
+    "bag_pressed": {
+        "layer": "$texture_layer",
+        "nineslice_size": 1,
+        "texture": "$pressed_texture",
+        "type": "image"
+    },
+    "bag_progressBar": {
+        "$progressBarOffset|default": [
+            0,
+            8
+        ],
+        "$progressBarSize|default": [
+            18,
+            2
+        ],
+        "color": [
+            0.3,
+            0.3,
+            0.3
+        ],
+        "controls": [
+            {
+                "barMask": {
+                    "$barMaskSize|default": [
+                        "100.0%+0.0px",
+                        1
+                    ],
+                    "anchor_from": "center",
+                    "anchor_to": "center",
+                    "clip_direction": "left",
+                    "color": [
+                        0,
+                        1,
+                        0
+                    ],
+                    "layer": 21,
+                    "nineslice_size": 1,
+                    "offset": [
+                        0,
+                        0
+                    ],
+                    "size": "$barMaskSize",
+                    "texture": "textures/ui/white_bg",
+                    "type": "image",
+                    "visible": true
+                }
+            }
+        ],
+        "layer": 20,
+        "nineslice_size": 1,
+        "offset": "$progressBarOffset",
+        "size": "$progressBarSize",
+        "texture": "textures/ui/white_bg",
+        "type": "image",
+        "visible": false
+    },
+    "bag_scrolling_panel@common.scrolling_panel": {
+        "$scroll_box_mouse_image_control": "common-classic.button_state_default",
+        "$scroll_size": [
+            "8px",
+            "100%"
+        ],
+        "$scrolling_content": "parterner_left_common_toggles.bag_grid",
+        "$scrolling_pane_size": [
+            "100%",
+            "100%"
+        ],
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "layer": 1,
+        "visible": true
+    },
+    "bag_section_content": {
+        "anchor_from": "left_middle",
+        "anchor_to": "left_middle",
+        "controls": [
+            {
+                "bagContent_1@parterner_left_common_toggles.bagContent": {}
+            },
+            {
+                "grouping_progressiveBar@parterner_common_toggles.progressiveBar": {}
+            }
+        ],
+        "layer": 1,
+        "size": [
+            "100%",
+            "100%"
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "bag_selectedImg": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "layer": 5,
+        "nineslice_size": 4,
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%+4.0px",
+            "100.0%+4.0px"
+        ],
+        "texture": "textures/ui/pocket_ui_highlight_selected_slot",
+        "type": "image",
+        "visible": false
+    },
+    "classic_bag_item_btn@common.button": {
+        "$default_texture": "textures/ui/cell_image",
+        "$hover_texture": "textures/ui/cell_image",
+        "$item_button_anchor_from|default": "center",
+        "$item_button_anchor_to|default": "center",
+        "$item_button_layer|default": 1,
+        "$item_button_offset|default": [
+            0,
+            0
+        ],
+        "$item_button_size|default": [
+            18,
+            18
+        ],
+        "$pressed_button_name": "",
+        "$pressed_texture": "textures/ui/cell_image",
+        "$texture_layer": 2,
+        "anchor_from": "$item_button_anchor_from",
+        "anchor_to": "$item_button_anchor_to",
+        "button_mappings": [],
+        "controls": [
+            {
+                "selectedImg@parterner_left_common_toggles.bag_selectedImg": {}
+            },
+            {
+                "default@parterner_left_common_toggles.bag_default": {}
+            },
+            {
+                "hover@parterner_left_common_toggles.bag_hover": {}
+            },
+            {
+                "pressed@parterner_left_common_toggles.bag_pressed": {}
+            },
+            {
+                "itemImg@parterner_left_common_toggles.bag_itemImg": {
+                    "$parterner_bag_itemImg_size": [
+                        15,
+                        15
+                    ]
+                }
+            },
+            {
+                "durabilityBar@parterner_left_common_toggles.bag_progressBar": {
+                    "$progressBarSize": [
+                        12,
+                        2
+                    ]
+                }
+            },
+            {
+                "itemLockYellow@parterner_left_common_toggles.bag_itemLockYellow": {}
+            },
+            {
+                "itemLockRed@parterner_left_common_toggles.bag_itemLockRed": {}
+            },
+            {
+                "lockedImg": {
+                    "alpha": 0.3,
+                    "color": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "controls": [
+                        {
+                            "img": {
+                                "layer": 1,
+                                "texture": "textures/ui/pet_ani_lock",
+                                "type": "image"
+                            }
+                        }
+                    ],
+                    "layer": 10,
+                    "size": [
+                        "100% - 2px",
+                        "100% - 2px"
+                    ],
+                    "texture": "textures/ui/White",
+                    "type": "image",
+                    "visible": false
+                }
+            }
+        ],
+        "default_control": "default",
+        "hover_control": "hover",
+        "is_handle_button_move_event": true,
+        "layer": "$item_button_layer",
+        "offset": "$item_button_offset",
+        "pressed_control": "pressed",
+        "size": "$item_button_size",
+        "type": "button",
+        "visible": true
+    },
+    "dressup_section_content": {
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "controls": [
+            {
+                "top_padding": {
+                    "anchor_from": "top_middle",
+                    "anchor_to": "top_middle",
+                    "size": [
+                        "100.0%+0.0px",
+                        "2.7%+0.0px"
+                    ],
+                    "type": "panel"
+                }
+            },
+            {
+                "nav_panel": {
+                    "controls": [
+                        {
+                            "left_padding": {
+                                "size": [
+                                    "1.0%+0.0px",
+                                    "100.0%+0.0px"
+                                ],
+                                "type": "panel"
+                            }
+                        },
+                        {
+                            "appearance_btn_panel": {
+                                "controls": [
+                                    {
+                                        "button@common.button": {
+                                            "$control_alpha": 1.0,
+                                            "$default_texture": "textures/ui/btn_light_default",
+                                            "$hover_texture": "textures/ui/btn_hover",
+                                            "$is_new_nine_slice": false,
+                                            "$label_color": [
+                                                0.2862745098039216,
+                                                0.2862745098039216,
+                                                0.2862745098039216
+                                            ],
+                                            "$label_font_scale_factor": 0.6,
+                                            "$label_font_size": "large",
+                                            "$label_layer": 3,
+                                            "$label_offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "$label_text": "外观",
+                                            "$nine_slice_buttom": 0,
+                                            "$nine_slice_left": 0,
+                                            "$nine_slice_right": 0,
+                                            "$nine_slice_top": 0,
+                                            "$nineslice_size": [
+                                                2.0,
+                                                2.0,
+                                                2.0,
+                                                2.0
+                                            ],
+                                            "$pressed_button_name": "%netease_editor_template_namespace.click",
+                                            "$pressed_texture": "textures/ui/btn_pressed",
+                                            "$texture_layer": 2,
+                                            "bindings": [
+                                                {
+                                                    "binding_collection_name": "",
+                                                    "binding_condition": "always_when_visible",
+                                                    "binding_type": "collection_details"
+                                                }
+                                            ],
+                                            "button_mappings": [],
+                                            "controls": [
+                                                {
+                                                    "default@netease_editor_template_namespace.default": {}
+                                                },
+                                                {
+                                                    "hover@netease_editor_template_namespace.hover": {}
+                                                },
+                                                {
+                                                    "pressed@netease_editor_template_namespace.pressed": {}
+                                                },
+                                                {
+                                                    "button_label@netease_editor_template_namespace.button_label": {}
+                                                }
+                                            ],
+                                            "default_control": "default",
+                                            "hover_control": "hover",
+                                            "is_handle_button_move_event": true,
+                                            "layer": 2,
+                                            "pressed_control": "pressed",
+                                            "size": [
+                                                "100.0%+0.0px",
+                                                "100.0%+0.0px"
+                                            ],
+                                            "type": "button"
+                                        }
+                                    }
+                                ],
+                                "size": [
+                                    "24.75%+0.0px",
+                                    "100.0%+0.0px"
+                                ],
+                                "layer": 2,
+                                "type": "panel"
+                            }
+                        },
+                        {
+                            "action_btn_panel": {
+                                "controls": [
+                                    {
+                                        "button@common.button": {
+                                            "$control_alpha": 1.0,
+                                            "$default_texture": "textures/ui/btn_light_default",
+                                            "$hover_texture": "textures/ui/btn_hover",
+                                            "$is_new_nine_slice": false,
+                                            "$label_color": [
+                                                0.2862745098039216,
+                                                0.2862745098039216,
+                                                0.2862745098039216
+                                            ],
+                                            "$label_font_scale_factor": 0.6,
+                                            "$label_font_size": "large",
+                                            "$label_layer": 3,
+                                            "$label_offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "$label_text": "动作",
+                                            "$nine_slice_buttom": 0,
+                                            "$nine_slice_left": 0,
+                                            "$nine_slice_right": 0,
+                                            "$nine_slice_top": 0,
+                                            "$nineslice_size": [
+                                                2.0,
+                                                2.0,
+                                                2.0,
+                                                2.0
+                                            ],
+                                            "$pressed_button_name": "%netease_editor_template_namespace.click",
+                                            "$pressed_texture": "textures/ui/btn_pressed",
+                                            "$texture_layer": 2,
+                                            "bindings": [
+                                                {
+                                                    "binding_collection_name": "",
+                                                    "binding_condition": "always_when_visible",
+                                                    "binding_type": "collection_details"
+                                                }
+                                            ],
+                                            "button_mappings": [],
+                                            "controls": [
+                                                {
+                                                    "default@netease_editor_template_namespace.default": {}
+                                                },
+                                                {
+                                                    "hover@netease_editor_template_namespace.hover": {}
+                                                },
+                                                {
+                                                    "pressed@netease_editor_template_namespace.pressed": {}
+                                                },
+                                                {
+                                                    "button_label@netease_editor_template_namespace.button_label": {}
+                                                }
+                                            ],
+                                            "default_control": "default",
+                                            "hover_control": "hover",
+                                            "is_handle_button_move_event": true,
+                                            "layer": 2,
+                                            "pressed_control": "pressed",
+                                            "size": [
+                                                "100.0%+0.0px",
+                                                "100.0%+0.0px"
+                                            ],
+                                            "type": "button"
+                                        }
+                                    }
+                                ],
+                                "layer": 2,
+                                "size": [
+                                    "24.75%+0.0px",
+                                    "100.0%+0.0px"
+                                ],
+                                "type": "panel"
+                            }
+                        },
+                        {
+                            "switch_btn_panel": {
+                                "controls": [
+                                    {
+                                        "button@common.button": {
+                                            "$control_alpha": 1.0,
+                                            "$default_texture": "textures/ui/btn_light_default",
+                                            "$hover_texture": "textures/ui/btn_hover",
+                                            "$is_new_nine_slice": false,
+                                            "$label_color": [
+                                                0.2862745098039216,
+                                                0.2862745098039216,
+                                                0.2862745098039216
+                                            ],
+                                            "$label_font_scale_factor": 0.6,
+                                            "$label_font_size": "large",
+                                            "$label_layer": 3,
+                                            "$label_offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "$label_text": "伙伴",
+                                            "$nine_slice_buttom": 0,
+                                            "$nine_slice_left": 0,
+                                            "$nine_slice_right": 0,
+                                            "$nine_slice_top": 0,
+                                            "$nineslice_size": [
+                                                2.0,
+                                                2.0,
+                                                2.0,
+                                                2.0
+                                            ],
+                                            "$pressed_button_name": "%netease_editor_template_namespace.click",
+                                            "$pressed_texture": "textures/ui/btn_pressed",
+                                            "$texture_layer": 2,
+                                            "bindings": [
+                                                {
+                                                    "binding_collection_name": "",
+                                                    "binding_condition": "always_when_visible",
+                                                    "binding_type": "collection_details"
+                                                }
+                                            ],
+                                            "button_mappings": [],
+                                            "controls": [
+                                                {
+                                                    "default@netease_editor_template_namespace.default": {}
+                                                },
+                                                {
+                                                    "hover@netease_editor_template_namespace.hover": {}
+                                                },
+                                                {
+                                                    "pressed@netease_editor_template_namespace.pressed": {}
+                                                },
+                                                {
+                                                    "button_label@netease_editor_template_namespace.button_label": {}
+                                                }
+                                            ],
+                                            "default_control": "default",
+                                            "hover_control": "hover",
+                                            "is_handle_button_move_event": true,
+                                            "layer": 2,
+                                            "pressed_control": "pressed",
+                                            "size": [
+                                                "100.0%+0.0px",
+                                                "100.0%+0.0px"
+                                            ],
+                                            "type": "button"
+                                        }
+                                    }
+                                ],
+                                "layer": 2,
+                                "size": [
+                                    "24.75%+0.0px",
+                                    "100.0%+0.0px"
+                                ],
+                                "type": "panel"
+                            }
+                        }
+                    ],
+                    "layer": 2,
+                    "orientation": "horizontal",
+                    "size": [
+                        "100.0%+0.0px",
+                        "10.0%+0.0px"
+                    ],
+                    "type": "stack_panel"
+                }
+            },
+            {
+                "first_padding": {
+                    "size": [
+                        "100.0%+0.0px",
+                        "2.0%+0.0px"
+                    ],
+                    "type": "panel"
+                }
+            },
+            {
+                "appearance_content_panel": {
+                    "controls": [
+                        {
+                            "left_padding": {
+                                "size": [
+                                    "2.0%+0.0px",
+                                    "100.0%+0.0px"
+                                ],
+                                "type": "panel"
+                            }
+                        },
+                        {
+                            "appearance_content@common.scrolling_panel": {
+                                "$background_nine_slice_buttom": 0,
+                                "$background_nine_slice_left": 0,
+                                "$background_nine_slice_right": 0,
+                                "$background_nine_slice_top": 0,
+                                "$background_nineslice_size": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                ],
+                                "$box_nine_slice_buttom": 0,
+                                "$box_nine_slice_left": 0,
+                                "$box_nine_slice_right": 0,
+                                "$box_nine_slice_top": 0,
+                                "$box_nineslice_size": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                ],
+                                "$is_background_nine_slice": false,
+                                "$is_box_nine_slice": false,
+                                "$is_track_nine_slice": false,
+                                "$scroll_background_image_control": "netease_editor_template_namespace.scroll_background_image",
+                                "$scroll_background_texture": "textures/ui/ScrollRail",
+                                "$scroll_box_mouse_image_control": "netease_editor_template_namespace.scroll_box_image",
+                                "$scroll_box_texture": "textures/ui/newTouchScrollBox",
+                                "$scroll_box_touch_image_control": "netease_editor_template_namespace.scroll_box_image",
+                                "$scroll_track_image_control": "netease_editor_template_namespace.scroll_track_image",
+                                "$scroll_track_texture": "textures/ui/ScrollRail",
+                                "$scrolling_content": "parterner_left_common_toggles.appearance_content_detail",
+                                "$show_background": true,
+                                "$track_nine_slice_buttom": 0,
+                                "$track_nine_slice_left": 0,
+                                "$track_nine_slice_right": 0,
+                                "$track_nine_slice_top": 0,
+                                "$track_nineslice_size": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                ],
+                                "layer": 9,
+                                "size": [
+                                    "98.0%+0.0px",
+                                    "100.0%+0.0px"
+                                ]
+                            }
+                        }
+                    ],
+                    "layer": 1,
+                    "orientation": "horizontal",
+                    "size": [
+                        "100.0%+0.0px",
+                        "83.0%+0.0px"
+                    ],
+                    "type": "stack_panel"
+                }
+            },
+            {
+                "action_content_panel": {
+                    "controls": [
+                        {
+                            "left_padding": {
+                                "size": [
+                                    "2.0%+0.0px",
+                                    "100.0%+0.0px"
+                                ],
+                                "type": "panel"
+                            }
+                        },
+                        {
+                            "action_content@common.scrolling_panel": {
+                                "$background_nine_slice_buttom": 0,
+                                "$background_nine_slice_left": 0,
+                                "$background_nine_slice_right": 0,
+                                "$background_nine_slice_top": 0,
+                                "$background_nineslice_size": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                ],
+                                "$box_nine_slice_buttom": 0,
+                                "$box_nine_slice_left": 0,
+                                "$box_nine_slice_right": 0,
+                                "$box_nine_slice_top": 0,
+                                "$box_nineslice_size": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                ],
+                                "$is_background_nine_slice": false,
+                                "$is_box_nine_slice": false,
+                                "$is_track_nine_slice": false,
+                                "$scroll_background_image_control": "netease_editor_template_namespace.scroll_background_image",
+                                "$scroll_background_texture": "textures/ui/ScrollRail",
+                                "$scroll_box_mouse_image_control": "netease_editor_template_namespace.scroll_box_image",
+                                "$scroll_box_texture": "textures/ui/newTouchScrollBox",
+                                "$scroll_box_touch_image_control": "netease_editor_template_namespace.scroll_box_image",
+                                "$scroll_track_image_control": "netease_editor_template_namespace.scroll_track_image",
+                                "$scroll_track_texture": "textures/ui/ScrollRail",
+                                "$scrolling_content": "parterner_left_common_toggles.action_content_detail",
+                                "$show_background": true,
+                                "$track_nine_slice_buttom": 0,
+                                "$track_nine_slice_left": 0,
+                                "$track_nine_slice_right": 0,
+                                "$track_nine_slice_top": 0,
+                                "$track_nineslice_size": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                ],
+                                "layer": 9,
+                                "size": [
+                                    "98.0%+0.0px",
+                                    "100.0%+0.0px"
+                                ]
+                            }
+                        }
+                    ],
+                    "layer": 1,
+                    "orientation": "horizontal",
+                    "size": [
+                        "100.0%+0.0px",
+                        "83.0%+0.0px"
+                    ],
+                    "type": "stack_panel",
+                    "visible": false
+                }
+            },
+            {
+                "switch_parterner_content_panel": {
+                    "controls": [
+                        {
+                            "left_padding": {
+                                "size": [
+                                    "2.0%+0.0px",
+                                    "100.0%+0.0px"
+                                ],
+                                "type": "panel"
+                            }
+                        },
+                        {
+                            "switch_parterner_content@common.scrolling_panel": {
+                                "$background_nine_slice_buttom": 0,
+                                "$background_nine_slice_left": 0,
+                                "$background_nine_slice_right": 0,
+                                "$background_nine_slice_top": 0,
+                                "$background_nineslice_size": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                ],
+                                "$box_nine_slice_buttom": 0,
+                                "$box_nine_slice_left": 0,
+                                "$box_nine_slice_right": 0,
+                                "$box_nine_slice_top": 0,
+                                "$box_nineslice_size": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                ],
+                                "$is_background_nine_slice": false,
+                                "$is_box_nine_slice": false,
+                                "$is_track_nine_slice": false,
+                                "$scroll_background_image_control": "netease_editor_template_namespace.scroll_background_image",
+                                "$scroll_background_texture": "textures/ui/ScrollRail",
+                                "$scroll_box_mouse_image_control": "netease_editor_template_namespace.scroll_box_image",
+                                "$scroll_box_texture": "textures/ui/newTouchScrollBox",
+                                "$scroll_box_touch_image_control": "netease_editor_template_namespace.scroll_box_image",
+                                "$scroll_track_image_control": "netease_editor_template_namespace.scroll_track_image",
+                                "$scroll_track_texture": "textures/ui/ScrollRail",
+                                "$scrolling_content": "parterner_left_common_toggles.switch_parterner_content_detail",
+                                "$show_background": true,
+                                "$track_nine_slice_buttom": 0,
+                                "$track_nine_slice_left": 0,
+                                "$track_nine_slice_right": 0,
+                                "$track_nine_slice_top": 0,
+                                "$track_nineslice_size": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                ],
+                                "layer": 9,
+                                "size": [
+                                    "98.0%+0.0px",
+                                    "100.0%+0.0px"
+                                ]
+                            }
+                        }
+                    ],
+                    "layer": 1,
+                    "orientation": "horizontal",
+                    "size": [
+                        "100.0%+0.0px",
+                        "83.0%+0.0px"
+                    ],
+                    "type": "stack_panel",
+                    "visible": false
+                }
+            }
+        ],
+        "layer": 1,
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "type": "stack_panel"
+    },
+    "func_and_desc_button_cell": {
+        "$first_line_full_size": [
+            "80.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "$func_button_cell_btn_text": "",
+        "$func_cell_desc": "",
+        "$func_cell_name": "其他人可见",
+        "$func_cell_name_size": [
+            "49.5%+0.0px",
+            "33.4%+0.0px"
+        ],
+        "controls": [
+            {
+                "stack_panel": {
+                    "controls": [
+                        {
+                            "first_line_stack_panel": {
+                                "anchor_from": "top_left",
+                                "anchor_to": "top_left",
+                                "controls": [
+                                    {
+                                        "func_cell_name_panel": {
+                                            "anchor_from": "top_left",
+                                            "anchor_to": "top_left",
+                                            "controls": [
+                                                {
+                                                    "text_panel": {
+                                                        "anchor_from": "top_left",
+                                                        "anchor_to": "top_left",
+                                                        "controls": [
+                                                            {
+                                                                "label": {
+                                                                    "$func_and_toggle_name_text_size|default": 1.0,
+                                                                    "$func_cell_name|default": "",
+                                                                    "anchor_from": "left_middle",
+                                                                    "anchor_to": "left_middle",
+                                                                    "font_scale_factor": "$func_and_toggle_name_text_size",
+                                                                    "font_type": "smooth",
+                                                                    "max_size": [
+                                                                        "default",
+                                                                        "default"
+                                                                    ],
+                                                                    "text": "$func_cell_name",
+                                                                    "type": "label"
+                                                                }
+                                                            }
+                                                        ],
+                                                        "offset": [
+                                                            0.0,
+                                                            "22.86%+0.0px"
+                                                        ],
+                                                        "size": [
+                                                            "100.0%+0.0px",
+                                                            "47.71%+0.0px"
+                                                        ],
+                                                        "type": "panel"
+                                                    }
+                                                }
+                                            ],
+                                            "layer": 1,
+                                            "offset": [
+                                                "22.0%+0.0px",
+                                                "0.0%+0.0px"
+                                            ],
+                                            "size": [
+                                                "70.0%+0.0px",
+                                                "100.0%+0.0px"
+                                            ],
+                                            "type": "panel"
+                                        }
+                                    },
+                                    {
+                                        "full_panel": {
+                                            "$first_line_full_size|default": [
+                                                0,
+                                                0
+                                            ],
+                                            "size": "$first_line_full_size",
+                                            "type": "panel"
+                                        }
+                                    },
+                                    {
+                                        "func_cell_select_panel": {
+                                            "controls": [
+                                                {
+                                                    "click_btn@common.button": {
+                                                        "$control_alpha": 1.0,
+                                                        "$default_texture": "textures/ui/btn_light_default",
+                                                        "$func_button_cell_btn_text|default": "",
+                                                        "$hover_texture": "textures/ui/btn_hover",
+                                                        "$is_new_nine_slice": false,
+                                                        "$label_color": [
+                                                            0.2588235294117647,
+                                                            0.2588235294117647,
+                                                            0.2588235294117647
+                                                        ],
+                                                        "$label_font_scale_factor": 1.0,
+                                                        "$label_font_size": "normal",
+                                                        "$label_layer": 3,
+                                                        "$label_offset": [
+                                                            0,
+                                                            0
+                                                        ],
+                                                        "$label_text": "$func_button_cell_btn_text",
+                                                        "$nine_slice_buttom": 0,
+                                                        "$nine_slice_left": 0,
+                                                        "$nine_slice_right": 0,
+                                                        "$nine_slice_top": 0,
+                                                        "$nineslice_size": [
+                                                            2.0,
+                                                            2.0,
+                                                            2.0,
+                                                            2.0
+                                                        ],
+                                                        "$pressed_button_name": "%netease_editor_template_namespace.click",
+                                                        "$pressed_texture": "textures/ui/btn_pressed",
+                                                        "$texture_layer": 2,
+                                                        "anchor_from": "top_right",
+                                                        "anchor_to": "top_right",
+                                                        "bindings": [
+                                                            {
+                                                                "binding_collection_name": "",
+                                                                "binding_condition": "always_when_visible",
+                                                                "binding_type": "collection_details"
+                                                            }
+                                                        ],
+                                                        "button_mappings": [],
+                                                        "controls": [
+                                                            {
+                                                                "default@netease_editor_template_namespace.default": {}
+                                                            },
+                                                            {
+                                                                "hover@netease_editor_template_namespace.hover": {}
+                                                            },
+                                                            {
+                                                                "pressed@netease_editor_template_namespace.pressed": {}
+                                                            },
+                                                            {
+                                                                "button_label@netease_editor_template_namespace.button_label": {}
+                                                            }
+                                                        ],
+                                                        "default_control": "default",
+                                                        "hover_control": "hover",
+                                                        "is_handle_button_move_event": true,
+                                                        "offset": [
+                                                            "2.5%+0.0px",
+                                                            0.0
+                                                        ],
+                                                        "pressed_control": "pressed",
+                                                        "size": [
+                                                            "100.0%+0.0px",
+                                                            "100.0%+0.0px"
+                                                        ],
+                                                        "type": "button"
+                                                    }
+                                                }
+                                            ],
+                                            "layer": 1,
+                                            "offset": [
+                                                "0.0%+0.0px",
+                                                null
+                                            ],
+                                            "size": [
+                                                "59.5%+0.0px",
+                                                "100.0%+0.0px"
+                                            ],
+                                            "type": "panel"
+                                        }
+                                    }
+                                ],
+                                "layer": 1,
+                                "offset": [
+                                    "0.0px",
+                                    "0.0px"
+                                ],
+                                "orientation": "horizontal",
+                                "size": [
+                                    "100.0%+0.0px",
+                                    "70.0%+0.0px"
+                                ],
+                                "type": "stack_panel"
+                            }
+                        },
+                        {
+                            "func_cell_desc_panel": {
+                                "anchor_from": "bottom_left",
+                                "anchor_to": "bottom_left",
+                                "controls": [
+                                    {
+                                        "label": {
+                                            "$func_and_toggle_desc_text_size|default": 0.8,
+                                            "$func_cell_desc|default": "",
+                                            "anchor_from": "bottom_left",
+                                            "anchor_to": "bottom_left",
+                                            "color": [
+                                                0.5647058823529412,
+                                                0.5647058823529412,
+                                                0.5686274509803921
+                                            ],
+                                            "font_scale_factor": "$func_and_toggle_desc_text_size",
+                                            "font_type": "smooth",
+                                            "text": "$func_cell_desc",
+                                            "type": "label"
+                                        }
+                                    }
+                                ],
+                                "layer": 1,
+                                "size": [
+                                    "100.0%+0.0px",
+                                    "30.0%+0.0px"
+                                ],
+                                "type": "panel"
+                            }
+                        }
+                    ],
+                    "layer": 1,
+                    "size": [
+                        "100.0%+0.0px",
+                        "100.0%+0.0px"
+                    ],
+                    "type": "stack_panel"
+                }
+            }
+        ],
+        "size": [
+            180,
+            80
+        ],
+        "type": "panel"
+    },
+    "func_and_desc_toggle_cell": {
+        "$first_line_full_size": [
+            "80.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "$func_cell_desc": "",
+        "$func_cell_name": "其他人可见",
+        "$func_cell_name_size": [
+            "49.5%+0.0px",
+            "33.4%+0.0px"
+        ],
+        "$toggle_name": "#netease_editor_template_namespace.toggle_name",
+        "$toggle_offset": [
+            "34.5%+0.0px",
+            0
+        ],
+        "$toggle_state_binding_name": "#netease_editor_template_namespace.toggle_state",
+        "$toggle_width_value": [
+            "59.5%+0.0px",
+            "70.0%+0.0px"
+        ],
+        "controls": [
+            {
+                "stack_panel": {
+                    "controls": [
+                        {
+                            "first_line_stack_panel": {
+                                "anchor_from": "top_left",
+                                "anchor_to": "top_left",
+                                "controls": [
+                                    {
+                                        "func_cell_name_panel": {
+                                            "anchor_from": "top_left",
+                                            "anchor_to": "top_left",
+                                            "controls": [
+                                                {
+                                                    "text_panel": {
+                                                        "anchor_from": "top_left",
+                                                        "anchor_to": "top_left",
+                                                        "controls": [
+                                                            {
+                                                                "label": {
+                                                                    "$func_and_toggle_name_text_size|default": 1.0,
+                                                                    "$func_cell_name|default": "",
+                                                                    "anchor_from": "left_middle",
+                                                                    "anchor_to": "left_middle",
+                                                                    "font_scale_factor": "$func_and_toggle_name_text_size",
+                                                                    "font_type": "smooth",
+                                                                    "max_size": [
+                                                                        "default",
+                                                                        "default"
+                                                                    ],
+                                                                    "text": "$func_cell_name",
+                                                                    "type": "label"
+                                                                }
+                                                            }
+                                                        ],
+                                                        "offset": [
+                                                            0.0,
+                                                            "22.86%+0.0px"
+                                                        ],
+                                                        "size": [
+                                                            "100.0%+0.0px",
+                                                            "47.71%+0.0px"
+                                                        ],
+                                                        "type": "panel"
+                                                    }
+                                                }
+                                            ],
+                                            "layer": 1,
+                                            "offset": [
+                                                "22.0%+0.0px",
+                                                "0.0%+0.0px"
+                                            ],
+                                            "size": [
+                                                "70.0%+0.0px",
+                                                "100.0%+0.0px"
+                                            ],
+                                            "type": "panel"
+                                        }
+                                    },
+                                    {
+                                        "full_panel": {
+                                            "$first_line_full_size|default": [
+                                                0,
+                                                0
+                                            ],
+                                            "size": "$first_line_full_size",
+                                            "type": "panel"
+                                        }
+                                    },
+                                    {
+                                        "func_cell_select_panel": {
+                                            "controls": [
+                                                {
+                                                    "switch_toggle@common_toggles.switch_toggle_collection": {
+                                                        "$default_texture": "textures/ui/toggle_off",
+                                                        "$hover_texture": "textures/ui/toggle_on",
+                                                        "$pressed_no_hover_texture": "textures/ui/toggle_on_hover",
+                                                        "$pressed_texture": "textures/ui/toggle_off_hover",
+                                                        "anchor_from": "top_right",
+                                                        "anchor_to": "top_right",
+                                                        "bindings": [
+                                                            {
+                                                                "binding_collection_name": "",
+                                                                "binding_condition": "always_when_visible",
+                                                                "binding_type": "collection_details"
+                                                            }
+                                                        ],
+                                                        "layer": 1,
+                                                        "offset": [
+                                                            "2.5%+0.0px",
+                                                            0.0
+                                                        ],
+                                                        "size": [
+                                                            "100.0%+0.0px",
+                                                            "100.0%+0.0px"
+                                                        ],
+                                                        "type": "panel"
+                                                    }
+                                                }
+                                            ],
+                                            "layer": 1,
+                                            "offset": [
+                                                "0.0%+0.0px",
+                                                null
+                                            ],
+                                            "size": [
+                                                "59.5%+0.0px",
+                                                "100.0%+0.0px"
+                                            ],
+                                            "type": "panel"
+                                        }
+                                    }
+                                ],
+                                "layer": 1,
+                                "offset": [
+                                    "0.0px",
+                                    "0.0px"
+                                ],
+                                "orientation": "horizontal",
+                                "size": [
+                                    "100.0%+0.0px",
+                                    "70.0%+0.0px"
+                                ],
+                                "type": "stack_panel"
+                            }
+                        },
+                        {
+                            "func_cell_desc_panel": {
+                                "anchor_from": "bottom_left",
+                                "anchor_to": "bottom_left",
+                                "controls": [
+                                    {
+                                        "label": {
+                                            "$func_and_toggle_desc_text_size|default": 0.8,
+                                            "$func_cell_desc|default": "",
+                                            "anchor_from": "bottom_left",
+                                            "anchor_to": "bottom_left",
+                                            "color": [
+                                                0.5647058823529412,
+                                                0.5647058823529412,
+                                                0.5686274509803921
+                                            ],
+                                            "font_scale_factor": "$func_and_toggle_desc_text_size",
+                                            "font_type": "smooth",
+                                            "text": "$func_cell_desc",
+                                            "type": "label"
+                                        }
+                                    }
+                                ],
+                                "layer": 1,
+                                "size": [
+                                    "100.0%+0.0px",
+                                    "30.0%+0.0px"
+                                ],
+                                "type": "panel"
+                            }
+                        }
+                    ],
+                    "layer": 1,
+                    "size": [
+                        "100.0%+0.0px",
+                        "100.0%+0.0px"
+                    ],
+                    "type": "stack_panel"
+                }
+            }
+        ],
+        "size": [
+            180,
+            80
+        ],
+        "type": "panel"
+    },
+    "func_content_scrollview_detail": {
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "parterner_config_panel_1@parterner_left_common_toggles.parterner_config_panel": {}
+            },
+            {
+                "convenient_func_panel@parterner_left_common_toggles.convenient_func_panel_section": {}
+            }
+        ],
+        "layer": 15,
+        "offset": [
+            "2.13%+0.0px",
+            "3.0%x+0.0px"
+        ],
+        "size": [
+            "97.87%+0.0px",
+            "default"
+        ],
+        "type": "stack_panel"
+    },
+    "func_section_content@common.scrolling_panel": {
+        "$background_nine_slice_buttom": 0,
+        "$background_nine_slice_left": 0,
+        "$background_nine_slice_right": 0,
+        "$background_nine_slice_top": 0,
+        "$background_nineslice_size": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "$box_nine_slice_buttom": 0,
+        "$box_nine_slice_left": 0,
+        "$box_nine_slice_right": 0,
+        "$box_nine_slice_top": 0,
+        "$box_nineslice_size": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "$is_background_nine_slice": false,
+        "$is_box_nine_slice": false,
+        "$is_track_nine_slice": false,
+        "$scroll_background_image_control": "netease_editor_template_namespace.scroll_background_image",
+        "$scroll_background_texture": "textures/ui/ScrollRail",
+        "$scroll_box_mouse_image_control": "netease_editor_template_namespace.scroll_box_image",
+        "$scroll_box_texture": "textures/ui/newTouchScrollBox",
+        "$scroll_box_touch_image_control": "netease_editor_template_namespace.scroll_box_image",
+        "$scroll_track_image_control": "netease_editor_template_namespace.scroll_track_image",
+        "$scroll_track_texture": "textures/ui/ScrollRail",
+        "$scrolling_content": "parterner_left_common_toggles.func_content_scrollview_detail",
+        "$show_background": true,
+        "$track_nine_slice_buttom": 0,
+        "$track_nine_slice_left": 0,
+        "$track_nine_slice_right": 0,
+        "$track_nine_slice_top": 0,
+        "$track_nineslice_size": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "layer": 1,
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ]
+    },
+    "itemNum": {
+        "$bag_item_num_text_size|default": 1.0,
+        "anchor_from": "bottom_right",
+        "anchor_to": "bottom_right",
+        "font_scale_factor": "$bag_item_num_text_size",
+        "layer": 4,
+        "offset": [
+            1,
+            2
+        ],
+        "shadow": true,
+        "text": "",
+        "text_alignment": "right",
+        "type": "label",
+        "visible": true
+    },
+    "namespace": "parterner_left_common_toggles",
+    "navagation_panel": {
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "navigation_stack_panel": {
+                    "controls": [
+                        {
+                            "nav_wiki": {
+                                "controls": [
+                                    {
+                                        "button@common.button": {
+                                            "$control_alpha": 1.0,
+                                            "$default_texture": "textures/ui/btn_light_default",
+                                            "$hover_texture": "textures/ui/btn_hover",
+                                            "$is_new_nine_slice": false,
+                                            "$label_color": [
+                                                0.2862745098039216,
+                                                0.2862745098039216,
+                                                0.2862745098039216
+                                            ],
+                                            "$label_font_scale_factor": "$nav_btn_text_size",
+                                            "$label_font_size": "large",
+                                            "$label_layer": 3,
+                                            "$label_offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "$label_text": "百科",
+                                            "$nav_btn_text_size|default": 0.6,
+                                            "$nine_slice_buttom": 0,
+                                            "$nine_slice_left": 0,
+                                            "$nine_slice_right": 0,
+                                            "$nine_slice_top": 0,
+                                            "$nineslice_size": [
+                                                2.0,
+                                                2.0,
+                                                2.0,
+                                                2.0
+                                            ],
+                                            "$pressed_button_name": "%netease_editor_template_namespace.click",
+                                            "$pressed_texture": "textures/ui/btn_pressed",
+                                            "$texture_layer": 2,
+                                            "bindings": [
+                                                {
+                                                    "binding_collection_name": "",
+                                                    "binding_condition": "always_when_visible",
+                                                    "binding_type": "collection_details"
+                                                }
+                                            ],
+                                            "button_mappings": [],
+                                            "controls": [
+                                                {
+                                                    "default@netease_editor_template_namespace.default": {}
+                                                },
+                                                {
+                                                    "hover@netease_editor_template_namespace.hover": {}
+                                                },
+                                                {
+                                                    "pressed@netease_editor_template_namespace.pressed": {}
+                                                },
+                                                {
+                                                    "button_label@netease_editor_template_namespace.button_label": {}
+                                                }
+                                            ],
+                                            "default_control": "default",
+                                            "hover_control": "hover",
+                                            "is_handle_button_move_event": true,
+                                            "layer": 2,
+                                            "pressed_control": "pressed",
+                                            "size": [
+                                                "100.0%+0.0px",
+                                                "100.0%+0.0px"
+                                            ],
+                                            "type": "button"
+                                        }
+                                    }
+                                ],
+                                "layer": 1,
+                                "size": [
+                                    "25.0%+0.0px",
+                                    "100.0%+0.0px"
+                                ],
+                                "type": "panel"
+                            }
+                        },
+                        {
+                            "nav_dressup": {
+                                "controls": [
+                                    {
+                                        "button@common.button": {
+                                            "$control_alpha": 1.0,
+                                            "$default_texture": "textures/ui/btn_light_default",
+                                            "$hover_texture": "textures/ui/btn_hover",
+                                            "$is_new_nine_slice": false,
+                                            "$label_color": [
+                                                0.2862745098039216,
+                                                0.2862745098039216,
+                                                0.2862745098039216
+                                            ],
+                                            "$label_font_scale_factor": "$nav_btn_text_size",
+                                            "$label_font_size": "large",
+                                            "$label_layer": 3,
+                                            "$label_offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "$label_text": "装扮",
+                                            "$nav_btn_text_size|default": 0.6,
+                                            "$nine_slice_buttom": 0,
+                                            "$nine_slice_left": 0,
+                                            "$nine_slice_right": 0,
+                                            "$nine_slice_top": 0,
+                                            "$nineslice_size": [
+                                                2.0,
+                                                2.0,
+                                                2.0,
+                                                2.0
+                                            ],
+                                            "$pressed_button_name": "%netease_editor_template_namespace.click",
+                                            "$pressed_texture": "textures/ui/btn_pressed",
+                                            "$texture_layer": 2,
+                                            "bindings": [
+                                                {
+                                                    "binding_collection_name": "",
+                                                    "binding_condition": "always_when_visible",
+                                                    "binding_type": "collection_details"
+                                                }
+                                            ],
+                                            "button_mappings": [],
+                                            "controls": [
+                                                {
+                                                    "default@netease_editor_template_namespace.default": {}
+                                                },
+                                                {
+                                                    "hover@netease_editor_template_namespace.hover": {}
+                                                },
+                                                {
+                                                    "pressed@netease_editor_template_namespace.pressed": {}
+                                                },
+                                                {
+                                                    "button_label@netease_editor_template_namespace.button_label": {}
+                                                }
+                                            ],
+                                            "default_control": "default",
+                                            "hover_control": "hover",
+                                            "is_handle_button_move_event": true,
+                                            "layer": 2,
+                                            "pressed_control": "pressed",
+                                            "size": [
+                                                "100.0%+0.0px",
+                                                "100.0%+0.0px"
+                                            ],
+                                            "type": "button"
+                                        }
+                                    }
+                                ],
+                                "size": [
+                                    "25.0%+0.0px",
+                                    "100.0%+0.0px"
+                                ],
+                                "type": "panel"
+                            }
+                        },
+                        {
+                            "nav_bag": {
+                                "controls": [
+                                    {
+                                        "button@common.button": {
+                                            "$control_alpha": 1.0,
+                                            "$default_texture": "textures/ui/btn_light_default",
+                                            "$hover_texture": "textures/ui/btn_hover",
+                                            "$is_new_nine_slice": false,
+                                            "$label_color": [
+                                                0.2862745098039216,
+                                                0.2862745098039216,
+                                                0.2862745098039216
+                                            ],
+                                            "$label_font_scale_factor": "$nav_btn_text_size",
+                                            "$label_font_size": "large",
+                                            "$label_layer": 3,
+                                            "$label_offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "$label_text": "背包",
+                                            "$nav_btn_text_size|default": 0.6,
+                                            "$nine_slice_buttom": 0,
+                                            "$nine_slice_left": 0,
+                                            "$nine_slice_right": 0,
+                                            "$nine_slice_top": 0,
+                                            "$nineslice_size": [
+                                                2.0,
+                                                2.0,
+                                                2.0,
+                                                2.0
+                                            ],
+                                            "$pressed_button_name": "%netease_editor_template_namespace.click",
+                                            "$pressed_texture": "textures/ui/btn_pressed",
+                                            "$texture_layer": 2,
+                                            "bindings": [
+                                                {
+                                                    "binding_collection_name": "",
+                                                    "binding_condition": "always_when_visible",
+                                                    "binding_type": "collection_details"
+                                                }
+                                            ],
+                                            "button_mappings": [],
+                                            "controls": [
+                                                {
+                                                    "default@netease_editor_template_namespace.default": {}
+                                                },
+                                                {
+                                                    "hover@netease_editor_template_namespace.hover": {}
+                                                },
+                                                {
+                                                    "pressed@netease_editor_template_namespace.pressed": {}
+                                                },
+                                                {
+                                                    "button_label@netease_editor_template_namespace.button_label": {}
+                                                }
+                                            ],
+                                            "default_control": "default",
+                                            "hover_control": "hover",
+                                            "is_handle_button_move_event": true,
+                                            "layer": 2,
+                                            "pressed_control": "pressed",
+                                            "size": [
+                                                "100.0%+0.0px",
+                                                "100.0%+0.0px"
+                                            ],
+                                            "type": "button"
+                                        }
+                                    }
+                                ],
+                                "layer": 1,
+                                "size": [
+                                    "25.0%+0.0px",
+                                    "100.0%+0.0px"
+                                ],
+                                "type": "panel"
+                            }
+                        },
+                        {
+                            "nav_func": {
+                                "controls": [
+                                    {
+                                        "button@common.button": {
+                                            "$control_alpha": 1.0,
+                                            "$default_texture": "textures/ui/btn_light_default",
+                                            "$hover_texture": "textures/ui/btn_hover",
+                                            "$is_new_nine_slice": false,
+                                            "$label_color": [
+                                                0.2862745098039216,
+                                                0.2862745098039216,
+                                                0.2862745098039216
+                                            ],
+                                            "$label_font_scale_factor": "$nav_btn_text_size",
+                                            "$label_font_size": "large",
+                                            "$label_layer": 3,
+                                            "$label_offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "$label_text": "功能",
+                                            "$nav_btn_text_size|default": 0.6,
+                                            "$nine_slice_buttom": 0,
+                                            "$nine_slice_left": 0,
+                                            "$nine_slice_right": 0,
+                                            "$nine_slice_top": 0,
+                                            "$nineslice_size": [
+                                                2.0,
+                                                2.0,
+                                                2.0,
+                                                2.0
+                                            ],
+                                            "$pressed_button_name": "%netease_editor_template_namespace.click",
+                                            "$pressed_texture": "textures/ui/btn_pressed",
+                                            "$texture_layer": 2,
+                                            "bindings": [
+                                                {
+                                                    "binding_collection_name": "",
+                                                    "binding_condition": "always_when_visible",
+                                                    "binding_type": "collection_details"
+                                                }
+                                            ],
+                                            "button_mappings": [],
+                                            "controls": [
+                                                {
+                                                    "default@netease_editor_template_namespace.default": {}
+                                                },
+                                                {
+                                                    "hover@netease_editor_template_namespace.hover": {}
+                                                },
+                                                {
+                                                    "pressed@netease_editor_template_namespace.pressed": {}
+                                                },
+                                                {
+                                                    "button_label@netease_editor_template_namespace.button_label": {}
+                                                }
+                                            ],
+                                            "default_control": "default",
+                                            "hover_control": "hover",
+                                            "is_handle_button_move_event": true,
+                                            "layer": 2,
+                                            "pressed_control": "pressed",
+                                            "size": [
+                                                "100.0%+0.0px",
+                                                "100.0%+0.0px"
+                                            ],
+                                            "type": "button"
+                                        }
+                                    }
+                                ],
+                                "layer": 1,
+                                "size": [
+                                    "25.0%+0.0px",
+                                    "100.0%+0.0px"
+                                ],
+                                "type": "panel"
+                            }
+                        }
+                    ],
+                    "layer": 1,
+                    "orientation": "horizontal",
+                    "size": [
+                        "100.0%+0.0px",
+                        "100.0%+0.0px"
+                    ],
+                    "type": "stack_panel"
+                }
+            }
+        ],
+        "layer": 1,
+        "offset": [
+            "2.04%+0.0px",
+            "1.46%+0.0px"
+        ],
+        "size": [
+            "96.5%+0.0px",
+            "8.77%+0.0px"
+        ],
+        "type": "panel"
+    },
+    "parterner_fact_content_left_panel": {
+        "$bag_grid_custom_layer": 4,
+        "$bag_item_num_text_size": 1.0,
+        "$func_and_toggle_desc_text_size": 0.8,
+        "$func_and_toggle_name_text_size": 1.0,
+        "$item_button_size": [
+            28,
+            28
+        ],
+        "$nav_btn_text_size": 0.6,
+        "$parterner_bag_itemImg_size": [
+            24,
+            24
+        ],
+        "$parterner_func_config_text_scale": 1.0,
+        "$progressBarSize": [
+            18,
+            2
+        ],
+        "$wiki_guide_introduce_head_text_size": 0.8,
+        "$wiki_guide_introduce_content_text_size": 0.7,
+        "$wiki_world_content_text_size": 1.0,
+        "$wiki_world_search_result_element_btn_size": [
+            "100.0%+0.0px",
+            "25.0%x+0.0px"
+        ],
+        "$wiki_world_search_result_element_title_text_size": 1.3,
+        "$wiki_world_search_result_element_desc_text_size": 1.0,
+        "$wiki_world_search_not_found_text_size": 1.0,
+        "controls": [
+            {
+                "navagation_panel_1@parterner_left_common_toggles.navagation_panel": {
+                    "layer": 5
+                }
+            },
+            {
+                "content_panel": {
+                    "anchor_from": "top_left",
+                    "anchor_to": "top_left",
+                    "controls": [
+                        {
+                            "background": {
+                                "controls": [],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "texture": "textures/ui/ScrollRail",
+                                "type": "image",
+                                "uv_size": [
+                                    0,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "parterner_fact_content_of_func_1@parterner_left_common_toggles.func_section_content": {
+                                "layer": 3
+                            }
+                        },
+                        {
+                            "parterner_fact_content_of_bag_1@parterner_left_common_toggles.bag_section_content": {
+                                "layer": 3,
+                                "visible": false
+                            }
+                        },
+                        {
+                            "parterner_fact_content_of_dressup@parterner_left_common_toggles.dressup_section_content": {
+                                "visible": false
+                            }
+                        },
+                        {
+                            "parterner_fact_content_of_wiki@parterner_wiki_common_toggle.wiki_left_main_panel": {
+                                "visible": false
+                            }
+                        },
+                        {
+                            "worldWikiDetailLeftPanel(1)@parterner_wiki_common_toggle.worldWikiDetailLeftPanel": {
+                                "anchor_from": "top_middle",
+                                "anchor_to": "top_middle",
+                                "offset": [
+                                    "0.0%+0.0px",
+                                    "0.0%+0.0px"
+                                ],
+                                "size": [
+                                    "100.0%+0.0px",
+                                    "100.0%+0.0px"
+                                ],
+                                "visible": false
+                            }
+                        }
+                    ],
+                    "layer": 1,
+                    "offset": [
+                        "2.04%+0.0px",
+                        "11.7%+0.0px"
+                    ],
+                    "size": [
+                        "95.9%+0.0px",
+                        "85.96%+0.0px"
+                    ],
+                    "type": "panel"
+                }
+            }
+        ],
+        "layer": 2,
+        "size": [
+            "97.71%+0.0px",
+            "98.0%+0.0px"
+        ],
+        "type": "panel"
+    },
+    "petDressView": {
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "controls": [
+            {
+                "line_1": {
+                    "size": [
+                        "1.0%+0.0px",
+                        "100.0%+0.0px"
+                    ],
+                    "type": "panel",
+                    "visible": false
+                }
+            },
+            {
+                "petDressItem0@parterner_common_toggles.petDressItem": {
+                    "size": [
+                        "23.75%+0.0px",
+                        "76.0%+0.0px"
+                    ],
+                    "visible": false
+                }
+            },
+            {
+                "line_2": {
+                    "size": [
+                        "1.0%+0.0px",
+                        "100.0%+0.0px"
+                    ],
+                    "type": "panel",
+                    "visible": false
+                }
+            },
+            {
+                "petDressItem1@parterner_common_toggles.petDressItem": {
+                    "size": [
+                        "23.75%+0.0px",
+                        "76.0%+0.0px"
+                    ],
+                    "visible": false
+                }
+            },
+            {
+                "line_3": {
+                    "size": [
+                        "1.0%+0.0px",
+                        "100.0%+0.0px"
+                    ],
+                    "type": "panel",
+                    "visible": false
+                }
+            },
+            {
+                "petDressItem2@parterner_common_toggles.petDressItem": {
+                    "size": [
+                        "23.75%+0.0px",
+                        "76.0%+0.0px"
+                    ],
+                    "visible": false
+                }
+            },
+            {
+                "line_4": {
+                    "size": [
+                        "1.0%+0.0px",
+                        "100.0%+0.0px"
+                    ],
+                    "type": "panel",
+                    "visible": false
+                }
+            },
+            {
+                "petDressItem3@parterner_common_toggles.petDressItem": {
+                    "size": [
+                        "23.75%+0.0px",
+                        "76.0%+0.0px"
+                    ],
+                    "visible": false
+                }
+            },
+            {
+                "padding0": {
+                    "layer": 1,
+                    "size": [
+                        "2.5%+0.0px",
+                        "100.0%+0.0px"
+                    ],
+                    "type": "panel"
+                }
+            },
+            {
+                "petDressItemElement0@parterner_common_toggles.petDressItemElement": {
+                    "size": [
+                        "30.0%+0.0px",
+                        "119.0%x+0.0px"
+                    ]
+                }
+            },
+            {
+                "padding1": {
+                    "layer": 1,
+                    "size": [
+                        "2.5%+0.0px",
+                        "100.0%+0.0px"
+                    ],
+                    "type": "panel"
+                }
+            },
+            {
+                "petDressItemElement1@parterner_common_toggles.petDressItemElement": {
+                    "size": [
+                        "30.0%+0.0px",
+                        "119.0%x+0.0px"
+                    ]
+                }
+            },
+            {
+                "padding2": {
+                    "layer": 1,
+                    "size": [
+                        "2.5%+0.0px",
+                        "100.0%+0.0px"
+                    ],
+                    "type": "panel"
+                }
+            },
+            {
+                "petDressItemElement2@parterner_common_toggles.petDressItemElement": {
+                    "size": [
+                        "30.0%+0.0px",
+                        "119.0%x+0.0px"
+                    ]
+                }
+            }
+        ],
+        "layer": 1,
+        "orientation": "horizontal",
+        "size": [
+            "100.0%+0.0px",
+            "36.0%x+0.0px"
+        ],
+        "type": "stack_panel"
+    },
+    "petDressViewList": {
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "controls": [
+            {
+                "line_1": {
+                    "size": [
+                        "100.0%+0.0px",
+                        5
+                    ],
+                    "type": "panel"
+                }
+            },
+            {
+                "petDressView@parterner_left_common_toggles.petDressView": {
+                    "anchor_from": "top_left",
+                    "anchor_to": "top_left"
+                }
+            },
+            {
+                "petDressView1@parterner_left_common_toggles.petDressView": {}
+            },
+            {
+                "petDressView2@parterner_left_common_toggles.petDressView": {}
+            },
+            {
+                "petDressView3@parterner_left_common_toggles.petDressView": {}
+            },
+            {
+                "petDressView4@parterner_left_common_toggles.petDressView": {}
+            },
+            {
+                "petDressView5@parterner_left_common_toggles.petDressView": {}
+            },
+            {
+                "petDressView6@parterner_left_common_toggles.petDressView": {}
+            },
+            {
+                "petDressView7@parterner_left_common_toggles.petDressView": {}
+            }
+        ],
+        "layer": 1,
+        "size": [
+            "100.0%+0.0px",
+            "default"
+        ],
+        "type": "stack_panel"
+    },
+    "switch_parterner_content_detail@parterner_left_common_toggles.petDressViewList": {
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "layer": 1,
+        "size": [
+            "100.0%+0.0px",
+            "default"
+        ],
+        "type": "stack_panel"
+    }
+}

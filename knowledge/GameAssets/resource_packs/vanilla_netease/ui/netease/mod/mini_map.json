@@ -1,0 +1,103 @@
+{
+    "namespace": "mini_map",
+    "mini_map_wrapper": {
+        "$enable_live_update|default": false,
+        "$live_update_interval|default": 60,
+        "$use_default_face_icon|default": true,
+        "$face_icon_size|default": [
+            4,
+            4
+        ],
+        "$face_icon_bg_color|default": "white",
+        "$highest_y|default": 0,
+        "layer": 1,
+        "type": "panel",
+        "size": [
+            64,
+            64
+        ],
+        "controls": [
+            {
+                "mini_map_bg@mini_map.mini_map_bg": {}
+            },
+            {
+                "netease_mini_map@mini_map.netease_mini_map": {}
+            },
+            {
+                "icon@mini_map.icon": {}
+            },
+            {
+                "head_lbl@mini_map.head_label": {}
+            },
+            {
+                "text_lbl@mini_map.text_label": {}
+            }
+        ]
+    },
+    "mini_map_bg": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "layer": 1,
+        "size": [
+            "100%",
+            "100%"
+        ],
+        "type": "image",
+        "color": "#d7ac6a",
+        "texture": "textures/ui/White",
+        "alpha": 0.9
+    },
+    "netease_mini_map": {
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "layer": 2,
+        "renderer": "netease_mini_map_renderer",
+        "type": "custom",
+        "size": [
+            "100%",
+            "100%"
+        ],
+        "enable_live_update": "$enable_live_update",
+        "live_update_interval": "$live_update_interval",
+        "use_default_face_icon": "$use_default_face_icon",
+        "face_icon_size": "$face_icon_size",
+        "face_icon_bg_color": "$face_icon_bg_color",
+        "highest_y": "$highest_y"
+    },
+    "icon": {
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "layer": 3,
+        "size": [
+            1,
+            1
+        ],
+        "type": "image",
+        "texture": "textures/blocks/border",
+        "visible": false
+    },
+    "head_label": {
+        "type": "label",
+        "layer": 4,
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "text_alignment": "center",
+        "size": [
+            20,
+            12
+        ],
+        "visible": false
+    },
+    "text_label": {
+        "type": "label",
+        "layer": 4,
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "text_alignment": "center",
+        "size": [
+            "default",
+            "default"
+        ],
+        "visible": false
+    }
+}

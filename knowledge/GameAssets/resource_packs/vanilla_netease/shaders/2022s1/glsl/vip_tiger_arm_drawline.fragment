@@ -1,0 +1,30 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+#include "fragmentVersionCentroidUV.h"
+#include "uniformPerFrameConstants.h"
+#include "util.h"
+
+uniform vec4 EXTRA_VECTOR1; // (0, 0, 0, TIME)
+const vec4 OUTLINE_COLOR = vec4(0.125, 1.0, 0.878, 1.0);
+
+varying vec4 fogColor;
+varying float dissolveOffset;
+
+void main()
+{
+	vec4 result = OUTLINE_COLOR;
+
+    // dissolving
+    // TIME -> [0, 210)
+    float clip = (TIME - EXTRA_VECTOR1.a) * 1.5 - 7.0;
+	float dissolveValue = clip + dissolveOffset;
+	if (dissolveValue < 0.95) discard;
+
+	clip = step(0.01, clip) * (1.0 - step(1.0, dissolveValue));
+	result = clip * vec4(0.2, 1, 0.8, 1) + (1.0 - clip) * result;
+
+	//apply fog
+	result.rgb = mix( result.rgb, fogColor.rgb, fogColor.a ) * 1.8;
+
+	gl_FragColor = result;
+}

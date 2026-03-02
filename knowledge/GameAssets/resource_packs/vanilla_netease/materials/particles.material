@@ -1,0 +1,269 @@
+{
+    "materials": {
+        "version": "1.0.0",
+        "particles_base": {
+            "vertexShader": "shaders/color_uv.vertex",
+            "vrGeometryShader": "shaders/color_uv.geometry",
+            "fragmentShader": "shaders/color_texture.fragment",
+            "vertexFields": [
+                {
+                    "field": "Position"
+                },
+                {
+                    "field": "Color"
+                },
+                {
+                    "field": "UV0"
+                }
+            ],
+            "+samplerStates": [
+                {
+                    "samplerIndex": 0,
+                    "textureFilter": "Point"
+                }
+            ],
+            "msaaSupport": "Both"
+        },
+        "particles_opaque:particles_base": {
+            "+defines": [
+                "ENABLE_FOG"
+            ],
+            "+states": [
+                "DisableAlphaWrite"
+            ]
+        },
+        "particles_alpha:particles_base": {
+            "+defines": [
+                "ALPHA_TEST",
+                "ENABLE_FOG"
+            ],
+            "+states": [
+                "DisableAlphaWrite"
+            ]
+        },
+        "particles_blend:particles_base": {
+            "+defines": [
+                "ENABLE_FOG"
+            ],
+            "+states": [
+                "Blending",
+                "DisableCulling",
+                "DisableDepthWrite"
+            ]
+        },
+        "particles_effects:particles_alpha": {
+            "+defines": [
+                "EFFECTS_OFFSET"
+            ],
+            "msaaSupport": "Both"
+        },
+        "particles_add:particles_blend": {
+            "blendSrc": "SourceAlpha",
+            "blendDst": "One"
+        },
+        "particles_test": {
+            "vertexShader": "shaders/particle_test.vertex",
+            "vrGeometryShader": "shaders/particle_test.geometry",
+            "fragmentShader": "shaders/particle_test.fragment",
+            "vertexFields": [
+                {
+                    "field": "Position"
+                },
+                {
+                    "field": "Color"
+                },
+                {
+                    "field": "UV0"
+                }
+            ],
+            "states": [
+                "Blending",
+                "DisableCulling",
+                "DisableDepthWrite"
+            ],
+            "defines": [
+                "ENABLE_FOG"
+            ],
+            "msaaSupport": "MSAA"
+        },
+        "common_particle": {
+            "vertexShader": "shaders/common_particle.vertex",
+            "vrGeometryShader": "shaders/common_particle.geometry",
+            "fragmentShader": "shaders/common_particle.fragment",
+            "vertexFields": [
+                {
+                    "field": "Position"
+                },
+                {
+                    "field": "Color"
+                },
+                {
+                    "field": "UV0"
+                }
+            ],
+            "states": [
+                "Blending",
+                "DisableCulling",
+                "DisableDepthWrite"
+            ],
+            "samplerStates": [
+                {
+                    "samplerIndex": 0,
+                    "textureWrap": "Clamp",
+                    "textureFilter": "Bilinear"
+                }
+            ],
+            "msaaSupport": "Both",
+            "variants": [
+                {
+                    "trail": {
+                        "+defines": [
+                            "NETEASE_TRAIL"
+                        ]
+                    }
+                }
+            ]
+        },
+        "common_particle_add:common_particle": {
+            "blendSrc": "SourceAlpha",
+            "blendDst": "One"
+        },
+        "common_particle_add_texture:common_particle_add": {
+            "defines": [
+                "ENABLE_TEXTURE"
+            ]
+        },
+        "common_particle_blend:common_particle": {},
+        "common_particle_blend_texture:common_particle_blend": {
+            "defines": [
+                "ENABLE_TEXTURE"
+            ]
+        },
+        "common_particle_add_no_depthtest:common_particle_add": {
+            "+states": [
+                "DisableDepthTest"
+            ]
+        },
+        "common_particle_add_texture_no_depthtest:common_particle_add_texture": {
+            "+states": [
+                "DisableDepthTest"
+            ]
+        },
+        "common_particle_blend_no_depthtest:common_particle_blend": {
+            "+states": [
+                "DisableDepthTest"
+            ]
+        },
+        "common_particle_blend_texture_no_depthtest:common_particle_blend_texture": {
+            "+states": [
+                "DisableDepthTest"
+            ]
+        },
+        "point_common_particle": {
+            "vertexShader": "shaders/common_particle.vertex",
+            "vrGeometryShader": "shaders/common_particle.geometry",
+            "fragmentShader": "shaders/common_particle.fragment",
+            "vertexFields": [
+                {
+                    "field": "Position"
+                },
+                {
+                    "field": "Color"
+                },
+                {
+                    "field": "UV0"
+                }
+            ],
+            "states": [
+                "Blending",
+                "DisableCulling",
+                "DisableDepthWrite"
+            ],
+            "samplerStates": [
+                {
+                    "samplerIndex": 0,
+                    "textureWrap": "Clamp",
+                    "textureFilter": "Point"
+                }
+            ],
+            "msaaSupport": "Both",
+            "variants": [
+                {
+                    "trail": {
+                        "+defines": [
+                            "NETEASE_TRAIL"
+                        ]
+                    }
+                }
+            ]
+        },
+        "point_common_particle_add:point_common_particle": {
+            "blendSrc": "SourceAlpha",
+            "blendDst": "One"
+        },
+        "point_common_particle_add_texture:point_common_particle_add": {
+            "defines": [
+                "ENABLE_TEXTURE"
+            ]
+        },
+        "point_common_particle_blend:point_common_particle": {},
+        "point_common_particle_blend_texture:point_common_particle_blend": {
+            "defines": [
+                "ENABLE_TEXTURE"
+            ]
+        },
+        "point_common_particle_add_no_depthtest:point_common_particle_add": {
+            "+states": [
+                "DisableDepthTest"
+            ]
+        },
+        "point_common_particle_add_texture_no_depthtest:point_common_particle_add_texture": {
+            "+states": [
+                "DisableDepthTest"
+            ]
+        },
+        "point_common_particle_blend_no_depthtest:point_common_particle_blend": {
+            "+states": [
+                "DisableDepthTest"
+            ]
+        },
+        "point_common_particle_blend_texture_no_depthtest:point_common_particle_blend_texture": {
+            "+states": [
+                "DisableDepthTest"
+            ]
+        },
+        "particles_random_test": {
+            "vertexShader": "shaders/particle_random_test.vertex",
+            "vrGeometryShader": "shaders/color_uv.geometry",
+            "fragmentShader": "shaders/color_texture.fragment",
+            "vertexFields": [
+                {
+                    "field": "Position"
+                },
+                {
+                    "field": "Color"
+                },
+                {
+                    "field": "Normal"
+                },
+                {
+                    "field": "UV0"
+                }
+            ],
+            "+samplerStates": [
+                {
+                    "samplerIndex": 0,
+                    "textureFilter": "Point"
+                }
+            ],
+            "+defines": [
+                "ALPHA_TEST",
+                "ENABLE_FOG"
+            ],
+            "+states": [
+                "DisableAlphaWrite"
+            ],
+            "msaaSupport": "Both"
+        }
+    }
+}

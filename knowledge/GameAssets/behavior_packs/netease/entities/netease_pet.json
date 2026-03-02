@@ -1,0 +1,155 @@
+{
+    "format_version": "1.10.0",
+    "minecraft:entity": {
+        "description": {
+            "identifier": "netease:pet",
+            "is_summonable": true,
+            "is_spawnable": false
+        },
+        "component_groups": {
+            "minecraft:avoid_owner": {
+                "netease:behavior.avoid_owner_fov": {
+                    "stay_trigger_time": 2,
+                    "angle": 45,
+                    "min_distance": 6.0,
+                    "max_distance": 10.0,
+                    "back_min_distance": 1.0,
+                    "back_max_distance": 10.0,
+                    "priority": 2
+                }
+            },
+            "netease:free_play": {
+                "minecraft:behavior.follow_owner": {
+                    "speed_multiplier": 1.0,
+                    "start_distance": 12.0,
+                    "stop_distance": 4.0,
+                    "priority": 1
+                }
+            },
+            "netease:watch_owner": {
+                "minecraft:behavior.look_at_player": {
+                    "look_distance": 2.0,
+                    "probability": 1.0,
+                    "priority": 1
+                },
+                "minecraft:behavior.follow_owner": {
+                    "speed_multiplier": 1.0,
+                    "start_distance": 2.0,
+                    "stop_distance": 2.0,
+                    "priority": 3
+                }
+            },
+            "netease:move_state": {
+                "minecraft:movement.basic": {},
+                "minecraft:navigation.walk": {
+                    "can_float": true,
+                    "avoid_water": true,
+                    "avoid_damage_blocks": true
+                },
+                "minecraft:movement": {
+                    "value": 0.25
+                },
+                "minecraft:jump.static": {},
+                "minecraft:can_climb": {}
+            }
+        },
+        "components": {
+            "minecraft:pushable": {
+                "is_pushable": true,
+                "is_pushable_by_piston": true
+            },
+            "minecraft:nameable": {},
+            "minecraft:collision_box": {
+                "width": 0.6,
+                "height": 0.7
+            },
+            "minecraft:is_tamed": {},
+            "minecraft:behavior.follow_owner": {
+                "speed_multiplier": 1.0,
+                "start_distance": 12.0,
+                "stop_distance": 4.0,
+                "priority": 1
+            },
+            "minecraft:physics": {},
+            "minecraft:behavior.float": {
+                "priority": 0
+            },
+            "minecraft:behavior.python_custom:auto_change_state": {
+                "priority": 0,
+                "module_path": "mod.server.pet.petAutoChangeState",
+                "class_name": "AutoChangeState",
+                "arg_dict": {
+                    "free_play_time": 8,
+                    "watch_owner_time": 2
+                }
+            },
+            "minecraft:type_family": {
+                "family": [
+                    "inanimate",
+                    "neteasePet"
+                ]
+            }
+        },
+        "events": {
+            "netease:entity_avoid_on": {
+                "add": {
+                    "component_groups": [
+                        "minecraft:avoid_owner"
+                    ]
+                }
+            },
+            "netease:entity_avoid_off": {
+                "remove": {
+                    "component_groups": [
+                        "minecraft:avoid_owner"
+                    ]
+                }
+            },
+            "netease:watch_owner": {
+                "remove": {
+                    "component_groups": [
+                        "netease:free_play"
+                    ]
+                },
+                "add": {
+                    "component_groups": [
+                        "netease:watch_owner"
+                    ]
+                }
+            },
+            "netease:free_play": {
+                "remove": {
+                    "component_groups": [
+                        "netease:watch_owner"
+                    ]
+                },
+                "add": {
+                    "component_groups": [
+                        "netease:free_play"
+                    ]
+                }
+            },
+            "netease:stop_move": {
+                "remove": {
+                    "component_groups": [
+                        "netease:move_state"
+                    ]
+                }
+            },
+            "netease:start_move": {
+                "add": {
+                    "component_groups": [
+                        "netease:move_state"
+                    ]
+                }
+            },
+            "minecraft:entity_spawned": {
+                "add": {
+                    "component_groups": [
+                        "netease:move_state"
+                    ]
+                }
+            }
+        }
+    }
+}

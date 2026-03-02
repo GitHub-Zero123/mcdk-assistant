@@ -1,0 +1,140 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.1"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "10.5%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.3393",
+                "time": "21.1%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0089",
+                "time": "34.7%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "constantforce": {
+            "value": "3.0 0.0 0.0"
+        },
+        "depthtest": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "-1.0 0.0 0.0",
+            "min": "-1.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "3000.0",
+            "min": "3000.0"
+        },
+        "emitterpath": [
+            {
+                "offset": "2.3 0.0 0.0",
+                "rotation": "0.0 0.0 0.0",
+                "time": "0.0"
+            }
+        ],
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Direction Horizontal"
+        },
+        "layer": 0,
+        "numparticles": {
+            "value": "5"
+        },
+        "particlesize": {
+            "max": "1.4 1.0",
+            "min": "1.4 1.0"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "ani": {
+                "fps": "16",
+                "name": "",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s6/cs_s6Swordsman_skin_birth_hctwg"
+        },
+        "timetolive": {
+            "max": "0.9",
+            "min": "0.9"
+        },
+        "trail": {
+            "colorfade": [
+                {
+                    "color": "1.0 1.0 1.0 0.0",
+                    "time": "0.000%"
+                },
+                {
+                    "color": "1.0 1.0 1.0 0.0",
+                    "time": "2.632%"
+                },
+                {
+                    "color": "1.0 1.0 1.0 0.9821428571428571",
+                    "time": "2.632%"
+                },
+                {
+                    "color": "1.0 1.0 1.0 1.0",
+                    "time": "53.947%"
+                },
+                {
+                    "color": "1.0 1.0 1.0 0.3125",
+                    "time": "66.053%"
+                },
+                {
+                    "color": "1.0 1.0 1.0 0.0",
+                    "time": "100.000%"
+                }
+            ],
+            "facemode": 0,
+            "lifetime": 2.0,
+            "maxnum": 99,
+            "mindistance": 0.01,
+            "texmode": 2,
+            "textile": "1.0 1.0",
+            "useparticlecolor": true,
+            "useparticlewidth": true,
+            "widthfade": [
+                {
+                    "time": "0.0%",
+                    "value": "0.32000000000000006"
+                },
+                {
+                    "time": "14.666666666666666%",
+                    "value": "0.5800000000000001"
+                },
+                {
+                    "time": "28.666666666666668%",
+                    "value": "0.6399999999999999"
+                },
+                {
+                    "time": "99.66666666666667%",
+                    "value": "0.7"
+                }
+            ],
+            "worldspace": true
+        },
+        "velocity": {
+            "max": "24.0",
+            "min": "24.0"
+        }
+    }
+}

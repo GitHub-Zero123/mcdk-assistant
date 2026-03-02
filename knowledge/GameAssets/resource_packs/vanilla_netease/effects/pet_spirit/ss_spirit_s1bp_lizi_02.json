@@ -1,0 +1,89 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "0.0 -1.0 0.0",
+            "value": "Direction",
+            "min": "0.0 -1.0 0.0"
+        },
+        "faceCameraMode": {
+            "value": "Rotate Y"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.2232",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.7054",
+                "time": "10.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "25.5%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "77.1%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.7232",
+                "time": "87.9%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0893",
+                "time": "100.0%"
+            }
+        ],
+        "emissionrate": {
+            "max": "1.0",
+            "min": "2.0"
+        },
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.6 0.0 0.6"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "timetolive": {
+            "max": "3.0",
+            "min": "2.0"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": true,
+                "name": "textures/sfxs/pet_spirit/ss_spirit_s1bp_lizi_05",
+                "fps": "0"
+            },
+            "name": "textures/sfxs/pet_spirit/ss_spirit_s1bp_lizi_05"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.2",
+            "min": "0.2"
+        },
+        "particlesize": {
+            "max": "0.05 0.05",
+            "min": "0.05 0.05"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            }
+        ]
+    }
+}

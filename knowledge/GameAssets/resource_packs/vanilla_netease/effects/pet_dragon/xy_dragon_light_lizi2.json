@@ -1,0 +1,63 @@
+{
+    "particleeffect": {
+        "independent": false,
+        "direction": {
+            "max": "0.0 1.0 0.0",
+            "value": "Direction",
+            "min": "0.0 0.0 0.0"
+        },
+        "numparticles": {
+            "value": "3"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.9843 0.5098 1.0000",
+                "time": "0.00"
+            },
+            {
+                "color": "0.9961 1.0000 0.5490 0.7143",
+                "time": "0.51"
+            },
+            {
+                "color": "1.0000 0.9882 0.6353 0.0000",
+                "time": "0.80"
+            }
+        ],
+        "emissionrate": {
+            "max": "2.0",
+            "min": "3.0"
+        },
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.1 0.15 0.1"
+        },
+        "texture": {
+            "name": "textures/sfxs/pet_dragon/xy_dragon_light_lizi"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "timetolive": {
+            "max": "0.4",
+            "min": "0.6"
+        },
+        "depthtest": {
+            "enable": "true"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.2",
+            "min": "0.3"
+        },
+        "particlesize": {
+            "max": "0.03 0.03",
+            "min": "0.02 0.02"
+        }
+    }
+}

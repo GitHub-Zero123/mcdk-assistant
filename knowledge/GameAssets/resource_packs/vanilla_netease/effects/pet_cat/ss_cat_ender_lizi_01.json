@@ -1,0 +1,66 @@
+{
+    "particleeffect": {
+        "independent": true,
+        "direction": {
+            "max": "0.0 0.0 0.5",
+            "value": "Direction",
+            "min": "0.0 0.0 0.5"
+        },
+        "emissionrate": {
+            "max": "3.0",
+            "min": "3.0"
+        },
+        "emitterScaleCurve": [],
+        "layer": 7,
+        "emittersize": {
+            "value": "0.7 0.8 0.6"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Cylinder"
+        },
+        "timetolive": {
+            "max": "1.0",
+            "min": "0.75"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": false,
+                "name": "textures/sfxs/pet_cat/xy_dragon_fp_longxi",
+                "fps": "6"
+            },
+            "name": "textures/sfxs/pet_cat/xy_dragon_fp_longxi"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.1",
+            "min": "0.1"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "particlesize": {
+            "max": "0.03 0.03",
+            "min": "0.06 0.06"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.52 0.52",
+                "time": "0.7%"
+            },
+            {
+                "scale": "0.74 0.74",
+                "time": "36.0%"
+            },
+            {
+                "scale": "0.92 0.92",
+                "time": "100.0%"
+            }
+        ]
+    }
+}

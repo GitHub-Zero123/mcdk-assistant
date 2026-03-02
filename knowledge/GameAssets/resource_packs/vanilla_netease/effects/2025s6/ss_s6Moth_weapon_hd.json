@@ -1,0 +1,102 @@
+{
+    "particleeffect": {
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "8.9%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "58.2%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "constantforce": {
+            "value": "0.0 -0.25 0.0"
+        },
+        "dampingforce": {
+            "value": "0.5"
+        },
+        "direction": {
+            "max": "1.0 0.0 1.0",
+            "min": "-1.0 -0.5 -1.0",
+            "value": "Direction"
+        },
+        "disorder": {
+            "increment": "0.5",
+            "interval": "0.39999999999999997",
+            "max": "-0.04 0.0 0.1",
+            "min": "0.01 0.0 -0.1"
+        },
+        "emissionrate": {
+            "max": "2.0",
+            "min": "1.5"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.4 0.15 0.4"
+        },
+        "emittertype": {
+            "value": "Hemisphere"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "offsetInCamera": {
+            "value": "-0.09999999999999999"
+        },
+        "particlesize": {
+            "max": "0.05 0.05",
+            "min": "0.03 0.03"
+        },
+        "pointFiltering": true,
+        "prewarm": true,
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 30.0",
+            "min": "0.0 0.0 -30.0"
+        },
+        "rotationSpeedRange": {
+            "max": "15.0 15.0 45.0",
+            "min": "-15.0 -15.0 -45.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.88 0.88",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "20.0%"
+            },
+            {
+                "scale": "1.05 1.05",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s6/ss_s6Moth_weapon_hd"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "1.4000000000000001",
+            "min": "1.2000000000000002"
+        },
+        "velocity": {
+            "max": "0.4",
+            "min": "0.0"
+        }
+    }
+}

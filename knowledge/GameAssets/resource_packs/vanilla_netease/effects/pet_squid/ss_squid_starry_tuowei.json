@@ -1,0 +1,51 @@
+{
+    "particleeffect": {
+        "enablecolor": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "0.0 0.0 0.7",
+            "value": "Direction",
+            "min": "0.0 0.0 0.5"
+        },
+        "dampingforce": {
+            "value": "5.0"
+        },
+        "faceCameraMode": {
+            "value": "Direction"
+        },
+        "layer": 7,
+        "texture": {
+            "ani": {
+                "shuffle": false,
+                "name": "textures/sfxs/pet_squid/ss_squid_starry_diwen",
+                "fps": "16"
+            },
+            "name": "textures/sfxs/pet_squid/ss_squid_starry_diwen"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "velocity": {
+            "max": "0.5",
+            "min": "0.2"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "particlesize": {
+            "max": "0.0 0.4",
+            "min": "0.5 0.4"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.5 0.5",
+                "time": "100.0%"
+            }
+        ]
+    }
+}

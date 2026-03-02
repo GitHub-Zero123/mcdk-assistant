@@ -1,0 +1,112 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.8999999999999999"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0625",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.7569 0.7333 0.6510 0.0625",
+                "time": "67.1%"
+            },
+            {
+                "color": "0.0706 0.0000 0.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "constantforce": {
+            "value": "0.0 -2.0 0.0"
+        },
+        "dampingforce": {
+            "value": "4.0"
+        },
+        "direction": {
+            "max": "0.9 0.0 0.1",
+            "min": "1.0 -0.7 -0.1",
+            "value": "Direction"
+        },
+        "disorder": {
+            "increment": "0.2",
+            "interval": "0.10000000000000002",
+            "max": "0.30000000000000004 0.30000000000000004 0.30000000000000004",
+            "min": "-0.30000000000000004 -0.30000000000000004 -0.30000000000000004"
+        },
+        "emissionrate": {
+            "max": "80.0",
+            "min": "80.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterpath": [
+            {
+                "offset": "0.0 0.0 0.0",
+                "rotation": "0.0 -20.0 0.0",
+                "time": "0.0"
+            },
+            {
+                "offset": "-8.5 0.0 0.0",
+                "rotation": "0.0 -20.0 0.0",
+                "time": "0.9"
+            }
+        ],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.20000000000000004 1.0 0.5"
+        },
+        "emittertype": {
+            "value": "Hemisphere"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "numparticles": {
+            "value": "50"
+        },
+        "particlesize": {
+            "max": "1.0 1.0",
+            "min": "0.6 0.6"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 666.0",
+            "min": "0.0 0.0 -666.0"
+        },
+        "rotationSpeedRange": {
+            "max": "0.0 0.0 100.0",
+            "min": "0.0 0.0 -100.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.0 0.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.72 0.72",
+                "time": "16.7%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s6/cs_s6Swordsman_skin_birth_yw"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "1.2",
+            "min": "0.9"
+        },
+        "velocity": {
+            "max": "18.0",
+            "min": "9.0"
+        }
+    }
+}

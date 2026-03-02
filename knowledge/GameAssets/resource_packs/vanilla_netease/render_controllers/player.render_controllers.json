@@ -1,0 +1,74 @@
+{
+    "format_version": "1.8.0",
+    "render_controllers": {
+        "controller.render.player.first_person": {
+            "geometry": "Geometry.default",
+            "materials": [
+                {
+                    "*": "Material.default"
+                }
+            ],
+            "textures": [
+                "Texture.default"
+            ],
+            "part_visibility": [
+                {
+                    "*": false
+                },
+                {
+                    "rightArm": "query.get_equipped_item_name(0, 1) == '' || query.get_equipped_item_name(0, 1) == 'filled_map' || query.mod.fp_weapon"
+                },
+                {
+                    "rightSleeve": "query.get_equipped_item_name(0, 1) == '' || query.get_equipped_item_name(0, 1) == 'filled_map'|| query.mod.fp_weapon"
+                },
+                {
+                    "rightArmDown": "query.get_equipped_item_name(0, 1) == '' || query.get_equipped_item_name(0, 1) == 'filled_map'|| query.mod.fp_weapon"
+                },
+                {
+                    "leftArm": "(query.get_equipped_item_name(0, 1) == 'filled_map' && query.get_equipped_item_name('off_hand') != 'shield') || query.mod.fp_weapon|| (query.get_equipped_item_name('off_hand') == 'filled_map' && !query.item_is_charged) || (!query.item_is_charged && (variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0))"
+                },
+                {
+                    "leftSleeve": "(query.get_equipped_item_name(0, 1) == 'filled_map' && query.get_equipped_item_name('off_hand') != 'shield')|| query.mod.fp_weapon || (query.get_equipped_item_name('off_hand') == 'filled_map' && !query.item_is_charged) || (!query.item_is_charged && (variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0))"
+                },
+                {
+                    "leftArmDown": "(query.get_equipped_item_name(0, 1) == 'filled_map' && query.get_equipped_item_name('off_hand') != 'shield') || query.mod.fp_weapon|| (query.get_equipped_item_name('off_hand') == 'filled_map' && !query.item_is_charged) || (!query.item_is_charged && (variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0))"
+                }
+            ]
+        },
+        "controller.render.player.first_person_bloom": {
+            "geometry": "Geometry.default",
+            "materials": [
+                {
+                    "*": "Material.bloom"
+                }
+            ],
+            "textures": [
+                "Texture.default",
+                "Texture.bloom"
+            ],
+            "part_visibility": [
+                {
+                    "*": false
+                },
+                {
+                    "rightArm": "query.get_equipped_item_name(0, 1) == '' || query.get_equipped_item_name(0, 1) == 'map' || query.mod.fp_weapon"
+                },
+                {
+                    "rightSleeve": "query.get_equipped_item_name(0, 1) == '' || query.get_equipped_item_name(0, 1) == 'map'|| query.mod.fp_weapon"
+                },
+                {
+                    "rightArmDown": "query.get_equipped_item_name(0, 1) == '' || query.get_equipped_item_name(0, 1) == 'map' || query.mod.fp_weapon"
+                },
+                {
+                    "leftArm": "(query.get_equipped_item_name(0, 1) == 'map' && query.get_equipped_item_name('off_hand') != 'shield') || query.mod.fp_weapon  || (query.get_equipped_item_name('off_hand') == 'map' && !query.item_is_charged) || (!query.item_is_charged && (variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0))"
+                },
+                {
+                    "leftSleeve": "(query.get_equipped_item_name(0, 1) == 'map' && query.get_equipped_item_name('off_hand') != 'shield')  || query.mod.fp_weapon || (query.get_equipped_item_name('off_hand') == 'map' && !query.item_is_charged) || (!query.item_is_charged && (variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0))"
+                },
+                {
+                    "leftArmDown": "(query.get_equipped_item_name(0, 1) == 'map' && query.get_equipped_item_name('off_hand') != 'shield')  || query.mod.fp_weapon || (query.get_equipped_item_name('off_hand') == 'map' && !query.item_is_charged) || (!query.item_is_charged && (variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0))"
+                }
+            ]
+        }
+    }
+}

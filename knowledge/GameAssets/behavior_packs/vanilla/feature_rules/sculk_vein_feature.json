@@ -1,0 +1,43 @@
+{
+    "format_version": "1.16.0",
+    "minecraft:feature_rules": {
+        "description": {
+            "identifier": "minecraft:sculk_vein_feature",
+            "places_feature": "minecraft:sculk_vein_feature"
+        },
+        "conditions": {
+            "placement_pass": "after_underground_pass",
+            "minecraft:biome_filter": [
+                {
+                    "test": "has_biome_tag",
+                    "operator": "==",
+                    "value": "deep_dark"
+                }
+            ]
+        },
+        "distribution": {
+            "iterations": "Math.Random(204, 250)",
+            "x": {
+                "distribution": "uniform",
+                "extent": [
+                    0,
+                    16
+                ]
+            },
+            "y": {
+                "distribution": "uniform",
+                "extent": [
+                    -64,
+                    256
+                ]
+            },
+            "z": {
+                "distribution": "uniform",
+                "extent": [
+                    0,
+                    16
+                ]
+            }
+        }
+    }
+}

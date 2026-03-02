@@ -1,0 +1,63 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.1"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.9922 0.8706 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 0.8471 1.0000",
+                "time": "26.6%"
+            },
+            {
+                "color": "0.9686 1.0000 0.7529 0.1518",
+                "time": "58.7%"
+            },
+            {
+                "color": "0.9882 1.0000 0.7333 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "delay": 7.19,
+        "depthtest": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "100.0",
+            "min": "100.0"
+        },
+        "layer": 4,
+        "numparticles": {
+            "value": "1"
+        },
+        "offsetInCamera": {
+            "value": "-4.0"
+        },
+        "particlesize": {
+            "max": "2.5 2.5",
+            "min": "2.5 2.5"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "name": "textures/sfxs/2025s1/sh_s3guofeng_skinB_birth_bai"
+        },
+        "timetolive": {
+            "max": "0.1",
+            "min": "0.1"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

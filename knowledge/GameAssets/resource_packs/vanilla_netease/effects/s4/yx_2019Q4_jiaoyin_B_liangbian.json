@@ -1,0 +1,68 @@
+{
+    "particleeffect": {
+        "independent": false,
+        "direction": {
+            "max": "0.0 0.0 0.1",
+            "value": "Direction",
+            "min": "0.0 0.0 0.1"
+        },
+        "dampingforce": {
+            "value": "3.0"
+        },
+        "texture": {
+            "name": "textures/sfxs/s4/yx_2019Q4_jiaoyin_A_liangbian01"
+        },
+        "colorfade": [
+            {
+                "color": "0.0000 0.9020 1.0000 1.0000",
+                "time": "0.00"
+            },
+            {
+                "color": "0.1176 1.0000 0.7373 0.5020",
+                "time": "0.12"
+            },
+            {
+                "color": "0.1451 0.6039 0.3294 0.0000",
+                "time": "0.50"
+            }
+        ],
+        "emissionrate": {
+            "max": "15.0",
+            "min": "15.0"
+        },
+        "emitterScaleCurve": [],
+        "depthtest": {
+            "enable": "true"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "timetolive": {
+            "max": "0.5",
+            "min": "0.5"
+        },
+        "emittersize": {
+            "value": "0.3 0.0 0.0"
+        },
+        "emitterscale": [],
+        "blend": {
+            "name": "add"
+        },
+        "particlesize": {
+            "max": "0.05 0.3",
+            "min": "0.1 0.2"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.12 1.12",
+                "time": "0.00"
+            }
+        ]
+    }
+}

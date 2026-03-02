@@ -1,0 +1,85 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:tree_feature": {
+    "description": {
+      "identifier": "minecraft:savanna_tree_feature"
+    },
+    "acacia_trunk": {
+      "trunk_width": 1,
+      "trunk_height": {
+        "base": 5,
+        "intervals": [ 3, 3 ]
+      },
+      "trunk_block": {
+        "name": "minecraft:acacia_log"
+      },
+      "trunk_lean": {
+        "allow_diagonal_growth": true,
+        "lean_height": {
+          "range_min": 1,
+          "range_max": 5
+        },
+        "lean_steps": {
+          "range_min": 1,
+          "range_max": 4
+        }
+      },
+      "branches": {
+        "branch_chance": 100.0,
+        "branch_length": {
+          "range_min": 1,
+          "range_max": 4
+        },
+        "branch_position": {
+          "range_min": 1,
+          "range_max": 3
+        },
+        "branch_canopy": {
+          "acacia_canopy": {
+            "canopy_size": 2,
+            "leaf_block": {
+              "name": "minecraft:acacia_leaves"
+            },
+            "simplify_canopy": true
+          }
+        }
+      }
+    },
+    "acacia_canopy": {
+      "canopy_size": 3,
+      "leaf_block": {
+        "name": "minecraft:acacia_leaves"
+      }
+    },
+    // Blocks the tree can be placed on.
+    "may_grow_on": [
+      { "tags": "query.any_tag('dirt')" }
+    ],
+    // Any "may_grow_on" block that is not specified here will be replaced with the first block in this list.
+    "base_block": [
+      "minecraft:dirt",
+      "minecraft:coarse_dirt"
+    ],
+    // Blocks to ignore when checking for clearance around the tree. Already includes all blocks specified in "may_replace".
+    "may_grow_through": [
+      { "tags": "query.any_tag('dirt')" }
+    ],
+    // Blocks that can be replaced by the tree's trunk and canopy.
+    "may_replace": [
+      "minecraft:air",
+      "minecraft:snow_layer",
+      // All leaves
+      "minecraft:acacia_leaves",
+      "minecraft:azalea_leaves",
+      "minecraft:azalea_leaves_flowered",
+      "minecraft:birch_leaves",
+      "minecraft:cherry_leaves",
+      "minecraft:dark_oak_leaves",
+      "minecraft:jungle_leaves",
+      "minecraft:mangrove_leaves",
+      "minecraft:oak_leaves",
+      "minecraft:pale_oak_leaves",
+      "minecraft:spruce_leaves"
+    ]
+  }
+}

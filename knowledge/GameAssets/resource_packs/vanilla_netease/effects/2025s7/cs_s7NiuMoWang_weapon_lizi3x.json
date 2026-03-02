@@ -1,0 +1,93 @@
+{
+    "particleeffect": {
+        "colorfade": [
+            {
+                "color": "1.0000 0.2824 0.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.4706 0.0784 0.0078 1.0000",
+                "time": "39.2%"
+            },
+            {
+                "color": "0.2863 0.0588 0.0588 1.0000",
+                "time": "70.3%"
+            },
+            {
+                "color": "0.1294 0.0235 0.0235 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "constantforce": {
+            "value": "-0.2 -0.1 0.0"
+        },
+        "dampingforce": {
+            "value": "0.1"
+        },
+        "direction": {
+            "max": "-0.5 -0.8 0.0",
+            "min": "-1.0 -0.5 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "2.0",
+            "min": "5.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.4 0.6 0.2"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "layer": 3,
+        "numparticles": {
+            "value": "5"
+        },
+        "particlesize": {
+            "max": "0.02 0.02",
+            "min": "0.05 0.05"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "false"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "1.0%"
+            },
+            {
+                "scale": "2.04 2.04",
+                "time": "42.7%"
+            },
+            {
+                "scale": "2.2 2.2",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "16",
+                "name": "textures/sfxs/2025s7/cs_s7NiuMoWang_weapon_huilzt",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s7/cs_s7NiuMoWang_weapon_huilzt"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.4",
+            "min": "0.5"
+        },
+        "velocity": {
+            "max": "0.2",
+            "min": "0.2"
+        }
+    }
+}

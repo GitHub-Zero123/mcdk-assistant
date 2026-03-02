@@ -1,0 +1,141 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+precision highp float;
+
+#include "fragmentVersionCentroidUV.h"
+#include "uniformEntityConstants.h"
+
+#include "uniformPerFrameConstants.h"
+#include "uniformShaderConstants.h"
+#include "util.h"
+
+LAYOUT_BINDING(0) uniform sampler2D TEXTURE_0;
+LAYOUT_BINDING(1) uniform sampler2D TEXTURE_1;
+
+#define VertSpeed 1.50
+#define VertMoveAmount 0.10
+#define Amplitude 0.10
+
+#define NoiseStep 10.00
+#define JITTER_COLOR vec3(68.0,253.0,255.0)
+#define Frequency 0.50
+
+#define Block_Offset 0.05
+#define Block_Amount 0.40
+#define Block_LinesWidth 10.00
+#define Block_small_add 20.00
+#define Emission 1.00
+
+const float FROM_255_TO_1 = 1.0 / 255.0;
+const vec3 jitterColor = JITTER_COLOR * FROM_255_TO_1;
+
+varying vec4 light;
+varying vec4 fogColor;
+
+varying vec4 uv2;
+
+float Noise(){
+    float TimeX = TIME * VertSpeed;
+    float splitAmout = (1.0 + sin(TimeX * 6.0)) * 0.5;
+    splitAmout *= 1.0 + sin(TimeX * 16.0) * 0.5;
+    splitAmout *= 1.0 + sin(TimeX * 19.0) * 0.5;
+    splitAmout *= 1.0 + sin(TimeX * 27.0) * 0.5;
+    splitAmout = pow(splitAmout, Amplitude);
+    splitAmout *= (0.05 * VertMoveAmount);
+    return splitAmout;
+}
+
+float randomNoise(float x, float y){
+	return fract(sin(dot(vec2(x, y), vec2(12.9898, 78.233))) * 43758.5453);
+}
+
+float strength(){
+	float stren = 0.5 + 0.5 * cos(TIME * Frequency);
+	return fract(stren);
+}
+
+float trunc1(float x, float num_levels){
+	return floor(x * num_levels) / num_levels;
+}
+
+vec2 trunc2(vec2 x, vec2 num_levels){
+	return floor(x * num_levels) / num_levels;
+}
+
+float lerp1(float a, float b, float x){
+	return x * (b - a) + a;
+}
+
+vec4 lerp4(vec4 a, vec4 b, float x){
+	return x * (b - a) + a;
+}
+
+float blocLineRandom(vec2 uv) {
+	float timeMul = TIME * strength();
+	float truncTime = trunc1(timeMul, 4.0);
+	vec2 temp = trunc2(uv.yy, vec2(8.0, 8.0)) + 100.0 * truncTime;
+	float uv_trunc = randomNoise(temp.x, temp.y);
+	float uv_randomTrunc = 6.0 * trunc1(timeMul, 24.0 * uv_trunc);
+	float teamFloat = uv.y + uv_randomTrunc;
+	
+	temp = trunc2(vec2(teamFloat, teamFloat), vec2(8.0 *Block_LinesWidth , 8.0 *Block_LinesWidth) );
+	float blockLine_random = 0.5 * randomNoise(temp.x, temp.y);	
+	
+	blockLine_random = sign(blockLine_random) * clamp((abs(blockLine_random) - Block_Amount) / 0.4, 0.0, 1.0);
+	blockLine_random = lerp1(0.0, blockLine_random, Block_Offset);
+
+	return blockLine_random;
+}
+
+float blocLineRandomSmall(vec2 uv) {
+	float timeMul = TIME * strength();
+	float truncTime = trunc1(timeMul, 4.0);       
+	vec2 temp = trunc2(uv.yy, vec2(8.0, 8.0)) + 100.0 * truncTime;
+	float uv_trunc = randomNoise(temp.x, temp.y);
+	float uv_randomTrunc = 6.0 * trunc1(timeMul, 24.0 * uv_trunc);
+	float teamFloat = uv.y + uv_randomTrunc;
+
+	temp = trunc2(
+		vec2(teamFloat, teamFloat),
+		vec2(
+			8.0 * (Block_LinesWidth + Block_small_add),
+			8.0 * (Block_LinesWidth + Block_small_add)
+		)
+	);
+	float blockLine_random = 0.5 * randomNoise(temp.x, temp.y);	
+	blockLine_random = sign(blockLine_random) * clamp((abs(blockLine_random) - Block_Amount) / (0.4), 0.0, 1.0);
+	blockLine_random = lerp1(0.0, blockLine_random, (Block_Offset + 1.0));
+
+	return blockLine_random;
+}
+
+void main() {
+	float blockLine_random = blocLineRandom(uv.xy);
+	float blockLine_random_small = blocLineRandomSmall(uv.xy);
+
+	float uv_block_X = clamp(uv.x + (0.1 * blockLine_random), 0.0, 1.0);
+	float uv_block_X2 = clamp(uv.x - (0.1 * blockLine_random_small), 0.0, 1.0);
+
+	vec2 glitchUV = vec2(uv_block_X, uv.y);
+	vec2 glitchUV2 = vec2(uv_block_X2, uv.y);
+	
+	vec4 result = vec4(0.0);
+	
+	vec4 blockGlitch = texture2D(TEXTURE_0, glitchUV);
+	float blockGlitchSmall = texture2D(TEXTURE_0, glitchUV2).a;
+	vec4 glitchColSmall = blockGlitchSmall * vec4(jitterColor, 1.0);
+	vec4 noiseTex = texture2D(TEXTURE_1, fract(uv2.xy));
+	
+	result = lerp4(blockGlitch, glitchColSmall, noiseTex.a);
+	if (result.a < 0.5) discard;
+
+	float split2 = Noise();
+	split2 = step(NoiseStep * 0.001, split2);
+	result.rgb = lerp4(result, noiseTex, split2).rgb * Emission;
+
+	gl_FragColor = result;
+
+#ifdef USE_OVERLAY
+	gl_FragColor.rgb = mix(gl_FragColor.rgb, OVERLAY_COLOR.rgb, OVERLAY_COLOR.a);
+#endif // USE_OVERLAY
+}

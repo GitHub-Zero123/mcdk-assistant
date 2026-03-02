@@ -1,0 +1,75 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.2"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "0.0000 0.9020 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.0000 0.7686 1.0000 0.0179",
+                "time": "38.2%"
+            },
+            {
+                "color": "0.2353 0.7961 1.0000 1.0000",
+                "time": "51.1%"
+            },
+            {
+                "color": "0.2549 0.9255 1.0000 1.0000",
+                "time": "72.1%"
+            },
+            {
+                "color": "0.0000 0.8196 1.0000 0.0089",
+                "time": "92.1%"
+            },
+            {
+                "color": "0.0000 1.0000 0.8863 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "constantforce": {
+            "value": "1.0 1.0 0.8"
+        },
+        "dampingforce": {
+            "value": "0.6"
+        },
+        "delay": 1.0,
+        "direction": {
+            "max": "0.0 0.0 -1.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "100.0",
+            "min": "100.0"
+        },
+        "faceCameraMode": {
+            "value": "Direction"
+        },
+        "inactivetime": {
+            "value": "2.3"
+        },
+        "numparticles": {
+            "value": "1"
+        },
+        "particlesize": {
+            "max": "0.04 0.04",
+            "min": "0.04 0.04"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "name": "textures/sfxs/2025s1/cs_s3guofeng_weapon_fj"
+        },
+        "velocity": {
+            "max": "1.6",
+            "min": "1.6"
+        }
+    }
+}

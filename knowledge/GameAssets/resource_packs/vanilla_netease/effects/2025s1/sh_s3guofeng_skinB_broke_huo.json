@@ -1,0 +1,67 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.1"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.8667 0.1020 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.4667 0.0000 1.0000",
+                "time": "49.5%"
+            },
+            {
+                "color": "0.6667 0.0549 0.0235 0.0179",
+                "time": "100.0%"
+            }
+        ],
+        "dampingforce": {
+            "value": "5.0"
+        },
+        "direction": {
+            "max": "1.0 -1.0 1.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "1.5 1.5 1.5"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "numparticles": {
+            "value": "5"
+        },
+        "particlesize": {
+            "max": "0.3 0.3",
+            "min": "0.15 0.15"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "ani": {
+                "fps": "20",
+                "name": "textures/sfxs/2025s1/sh_s3guofeng_skinB_broke_huo",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s1/sh_s3guofeng_skinB_broke_huo"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.38",
+            "min": "0.3"
+        },
+        "velocity": {
+            "max": "12.0",
+            "min": "10.0"
+        }
+    }
+}

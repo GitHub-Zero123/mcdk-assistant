@@ -1,0 +1,96 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "value": "Direction",
+            "min": "0.0 0.0 0.0"
+        },
+        "numparticles": {
+            "value": "8"
+        },
+        "pointFiltering": true,
+        "emittertype": {
+            "value": "Box"
+        },
+        "emissionrate": {
+            "max": "8.0",
+            "min": "8.0"
+        },
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.01 0.0 0.01"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "trail": {
+            "textile": "0.5 0.5",
+            "facemode": 0,
+            "maxnum": 350,
+            "colorfade": [
+                {
+                    "color": "0.3333333333333333 0.6666666666666666 1.0 0.0",
+                    "time": "0.000%"
+                },
+                {
+                    "color": "0.3333333333333333 1.0 1.0 0.8839285714285714",
+                    "time": "3.158%"
+                },
+                {
+                    "color": "0.3333333333333333 1.0 1.0 0.5",
+                    "time": "24.211%"
+                },
+                {
+                    "color": "0.5254901960784314 1.0 0.9607843137254902 0.0357142857142857",
+                    "time": "36.053%"
+                },
+                {
+                    "color": "0.6666666666666666 0.6666666666666666 1.0 0.0",
+                    "time": "100.000%"
+                }
+            ],
+            "useparticlewidth": true,
+            "useparticlecolor": true,
+            "worldspace": true,
+            "texmode": 0,
+            "mindistance": 0.01,
+            "widthfade": [
+                {
+                    "value": "0.3799999999999999",
+                    "time": "0.0%"
+                },
+                {
+                    "value": "0.3600000000000001",
+                    "time": "53.0%"
+                },
+                {
+                    "value": "0.15999999999999992",
+                    "time": "100.0%"
+                }
+            ],
+            "lifetime": 0.23
+        },
+        "timetolive": {
+            "max": "0.8",
+            "min": "0.8"
+        },
+        "texture": {
+            "name": "textures/sfxs/pet_dragon/cs_loong_horseB_tuowei01"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "particlesize": {
+            "max": "0.3 0.3",
+            "min": "0.3 0.3"
+        }
+    }
+}

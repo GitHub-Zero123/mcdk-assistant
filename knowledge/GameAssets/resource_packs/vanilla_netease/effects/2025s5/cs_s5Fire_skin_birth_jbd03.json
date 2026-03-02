@@ -1,0 +1,116 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.5"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.4235 0.4235 0.4821",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.4588 0.4588 0.4554",
+                "time": "55.0%"
+            },
+            {
+                "color": "1.0000 0.4275 0.4275 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "delay": 0.1,
+        "depthtest": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "emitterpath": [
+            {
+                "offset": "-3.8 -0.1 1.5",
+                "rotation": "0.0 0.0 0.0",
+                "time": "0.0"
+            },
+            {
+                "offset": "-3.8 -0.1 1.5",
+                "rotation": "0.0 0.0 0.0",
+                "time": "0.1"
+            },
+            {
+                "offset": "-3.8 -0.1 -1.2",
+                "rotation": "0.0 0.0 0.0",
+                "time": "0.1"
+            },
+            {
+                "offset": "-3.8 -0.1 -1.2",
+                "rotation": "0.0 0.0 0.0",
+                "time": "0.2"
+            },
+            {
+                "offset": "-2.9 -0.1 0.7",
+                "rotation": "0.0 0.0 0.0",
+                "time": "0.2"
+            },
+            {
+                "offset": "-2.9 -0.1 0.7",
+                "rotation": "0.0 0.0 0.0",
+                "time": "0.3"
+            },
+            {
+                "offset": "-3.6 -0.1 -0.7",
+                "rotation": "0.0 0.0 0.0",
+                "time": "0.3"
+            },
+            {
+                "offset": "-3.6 -0.1 -0.7000000000000001",
+                "rotation": "0.0 0.0 0.0",
+                "time": "0.4"
+            },
+            {
+                "offset": "-2.8 -0.1 0.1",
+                "rotation": "0.0 0.0 0.0",
+                "time": "0.4"
+            },
+            {
+                "offset": "-2.8 -0.1 0.1",
+                "rotation": "0.0 0.0 0.0",
+                "time": "0.5"
+            }
+        ],
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Rotate Y"
+        },
+        "layer": 2,
+        "numparticles": {
+            "value": "5"
+        },
+        "particlesize": {
+            "max": "0.9 0.9",
+            "min": "0.9 0.9"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "ani": {
+                "fps": "16",
+                "name": "textures/sfxs/2025s5/cs_s5Fire_skin_birth_bd03",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s5/cs_s5Fire_skin_birth_bd03"
+        },
+        "timetolive": {
+            "max": "0.5",
+            "min": "0.5"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

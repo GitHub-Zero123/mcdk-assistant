@@ -1,0 +1,78 @@
+{
+    "particleeffect": {
+        "enablecolor": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "0.0 -1.0 1.0",
+            "value": "Direction",
+            "min": "0.0 -1.0 1.0"
+        },
+        "dampingforce": {
+            "value": "4.0"
+        },
+        "numparticles": {
+            "value": "4"
+        },
+        "independent": true,
+        "blend": {
+            "name": "add"
+        },
+        "emissionrate": {
+            "max": "4.0",
+            "min": "3.0"
+        },
+        "emitterScaleCurve": [],
+        "layer": 7,
+        "texture": {
+            "ani": {
+                "shuffle": false,
+                "name": "textures/sfxs/pet_dragon/ss_dragon_libao_longxi",
+                "fps": "6"
+            },
+            "name": "textures/sfxs/pet_dragon/ss_dragon_libao_longxi"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Cylinder"
+        },
+        "timetolive": {
+            "max": "1.0",
+            "min": "0.75"
+        },
+        "depthtest": {
+            "enable": "true"
+        },
+        "emittersize": {
+            "value": "0.15 0.2 0.2"
+        },
+        "velocity": {
+            "max": "0.4",
+            "min": "0.3"
+        },
+        "emitterscale": [],
+        "particlesize": {
+            "max": "0.08 0.08",
+            "min": "0.04 0.04"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.4 0.4",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.84 0.84",
+                "time": "37.0%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "100.0%"
+            }
+        ]
+    }
+}

@@ -1,0 +1,104 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.0"
+        },
+        "animlodbias": {
+            "value": "0.0"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "0.764706 0.592157 1.0 1.0",
+                "time": "0.0"
+            },
+            {
+                "color": "0.145098 0.329412 1.0 0.0",
+                "time": "0.5"
+            }
+        ],
+        "constantforce": {
+            "value": "0.0 0.0 0.0"
+        },
+        "dampingforce": {
+            "value": "1.0"
+        },
+        "direction": {
+            "max": "0.0 0.0 0.1",
+            "min": "0.0 0.0 0.1"
+        },
+        "emissionrate": {
+            "max": "15.0",
+            "min": "15.0"
+        },
+        "emittersize": {
+            "value": "0.5 0.0 0.0"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "enablecolor": {
+            "enable": "true"
+        },
+        "enableloop": {
+            "enable": "false"
+        },
+        "faceCameraMode": {
+            "value": "Rotate XYZ"
+        },
+        "fixedscreensize": {
+            "enable": "false"
+        },
+        "inactivetime": {
+            "value": "0.0"
+        },
+        "material": {
+            "name": "materials/particles.material"
+        },
+        "numparticles": {
+            "value": "10"
+        },
+        "particlesize": {
+            "max": "0.2 0.3",
+            "min": "0.1 0.5"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "rotation": {
+            "max": "0.0",
+            "min": "0.0"
+        },
+        "rotationspeed": {
+            "max": "0.0",
+            "min": "0.0"
+        },
+        "scaled": {
+            "enable": "true"
+        },
+        "sizedelta": {
+            "add": "0.0",
+            "mul": "1.0"
+        },
+        "sorted": {
+            "enable": "false"
+        },
+        "texture": {
+            "ani": {
+                "fps": "15.0",
+                "name": "textures/sfxs/s4/nihong02"
+            },
+            "name": "textures/sfxs/s4/nihong02"
+        },
+        "timetolive": {
+            "max": "0.3",
+            "min": "0.3"
+        },
+        "velocity": {
+            "max": "1.0",
+            "min": "1.0"
+        }
+    }
+}

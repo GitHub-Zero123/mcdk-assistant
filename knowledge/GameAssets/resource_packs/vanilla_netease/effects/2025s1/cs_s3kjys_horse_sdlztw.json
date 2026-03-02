@@ -1,0 +1,110 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "1.0"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "delay": 0.5,
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 1.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "8.0",
+            "min": "8.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "1.0 2.0 0.5"
+        },
+        "emittertype": {
+            "value": "Cylinder"
+        },
+        "inactivetime": {
+            "value": "2.5"
+        },
+        "numparticles": {
+            "value": "5"
+        },
+        "particlesize": {
+            "max": "0.8 0.8",
+            "min": "0.6 0.6"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "rotationRange": {
+            "max": "360.0 0.0 360.0",
+            "min": "0.0 0.0 0.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.3 0.3",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.95 0.95",
+                "time": "8.3%"
+            },
+            {
+                "scale": "0.06 0.06",
+                "time": "19.0%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "32.0%"
+            },
+            {
+                "scale": "0.02 0.02",
+                "time": "39.7%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "49.7%"
+            },
+            {
+                "scale": "0.08 0.08",
+                "time": "58.3%"
+            },
+            {
+                "scale": "0.8 0.8",
+                "time": "69.0%"
+            },
+            {
+                "scale": "0.12 0.12",
+                "time": "79.7%"
+            },
+            {
+                "scale": "0.9 0.9",
+                "time": "90.0%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "16",
+                "name": "textures/sfxs/2025s1/cs_s3kjys_horse_sd3",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s1/cs_s3kjys_horse_sd3"
+        },
+        "thickness": {
+            "value": "1.0"
+        },
+        "timetolive": {
+            "max": "0.4",
+            "min": "0.4"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

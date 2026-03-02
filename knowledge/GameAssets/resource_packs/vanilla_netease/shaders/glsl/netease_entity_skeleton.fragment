@@ -1,0 +1,73 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+#include "uniformPerFrameConstants.h"
+#include "neteaseModelFragmentUtil.h"
+#line 5
+
+LAYOUT_BINDING(0) uniform sampler2D TEXTURE_0;
+LAYOUT_BINDING(1) uniform sampler2D TEXTURE_1;
+#if defined(GLINT) && defined(USE_BLOOM)
+LAYOUT_BINDING(2) uniform sampler2D TEXTURE_2;
+#endif
+// LAYOUT_BINDING(3) uniform sampler2D TEXTURE_3; // 最多允许四张贴图
+
+varying vec4 light;
+varying vec4 fogColor;
+
+#ifdef RNGL_LOCAL_LIGHT
+varying vec4 worldSpacePos;
+#endif
+
+#if defined(RNGL_LOCAL_LIGHT) || defined(RNGL_REFLECT)
+varying vec4 worldSpaceNormal;
+#endif
+
+#ifdef RNGL_REFLECT
+varying vec4 clipPos;
+varying vec3 viewDir;
+const float reflectIntensity = 0.05;
+#endif
+
+void main() {
+	// 根据uv获取纹理色 如果是用了NO_TEXTURE宏则会返回 1.0
+	vec4 color = getSampledColor(TEXTURE_0, uv);
+	vec4 tex = color;
+
+	// 杂项的内置宏功能
+	neteaseModelCommonFrag(color);
+
+	// 加入受击变红等效果
+	applyOverlayColor(color);
+
+	// 附魔变色效果 使用TEXTURE_1
+	applyGlint(TEXTURE_1, color);
+
+	// 光照计算
+#if defined(GLINT) && defined(USE_BLOOM)
+	// 带有附魔效果的材质占用了TEXTURE_1 因此这里使用TEXTURE_2作为发光遮罩贴图
+	lowp float emissive = getEmissive(TEXTURE_2, uv);
+#else
+	lowp float emissive = getEmissive(TEXTURE_1, uv);
+#endif
+
+	//反射. 
+	//地板应该不会有附魔变色效果，用TEXTURE_1
+	vec3 reflectColor = vec3(0.0, 0.0, 0.0);
+#ifdef RNGL_REFLECT
+	reflectColor = getReflectColor(TEXTURE_1, clipPos, worldSpaceNormal.xyz, viewDir, reflectIntensity);
+#endif
+
+#ifdef RNGL_LOCAL_LIGHT
+	vec4 lightCol = getLightColor(worldSpacePos, worldSpaceNormal);
+	vec4 totalLight = light.rgba * LIGHT_NUM_STRENGTH.y + vec4(lightCol.xyz, 1.0);
+	// bloomMask超过阈值时 本体发光 否则应用默认光照
+	color.rgb *= (emissive < 0.1) ? (totalLight.rgb + reflectColor) : vec3(emissive);
+#else
+	color.rgb *= (emissive < 0.1) ? (light.rgb + reflectColor) : vec3(emissive);
+#endif
+
+	// 雾效果
+	applyFog(color, fogColor);
+
+	gl_FragColor = color;
+}

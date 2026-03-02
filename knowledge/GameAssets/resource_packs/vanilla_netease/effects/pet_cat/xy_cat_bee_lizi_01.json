@@ -1,0 +1,96 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "0.0 -1.0 0.0",
+            "value": "Direction",
+            "min": "0.0 -1.0 0.0"
+        },
+        "prewarm": true,
+        "colorfade": [
+            {
+                "color": "1.0000 0.9686 0.5020 0.0000",
+                "time": "0.00"
+            },
+            {
+                "color": "1.0000 0.8784 0.5020 1.0000",
+                "time": "0.14"
+            },
+            {
+                "color": "1.0000 0.6824 0.2902 0.5268",
+                "time": "0.30"
+            },
+            {
+                "color": "1.0000 0.8039 0.4118 1.0000",
+                "time": "0.45"
+            },
+            {
+                "color": "1.0000 0.5882 0.3843 0.3571",
+                "time": "0.63"
+            },
+            {
+                "color": "1.0000 0.4196 0.2745 0.0000",
+                "time": "0.80"
+            }
+        ],
+        "emissionrate": {
+            "max": "2.0",
+            "min": "2.0"
+        },
+        "emitterScaleCurve": [],
+        "layer": 15,
+        "emittersize": {
+            "value": "0.8 0.4 0.7"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "emittertype": {
+            "value": "Cylinder"
+        },
+        "timetolive": {
+            "max": "0.6",
+            "min": "0.8"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": false,
+                "name": "/pet_cat",
+                "fps": "16"
+            },
+            "name": "textures/sfxs/pet_cat/cs_567_weapon_FGLZ"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.1",
+            "min": "0.1"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "particlesize": {
+            "max": "0.05 0.05",
+            "min": "0.03 0.03"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.08 1.08",
+                "time": "0.00"
+            },
+            {
+                "scale": "0.6 0.6",
+                "time": "0.57"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "2.00"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "2.00"
+            }
+        ]
+    }
+}

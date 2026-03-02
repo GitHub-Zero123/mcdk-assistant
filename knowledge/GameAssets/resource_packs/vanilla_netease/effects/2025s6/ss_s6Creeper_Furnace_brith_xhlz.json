@@ -1,0 +1,118 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.6"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "5.8%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.7321",
+                "time": "65.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "dampingforce": {
+            "value": "3.0"
+        },
+        "delay": 0.01,
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Outwards"
+        },
+        "emissionrate": {
+            "max": "50.0",
+            "min": "50.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "1.0 1.0 1.0"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "layer": 0,
+        "numparticles": {
+            "value": "20"
+        },
+        "offsetInCamera": {
+            "value": "-1.0"
+        },
+        "particlesize": {
+            "max": "0.08 0.08",
+            "min": "0.06 0.06"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "false"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.99 0.99",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.33 0.33",
+                "time": "7.7%"
+            },
+            {
+                "scale": "0.99 0.99",
+                "time": "19.0%"
+            },
+            {
+                "scale": "0.45 0.45",
+                "time": "32.0%"
+            },
+            {
+                "scale": "0.96 0.96",
+                "time": "40.7%"
+            },
+            {
+                "scale": "0.3 0.3",
+                "time": "49.7%"
+            },
+            {
+                "scale": "0.75 0.75",
+                "time": "60.7%"
+            },
+            {
+                "scale": "0.27 0.27",
+                "time": "79.3%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "0",
+                "name": "textures/sfxs/2025s6/ss_s6Creeper_Craft_xhlz",
+                "shuffle": true
+            },
+            "name": "textures/sfxs/2025s6/ss_s6Creeper_Craft_xhlz"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.8",
+            "min": "0.4"
+        },
+        "velocity": {
+            "max": "3.0",
+            "min": "3.0"
+        }
+    }
+}

@@ -1,0 +1,62 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "dampingforce": {
+            "value": "0.1"
+        },
+        "delay": 0.3,
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "5.0",
+            "min": "5.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.5 1.5 0.5"
+        },
+        "emittertype": {
+            "value": "Cylinder"
+        },
+        "numparticles": {
+            "value": "3"
+        },
+        "particlesize": {
+            "max": "0.4 0.4",
+            "min": "0.2 0.2"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "false"
+        },
+        "rotationRange": {
+            "max": "360.0 0.0 360.0",
+            "min": "0.0 0.0 0.0"
+        },
+        "texture": {
+            "ani": {
+                "fps": "16",
+                "name": "textures/sfxs/2025s1/cs_s3kjys_horse_sd2",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s1/cs_s3kjys_horse_sd2"
+        },
+        "thickness": {
+            "value": "1.0"
+        },
+        "timetolive": {
+            "max": "0.3",
+            "min": "0.3"
+        },
+        "velocity": {
+            "max": "0.1",
+            "min": "0.1"
+        }
+    }
+}

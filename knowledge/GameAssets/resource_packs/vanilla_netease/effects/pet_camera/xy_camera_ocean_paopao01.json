@@ -1,0 +1,87 @@
+{
+    "particleeffect": {
+        "independent": false,
+        "direction": {
+            "max": "0.0 -1.0 0.0",
+            "value": "Direction",
+            "min": "0.0 -1.0 0.0"
+        },
+        "numparticles": {
+            "value": "5"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.2500",
+                "time": "0.00"
+            },
+            {
+                "color": "0.0000 0.9176 1.0000 1.0000",
+                "time": "0.06"
+            },
+            {
+                "color": "0.2078 1.0000 0.6980 1.0000",
+                "time": "0.18"
+            },
+            {
+                "color": "0.7765 0.9608 1.0000 0.0000",
+                "time": "0.25"
+            }
+        ],
+        "emissionrate": {
+            "max": "5.0",
+            "min": "5.0"
+        },
+        "emitterScaleCurve": [],
+        "enableloop": {
+            "enable": "true"
+        },
+        "texture": {
+            "name": "textures/sfxs/pet_camera/xy_camera_ocean_00000"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Cylinder"
+        },
+        "timetolive": {
+            "max": "0.5",
+            "min": "0.4"
+        },
+        "depthtest": {
+            "enable": "true"
+        },
+        "emittersize": {
+            "value": "0.5 0.0 0.6"
+        },
+        "velocity": {
+            "max": "1.0",
+            "min": "0.8"
+        },
+        "emitterscale": [],
+        "particlesize": {
+            "max": "0.05 0.05",
+            "min": "0.03 0.03"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.35 1.35",
+                "time": "0.00"
+            },
+            {
+                "scale": "0.9 0.9",
+                "time": "0.30"
+            },
+            {
+                "scale": "0.09 0.09",
+                "time": "0.70"
+            }
+        ]
+    }
+}

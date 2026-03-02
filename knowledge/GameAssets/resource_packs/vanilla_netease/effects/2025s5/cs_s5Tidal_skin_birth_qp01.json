@@ -1,0 +1,149 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "6.0"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.8036",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.6786",
+                "time": "52.4%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.5089",
+                "time": "77.1%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "constantforce": {
+            "value": "-0.5 0.5 3.0"
+        },
+        "dampingforce": {
+            "value": "1.0"
+        },
+        "depthtest": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "0.6000000000000001 0.6000000000000001 1.0",
+            "min": "-0.6 -0.6 0.0",
+            "value": "Direction"
+        },
+        "disorder": {
+            "increment": "0.30000000000000004",
+            "interval": "0.2",
+            "max": "-0.30000000000000004 -0.30000000000000004 -0.30000000000000004",
+            "min": "0.30000000000000004 0.30000000000000004 0.30000000000000004"
+        },
+        "emitterScaleCurve": [],
+        "emitterpath": [
+            {
+                "offset": "0.4 -3.3 0.0",
+                "rotation": "0.0 0.0 0.0",
+                "time": "0.0"
+            },
+            {
+                "offset": "0.4 -3.3 0.0",
+                "rotation": "0.0 0.0 0.0",
+                "time": "0.5"
+            },
+            {
+                "offset": "0.7000000000000001 3.2 0.0",
+                "rotation": "0.0 0.0 0.0",
+                "time": "0.51"
+            },
+            {
+                "offset": "0.7 3.2 0.0",
+                "rotation": "0.0 0.0 0.0",
+                "time": "1.0"
+            },
+            {
+                "offset": "-3.0 4.1 2.2",
+                "rotation": "0.0 0.0 0.0",
+                "time": "1.01"
+            },
+            {
+                "offset": "-3.0 4.1 2.2",
+                "rotation": "0.0 0.0 0.0",
+                "time": "1.5"
+            },
+            {
+                "offset": "-3.0 -4.5 2.4",
+                "rotation": "0.0 0.0 0.0",
+                "time": "1.51"
+            },
+            {
+                "offset": "-3.0 -4.5 2.4",
+                "rotation": "0.0 0.0 0.0",
+                "time": "2.0"
+            },
+            {
+                "offset": "-3.0 -7.5 1.3",
+                "rotation": "0.0 0.0 0.0",
+                "time": "2.01"
+            },
+            {
+                "offset": "-3.0 -7.5 1.3",
+                "rotation": "0.0 0.0 0.0",
+                "time": "2.5"
+            }
+        ],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.30000000000000004 0.4 0.75"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "layer": 3,
+        "particlesize": {
+            "max": "0.25 0.25",
+            "min": "0.1 0.1"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 33.0",
+            "min": "0.0 0.0 -33.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.0 0.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.9 0.9",
+                "time": "19.0%"
+            },
+            {
+                "scale": "0.69 0.69",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s5/cs_s5Tidal_skin_birth_qp01"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "1.5",
+            "min": "0.7"
+        },
+        "velocity": {
+            "max": "2.0",
+            "min": "0.0"
+        }
+    }
+}

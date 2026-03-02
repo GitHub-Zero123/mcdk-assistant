@@ -1,0 +1,56 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.2"
+        },
+        "colorfade": [
+            {
+                "color": "0.0000 0.1137 0.8627 0.2679",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.0000 0.1569 0.8627 0.2679",
+                "time": "87.1%"
+            },
+            {
+                "color": "0.0000 0.1569 0.8627 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "3000.0",
+            "min": "3000.0"
+        },
+        "layer": 2,
+        "numparticles": {
+            "value": "2"
+        },
+        "particlesize": {
+            "max": "1.7000000000000002 1.7000000000000002",
+            "min": "1.7000000000000002 1.7000000000000002"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "-70.0 0.0 0.0",
+            "min": "-70.0 0.0 0.0"
+        },
+        "texture": {
+            "name": "textures/sfxs/2025s5/cs_s5Tidal_skin_birth_013"
+        },
+        "timetolive": {
+            "max": "2.1",
+            "min": "2.1"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

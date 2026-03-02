@@ -1,0 +1,89 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.8784 0.9804 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.7569 0.8353 1.0000",
+                "time": "18.2%"
+            },
+            {
+                "color": "1.0000 0.8157 0.9451 0.5982",
+                "time": "74.5%"
+            },
+            {
+                "color": "0.9961 0.9216 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "dampingforce": {
+            "value": "0.1"
+        },
+        "direction": {
+            "max": "-0.1 0.5 -0.1",
+            "min": "0.1 1.0 0.1",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "5.0",
+            "min": "3.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.4 0.4 0.4"
+        },
+        "emittertype": {
+            "value": "Cone"
+        },
+        "layer": 5,
+        "numparticles": {
+            "value": "6"
+        },
+        "offsetInCamera": {
+            "value": "-0.2"
+        },
+        "particlesize": {
+            "max": "0.05 0.04999999999999999",
+            "min": "0.1 0.1"
+        },
+        "pointFiltering": true,
+        "prewarm": true,
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.4 0.4",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.08 1.08",
+                "time": "20.7%"
+            },
+            {
+                "scale": "0.45 0.45",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s6/cs_s6Jiaolong_horse_lizi02"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "1.0",
+            "min": "0.6"
+        },
+        "velocity": {
+            "max": "0.1",
+            "min": "0.2"
+        }
+    }
+}

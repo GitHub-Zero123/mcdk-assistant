@@ -1,0 +1,35 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:growing_plant_feature": {
+    "description": {
+      "identifier": "minecraft:pale_hanging_moss_feature"
+    },
+    "height_distribution": [
+      // This simulates Java's behavior where after placing a block there's a 50% chance of placing another one.
+      [{ "range_min": 1, "range_max": 1 }, 128],
+      [{ "range_min": 2, "range_max": 2 }, 64],
+      [{ "range_min": 3, "range_max": 3 }, 32],
+      [{ "range_min": 4, "range_max": 4 }, 16],
+      [{ "range_min": 5, "range_max": 5 }, 8],
+      [{ "range_min": 6, "range_max": 6 }, 4],
+      [{ "range_min": 7, "range_max": 7 }, 2],
+      [{ "range_min": 8, "range_max": 8 }, 1]
+    ],
+    "growth_direction": "DOWN",
+    "body_blocks": [
+      ["minecraft:pale_hanging_moss", 1]
+    ],
+    "head_blocks": [
+      [
+        {
+          "name": "minecraft:pale_hanging_moss",
+          "states": {
+            "tip": true
+          }
+        },
+        1
+      ]
+    ],
+    "allow_water": false
+  }
+}

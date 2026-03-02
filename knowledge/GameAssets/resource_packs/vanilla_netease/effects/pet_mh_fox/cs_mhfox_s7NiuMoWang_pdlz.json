@@ -1,0 +1,84 @@
+{
+    "particleeffect": {
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.9725 1.0000 0.6510 1.0000",
+                "time": "50.5%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "-0.2 0.2 -0.20000000000000004",
+            "min": "-0.30000000000000004 0.10000000000000003 -0.1",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "3.0",
+            "min": "4.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.1 0.1 0.1"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "layer": 2,
+        "numparticles": {
+            "value": "3"
+        },
+        "particlesize": {
+            "max": "0.07 0.07",
+            "min": "0.04999999999999999 0.04999999999999999"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "false"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.58 0.58",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.48 0.48",
+                "time": "38.0%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "49.7%"
+            },
+            {
+                "scale": "0.4 0.4",
+                "time": "60.7%"
+            },
+            {
+                "scale": "0.18 0.18",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "1",
+                "name": "textures/sfxs/pet_mh_fox/cs_mhfox_s6Jiaolong_sj2",
+                "shuffle": true
+            },
+            "name": "textures/sfxs/pet_mh_fox/cs_mhfox_s7NiuMoWang_lz"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "velocity": {
+            "max": "0.30000000000000004",
+            "min": "0.20000000000000004"
+        }
+    }
+}

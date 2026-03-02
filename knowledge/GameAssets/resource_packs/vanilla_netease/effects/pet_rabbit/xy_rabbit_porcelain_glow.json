@@ -1,0 +1,56 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "value": "Direction",
+            "min": "0.0 0.0 0.0"
+        },
+        "numparticles": {
+            "value": "1"
+        },
+        "colorfade": [
+            {
+                "color": "0.1451 0.7451 1.0000 0.1875",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.1451 0.7451 1.0000 0.5893",
+                "time": "46.8%"
+            },
+            {
+                "color": "0.1451 0.7451 1.0000 0.1071",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/pet_rabbit/xy_rabbit_porcelain_glow"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "offsetInCamera": {
+            "value": "-0.08"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "particlesize": {
+            "max": "0.2 0.2",
+            "min": "0.2 0.2"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.35 1.35",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.89 1.89",
+                "time": "50.0%"
+            },
+            {
+                "scale": "1.5 1.5",
+                "time": "100.0%"
+            }
+        ]
+    }
+}

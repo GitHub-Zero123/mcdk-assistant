@@ -1,0 +1,91 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "2.5"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "90.8%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "constantforce": {
+            "value": "0.0 5.0 0.0"
+        },
+        "delay": 4.699999999999999,
+        "depthtest": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "1.0 0.0 0.1",
+            "min": "1.0 0.0 -0.1",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "20.0",
+            "min": "20.0"
+        },
+        "emitterpath": [
+            {
+                "offset": "0.2 0.0 0.0",
+                "rotation": "0.0 0.0 0.0",
+                "time": "0.0"
+            },
+            {
+                "offset": "0.2 0.0 0.0",
+                "rotation": "0.0 0.0 0.0",
+                "time": "0.01"
+            },
+            {
+                "offset": "-0.2 0.0 0.0",
+                "rotation": "0.0 180.0 0.0",
+                "time": "0.01"
+            },
+            {
+                "offset": "-0.2 0.0 0.0",
+                "rotation": "0.0 180.0 0.0",
+                "time": "0.02"
+            },
+            {
+                "offset": "0.2 0.0 0.0",
+                "rotation": "0.0 0.0 0.0",
+                "time": "0.02"
+            }
+        ],
+        "enabletexture": {
+            "enable": true
+        },
+        "layer": 3,
+        "numparticles": {
+            "value": "20"
+        },
+        "particlesize": {
+            "max": "0.09 0.09",
+            "min": "0.05 0.05"
+        },
+        "pointFiltering": true,
+        "prewarm": true,
+        "relative": {
+            "enable": "false"
+        },
+        "texture": {
+            "name": "textures/sfxs/2025s6/cs_s6Yaksha_skin_birth_yl"
+        },
+        "timetolive": {
+            "max": "0.7",
+            "min": "0.7"
+        },
+        "velocity": {
+            "max": "2.0",
+            "min": "0.5"
+        }
+    }
+}

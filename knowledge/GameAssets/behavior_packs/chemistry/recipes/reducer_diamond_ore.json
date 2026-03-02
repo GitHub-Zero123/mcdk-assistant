@@ -1,0 +1,24 @@
+{
+    "format_version": "1.14",
+    "minecraft:recipe_material_reduction": {
+        "description": {
+            "identifier": "minecraft:diamond_ore"
+        },
+        "input": "minecraft:diamond_ore",
+        "output": [
+            {
+                "count": 64,
+                "item": "minecraft:element_6"
+            },
+            {
+                "count": 12,
+                "item": "minecraft:element_14"
+            },
+            {
+                "count": 24,
+                "item": "minecraft:element_8"
+            }
+        ],
+        "tags": "material_reducer"
+    }
+}

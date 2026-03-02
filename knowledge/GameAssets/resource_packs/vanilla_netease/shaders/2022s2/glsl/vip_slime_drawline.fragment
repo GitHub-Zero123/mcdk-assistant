@@ -1,0 +1,19 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+#include "fragmentVersionCentroidUV.h"
+#include "uniformPerFrameConstants.h"
+#include "uniformEntityConstants.h"
+#include "util.h"
+
+LAYOUT_BINDING(3) uniform sampler2D TEXTURE_3;
+
+varying vec4 fogColor;
+
+void main()
+{
+	gl_FragColor = texture2D(TEXTURE_3, uv).rgba;
+
+#ifdef USE_OVERLAY
+	gl_FragColor.rgb = mix(gl_FragColor.rgb, OVERLAY_COLOR.rgb, OVERLAY_COLOR.a);
+#endif // USE_OVERLAY
+}

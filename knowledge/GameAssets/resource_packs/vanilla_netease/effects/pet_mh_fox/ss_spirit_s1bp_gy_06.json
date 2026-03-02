@@ -1,0 +1,47 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "value": "Direction",
+            "min": "0.0 0.0 0.0"
+        },
+        "numparticles": {
+            "value": "1"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "9.5%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "87.5%"
+            },
+            {
+                "color": "1.0000 1.0000 0.2400 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/pet_mh_fox/ss_spirit_s1bp_gy_03"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "timetolive": {
+            "max": "9.0",
+            "min": "9.0"
+        },
+        "particlesize": {
+            "max": "0.55 0.5",
+            "min": "0.55 0.5"
+        }
+    }
+}

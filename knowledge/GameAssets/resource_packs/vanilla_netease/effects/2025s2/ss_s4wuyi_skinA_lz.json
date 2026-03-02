@@ -1,0 +1,97 @@
+{
+    "particleeffect": {
+        "colorfade": [
+            {
+                "color": "1.0000 0.9647 0.4471 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 0.0000 1.0000",
+                "time": "49.7%"
+            },
+            {
+                "color": "1.0000 1.0000 0.2400 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "constantforce": {
+            "value": "0.0 -1.0 0.0"
+        },
+        "direction": {
+            "max": "1.0 -1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.2 0.2 0.2"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "particlesize": {
+            "max": "0.08 0.08",
+            "min": "0.15 0.15"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.1 0.1",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "10.0%"
+            },
+            {
+                "scale": "0.38 0.38",
+                "time": "20.7%"
+            },
+            {
+                "scale": "0.75 0.75",
+                "time": "32.5%"
+            },
+            {
+                "scale": "0.32 0.32",
+                "time": "43.7%"
+            },
+            {
+                "scale": "0.56 0.56",
+                "time": "54.0%"
+            },
+            {
+                "scale": "0.2 0.2",
+                "time": "65.3%"
+            },
+            {
+                "scale": "0.25 0.25",
+                "time": "77.5%"
+            },
+            {
+                "scale": "0.06 0.06",
+                "time": "88.3%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s2/ss_s4wuyi_skinA_lz"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.8",
+            "min": "0.6"
+        },
+        "velocity": {
+            "max": "0.1",
+            "min": "0.2"
+        }
+    }
+}

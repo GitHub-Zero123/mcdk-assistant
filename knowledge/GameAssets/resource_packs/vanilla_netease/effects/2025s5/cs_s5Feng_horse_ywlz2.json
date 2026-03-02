@@ -1,0 +1,82 @@
+{
+    "particleeffect": {
+        "colorfade": [
+            {
+                "color": "0.7882 0.7882 0.7882 0.1786",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.8000 0.8000 0.8000 0.1339",
+                "time": "45.3%"
+            },
+            {
+                "color": "0.7882 0.7882 0.7882 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "min": "-1.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "25.0",
+            "min": "25.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "1.2 1.2 0.0"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "numparticles": {
+            "value": "25"
+        },
+        "particlesize": {
+            "max": "0.35 0.35",
+            "min": "0.45 0.45"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 0.0 360.0"
+        },
+        "rotationSpeedRange": {
+            "max": "0.0 0.0 -60.0",
+            "min": "0.0 0.0 60.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.96 0.96",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.11 1.11",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "10",
+                "name": "textures/sfxs/2025s5/cs_s5Feng_horse_ywlz",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s5/cs_s5Feng_horse_ywlz"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.8",
+            "min": "1.0"
+        },
+        "velocity": {
+            "max": "4.0",
+            "min": "2.0"
+        }
+    }
+}

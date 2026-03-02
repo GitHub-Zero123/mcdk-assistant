@@ -1,0 +1,70 @@
+{
+    "particleeffect": {
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.7451 0.9882 1.0000",
+                "time": "24.2%"
+            },
+            {
+                "color": "1.0000 0.5294 0.8588 1.0000",
+                "time": "62.6%"
+            },
+            {
+                "color": "0.9059 0.5255 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "0.0 -1.0 0.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "disorder": {
+            "increment": "0.01",
+            "interval": "1.0",
+            "max": "0.0 0.0 0.0",
+            "min": "0.1 0.0 0.0"
+        },
+        "emissionrate": {
+            "max": "35.0",
+            "min": "45.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "5.0 2.0 2.0"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "numparticles": {
+            "value": "45"
+        },
+        "particlesize": {
+            "max": "0.22 0.22",
+            "min": "0.18 0.18"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "name": "textures/sfxs/2024_Q2_fangkuai"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "1.5",
+            "min": "2.0"
+        },
+        "velocity": {
+            "max": "0.4",
+            "min": "0.3"
+        }
+    }
+}

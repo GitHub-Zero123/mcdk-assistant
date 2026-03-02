@@ -1,0 +1,63 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+
+#include "vertexVersionCentroid.h"
+#include "uniformWorldConstants.h"
+
+#ifdef ENABLE_FULL_PRECISION_POSITION
+attribute POS3 POSITION;
+#else
+attribute POS4 POSITION;
+#endif
+
+#ifdef ENABLE_VERTEX_COLOR
+attribute vec4 COLOR;
+#endif
+
+#ifdef ENABLE_DIFFUSE_TEXTURE
+attribute vec2 TEXCOORD_0;
+#endif
+
+#ifdef ENABLE_TEXCOORD1
+attribute vec2 TEXCOORD_1;
+#endif
+
+#ifdef ENABLE_VERTEX_COLOR
+varying vec4 color;
+#endif
+
+#ifdef ENABLE_DIFFUSE_TEXTURE
+varying vec2 uv;
+#endif
+
+#ifdef ENABLE_TEXCOORD1
+varying vec2 uv1;
+#endif
+
+void main()
+{
+#ifdef ENABLE_FULL_PRECISION_POSITION
+	gl_Position = WORLDVIEWPROJ * vec4(POSITION.xyz, 1.0);
+#else
+	gl_Position = WORLDVIEWPROJ * POSITION;
+#endif
+
+#ifdef ENABLE_VERTEX_COLOR
+	color = COLOR;
+#endif
+
+#ifdef ENABLE_DIFFUSE_TEXTURE
+	uv = TEXCOORD_0;
+#endif
+
+#ifdef ENABLE_TEXCOORD1
+	uv1 = TEXCOORD_1;
+#endif
+
+#ifdef ENABLE_FLIP_V
+	uv.y = 1.0 - uv.y;
+	#ifdef ENABLE_TEXCOORD1
+		uv1.y = 1.0 - uv1.y;
+	#endif
+#endif
+}

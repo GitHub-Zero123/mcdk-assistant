@@ -1,0 +1,81 @@
+{
+    "particleeffect": {
+        "independent": false,
+        "direction": {
+            "max": "0.0 -1.0 0.0",
+            "value": "Direction",
+            "min": "0.0 -1.0 0.0"
+        },
+        "numparticles": {
+            "value": "5"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 0.0000 0.3571",
+                "time": "0.00"
+            },
+            {
+                "color": "1.0000 1.0000 0.6353 1.0000",
+                "time": "0.11"
+            },
+            {
+                "color": "1.0000 0.9725 0.6627 0.8036",
+                "time": "0.56"
+            },
+            {
+                "color": "1.0000 1.0000 0.7922 0.0000",
+                "time": "0.80"
+            }
+        ],
+        "emissionrate": {
+            "max": "5.0",
+            "min": "5.0"
+        },
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.5 0.0 0.6"
+        },
+        "texture": {
+            "name": "textures/sfxs/pet_camera/xy_moon_camera_lizi"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Cylinder"
+        },
+        "timetolive": {
+            "max": "0.8",
+            "min": "0.5"
+        },
+        "depthtest": {
+            "enable": "true"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.3",
+            "min": "0.5"
+        },
+        "particlesize": {
+            "max": "0.05 0.05",
+            "min": "0.03 0.03"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.11 1.11",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.9 0.9",
+                "time": "68.3%"
+            },
+            {
+                "scale": "0.63 0.63",
+                "time": "100.0%"
+            }
+        ]
+    }
+}

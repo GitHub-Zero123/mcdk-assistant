@@ -1,0 +1,116 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.25"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.9961 0.7804 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.9922 1.0000 0.4353 0.7143",
+                "time": "66.3%"
+            },
+            {
+                "color": "1.0000 0.4275 0.1608 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "dampingforce": {
+            "value": "3.0"
+        },
+        "delay": 0.75,
+        "direction": {
+            "max": "0.1 0.0 0.1",
+            "min": "-0.1 -0.1 -0.1",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "100.0",
+            "min": "100.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "8.0 0.1 8.0"
+        },
+        "emittertype": {
+            "value": "Cone"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "layer": 8,
+        "numparticles": {
+            "value": "50"
+        },
+        "particlesize": {
+            "max": "0.1 0.1",
+            "min": "0.2 0.2"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "false"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.99 0.99",
+                "time": "24.3%"
+            },
+            {
+                "scale": "0.06 0.06",
+                "time": "24.7%"
+            },
+            {
+                "scale": "0.03 0.03",
+                "time": "31.3%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "31.7%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "73.0%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "73.0%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "79.7%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "79.7%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s2/cs_s4hongshi_zhuchengruchang_lizii"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.25",
+            "min": "0.25"
+        },
+        "velocity": {
+            "max": "20.0",
+            "min": "10.0"
+        }
+    }
+}

@@ -1,0 +1,63 @@
+{
+    "particleeffect": {
+        "dampingforce": {
+            "value": "0.2"
+        },
+        "direction": {
+            "max": "0.25 1.0 0.5",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.5 0.5 0.5"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "numparticles": {
+            "value": "4"
+        },
+        "particlesize": {
+            "max": "0.1 0.1",
+            "min": "0.05 0.05"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.0 0.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "30.0%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "70.0%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s2/ss_s4newborn_horse_weibalizi"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "1.25",
+            "min": "0.8"
+        },
+        "velocity": {
+            "max": "0.6",
+            "min": "0.2"
+        }
+    }
+}

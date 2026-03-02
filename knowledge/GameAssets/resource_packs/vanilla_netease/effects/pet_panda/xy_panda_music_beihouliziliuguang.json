@@ -1,0 +1,73 @@
+{
+    "particleeffect": {
+        "independent": false,
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "value": "Direction",
+            "min": "0.0 0.0 0.0"
+        },
+        "faceCameraMode": {
+            "value": "Horizontal"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.00"
+            },
+            {
+                "color": "0.9294 0.8039 1.0000 0.5357",
+                "time": "0.20"
+            },
+            {
+                "color": "0.3333 1.0000 1.0000 0.3214",
+                "time": "0.52"
+            },
+            {
+                "color": "0.6667 1.0000 1.0000 0.0000",
+                "time": "0.80"
+            }
+        ],
+        "emissionrate": {
+            "max": "3.0",
+            "min": "2.0"
+        },
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.0 0.0 0.0"
+        },
+        "texture": {
+            "name": "textures/sfxs/pet_panda/xy_panda_music_glow"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "timetolive": {
+            "max": "0.8",
+            "min": "0.8"
+        },
+        "depthtest": {
+            "enable": "true"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "particlesize": {
+            "max": "0.5 0.5",
+            "min": "0.5 0.5"
+        },
+        "numparticles": {
+            "value": "1"
+        }
+    }
+}

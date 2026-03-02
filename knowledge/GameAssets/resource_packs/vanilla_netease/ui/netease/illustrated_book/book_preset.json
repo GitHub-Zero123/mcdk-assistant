@@ -1,0 +1,3879 @@
+{
+    "arrow": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_direction": "left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clip_ratio": 0.0,
+        "clips_children": false,
+        "enabled": true,
+        "fill": false,
+        "grayscale": false,
+        "is_new_nine_slice": false,
+        "keep_ratio": true,
+        "layer": 49,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "nine_slice_buttom": 0,
+        "nine_slice_left": 0,
+        "nine_slice_right": 0,
+        "nine_slice_top": 0,
+        "nineslice_size": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "55.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "texture": "textures/ui/book_gui/icon06",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            13,
+            11
+        ],
+        "visible": true
+    },
+    "arrowPanel": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "arrow@book_preset.arrow": {}
+            }
+        ],
+        "enabled": true,
+        "layer": 48,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "bg_closeBtn": {
+        "alpha": 1.0,
+        "anchor_from": "left_middle",
+        "anchor_to": "left_middle",
+        "clip_direction": "left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clip_ratio": 0.0,
+        "clips_children": false,
+        "enabled": true,
+        "fill": false,
+        "grayscale": false,
+        "is_new_nine_slice": false,
+        "keep_ratio": true,
+        "layer": 9,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "nine_slice_buttom": 0,
+        "nine_slice_left": 0,
+        "nine_slice_right": 0,
+        "nine_slice_top": 0,
+        "nineslice_size": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "offset": [
+            2,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            26,
+            26
+        ],
+        "texture": "textures/ui/book_gui/btn04",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            26,
+            27
+        ],
+        "visible": true
+    },
+    "bookPanel": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_direction": "left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clip_ratio": 0.0,
+        "clips_children": false,
+        "controls": [
+            {
+                "pageInfo@book_preset.pageInfo": {}
+            },
+            {
+                "pagegapStack@book_preset.pagegapStack": {}
+            },
+            {
+                "bookTitleBg@book_preset.bookTitleBg": {}
+            },
+            {
+                "pageFootRight@book_preset.pageFootRight": {}
+            },
+            {
+                "pageFootLeft@book_preset.pageFootLeft": {}
+            },
+            {
+                "returnBtn@book_preset.returnBtn": {}
+            },
+            {
+                "closeBtn@book_preset.closeBtn": {}
+            },
+            {
+                "prevPageBtn@book_preset.prevPageBtn": {}
+            },
+            {
+                "nextPageBtn@book_preset.nextPageBtn": {}
+            },
+            {
+                "compsInPanel@book_preset.compsInPanel": {}
+            }
+        ],
+        "enabled": true,
+        "fill": false,
+        "grayscale": false,
+        "is_new_nine_slice": false,
+        "keep_ratio": false,
+        "layer": 1,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "nine_slice_buttom": 30,
+        "nine_slice_left": 30,
+        "nine_slice_right": 30,
+        "nine_slice_top": 30,
+        "nineslice_size": [
+            30.0,
+            30.0,
+            30.0,
+            30.0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            268,
+            200
+        ],
+        "texture": "textures/ui/book_gui/panel01",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            128,
+            128
+        ],
+        "visible": true
+    },
+    "bookTitleBg": {
+        "alpha": 1.0,
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "clip_direction": "left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clip_ratio": 0.0,
+        "clips_children": false,
+        "enabled": true,
+        "fill": false,
+        "grayscale": false,
+        "is_new_nine_slice": false,
+        "keep_ratio": false,
+        "layer": 1,
+        "max_size": [
+            0.0,
+            0.0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "nine_slice_buttom": 8,
+        "nine_slice_left": 10,
+        "nine_slice_right": 12,
+        "nine_slice_top": 5,
+        "nineslice_size": [
+            10.0,
+            5.0,
+            12.0,
+            8.0
+        ],
+        "offset": [
+            -8.0,
+            14
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            136,
+            30
+        ],
+        "texture": "textures/ui/book_gui/panel02",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            32,
+            31
+        ],
+        "visible": true
+    },
+    "book_preset_panel": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "shadowBg@book_preset.shadowBg": {}
+            },
+            {
+                "bookPanel@book_preset.bookPanel": {}
+            }
+        ],
+        "enabled": true,
+        "layer": 0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "btn_entryBtn@common.button": {
+        "$control_alpha": 1.0,
+        "$default_texture": "textures/ui/book_gui/blank",
+        "$hover_texture": "textures/ui/book_gui/blank",
+        "$is_new_nine_slice": false,
+        "$label_color": [
+            1,
+            1,
+            1
+        ],
+        "$label_font_scale_factor": 1.0,
+        "$label_font_size": "large",
+        "$label_layer": 3,
+        "$label_offset": [
+            0,
+            0
+        ],
+        "$label_text": "",
+        "$nine_slice_buttom": 1,
+        "$nine_slice_left": 1,
+        "$nine_slice_right": 1,
+        "$nine_slice_top": 1,
+        "$nineslice_size": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "$pressed_button_name": "%book_preset.click",
+        "$pressed_texture": "textures/ui/book_gui/blank",
+        "$texture_layer": 2,
+        "alpha": 1.0,
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "bindings": [
+            {
+                "binding_collection_name": "",
+                "binding_condition": "always_when_visible",
+                "binding_type": "collection_details"
+            }
+        ],
+        "button_mappings": [],
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "default@book_preset.default": {}
+            },
+            {
+                "hover@book_preset.hover": {}
+            },
+            {
+                "pressed@book_preset.pressed": {}
+            },
+            {
+                "button_label@book_preset.button_label": {}
+            }
+        ],
+        "draggable": "not_draggable",
+        "enabled": true,
+        "is_handle_button_move_event": true,
+        "layer": 1,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "visible": true
+    },
+    "button@common.button": {
+        "$control_alpha": 1.0,
+        "$default_texture": "textures/ui/book_gui/blank",
+        "$hover_texture": "textures/ui/book_gui/blank",
+        "$is_new_nine_slice": false,
+        "$label_color": [
+            1,
+            1,
+            1
+        ],
+        "$label_font_scale_factor": 1.169999957084656,
+        "$label_font_size": "normal",
+        "$label_layer": 3,
+        "$label_offset": [
+            0,
+            0
+        ],
+        "$label_text": "",
+        "$nine_slice_buttom": 0,
+        "$nine_slice_left": 0,
+        "$nine_slice_right": 0,
+        "$nine_slice_top": 0,
+        "$nineslice_size": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "$pressed_button_name": "%book_preset.click",
+        "$pressed_texture": "textures/ui/book_gui/blank",
+        "$texture_layer": 2,
+        "alpha": 1.0,
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "bindings": [
+            {
+                "binding_collection_name": "",
+                "binding_condition": "always_when_visible",
+                "binding_type": "collection_details"
+            }
+        ],
+        "button_mappings": [],
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "default@book_preset.default": {}
+            },
+            {
+                "hover@book_preset.hover": {}
+            },
+            {
+                "pressed@book_preset.pressed": {}
+            },
+            {
+                "button_label@book_preset.button_label": {}
+            }
+        ],
+        "draggable": "not_draggable",
+        "enabled": true,
+        "is_handle_button_move_event": true,
+        "layer": 0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            140.0,
+            55.0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            50,
+            50
+        ],
+        "visible": true
+    },
+    "button_label": {
+        "alpha": "$control_alpha",
+        "color": "$label_color",
+        "font_scale_factor": "$label_font_scale_factor",
+        "font_size": "$label_font_size",
+        "font_type": "smooth",
+        "layer": "$label_layer",
+        "max_size": [
+            "100%",
+            "100%"
+        ],
+        "offset": "$label_offset",
+        "shadow": false,
+        "text": "$label_text",
+        "text_alignment": "center",
+        "type": "label"
+    },
+    "centerText": {
+        "alpha": 1.0,
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "color": [
+            0.0,
+            0.0,
+            0.0
+        ],
+        "enabled": true,
+        "font_scale_factor": 1.169999957084656,
+        "font_size": "normal",
+        "font_type": "unicode",
+        "layer": 0,
+        "line_padding": 0.0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            171.0,
+            102.0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "shadow": false,
+        "size": [
+            100,
+            10
+        ],
+        "text": "中对齐文本组件",
+        "text_alignment": "center",
+        "type": "label",
+        "visible": true
+    },
+    "closeBtn@common.button": {
+        "$control_alpha": 1.0,
+        "$default_texture": "textures/ui/book_gui/blank",
+        "$hover_texture": "textures/ui/book_gui/blank",
+        "$is_new_nine_slice": false,
+        "$label_color": [
+            1,
+            1,
+            1
+        ],
+        "$label_font_scale_factor": 1.0,
+        "$label_font_size": "large",
+        "$label_layer": 3,
+        "$label_offset": [
+            0,
+            0
+        ],
+        "$label_text": "",
+        "$nine_slice_buttom": 0,
+        "$nine_slice_left": 0,
+        "$nine_slice_right": 0,
+        "$nine_slice_top": 0,
+        "$nineslice_size": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "$pressed_button_name": "%book_preset.click",
+        "$pressed_texture": "textures/ui/book_gui/blank",
+        "$texture_layer": 2,
+        "alpha": 1.0,
+        "anchor_from": "top_right",
+        "anchor_to": "top_left",
+        "bindings": [
+            {
+                "binding_collection_name": "",
+                "binding_condition": "always_when_visible",
+                "binding_type": "collection_details"
+            }
+        ],
+        "button_mappings": [],
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "default@book_preset.default": {}
+            },
+            {
+                "hover@book_preset.hover": {}
+            },
+            {
+                "image_closeBtn@book_preset.image_closeBtn": {}
+            },
+            {
+                "pressed@book_preset.pressed": {}
+            },
+            {
+                "button_label@book_preset.button_label": {}
+            },
+            {
+                "bg_closeBtn@book_preset.bg_closeBtn": {}
+            }
+        ],
+        "draggable": "not_draggable",
+        "enabled": true,
+        "is_handle_button_move_event": true,
+        "layer": 0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            -5.0,
+            -1.0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            43,
+            56
+        ],
+        "visible": true
+    },
+    "comps": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "tooltip@book_preset.tooltip": {}
+            },
+            {
+                "pageLock@book_preset.pageLock": {}
+            },
+            {
+                "tableRecipe@book_preset.tableRecipe": {}
+            },
+            {
+                "highlight@book_preset.highlight": {}
+            },
+            {
+                "entity@book_preset.entity": {}
+            },
+            {
+                "centerText@book_preset.centerText": {}
+            },
+            {
+                "rightText@book_preset.rightText": {}
+            },
+            {
+                "leftText@book_preset.leftText": {}
+            },
+            {
+                "fitLeftText@book_preset.fitLeftText": {}
+            },
+            {
+                "fitCenterText@book_preset.fitCenterText": {}
+            },
+            {
+                "fitRightText@book_preset.fitRightText": {}
+            },
+            {
+                "button@book_preset.button": {}
+            },
+            {
+                "progressBar@book_preset.progressBar": {}
+            },
+            {
+                "entryBtn@book_preset.entryBtn": {}
+            },
+            {
+                "image_fit@book_preset.image_fit": {}
+            },
+            {
+                "image_ninesliced@book_preset.image_ninesliced": {}
+            }
+        ],
+        "enabled": true,
+        "layer": 50,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "compsInPanel": {
+        "alpha": 1.0,
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "enabled": true,
+        "layer": 50,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "default": {
+        "alpha": "$control_alpha",
+        "is_new_nine_slice": "$is_new_nine_slice",
+        "layer": "$texture_layer",
+        "nine_slice_buttom": "$nine_slice_buttom",
+        "nine_slice_left": "$nine_slice_left",
+        "nine_slice_right": "$nine_slice_right",
+        "nine_slice_top": "$nine_slice_top",
+        "nineslice_size": "$nineslice_size",
+        "texture": "$default_texture",
+        "type": "image"
+    },
+    "empty1_entryBtn": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "enabled": true,
+        "layer": 0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "0.0%+6.0px",
+            "100.0%+0.0px"
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "empty2_entryBtn": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "enabled": true,
+        "layer": 0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "0.0%+6.0px",
+            "100.0%+0.0px"
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "empty_progress_bar": {
+        "is_new_nine_slice": "$is_new_nine_slice",
+        "layer": 1,
+        "nine_slice_buttom": "$nine_slice_buttom",
+        "nine_slice_left": "$nine_slice_left",
+        "nine_slice_right": "$nine_slice_right",
+        "nine_slice_top": "$nine_slice_top",
+        "nineslice_size": "$nineslice_size",
+        "texture": "$progress_bar_empty_texture",
+        "type": "image"
+    },
+    "emptygap": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "enabled": true,
+        "layer": 1,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "100.0%+0.0px",
+            "5.0%+0.0px"
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "entity": {
+        "alpha": 1.0,
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "entity_render@book_preset.entity_render": {}
+            },
+            {
+                "entity_bg@book_preset.entity_bg": {}
+            }
+        ],
+        "enabled": true,
+        "layer": 0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            193.0,
+            40.0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            100,
+            100
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "entity_bg": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_direction": "left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clip_ratio": 0.0,
+        "clips_children": false,
+        "enabled": true,
+        "fill": false,
+        "grayscale": false,
+        "is_new_nine_slice": false,
+        "keep_ratio": false,
+        "layer": 0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "nine_slice_buttom": 1,
+        "nine_slice_left": 1,
+        "nine_slice_right": 1,
+        "nine_slice_top": 1,
+        "nineslice_size": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "default",
+            "default"
+        ],
+        "texture": "textures/ui/book_gui/panel04",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            8,
+            8
+        ],
+        "visible": true
+    },
+    "entity_render": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "animation": "idle",
+        "animation_looped": true,
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "enabled": true,
+        "entity_identifier": "",
+        "init_rot_y": 60.0,
+        "layer": 1,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0.0,
+            0.0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "renderer": "netease_paper_doll_renderer",
+        "rotation": "auto",
+        "screen_scale": 1.0,
+        "size": [
+            "default",
+            "default"
+        ],
+        "skeleton_model_name": "",
+        "type": "custom",
+        "visible": true
+    },
+    "entryBtn": {
+        "alpha": 1.0,
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "left_entryBtn@book_preset.left_entryBtn": {}
+            },
+            {
+                "empty1_entryBtn@book_preset.empty1_entryBtn": {}
+            },
+            {
+                "middle_entryBtn@book_preset.middle_entryBtn": {}
+            },
+            {
+                "empty2_entryBtn@book_preset.empty2_entryBtn": {}
+            },
+            {
+                "right_entryBtn@book_preset.right_entryBtn": {}
+            }
+        ],
+        "enabled": true,
+        "layer": 0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            54.0,
+            181.0
+        ],
+        "orientation": "horizontal",
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            87,
+            20
+        ],
+        "type": "stack_panel",
+        "use_priority": false,
+        "visible": true
+    },
+    "filled_progress_bar": {
+        "clip_direction": "$clip_direction",
+        "clip_pixelperfect": false,
+        "clip_ratio": "$clip_ratio",
+        "is_new_nine_slice": "$is_new_nine_slice",
+        "layer": 2,
+        "nine_slice_buttom": "$nine_slice_buttom",
+        "nine_slice_left": "$nine_slice_left",
+        "nine_slice_right": "$nine_slice_right",
+        "nine_slice_top": "$nine_slice_top",
+        "nineslice_size": "$nineslice_size",
+        "texture": "$progress_bar_filled_texture",
+        "type": "image"
+    },
+    "fitCenterText": {
+        "alpha": 1.0,
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "color": [
+            0.0,
+            0.0,
+            0.0
+        ],
+        "enabled": true,
+        "font_scale_factor": 1.169999957084656,
+        "font_size": "normal",
+        "font_type": "smooth",
+        "layer": 0,
+        "line_padding": 0.0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            77.0,
+            206.0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "shadow": false,
+        "size": [
+            "default",
+            "default"
+        ],
+        "text": "fitCenterText",
+        "text_alignment": "center",
+        "type": "label",
+        "visible": true
+    },
+    "fitLeftText": {
+        "alpha": 1.0,
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "color": [
+            0.0,
+            0.0,
+            0.0
+        ],
+        "enabled": true,
+        "font_scale_factor": 1.169999957084656,
+        "font_size": "normal",
+        "font_type": "smooth",
+        "layer": 0,
+        "line_padding": 0.0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            10.0,
+            206.0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "shadow": false,
+        "size": [
+            "default",
+            "default"
+        ],
+        "text": "fitLeftText",
+        "text_alignment": "left",
+        "type": "label",
+        "visible": true
+    },
+    "fitRightText": {
+        "alpha": 1.0,
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "color": [
+            0.0,
+            0.0,
+            0.0
+        ],
+        "enabled": true,
+        "font_scale_factor": 1.169999957084656,
+        "font_size": "normal",
+        "font_type": "smooth",
+        "layer": 0,
+        "line_padding": 0.0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            77.0,
+            206.0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "shadow": false,
+        "size": [
+            "default",
+            "default"
+        ],
+        "text": "fitRightText",
+        "text_alignment": "right",
+        "type": "label",
+        "visible": true
+    },
+    "highlight@common.button": {
+        "$control_alpha": 1.0,
+        "$default_texture": "textures/ui/book_gui/blank",
+        "$hover_texture": "textures/ui/book_gui/blank",
+        "$is_new_nine_slice": false,
+        "$label_color": [
+            1,
+            1,
+            1
+        ],
+        "$label_font_scale_factor": 1.0,
+        "$label_font_size": "large",
+        "$label_layer": 3,
+        "$label_offset": [
+            0,
+            0
+        ],
+        "$label_text": "",
+        "$nine_slice_buttom": 0,
+        "$nine_slice_left": 0,
+        "$nine_slice_right": 0,
+        "$nine_slice_top": 0,
+        "$nineslice_size": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "$pressed_button_name": "%book_preset.click",
+        "$pressed_texture": "textures/ui/book_gui/blank",
+        "$texture_layer": 2,
+        "alpha": 1.0,
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "bindings": [
+            {
+                "binding_collection_name": "",
+                "binding_condition": "always_when_visible",
+                "binding_type": "collection_details"
+            }
+        ],
+        "button_mappings": [],
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "highlight_item@book_preset.highlight_item": {}
+            },
+            {
+                "default@book_preset.default": {}
+            },
+            {
+                "hover@book_preset.hover": {}
+            },
+            {
+                "pressed@book_preset.pressed": {}
+            },
+            {
+                "button_label@book_preset.button_label": {}
+            },
+            {
+                "highlight_bg@book_preset.highlight_bg": {}
+            }
+        ],
+        "draggable": "not_draggable",
+        "enabled": true,
+        "is_handle_button_move_event": true,
+        "layer": 0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            214.0,
+            148.0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "0.0%+50.0px",
+            "0.0%x+50.0px"
+        ],
+        "visible": true
+    },
+    "highlight_bg": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_direction": "left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clip_ratio": 0.0,
+        "clips_children": false,
+        "enabled": true,
+        "fill": false,
+        "grayscale": false,
+        "is_new_nine_slice": false,
+        "keep_ratio": false,
+        "layer": 0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "nine_slice_buttom": 1,
+        "nine_slice_left": 1,
+        "nine_slice_right": 1,
+        "nine_slice_top": 1,
+        "nineslice_size": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "texture": "textures/ui/book_gui/panel04",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            8,
+            8
+        ],
+        "visible": true
+    },
+    "highlight_item": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "enabled": true,
+        "layer": 1,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "property_bag": {
+            "#item_id_aux": 3735552
+        },
+        "renderer": "inventory_item_renderer",
+        "size": [
+            "90.0%+0.0px",
+            "90.0%+0.0px"
+        ],
+        "type": "custom",
+        "visible": true
+    },
+    "horizontalStack_talbeRecipe": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "tableCrafting1@book_preset.tableCrafting": {}
+            },
+            {
+                "tableCrafting2@book_preset.tableCrafting": {}
+            },
+            {
+                "tableCrafting3@book_preset.tableCrafting": {}
+            }
+        ],
+        "enabled": true,
+        "layer": 0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "orientation": "horizontal",
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "100.0%+0.0px",
+            "33.33%+0.0px"
+        ],
+        "type": "stack_panel",
+        "use_priority": false,
+        "visible": true
+    },
+    "hover": {
+        "alpha": "$control_alpha",
+        "is_new_nine_slice": "$is_new_nine_slice",
+        "layer": "$texture_layer",
+        "nine_slice_buttom": "$nine_slice_buttom",
+        "nine_slice_left": "$nine_slice_left",
+        "nine_slice_right": "$nine_slice_right",
+        "nine_slice_top": "$nine_slice_top",
+        "nineslice_size": "$nineslice_size",
+        "texture": "$hover_texture",
+        "type": "image"
+    },
+    "icon_entryBtn": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_direction": "left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clip_ratio": 0.0,
+        "clips_children": false,
+        "enabled": true,
+        "fill": false,
+        "grayscale": false,
+        "is_new_nine_slice": false,
+        "keep_ratio": true,
+        "layer": 0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "nine_slice_buttom": 0,
+        "nine_slice_left": 0,
+        "nine_slice_right": 0,
+        "nine_slice_top": 0,
+        "nineslice_size": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "texture": "textures/ui/book_gui/icon02",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            0.0,
+            0.0
+        ],
+        "visible": true
+    },
+    "icon_pageLock": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_direction": "left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clip_ratio": 0.0,
+        "clips_children": false,
+        "enabled": true,
+        "fill": false,
+        "grayscale": false,
+        "is_new_nine_slice": false,
+        "keep_ratio": true,
+        "layer": 0,
+        "max_size": [
+            0.0,
+            0.0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "nine_slice_buttom": 0,
+        "nine_slice_left": 0,
+        "nine_slice_right": 0,
+        "nine_slice_top": 0,
+        "nineslice_size": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "10.0%+10.0px",
+            "10.0%+10.0px"
+        ],
+        "texture": "textures/ui/book_gui/icon05",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            7,
+            9
+        ],
+        "visible": true
+    },
+    "image_closeBtn": {
+        "alpha": 1.0,
+        "anchor_from": "left_middle",
+        "anchor_to": "left_middle",
+        "clip_direction": "left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clip_ratio": 0.0,
+        "clips_children": false,
+        "enabled": true,
+        "fill": false,
+        "grayscale": false,
+        "is_new_nine_slice": false,
+        "keep_ratio": true,
+        "layer": 10,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "nine_slice_buttom": 0,
+        "nine_slice_left": 0,
+        "nine_slice_right": 0,
+        "nine_slice_top": 0,
+        "nineslice_size": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            26,
+            26
+        ],
+        "texture": "textures/ui/book_gui/icon01",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            15,
+            15
+        ],
+        "visible": true
+    },
+    "image_fit": {
+        "alpha": 1.0,
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "clip_direction": "left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clip_ratio": 0.0,
+        "clips_children": false,
+        "enabled": true,
+        "fill": false,
+        "grayscale": false,
+        "is_new_nine_slice": false,
+        "keep_ratio": true,
+        "layer": 0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "nine_slice_buttom": 0,
+        "nine_slice_left": 0,
+        "nine_slice_right": 0,
+        "nine_slice_top": 0,
+        "nineslice_size": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            95,
+            77
+        ],
+        "texture": "textures/netease/common/image/default",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            0,
+            0
+        ],
+        "visible": true
+    },
+    "image_nextPageBtn": {
+        "alpha": 1.0,
+        "anchor_from": "left_middle",
+        "anchor_to": "left_middle",
+        "clip_direction": "left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clip_ratio": 0.0,
+        "clips_children": false,
+        "enabled": true,
+        "fill": false,
+        "grayscale": false,
+        "is_new_nine_slice": false,
+        "keep_ratio": false,
+        "layer": 10,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "nine_slice_buttom": 1,
+        "nine_slice_left": 1,
+        "nine_slice_right": 1,
+        "nine_slice_top": 1,
+        "nineslice_size": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "offset": [
+            1,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            20,
+            20
+        ],
+        "texture": "textures/ui/book_gui/btn05",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            21,
+            23
+        ],
+        "visible": true
+    },
+    "image_ninesliced": {
+        "alpha": 1.0,
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "clip_direction": "left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clip_ratio": 0.0,
+        "clips_children": false,
+        "enabled": true,
+        "fill": false,
+        "grayscale": false,
+        "is_new_nine_slice": false,
+        "keep_ratio": false,
+        "layer": 0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "nine_slice_buttom": 0,
+        "nine_slice_left": 0,
+        "nine_slice_right": 0,
+        "nine_slice_top": 0,
+        "nineslice_size": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            100,
+            100
+        ],
+        "texture": "textures/netease/common/image/default",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            0,
+            0
+        ],
+        "visible": true
+    },
+    "image_prevPageBtn": {
+        "alpha": 1.0,
+        "anchor_from": "right_middle",
+        "anchor_to": "right_middle",
+        "clip_direction": "left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clip_ratio": 0.0,
+        "clips_children": false,
+        "enabled": true,
+        "fill": false,
+        "grayscale": false,
+        "is_new_nine_slice": false,
+        "keep_ratio": false,
+        "layer": 10,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "nine_slice_buttom": 1,
+        "nine_slice_left": 1,
+        "nine_slice_right": 1,
+        "nine_slice_top": 1,
+        "nineslice_size": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "offset": [
+            -1,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            20,
+            20
+        ],
+        "texture": "textures/ui/book_gui/btn06",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            21,
+            23
+        ],
+        "visible": true
+    },
+    "image_returnBtn": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_direction": "left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clip_ratio": 0.0,
+        "clips_children": false,
+        "enabled": true,
+        "fill": false,
+        "grayscale": false,
+        "is_new_nine_slice": false,
+        "keep_ratio": false,
+        "layer": 10,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "nine_slice_buttom": 1,
+        "nine_slice_left": 1,
+        "nine_slice_right": 1,
+        "nine_slice_top": 1,
+        "nineslice_size": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "offset": [
+            0,
+            -2
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            22,
+            10
+        ],
+        "texture": "textures/ui/book_gui/btn01",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            23,
+            11
+        ],
+        "visible": true
+    },
+    "left": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "verticalStack_tableRecipe@book_preset.verticalStack_tableRecipe": {}
+            }
+        ],
+        "enabled": true,
+        "layer": 0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 2,
+        "propagate_alpha": false,
+        "size": [
+            "54.54%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "leftPage": {
+        "alpha": 1.0,
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "enabled": true,
+        "layer": 1,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            20,
+            15
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            104,
+            165
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "leftText": {
+        "alpha": 1.0,
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "color": [
+            0.0,
+            0.0,
+            0.0
+        ],
+        "enabled": true,
+        "font_scale_factor": 1.169999957084656,
+        "font_size": "normal",
+        "font_type": "smooth",
+        "layer": 0,
+        "line_padding": 0.0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            166.0,
+            127.0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "shadow": false,
+        "size": [
+            100,
+            10
+        ],
+        "text": "左对齐文本组件文本文本问二百",
+        "text_alignment": "left",
+        "type": "label",
+        "visible": true
+    },
+    "left_entryBtn": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "lock_entryBtn@book_preset.lock_entryBtn": {}
+            }
+        ],
+        "enabled": true,
+        "layer": 0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "10.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "lock_entryBtn": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_direction": "left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clip_ratio": 0.0,
+        "clips_children": false,
+        "enabled": true,
+        "fill": false,
+        "grayscale": false,
+        "is_new_nine_slice": false,
+        "keep_ratio": true,
+        "layer": 0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "nine_slice_buttom": 0,
+        "nine_slice_left": 0,
+        "nine_slice_right": 0,
+        "nine_slice_top": 0,
+        "nineslice_size": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "texture": "textures/ui/book_gui/icon02",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            0.0,
+            0.0
+        ],
+        "visible": true
+    },
+    "main": {
+        "absorbs_input": true,
+        "always_accepts_input": false,
+        "controls": [
+            {
+                "panels@book_preset.panels": {}
+            },
+            {
+                "comps@book_preset.comps": {}
+            }
+        ],
+        "force_render_below": false,
+        "is_showing_menu": true,
+        "render_game_behind": true,
+        "render_only_when_topmost": true,
+        "should_steal_mouse": false,
+        "type": "screen"
+    },
+    "middle": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "arrowPanel@book_preset.arrowPanel": {}
+            }
+        ],
+        "enabled": true,
+        "layer": 0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "orientation": "vertical",
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "22.72%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "type": "stack_panel",
+        "use_priority": false,
+        "visible": true
+    },
+    "middle_entryBtn": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "icon_entryBtn@book_preset.icon_entryBtn": {}
+            }
+        ],
+        "enabled": true,
+        "layer": 0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "10.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "namespace": "book_preset",
+    "nextPageBtn@common.button": {
+        "$control_alpha": 1.0,
+        "$default_texture": "textures/ui/book_gui/blank",
+        "$hover_texture": "textures/ui/book_gui/blank",
+        "$is_new_nine_slice": false,
+        "$label_color": [
+            1,
+            1,
+            1
+        ],
+        "$label_font_scale_factor": 1.0,
+        "$label_font_size": "large",
+        "$label_layer": 3,
+        "$label_offset": [
+            0,
+            0
+        ],
+        "$label_text": "",
+        "$nine_slice_buttom": 0,
+        "$nine_slice_left": 0,
+        "$nine_slice_right": 0,
+        "$nine_slice_top": 0,
+        "$nineslice_size": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "$pressed_button_name": "%book_preset.click",
+        "$pressed_texture": "textures/ui/book_gui/blank",
+        "$texture_layer": 2,
+        "alpha": 1.0,
+        "anchor_from": "bottom_right",
+        "anchor_to": "bottom_left",
+        "bindings": [
+            {
+                "binding_collection_name": "",
+                "binding_condition": "always_when_visible",
+                "binding_type": "collection_details"
+            }
+        ],
+        "button_mappings": [],
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "default@book_preset.default": {}
+            },
+            {
+                "hover@book_preset.hover": {}
+            },
+            {
+                "pressed@book_preset.pressed": {}
+            },
+            {
+                "button_label@book_preset.button_label": {}
+            },
+            {
+                "image_nextPageBtn@book_preset.image_nextPageBtn": {}
+            }
+        ],
+        "draggable": "not_draggable",
+        "enabled": true,
+        "is_handle_button_move_event": true,
+        "layer": 0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            -12,
+            -3.0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            43,
+            61
+        ],
+        "visible": true
+    },
+    "order": {
+        "alpha": 1.0,
+        "anchor_from": "top_right",
+        "anchor_to": "top_right",
+        "clip_direction": "left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clip_ratio": 0.0,
+        "clips_children": false,
+        "enabled": true,
+        "fill": false,
+        "grayscale": false,
+        "is_new_nine_slice": false,
+        "keep_ratio": false,
+        "layer": 52,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "nine_slice_buttom": 0,
+        "nine_slice_left": 0,
+        "nine_slice_right": 0,
+        "nine_slice_top": 0,
+        "nineslice_size": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "offset": [
+            0,
+            "0.0%+0.0px"
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "35.0%+0.0px",
+            "90.0%x+0.0px"
+        ],
+        "texture": "textures/ui/book_gui/icon07",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            42,
+            36
+        ],
+        "visible": true
+    },
+    "pageFootLeft": {
+        "alpha": 1.0,
+        "anchor_from": "bottom_left",
+        "anchor_to": "bottom_left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "color": [
+            1,
+            1,
+            1
+        ],
+        "enabled": true,
+        "font_scale_factor": 0.699999988079071,
+        "font_size": "normal",
+        "font_type": "smooth",
+        "layer": 100,
+        "line_padding": 0.0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            5,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "shadow": false,
+        "size": [
+            "default",
+            "default"
+        ],
+        "text": "1/1",
+        "text_alignment": "right",
+        "type": "label",
+        "visible": true
+    },
+    "pageFootRight": {
+        "alpha": 1.0,
+        "anchor_from": "bottom_right",
+        "anchor_to": "bottom_right",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "color": [
+            1,
+            1,
+            1
+        ],
+        "enabled": true,
+        "font_scale_factor": 0.699999988079071,
+        "font_size": "normal",
+        "font_type": "smooth",
+        "layer": 100,
+        "line_padding": 0.0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            -5,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "shadow": false,
+        "size": [
+            "default",
+            "default"
+        ],
+        "text": "1/1",
+        "text_alignment": "right",
+        "type": "label",
+        "visible": true
+    },
+    "pageInfo": {
+        "alpha": 1.0,
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "leftPage@book_preset.leftPage": {}
+            },
+            {
+                "rightPage@book_preset.rightPage": {}
+            }
+        ],
+        "enabled": true,
+        "layer": 1,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "pageLock": {
+        "alpha": 1.0,
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "clip_direction": "left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clip_ratio": 0.0,
+        "clips_children": false,
+        "controls": [
+            {
+                "icon_pageLock@book_preset.icon_pageLock": {}
+            }
+        ],
+        "enabled": true,
+        "fill": false,
+        "grayscale": false,
+        "is_new_nine_slice": false,
+        "keep_ratio": false,
+        "layer": 100,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "nine_slice_buttom": 3,
+        "nine_slice_left": 3,
+        "nine_slice_right": 3,
+        "nine_slice_top": 3,
+        "nineslice_size": [
+            3.0,
+            3.0,
+            3.0,
+            3.0
+        ],
+        "offset": [
+            212.0,
+            95.0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            30,
+            30
+        ],
+        "texture": "textures/ui/book_gui/panel03",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            8,
+            8
+        ],
+        "visible": true
+    },
+    "pagegap": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_direction": "left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clip_ratio": 0.0,
+        "clips_children": false,
+        "enabled": true,
+        "fill": false,
+        "grayscale": false,
+        "is_new_nine_slice": false,
+        "keep_ratio": true,
+        "layer": 1,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "nine_slice_buttom": 0,
+        "nine_slice_left": 0,
+        "nine_slice_right": 0,
+        "nine_slice_top": 0,
+        "nineslice_size": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "offset": [
+            0.0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "100.0%+0.0px",
+            "4.0%+0.0px"
+        ],
+        "texture": "textures/ui/book_gui/icon04",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            2,
+            7
+        ],
+        "visible": true
+    },
+    "pagegapStack": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "pagegap@book_preset.pagegap": {}
+            },
+            {
+                "emptygap@book_preset.emptygap": {}
+            },
+            {
+                "pagegap1@book_preset.pagegap": {}
+            },
+            {
+                "emptygap1@book_preset.emptygap": {}
+            },
+            {
+                "pagegap2@book_preset.pagegap": {}
+            },
+            {
+                "emptygap2@book_preset.emptygap": {}
+            },
+            {
+                "pagegap3@book_preset.pagegap": {}
+            },
+            {
+                "emptygap3@book_preset.emptygap": {}
+            },
+            {
+                "pagegap4@book_preset.pagegap": {}
+            },
+            {
+                "emptygap4@book_preset.emptygap": {}
+            },
+            {
+                "pagegap5@book_preset.pagegap": {}
+            },
+            {
+                "emptygap5@book_preset.emptygap": {}
+            },
+            {
+                "pagegap6@book_preset.pagegap": {}
+            },
+            {
+                "emptygap6@book_preset.emptygap": {}
+            },
+            {
+                "pagegap7@book_preset.pagegap": {}
+            },
+            {
+                "emptygap7@book_preset.emptygap": {}
+            },
+            {
+                "pagegap8@book_preset.pagegap": {}
+            },
+            {
+                "emptygap8@book_preset.emptygap": {}
+            },
+            {
+                "pagegap9@book_preset.pagegap": {}
+            },
+            {
+                "emptygap9@book_preset.emptygap": {}
+            },
+            {
+                "pagegap10@book_preset.pagegap": {}
+            },
+            {
+                "emptygap10@book_preset.emptygap": {}
+            },
+            {
+                "pagegap11@book_preset.pagegap": {}
+            },
+            {
+                "emptygap11@book_preset.emptygap": {}
+            }
+        ],
+        "enabled": true,
+        "layer": 0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            "0.0%+0.0px",
+            "0.0%+-4.0px"
+        ],
+        "orientation": "vertical",
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "3.0%+0.0px",
+            "80.0%+0.0px"
+        ],
+        "type": "stack_panel",
+        "use_priority": false,
+        "visible": true
+    },
+    "panels": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "book_preset_panel@book_preset.book_preset_panel": {}
+            }
+        ],
+        "enabled": true,
+        "layer": 0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "pressed": {
+        "alpha": "$control_alpha",
+        "is_new_nine_slice": "$is_new_nine_slice",
+        "layer": "$texture_layer",
+        "nine_slice_buttom": "$nine_slice_buttom",
+        "nine_slice_left": "$nine_slice_left",
+        "nine_slice_right": "$nine_slice_right",
+        "nine_slice_top": "$nine_slice_top",
+        "nineslice_size": "$nineslice_size",
+        "texture": "$pressed_texture",
+        "type": "image"
+    },
+    "prevPageBtn@common.button": {
+        "$control_alpha": 1.0,
+        "$default_texture": "textures/ui/book_gui/blank",
+        "$hover_texture": "textures/ui/book_gui/blank",
+        "$is_new_nine_slice": false,
+        "$label_color": [
+            1,
+            1,
+            1
+        ],
+        "$label_font_scale_factor": 1.0,
+        "$label_font_size": "large",
+        "$label_layer": 3,
+        "$label_offset": [
+            0,
+            0
+        ],
+        "$label_text": "",
+        "$nine_slice_buttom": 0,
+        "$nine_slice_left": 0,
+        "$nine_slice_right": 0,
+        "$nine_slice_top": 0,
+        "$nineslice_size": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "$pressed_button_name": "%book_preset.click",
+        "$pressed_texture": "textures/ui/book_gui/blank",
+        "$texture_layer": 2,
+        "alpha": 1.0,
+        "anchor_from": "bottom_left",
+        "anchor_to": "bottom_right",
+        "bindings": [
+            {
+                "binding_collection_name": "",
+                "binding_condition": "always_when_visible",
+                "binding_type": "collection_details"
+            }
+        ],
+        "button_mappings": [],
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "default@book_preset.default": {}
+            },
+            {
+                "hover@book_preset.hover": {}
+            },
+            {
+                "pressed@book_preset.pressed": {}
+            },
+            {
+                "button_label@book_preset.button_label": {}
+            },
+            {
+                "image_prevPageBtn@book_preset.image_prevPageBtn": {}
+            }
+        ],
+        "draggable": "not_draggable",
+        "enabled": true,
+        "is_handle_button_move_event": true,
+        "layer": 0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            12.0,
+            -3.0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            43,
+            61
+        ],
+        "visible": true
+    },
+    "progressBar": {
+        "$clip_direction": "left",
+        "$clip_ratio": 0.0,
+        "$is_new_nine_slice": false,
+        "$nine_slice_buttom": 2,
+        "$nine_slice_left": 2,
+        "$nine_slice_right": 2,
+        "$nine_slice_top": 2,
+        "$nineslice_size": [
+            2.0,
+            2.0,
+            2.0,
+            2.0
+        ],
+        "$progress_bar_empty_texture": "textures/ui/book_gui/progressbar01_bg",
+        "$progress_bar_filled_texture": "textures/ui/book_gui/progressbar01_01",
+        "alpha": 1.0,
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "empty_progress_bar@book_preset.empty_progress_bar": {
+                    "size": [
+                        "100.0%+0.0px",
+                        "100.0%+0.0px"
+                    ]
+                }
+            },
+            {
+                "filled_progress_bar@book_preset.filled_progress_bar": {
+                    "size": [
+                        "100.0%-2.0px",
+                        "100.0%-2.0px"
+                    ]
+                }
+            }
+        ],
+        "enabled": true,
+        "layer": 0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            49.0,
+            169.0
+        ],
+        "priority": 0,
+        "propagate_alpha": true,
+        "size": [
+            103,
+            10
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "returnBtn@common.button": {
+        "$control_alpha": 1.0,
+        "$default_texture": "textures/ui/book_gui/blank",
+        "$hover_texture": "textures/ui/book_gui/blank",
+        "$is_new_nine_slice": false,
+        "$label_color": [
+            1,
+            1,
+            1
+        ],
+        "$label_font_scale_factor": 1.0,
+        "$label_font_size": "large",
+        "$label_layer": 3,
+        "$label_offset": [
+            0,
+            0
+        ],
+        "$label_text": "",
+        "$nine_slice_buttom": 0,
+        "$nine_slice_left": 0,
+        "$nine_slice_right": 0,
+        "$nine_slice_top": 0,
+        "$nineslice_size": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "$pressed_button_name": "%book_preset.click",
+        "$pressed_texture": "textures/ui/book_gui/blank",
+        "$texture_layer": 2,
+        "alpha": 1.0,
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "bindings": [
+            {
+                "binding_collection_name": "",
+                "binding_condition": "always_when_visible",
+                "binding_type": "collection_details"
+            }
+        ],
+        "button_mappings": [],
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "default@book_preset.default": {}
+            },
+            {
+                "hover@book_preset.hover": {}
+            },
+            {
+                "pressed@book_preset.pressed": {}
+            },
+            {
+                "button_label@book_preset.button_label": {}
+            },
+            {
+                "image_returnBtn@book_preset.image_returnBtn": {}
+            }
+        ],
+        "draggable": "not_draggable",
+        "enabled": true,
+        "is_handle_button_move_event": true,
+        "layer": 0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            -32.0,
+            -12.0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            42,
+            38
+        ],
+        "visible": true
+    },
+    "right": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "tableCrafted@book_preset.tableCrafting": {
+                    "layer": 0,
+                    "size": [
+                        "80.0%+0.0px",
+                        "100%x+0.0px"
+                    ]
+                }
+            },
+            {
+                "order@book_preset.order": {}
+            }
+        ],
+        "enabled": true,
+        "layer": 0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "22.72%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "rightPage": {
+        "alpha": 1.0,
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "enabled": true,
+        "layer": 1,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            143,
+            15
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            104,
+            165
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "rightText": {
+        "alpha": 1.0,
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "color": [
+            0.0,
+            0.0,
+            0.0
+        ],
+        "enabled": true,
+        "font_scale_factor": 1.169999957084656,
+        "font_size": "normal",
+        "font_type": "smooth",
+        "layer": 0,
+        "line_padding": 0.0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            191.0,
+            81.0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "shadow": false,
+        "size": [
+            80,
+            10
+        ],
+        "text": "右对齐文本组件",
+        "text_alignment": "right",
+        "type": "label",
+        "visible": true
+    },
+    "right_entryBtn": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "text_entryBtn@book_preset.text_entryBtn": {}
+            },
+            {
+                "btn_entryBtn@book_preset.btn_entryBtn": {}
+            }
+        ],
+        "enabled": true,
+        "layer": 0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "80.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "shadowBg": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_direction": "left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clip_ratio": 0.0,
+        "clips_children": false,
+        "enabled": true,
+        "fill": false,
+        "grayscale": false,
+        "is_new_nine_slice": false,
+        "keep_ratio": false,
+        "layer": 0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "nine_slice_buttom": 0,
+        "nine_slice_left": 0,
+        "nine_slice_right": 0,
+        "nine_slice_top": 0,
+        "nineslice_size": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "default",
+            "default"
+        ],
+        "texture": "textures/ui/book_gui/black",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            400,
+            400
+        ],
+        "visible": true
+    },
+    "tableCrafting": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "tableCraftingRBT@book_preset.tableCraftingRBT": {}
+            }
+        ],
+        "enabled": true,
+        "layer": 5,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "33.33%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "tableCraftingBg": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_direction": "left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clip_ratio": 0.0,
+        "clips_children": false,
+        "enabled": true,
+        "fill": false,
+        "grayscale": false,
+        "is_new_nine_slice": false,
+        "keep_ratio": false,
+        "layer": 2,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "nine_slice_buttom": 0,
+        "nine_slice_left": 0,
+        "nine_slice_right": 0,
+        "nine_slice_top": 0,
+        "nineslice_size": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "texture": "textures/ui/book_gui/panel04",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            0,
+            0
+        ],
+        "visible": true
+    },
+    "tableCraftingNum": {
+        "alpha": 1.0,
+        "anchor_from": "bottom_right",
+        "anchor_to": "bottom_right",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "color": [
+            1.0,
+            1.0,
+            1.0
+        ],
+        "enabled": true,
+        "font_scale_factor": 0.3,
+        "font_size": "large",
+        "font_type": "smooth",
+        "layer": 3,
+        "line_padding": 0.0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "shadow": false,
+        "size": [
+            "default",
+            "default"
+        ],
+        "text": "100",
+        "text_alignment": "right",
+        "type": "label",
+        "visible": true
+    },
+    "tableCraftingRBT@common.button": {
+        "$control_alpha": 1.0,
+        "$default_texture": "textures/ui/blank",
+        "$hover_texture": "textures/ui/blank",
+        "$is_new_nine_slice": false,
+        "$label_color": [
+            1,
+            1,
+            1
+        ],
+        "$label_font_scale_factor": 1.0,
+        "$label_font_size": "large",
+        "$label_layer": 1,
+        "$label_offset": [
+            0,
+            0
+        ],
+        "$label_text": "",
+        "$nine_slice_buttom": 0,
+        "$nine_slice_left": 0,
+        "$nine_slice_right": 0,
+        "$nine_slice_top": 0,
+        "$nineslice_size": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "$pressed_button_name": "%book_preset.click",
+        "$pressed_texture": "textures/ui/blank",
+        "$texture_layer": 0,
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "bindings": [
+            {
+                "binding_collection_name": "",
+                "binding_condition": "always_when_visible",
+                "binding_type": "collection_details"
+            }
+        ],
+        "button_mappings": [],
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "default@book_preset.default": {}
+            },
+            {
+                "hover@book_preset.hover": {}
+            },
+            {
+                "pressed@book_preset.pressed": {}
+            },
+            {
+                "tableCraftingBg@book_preset.tableCraftingBg": {}
+            },
+            {
+                "tableCraftingNum@book_preset.tableCraftingNum": {}
+            },
+            {
+                "tableCraftingRender@book_preset.tableCraftingRender": {}
+            }
+        ],
+        "draggable": "not_draggable",
+        "enabled": true,
+        "is_handle_button_move_event": true,
+        "layer": 0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "visible": true
+    },
+    "tableCraftingRender": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "enabled": true,
+        "layer": 3,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "property_bag": {
+            "#item_id_aux": 11206660
+        },
+        "renderer": "inventory_item_renderer",
+        "size": [
+            "75.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "type": "custom",
+        "visible": true
+    },
+    "tableRecipe": {
+        "alpha": 1.0,
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "tableRecipe_content@book_preset.tableRecipe_content": {}
+            },
+            {
+                "tableRecipe_bg@book_preset.tableRecipe_bg": {}
+            }
+        ],
+        "enabled": true,
+        "layer": 0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            54.0,
+            110.0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            90,
+            48
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "tableRecipe_bg": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_direction": "left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clip_ratio": 0.0,
+        "clips_children": false,
+        "enabled": true,
+        "fill": false,
+        "grayscale": false,
+        "is_new_nine_slice": false,
+        "keep_ratio": false,
+        "layer": 0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "nine_slice_buttom": 0,
+        "nine_slice_left": 0,
+        "nine_slice_right": 0,
+        "nine_slice_top": 0,
+        "nineslice_size": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "texture": "textures/ui/book_gui/panel06",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            8,
+            8
+        ],
+        "visible": true
+    },
+    "tableRecipe_content": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "left@book_preset.left": {}
+            },
+            {
+                "middle@book_preset.middle": {}
+            },
+            {
+                "right@book_preset.right": {}
+            }
+        ],
+        "enabled": true,
+        "layer": 1,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0.0
+        ],
+        "orientation": "horizontal",
+        "priority": 1,
+        "propagate_alpha": false,
+        "size": [
+            "90.0%+0.0px",
+            "90.0%+0.0px"
+        ],
+        "type": "stack_panel",
+        "use_priority": false,
+        "visible": true
+    },
+    "text_entryBtn": {
+        "alpha": 1.0,
+        "anchor_from": "left_middle",
+        "anchor_to": "left_middle",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "color": [
+            0.4392156862745098,
+            0.1843137254901961,
+            0.1098039215686274
+        ],
+        "enabled": true,
+        "font_scale_factor": 1.169999957084656,
+        "font_size": "normal",
+        "font_type": "smooth",
+        "layer": 0,
+        "line_padding": 0.0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "shadow": false,
+        "size": [
+            "default",
+            "default"
+        ],
+        "text": "第三章 三打白骨精",
+        "text_alignment": "left",
+        "type": "label",
+        "visible": true
+    },
+    "tooltip": {
+        "alpha": 1.0,
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "tooltip_text@book_preset.tooltip_text": {}
+            },
+            {
+                "tooltip_bg@book_preset.tooltip_bg": {}
+            }
+        ],
+        "enabled": true,
+        "layer": 100,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            100.0,
+            68.0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "100.0%cm+0.0px",
+            "100.0%cm+0.0px"
+        ],
+        "type": "panel",
+        "visible": true
+    },
+    "tooltip_bg": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_direction": "left",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clip_ratio": 0.0,
+        "clips_children": false,
+        "enabled": true,
+        "fill": false,
+        "grayscale": false,
+        "is_new_nine_slice": false,
+        "keep_ratio": false,
+        "layer": 0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "nine_slice_buttom": 4,
+        "nine_slice_left": 4,
+        "nine_slice_right": 4,
+        "nine_slice_top": 4,
+        "nineslice_size": [
+            4.0,
+            4.0,
+            4.0,
+            4.0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "100.0%sm+8.0px",
+            "100.0%sm+8.0px"
+        ],
+        "texture": "textures/ui/book_gui/panel05",
+        "type": "image",
+        "uv": [
+            0,
+            0
+        ],
+        "uv_size": [
+            16,
+            16
+        ],
+        "visible": true
+    },
+    "tooltip_text": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "color": [
+            1,
+            1,
+            1
+        ],
+        "enabled": true,
+        "font_scale_factor": 1.169999957084656,
+        "font_size": "normal",
+        "font_type": "smooth",
+        "layer": 1,
+        "line_padding": 0.0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "priority": 0,
+        "propagate_alpha": false,
+        "shadow": false,
+        "size": [
+            "default",
+            "default"
+        ],
+        "text": "点击无任何说明，请填充数据",
+        "text_alignment": "center",
+        "type": "label",
+        "visible": true
+    },
+    "verticalStack_tableRecipe": {
+        "alpha": 1.0,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "clip_offset": [
+            0,
+            0
+        ],
+        "clips_children": false,
+        "controls": [
+            {
+                "horizontalStack1@book_preset.horizontalStack_talbeRecipe": {
+                    "layer": 50
+                }
+            },
+            {
+                "horizontalStack2@book_preset.horizontalStack_talbeRecipe": {
+                    "layer": 50
+                }
+            },
+            {
+                "horizontalStack3@book_preset.horizontalStack_talbeRecipe": {
+                    "layer": 50
+                }
+            }
+        ],
+        "enabled": true,
+        "layer": 0,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "orientation": "vertical",
+        "priority": 0,
+        "propagate_alpha": false,
+        "size": [
+            "100.0%+0.0px",
+            "100.0%+0.0px"
+        ],
+        "type": "stack_panel",
+        "use_priority": false,
+        "visible": true
+    }
+}

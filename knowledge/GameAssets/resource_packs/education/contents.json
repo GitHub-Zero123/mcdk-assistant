@@ -1,0 +1,595 @@
+{
+    "content": [
+        {
+            "path": "blocks.json"
+        },
+        {
+            "path": "contents.json"
+        },
+        {
+            "path": "loading_messages.json"
+        },
+        {
+            "path": "manifest.json"
+        },
+        {
+            "path": "netease_config.json"
+        },
+        {
+            "path": "pack_icon.png"
+        },
+        {
+            "path": "splashes.json"
+        },
+        {
+            "path": "items/board.json"
+        },
+        {
+            "path": "items/camera.json"
+        },
+        {
+            "path": "items/photo.json"
+        },
+        {
+            "path": "items/portfolio.json"
+        },
+        {
+            "path": "library/categories.json"
+        },
+        {
+            "path": "texts/bg_BG.lang"
+        },
+        {
+            "path": "texts/cs_CZ.lang"
+        },
+        {
+            "path": "texts/da_DK.lang"
+        },
+        {
+            "path": "texts/de_DE.lang"
+        },
+        {
+            "path": "texts/el_GR.lang"
+        },
+        {
+            "path": "texts/en_GB.lang"
+        },
+        {
+            "path": "texts/en_US.lang"
+        },
+        {
+            "path": "texts/es_ES.lang"
+        },
+        {
+            "path": "texts/es_MX.lang"
+        },
+        {
+            "path": "texts/fi_FI.lang"
+        },
+        {
+            "path": "texts/fr_CA.lang"
+        },
+        {
+            "path": "texts/fr_FR.lang"
+        },
+        {
+            "path": "texts/hu_HU.lang"
+        },
+        {
+            "path": "texts/id_ID.lang"
+        },
+        {
+            "path": "texts/it_IT.lang"
+        },
+        {
+            "path": "texts/ja_JP.lang"
+        },
+        {
+            "path": "texts/ko_KR.lang"
+        },
+        {
+            "path": "texts/nb_NO.lang"
+        },
+        {
+            "path": "texts/nl_NL.lang"
+        },
+        {
+            "path": "texts/pl_PL.lang"
+        },
+        {
+            "path": "texts/pt_BR.lang"
+        },
+        {
+            "path": "texts/pt_PT.lang"
+        },
+        {
+            "path": "texts/ru_RU.lang"
+        },
+        {
+            "path": "texts/sk_SK.lang"
+        },
+        {
+            "path": "texts/sv_SE.lang"
+        },
+        {
+            "path": "texts/tr_TR.lang"
+        },
+        {
+            "path": "texts/uk_UA.lang"
+        },
+        {
+            "path": "texts/zh_CN.lang"
+        },
+        {
+            "path": "texts/zh_TW.lang"
+        },
+        {
+            "path": "textures/item_texture.json"
+        },
+        {
+            "path": "textures/textures_list.json"
+        },
+        {
+            "path": "textures/items/photo.png"
+        },
+        {
+            "path": "textures/ui/animation_code_shuffle0.png"
+        },
+        {
+            "path": "textures/ui/animation_code_shuffle1.png"
+        },
+        {
+            "path": "textures/ui/animation_code_shuffle2.png"
+        },
+        {
+            "path": "textures/ui/animation_code_shuffle3.png"
+        },
+        {
+            "path": "textures/ui/animation_code_shuffle4.png"
+        },
+        {
+            "path": "textures/ui/animation_code_shuffle5.png"
+        },
+        {
+            "path": "textures/ui/book_animation.png"
+        },
+        {
+            "path": "textures/ui/button_select_corner.png"
+        },
+        {
+            "path": "textures/ui/close_code_default.png"
+        },
+        {
+            "path": "textures/ui/close_code_hover.png"
+        },
+        {
+            "path": "textures/ui/cloud_critical.png"
+        },
+        {
+            "path": "textures/ui/cloud_placeholder.png"
+        },
+        {
+            "path": "textures/ui/cloud_state_bevel.png"
+        },
+        {
+            "path": "textures/ui/cloud_synced.png"
+        },
+        {
+            "path": "textures/ui/cloud_warning.png"
+        },
+        {
+            "path": "textures/ui/code_azure_notebooks_default.png"
+        },
+        {
+            "path": "textures/ui/code_makecode_default.png"
+        },
+        {
+            "path": "textures/ui/code_reset_default.png"
+        },
+        {
+            "path": "textures/ui/code_reset_hover.png"
+        },
+        {
+            "path": "textures/ui/code_tynker_default.png"
+        },
+        {
+            "path": "textures/ui/eating_apple.png"
+        },
+        {
+            "path": "textures/ui/EduCloudPlaceholderDimmer.png"
+        },
+        {
+            "path": "textures/ui/EduCloudPlaceholderImage.png"
+        },
+        {
+            "path": "textures/ui/eduicon.png"
+        },
+        {
+            "path": "textures/ui/edu_borderless_button_focus_pressed.json"
+        },
+        {
+            "path": "textures/ui/edu_borderless_button_focus_pressed.png"
+        },
+        {
+            "path": "textures/ui/edu_borderless_button_normal_dark.json"
+        },
+        {
+            "path": "textures/ui/edu_borderless_button_normal_dark.png"
+        },
+        {
+            "path": "textures/ui/edu_borderless_button_pressed.json"
+        },
+        {
+            "path": "textures/ui/edu_borderless_button_pressed.png"
+        },
+        {
+            "path": "textures/ui/edu_green_tile.png"
+        },
+        {
+            "path": "textures/ui/edu_no_templates_background.json"
+        },
+        {
+            "path": "textures/ui/edu_no_templates_background.png"
+        },
+        {
+            "path": "textures/ui/edu_templates_button.json"
+        },
+        {
+            "path": "textures/ui/edu_templates_button.png"
+        },
+        {
+            "path": "textures/ui/edu_templates_empty.png"
+        },
+        {
+            "path": "textures/ui/edu_worlds_search_bar.json"
+        },
+        {
+            "path": "textures/ui/edu_worlds_search_bar.png"
+        },
+        {
+            "path": "textures/ui/feedback.png"
+        },
+        {
+            "path": "textures/ui/feedback_hover.png"
+        },
+        {
+            "path": "textures/ui/hamburger_icon_default.png"
+        },
+        {
+            "path": "textures/ui/hamburger_icon_hover.png"
+        },
+        {
+            "path": "textures/ui/home_default.png"
+        },
+        {
+            "path": "textures/ui/home_hover.png"
+        },
+        {
+            "path": "textures/ui/icon_agent_padded.png"
+        },
+        {
+            "path": "textures/ui/icon_biome.png"
+        },
+        {
+            "path": "textures/ui/icon_chalkboard.png"
+        },
+        {
+            "path": "textures/ui/icon_digital_citizenship.png"
+        },
+        {
+            "path": "textures/ui/icon_external_link.png"
+        },
+        {
+            "path": "textures/ui/icon_history.png"
+        },
+        {
+            "path": "textures/ui/icon_open_book.png"
+        },
+        {
+            "path": "textures/ui/icon_pages.png"
+        },
+        {
+            "path": "textures/ui/icon_sel.png"
+        },
+        {
+            "path": "textures/ui/icon_star.png"
+        },
+        {
+            "path": "textures/ui/joincode_button_background.png"
+        },
+        {
+            "path": "textures/ui/left_split_panel_default.png"
+        },
+        {
+            "path": "textures/ui/left_split_panel_hover.png"
+        },
+        {
+            "path": "textures/ui/library_home_icon.png"
+        },
+        {
+            "path": "textures/ui/library_home_icon_hover.png"
+        },
+        {
+            "path": "textures/ui/maximize_arrow_default.png"
+        },
+        {
+            "path": "textures/ui/maximize_arrow_hover.png"
+        },
+        {
+            "path": "textures/ui/newspaper.png"
+        },
+        {
+            "path": "textures/ui/onedrive_pixel_logo.png"
+        },
+        {
+            "path": "textures/ui/onedrive_pixel_logo_stroke.png"
+        },
+        {
+            "path": "textures/ui/portfolio_convertpicture_default.png"
+        },
+        {
+            "path": "textures/ui/portfolio_convertpicture_hover.png"
+        },
+        {
+            "path": "textures/ui/portfolio_convertpicture_pressed.png"
+        },
+        {
+            "path": "textures/ui/portfolio_pageleft_default.png"
+        },
+        {
+            "path": "textures/ui/portfolio_pageleft_hover.png"
+        },
+        {
+            "path": "textures/ui/portfolio_pageleft_pressed.png"
+        },
+        {
+            "path": "textures/ui/portfolio_pageright_default.png"
+        },
+        {
+            "path": "textures/ui/portfolio_pageright_hover.png"
+        },
+        {
+            "path": "textures/ui/portfolio_pageright_pressed.png"
+        },
+        {
+            "path": "textures/ui/profile_bg.png"
+        },
+        {
+            "path": "textures/ui/refresh_flat.png"
+        },
+        {
+            "path": "textures/ui/refresh_flat_hover.png"
+        },
+        {
+            "path": "textures/ui/restore_arrow_default.png"
+        },
+        {
+            "path": "textures/ui/restore_arrow_hover.png"
+        },
+        {
+            "path": "textures/ui/right_split_panel_default.png"
+        },
+        {
+            "path": "textures/ui/right_split_panel_hover.png"
+        },
+        {
+            "path": "textures/ui/signin_demo_header.png"
+        },
+        {
+            "path": "textures/ui/signin_full_header.png"
+        },
+        {
+            "path": "textures/ui/title_edu.png"
+        },
+        {
+            "path": "textures/ui/title_edu_preview.png"
+        },
+        {
+            "path": "textures/ui/view_library_background.png"
+        },
+        {
+            "path": "textures/ui/view_worlds_background.png"
+        },
+        {
+            "path": "textures/ui/lesson_complete/certificate_preview.png"
+        },
+        {
+            "path": "textures/ui/library/icon_monthly_build.jpg"
+        },
+        {
+            "path": "textures/ui/library/biomes/icon_biomes.jpg"
+        },
+        {
+            "path": "textures/ui/library/biomes/icon_featured.jpg"
+        },
+        {
+            "path": "textures/ui/library/biomes/icon_root.jpg"
+        },
+        {
+            "path": "textures/ui/library/how_to_play/icon_additional.jpg"
+        },
+        {
+            "path": "textures/ui/library/how_to_play/icon_root.jpg"
+        },
+        {
+            "path": "textures/ui/library/how_to_play/icon_start_here.jpg"
+        },
+        {
+            "path": "textures/ui/library/lessons/equityInclusion_icon.png"
+        },
+        {
+            "path": "textures/ui/library/lessons/equity_586x330.png"
+        },
+        {
+            "path": "textures/ui/library/lessons/icon_art.jpg"
+        },
+        {
+            "path": "textures/ui/library/lessons/icon_digital_citizenship.jpg"
+        },
+        {
+            "path": "textures/ui/library/lessons/icon_root.jpg"
+        },
+        {
+            "path": "textures/ui/library/lessons/icon_sel.jpg"
+        },
+        {
+            "path": "textures/ui/library/lessons/sel_category_586x330.jpg"
+        },
+        {
+            "path": "textures/ui/library/lessons/computer_science/AI_586x330.jpg"
+        },
+        {
+            "path": "textures/ui/library/lessons/computer_science/icon_additional.jpg"
+        },
+        {
+            "path": "textures/ui/library/lessons/computer_science/icon_block_based.jpg"
+        },
+        {
+            "path": "textures/ui/library/lessons/computer_science/icon_code_fun_1.jpg"
+        },
+        {
+            "path": "textures/ui/library/lessons/computer_science/icon_code_fun_2.jpg"
+        },
+        {
+            "path": "textures/ui/library/lessons/computer_science/icon_coding_fundamentals_3.png"
+        },
+        {
+            "path": "textures/ui/library/lessons/computer_science/icon_coding_tutorials.jpg"
+        },
+        {
+            "path": "textures/ui/library/lessons/computer_science/icon_course_1.jpg"
+        },
+        {
+            "path": "textures/ui/library/lessons/computer_science/icon_course_2.jpg"
+        },
+        {
+            "path": "textures/ui/library/lessons/computer_science/icon_hoc.png"
+        },
+        {
+            "path": "textures/ui/library/lessons/computer_science/icon_python.png"
+        },
+        {
+            "path": "textures/ui/library/lessons/computer_science/icon_root.jpg"
+        },
+        {
+            "path": "textures/ui/library/lessons/computer_science/python101_2_586x330.jpg"
+        },
+        {
+            "path": "textures/ui/library/lessons/computer_science/PythonIslands_586x330.jpg"
+        },
+        {
+            "path": "textures/ui/library/lessons/history/icon_additional.jpg"
+        },
+        {
+            "path": "textures/ui/library/lessons/history/icon_oregon_trail.jpg"
+        },
+        {
+            "path": "textures/ui/library/lessons/history/icon_root.jpg"
+        },
+        {
+            "path": "textures/ui/library/lessons/language_arts/icon_additional.jpg"
+        },
+        {
+            "path": "textures/ui/library/lessons/language_arts/icon_root.jpg"
+        },
+        {
+            "path": "textures/ui/library/lessons/language_arts/lit_studies/icon_kensuke.jpg"
+        },
+        {
+            "path": "textures/ui/library/lessons/language_arts/lit_studies/icon_robinson.jpg"
+        },
+        {
+            "path": "textures/ui/library/lessons/language_arts/lit_studies/icon_root.jpg"
+        },
+        {
+            "path": "textures/ui/library/lessons/language_arts/lit_studies/icon_treasure_island.jpg"
+        },
+        {
+            "path": "textures/ui/library/lessons/math/icon_additional.jpg"
+        },
+        {
+            "path": "textures/ui/library/lessons/math/icon_cc_grade_3.jpg"
+        },
+        {
+            "path": "textures/ui/library/lessons/math/icon_cc_grade_4.jpg"
+        },
+        {
+            "path": "textures/ui/library/lessons/math/icon_cc_grade_5.jpg"
+        },
+        {
+            "path": "textures/ui/library/lessons/math/icon_fractions.jpg"
+        },
+        {
+            "path": "textures/ui/library/lessons/math/icon_root.jpg"
+        },
+        {
+            "path": "textures/ui/library/lessons/science/icon_additional.jpg"
+        },
+        {
+            "path": "textures/ui/library/lessons/science/icon_biodiversity.jpg"
+        },
+        {
+            "path": "textures/ui/library/lessons/science/icon_biology.jpg"
+        },
+        {
+            "path": "textures/ui/library/lessons/science/icon_chemistry.jpg"
+        },
+        {
+            "path": "textures/ui/library/lessons/science/icon_rangers.jpg"
+        },
+        {
+            "path": "textures/ui/library/lessons/science/icon_root.jpg"
+        },
+        {
+            "path": "ui/classroom_settings.json"
+        },
+        {
+            "path": "ui/code_screen.json"
+        },
+        {
+            "path": "ui/course_screen.json"
+        },
+        {
+            "path": "ui/edu_library_category_screen.json"
+        },
+        {
+            "path": "ui/edu_pause_screen.json"
+        },
+        {
+            "path": "ui/edu_permissions_screen.json"
+        },
+        {
+            "path": "ui/edu_play_screen.json"
+        },
+        {
+            "path": "ui/edu_signin_screen.json"
+        },
+        {
+            "path": "ui/edu_worlds_screen.json"
+        },
+        {
+            "path": "ui/edu_world_templates_screen.json"
+        },
+        {
+            "path": "ui/experimental_code_screen.json"
+        },
+        {
+            "path": "ui/ip_join_screen.json"
+        },
+        {
+            "path": "ui/joincode_entry_screen.json"
+        },
+        {
+            "path": "ui/library_item_screen.json"
+        },
+        {
+            "path": "ui/library_screen.json"
+        },
+        {
+            "path": "ui/multiplayer_lesson_screen.json"
+        },
+        {
+            "path": "ui/_ui_defs.json"
+        }
+    ]
+}

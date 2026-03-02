@@ -1,0 +1,67 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "1.7"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0982",
+                "time": "10.8%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0893",
+                "time": "25.8%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 -0.1 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "15.0",
+            "min": "15.0"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Direction Horizontal"
+        },
+        "numparticles": {
+            "value": "15"
+        },
+        "particlesize": {
+            "max": "0.5 0.7",
+            "min": "0.5 0.7"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "false"
+        },
+        "texture": {
+            "ani": {
+                "fps": "10",
+                "name": "textures/sfxs/2025s5/CS_s5Cthulhu_skin_mztw",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s5/CS_s5Cthulhu_skin_mztw"
+        },
+        "timetolive": {
+            "max": "1.0",
+            "min": "1.2"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.1"
+        }
+    }
+}

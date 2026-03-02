@@ -1,0 +1,16 @@
+{
+    "minecraft:behavior_tree": {
+        "minecraft:name": "netease_test",
+        "minecraft:root": {
+            "minecraft:sequence": {
+                "children": [
+                    {
+                        "minecraft:netease_test": {
+                            "test_value": "12342345"
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}

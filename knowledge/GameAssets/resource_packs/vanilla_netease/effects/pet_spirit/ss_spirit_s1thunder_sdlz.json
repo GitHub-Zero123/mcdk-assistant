@@ -1,0 +1,60 @@
+{
+    "particleeffect": {
+        "delay": 0.2,
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "value": "Direction",
+            "min": "-1.0 -1.0 -1.0"
+        },
+        "numparticles": {
+            "value": "1"
+        },
+        "pointFiltering": true,
+        "enabletexture": {
+            "enable": true
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.0%"
+            }
+        ],
+        "emissionrate": {
+            "max": "2.0",
+            "min": "2.0"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": false,
+                "name": "textures/sfxs/pet_spirit/ss_spirit_s1thunder_sd1",
+                "fps": "16"
+            },
+            "name": "textures/sfxs/pet_spirit/ss_spirit_s1thunder_sd1"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "timetolive": {
+            "max": "0.2",
+            "min": "0.2"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        },
+        "particlesize": {
+            "max": "0.3 0.3",
+            "min": "0.3 0.3"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.0 1.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "99.7%"
+            }
+        ]
+    }
+}

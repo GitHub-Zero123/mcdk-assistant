@@ -1,0 +1,70 @@
+{
+    "particleeffect": {
+        "enablecolor": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "value": "Direction",
+            "min": "0.0 0.0 0.0"
+        },
+        "activetime": {
+            "value": "1.0"
+        },
+        "numparticles": {
+            "value": "1"
+        },
+        "independent": false,
+        "blend": {
+            "name": "add"
+        },
+        "emitterScaleCurve": [],
+        "layer": 0,
+        "texture": {
+            "ani": {
+                "shuffle": false,
+                "name": "textures/sfxs/pet_mtr/xy_tang_armostand_play_redpacket_take06",
+                "fps": "15"
+            },
+            "name": "textures/sfxs/pet_mtr/xy_tang_armostand_play_redpacket_take06"
+        },
+        "enableloop": {
+            "enable": "true"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "delay": 2.8,
+        "depthtest": {
+            "enable": "true"
+        },
+        "emittersize": {
+            "value": "0.0 0.0 0.0"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "emitterscale": [],
+        "particlesize": {
+            "max": "0.35 0.35",
+            "min": "0.35 0.35"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.4 1.4",
+                "time": "0.00"
+            },
+            {
+                "scale": "2.68 2.68",
+                "time": "2.00"
+            }
+        ]
+    }
+}

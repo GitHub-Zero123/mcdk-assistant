@@ -1,0 +1,59 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+precision highp float;
+
+#include "fragmentVersionCentroidUV.h"
+#include "uniformEntityConstants.h"
+
+#include "uniformPerFrameConstants.h"
+#include "uniformShaderConstants.h"
+#include "fresnel.h"
+#include "util.h"
+
+LAYOUT_BINDING(0) uniform sampler2D TEXTURE_0;
+LAYOUT_BINDING(1) uniform sampler2D TEXTURE_1;
+LAYOUT_BINDING(2) uniform sampler2D TEXTURE_2;
+
+varying vec4 light;
+varying vec4 fogColor;
+
+varying vec4 eyeDir;
+varying vec3 worldSpaceNormal;
+
+#define UV_SCALE vec2(3.0,3.0)// name: UV_SCALE
+#define UV_FLOW vec2(-0.02,-0.02)// name: UV_FLOW
+
+// 0 MUL 1 ADD
+#define GRADIENT_MODE 0.0
+#define GRADIENT_COLOR vec3(255.0,230.0,255.0)
+#define DELTA_COLOR_HORIZONTAL vec3(213.0,210.0,255.0)
+#define DELTA_COLOR_VERTICAL vec3(0.0,0.0,0.0)
+
+#define FRESNEL_OFFSET 0.75
+#define FRESNEL_COLOR vec3(70.0,214.0,255.0)// name: FRESNEL_COLOR
+#define FRESNEL_FLOW vec2(0.02,0.02)// name: FRESNEL_FLOW
+#define NOISE_SCALE vec2(0.4,0.4)// name: NOISE_SCALE
+
+#define STAR_SIZE 16.00
+#define STAR_DENSITY 0.40
+
+const float PI = 3.1415926535;
+const float INV_PI = 1.0 / PI;
+const float FROM_255_TO_1 = 1.0 / 255.0;
+
+const vec2 uv_scale = UV_SCALE;
+const vec3 fresnel_color = FRESNEL_COLOR * FROM_255_TO_1;
+
+const vec3 gradient_color = GRADIENT_COLOR * FROM_255_TO_1;
+const vec3 delta_color_horizontal = DELTA_COLOR_HORIZONTAL * FROM_255_TO_1;
+const vec3 delta_color_vertical = DELTA_COLOR_VERTICAL * FROM_255_TO_1;
+
+#include "2022s2_galaxy_util.h"
+
+void main() {
+	gl_FragColor = galaxy();
+
+#ifdef USE_OVERLAY
+	gl_FragColor.rgb = mix(gl_FragColor.rgb, OVERLAY_COLOR.rgb, OVERLAY_COLOR.a);
+#endif // USE_OVERLAY
+}

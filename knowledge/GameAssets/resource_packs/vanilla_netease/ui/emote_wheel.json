@@ -1,0 +1,1815 @@
+{
+    "emote_wheel_main": {
+        "controls": [
+            {
+                "panel@emote_wheel.emote_wheel_panel": {
+                    "size": [
+                        200,
+                        200
+                    ]
+                }
+            }
+        ],
+        "force_render_below": false,
+        "is_showing_menu": true,
+        "render_game_behind": true,
+        "render_only_when_topmost": true,
+        "should_steal_mouse": false,
+        "type": "screen"
+    },
+    "emote_wheel_panel": {
+        "controls": [
+            {
+                "mask": {
+                    "clip_direction": "left",
+                    "clip_ratio": 0.0,
+                    "controls": [
+                        {
+                            "button@common.button": {
+                                "$control_alpha": 1.0,
+                                "$default_texture": "",
+                                "$hover_texture": "",
+                                "$is_new_nine_slice": false,
+                                "$label_color": [
+                                    1,
+                                    1,
+                                    1
+                                ],
+                                "$label_font_scale_factor": 0.7,
+                                "$label_font_size": "large",
+                                "$label_layer": 3,
+                                "$label_offset": [
+                                    0,
+                                    0
+                                ],
+                                "$label_text": "Button",
+                                "$nine_slice_buttom": 0,
+                                "$nine_slice_left": 0,
+                                "$nine_slice_right": 0,
+                                "$nine_slice_top": 0,
+                                "$nineslice_size": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                ],
+                                "$pressed_button_name": "%netease_editor_template_namespace.click",
+                                "$pressed_texture": "",
+                                "$texture_layer": 2,
+                                "bindings": [
+                                    {
+                                        "binding_collection_name": "",
+                                        "binding_condition": "always_when_visible",
+                                        "binding_type": "collection_details"
+                                    }
+                                ],
+                                "button_mappings": [],
+                                "clip_offset": [
+                                    "0.0%+0.0px",
+                                    "0.0%+0.0px"
+                                ],
+                                "controls": [
+                                    {
+                                        "default@netease_editor_template_namespace.default": {}
+                                    },
+                                    {
+                                        "hover@netease_editor_template_namespace.hover": {}
+                                    },
+                                    {
+                                        "pressed@netease_editor_template_namespace.pressed": {}
+                                    }
+                                ],
+                                "default_control": "default",
+                                "hover_control": "hover",
+                                "is_handle_button_move_event": true,
+                                "layer": 1,
+                                "max_size": [
+                                    0,
+                                    0
+                                ],
+                                "min_size": [
+                                    0,
+                                    0
+                                ],
+                                "offset": [
+                                    0,
+                                    0
+                                ],
+                                "pressed_control": "pressed",
+                                "size": [
+                                    "100.0%+0.0px",
+                                    "100.0%+0.0px"
+                                ],
+                                "type": "button"
+                            }
+                        }
+                    ],
+                    "layer": 1,
+                    "max_size": [
+                        0,
+                        0
+                    ],
+                    "min_size": [
+                        0,
+                        0
+                    ],
+                    "offset": [
+                        0,
+                        20
+                    ],
+                    "size": [
+                        "100.0%+0.0px",
+                        "100.0%+0.0px"
+                    ],
+                    "texture": "",
+                    "type": "image",
+                    "uv": [
+                        0,
+                        0
+                    ],
+                    "uv_size": [
+                        0,
+                        0
+                    ]
+                }
+            },
+            {
+                "main_panel": {
+                    "alpha": 1.0,
+                    "anchor_from": "center",
+                    "anchor_to": "center",
+                    "clip_offset": [
+                        0,
+                        0
+                    ],
+                    "clips_children": false,
+                    "controls": [
+                        {
+                            "button0": {
+                                "clip_direction": "left",
+                                "clip_ratio": 0.0,
+                                "controls": [
+                                    {
+                                        "button@common.button": {
+                                            "$control_alpha": 1.0,
+                                            "$default_texture": "",
+                                            "$hover_texture": "",
+                                            "$is_new_nine_slice": false,
+                                            "$label_color": [
+                                                1,
+                                                1,
+                                                1
+                                            ],
+                                            "$label_font_scale_factor": 0.7,
+                                            "$label_font_size": "large",
+                                            "$label_layer": 3,
+                                            "$label_offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "$label_text": "Button",
+                                            "$nine_slice_buttom": 0,
+                                            "$nine_slice_left": 0,
+                                            "$nine_slice_right": 0,
+                                            "$nine_slice_top": 0,
+                                            "$nineslice_size": [
+                                                0,
+                                                0,
+                                                0,
+                                                0
+                                            ],
+                                            "$pressed_button_name": "%netease_editor_template_namespace.click",
+                                            "$pressed_texture": "",
+                                            "$texture_layer": 2,
+                                            "bindings": [
+                                                {
+                                                    "binding_collection_name": "",
+                                                    "binding_condition": "always_when_visible",
+                                                    "binding_type": "collection_details"
+                                                }
+                                            ],
+                                            "button_mappings": [],
+                                            "clip_offset": [
+                                                "0.0%+0.0px",
+                                                "0.0%+0.0px"
+                                            ],
+                                            "controls": [
+                                                {
+                                                    "default@netease_editor_template_namespace.default": {}
+                                                },
+                                                {
+                                                    "hover@netease_editor_template_namespace.hover": {}
+                                                },
+                                                {
+                                                    "pressed@netease_editor_template_namespace.pressed": {}
+                                                },
+                                                {
+                                                    "icon": {
+                                                        "clip_direction": "left",
+                                                        "clip_ratio": 0.0,
+                                                        "layer": 7,
+                                                        "max_size": [
+                                                            0,
+                                                            0
+                                                        ],
+                                                        "min_size": [
+                                                            0,
+                                                            0
+                                                        ],
+                                                        "offset": [
+                                                            "0.0%+0.0px",
+                                                            "-10.0%+0.0px"
+                                                        ],
+                                                        "size": [
+                                                            "90.0%+0.0px",
+                                                            "90.0%+0.0px"
+                                                        ],
+                                                        "texture": "textures/ui/emote/icon03",
+                                                        "type": "image",
+                                                        "uv": [
+                                                            0,
+                                                            0
+                                                        ],
+                                                        "uv_size": [
+                                                            0,
+                                                            0
+                                                        ]
+                                                    }
+                                                },
+                                                {
+                                                    "label": {
+                                                        "anchor_from": "bottom_middle",
+                                                        "anchor_to": "bottom_middle",
+                                                        "color": [
+                                                            1,
+                                                            1,
+                                                            1
+                                                        ],
+                                                        "font_scale_factor": 0.5,
+                                                        "font_size": "large",
+                                                        "font_type": "smooth",
+                                                        "layer": 10,
+                                                        "max_size": [
+                                                            0,
+                                                            0
+                                                        ],
+                                                        "min_size": [
+                                                            0,
+                                                            0
+                                                        ],
+                                                        "offset": [
+                                                            "0.0%+0.0px",
+                                                            "5.0%+0.0px"
+                                                        ],
+                                                        "size": [
+                                                            "100.0%+0.0px",
+                                                            "30.0%+0.0px"
+                                                        ],
+                                                        "text": "表情管理",
+                                                        "text_alignment": "center",
+                                                        "type": "label"
+                                                    }
+                                                }
+                                            ],
+                                            "default_control": "default",
+                                            "hover_control": "hover",
+                                            "is_handle_button_move_event": true,
+                                            "layer": 2,
+                                            "max_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "min_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "offset": [
+                                                0.5,
+                                                0.5
+                                            ],
+                                            "pressed_control": "pressed",
+                                            "size": [
+                                                "90.0%+0.0px",
+                                                "70.0%+0.0px"
+                                            ],
+                                            "type": "button"
+                                        }
+                                    }
+                                ],
+                                "layer": 1,
+                                "max_size": [
+                                    0,
+                                    0
+                                ],
+                                "min_size": [
+                                    0,
+                                    0
+                                ],
+                                "offset": [
+                                    "0.0%+0.0px",
+                                    "0.0%+0.0px"
+                                ],
+                                "size": [
+                                    "30.0%+0.0px",
+                                    "30.0%+0.0px"
+                                ],
+                                "texture": "textures/ui/emote/panel02",
+                                "type": "image",
+                                "uv": [
+                                    0,
+                                    0
+                                ],
+                                "uv_size": [
+                                    0,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "button6": {
+                                "clip_direction": "left",
+                                "clip_ratio": 0.0,
+                                "controls": [
+                                    {
+                                        "button@common.button": {
+                                            "$control_alpha": 1.0,
+                                            "$default_texture": "",
+                                            "$hover_texture": "",
+                                            "$is_new_nine_slice": false,
+                                            "$label_color": [
+                                                1,
+                                                1,
+                                                1
+                                            ],
+                                            "$label_font_scale_factor": 0.7,
+                                            "$label_font_size": "large",
+                                            "$label_layer": 3,
+                                            "$label_offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "$label_text": "Button",
+                                            "$nine_slice_buttom": 0,
+                                            "$nine_slice_left": 0,
+                                            "$nine_slice_right": 0,
+                                            "$nine_slice_top": 0,
+                                            "$nineslice_size": [
+                                                0,
+                                                0,
+                                                0,
+                                                0
+                                            ],
+                                            "$pressed_button_name": "%netease_editor_template_namespace.click",
+                                            "$pressed_texture": "",
+                                            "$texture_layer": 2,
+                                            "bindings": [
+                                                {
+                                                    "binding_collection_name": "",
+                                                    "binding_condition": "always_when_visible",
+                                                    "binding_type": "collection_details"
+                                                }
+                                            ],
+                                            "controls": [
+                                                {
+                                                    "default@netease_editor_template_namespace.default": {}
+                                                },
+                                                {
+                                                    "hover@netease_editor_template_namespace.hover": {}
+                                                },
+                                                {
+                                                    "pressed@netease_editor_template_namespace.pressed": {}
+                                                },
+                                                {
+                                                    "label": {
+                                                        "anchor_from": "bottom_middle",
+                                                        "anchor_to": "bottom_middle",
+                                                        "color": [
+                                                            1,
+                                                            1,
+                                                            1
+                                                        ],
+                                                        "font_scale_factor": 0.5,
+                                                        "font_size": "large",
+                                                        "font_type": "smooth",
+                                                        "layer": 10,
+                                                        "max_size": [
+                                                            0,
+                                                            0
+                                                        ],
+                                                        "min_size": [
+                                                            0,
+                                                            0
+                                                        ],
+                                                        "offset": [
+                                                            "0.0%+0.0px",
+                                                            "5.0%+0.0px"
+                                                        ],
+                                                        "size": [
+                                                            "100.0%+0.0px",
+                                                            "30.0%+0.0px"
+                                                        ],
+                                                        "text": "",
+                                                        "text_alignment": "center",
+                                                        "type": "label"
+                                                    }
+                                                },
+                                                {
+                                                    "icon": {
+                                                        "clip_direction": "left",
+                                                        "clip_ratio": 0.0,
+                                                        "layer": 7,
+                                                        "max_size": [
+                                                            0,
+                                                            0
+                                                        ],
+                                                        "min_size": [
+                                                            0,
+                                                            0
+                                                        ],
+                                                        "offset": [
+                                                            "0.0%+0.0px",
+                                                            "-10.0%+0.0px"
+                                                        ],
+                                                        "size": [
+                                                            "90.0%+0.0px",
+                                                            "90.0%+0.0px"
+                                                        ],
+                                                        "texture": "",
+                                                        "type": "image",
+                                                        "uv": [
+                                                            0,
+                                                            0
+                                                        ],
+                                                        "uv_size": [
+                                                            0,
+                                                            0
+                                                        ]
+                                                    }
+                                                }
+                                            ],
+                                            "button_mappings": [],
+                                            "clip_offset": [
+                                                "0.0%+0.0px",
+                                                "0.0%+0.0px"
+                                            ],
+                                            "default_control": "default",
+                                            "hover_control": "hover",
+                                            "is_handle_button_move_event": true,
+                                            "layer": 2,
+                                            "max_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "min_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "offset": [
+                                                0.5,
+                                                0.5
+                                            ],
+                                            "pressed_control": "pressed",
+                                            "size": [
+                                                "90.0%+0.0px",
+                                                "70.0%+0.0px"
+                                            ],
+                                            "type": "button"
+                                        }
+                                    },
+                                    {
+                                        "seq_img": {
+                                            "anchor_from": "top_middle",
+                                            "anchor_to": "top_middle",
+                                            "clip_direction": "left",
+                                            "clip_ratio": 0.0,
+                                            "layer": 10,
+                                            "size": [
+                                                12.5,
+                                                10.0
+                                            ],
+                                            "texture": "textures/ui/emote/number_6",
+                                            "type": "image",
+                                            "visible": false
+                                        }
+                                    },
+                                    {
+                                        "tag_img@emote_wheel.tag_img": {}
+                                    }
+                                ],
+                                "layer": 1,
+                                "max_size": [
+                                    0,
+                                    0
+                                ],
+                                "min_size": [
+                                    0,
+                                    0
+                                ],
+                                "offset": [
+                                    "-28.0%+0.0px",
+                                    "0.0%+0.0px"
+                                ],
+                                "size": [
+                                    "30.0%+0.0px",
+                                    "30.0%+0.0px"
+                                ],
+                                "texture": "textures/ui/emote/panel02",
+                                "type": "image",
+                                "uv": [
+                                    0,
+                                    0
+                                ],
+                                "uv_size": [
+                                    0,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "button3": {
+                                "clip_direction": "left",
+                                "clip_ratio": 0.0,
+                                "controls": [
+                                    {
+                                        "button@common.button": {
+                                            "$control_alpha": 1.0,
+                                            "$default_texture": "",
+                                            "$hover_texture": "",
+                                            "$is_new_nine_slice": false,
+                                            "$label_color": [
+                                                1,
+                                                1,
+                                                1
+                                            ],
+                                            "$label_font_scale_factor": 0.7,
+                                            "$label_font_size": "large",
+                                            "$label_layer": 3,
+                                            "$label_offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "$label_text": "Button",
+                                            "$nine_slice_buttom": 0,
+                                            "$nine_slice_left": 0,
+                                            "$nine_slice_right": 0,
+                                            "$nine_slice_top": 0,
+                                            "$nineslice_size": [
+                                                0,
+                                                0,
+                                                0,
+                                                0
+                                            ],
+                                            "$pressed_button_name": "%netease_editor_template_namespace.click",
+                                            "$pressed_texture": "",
+                                            "$texture_layer": 2,
+                                            "bindings": [
+                                                {
+                                                    "binding_collection_name": "",
+                                                    "binding_condition": "always_when_visible",
+                                                    "binding_type": "collection_details"
+                                                }
+                                            ],
+                                            "button_mappings": [],
+                                            "clip_offset": [
+                                                "0.0%+0.0px",
+                                                "0.0%+0.0px"
+                                            ],
+                                            "controls": [
+                                                {
+                                                    "default@netease_editor_template_namespace.default": {}
+                                                },
+                                                {
+                                                    "hover@netease_editor_template_namespace.hover": {}
+                                                },
+                                                {
+                                                    "pressed@netease_editor_template_namespace.pressed": {}
+                                                },
+                                                {
+                                                    "label": {
+                                                        "anchor_from": "bottom_middle",
+                                                        "anchor_to": "bottom_middle",
+                                                        "color": [
+                                                            1,
+                                                            1,
+                                                            1
+                                                        ],
+                                                        "font_scale_factor": 0.5,
+                                                        "font_size": "large",
+                                                        "font_type": "smooth",
+                                                        "layer": 10,
+                                                        "max_size": [
+                                                            0,
+                                                            0
+                                                        ],
+                                                        "min_size": [
+                                                            0,
+                                                            0
+                                                        ],
+                                                        "offset": [
+                                                            "0.0%+0.0px",
+                                                            "5.0%+0.0px"
+                                                        ],
+                                                        "size": [
+                                                            "100.0%+0.0px",
+                                                            "30.0%+0.0px"
+                                                        ],
+                                                        "text": "",
+                                                        "text_alignment": "center",
+                                                        "type": "label"
+                                                    }
+                                                },
+                                                {
+                                                    "icon": {
+                                                        "clip_direction": "left",
+                                                        "clip_ratio": 0.0,
+                                                        "layer": 7,
+                                                        "max_size": [
+                                                            0,
+                                                            0
+                                                        ],
+                                                        "min_size": [
+                                                            0,
+                                                            0
+                                                        ],
+                                                        "offset": [
+                                                            "0.0%+0.0px",
+                                                            "-10.0%+0.0px"
+                                                        ],
+                                                        "size": [
+                                                            "90.0%+0.0px",
+                                                            "90.0%+0.0px"
+                                                        ],
+                                                        "texture": "",
+                                                        "type": "image",
+                                                        "uv": [
+                                                            0,
+                                                            0
+                                                        ],
+                                                        "uv_size": [
+                                                            0,
+                                                            0
+                                                        ]
+                                                    }
+                                                }
+                                            ],
+                                            "default_control": "default",
+                                            "hover_control": "hover",
+                                            "is_handle_button_move_event": true,
+                                            "layer": 2,
+                                            "max_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "min_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "offset": [
+                                                0.5,
+                                                0.5
+                                            ],
+                                            "pressed_control": "pressed",
+                                            "size": [
+                                                "90.0%+0.0px",
+                                                "70.0%+0.0px"
+                                            ],
+                                            "type": "button"
+                                        }
+                                    },
+                                    {
+                                        "seq_img": {
+                                            "anchor_from": "top_middle",
+                                            "anchor_to": "top_middle",
+                                            "clip_direction": "left",
+                                            "clip_ratio": 0.0,
+                                            "layer": 10,
+                                            "size": [
+                                                12.5,
+                                                10.0
+                                            ],
+                                            "texture": "textures/ui/emote/number_3",
+                                            "type": "image",
+                                            "visible": false
+                                        }
+                                    },
+                                    {
+                                        "tag_img@emote_wheel.tag_img": {}
+                                    }
+                                ],
+                                "layer": 1,
+                                "max_size": [
+                                    0,
+                                    0
+                                ],
+                                "min_size": [
+                                    0,
+                                    0
+                                ],
+                                "offset": [
+                                    "28.0%+0.0px",
+                                    "0.0%+0.0px"
+                                ],
+                                "size": [
+                                    "30.0%+0.0px",
+                                    "30.0%+0.0px"
+                                ],
+                                "texture": "textures/ui/emote/panel02",
+                                "type": "image",
+                                "uv": [
+                                    0,
+                                    0
+                                ],
+                                "uv_size": [
+                                    0,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "button1": {
+                                "clip_direction": "left",
+                                "clip_ratio": 0.0,
+                                "controls": [
+                                    {
+                                        "button@common.button": {
+                                            "$control_alpha": 1.0,
+                                            "$default_texture": "",
+                                            "$hover_texture": "",
+                                            "$is_new_nine_slice": false,
+                                            "$label_color": [
+                                                1,
+                                                1,
+                                                1
+                                            ],
+                                            "$label_font_scale_factor": 0.7,
+                                            "$label_font_size": "large",
+                                            "$label_layer": 3,
+                                            "$label_offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "$label_text": "Button",
+                                            "$nine_slice_buttom": 0,
+                                            "$nine_slice_left": 0,
+                                            "$nine_slice_right": 0,
+                                            "$nine_slice_top": 0,
+                                            "$nineslice_size": [
+                                                0,
+                                                0,
+                                                0,
+                                                0
+                                            ],
+                                            "$pressed_button_name": "%netease_editor_template_namespace.click",
+                                            "$pressed_texture": "",
+                                            "$texture_layer": 2,
+                                            "bindings": [
+                                                {
+                                                    "binding_collection_name": "",
+                                                    "binding_condition": "always_when_visible",
+                                                    "binding_type": "collection_details"
+                                                }
+                                            ],
+                                            "button_mappings": [],
+                                            "clip_offset": [
+                                                "0.0%+0.0px",
+                                                "0.0%+0.0px"
+                                            ],
+                                            "controls": [
+                                                {
+                                                    "default@netease_editor_template_namespace.default": {}
+                                                },
+                                                {
+                                                    "hover@netease_editor_template_namespace.hover": {}
+                                                },
+                                                {
+                                                    "pressed@netease_editor_template_namespace.pressed": {}
+                                                },
+                                                {
+                                                    "label": {
+                                                        "anchor_from": "bottom_middle",
+                                                        "anchor_to": "bottom_middle",
+                                                        "color": [
+                                                            1,
+                                                            1,
+                                                            1
+                                                        ],
+                                                        "font_scale_factor": 0.5,
+                                                        "font_size": "large",
+                                                        "font_type": "smooth",
+                                                        "layer": 10,
+                                                        "max_size": [
+                                                            0,
+                                                            0
+                                                        ],
+                                                        "min_size": [
+                                                            0,
+                                                            0
+                                                        ],
+                                                        "offset": [
+                                                            "0.0%+0.0px",
+                                                            "5.0%+0.0px"
+                                                        ],
+                                                        "size": [
+                                                            "100.0%+0.0px",
+                                                            "30.0%+0.0px"
+                                                        ],
+                                                        "text": "",
+                                                        "text_alignment": "center",
+                                                        "type": "label"
+                                                    }
+                                                },
+                                                {
+                                                    "icon": {
+                                                        "clip_direction": "left",
+                                                        "clip_ratio": 0.0,
+                                                        "layer": 7,
+                                                        "max_size": [
+                                                            0,
+                                                            0
+                                                        ],
+                                                        "min_size": [
+                                                            0,
+                                                            0
+                                                        ],
+                                                        "offset": [
+                                                            "0.0%+0.0px",
+                                                            "-10.0%+0.0px"
+                                                        ],
+                                                        "size": [
+                                                            "90.0%+0.0px",
+                                                            "90.0%+0.0px"
+                                                        ],
+                                                        "texture": "",
+                                                        "type": "image",
+                                                        "uv": [
+                                                            0,
+                                                            0
+                                                        ],
+                                                        "uv_size": [
+                                                            0,
+                                                            0
+                                                        ]
+                                                    }
+                                                }
+                                            ],
+                                            "default_control": "default",
+                                            "hover_control": "hover",
+                                            "is_handle_button_move_event": true,
+                                            "layer": 2,
+                                            "max_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "min_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "offset": [
+                                                0.5,
+                                                0.5
+                                            ],
+                                            "pressed_control": "pressed",
+                                            "size": [
+                                                "90.0%+0.0px",
+                                                "70.0%+0.0px"
+                                            ],
+                                            "type": "button"
+                                        }
+                                    },
+                                    {
+                                        "seq_img": {
+                                            "anchor_from": "top_middle",
+                                            "anchor_to": "top_middle",
+                                            "clip_direction": "left",
+                                            "clip_ratio": 0.0,
+                                            "layer": 10,
+                                            "size": [
+                                                12.5,
+                                                10.0
+                                            ],
+                                            "texture": "textures/ui/emote/number_1",
+                                            "type": "image",
+                                            "visible": false
+                                        }
+                                    },
+                                    {
+                                        "tag_img@emote_wheel.tag_img": {}
+                                    }
+                                ],
+                                "layer": 1,
+                                "max_size": [
+                                    0,
+                                    0
+                                ],
+                                "min_size": [
+                                    0,
+                                    0
+                                ],
+                                "offset": [
+                                    "-14.5%+0.0px",
+                                    "-25.0%+0.0px"
+                                ],
+                                "size": [
+                                    "30.0%+0.0px",
+                                    "30.0%+0.0px"
+                                ],
+                                "texture": "textures/ui/emote/panel02",
+                                "type": "image",
+                                "uv": [
+                                    0,
+                                    0
+                                ],
+                                "uv_size": [
+                                    0,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "button2": {
+                                "clip_direction": "left",
+                                "clip_ratio": 0.0,
+                                "controls": [
+                                    {
+                                        "button@common.button": {
+                                            "$control_alpha": 1.0,
+                                            "$default_texture": "",
+                                            "$hover_texture": "",
+                                            "$is_new_nine_slice": false,
+                                            "$label_color": [
+                                                1,
+                                                1,
+                                                1
+                                            ],
+                                            "$label_font_scale_factor": 0.7,
+                                            "$label_font_size": "large",
+                                            "$label_layer": 3,
+                                            "$label_offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "$label_text": "Button",
+                                            "$nine_slice_buttom": 0,
+                                            "$nine_slice_left": 0,
+                                            "$nine_slice_right": 0,
+                                            "$nine_slice_top": 0,
+                                            "$nineslice_size": [
+                                                0,
+                                                0,
+                                                0,
+                                                0
+                                            ],
+                                            "$pressed_button_name": "%netease_editor_template_namespace.click",
+                                            "$pressed_texture": "",
+                                            "$texture_layer": 2,
+                                            "bindings": [
+                                                {
+                                                    "binding_collection_name": "",
+                                                    "binding_condition": "always_when_visible",
+                                                    "binding_type": "collection_details"
+                                                }
+                                            ],
+                                            "button_mappings": [],
+                                            "clip_offset": [
+                                                "0.0%+0.0px",
+                                                "0.0%+0.0px"
+                                            ],
+                                            "controls": [
+                                                {
+                                                    "default@netease_editor_template_namespace.default": {}
+                                                },
+                                                {
+                                                    "hover@netease_editor_template_namespace.hover": {}
+                                                },
+                                                {
+                                                    "pressed@netease_editor_template_namespace.pressed": {}
+                                                },
+                                                {
+                                                    "label": {
+                                                        "anchor_from": "bottom_middle",
+                                                        "anchor_to": "bottom_middle",
+                                                        "color": [
+                                                            1,
+                                                            1,
+                                                            1
+                                                        ],
+                                                        "font_scale_factor": 0.5,
+                                                        "font_size": "large",
+                                                        "font_type": "smooth",
+                                                        "layer": 10,
+                                                        "max_size": [
+                                                            0,
+                                                            0
+                                                        ],
+                                                        "min_size": [
+                                                            0,
+                                                            0
+                                                        ],
+                                                        "offset": [
+                                                            "0.0%+0.0px",
+                                                            "5.0%+0.0px"
+                                                        ],
+                                                        "size": [
+                                                            "100.0%+0.0px",
+                                                            "30.0%+0.0px"
+                                                        ],
+                                                        "text": "",
+                                                        "text_alignment": "center",
+                                                        "type": "label"
+                                                    }
+                                                },
+                                                {
+                                                    "icon": {
+                                                        "clip_direction": "left",
+                                                        "clip_ratio": 0.0,
+                                                        "layer": 7,
+                                                        "max_size": [
+                                                            0,
+                                                            0
+                                                        ],
+                                                        "min_size": [
+                                                            0,
+                                                            0
+                                                        ],
+                                                        "offset": [
+                                                            "0.0%+0.0px",
+                                                            "-10.0%+0.0px"
+                                                        ],
+                                                        "size": [
+                                                            "90.0%+0.0px",
+                                                            "90.0%+0.0px"
+                                                        ],
+                                                        "texture": "",
+                                                        "type": "image",
+                                                        "uv": [
+                                                            0,
+                                                            0
+                                                        ],
+                                                        "uv_size": [
+                                                            0,
+                                                            0
+                                                        ]
+                                                    }
+                                                }
+                                            ],
+                                            "default_control": "default",
+                                            "hover_control": "hover",
+                                            "is_handle_button_move_event": true,
+                                            "layer": 2,
+                                            "max_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "min_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "offset": [
+                                                0.5,
+                                                0.5
+                                            ],
+                                            "pressed_control": "pressed",
+                                            "size": [
+                                                "90.0%+0.0px",
+                                                "70.0%+0.0px"
+                                            ],
+                                            "type": "button"
+                                        }
+                                    },
+                                    {
+                                        "seq_img": {
+                                            "anchor_from": "top_middle",
+                                            "anchor_to": "top_middle",
+                                            "clip_direction": "left",
+                                            "clip_ratio": 0.0,
+                                            "layer": 10,
+                                            "size": [
+                                                12.5,
+                                                10.0
+                                            ],
+                                            "texture": "textures/ui/emote/number_2",
+                                            "type": "image",
+                                            "visible": false
+                                        }
+                                    },
+                                    {
+                                        "tag_img@emote_wheel.tag_img": {}
+                                    }
+                                ],
+                                "layer": 1,
+                                "max_size": [
+                                    0,
+                                    0
+                                ],
+                                "min_size": [
+                                    0,
+                                    0
+                                ],
+                                "offset": [
+                                    "14.5%+0.0px",
+                                    "-25.0%+0.0px"
+                                ],
+                                "size": [
+                                    "30.0%+0.0px",
+                                    "30.0%+0.0px"
+                                ],
+                                "texture": "textures/ui/emote/panel02",
+                                "type": "image",
+                                "uv": [
+                                    0,
+                                    0
+                                ],
+                                "uv_size": [
+                                    0,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "button4": {
+                                "clip_direction": "left",
+                                "clip_ratio": 0.0,
+                                "controls": [
+                                    {
+                                        "button@common.button": {
+                                            "$control_alpha": 1.0,
+                                            "$default_texture": "",
+                                            "$hover_texture": "",
+                                            "$is_new_nine_slice": false,
+                                            "$label_color": [
+                                                1,
+                                                1,
+                                                1
+                                            ],
+                                            "$label_font_scale_factor": 0.7,
+                                            "$label_font_size": "large",
+                                            "$label_layer": 3,
+                                            "$label_offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "$label_text": "Button",
+                                            "$nine_slice_buttom": 0,
+                                            "$nine_slice_left": 0,
+                                            "$nine_slice_right": 0,
+                                            "$nine_slice_top": 0,
+                                            "$nineslice_size": [
+                                                0,
+                                                0,
+                                                0,
+                                                0
+                                            ],
+                                            "$pressed_button_name": "%netease_editor_template_namespace.click",
+                                            "$pressed_texture": "",
+                                            "$texture_layer": 2,
+                                            "bindings": [
+                                                {
+                                                    "binding_collection_name": "",
+                                                    "binding_condition": "always_when_visible",
+                                                    "binding_type": "collection_details"
+                                                }
+                                            ],
+                                            "button_mappings": [],
+                                            "clip_offset": [
+                                                "0.0%+0.0px",
+                                                "0.0%+0.0px"
+                                            ],
+                                            "controls": [
+                                                {
+                                                    "default@netease_editor_template_namespace.default": {}
+                                                },
+                                                {
+                                                    "hover@netease_editor_template_namespace.hover": {}
+                                                },
+                                                {
+                                                    "pressed@netease_editor_template_namespace.pressed": {}
+                                                },
+                                                {
+                                                    "label": {
+                                                        "anchor_from": "bottom_middle",
+                                                        "anchor_to": "bottom_middle",
+                                                        "color": [
+                                                            1,
+                                                            1,
+                                                            1
+                                                        ],
+                                                        "font_scale_factor": 0.5,
+                                                        "font_size": "large",
+                                                        "font_type": "smooth",
+                                                        "layer": 10,
+                                                        "max_size": [
+                                                            0,
+                                                            0
+                                                        ],
+                                                        "min_size": [
+                                                            0,
+                                                            0
+                                                        ],
+                                                        "offset": [
+                                                            "0.0%+0.0px",
+                                                            "5.0%+0.0px"
+                                                        ],
+                                                        "size": [
+                                                            "100.0%+0.0px",
+                                                            "30.0%+0.0px"
+                                                        ],
+                                                        "text": "",
+                                                        "text_alignment": "center",
+                                                        "type": "label"
+                                                    }
+                                                },
+                                                {
+                                                    "icon": {
+                                                        "clip_direction": "left",
+                                                        "clip_ratio": 0.0,
+                                                        "layer": 7,
+                                                        "max_size": [
+                                                            0,
+                                                            0
+                                                        ],
+                                                        "min_size": [
+                                                            0,
+                                                            0
+                                                        ],
+                                                        "offset": [
+                                                            "0.0%+0.0px",
+                                                            "-10.0%+0.0px"
+                                                        ],
+                                                        "size": [
+                                                            "90.0%+0.0px",
+                                                            "90.0%+0.0px"
+                                                        ],
+                                                        "texture": "",
+                                                        "type": "image",
+                                                        "uv": [
+                                                            0,
+                                                            0
+                                                        ],
+                                                        "uv_size": [
+                                                            0,
+                                                            0
+                                                        ]
+                                                    }
+                                                }
+                                            ],
+                                            "default_control": "default",
+                                            "hover_control": "hover",
+                                            "is_handle_button_move_event": true,
+                                            "layer": 2,
+                                            "max_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "min_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "offset": [
+                                                0.5,
+                                                0.5
+                                            ],
+                                            "pressed_control": "pressed",
+                                            "size": [
+                                                "90.0%+0.0px",
+                                                "70.0%+0.0px"
+                                            ],
+                                            "type": "button"
+                                        }
+                                    },
+                                    {
+                                        "seq_img": {
+                                            "anchor_from": "top_middle",
+                                            "anchor_to": "top_middle",
+                                            "clip_direction": "left",
+                                            "clip_ratio": 0.0,
+                                            "layer": 10,
+                                            "size": [
+                                                12.5,
+                                                10.0
+                                            ],
+                                            "texture": "textures/ui/emote/number_4",
+                                            "type": "image",
+                                            "visible": false
+                                        }
+                                    },
+                                    {
+                                        "tag_img@emote_wheel.tag_img": {}
+                                    }
+                                ],
+                                "layer": 1,
+                                "max_size": [
+                                    0,
+                                    0
+                                ],
+                                "min_size": [
+                                    0,
+                                    0
+                                ],
+                                "offset": [
+                                    "14.5%+0.0px",
+                                    "25.0%+0.0px"
+                                ],
+                                "size": [
+                                    "30.0%+0.0px",
+                                    "30.0%+0.0px"
+                                ],
+                                "texture": "textures/ui/emote/panel02",
+                                "type": "image",
+                                "uv": [
+                                    0,
+                                    0
+                                ],
+                                "uv_size": [
+                                    0,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "button5": {
+                                "clip_direction": "left",
+                                "clip_ratio": 0.0,
+                                "controls": [
+                                    {
+                                        "button@common.button": {
+                                            "$control_alpha": 1.0,
+                                            "$default_texture": "",
+                                            "$hover_texture": "",
+                                            "$is_new_nine_slice": false,
+                                            "$label_color": [
+                                                1,
+                                                1,
+                                                1
+                                            ],
+                                            "$label_font_scale_factor": 0.7,
+                                            "$label_font_size": "large",
+                                            "$label_layer": 3,
+                                            "$label_offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "$label_text": "Button",
+                                            "$nine_slice_buttom": 0,
+                                            "$nine_slice_left": 0,
+                                            "$nine_slice_right": 0,
+                                            "$nine_slice_top": 0,
+                                            "$nineslice_size": [
+                                                0,
+                                                0,
+                                                0,
+                                                0
+                                            ],
+                                            "$pressed_button_name": "%netease_editor_template_namespace.click",
+                                            "$pressed_texture": "",
+                                            "$texture_layer": 2,
+                                            "bindings": [
+                                                {
+                                                    "binding_collection_name": "",
+                                                    "binding_condition": "always_when_visible",
+                                                    "binding_type": "collection_details"
+                                                }
+                                            ],
+                                            "button_mappings": [],
+                                            "clip_offset": [
+                                                "0.0%+0.0px",
+                                                "0.0%+0.0px"
+                                            ],
+                                            "controls": [
+                                                {
+                                                    "default@netease_editor_template_namespace.default": {}
+                                                },
+                                                {
+                                                    "hover@netease_editor_template_namespace.hover": {}
+                                                },
+                                                {
+                                                    "pressed@netease_editor_template_namespace.pressed": {}
+                                                },
+                                                {
+                                                    "label": {
+                                                        "anchor_from": "bottom_middle",
+                                                        "anchor_to": "bottom_middle",
+                                                        "color": [
+                                                            1,
+                                                            1,
+                                                            1
+                                                        ],
+                                                        "font_scale_factor": 0.5,
+                                                        "font_size": "large",
+                                                        "font_type": "smooth",
+                                                        "layer": 10,
+                                                        "max_size": [
+                                                            0,
+                                                            0
+                                                        ],
+                                                        "min_size": [
+                                                            0,
+                                                            0
+                                                        ],
+                                                        "offset": [
+                                                            "0.0%+0.0px",
+                                                            "5.0%+0.0px"
+                                                        ],
+                                                        "size": [
+                                                            "100.0%+0.0px",
+                                                            "30.0%+0.0px"
+                                                        ],
+                                                        "text": "",
+                                                        "text_alignment": "center",
+                                                        "type": "label"
+                                                    }
+                                                },
+                                                {
+                                                    "icon": {
+                                                        "clip_direction": "left",
+                                                        "clip_ratio": 0.0,
+                                                        "layer": 7,
+                                                        "max_size": [
+                                                            0,
+                                                            0
+                                                        ],
+                                                        "min_size": [
+                                                            0,
+                                                            0
+                                                        ],
+                                                        "offset": [
+                                                            "0.0%+0.0px",
+                                                            "-10.0%+0.0px"
+                                                        ],
+                                                        "size": [
+                                                            "90.0%+0.0px",
+                                                            "90.0%+0.0px"
+                                                        ],
+                                                        "texture": "",
+                                                        "type": "image",
+                                                        "uv": [
+                                                            0,
+                                                            0
+                                                        ],
+                                                        "uv_size": [
+                                                            0,
+                                                            0
+                                                        ]
+                                                    }
+                                                }
+                                            ],
+                                            "default_control": "default",
+                                            "hover_control": "hover",
+                                            "is_handle_button_move_event": true,
+                                            "layer": 2,
+                                            "max_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "min_size": [
+                                                0,
+                                                0
+                                            ],
+                                            "offset": [
+                                                0.5,
+                                                0.5
+                                            ],
+                                            "pressed_control": "pressed",
+                                            "size": [
+                                                "90.0%+0.0px",
+                                                "70.0%+0.0px"
+                                            ],
+                                            "type": "button"
+                                        }
+                                    },
+                                    {
+                                        "seq_img": {
+                                            "anchor_from": "top_middle",
+                                            "anchor_to": "top_middle",
+                                            "clip_direction": "left",
+                                            "clip_ratio": 0.0,
+                                            "layer": 10,
+                                            "size": [
+                                                12.5,
+                                                10.0
+                                            ],
+                                            "texture": "textures/ui/emote/number_5",
+                                            "type": "image",
+                                            "visible": false
+                                        }
+                                    },
+                                    {
+                                        "tag_img@emote_wheel.tag_img": {}
+                                    }
+                                ],
+                                "layer": 1,
+                                "max_size": [
+                                    0,
+                                    0
+                                ],
+                                "min_size": [
+                                    0,
+                                    0
+                                ],
+                                "offset": [
+                                    "-14.5%+0.0px",
+                                    "25.0%+0.0px"
+                                ],
+                                "size": [
+                                    "30.0%+0.0px",
+                                    "30.0%+0.0px"
+                                ],
+                                "texture": "textures/ui/emote/panel02",
+                                "type": "image",
+                                "uv": [
+                                    0,
+                                    0
+                                ],
+                                "uv_size": [
+                                    0,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "gamepadIcon": {
+                                "anchor_from": "bottom_middle",
+                                "controls": [
+                                    {
+                                        "modify": {
+                                            "controls": [
+                                                {
+                                                    "image": {
+                                                        "anchor_from": "left_middle",
+                                                        "anchor_to": "left_middle",
+                                                        "clip_direction": "left",
+                                                        "clip_ratio": 0.0,
+                                                        "layer": 1,
+                                                        "size": [
+                                                            "0.0%+20.0px",
+                                                            20.0
+                                                        ],
+                                                        "texture": "textures/ui/xbox_face_button_up",
+                                                        "type": "image"
+                                                    }
+                                                },
+                                                {
+                                                    "label": {
+                                                        "anchor_from": "right_middle",
+                                                        "anchor_to": "right_middle",
+                                                        "font_type": "default",
+                                                        "layer": 2,
+                                                        "text": "更改表情",
+                                                        "text_alignment": "center",
+                                                        "type": "label"
+                                                    }
+                                                }
+                                            ],
+                                            "layer": 1,
+                                            "size": [
+                                                "0.0%+55.0px",
+                                                20.0
+                                            ],
+                                            "type": "panel"
+                                        }
+                                    },
+                                    {
+                                        "empty_panel": {
+                                            "layer": 4,
+                                            "size": [
+                                                10.0,
+                                                "100.0%+0.0px"
+                                            ],
+                                            "type": "panel"
+                                        }
+                                    },
+                                    {
+                                        "exit": {
+                                            "controls": [
+                                                {
+                                                    "image": {
+                                                        "anchor_from": "left_middle",
+                                                        "anchor_to": "left_middle",
+                                                        "clip_direction": "left",
+                                                        "clip_ratio": 0.0,
+                                                        "layer": 1,
+                                                        "size": [
+                                                            "0.0%+20.0px",
+                                                            20.0
+                                                        ],
+                                                        "texture": "textures/ui/xbox_face_button_right",
+                                                        "type": "image"
+                                                    }
+                                                },
+                                                {
+                                                    "label": {
+                                                        "anchor_from": "right_middle",
+                                                        "anchor_to": "right_middle",
+                                                        "font_type": "default",
+                                                        "layer": 2,
+                                                        "text": "退出",
+                                                        "text_alignment": "center",
+                                                        "type": "label"
+                                                    }
+                                                }
+                                            ],
+                                            "layer": 5,
+                                            "size": [
+                                                "0.0%+35.0px",
+                                                20.0
+                                            ],
+                                            "type": "panel"
+                                        }
+                                    },
+                                    {
+                                        "empty_panel(0)": {
+                                            "layer": 8,
+                                            "size": [
+                                                10.0,
+                                                "100.0%+0.0px"
+                                            ],
+                                            "type": "panel"
+                                        }
+                                    },
+                                    {
+                                        "select": {
+                                            "controls": [
+                                                {
+                                                    "image": {
+                                                        "anchor_from": "left_middle",
+                                                        "anchor_to": "left_middle",
+                                                        "clip_direction": "left",
+                                                        "clip_ratio": 0.0,
+                                                        "layer": 1,
+                                                        "size": [
+                                                            "0.0%+20.0px",
+                                                            20.0
+                                                        ],
+                                                        "texture": "textures/ui/xbox_stick_left",
+                                                        "type": "image"
+                                                    }
+                                                },
+                                                {
+                                                    "label": {
+                                                        "anchor_from": "right_middle",
+                                                        "anchor_to": "right_middle",
+                                                        "font_type": "default",
+                                                        "layer": 2,
+                                                        "text": "选择",
+                                                        "text_alignment": "center",
+                                                        "type": "label"
+                                                    }
+                                                }
+                                            ],
+                                            "layer": 9,
+                                            "size": [
+                                                "0.0%+35.0px",
+                                                20.0
+                                            ],
+                                            "type": "panel"
+                                        }
+                                    },
+                                    {
+                                        "empty_panel(1)": {
+                                            "layer": 12,
+                                            "size": [
+                                                10.0,
+                                                "100.0%+0.0px"
+                                            ],
+                                            "type": "panel"
+                                        }
+                                    },
+                                    {
+                                        "execute": {
+                                            "controls": [
+                                                {
+                                                    "image": {
+                                                        "anchor_from": "left_middle",
+                                                        "anchor_to": "left_middle",
+                                                        "clip_direction": "left",
+                                                        "clip_ratio": 0.0,
+                                                        "layer": 1,
+                                                        "size": [
+                                                            "0.0%+20.0px",
+                                                            20.0
+                                                        ],
+                                                        "texture": "textures/ui/xbox_face_button_down",
+                                                        "type": "image"
+                                                    }
+                                                },
+                                                {
+                                                    "label": {
+                                                        "anchor_from": "right_middle",
+                                                        "anchor_to": "right_middle",
+                                                        "font_type": "default",
+                                                        "layer": 2,
+                                                        "text": "执行",
+                                                        "text_alignment": "center",
+                                                        "type": "label"
+                                                    }
+                                                }
+                                            ],
+                                            "layer": 13,
+                                            "size": [
+                                                "0.0%+35.0px",
+                                                20.0
+                                            ],
+                                            "type": "panel"
+                                        }
+                                    }
+                                ],
+                                "layer": 85,
+                                "offset": [
+                                    "0.0%+0.0px",
+                                    "0.0%+0.0px"
+                                ],
+                                "orientation": "horizontal",
+                                "size": [
+                                    "100.0%+0.0px",
+                                    20.0
+                                ],
+                                "type": "stack_panel",
+                                "visible": false
+                            }
+                        }
+                    ],
+                    "enabled": true,
+                    "layer": 1,
+                    "max_size": [
+                        0,
+                        0
+                    ],
+                    "min_size": [
+                        0,
+                        0
+                    ],
+                    "offset": [
+                        0,
+                        0
+                    ],
+                    "priority": 0,
+                    "propagate_alpha": false,
+                    "size": [
+                        200,
+                        200
+                    ],
+                    "type": "panel",
+                    "visible": true
+                }
+            }
+        ],
+        "layer": 1,
+        "max_size": [
+            0,
+            0
+        ],
+        "min_size": [
+            0,
+            0
+        ],
+        "offset": [
+            0,
+            0
+        ],
+        "size": [
+            "100.0%+0.0px",
+            "100.0%"
+        ],
+        "type": "panel"
+    },
+    "namespace": "emote_wheel",
+    "screen@common.base_screen": {
+        "$screen_content": "emote_wheel.emote_wheel_panel",
+        "absorbs_input": true,
+        "always_accepts_input": false,
+        "force_render_below": false,
+        "is_showing_menu": true,
+        "render_game_behind": true,
+        "render_only_when_topmost": true,
+        "should_steal_mouse": false,
+        "button_mappings": [
+            {
+                "from_button_id": "button.menu_cancel",
+                "to_button_id": "button.menu_exit",
+                "mapping_type": "global"
+            },
+            {
+                "from_button_id": "key.emote",
+                "to_button_id": "button.menu_exit",
+                "mapping_type": "global"
+            }
+        ]
+    },
+    "tag_img": {
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "clip_direction": "left",
+        "clip_ratio": 0.0,
+        "layer": 10,
+        "size": [
+            12.5,
+            10.0
+        ],
+        "offset": [
+            -23.0,
+            8.0
+        ],
+        "texture": "textures/ui/emote/loop_tag",
+        "type": "image",
+        "visible": false
+    }
+}

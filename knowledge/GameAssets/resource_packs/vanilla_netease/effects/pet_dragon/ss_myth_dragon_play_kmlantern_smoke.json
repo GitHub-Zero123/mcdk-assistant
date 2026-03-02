@@ -1,0 +1,86 @@
+{
+    "particleeffect": {
+        "independent": false,
+        "direction": {
+            "max": "0.1 1.0 0.1",
+            "value": "Direction",
+            "min": "0.0 0.0 0.0"
+        },
+        "activetime": {
+            "value": "0.3"
+        },
+        "particlesize": {
+            "max": "0.2 0.2",
+            "min": "0.2 0.2"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.00"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 1.0000",
+                "time": "0.70"
+            }
+        ],
+        "emitterScaleCurve": [],
+        "emittersize": {
+            "value": "0.0 0.0 0.0"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": false,
+                "name": "textures/sfxs/pet_dragon/ss_dragon_hudong_smoke",
+                "fps": "30"
+            },
+            "name": "textures/sfxs/pet_dragon/ss_dragon_hudong_smoke"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "delay": 2.3,
+        "timetolive": {
+            "max": "0.7",
+            "min": "0.2"
+        },
+        "depthtest": {
+            "enable": "true"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "1.0",
+            "min": "0.6"
+        },
+        "dampingforce": {
+            "value": "2.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.0 0.0",
+                "time": "0.00"
+            },
+            {
+                "scale": "0.4 0.4",
+                "time": "0.23"
+            },
+            {
+                "scale": "0.96 0.96",
+                "time": "0.55"
+            },
+            {
+                "scale": "0.9 0.9",
+                "time": "1.75"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "2.00"
+            }
+        ]
+    }
+}

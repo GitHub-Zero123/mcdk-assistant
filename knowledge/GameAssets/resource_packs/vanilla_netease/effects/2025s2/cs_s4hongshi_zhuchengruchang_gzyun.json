@@ -1,0 +1,81 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "4.0"
+        },
+        "colorfade": [
+            {
+                "color": "0.3490 0.0000 0.0000 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.3490 0.0000 0.0000 1.0000",
+                "time": "4.5%"
+            },
+            {
+                "color": "0.3176 0.0000 0.0000 1.0000",
+                "time": "79.5%"
+            },
+            {
+                "color": "0.1647 0.0000 0.0000 0.0268",
+                "time": "100.0%"
+            }
+        ],
+        "delay": 0.75,
+        "direction": {
+            "max": "0.0 0.1 0.0",
+            "min": "0.0 0.1 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "50.0",
+            "min": "30.0"
+        },
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Rotate Y"
+        },
+        "numparticles": {
+            "value": "1"
+        },
+        "particlesize": {
+            "max": "10.0 5.5",
+            "min": "10.0 5.5"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "1.2 1.2",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.2 1.2",
+                "time": "82.3%"
+            },
+            {
+                "scale": "0.6 0.6",
+                "time": "99.7%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "0",
+                "name": "textures/sfxs/2025s2/cs_s4hongshi_zhuchengruchang_bj22",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s2/cs_s4hongshi_zhuchengruchang_bj22"
+        },
+        "timetolive": {
+            "max": "4.0",
+            "min": "4.0"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

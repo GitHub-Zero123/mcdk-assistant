@@ -1,0 +1,85 @@
+{
+    "particleeffect": {
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "value": "Direction",
+            "min": "0.0 0.0 0.0"
+        },
+        "numparticles": {
+            "value": "5"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 1.0000 0.4464",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 1.0000 1.0000 0.8125",
+                "time": "46.8%"
+            },
+            {
+                "color": "0.8706 1.0000 0.9922 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "emissionrate": {
+            "max": "8.0",
+            "min": "5.0"
+        },
+        "emitterScaleCurve": [],
+        "layer": 8,
+        "emittersize": {
+            "value": "1.0 0.6 1.0"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "false"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "timetolive": {
+            "max": "0.3",
+            "min": "0.4"
+        },
+        "texture": {
+            "name": "textures/sfxs/pet_rabbit/xy_rabi_assasin_fllz"
+        },
+        "emitterscale": [],
+        "velocity": {
+            "max": "0.4",
+            "min": "0.3"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "particlesize": {
+            "max": "0.08 0.08",
+            "min": "0.05 0.05"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.0 0.0",
+                "time": "0.00"
+            },
+            {
+                "scale": "1.17 1.17",
+                "time": "0.38"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "1.00"
+            },
+            {
+                "scale": "0.9 0.9",
+                "time": "1.59"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "2.00"
+            }
+        ]
+    }
+}

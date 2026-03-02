@@ -1,0 +1,100 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.1"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 1.0000 0.0000 0.0179",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.7020 0.2196 0.1429",
+                "time": "8.4%"
+            },
+            {
+                "color": "1.0000 0.5020 0.2157 0.3929",
+                "time": "10.0%"
+            },
+            {
+                "color": "1.0000 0.2824 0.1020 0.2054",
+                "time": "22.9%"
+            },
+            {
+                "color": "1.0000 0.5020 0.2157 0.2054",
+                "time": "54.5%"
+            },
+            {
+                "color": "1.0000 0.5020 0.2157 0.0625",
+                "time": "78.9%"
+            },
+            {
+                "color": "1.0000 0.7020 0.2196 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "delay": 0.03,
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "200.0",
+            "min": "200.0"
+        },
+        "emitterpath": [
+            {
+                "offset": "0.0 -0.5 0.0",
+                "rotation": "0.0 0.0 0.0",
+                "time": "0.0"
+            }
+        ],
+        "layer": 5,
+        "numparticles": {
+            "value": "2"
+        },
+        "offsetInCamera": {
+            "value": "-0.3"
+        },
+        "particlesize": {
+            "max": "1.2 0.9",
+            "min": "1.2 0.9"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.5 0.5",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.75 0.75",
+                "time": "9.0%"
+            },
+            {
+                "scale": "1.0 1.0",
+                "time": "11.0%"
+            },
+            {
+                "scale": "1.1 1.1",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s1/cs_s3kjys_skinA_victory_g01"
+        },
+        "timetolive": {
+            "max": "1.25",
+            "min": "1.25"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

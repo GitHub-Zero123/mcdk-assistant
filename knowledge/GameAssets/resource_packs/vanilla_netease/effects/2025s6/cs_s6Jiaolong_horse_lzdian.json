@@ -1,0 +1,91 @@
+{
+    "particleeffect": {
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.4235 0.6549 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.3098 0.7608 1.0000",
+                "time": "39.2%"
+            },
+            {
+                "color": "1.0000 0.8275 1.0000 0.0000",
+                "time": "62.6%"
+            },
+            {
+                "color": "1.0000 0.3098 0.5529 1.0000",
+                "time": "82.6%"
+            },
+            {
+                "color": "1.0000 0.7529 0.9137 1.0000",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "10.0",
+            "min": "6.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "0.5 1.25 1.8"
+        },
+        "emittertype": {
+            "value": "Box"
+        },
+        "layer": 4,
+        "particlesize": {
+            "max": "0.17 0.17",
+            "min": "0.15000000000000002 0.15000000000000002"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "false"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.64 0.64",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.6 0.6",
+                "time": "34.3%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "50.3%"
+            },
+            {
+                "scale": "0.5 0.5",
+                "time": "73.7%"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s6/cs_s6Jiaolong_horse_lizi02"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.5",
+            "min": "0.8"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

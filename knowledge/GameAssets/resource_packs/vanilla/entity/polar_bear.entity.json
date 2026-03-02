@@ -1,0 +1,41 @@
+{
+    "format_version": "1.8.0",
+    "minecraft:client_entity": {
+        "description": {
+            "identifier": "minecraft:polar_bear",
+            "materials": {
+                "default": "polar_bear"
+            },
+            "geometry": {
+                "default": "geometry.polarbear"
+            },
+            "textures": {
+                "default": "textures/entity/polarbear"
+            },
+            "animations": {
+                "walk": "animation.quadruped.walk",
+                "move": "animation.polarbear.move",
+                "look_at_target": "animation.common.look_at_target",
+                "baby_transform": "animation.polarbear.baby_transform"
+            },
+            "render_controllers": [
+                "controller.render.polarbear"
+            ],
+            "spawn_egg": {
+                "base_color": "#eeeede",
+                "overlay_color": "#d5d6cd"
+            },
+            "animation_controllers": [
+                {
+                    "move": "controller.animation.polarbear.move"
+                },
+                {
+                    "baby": "controller.animation.polarbear.baby"
+                }
+            ],
+            "scripts": {
+                "scale": "1.2"
+            }
+        }
+    }
+}

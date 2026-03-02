@@ -1,0 +1,28 @@
+{
+    "format_version": "1.14",
+    "minecraft:recipe_material_reduction": {
+        "description": {
+            "identifier": "minecraft:coal_ore"
+        },
+        "input": "minecraft:coal_ore",
+        "output": [
+            {
+                "count": 6,
+                "item": "minecraft:element_1"
+            },
+            {
+                "count": 50,
+                "item": "minecraft:element_6"
+            },
+            {
+                "count": 43,
+                "item": "minecraft:element_8"
+            },
+            {
+                "count": 1,
+                "item": "minecraft:element_7"
+            }
+        ],
+        "tags": "material_reducer"
+    }
+}

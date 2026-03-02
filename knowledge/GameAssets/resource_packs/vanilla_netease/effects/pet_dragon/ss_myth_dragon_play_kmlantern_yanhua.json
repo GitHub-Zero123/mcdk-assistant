@@ -1,0 +1,109 @@
+{
+    "particleeffect": {
+        "independent": false,
+        "direction": {
+            "max": "1.0 1.0 0.0",
+            "value": "Direction",
+            "min": "1.0 0.0 1.0"
+        },
+        "activetime": {
+            "value": "0.8"
+        },
+        "numparticles": {
+            "value": "5"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 0.0 0.0"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.0000 0.0000 1.0000",
+                "time": "0.00"
+            },
+            {
+                "color": "1.0000 0.6667 0.0000 0.6071",
+                "time": "0.08"
+            },
+            {
+                "color": "1.0000 1.0000 0.0000 1.0000",
+                "time": "0.17"
+            },
+            {
+                "color": "1.0000 1.0000 0.4980 1.0000",
+                "time": "0.27"
+            },
+            {
+                "color": "1.0000 0.6667 0.0000 1.0000",
+                "time": "0.44"
+            },
+            {
+                "color": "1.0000 1.0000 0.4980 0.0893",
+                "time": "0.53"
+            },
+            {
+                "color": "1.0000 1.0000 0.0000 0.0446",
+                "time": "0.65"
+            },
+            {
+                "color": "1.0000 0.6667 0.0000 0.0000",
+                "time": "0.80"
+            }
+        ],
+        "emitterScaleCurve": [],
+        "layer": 0,
+        "texture": {
+            "ani": {
+                "shuffle": false,
+                "name": "textures/sfxs/pet_dragon/ss_myth_dragon_play_kmlantern_yanhua",
+                "fps": "25"
+            },
+            "name": "textures/sfxs/pet_dragon/ss_myth_dragon_play_kmlantern_yanhua"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "dampingforce": {
+            "value": "0.1"
+        },
+        "timetolive": {
+            "max": "0.8",
+            "min": "0.8"
+        },
+        "depthtest": {
+            "enable": "true"
+        },
+        "emittersize": {
+            "value": "0.3 0.3 0.3"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        },
+        "emitterscale": [],
+        "particlesize": {
+            "max": "1.0 1.0",
+            "min": "0.4 0.4"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.0 0.0",
+                "time": "0.00"
+            },
+            {
+                "scale": "0.9 0.9",
+                "time": "0.28"
+            },
+            {
+                "scale": "0.0 0.0",
+                "time": "2.00"
+            }
+        ]
+    }
+}

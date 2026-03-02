@@ -1,0 +1,89 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.15"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.9843 0.5922 0.6607",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.9843 0.5922 0.6875",
+                "time": "7.9%"
+            },
+            {
+                "color": "0.4863 0.7608 1.0000 0.6250",
+                "time": "23.7%"
+            },
+            {
+                "color": "0.3294 0.6196 1.0000 0.4375",
+                "time": "44.2%"
+            },
+            {
+                "color": "0.2235 0.3255 1.0000 0.1518",
+                "time": "77.4%"
+            },
+            {
+                "color": "0.4392 0.2157 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "delay": 2.39,
+        "direction": {
+            "max": "1.0 1.0 1.0",
+            "min": "-1.0 -1.0 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "50.0",
+            "min": "50.0"
+        },
+        "emitterpath": [
+            {
+                "offset": "0.0 4.5 0.0",
+                "rotation": "0.0 0.0 0.0",
+                "time": "0.0"
+            }
+        ],
+        "enabletexture": {
+            "enable": true
+        },
+        "faceCameraMode": {
+            "value": "Rotate Y"
+        },
+        "layer": 4,
+        "numparticles": {
+            "value": "1"
+        },
+        "offsetInCamera": {
+            "value": "-1.0"
+        },
+        "particlesize": {
+            "max": "7.5 5.0",
+            "min": "7.5 5.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "texture": {
+            "ani": {
+                "fps": "48",
+                "name": "textures/sfxs/2025s1/cs_s2comet_zhuchengruchang_2waizhu01",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s1/cs_s2comet_zhuchengruchang_2waizhu01"
+        },
+        "timetolive": {
+            "max": "0.2",
+            "min": "0.2"
+        },
+        "velocity": {
+            "max": "0.0",
+            "min": "0.0"
+        }
+    }
+}

@@ -1,0 +1,78 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.2"
+        },
+        "blend": {
+            "name": "add"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.3333 0.0000 1.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "1.0000 0.4157 0.0000 1.0000",
+                "time": "10.0%"
+            },
+            {
+                "color": "1.0000 0.5490 0.0000 1.0000",
+                "time": "18.7%"
+            },
+            {
+                "color": "1.0000 0.6667 0.0000 0.7768",
+                "time": "77.1%"
+            },
+            {
+                "color": "1.0000 0.8000 0.0000 0.4196",
+                "time": "100.0%"
+            }
+        ],
+        "direction": {
+            "max": "0.0 0.0 0.0",
+            "min": "0.0 0.0 0.0",
+            "value": "Direction"
+        },
+        "numparticles": {
+            "value": "1"
+        },
+        "particlesize": {
+            "max": "0.1 0.1",
+            "min": "0.1 0.1"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.0 0.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "1.25 1.25",
+                "time": "9.3%"
+            },
+            {
+                "scale": "1.25 1.25",
+                "time": "36.3%"
+            },
+            {
+                "scale": "1.14 1.14",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "ani": {
+                "fps": "16",
+                "name": "textures/sfxs/2025s1/ss_s3kjys_weaponA_bz",
+                "shuffle": false
+            },
+            "name": "textures/sfxs/2025s1/ss_s3kjys_weaponA_bz"
+        },
+        "timetolive": {
+            "max": "0.5",
+            "min": "0.5"
+        }
+    }
+}

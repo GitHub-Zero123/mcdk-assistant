@@ -1,0 +1,107 @@
+{
+    "particleeffect": {
+        "activetime": {
+            "value": "0.20000000000000004"
+        },
+        "colorfade": [
+            {
+                "color": "1.0000 0.9804 0.6549 0.0000",
+                "time": "0.0%"
+            },
+            {
+                "color": "0.4706 1.0000 0.9412 0.1607",
+                "time": "25.0%"
+            },
+            {
+                "color": "0.7412 0.9216 1.0000 0.0446",
+                "time": "67.4%"
+            },
+            {
+                "color": "0.6196 0.8510 1.0000 0.0000",
+                "time": "100.0%"
+            }
+        ],
+        "dampingforce": {
+            "value": "0.5"
+        },
+        "delay": 1.5599999999999998,
+        "depthtest": {
+            "enable": "false"
+        },
+        "direction": {
+            "max": "1.0 0.2 1.0",
+            "min": "-1.0 -0.2 -1.0",
+            "value": "Direction"
+        },
+        "emissionrate": {
+            "max": "33.0",
+            "min": "33.0"
+        },
+        "emitterScaleCurve": [],
+        "emitterpath": [
+            {
+                "offset": "0.0 0.1 0.0",
+                "rotation": "0.0 0.0 0.0",
+                "time": "0.0"
+            }
+        ],
+        "emitterscale": [],
+        "emittersize": {
+            "value": "1.2 1.2 1.2"
+        },
+        "emittertype": {
+            "value": "Sphere"
+        },
+        "enableloop": {
+            "enable": "true"
+        },
+        "layer": 3,
+        "numparticles": {
+            "value": "15"
+        },
+        "particlesize": {
+            "max": "1.2 1.2",
+            "min": "0.7 0.7"
+        },
+        "pointFiltering": true,
+        "relative": {
+            "enable": "true"
+        },
+        "rotationRange": {
+            "max": "0.0 0.0 666.0",
+            "min": "0.0 0.0 -666.0"
+        },
+        "rotationSpeedRange": {
+            "max": "0.0 0.0 10.0",
+            "min": "0.0 0.0 -10.0"
+        },
+        "sizedelta": [
+            {
+                "scale": "0.0 0.0",
+                "time": "0.0%"
+            },
+            {
+                "scale": "0.96 0.96",
+                "time": "16.7%"
+            },
+            {
+                "scale": "1.1 1.1",
+                "time": "100.0%"
+            }
+        ],
+        "texture": {
+            "name": "textures/sfxs/2025s1/sh_s3guofeng_skinA_yanwu01"
+        },
+        "thickness": {
+            "value": "1.0"
+        },
+        "timetolive": {
+            "max": "0.9999999999999997",
+            "min": "0.5"
+        },
+        "velocity": {
+            "max": "2.5",
+            "min": "4.0000000000000036"
+        }
+    }
+}

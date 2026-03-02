@@ -1,0 +1,80 @@
+{
+    "particleeffect": {
+        "constantforce": {
+            "value": "0.0 12.0 0.0"
+        },
+        "enablecolor": {
+            "enable": "false"
+        },
+        "emissionrate": {
+            "max": "5.0",
+            "min": "5.0"
+        },
+        "relative": {
+            "enable": "true"
+        },
+        "particlesize": {
+            "max": "0.16 0.16",
+            "min": "0.2 0.2"
+        },
+        "activetime": {
+            "value": "1.0"
+        },
+        "numparticles": {
+            "value": "5"
+        },
+        "texture": {
+            "ani": {
+                "shuffle": true,
+                "name": "textures/sfxs/pet_dog/ss_bsw_tongqiantexiao_qianbi01",
+                "fps": "20"
+            },
+            "name": "textures/sfxs/pet_dog/ss_bsw_tongqiantexiao_qianbi01"
+        },
+        "thickness": {
+            "value": "0.0"
+        },
+        "timetolive": {
+            "max": "0.8",
+            "min": "0.8"
+        },
+        "independent": false,
+        "direction": {
+            "max": "0.4 -0.5 0.4",
+            "value": "Direction",
+            "min": "-0.4 -1.0 -0.4"
+        },
+        "dampingforce": {
+            "value": "1.8"
+        },
+        "emitterScaleCurve": [],
+        "enableloop": {
+            "enable": "true"
+        },
+        "emittersize": {
+            "value": "0.2 0.2 0.2"
+        },
+        "inactivetime": {
+            "value": "1.0"
+        },
+        "emitterscale": [],
+        "rotationRange": {
+            "max": "0.0 0.0 360.0",
+            "min": "0.0 0.0 0.0"
+        },
+        "rotationSpeedRange": {
+            "max": "0.0 0.0 5.0",
+            "min": "0.0 0.0 0.5"
+        },
+        "depthtest": {
+            "enable": "true"
+        },
+        "emittertype": {
+            "value": "Hemisphere"
+        },
+        "velocity": {
+            "max": "9.0",
+            "min": "6.0"
+        }
+    }
+}

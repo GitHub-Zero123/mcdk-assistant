@@ -1,0 +1,27 @@
+{
+    "format_version": "1.13.0",
+    "minecraft:ore_feature": {
+        "description": {
+            "identifier": "minecraft:coal_ore_upper_feature"
+        },
+        "count": 17,
+        "replace_rules": [
+            {
+                "places_block": "minecraft:coal_ore",
+                "may_replace": [
+                    {
+                        "name": "minecraft:stone"
+                    }
+                ]
+            },
+            {
+                "places_block": "minecraft:deepslate_coal_ore",
+                "may_replace": [
+                    {
+                        "name": "minecraft:deepslate"
+                    }
+                ]
+            }
+        ]
+    }
+}
