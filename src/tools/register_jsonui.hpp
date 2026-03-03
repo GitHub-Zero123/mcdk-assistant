@@ -1,8 +1,9 @@
 #pragma once
 // register_jsonui.hpp — JSON UI 全栈工具注册
-// 包含: get_jsonui_reference, generate_ui_fullstack, diagnose_ui, query_ui_control
+// 包含: get_jsonui_reference, generate_ui_fullstack, diagnose_ui, query_ui_control, dump_ui_tree, patch_ui_file
 #include "tools/ui_templates.h"
 #include "tools/ui_diagnoser.h"
+#include "tools/ui_patcher.h"
 #include <mcp_server.h>
 #include <mcp_tool.h>
 #include <mcp_message.h>
@@ -10,6 +11,7 @@
 #include <string>
 #include <sstream>
 #include <fstream>
+#include <regex>
 
 namespace mcdk {
 
@@ -180,7 +182,25 @@ static const char* JSONUI_REFERENCE_TEXT = R"(
         def OnClose(self, args):
             if args["TouchEvent"] == 0:
                 self.SetScreenVisible(False)
-十、参考文档
+十、UI 文件分析与修改工具使用指引
+  【优先】在修改已有 UI 文件前，务必先调用以下工具了解结构：
+    1. dump_ui_tree(file_path) — 一次性获取完整控件结构树，快速掌握全局布局
+       - max_depth: 限制展开层数（大文件建议先用 2-3 层）
+       - root_path: 从指定路径开始展开（如 "main/panel"）
+       - search: 按关键词/正则搜索控件名，定位目标控件
+    2. query_ui_control(file_path, path) — 查看指定控件的详细属性
+    3. diagnose_ui(file_path) — 检查文件格式错误
+  以上工具均支持 file_path 参数（传文件绝对路径），大文件无需传入完整内容。
+
+  【修改】对大型 UI 文件使用增量修改，避免重写整个文件：
+    4. patch_ui_file(file_path, patches) — 精确修改指定控件，不影响其他部分
+       支持操作: set_prop(设置属性), remove_prop(删除属性),
+                 add_ctrl(添加控件), remove_ctrl(删除控件), replace_ctrl(替换控件),
+                 add_top(添加顶层), remove_top(删除顶层)
+       自动备份 .bak 文件，原子执行（失败则不写入）
+  典型工作流: dump_ui_tree → query_ui_control → patch_ui_file → diagnose_ui
+
+十一、参考文档
   本速查手册仅为快速参考，完整控件属性、高级用法请查阅网易官方UI说明文档。
   使用 read_knowledge 工具读取以下文档获取详细信息：
     - knowledge/NeteaseGuide/mcguide/18-界面与交互/30-UI说明文档.md  （JSON UI 完整说明）
@@ -390,6 +410,278 @@ inline void register_jsonui_tools(mcp::server& srv) {
         }
 
         return {{"content", mcp::json::array({{{"type","text"},{"text", result}}})}};
+    });
+
+    // ── dump_ui_tree ──────────────────────────────────
+    // 辅助：递归构建树状字符串
+    struct TreeCtx {
+        std::string output;
+        int max_depth;
+        std::string search_pattern;
+        std::regex search_regex;
+        bool has_search;
+        int match_context; // 匹配时向上/下扩展的层数
+    };
+
+    auto dump_tree_node = [](auto& self, const nlohmann::json& node,
+                              const std::string& key, const std::string& prefix,
+                              const std::string& child_prefix, int depth,
+                              TreeCtx& ctx, const std::string& full_path) -> void {
+        // 构建当前节点描述
+        std::string desc = key;
+        if (node.is_object()) {
+            if (node.contains("type"))
+                desc += " (" + node["type"].get<std::string>() + ")";
+            // 附加关键属性摘要
+            std::string extras;
+            if (node.contains("size")) extras += " size:" + node["size"].dump();
+            if (node.contains("anchor_from")) extras += " anchor:" + node["anchor_from"].get<std::string>();
+            if (node.contains("layer")) extras += " L:" + std::to_string(node["layer"].get<int>());
+            if (node.contains("visible") && !node["visible"].get<bool>()) extras += " [hidden]";
+            if (!extras.empty()) desc += extras;
+        }
+
+        // 搜索模式：检查是否匹配
+        bool matches = true;
+        if (ctx.has_search) {
+            try {
+                matches = std::regex_search(key, ctx.search_regex) ||
+                          std::regex_search(full_path, ctx.search_regex);
+            } catch (...) {
+                matches = (key.find(ctx.search_pattern) != std::string::npos ||
+                           full_path.find(ctx.search_pattern) != std::string::npos);
+            }
+        }
+
+        // 无搜索 或 匹配时输出
+        if (!ctx.has_search || matches) {
+            ctx.output += prefix + desc + "\n";
+            // 搜索模式命中时：额外输出完整属性 + 子控件列表（类似 query_ui_control）
+            if (ctx.has_search && matches && node.is_object()) {
+                std::string detail_prefix = child_prefix + "  ";
+                for (auto it = node.begin(); it != node.end(); ++it) {
+                    if (it.key() == "controls") {
+                        ctx.output += detail_prefix + "controls: [";
+                        bool first = true;
+                        if (it.value().is_array()) {
+                            for (const auto& child : it.value()) {
+                                if (!child.is_object()) continue;
+                                for (auto ct = child.begin(); ct != child.end(); ++ct) {
+                                    if (!first) ctx.output += ", ";
+                                    ctx.output += ct.key();
+                                    if (ct.value().is_object() && ct.value().contains("type"))
+                                        ctx.output += "(" + ct.value()["type"].get<std::string>() + ")";
+                                    first = false;
+                                }
+                            }
+                        }
+                        ctx.output += "]\n";
+                    } else {
+                        std::string val = it.value().dump();
+                        if (val.size() > 120) val = val.substr(0, 117) + "...";
+                        ctx.output += detail_prefix + it.key() + ": " + val + "\n";
+                    }
+                }
+                ctx.output += detail_prefix + "path: " + full_path + "\n";
+            }
+        }
+
+        // 深度限制
+        if (ctx.max_depth > 0 && depth >= ctx.max_depth) {
+            if (!ctx.has_search && node.is_object() && node.contains("controls"))
+                ctx.output += child_prefix + "└─ ...(depth limit)\n";
+            return;
+        }
+
+        // 递归子控件
+        if (!node.is_object() || !node.contains("controls") || !node["controls"].is_array())
+            return;
+
+        const auto& controls = node["controls"];
+        std::vector<std::pair<std::string, const nlohmann::json*>> children;
+        for (const auto& item : controls) {
+            if (!item.is_object()) continue;
+            for (auto it = item.begin(); it != item.end(); ++it) {
+                children.push_back({it.key(), &it.value()});
+            }
+        }
+
+        for (size_t i = 0; i < children.size(); ++i) {
+            bool last = (i == children.size() - 1);
+            std::string p = child_prefix + (last ? "└─ " : "├─ ");
+            std::string cp = child_prefix + (last ? "   " : "│  ");
+            std::string fp = full_path + "/" + children[i].first;
+            // 去掉 @ 后缀用于路径
+            auto at = children[i].first.find('@');
+            std::string bare = (at != std::string::npos) ? children[i].first.substr(0, at) : children[i].first;
+            std::string bare_fp = full_path + "/" + bare;
+            self(self, *children[i].second, children[i].first, p, cp, depth + 1, ctx, bare_fp);
+        }
+    };
+
+    auto tree_tool = mcp::tool_builder("dump_ui_tree")
+        .with_description(
+            "生成 JSON UI 文件的控件结构树（带缩进的树状图）。"
+            "支持 file_path 或 json_content 二选一。"
+            "可通过 max_depth 限制展开层数，root_path 指定从哪个控件开始，"
+            "search 按正则/关键词匹配控件名并输出匹配结果及完整属性详情。"
+            "【推荐在开始修改 UI 文件前先调用此工具了解整体结构】")
+        .with_string_param("file_path", "JSON UI 文件绝对路径（与 json_content 二选一，大文件推荐）", false)
+        .with_string_param("json_content", "JSON UI 文件的完整文本内容（与 file_path 二选一）", false)
+        .with_string_param("root_path", "从指定路径开始展开，如 \"main/panel\"。不传则从所有顶层控件开始", false)
+        .with_number_param("max_depth", "最大展开深度（0=无限制，默认0）", false)
+        .with_string_param("search", "搜索关键词或正则表达式，匹配控件名/路径，只输出匹配的控件及其完整属性和子控件列表", false)
+        .with_read_only_hint(true).with_idempotent_hint(true).build();
+
+    srv.register_tool(tree_tool, [dump_tree_node](const mcp::json& params, const std::string&) -> mcp::json {
+        std::string content = resolve_json_content(params);
+        std::string root_path = params.value("root_path", "");
+        int max_depth = params.contains("max_depth") && params["max_depth"].is_number()
+                        ? params["max_depth"].get<int>() : 0;
+        std::string search = params.value("search", "");
+
+        nlohmann::json root;
+        try {
+            root = nlohmann::json::parse(content, nullptr, true, true);
+        } catch (const nlohmann::json::parse_error& e) {
+            throw mcp::mcp_exception(mcp::error_code::invalid_params,
+                std::string("JSON 解析失败: ") + e.what());
+        }
+
+        TreeCtx ctx;
+        ctx.max_depth = max_depth;
+        ctx.search_pattern = search;
+        ctx.has_search = !search.empty();
+        if (ctx.has_search) {
+            try { ctx.search_regex = std::regex(search, std::regex::icase); }
+            catch (...) { /* fallback to string find */ }
+        }
+
+        // 确定起始节点
+        if (!root_path.empty()) {
+            // 按路径定位
+            std::vector<std::string> segs;
+            {
+                std::istringstream ss(root_path);
+                std::string seg;
+                while (std::getline(ss, seg, '/'))
+                    if (!seg.empty()) segs.push_back(seg);
+            }
+
+            const nlohmann::json* current = nullptr;
+            std::string current_key;
+            // 第一段：顶层
+            if (!segs.empty()) {
+                for (auto it = root.begin(); it != root.end(); ++it) {
+                    std::string k = it.key();
+                    auto at = k.find('@');
+                    std::string bare = (at != std::string::npos) ? k.substr(0, at) : k;
+                    if (bare == segs[0]) {
+                        current = &it.value();
+                        current_key = it.key();
+                        break;
+                    }
+                }
+                if (!current)
+                    throw mcp::mcp_exception(mcp::error_code::invalid_params,
+                        "未找到顶层控件: " + segs[0]);
+            }
+            // 后续段
+            for (size_t i = 1; i < segs.size() && current; ++i) {
+                bool found = false;
+                if (current->contains("controls") && (*current)["controls"].is_array()) {
+                    for (const auto& item : (*current)["controls"]) {
+                        if (!item.is_object()) continue;
+                        for (auto jt = item.begin(); jt != item.end(); ++jt) {
+                            std::string k = jt.key();
+                            auto at = k.find('@');
+                            std::string bare = (at != std::string::npos) ? k.substr(0, at) : k;
+                            if (bare == segs[i]) {
+                                current = &jt.value();
+                                current_key = jt.key();
+                                found = true;
+                                break;
+                            }
+                        }
+                        if (found) break;
+                    }
+                }
+                if (!found)
+                    throw mcp::mcp_exception(mcp::error_code::invalid_params,
+                        "路径 \"" + root_path + "\" 中未找到: " + segs[i]);
+            }
+
+            ctx.output = root_path + "\n";
+            dump_tree_node(dump_tree_node, *current, current_key, "", "", 0, ctx, root_path);
+        } else {
+            // 从所有顶层控件开始
+            std::string ns;
+            if (root.contains("namespace"))
+                ns = root["namespace"].get<std::string>();
+            if (!ns.empty())
+                ctx.output = "namespace: " + ns + "\n";
+
+            std::vector<std::pair<std::string, const nlohmann::json*>> tops;
+            for (auto it = root.begin(); it != root.end(); ++it) {
+                if (it.key() == "namespace") continue;
+                tops.push_back({it.key(), &it.value()});
+            }
+            for (size_t i = 0; i < tops.size(); ++i) {
+                bool last = (i == tops.size() - 1);
+                std::string p = last ? "└─ " : "├─ ";
+                std::string cp = last ? "   " : "│  ";
+                auto at = tops[i].first.find('@');
+                std::string bare = (at != std::string::npos) ? tops[i].first.substr(0, at) : tops[i].first;
+                dump_tree_node(dump_tree_node, *tops[i].second, tops[i].first, p, cp, 0, ctx, bare);
+            }
+        }
+
+        if (ctx.output.empty())
+            ctx.output = "(无匹配结果)";
+
+        return {{"content", mcp::json::array({{{"type","text"},{"text", ctx.output}}})}};
+    });
+
+    // ── patch_ui_file ─────────────────────────────────
+    auto patch_tool = mcp::tool_builder("patch_ui_file")
+        .with_description(
+            "对 JSON UI 文件进行增量补丁修改（不重写整个文件）。"
+            "patches 为操作数组，支持: set_prop(设置属性), remove_prop(删除属性), "
+            "add_ctrl(添加控件), remove_ctrl(删除控件), replace_ctrl(替换控件), "
+            "add_top(添加顶层控件), remove_top(删除顶层控件)。"
+            "自动创建 .bak 备份，原子执行（全部成功才写入）")
+        .with_string_param("file_path", "JSON UI 文件绝对路径", true)
+        .with_array_param("patches", "补丁操作数组", "object")
+        .with_boolean_param("backup", "是否创建 .bak 备份，默认true", false)
+        .build();
+
+    srv.register_tool(patch_tool, [](const mcp::json& params, const std::string&) -> mcp::json {
+        std::string file_path = params.value("file_path", "");
+        if (file_path.empty())
+            throw mcp::mcp_exception(mcp::error_code::invalid_params, "file_path 不能为空");
+
+        if (!params.contains("patches") || !params["patches"].is_array())
+            throw mcp::mcp_exception(mcp::error_code::invalid_params, "patches 必须是数组");
+
+        bool backup = true;
+        if (params.contains("backup") && params["backup"].is_boolean())
+            backup = params["backup"].get<bool>();
+
+        auto result = apply_ui_patches(file_path, params["patches"], backup);
+
+        if (!result.success) {
+            return {{"content", mcp::json::array({{
+                {"type","text"},
+                {"text", "[FAILED] " + result.error +
+                         "\n已应用: " + std::to_string(result.applied_count) + " 个补丁（未写入文件）"}
+            }})}};
+        }
+
+        return {{"content", mcp::json::array({{
+            {"type","text"},
+            {"text", "成功应用 " + std::to_string(result.applied_count) + " 个补丁到: " + file_path +
+                     (backup ? "\n备份: " + file_path + ".bak" : "")}
+        }})}};
     });
 }
 

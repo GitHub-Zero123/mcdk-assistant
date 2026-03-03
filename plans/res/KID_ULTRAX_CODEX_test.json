@@ -1,0 +1,492 @@
+{
+  "_edit": {
+    "controls": [
+      {
+        "renderLabel@KID_ULTRAX_CODEX.renderText": {}
+      },
+      {
+        "_renderPage@KID_ULTRAX_CODEX.renderPage": {}
+      }
+    ],
+    "type": "screen"
+  },
+  "main": {
+    "controls": [
+      {
+        "panel": {
+          "controls": [
+            {
+              "background": {
+                "alpha": 0.65,
+                "fill": true,
+                "layer": 1,
+                "offset": [
+                  -2.0,
+                  0.0
+                ],
+                "size": [
+                  "500%+0px",
+                  "500%+0px"
+                ],
+                "texture": "textures/kid_ultrax/ui/main/main_background",
+                "type": "image"
+              }
+            },
+            {
+              "workPanel": {
+                "controls": [
+                  {
+                    "topPanel": {
+                      "anchor_from": "top_middle",
+                      "anchor_to": "bottom_middle",
+                      "controls": [
+                        {
+                          "top_image": {
+                            "anchor_from": "left_middle",
+                            "anchor_to": "left_middle",
+                            "fill": true,
+                            "layer": 1,
+                            "offset": [
+                              "0%+0px",
+                              "0%+0px"
+                            ],
+                            "size": [
+                              "95.75%+0px",
+                              "100%+0px"
+                            ],
+                            "texture": "textures/kid_ultrax/ui/main/main_background",
+                            "type": "image"
+                          }
+                        },
+                        {
+                          "label": {
+                            "anchor_from": "left_middle",
+                            "anchor_to": "left_middle",
+                            "font_type": "default",
+                            "layer": 2,
+                            "offset": [
+                              "1.2%+0px",
+                              "0%+0px"
+                            ],
+                            "text": "CODE-X",
+                            "type": "label"
+                          }
+                        },
+                        {
+                          "close_button@common.button": {
+                            "$control_alpha": 1.0,
+                            "$default_texture": "textures/kid_ultrax/ui/buttons/del",
+                            "$hover_texture": "textures/kid_ultrax/ui/buttons/del_hover",
+                            "$is_new_nine_slice": false,
+                            "$label_color": [
+                              1,
+                              1,
+                              1
+                            ],
+                            "$label_font_scale_factor": 1.0,
+                            "$label_font_size": "normal",
+                            "$label_layer": 3,
+                            "$label_offset": [
+                              0,
+                              0
+                            ],
+                            "$label_text": " ",
+                            "$nine_slice_buttom": 0,
+                            "$nine_slice_left": 0,
+                            "$nine_slice_right": 0,
+                            "$nine_slice_top": 0,
+                            "$nineslice_size": [
+                              0,
+                              0,
+                              0,
+                              0
+                            ],
+                            "$pressed_button_name": "%netease_editor_template_namespace.click",
+                            "$pressed_texture": "textures/kid_ultrax/ui/buttons/del_hover",
+                            "$texture_layer": 2,
+                            "anchor_from": "right_middle",
+                            "anchor_to": "right_middle",
+                            "bindings": [
+                              {
+                                "binding_collection_name": "",
+                                "binding_condition": "always_when_visible",
+                                "binding_type": "collection_details"
+                              }
+                            ],
+                            "button_mappings": [],
+                            "controls": [
+                              {
+                                "default@netease_editor_template_namespace.default": {}
+                              },
+                              {
+                                "hover@netease_editor_template_namespace.hover": {
+                                  "size": [
+                                    "110.0%+0.0px",
+                                    "110.0%+0.0px"
+                                  ]
+                                }
+                              },
+                              {
+                                "pressed@netease_editor_template_namespace.pressed": {
+                                  "size": [
+                                    "90.0%+0.0px",
+                                    "90.0%+0.0px"
+                                  ],
+                                  "texture": "textures/kid_ultrax/ui/buttons/del_hover"
+                                }
+                              },
+                              {
+                                "button_label@netease_editor_template_namespace.button_label": {}
+                              }
+                            ],
+                            "default_control": "default",
+                            "hover_control": "hover",
+                            "is_handle_button_move_event": true,
+                            "layer": 3,
+                            "offset": [
+                              "0%+0px",
+                              "0%+0px"
+                            ],
+                            "pressed_control": "pressed",
+                            "size": [
+                              "3.5%+0px",
+                              "100%+0px"
+                            ],
+                            "type": "button"
+                          }
+                        }
+                      ],
+                      "fill": true,
+                      "layer": 1,
+                      "offset": [
+                        "0%+0px",
+                        "0%+-2px"
+                      ],
+                      "size": [
+                        "100%+0px",
+                        "7%+0px"
+                      ],
+                      "type": "image"
+                    }
+                  },
+                  {
+                    "renderPanel": {
+                      "anchor_from": "top_right",
+                      "anchor_to": "top_right",
+                      "controls": [
+                        {
+                          "background": {
+                            "controls": [
+                              {
+                                "background2": {
+                                  "clip_direction": "left",
+                                  "clip_ratio": 0.0,
+                                  "fill": true,
+                                  "layer": 1,
+                                  "size": [
+                                    "100%+-4px",
+                                    "100%+-4px"
+                                  ],
+                                  "texture": "textures/kid_ultrax/ui/main/select_background",
+                                  "type": "image"
+                                }
+                              },
+                              {
+                                "scroll_view@common.scrolling_panel": {
+                                  "$background_nine_slice_buttom": 0,
+                                  "$background_nine_slice_left": 0,
+                                  "$background_nine_slice_right": 0,
+                                  "$background_nine_slice_top": 0,
+                                  "$background_nineslice_size": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                  ],
+                                  "$box_nine_slice_buttom": 0,
+                                  "$box_nine_slice_left": 0,
+                                  "$box_nine_slice_right": 0,
+                                  "$box_nine_slice_top": 0,
+                                  "$box_nineslice_size": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                  ],
+                                  "$is_background_nine_slice": false,
+                                  "$is_box_nine_slice": false,
+                                  "$is_track_nine_slice": false,
+                                  "$scroll_background_image_control": "netease_editor_template_namespace.scroll_background_image",
+                                  "$scroll_background_texture": "textures/kid_ultrax/ui/main/main_background",
+                                  "$scroll_box_mouse_image_control": "netease_editor_template_namespace.scroll_box_image",
+                                  "$scroll_box_texture": "textures/kid_ultrax/ui/scroll/scrollbox",
+                                  "$scroll_box_touch_image_control": "netease_editor_template_namespace.scroll_box_image",
+                                  "$scroll_track_image_control": "netease_editor_template_namespace.scroll_track_image",
+                                  "$scroll_track_texture": "textures/kid_ultrax/ui/scroll/scrollrail",
+                                  "$scrolling_content": "KID_ULTRAX_CODEX.renderPage",
+                                  "$show_background": false,
+                                  "$track_nine_slice_buttom": 0,
+                                  "$track_nine_slice_left": 0,
+                                  "$track_nine_slice_right": 0,
+                                  "$track_nine_slice_top": 0,
+                                  "$track_nineslice_size": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                  ],
+                                  "layer": 2,
+                                  "size": [
+                                    "97%+0px",
+                                    "98%+0px"
+                                  ]
+                                }
+                              }
+                            ],
+                            "fill": true,
+                            "is_new_nine_slice": true,
+                            "layer": 1,
+                            "nine_slice_buttom": 23,
+                            "nine_slice_top": 23,
+                            "offset": [
+                              "0%+0px",
+                              "0%+0px"
+                            ],
+                            "size": [
+                              "100%+0px",
+                              "100%+0px"
+                            ],
+                            "texture": "textures/kid_ultrax/ui/main/main_background",
+                            "type": "image"
+                          }
+                        }
+                      ],
+                      "layer": 14,
+                      "offset": [
+                        "0%+0px",
+                        "0%+0px"
+                      ],
+                      "size": [
+                        "70%+-4px",
+                        "100%+0px"
+                      ],
+                      "type": "panel"
+                    }
+                  },
+                  {
+                    "categoryPanel": {
+                      "anchor_from": "left_middle",
+                      "anchor_to": "left_middle",
+                      "controls": [
+                        {
+                          "selectList@common.scrolling_panel": {
+                            "$background_nine_slice_buttom": 0,
+                            "$background_nine_slice_left": 0,
+                            "$background_nine_slice_right": 0,
+                            "$background_nine_slice_top": 0,
+                            "$background_nineslice_size": [
+                              1,
+                              1,
+                              1,
+                              1
+                            ],
+                            "$box_nine_slice_buttom": 0,
+                            "$box_nine_slice_left": 0,
+                            "$box_nine_slice_right": 0,
+                            "$box_nine_slice_top": 0,
+                            "$box_nineslice_size": [
+                              0,
+                              0,
+                              0,
+                              0
+                            ],
+                            "$is_background_nine_slice": false,
+                            "$is_box_nine_slice": false,
+                            "$is_track_nine_slice": false,
+                            "$scroll_background_image_control": "netease_editor_template_namespace.scroll_background_image",
+                            "$scroll_background_texture": "textures/kid_ultrax/ui/main/main_background",
+                            "$scroll_box_mouse_image_control": "netease_editor_template_namespace.scroll_box_image",
+                            "$scroll_box_texture": "textures/kid_ultrax/ui/scroll/scrollbox",
+                            "$scroll_box_touch_image_control": "netease_editor_template_namespace.scroll_box_image",
+                            "$scroll_track_image_control": "netease_editor_template_namespace.scroll_track_image",
+                            "$scroll_track_texture": "textures/kid_ultrax/ui/scroll/scrollrail",
+                            "$scrolling_content": "KID_ULTRAX_GAMESET.optElemGrid",
+                            "$show_background": true,
+                            "$track_nine_slice_buttom": 0,
+                            "$track_nine_slice_left": 0,
+                            "$track_nine_slice_right": 0,
+                            "$track_nine_slice_top": 0,
+                            "$track_nineslice_size": [
+                              0,
+                              0,
+                              0,
+                              0
+                            ],
+                            "anchor_from": "top_left",
+                            "anchor_to": "top_left",
+                            "layer": 1,
+                            "max_size": [
+                              "default",
+                              "100%+0px"
+                            ],
+                            "offset": [
+                              "0%+0px",
+                              "0%+0px"
+                            ],
+                            "size": [
+                              "100%+0px",
+                              "100%+0px"
+                            ]
+                          }
+                        }
+                      ],
+                      "layer": 62,
+                      "size": [
+                        "15%+0px",
+                        "100%+0px"
+                      ],
+                      "type": "panel"
+                    }
+                  },
+                  {
+                    "topicPanel": {
+                      "anchor_from": "left_middle",
+                      "anchor_to": "left_middle",
+                      "controls": [
+                        {
+                          "selectList@common.scrolling_panel": {
+                            "$background_nine_slice_buttom": 0,
+                            "$background_nine_slice_left": 0,
+                            "$background_nine_slice_right": 0,
+                            "$background_nine_slice_top": 0,
+                            "$background_nineslice_size": [
+                              1,
+                              1,
+                              1,
+                              1
+                            ],
+                            "$box_nine_slice_buttom": 0,
+                            "$box_nine_slice_left": 0,
+                            "$box_nine_slice_right": 0,
+                            "$box_nine_slice_top": 0,
+                            "$box_nineslice_size": [
+                              0,
+                              0,
+                              0,
+                              0
+                            ],
+                            "$is_background_nine_slice": false,
+                            "$is_box_nine_slice": false,
+                            "$is_track_nine_slice": false,
+                            "$scroll_background_image_control": "netease_editor_template_namespace.scroll_background_image",
+                            "$scroll_background_texture": "textures/kid_ultrax/ui/main/main_background",
+                            "$scroll_box_mouse_image_control": "netease_editor_template_namespace.scroll_box_image",
+                            "$scroll_box_texture": "textures/kid_ultrax/ui/scroll/scrollbox",
+                            "$scroll_box_touch_image_control": "netease_editor_template_namespace.scroll_box_image",
+                            "$scroll_track_image_control": "netease_editor_template_namespace.scroll_track_image",
+                            "$scroll_track_texture": "textures/kid_ultrax/ui/scroll/scrollrail",
+                            "$scrolling_content": "KID_ULTRAX_GAMESET.optElemGridSub",
+                            "$show_background": true,
+                            "$track_nine_slice_buttom": 0,
+                            "$track_nine_slice_left": 0,
+                            "$track_nine_slice_right": 0,
+                            "$track_nine_slice_top": 0,
+                            "$track_nineslice_size": [
+                              0,
+                              0,
+                              0,
+                              0
+                            ],
+                            "anchor_from": "top_left",
+                            "anchor_to": "top_left",
+                            "layer": 1,
+                            "max_size": [
+                              "default",
+                              "100%+0px"
+                            ],
+                            "offset": [
+                              "0%+0px",
+                              "0%+0px"
+                            ],
+                            "size": [
+                              "100%+0px",
+                              "100%+0px"
+                            ]
+                          }
+                        }
+                      ],
+                      "layer": 77,
+                      "offset": [
+                        "15%+2px",
+                        0.0
+                      ],
+                      "size": [
+                        "15%+0px",
+                        "100%+0px"
+                      ],
+                      "type": "panel"
+                    }
+                  }
+                ],
+                "layer": 2,
+                "max_size": [
+                  "95%+0px",
+                  "default"
+                ],
+                "offset": [
+                  0.0,
+                  "2%+0px"
+                ],
+                "size": [
+                  "200%y+0px",
+                  "72%+0px"
+                ],
+                "type": "panel"
+              }
+            }
+          ],
+          "layer": 1,
+          "size": [
+            "100%+0px",
+            "100%+0px"
+          ],
+          "type": "panel",
+          "visible": true
+        }
+      }
+    ],
+    "type": "screen"
+  },
+  "namespace": "KID_ULTRAX_CODEX",
+  "renderPage": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "controls": [
+      {
+        "renderer@KID_ULTRAX_CODEX.renderText": {}
+      }
+    ],
+    "layer": 1,
+    "size": [
+      "96%+0px",
+      "100%cm+0px"
+    ],
+    "type": "panel"
+  },
+  "renderText@rich_text.RichTextPanel": {
+    "$rich_panel_bg|default": "",
+    "$rich_panel_color": [
+      1,
+      1,
+      1
+    ],
+    "$rich_panel_font_scale_factor": 1,
+    "$rich_panel_font_size": "normal",
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "size": [
+      "default",
+      100
+    ]
+  }
+}
