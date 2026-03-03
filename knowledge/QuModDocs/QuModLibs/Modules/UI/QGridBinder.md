@@ -538,6 +538,39 @@ def onClick():
     print("按钮被点击")
 ```
 
+### ⚠️ 必须在 bindFunc 中每次重新绑定按钮
+
+由于网格的**复用机制**，格子控件会被引擎回收并重新分配给不同的 index。这意味着之前绑定的按钮回调可能已经指向错误的 index。因此，**按钮回调必须在 `bindFunc`（每次渲染回调）中重新设置，而不是放在 `incrementalCallback`（增量回调）中**。
+
+```python
+# ❌ 错误用法 - 只在增量回调中绑定一次，复用后 index 会错乱
+def onIncrementalRender(self, viewPath, index):
+    self.gridBinder.setButtonClickHandler(
+        viewPath + "/btn", lambda: self.onClick(index)
+    )
+
+def onRender(self, viewPath, index):
+    # 只更新显示，没有重新绑定按钮 → 复用后点击会触发错误的 index
+    self.GetBaseUIControl(viewPath + "/content/label").asLabel().SetText(
+        self.dataList[index]
+    )
+
+# ✅ 正确用法 - 在 bindFunc 中每次都重新绑定
+def onRender(self, viewPath, index):
+    # type: (str, int) -> None
+    if index < len(self.dataList):
+        self.GetBaseUIControl(viewPath + "/content/label").asLabel().SetText(
+            self.dataList[index]
+        )
+        # 每次渲染都重新设置按钮回调，确保 index 正确
+        self.gridBinder.setButtonClickHandler(
+            viewPath + "/btn",
+            lambda: self.onClick(index)
+        )
+```
+
+> **⚠️ 千万不要尝试"优化"按钮绑定**：不要缓存已绑定的路径、不要跳过已绑定的格子、不要做任何"避免重复绑定"的优化 — 复用机制会导致所有这类优化产生 bug。每次 `bindFunc` 被调用时，都必须无条件地重新设置按钮回调。
+
 ---
 
 ## 与 bindGridConName 相关
