@@ -18,7 +18,11 @@ static const char* JSONUI_REFERENCE_TEXT = R"(
   screen    — 顶层界面容器，每个 UI 文件的入口控件
   panel     — 通用容器，用于分组和布局子控件
   image     — 图片控件，支持 texture/uv/uv_size/nineslice/clip
+              JSON 侧 texture 路径不带扩展名: "textures/ui/my_icon"
+              Python 侧 SetSprite 等 API 必须用完整路径（含扩展名）: "textures/ui/my_icon.png"
   label     — 文本控件，支持 text/color/font_size/font_scale_factor/shadow
+              font_size 取值: "small" | "middle" | "large"，【默认大小推荐为 "middle"（size：1.0）而非 "small"】
+              font_scale_factor: 浮点数缩放因子（基于 font_size 再缩放），默认 1.0
   button    — 按钮控件，含 default/hover/pressed 三态，通过 $pressed_button_name 触发回调
   stack_panel — 线性布局容器，orientation: "horizontal"|"vertical"，子控件自动排列
   grid      — 网格布局，grid_dimensions: [列数, 行数]，配合 collection_name 做集合绑定
@@ -156,13 +160,22 @@ static const char* JSONUI_REFERENCE_TEXT = R"(
         def OnClose(self, args):
             if args["TouchEvent"] == 0:
                 self.SetScreenVisible(False)
+十、参考文档
+  本速查手册仅为快速参考，完整控件属性、高级用法请查阅网易官方UI说明文档。
+  使用 read_knowledge 工具读取以下文档获取详细信息：
+    - knowledge/NeteaseGuide/mcguide/18-界面与交互/30-UI说明文档.md  （JSON UI 完整说明）
+    - knowledge/NeteaseGuide/mcguide/18-界面与交互/10-控件和控件属性.md （控件属性详解）
+    - knowledge/NeteaseGuide/mcguide/18-界面与交互/40-UIAPI文档.md  （Python UI API）
+    - knowledge/NeteaseGuide/mcguide/18-界面与交互/50-UI控件对象.md  （UI控件对象方法）
+    - knowledge/NeteaseGuide/mcguide/18-界面与交互/13-继承和自定义控件.md （继承机制）
+  遇到不确定的属性或用法时，务必先查阅上述文档。
 )";
 
 inline void register_jsonui_tools(mcp::server& srv) {
 
     // ── get_jsonui_reference ──────────────────────────
     auto ref_tool = mcp::tool_builder("get_jsonui_reference")
-        .with_description("获取 MC JSON UI 全栈速查手册（控件类型、布局、继承、绑定、Python对应、模板库、完整示例），一次调用获取全部核心知识")
+        .with_description("获取 MC JSON UI 全栈速查手册（控件类型、布局、继承、绑定、Python对应、模板库、完整示例），一次调用获取全部核心知识。详细属性请配合 read_knowledge 查阅网易UI说明文档")
         .with_read_only_hint(true).with_idempotent_hint(true).build();
 
     srv.register_tool(ref_tool, [](const mcp::json&, const std::string&) -> mcp::json {
@@ -175,7 +188,8 @@ inline void register_jsonui_tools(mcp::server& srv) {
             "生成全栈 JSON UI + Python UI 类模板。template_type: "
             "screen_basic(基础界面) | screen_list(滚动列表) | screen_grid(网格) | "
             "screen_form(表单) | screen_tabbed(标签页) | hud_overlay(HUD覆盖层) | "
-            "widget_button(按钮组件) | widget_progress(进度条组件)")
+            "widget_button(按钮组件) | widget_progress(进度条组件)。"
+            "生成后如需了解控件详细属性，请用 read_knowledge 查阅网易UI说明文档")
         .with_string_param("template_type", "模板类型", true)
         .with_string_param("namespace",     "JSON UI 命名空间，如 MY_MOD_UI", true)
         .with_string_param("mod_name",      "Python 模块名，如 mymod", true)
@@ -201,7 +215,7 @@ inline void register_jsonui_tools(mcp::server& srv) {
 
     // ── diagnose_ui ───────────────────────────────────
     auto diag_tool = mcp::tool_builder("diagnose_ui")
-        .with_description("诊断 JSON UI 文件内容中的常见错误（缺少namespace、binding_name格式、size格式、控件key重复等）")
+        .with_description("诊断 JSON UI 文件内容中的常见错误（缺少namespace、binding_name格式、size格式、控件key重复等）。修复建议可配合 read_knowledge 查阅网易UI说明文档")
         .with_string_param("json_content", "JSON UI 文件的完整文本内容", true)
         .with_read_only_hint(true).with_idempotent_hint(true).build();
 
