@@ -1,0 +1,499 @@
+{
+    // 一个自定义UI DEMO（成品），在这个成品中定义了一个游戏内容介绍页面 由2级网格列表+内容渲染组成（1级类别，2级主题，选中后渲染内容）
+
+    // 编辑测试使用的自定义界面（测试自定义控件表现的）
+    "_edit": {
+        "type": "screen",
+        "controls": [
+            {
+                "renderLabel@KID_ULTRAX_CODEX.renderText": {}
+            },
+            {
+                "_renderPage@KID_ULTRAX_CODEX.renderPage": {}
+            }
+        ]
+    },
+    // 主界面，正式使用的界面（通常命名main，但不一定，一个UI文件可以存放多个界面/自定义控件）
+    "main": {
+        "type": "screen",
+        "controls": [
+            {
+                "panel": {
+                    "type": "panel",
+                    "size": [
+                        "100%+0px",
+                        "100%+0px"
+                    ],
+                    "layer": 1,
+                    "controls": [
+                        {
+                            "background": {
+                                "type": "image",
+                                "offset": [
+                                    -2.0,
+                                    0.0
+                                ],
+                                "size": [
+                                    "500%+0px",
+                                    "500%+0px"
+                                ],
+                                "layer": 1,
+                                "alpha": 0.65,
+                                "fill": true,
+                                "texture": "textures/kid_ultrax/ui/main/main_background"
+                            }
+                        },
+                        {
+                            "workPanel": {
+                                "type": "panel",
+                                "offset": [
+                                    0.0,
+                                    "2%+0px"
+                                ],
+                                "size": [
+                                    "200%y+0px",
+                                    "72%+0px"
+                                ],
+                                "max_size": [
+                                    "95%+0px",
+                                    "default"
+                                ],
+                                "layer": 2,
+                                "controls": [
+                                    {
+                                        "topPanel": {
+                                            "type": "image",
+                                            "anchor_from": "top_middle",
+                                            "anchor_to": "bottom_middle",
+                                            "offset": [
+                                                "0%+0px",
+                                                "0%+-2px"
+                                            ],
+                                            "size": [
+                                                "100%+0px",
+                                                "7%+0px"
+                                            ],
+                                            "layer": 1,
+                                            "fill": true,
+                                            "controls": [
+                                                {
+                                                    "top_image": {
+                                                        "type": "image",
+                                                        "anchor_from": "left_middle",
+                                                        "anchor_to": "left_middle",
+                                                        "offset": [
+                                                            "0%+0px",
+                                                            "0%+0px"
+                                                        ],
+                                                        "size": [
+                                                            "95.75%+0px",
+                                                            "100%+0px"
+                                                        ],
+                                                        "layer": 1,
+                                                        "fill": true,
+                                                        "texture": "textures/kid_ultrax/ui/main/main_background"
+                                                    }
+                                                },
+                                                {
+                                                    "label": {
+                                                        "type": "label",
+                                                        "anchor_from": "left_middle",
+                                                        "anchor_to": "left_middle",
+                                                        "offset": [
+                                                            "1.2%+0px",
+                                                            "0%+0px"
+                                                        ],
+                                                        "layer": 2,
+                                                        "font_type": "default",
+                                                        "text": "CODE-X"
+                                                    }
+                                                },
+                                                {
+                                                    "close_button@common.button": {
+                                                        "type": "button",
+                                                        "$control_alpha": 1.0,
+                                                        "$default_texture": "textures/kid_ultrax/ui/buttons/del",
+                                                        "$hover_texture": "textures/kid_ultrax/ui/buttons/del_hover",
+                                                        "$is_new_nine_slice": false,
+                                                        "$label_color": [
+                                                            1,
+                                                            1,
+                                                            1
+                                                        ],
+                                                        "$label_font_scale_factor": 1.0,
+                                                        "$label_font_size": "normal",
+                                                        "$label_layer": 3,
+                                                        "$label_offset": [
+                                                            0,
+                                                            0
+                                                        ],
+                                                        "$label_text": " ",
+                                                        "$nine_slice_buttom": 0,
+                                                        "$nine_slice_left": 0,
+                                                        "$nine_slice_right": 0,
+                                                        "$nine_slice_top": 0,
+                                                        "$nineslice_size": [
+                                                            0,
+                                                            0,
+                                                            0,
+                                                            0
+                                                        ],
+                                                        "$pressed_button_name": "%netease_editor_template_namespace.click",
+                                                        "$pressed_texture": "textures/kid_ultrax/ui/buttons/del_hover",
+                                                        "$texture_layer": 2,
+                                                        "anchor_from": "right_middle",
+                                                        "anchor_to": "right_middle",
+                                                        "offset": [
+                                                            "0%+0px",
+                                                            "0%+0px"
+                                                        ],
+                                                        "size": [
+                                                            "3.5%+0px",
+                                                            "100%+0px"
+                                                        ],
+                                                        "layer": 3,
+                                                        "button_mappings": [],
+                                                        "default_control": "default",
+                                                        "hover_control": "hover",
+                                                        "is_handle_button_move_event": true,
+                                                        "pressed_control": "pressed",
+                                                        "bindings": [
+                                                            {
+                                                                "binding_type": "collection_details",
+                                                                "binding_collection_name": "",
+                                                                "binding_condition": "always_when_visible"
+                                                            }
+                                                        ],
+                                                        "controls": [
+                                                            {
+                                                                "default@netease_editor_template_namespace.default": {}
+                                                            },
+                                                            {
+                                                                "hover@netease_editor_template_namespace.hover": {
+                                                                    "size": [
+                                                                        "110.0%+0.0px",
+                                                                        "110.0%+0.0px"
+                                                                    ]
+                                                                }
+                                                            },
+                                                            {
+                                                                "pressed@netease_editor_template_namespace.pressed": {
+                                                                    "size": [
+                                                                        "90.0%+0.0px",
+                                                                        "90.0%+0.0px"
+                                                                    ],
+                                                                    "texture": "textures/kid_ultrax/ui/buttons/del_hover"
+                                                                }
+                                                            },
+                                                            {
+                                                                "button_label@netease_editor_template_namespace.button_label": {}
+                                                            }
+                                                        ]
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "renderPanel": {
+                                            "type": "panel",
+                                            "anchor_from": "top_right",
+                                            "anchor_to": "top_right",
+                                            "offset": [
+                                                "0%+0px",
+                                                "0%+0px"
+                                            ],
+                                            "size": [
+                                                "70%+-4px",
+                                                "100%+0px"
+                                            ],
+                                            "layer": 14,
+                                            "controls": [
+                                                {
+                                                    "background": {
+                                                        "type": "image",
+                                                        "offset": [
+                                                            "0%+0px",
+                                                            "0%+0px"
+                                                        ],
+                                                        "size": [
+                                                            "100%+0px",
+                                                            "100%+0px"
+                                                        ],
+                                                        "layer": 1,
+                                                        "fill": true,
+                                                        "is_new_nine_slice": true,
+                                                        "nine_slice_buttom": 23,
+                                                        "nine_slice_top": 23,
+                                                        "texture": "textures/kid_ultrax/ui/main/main_background",
+                                                        "controls": [
+                                                            {
+                                                                "background2": {
+                                                                    "type": "image",
+                                                                    "size": [
+                                                                        "100%+-4px",
+                                                                        "100%+-4px"
+                                                                    ],
+                                                                    "layer": 1,
+                                                                    "clip_direction": "left",
+                                                                    "clip_ratio": 0.0,
+                                                                    "fill": true,
+                                                                    "texture": "textures/kid_ultrax/ui/main/select_background"
+                                                                }
+                                                            },
+                                                            {
+                                                                "scroll_view@common.scrolling_panel": {
+                                                                    "$background_nine_slice_buttom": 0,
+                                                                    "$background_nine_slice_left": 0,
+                                                                    "$background_nine_slice_right": 0,
+                                                                    "$background_nine_slice_top": 0,
+                                                                    "$background_nineslice_size": [
+                                                                        0,
+                                                                        0,
+                                                                        0,
+                                                                        0
+                                                                    ],
+                                                                    "$box_nine_slice_buttom": 0,
+                                                                    "$box_nine_slice_left": 0,
+                                                                    "$box_nine_slice_right": 0,
+                                                                    "$box_nine_slice_top": 0,
+                                                                    "$box_nineslice_size": [
+                                                                        0,
+                                                                        0,
+                                                                        0,
+                                                                        0
+                                                                    ],
+                                                                    "$is_background_nine_slice": false,
+                                                                    "$is_box_nine_slice": false,
+                                                                    "$is_track_nine_slice": false,
+                                                                    "$scroll_background_image_control": "netease_editor_template_namespace.scroll_background_image",
+                                                                    "$scroll_background_texture": "textures/kid_ultrax/ui/main/main_background",
+                                                                    "$scroll_box_mouse_image_control": "netease_editor_template_namespace.scroll_box_image",
+                                                                    "$scroll_box_texture": "textures/kid_ultrax/ui/scroll/scrollbox",
+                                                                    "$scroll_box_touch_image_control": "netease_editor_template_namespace.scroll_box_image",
+                                                                    "$scroll_track_image_control": "netease_editor_template_namespace.scroll_track_image",
+                                                                    "$scroll_track_texture": "textures/kid_ultrax/ui/scroll/scrollrail",
+                                                                    "$scrolling_content": "KID_ULTRAX_CODEX.renderPage",
+                                                                    "$show_background": false,
+                                                                    "$track_nine_slice_buttom": 0,
+                                                                    "$track_nine_slice_left": 0,
+                                                                    "$track_nine_slice_right": 0,
+                                                                    "$track_nine_slice_top": 0,
+                                                                    "$track_nineslice_size": [
+                                                                        0,
+                                                                        0,
+                                                                        0,
+                                                                        0
+                                                                    ],
+                                                                    "layer": 2,
+                                                                    "size": [
+                                                                        "97%+0px",
+                                                                        "98%+0px"
+                                                                    ]
+                                                                }
+                                                            }
+                                                        ]
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "categoryPanel": {
+                                            "type": "panel",
+                                            "anchor_from": "left_middle",
+                                            "anchor_to": "left_middle",
+                                            "size": [
+                                                "15%+0px",
+                                                "100%+0px"
+                                            ],
+                                            "layer": 62,
+                                            "controls": [
+                                                {
+                                                    "selectList@common.scrolling_panel": {
+                                                        "$background_nine_slice_buttom": 0,
+                                                        "$background_nine_slice_left": 0,
+                                                        "$background_nine_slice_right": 0,
+                                                        "$background_nine_slice_top": 0,
+                                                        "$background_nineslice_size": [
+                                                            1,
+                                                            1,
+                                                            1,
+                                                            1
+                                                        ],
+                                                        "$box_nine_slice_buttom": 0,
+                                                        "$box_nine_slice_left": 0,
+                                                        "$box_nine_slice_right": 0,
+                                                        "$box_nine_slice_top": 0,
+                                                        "$box_nineslice_size": [
+                                                            0,
+                                                            0,
+                                                            0,
+                                                            0
+                                                        ],
+                                                        "$is_background_nine_slice": false,
+                                                        "$is_box_nine_slice": false,
+                                                        "$is_track_nine_slice": false,
+                                                        "$scroll_background_image_control": "netease_editor_template_namespace.scroll_background_image",
+                                                        "$scroll_background_texture": "textures/kid_ultrax/ui/main/main_background",
+                                                        "$scroll_box_mouse_image_control": "netease_editor_template_namespace.scroll_box_image",
+                                                        "$scroll_box_texture": "textures/kid_ultrax/ui/scroll/scrollbox",
+                                                        "$scroll_box_touch_image_control": "netease_editor_template_namespace.scroll_box_image",
+                                                        "$scroll_track_image_control": "netease_editor_template_namespace.scroll_track_image",
+                                                        "$scroll_track_texture": "textures/kid_ultrax/ui/scroll/scrollrail",
+                                                        "$scrolling_content": "KID_ULTRAX_GAMESET.optElemGrid",
+                                                        "$show_background": true,
+                                                        "$track_nine_slice_buttom": 0,
+                                                        "$track_nine_slice_left": 0,
+                                                        "$track_nine_slice_right": 0,
+                                                        "$track_nine_slice_top": 0,
+                                                        "$track_nineslice_size": [
+                                                            0,
+                                                            0,
+                                                            0,
+                                                            0
+                                                        ],
+                                                        "anchor_from": "top_left",
+                                                        "anchor_to": "top_left",
+                                                        "layer": 1,
+                                                        "max_size": [
+                                                            "default",
+                                                            "100%+0px"
+                                                        ],
+                                                        "offset": [
+                                                            "0%+0px",
+                                                            "0%+0px"
+                                                        ],
+                                                        "size": [
+                                                            "100%+0px",
+                                                            "100%+0px"
+                                                        ]
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "topicPanel": {
+                                            "type": "panel",
+                                            "anchor_from": "left_middle",
+                                            "anchor_to": "left_middle",
+                                            "offset": [
+                                                "15%+2px",
+                                                0.0
+                                            ],
+                                            "size": [
+                                                "15%+0px",
+                                                "100%+0px"
+                                            ],
+                                            "layer": 77,
+                                            "controls": [
+                                                {
+                                                    "selectList@common.scrolling_panel": {
+                                                        "$background_nine_slice_buttom": 0,
+                                                        "$background_nine_slice_left": 0,
+                                                        "$background_nine_slice_right": 0,
+                                                        "$background_nine_slice_top": 0,
+                                                        "$background_nineslice_size": [
+                                                            1,
+                                                            1,
+                                                            1,
+                                                            1
+                                                        ],
+                                                        "$box_nine_slice_buttom": 0,
+                                                        "$box_nine_slice_left": 0,
+                                                        "$box_nine_slice_right": 0,
+                                                        "$box_nine_slice_top": 0,
+                                                        "$box_nineslice_size": [
+                                                            0,
+                                                            0,
+                                                            0,
+                                                            0
+                                                        ],
+                                                        "$is_background_nine_slice": false,
+                                                        "$is_box_nine_slice": false,
+                                                        "$is_track_nine_slice": false,
+                                                        "$scroll_background_image_control": "netease_editor_template_namespace.scroll_background_image",
+                                                        "$scroll_background_texture": "textures/kid_ultrax/ui/main/main_background",
+                                                        "$scroll_box_mouse_image_control": "netease_editor_template_namespace.scroll_box_image",
+                                                        "$scroll_box_texture": "textures/kid_ultrax/ui/scroll/scrollbox",
+                                                        "$scroll_box_touch_image_control": "netease_editor_template_namespace.scroll_box_image",
+                                                        "$scroll_track_image_control": "netease_editor_template_namespace.scroll_track_image",
+                                                        "$scroll_track_texture": "textures/kid_ultrax/ui/scroll/scrollrail",
+                                                        "$scrolling_content": "KID_ULTRAX_GAMESET.optElemGridSub",
+                                                        "$show_background": true,
+                                                        "$track_nine_slice_buttom": 0,
+                                                        "$track_nine_slice_left": 0,
+                                                        "$track_nine_slice_right": 0,
+                                                        "$track_nine_slice_top": 0,
+                                                        "$track_nineslice_size": [
+                                                            0,
+                                                            0,
+                                                            0,
+                                                            0
+                                                        ],
+                                                        "anchor_from": "top_left",
+                                                        "anchor_to": "top_left",
+                                                        "layer": 1,
+                                                        "max_size": [
+                                                            "default",
+                                                            "100%+0px"
+                                                        ],
+                                                        "offset": [
+                                                            "0%+0px",
+                                                            "0%+0px"
+                                                        ],
+                                                        "size": [
+                                                            "100%+0px",
+                                                            "100%+0px"
+                                                        ]
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    // 整个JSONUI的命名空间（避免MOD冲突）
+    "namespace": "KID_ULTRAX_CODEX",
+
+    // 一个自定义控件 方便复用/必要的引用（如列表引用网格引用控件）
+    "renderPage": {
+        "type": "panel",
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "size": [
+            "96%+0px",
+            "100%cm+0px"
+        ],
+        "layer": 1,
+        "controls": [
+            {
+                "renderer@KID_ULTRAX_CODEX.renderText": {}
+            }
+        ]
+    },
+    // 同样是自定义控件 方便复用
+    "renderText@rich_text.RichTextPanel": {
+        "$rich_panel_bg|default": "",
+        "$rich_panel_color": [
+            1,
+            1,
+            1
+        ],
+        "$rich_panel_font_scale_factor": 1,
+        "$rich_panel_font_size": "normal",
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "size": [
+            "default",
+            100
+        ]
+    }
+}
