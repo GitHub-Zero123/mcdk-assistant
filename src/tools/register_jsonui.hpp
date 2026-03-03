@@ -245,7 +245,7 @@ static const char* JSONUI_REFERENCE_TEXT = R"(
                  add_ctrl(添加控件), remove_ctrl(删除控件), replace_ctrl(替换控件),
                  merge_ctrl(合并属性到子控件，保留子控件树，可选new_key修改继承),
                  add_top(添加顶层), remove_top(删除顶层)
-       自动备份 .bak 文件，原子执行（失败则不写入）
+       原子执行（失败则不写入）
   典型工作流: dump_ui_tree(search) → patch_ui_file → diagnose_ui
 
 十一、参考文档
@@ -737,10 +737,9 @@ inline void register_jsonui_tools(mcp::server& srv) {
             "add_ctrl(添加控件), remove_ctrl(删除控件), replace_ctrl(替换控件), "
             "merge_ctrl(合并属性到子控件，保留其子控件树和未指定属性，可选new_key修改继承), "
             "add_top(添加顶层控件), remove_top(删除顶层控件)。"
-            "自动创建 .bak 备份，原子执行（全部成功才写入）")
+            "原子执行（全部成功才写入）")
         .with_string_param("file_path", "JSON UI 文件绝对路径", true)
         .with_array_param("patches", "补丁操作数组", "object")
-        .with_boolean_param("backup", "是否创建 .bak 备份，默认true", false)
         .build();
 
     srv.register_tool(patch_tool, [](const mcp::json& params, const std::string&) -> mcp::json {
@@ -751,11 +750,7 @@ inline void register_jsonui_tools(mcp::server& srv) {
         if (!params.contains("patches") || !params["patches"].is_array())
             throw mcp::mcp_exception(mcp::error_code::invalid_params, "patches 必须是数组");
 
-        bool backup = true;
-        if (params.contains("backup") && params["backup"].is_boolean())
-            backup = params["backup"].get<bool>();
-
-        auto result = apply_ui_patches(file_path, params["patches"], backup);
+        auto result = apply_ui_patches(file_path, params["patches"]);
 
         if (!result.success) {
             return {{"content", mcp::json::array({{
@@ -767,8 +762,7 @@ inline void register_jsonui_tools(mcp::server& srv) {
 
         return {{"content", mcp::json::array({{
             {"type","text"},
-            {"text", "成功应用 " + std::to_string(result.applied_count) + " 个补丁到: " + file_path +
-                     (backup ? "\n备份: " + file_path + ".bak" : "")}
+            {"text", "成功应用 " + std::to_string(result.applied_count) + " 个补丁到: " + file_path}
         }})}};
     });
 }

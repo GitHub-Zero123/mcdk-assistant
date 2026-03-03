@@ -352,8 +352,7 @@ static bool apply_one_patch(json& root, const json& patch, std::string& error) {
 
 // ── 主入口 ──
 PatchResult apply_ui_patches(const std::string& file_path,
-                              const json& patches,
-                              bool backup) {
+                              const json& patches) {
     PatchResult result{true, 0, -1, ""};
 
     // 读取文件
@@ -395,13 +394,6 @@ PatchResult apply_ui_patches(const std::string& file_path,
             return result; // 原子性：失败则不写入
         }
         result.applied_count++;
-    }
-
-    // 创建备份（用原始内容写入 .bak）
-    if (backup) {
-        std::string bak_path = file_path + ".bak";
-        std::ofstream bak(bak_path, std::ios::binary | std::ios::trunc);
-        if (bak.is_open()) bak << content;
     }
 
     // 写回文件（缩进 2 格）

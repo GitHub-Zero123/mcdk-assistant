@@ -25,7 +25,6 @@ struct PatchResult {
 ///   { "op": "add_top",     "key": "my_component", "value": {...} }
 ///   { "op": "remove_top",  "key": "my_component" }
 PatchResult apply_ui_patches(const std::string& file_path,
-                              const nlohmann::json& patches,
-                              bool backup = true);
+                              const nlohmann::json& patches);
 
 } // namespace mcdk
