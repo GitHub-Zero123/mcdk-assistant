@@ -18,8 +18,7 @@ static const char* JSONUI_REFERENCE_TEXT = R"(
   screen    — 顶层界面容器，每个 UI 文件的入口控件
   panel     — 通用容器，用于分组和布局子控件
   image     — 图片控件，支持 texture/uv/uv_size/nineslice/clip
-              JSON 侧 texture 路径不带扩展名: "textures/ui/my_icon"
-              Python 侧 SetSprite 等 API 必须用完整路径（含扩展名）: "textures/ui/my_icon.png"
+               JSON 侧 texture 路径不带扩展名: "textures/ui/my_icon"
   label     — 文本控件，支持 text/color/font_size/font_scale_factor/shadow
               font_size 取值: "small" | "middle" | "large"，【默认大小推荐为 "middle"（size：1.0）而非 "small"】
               font_scale_factor: 浮点数缩放因子（基于 font_size 再缩放），默认 1.0

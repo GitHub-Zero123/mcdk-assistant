@@ -68,8 +68,8 @@ inline void register_pixel_art_tools(mcp::server& srv) {
     // canvas_load
     srv.register_tool(
         mcp::tool_builder("canvas_load")
-            .with_description("从PNG文件加载画布（支持RGBA，用于修改已有贴图）")
-            .with_string_param("path", "PNG文件路径", true)
+            .with_description("从PNG文件加载画布（支持RGBA，用于修改已有贴图）。path必须为绝对路径")
+            .with_string_param("path", "PNG文件绝对路径（如 D:/project/textures/ui/icon.png）", true)
             .build(),
         [&canvas](const mcp::json& p, const std::string&) -> mcp::json {
             try {
@@ -83,8 +83,8 @@ inline void register_pixel_art_tools(mcp::server& srv) {
     // canvas_save
     srv.register_tool(
         mcp::tool_builder("canvas_save")
-            .with_description("将当前画布保存为PNG文件（含Alpha通道，无损）")
-            .with_string_param("path", "输出PNG路径", true)
+            .with_description("将当前画布保存为PNG文件（含Alpha通道，无损）。path必须为绝对路径")
+            .with_string_param("path", "输出PNG绝对路径（如 D:/project/textures/ui/icon.png）", true)
             .build(),
         [&canvas](const mcp::json& p, const std::string&) -> mcp::json {
             try {
@@ -384,7 +384,7 @@ inline void register_pixel_art_tools(mcp::server& srv) {
     srv.register_tool(
         mcp::tool_builder("extract_palette")
             .with_description("从PNG文件提取主要颜色调色板（Median-Cut算法）。max_colors默认16")
-            .with_string_param("path","PNG文件路径，不传则分析当前画布",false)
+            .with_string_param("path","PNG文件绝对路径（如 D:/project/textures/ui/icon.png），不传则分析当前画布",false)
             .with_number_param("max_colors","最大颜色数(1-256)，默认16",false)
             .with_read_only_hint(true).build(),
         [&canvas](const mcp::json& p, const std::string&) -> mcp::json {
