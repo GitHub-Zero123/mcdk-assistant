@@ -287,7 +287,66 @@ static bool apply_one_patch(json& root, const json& patch, std::string& error) {
         return true;
     }
 
-    error = "未知操作: " + op + "。支持: set_prop, remove_prop, add_ctrl, remove_ctrl, replace_ctrl, add_top, remove_top";
+    // ── merge_ctrl: 合并属性到子控件（保留其原有子控件树和未指定的属性） ──
+    if (op == "merge_ctrl") {
+        std::string path = patch.value("path", "");
+        json* node = resolve_path(root, path, error);
+        if (!node) return false;
+        std::string key = patch.value("key", "");
+        if (key.empty()) {
+            error = "merge_ctrl 需要 key";
+            return false;
+        }
+        if (!patch.contains("props") || !patch["props"].is_object()) {
+            error = "merge_ctrl 需要 props 对象";
+            return false;
+        }
+        if (!node->contains("controls") || !(*node)["controls"].is_array()) {
+            error = "目标控件没有 controls 数组";
+            return false;
+        }
+        auto& controls = (*node)["controls"];
+        int idx = find_ctrl_index(controls, key);
+        if (idx < 0) {
+            error = "controls 中未找到: " + key;
+            return false;
+        }
+        // 找到原始完整 key（含 @ 继承）
+        std::string original_key;
+        json* target = nullptr;
+        for (auto it = controls[idx].begin(); it != controls[idx].end(); ++it) {
+            std::string k = it.key();
+            auto at = k.find('@');
+            std::string bare = (at != std::string::npos) ? k.substr(0, at) : k;
+            if (bare == key) {
+                original_key = it.key();
+                target = &it.value();
+                break;
+            }
+        }
+        if (!target || !target->is_object()) {
+            error = "目标控件值不是对象: " + key;
+            return false;
+        }
+        // 如果指定了新的继承 key（含@），替换整个 key
+        std::string new_key = patch.value("new_key", "");
+        if (!new_key.empty() && new_key != original_key) {
+            json saved = *target; // 保存当前值
+            for (auto& [k, v] : patch["props"].items()) {
+                if (k != "controls") saved[k] = v; // 合并属性，跳过 controls
+            }
+            controls[idx].erase(original_key);
+            controls[idx][new_key] = saved;
+        } else {
+            // 直接合并属性到 target，保留 controls 不动
+            for (auto& [k, v] : patch["props"].items()) {
+                if (k != "controls") (*target)[k] = v;
+            }
+        }
+        return true;
+    }
+
+    error = "未知操作: " + op + "。支持: set_prop, remove_prop, add_ctrl, remove_ctrl, replace_ctrl, merge_ctrl, add_top, remove_top";
     return false;
 }
 

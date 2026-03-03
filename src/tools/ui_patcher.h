@@ -21,6 +21,7 @@ struct PatchResult {
 ///   { "op": "add_ctrl",    "path": "main/panel", "key": "newBtn", "value": {...}, "after": "topPanel" }
 ///   { "op": "remove_ctrl", "path": "main/panel", "key": "oldPanel" }
 ///   { "op": "replace_ctrl","path": "main/panel", "key": "topPanel", "value": {...} }
+///   { "op": "merge_ctrl",  "path": "main/panel", "key": "topPanel", "props": {...}, "new_key": "..." }
 ///   { "op": "add_top",     "key": "my_component", "value": {...} }
 ///   { "op": "remove_top",  "key": "my_component" }
 PatchResult apply_ui_patches(const std::string& file_path,

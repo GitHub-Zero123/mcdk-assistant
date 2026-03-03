@@ -70,6 +70,40 @@ static const char* JSONUI_REFERENCE_TEXT = R"(
   clips_children: true — 裁剪超出边界的子控件
   visible: true/false — 控件可见性
 
+  ★ 布局最佳实践（必须遵守）:
+  【size 规则】
+    - 外层/父级容器优先使用百分比: ["100%", "100%"] 或 ["100%y", "80%"]
+    - 移动端 Y 轴几乎必定 < X 轴，所以宽度用 "%y" 基准可避免越界:
+      size: ["200%y+0px", "72%+0px"]  ← 宽度=2倍高度=不会超出屏幕
+    - 内部小控件可用 百分比+少量像素修正: ["100%+0px", "7%+0px"]
+    - 尽量避免纯固定像素(如 [200, 100])，这在不同分辨率下不适配
+    - offset 同理优先用百分比: ["0%+0px", "2%+0px"]
+
+  【图层(layer)规则】
+    - layer 越大越靠前（覆盖在上面）
+    - button 控件的 label/text 子控件 layer 必须 > 同级 image 子控件的 layer
+      否则文字会被背景图遮挡不可见
+    - 推荐层级: 背景 image=1, label/text=2, 交互按钮=3
+    - 同一个 controls 数组内的控件，后面的默认覆盖前面的（同 layer 时）
+    - button 三态: 子控件命名 default、hover、pressed（或继承 default@xxx.template）
+      属性 default_control/hover_control/pressed_control 指定状态对应的子控件名
+    - 按钮文本子控件推荐命名 button_label（网易标准命名）
+
+  【stack_panel 布局注意】
+    - stack_panel 内 anchor/offset 不生效，子控件按 orientation 方向依次排列
+    - 用 size:[0,0] 的空 panel 做间距挤压，适合信息流/列表排版
+    - 子控件 size 中排列方向维度用 "fill" 或固定值，另一维度用百分比
+
+  【大小约束】
+    - 子控件 size 不应大于父控件（超出会被裁剪或不可见）
+    - 常见错误：父控件 size=[0,0] 但子控件有实际大小 → 子控件不显示
+    - 父控件用 "100%cm"（child max）可自动适配子控件最大尺寸
+
+  【通用原则】
+    - 所有 screen 类型的 main 控件 type 必须是 "screen" 而非 "panel"
+    - anchor_from 和 anchor_to 必须成对设置（不设或都不设）
+    - 九宫切图 ($is_new_nine_slice) 用于拉伸不变形，按钮/输入框优先使用
+
 三、继承与变量系统
   继承写法: "name@namespace.parent": { /* 覆写属性 */ }
   变量定义: "$var": "value"
@@ -184,21 +218,26 @@ static const char* JSONUI_REFERENCE_TEXT = R"(
                 self.SetScreenVisible(False)
 十、UI 文件分析与修改工具使用指引
   【优先】在修改已有 UI 文件前，务必先调用以下工具了解结构：
-    1. dump_ui_tree(file_path) — 一次性获取完整控件结构树，快速掌握全局布局
+    1. dump_ui_tree(file_path) — 一次性获取完整控件结构树 + 统计摘要
        - max_depth: 限制展开层数（大文件建议先用 2-3 层）
        - root_path: 从指定路径开始展开（如 "main/panel"）
-       - search: 按关键词/正则搜索控件名，定位目标控件
-    2. query_ui_control(file_path, path) — 查看指定控件的详细属性
-    3. diagnose_ui(file_path) — 检查文件格式错误
+       - search: 按关键词/正则搜索控件名，输出匹配控件的完整属性+路径+子控件列表
+         搜索结果自带面包屑路径，一次调用即可获取深层控件全部信息
+       - 输出末尾包含统计：控件总数、最大深度、搜索命中数
+    2. query_ui_control(file_path, path) — 查看指定路径控件的详细属性
+    3. diagnose_ui(file_path) — 全面检查文件问题
+       检查项：namespace缺失、controls key重复、type有效性、size格式、
+              anchor_from/to成对、binding_name格式、@引用存在性
   以上工具均支持 file_path 参数（传文件绝对路径），大文件无需传入完整内容。
 
   【修改】对大型 UI 文件使用增量修改，避免重写整个文件：
     4. patch_ui_file(file_path, patches) — 精确修改指定控件，不影响其他部分
        支持操作: set_prop(设置属性), remove_prop(删除属性),
                  add_ctrl(添加控件), remove_ctrl(删除控件), replace_ctrl(替换控件),
+                 merge_ctrl(合并属性到子控件，保留子控件树，可选new_key修改继承),
                  add_top(添加顶层), remove_top(删除顶层)
        自动备份 .bak 文件，原子执行（失败则不写入）
-  典型工作流: dump_ui_tree → query_ui_control → patch_ui_file → diagnose_ui
+  典型工作流: dump_ui_tree(search) → patch_ui_file → diagnose_ui
 
 十一、参考文档
   本速查手册仅为快速参考，完整控件属性、高级用法请查阅网易官方UI说明文档。
@@ -255,7 +294,8 @@ inline void register_jsonui_tools(mcp::server& srv) {
 
     // ── diagnose_ui ───────────────────────────────────
     auto diag_tool = mcp::tool_builder("diagnose_ui")
-        .with_description("诊断 JSON UI 文件中的常见错误（缺少namespace、binding_name格式、size格式、控件key重复等）。"
+        .with_description("诊断 JSON UI 文件中的常见错误（缺少namespace、binding_name格式、size格式、控件key重复、"
+                          "type有效性、anchor成对、button子控件图层遮挡、大固定像素建议等）。"
                           "支持 file_path（文件绝对路径）或 json_content（文本内容）二选一，大文件推荐用 file_path。"
                           "修复建议可配合 read_knowledge 查阅网易UI说明文档")
         .with_string_param("file_path", "JSON UI 文件绝对路径（与 json_content 二选一，大文件推荐）", false)
@@ -420,13 +460,19 @@ inline void register_jsonui_tools(mcp::server& srv) {
         std::string search_pattern;
         std::regex search_regex;
         bool has_search;
-        int match_context; // 匹配时向上/下扩展的层数
+        int total_controls;  // 统计：控件总数
+        int max_tree_depth;  // 统计：最大深度
+        int search_hits;     // 统计：搜索命中数
     };
 
     auto dump_tree_node = [](auto& self, const nlohmann::json& node,
                               const std::string& key, const std::string& prefix,
                               const std::string& child_prefix, int depth,
                               TreeCtx& ctx, const std::string& full_path) -> void {
+        // 统计
+        ctx.total_controls++;
+        if (depth > ctx.max_tree_depth) ctx.max_tree_depth = depth;
+
         // 构建当前节点描述
         std::string desc = key;
         if (node.is_object()) {
@@ -441,48 +487,67 @@ inline void register_jsonui_tools(mcp::server& srv) {
             if (!extras.empty()) desc += extras;
         }
 
-        // 搜索模式：检查是否匹配
+        // 搜索模式：匹配控件名、路径、及属性值内容
         bool matches = true;
         if (ctx.has_search) {
+            auto at_pos = key.find('@');
+            std::string bare_key = (at_pos != std::string::npos) ? key.substr(0, at_pos) : key;
             try {
-                matches = std::regex_search(key, ctx.search_regex) ||
+                matches = std::regex_search(bare_key, ctx.search_regex) ||
                           std::regex_search(full_path, ctx.search_regex);
             } catch (...) {
-                matches = (key.find(ctx.search_pattern) != std::string::npos ||
+                matches = (bare_key.find(ctx.search_pattern) != std::string::npos ||
                            full_path.find(ctx.search_pattern) != std::string::npos);
+            }
+            // 如果名称/路径不匹配，再检查属性值内容
+            if (!matches && node.is_object()) {
+                for (auto it = node.begin(); it != node.end() && !matches; ++it) {
+                    if (it.key() == "controls") continue; // 跳过子控件数组
+                    std::string val = it.value().dump();
+                    try {
+                        matches = std::regex_search(val, ctx.search_regex);
+                    } catch (...) {
+                        matches = (val.find(ctx.search_pattern) != std::string::npos);
+                    }
+                }
             }
         }
 
         // 无搜索 或 匹配时输出
         if (!ctx.has_search || matches) {
-            ctx.output += prefix + desc + "\n";
-            // 搜索模式命中时：额外输出完整属性 + 子控件列表（类似 query_ui_control）
-            if (ctx.has_search && matches && node.is_object()) {
-                std::string detail_prefix = child_prefix + "  ";
-                for (auto it = node.begin(); it != node.end(); ++it) {
-                    if (it.key() == "controls") {
-                        ctx.output += detail_prefix + "controls: [";
-                        bool first = true;
-                        if (it.value().is_array()) {
-                            for (const auto& child : it.value()) {
-                                if (!child.is_object()) continue;
-                                for (auto ct = child.begin(); ct != child.end(); ++ct) {
-                                    if (!first) ctx.output += ", ";
-                                    ctx.output += ct.key();
-                                    if (ct.value().is_object() && ct.value().contains("type"))
-                                        ctx.output += "(" + ct.value()["type"].get<std::string>() + ")";
-                                    first = false;
+            if (ctx.has_search && matches) {
+                ctx.search_hits++;
+                // 搜索模式命中：输出面包屑 + 属性详情
+                ctx.output += "── [" + full_path + "] ──\n";
+                ctx.output += desc + "\n";
+                if (node.is_object()) {
+                    for (auto it = node.begin(); it != node.end(); ++it) {
+                        if (it.key() == "controls") {
+                            ctx.output += "  controls: [";
+                            bool first = true;
+                            if (it.value().is_array()) {
+                                for (const auto& child : it.value()) {
+                                    if (!child.is_object()) continue;
+                                    for (auto ct = child.begin(); ct != child.end(); ++ct) {
+                                        if (!first) ctx.output += ", ";
+                                        ctx.output += ct.key();
+                                        if (ct.value().is_object() && ct.value().contains("type"))
+                                            ctx.output += "(" + ct.value()["type"].get<std::string>() + ")";
+                                        first = false;
+                                    }
                                 }
                             }
+                            ctx.output += "]\n";
+                        } else {
+                            std::string val = it.value().dump();
+                            if (val.size() > 120) val = val.substr(0, 117) + "...";
+                            ctx.output += "  " + it.key() + ": " + val + "\n";
                         }
-                        ctx.output += "]\n";
-                    } else {
-                        std::string val = it.value().dump();
-                        if (val.size() > 120) val = val.substr(0, 117) + "...";
-                        ctx.output += detail_prefix + it.key() + ": " + val + "\n";
                     }
                 }
-                ctx.output += detail_prefix + "path: " + full_path + "\n";
+                ctx.output += "\n";
+            } else {
+                ctx.output += prefix + desc + "\n";
             }
         }
 
@@ -510,7 +575,6 @@ inline void register_jsonui_tools(mcp::server& srv) {
             bool last = (i == children.size() - 1);
             std::string p = child_prefix + (last ? "└─ " : "├─ ");
             std::string cp = child_prefix + (last ? "   " : "│  ");
-            std::string fp = full_path + "/" + children[i].first;
             // 去掉 @ 后缀用于路径
             auto at = children[i].first.find('@');
             std::string bare = (at != std::string::npos) ? children[i].first.substr(0, at) : children[i].first;
@@ -524,13 +588,14 @@ inline void register_jsonui_tools(mcp::server& srv) {
             "生成 JSON UI 文件的控件结构树（带缩进的树状图）。"
             "支持 file_path 或 json_content 二选一。"
             "可通过 max_depth 限制展开层数，root_path 指定从哪个控件开始，"
-            "search 按正则/关键词匹配控件名并输出匹配结果及完整属性详情。"
+            "search 按正则/关键词匹配控件名/路径/属性值内容，输出匹配控件的完整属性详情。"
+            "输出末尾含统计摘要（控件数/深度/命中数）。"
             "【推荐在开始修改 UI 文件前先调用此工具了解整体结构】")
         .with_string_param("file_path", "JSON UI 文件绝对路径（与 json_content 二选一，大文件推荐）", false)
         .with_string_param("json_content", "JSON UI 文件的完整文本内容（与 file_path 二选一）", false)
         .with_string_param("root_path", "从指定路径开始展开，如 \"main/panel\"。不传则从所有顶层控件开始", false)
         .with_number_param("max_depth", "最大展开深度（0=无限制，默认0）", false)
-        .with_string_param("search", "搜索关键词或正则表达式，匹配控件名/路径，只输出匹配的控件及其完整属性和子控件列表", false)
+        .with_string_param("search", "搜索关键词或正则表达式，匹配控件名/路径/属性值内容，只输出匹配的控件及其完整属性和子控件列表", false)
         .with_read_only_hint(true).with_idempotent_hint(true).build();
 
     srv.register_tool(tree_tool, [dump_tree_node](const mcp::json& params, const std::string&) -> mcp::json {
@@ -552,6 +617,9 @@ inline void register_jsonui_tools(mcp::server& srv) {
         ctx.max_depth = max_depth;
         ctx.search_pattern = search;
         ctx.has_search = !search.empty();
+        ctx.total_controls = 0;
+        ctx.max_tree_depth = 0;
+        ctx.search_hits = 0;
         if (ctx.has_search) {
             try { ctx.search_regex = std::regex(search, std::regex::icase); }
             catch (...) { /* fallback to string find */ }
@@ -636,8 +704,18 @@ inline void register_jsonui_tools(mcp::server& srv) {
             }
         }
 
-        if (ctx.output.empty())
+        if (ctx.output.empty()) {
             ctx.output = "(无匹配结果)";
+        }
+
+        // 追加统计摘要
+        std::string stats = "--- 统计: " +
+            std::to_string(ctx.total_controls) + " 个控件, 最大深度 " +
+            std::to_string(ctx.max_tree_depth);
+        if (ctx.has_search)
+            stats += ", 命中 " + std::to_string(ctx.search_hits) + " 项";
+        stats += " ---\n";
+        ctx.output += stats;
 
         return {{"content", mcp::json::array({{{"type","text"},{"text", ctx.output}}})}};
     });
@@ -648,6 +726,7 @@ inline void register_jsonui_tools(mcp::server& srv) {
             "对 JSON UI 文件进行增量补丁修改（不重写整个文件）。"
             "patches 为操作数组，支持: set_prop(设置属性), remove_prop(删除属性), "
             "add_ctrl(添加控件), remove_ctrl(删除控件), replace_ctrl(替换控件), "
+            "merge_ctrl(合并属性到子控件，保留其子控件树和未指定属性，可选new_key修改继承), "
             "add_top(添加顶层控件), remove_top(删除顶层控件)。"
             "自动创建 .bak 备份，原子执行（全部成功才写入）")
         .with_string_param("file_path", "JSON UI 文件绝对路径", true)

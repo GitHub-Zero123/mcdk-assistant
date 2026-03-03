@@ -41,6 +41,23 @@
                       "anchor_to": "bottom_middle",
                       "controls": [
                         {
+                          "backButton@common.button": {
+                            "$default_texture": "textures/kid_ultrax/ui/buttons/back",
+                            "$hover_texture": "textures/kid_ultrax/ui/buttons/back_hover",
+                            "$label_text": " ",
+                            "$pressed_button_name": "%netease_editor_template_namespace.click",
+                            "$pressed_texture": "textures/kid_ultrax/ui/buttons/back_hover",
+                            "anchor_from": "left_middle",
+                            "anchor_to": "left_middle",
+                            "layer": 3,
+                            "size": [
+                              "3.5%+0px",
+                              "100%+0px"
+                            ],
+                            "type": "button"
+                          }
+                        },
+                        {
                           "top_image": {
                             "anchor_from": "left_middle",
                             "anchor_to": "left_middle",
@@ -75,8 +92,8 @@
                         {
                           "close_button@common.button": {
                             "$control_alpha": 1.0,
-                            "$default_texture": "textures/kid_ultrax/ui/buttons/del",
-                            "$hover_texture": "textures/kid_ultrax/ui/buttons/del_hover",
+                            "$default_texture": "textures/kid_ultrax/ui/buttons/close_new",
+                            "$hover_texture": "textures/kid_ultrax/ui/buttons/close_new_hover",
                             "$is_new_nine_slice": false,
                             "$label_color": [
                               1,
@@ -102,7 +119,7 @@
                               0
                             ],
                             "$pressed_button_name": "%netease_editor_template_namespace.click",
-                            "$pressed_texture": "textures/kid_ultrax/ui/buttons/del_hover",
+                            "$pressed_texture": "textures/kid_ultrax/ui/buttons/close_hover",
                             "$texture_layer": 2,
                             "anchor_from": "right_middle",
                             "anchor_to": "right_middle",
@@ -149,7 +166,7 @@
                             ],
                             "pressed_control": "pressed",
                             "size": [
-                              "3.5%+0px",
+                              "5%+0px",
                               "100%+0px"
                             ],
                             "type": "button"

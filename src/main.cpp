@@ -47,7 +47,7 @@ int main() {
     conf.host    = "127.0.0.1";
     conf.port    = 18766;
     conf.name    = "mcdk-assistant";
-    conf.version = "0.4.0";
+    conf.version = "0.4.3";
 
     mcp::server srv(conf);
 
