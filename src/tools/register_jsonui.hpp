@@ -1,14 +1,35 @@
 #pragma once
 // register_jsonui.hpp — JSON UI 全栈工具注册
-// 包含: get_jsonui_reference, generate_ui_fullstack, diagnose_ui
+// 包含: get_jsonui_reference, generate_ui_fullstack, diagnose_ui, query_ui_control
 #include "tools/ui_templates.h"
 #include "tools/ui_diagnoser.h"
 #include <mcp_server.h>
 #include <mcp_tool.h>
 #include <mcp_message.h>
+#include <nlohmann/json.hpp>
 #include <string>
+#include <sstream>
+#include <fstream>
 
 namespace mcdk {
+
+// 辅助：从文件或参数获取 JSON UI 内容
+static inline std::string resolve_json_content(const mcp::json& params) {
+    std::string content = params.value("json_content", "");
+    std::string fpath   = params.value("file_path", "");
+    if (!fpath.empty()) {
+        std::ifstream ifs(fpath, std::ios::binary);
+        if (!ifs.is_open())
+            throw mcp::mcp_exception(mcp::error_code::invalid_params,
+                "无法打开文件: " + fpath);
+        return std::string((std::istreambuf_iterator<char>(ifs)),
+                            std::istreambuf_iterator<char>());
+    }
+    if (content.empty())
+        throw mcp::mcp_exception(mcp::error_code::invalid_params,
+            "必须提供 json_content 或 file_path 参数");
+    return content;
+}
 
 // ── get_jsonui_reference 内容 ─────────────────────────
 static const char* JSONUI_REFERENCE_TEXT = R"(
@@ -214,12 +235,15 @@ inline void register_jsonui_tools(mcp::server& srv) {
 
     // ── diagnose_ui ───────────────────────────────────
     auto diag_tool = mcp::tool_builder("diagnose_ui")
-        .with_description("诊断 JSON UI 文件内容中的常见错误（缺少namespace、binding_name格式、size格式、控件key重复等）。修复建议可配合 read_knowledge 查阅网易UI说明文档")
-        .with_string_param("json_content", "JSON UI 文件的完整文本内容", true)
+        .with_description("诊断 JSON UI 文件中的常见错误（缺少namespace、binding_name格式、size格式、控件key重复等）。"
+                          "支持 file_path（文件绝对路径）或 json_content（文本内容）二选一，大文件推荐用 file_path。"
+                          "修复建议可配合 read_knowledge 查阅网易UI说明文档")
+        .with_string_param("file_path", "JSON UI 文件绝对路径（与 json_content 二选一，大文件推荐）", false)
+        .with_string_param("json_content", "JSON UI 文件的完整文本内容（与 file_path 二选一）", false)
         .with_read_only_hint(true).with_idempotent_hint(true).build();
 
     srv.register_tool(diag_tool, [](const mcp::json& params, const std::string&) -> mcp::json {
-        auto results = diagnose_ui(params.value("json_content", ""));
+        auto results = diagnose_ui(resolve_json_content(params));
         if (results.empty())
             return {{"content", mcp::json::array({{{"type","text"},{"text","未发现问题，JSON UI 格式检查通过。"}}})}};
 
@@ -230,6 +254,142 @@ inline void register_jsonui_tools(mcp::server& srv) {
             text += " " + d.message + "\n";
         }
         return {{"content", mcp::json::array({{{"type","text"},{"text", text}}})}};
+    });
+
+    // ── query_ui_control ──────────────────────────────
+    auto query_tool = mcp::tool_builder("query_ui_control")
+        .with_description(
+            "查询 JSON UI 文件中指定路径的控件信息（属性、直接子控件列表），不展开子节点的 controls 内容。"
+            "用于快速浏览 UI 结构。支持 file_path（文件绝对路径）或 json_content 二选一，大文件推荐用 file_path。"
+            "path 格式: \"main/panel/form/inputBox\"（第一段为顶层控件名，后续为 controls 路径）。"
+            "不传 path 则列出所有顶层控件名")
+        .with_string_param("file_path", "JSON UI 文件绝对路径（与 json_content 二选一，大文件推荐）", false)
+        .with_string_param("json_content", "JSON UI 文件的完整文本内容（与 file_path 二选一）", false)
+        .with_string_param("path", "控件路径，如 \"main/panel/form\"。不传则列出所有顶层控件", false)
+        .with_read_only_hint(true).with_idempotent_hint(true).build();
+
+    srv.register_tool(query_tool, [](const mcp::json& params, const std::string&) -> mcp::json {
+        std::string content = resolve_json_content(params);
+        std::string path    = params.value("path", "");
+
+        nlohmann::json root;
+        try {
+            root = nlohmann::json::parse(content, nullptr, true, true);
+        } catch (const nlohmann::json::parse_error& e) {
+            throw mcp::mcp_exception(mcp::error_code::invalid_params,
+                std::string("JSON 解析失败: ") + e.what());
+        }
+
+        if (!root.is_object()) {
+            throw mcp::mcp_exception(mcp::error_code::invalid_params, "JSON 根节点不是对象");
+        }
+
+        // 不传 path → 列出所有顶层控件名
+        if (path.empty()) {
+            std::string result = "顶层控件列表:\n";
+            for (auto it = root.begin(); it != root.end(); ++it) {
+                if (it.key() == "namespace") {
+                    result += "  namespace: " + it.value().get<std::string>() + "\n";
+                    continue;
+                }
+                std::string type_info;
+                if (it.value().is_object() && it.value().contains("type"))
+                    type_info = " (type: " + it.value()["type"].get<std::string>() + ")";
+                result += "  " + it.key() + type_info + "\n";
+            }
+            return {{"content", mcp::json::array({{{"type","text"},{"text", result}}})}};
+        }
+
+        // 按 / 分割路径
+        std::vector<std::string> segments;
+        {
+            std::istringstream ss(path);
+            std::string seg;
+            while (std::getline(ss, seg, '/')) {
+                if (!seg.empty()) segments.push_back(seg);
+            }
+        }
+        if (segments.empty()) {
+            throw mcp::mcp_exception(mcp::error_code::invalid_params, "path 不能为空段");
+        }
+
+        // 第一段：查找顶层控件（支持 @ 继承写法匹配）
+        std::string top_key = segments[0];
+        const nlohmann::json* current = nullptr;
+        for (auto it = root.begin(); it != root.end(); ++it) {
+            std::string k = it.key();
+            auto at = k.find('@');
+            std::string bare = (at != std::string::npos) ? k.substr(0, at) : k;
+            if (bare == top_key) {
+                current = &it.value();
+                break;
+            }
+        }
+        if (!current || !current->is_object()) {
+            throw mcp::mcp_exception(mcp::error_code::invalid_params,
+                "未找到顶层控件: " + top_key);
+        }
+
+        // 后续段：在 controls 中逐层查找
+        for (size_t i = 1; i < segments.size(); ++i) {
+            const std::string& seg = segments[i];
+            bool found = false;
+            if (current->contains("controls") && (*current)["controls"].is_array()) {
+                for (const auto& item : (*current)["controls"]) {
+                    if (!item.is_object()) continue;
+                    for (auto jt = item.begin(); jt != item.end(); ++jt) {
+                        std::string k = jt.key();
+                        auto at = k.find('@');
+                        std::string bare = (at != std::string::npos) ? k.substr(0, at) : k;
+                        if (bare == seg) {
+                            current = &jt.value();
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (found) break;
+                }
+            }
+            if (!found) {
+                throw mcp::mcp_exception(mcp::error_code::invalid_params,
+                    "路径 \"" + path + "\" 中未找到控件: " + seg);
+            }
+        }
+
+        // 输出当前控件信息（不展开 controls 内部内容）
+        std::string result = "控件: " + path + "\n";
+        if (current->is_object()) {
+            for (auto it = current->begin(); it != current->end(); ++it) {
+                if (it.key() == "controls") {
+                    // 只列出直接子控件的 key
+                    result += "  controls: [";
+                    bool first = true;
+                    if (it.value().is_array()) {
+                        for (const auto& child : it.value()) {
+                            if (!child.is_object()) continue;
+                            for (auto ct = child.begin(); ct != child.end(); ++ct) {
+                                if (!first) result += ", ";
+                                result += ct.key();
+                                // 附带 type 信息
+                                if (ct.value().is_object() && ct.value().contains("type"))
+                                    result += "(" + ct.value()["type"].get<std::string>() + ")";
+                                first = false;
+                            }
+                        }
+                    }
+                    result += "]\n";
+                } else {
+                    // 输出属性值（简短格式）
+                    std::string val = it.value().dump();
+                    if (val.size() > 120) val = val.substr(0, 117) + "...";
+                    result += "  " + it.key() + ": " + val + "\n";
+                }
+            }
+        } else {
+            result += "  (值: " + current->dump() + ")\n";
+        }
+
+        return {{"content", mcp::json::array({{{"type","text"},{"text", result}}})}};
     });
 }
 
