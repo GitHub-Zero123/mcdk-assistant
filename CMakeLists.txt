@@ -38,6 +38,12 @@ target_include_directories(cppjieba INTERFACE
     ${CMAKE_CURRENT_SOURCE_DIR}/libs/cppjieba/deps/limonp/include
 )
 
+# stb (header-only, 像素画模块依赖)
+add_library(stb INTERFACE)
+target_include_directories(stb INTERFACE
+    ${CMAKE_CURRENT_SOURCE_DIR}/libs/stb
+)
+
 # ── 主程序 ────────────────────────────────────────────
 
 file(GLOB_RECURSE MCDK_SOURCES
@@ -53,6 +59,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 target_link_libraries(${PROJECT_NAME} PRIVATE
     mcp
     cppjieba
+    stb
     nlohmann_json::nlohmann_json
     Threads::Threads
 )
