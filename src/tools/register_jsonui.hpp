@@ -71,13 +71,17 @@ static const char* JSONUI_REFERENCE_TEXT = R"(
   visible: true/false — 控件可见性
 
   ★ 布局最佳实践（必须遵守）:
-  【size 规则】
-    - 外层/父级容器优先使用百分比: ["100%", "100%"] 或 ["100%y", "80%"]
-    - 移动端 Y 轴几乎必定 < X 轴，所以宽度用 "%y" 基准可避免越界:
-      size: ["200%y+0px", "72%+0px"]  ← 宽度=2倍高度=不会超出屏幕
-    - 内部小控件可用 百分比+少量像素修正: ["100%+0px", "7%+0px"]
-    - 尽量避免纯固定像素(如 [200, 100])，这在不同分辨率下不适配
-    - offset 同理优先用百分比: ["0%+0px", "2%+0px"]
+  【size 规则 — 交叉百分比原则】
+    - 核心技巧：一个方向用父控件百分比确定基准，另一个方向用对方维度百分比填充
+      实现等比例缩放 + 分辨率适配，例:
+      size: ["120%y+0px", "60%+0px"]  ← 宽度=1.2倍屏幕高度，高度=60%父高度
+      这样控件宽高保持固定比例(2:1)，且在任何分辨率下都不越界
+    - 移动端 Y 轴几乎必定 < X 轴，宽度用 "%y" 基准可避免越界:
+      size: ["200%y+0px", "72%+0px"]  ← 宽度=2×高度方向基准
+    - 外层容器: ["100%", "100%"] 或交叉百分比
+    - 内部子控件: 百分比 + 少量像素修正 ["100%+0px", "7%+0px"]
+    - 避免纯固定像素(如 [200, 100])，不同分辨率下不适配
+    - offset 同理用百分比: ["0%+0px", "2%+0px"]
 
   【图层(layer)规则】
     - layer 越大越靠前（覆盖在上面）
@@ -98,6 +102,11 @@ static const char* JSONUI_REFERENCE_TEXT = R"(
     - 子控件 size 不应大于父控件（超出会被裁剪或不可见）
     - 常见错误：父控件 size=[0,0] 但子控件有实际大小 → 子控件不显示
     - 父控件用 "100%cm"（child max）可自动适配子控件最大尺寸
+
+  【grid 布局注意】
+    - 避免父子控件互相依赖大小。竖向信息流常用：grid x="100%" y="100%cm"（自动延伸）
+    - 元素控件：x 由网格数量规模自动分配（不要固定）通常使用【自适应auto】，y 跟随自身 x 保持比例
+    - 技巧：元素控件外套一层 panel，内容 size=["90%","90%"] 留间隙，避免网格填满无空隙不美观
 
   【通用原则】
     - 所有 screen 类型的 main 控件 type 必须是 "screen" 而非 "panel"
@@ -191,9 +200,9 @@ static const char* JSONUI_REFERENCE_TEXT = R"(
           { "title": { "type": "label", "text": "Hello", "color": [1,1,1], "anchor_from": "center", "anchor_to": "center" } },
           {
             "closeBtn@common.button": {
-              "size": [20,20], "$pressed_button_name": "button.close",
-              "anchor_from": "top_right", "anchor_to": "top_right", "offset": [-5, 5],
-              "controls": [{ "x": { "type": "label", "text": "X", "color": [1,1,1] } }]
+              "size": ["4%y+0px","4%y+0px"], "$pressed_button_name": "button.close",
+              "anchor_from": "top_right", "anchor_to": "top_right", "offset": ["-1%+0px", "1%+0px"],
+              "controls": [{ "button_label": { "type": "label", "text": "X", "color": [1,1,1], "layer": 3 } }]
             }
           }
         ]
@@ -297,7 +306,7 @@ inline void register_jsonui_tools(mcp::server& srv) {
         .with_description("诊断 JSON UI 文件中的常见错误（缺少namespace、binding_name格式、size格式、控件key重复、"
                           "type有效性、anchor成对、button子控件图层遮挡、大固定像素建议等）。"
                           "支持 file_path（文件绝对路径）或 json_content（文本内容）二选一，大文件推荐用 file_path。"
-                          "修复建议可配合 read_knowledge 查阅网易UI说明文档")
+                          "修复建议可配合 search_netease_guide / read_knowledge 查阅网易UI说明文档")
         .with_string_param("file_path", "JSON UI 文件绝对路径（与 json_content 二选一，大文件推荐）", false)
         .with_string_param("json_content", "JSON UI 文件的完整文本内容（与 file_path 二选一）", false)
         .with_read_only_hint(true).with_idempotent_hint(true).build();
