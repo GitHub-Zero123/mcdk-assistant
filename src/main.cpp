@@ -4,6 +4,7 @@
 #include "tools/register_netease.hpp"
 #include "tools/register_jsonui.hpp"
 #include "tools/register_pixel_art.hpp"
+#include "tools/register_model.hpp"
 #include <mcp_server.h>
 #include <iostream>
 #include <string>
@@ -47,7 +48,7 @@ int main() {
     conf.host    = "127.0.0.1";
     conf.port    = 18766;
     conf.name    = "mcdk-assistant";
-    conf.version = "0.4.3";
+    conf.version = "0.4.6";
 
     mcp::server srv(conf);
 
@@ -55,6 +56,7 @@ int main() {
     mcdk::register_netease_tools(srv);
     mcdk::register_jsonui_tools(srv);
     mcdk::register_pixel_art_tools(srv);
+    mcdk::register_model_tools(srv);
 
     std::cout << "[MCDK] MCP server starting on " << conf.host << ":" << conf.port << std::endl;
     std::cout << "[MCDK] docs indexed: "         << search_svc.doc_count()         << std::endl;
