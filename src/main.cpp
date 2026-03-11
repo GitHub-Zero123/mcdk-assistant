@@ -61,9 +61,9 @@ int main() {
     bool cache_only_mode = !has_knowledge && has_cache;
 
     if (cache_only_mode) {
-        std::cout << "[MCDK] 仅缓存模式：无知识库目录，直接从缓存文件加载..." << std::endl;
+        std::cout << "[MCDK] 缓存解析：无外部资料，正在从索引文件解析..." << std::endl;
     } else if (!has_knowledge && !has_cache) {
-        std::cerr << "[MCDK] 错误：既没有知识库目录也没有缓存文件，无法启动。" << std::endl;
+        std::cerr << "[MCDK] 错误：缺少知识库目录和缓存文件，无法启动。" << std::endl;
         return 1;
     } else {
         std::cout << "[MCDK] 正在初始化知识库索引，请稍候..." << std::endl;
