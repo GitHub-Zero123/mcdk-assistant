@@ -34,7 +34,7 @@ inline mcp::json handle_search(SearchService& svc, SearchFn fn, const mcp::json&
 }
 
 inline void register_search_tools(mcp::server& srv, SearchService& search_svc,
-                                   const std::string& knowledge_dir) {
+                                   const std::string& knowledge_dir = "") {
     // ── 批量搜索工具 ──────────────────────────────────
     struct ToolDef { const char* name; const char* desc; SearchFn fn; };
     static const ToolDef tools[] = {
@@ -109,17 +109,12 @@ inline void register_search_tools(mcp::server& srv, SearchService& search_svc,
             .with_read_only_hint(true).with_idempotent_hint(true).build();
 
         srv.register_tool(tool,
-            [&knowledge_dir](const mcp::json& params, const std::string&) -> mcp::json {
+            [&knowledge_dir, &search_svc](const mcp::json& params, const std::string&) -> mcp::json {
                 std::string rel = params.value("path", "");
                 if (rel.empty())
                     throw mcp::mcp_exception(mcp::error_code::invalid_params, "path is required");
                 if (rel.find("..") != std::string::npos)
                     throw mcp::mcp_exception(mcp::error_code::invalid_params, "path must not contain '..'");
-
-                auto full = std::filesystem::path(knowledge_dir) / std::filesystem::u8path(rel);
-                std::ifstream ifs(full);
-                if (!ifs.is_open())
-                    throw mcp::mcp_exception(mcp::error_code::invalid_params, "file not found: " + rel);
 
                 int ls = params.contains("line_start") && !params["line_start"].is_null()
                     ? params["line_start"].get<int>() : 1;
@@ -128,16 +123,34 @@ inline void register_search_tools(mcp::server& srv, SearchService& search_svc,
                 if (ls < 1) ls = 1;
                 if (le < ls) le = ls;
 
-                std::string result, line; int cur = 0;
-                while (std::getline(ifs, line)) {
-                    ++cur;
-                    if (cur < ls) continue;
-                    if (cur > le) break;
-                    result += line; result += '\n';
+                // 优先尝试从磁盘读取
+                if (!knowledge_dir.empty()) {
+                    auto full = std::filesystem::path(knowledge_dir) / std::filesystem::u8path(rel);
+                    std::ifstream ifs(full);
+                    if (ifs.is_open()) {
+                        std::string result, line; int cur = 0;
+                        while (std::getline(ifs, line)) {
+                            ++cur;
+                            if (cur < ls) continue;
+                            if (cur > le) break;
+                            result += line; result += '\n';
+                        }
+                        return {{"content", mcp::json::array({
+                            {{"type","text"},{"text",result},{"file",rel},
+                             {"line_start",ls},{"line_end",std::min(cur,le)},{"total_lines",cur}}
+                        })}};
+                    }
                 }
+
+                // 回退到从缓存的 fragments 中读取
+                auto cached_result = search_svc.read_cached_file(rel, ls, le);
+                if (!cached_result.found)
+                    throw mcp::mcp_exception(mcp::error_code::invalid_params, "file not found: " + rel);
+
                 return {{"content", mcp::json::array({
-                    {{"type","text"},{"text",result},{"file",rel},
-                     {"line_start",ls},{"line_end",std::min(cur,le)},{"total_lines",cur}}
+                    {{"type","text"},{"text",cached_result.content},{"file",rel},
+                     {"line_start",ls},{"line_end",std::min(cached_result.total_lines,le)},
+                     {"total_lines",cached_result.total_lines},{"source","cache"}}
                 })}};
             });
     }
@@ -150,26 +163,38 @@ inline void register_search_tools(mcp::server& srv, SearchService& search_svc,
             .with_read_only_hint(true).with_idempotent_hint(true).build();
 
         srv.register_tool(tool,
-            [&knowledge_dir](const mcp::json& params, const std::string&) -> mcp::json {
+            [&knowledge_dir, &search_svc](const mcp::json& params, const std::string&) -> mcp::json {
                 namespace fs = std::filesystem;
                 std::string rel = params.value("path", "");
                 if (rel.find("..") != std::string::npos)
                     throw mcp::mcp_exception(mcp::error_code::invalid_params, "path must not contain '..'");
 
-                fs::path dir = fs::path(knowledge_dir) / (rel.empty() ? fs::path() : fs::u8path(rel));
-                if (!fs::exists(dir) || !fs::is_directory(dir))
+                // 优先尝试从磁盘列举
+                if (!knowledge_dir.empty()) {
+                    fs::path dir = fs::path(knowledge_dir) / (rel.empty() ? fs::path() : fs::u8path(rel));
+                    if (fs::exists(dir) && fs::is_directory(dir)) {
+                        mcp::json dirs = mcp::json::array(), files = mcp::json::array();
+                        for (const auto& entry : fs::directory_iterator(dir)) {
+                            auto u = entry.path().filename().u8string();
+                            std::string s(reinterpret_cast<const char*>(u.data()), u.size());
+                            if (entry.is_directory()) dirs.push_back(s);
+                            else files.push_back(s);
+                        }
+                        std::string text = "目录: " + (rel.empty() ? "/" : rel) + "\n";
+                        for (const auto& d : dirs)  text += "[DIR]  " + d.get<std::string>() + "\n";
+                        for (const auto& f : files) text += "       " + f.get<std::string>() + "\n";
+                        return {{"content", mcp::json::array({{{"type","text"},{"text",text}}})}};
+                    }
+                }
+
+                // 回退到从缓存的 fragments 中列举
+                auto cached_list = search_svc.list_cached_files(rel);
+                if (!cached_list.found)
                     throw mcp::mcp_exception(mcp::error_code::invalid_params, "directory not found: " + rel);
 
-                mcp::json dirs = mcp::json::array(), files = mcp::json::array();
-                for (const auto& entry : fs::directory_iterator(dir)) {
-                    auto u = entry.path().filename().u8string();
-                    std::string s(reinterpret_cast<const char*>(u.data()), u.size());
-                    if (entry.is_directory()) dirs.push_back(s);
-                    else files.push_back(s);
-                }
-                std::string text = "目录: " + (rel.empty() ? "/" : rel) + "\n";
-                for (const auto& d : dirs)  text += "[DIR]  " + d.get<std::string>() + "\n";
-                for (const auto& f : files) text += "       " + f.get<std::string>() + "\n";
+                std::string text = "目录: " + (rel.empty() ? "/" : rel) + " (from cache)\n";
+                for (const auto& d : cached_list.dirs)  text += "[DIR]  " + d + "\n";
+                for (const auto& f : cached_list.files) text += "       " + f + "\n";
                 return {{"content", mcp::json::array({{{"type","text"},{"text",text}}})}};
             });
     }

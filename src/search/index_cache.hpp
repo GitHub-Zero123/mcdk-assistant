@@ -138,9 +138,11 @@ public:
     }
 
     // ── 加载：整块读入后指针解析 ──
+    // skip_fingerprint_check: 仅缓存模式时跳过 fingerprint 校验
     static bool load(const std::string& cache_path,
                      const std::string& expected_fp,
-                     CacheData& out)
+                     CacheData& out,
+                     bool skip_fingerprint_check = false)
     {
         // 整块读入
         std::ifstream ifs(cache_path, std::ios::binary | std::ios::ate);
@@ -172,7 +174,7 @@ public:
 
         // Fingerprint
         out.fingerprint = read_string(p, end);
-        if (out.fingerprint != expected_fp) {
+        if (!skip_fingerprint_check && out.fingerprint != expected_fp) {
             std::cout << "[MCDK] cache: fingerprint mismatch, rebuilding" << std::endl;
             return false;
         }

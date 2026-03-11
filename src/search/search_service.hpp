@@ -5,6 +5,8 @@
 #include <cppjieba/Jieba.hpp>
 #include <string>
 #include <vector>
+#include <memory>
+#include <set>
 #include <filesystem>
 #include <fstream>
 #include <sstream>
@@ -13,6 +15,7 @@
 #include <unordered_map>
 #include <algorithm>
 #include <cctype>
+#include <climits>
 #include <mutex>
 #include <thread>
 #include <future>
@@ -24,21 +27,42 @@ enum class DocCategory { Unknown, API, Event, Enum, Beta, Wiki, QuMod, NeteaseGu
 
 class SearchService {
 public:
+    // 完整模式：提供词典目录 + 知识库目录 + 可选缓存路径
     SearchService(const std::string& dicts_dir, const std::string& knowledge_dir,
                   const std::string& cache_path = "")
-        : jieba_(
+        : jieba_(std::make_unique<cppjieba::Jieba>(
             dicts_dir + "/jieba.dict.utf8",
             dicts_dir + "/hmm_model.utf8",
             dicts_dir + "/user.dict.utf8",
             dicts_dir + "/idf.utf8",
             dicts_dir + "/stop_words.utf8"
-          )
+          ))
         , knowledge_dir_(knowledge_dir)
         , cache_path_(cache_path)
+        , cache_only_mode_(false)
     {
         load_stop_words(dicts_dir + "/stop_words.utf8");
         init_indices();
     }
+
+    // 仅缓存模式：提供词典目录和缓存文件路径，无需知识库目录
+    SearchService(const std::string& dicts_dir, const std::string& cache_path, bool cache_only)
+        : jieba_(std::make_unique<cppjieba::Jieba>(
+            dicts_dir + "/jieba.dict.utf8",
+            dicts_dir + "/hmm_model.utf8",
+            dicts_dir + "/user.dict.utf8",
+            dicts_dir + "/idf.utf8",
+            dicts_dir + "/stop_words.utf8"
+          ))
+        , cache_path_(cache_path)
+        , cache_only_mode_(cache_only)
+    {
+        load_stop_words(dicts_dir + "/stop_words.utf8");
+        init_indices();
+    }
+
+    // 是否为仅缓存模式（无磁盘知识库目录）
+    bool is_cache_only_mode() const { return cache_only_mode_; }
 
     std::vector<SearchResult> search_api(const std::string& keyword, int top_k = -1) const {
         return search_category(api_index_, keyword, top_k);
@@ -81,6 +105,138 @@ public:
         return api_index_.engine.doc_count() + event_index_.engine.doc_count()
              + enum_index_.engine.doc_count() + wiki_index_.engine.doc_count()
              + qumod_index_.engine.doc_count() + netease_guide_index_.engine.doc_count();
+    }
+
+    // ── 从缓存的 fragments 中读取文件内容（供仅缓存模式下的 read_knowledge 使用）──
+    // 返回: {content, total_lines}，file 未找到时 content 为空
+    struct FileReadResult {
+        std::string content;
+        int         total_lines = 0;
+        bool        found       = false;
+    };
+
+    FileReadResult read_cached_file(const std::string& rel_path, int line_start = 1, int line_end = INT_MAX) const {
+        FileReadResult result;
+        // 合并所有 fragments 的内容（同一 file 可能有多个 fragment）
+        // 先收集所有来源
+        std::string full_content;
+        bool found = false;
+
+        auto collect = [&](const CategoryIndex& idx) {
+            for (const auto& frag : idx.fragments) {
+                if (frag.file == rel_path) {
+                    full_content += frag.content;
+                    found = true;
+                }
+            }
+        };
+
+        collect(api_index_);
+        collect(event_index_);
+        collect(enum_index_);
+        collect(wiki_index_);
+        collect(qumod_index_);
+        collect(netease_guide_index_);
+
+        // 也搜索 GameAssets 的 fragments
+        auto collect_ga = [&](const GameAssetIndex& idx) {
+            for (const auto& frag : idx.fragments) {
+                if (frag.file == rel_path) {
+                    full_content += frag.content;
+                    found = true;
+                }
+            }
+        };
+        collect_ga(game_assets_bp_);
+        collect_ga(game_assets_rp_);
+
+        if (!found) return result;
+
+        result.found = true;
+
+        // 按行切割并提取指定范围
+        std::istringstream iss(full_content);
+        std::string line;
+        int cur = 0;
+        if (line_start < 1) line_start = 1;
+        if (line_end < line_start) line_end = line_start;
+
+        while (std::getline(iss, line)) {
+            ++cur;
+            if (cur < line_start) continue;
+            if (cur > line_end) break;
+            result.content += line;
+            result.content += '\n';
+        }
+        result.total_lines = cur;
+        return result;
+    }
+
+    // ── 从缓存的 fragments 中列出文件/目录（供仅缓存模式下的 list_knowledge 使用）──
+    struct ListResult {
+        std::vector<std::string> dirs;
+        std::vector<std::string> files;
+        bool                     found = false;
+    };
+
+    ListResult list_cached_files(const std::string& rel_path = "") const {
+        ListResult result;
+        std::set<std::string> dir_set, file_set;
+
+        // 规范化路径：确保以 / 结尾（用于前缀匹配），空路径表示根目录
+        std::string prefix = rel_path;
+        if (!prefix.empty()) {
+            for (auto& c : prefix) if (c == '\\') c = '/';
+            if (prefix.back() != '/') prefix += '/';
+        }
+
+        auto collect = [&](const std::vector<DocFragment>& frags) {
+            for (const auto& frag : frags) {
+                const std::string& file = frag.file;
+                // 检查是否在指定目录下
+                if (!prefix.empty() && file.find(prefix) != 0) continue;
+                // 取相对于 prefix 的部分
+                std::string remainder = file.substr(prefix.size());
+                // 找第一个 /，判断是子目录还是直接文件
+                auto slash_pos = remainder.find('/');
+                if (slash_pos != std::string::npos) {
+                    dir_set.insert(remainder.substr(0, slash_pos));
+                } else if (!remainder.empty()) {
+                    file_set.insert(remainder);
+                }
+            }
+        };
+
+        collect(api_index_.fragments);
+        collect(event_index_.fragments);
+        collect(enum_index_.fragments);
+        collect(wiki_index_.fragments);
+        collect(qumod_index_.fragments);
+        collect(netease_guide_index_.fragments);
+        collect(game_assets_bp_.fragments);
+        collect(game_assets_rp_.fragments);
+
+        // 也从 GameAssets 的 path_entries 收集（因为 fragments 可能只保存了部分内容）
+        auto collect_ga_paths = [&](const GameAssetIndex& idx) {
+            for (const auto& entry : idx.path_entries) {
+                const std::string& file = entry.first;
+                if (!prefix.empty() && file.find(prefix) != 0) continue;
+                std::string remainder = file.substr(prefix.size());
+                auto slash_pos = remainder.find('/');
+                if (slash_pos != std::string::npos) {
+                    dir_set.insert(remainder.substr(0, slash_pos));
+                } else if (!remainder.empty()) {
+                    file_set.insert(remainder);
+                }
+            }
+        };
+        collect_ga_paths(game_assets_bp_);
+        collect_ga_paths(game_assets_rp_);
+
+        result.dirs.assign(dir_set.begin(), dir_set.end());
+        result.files.assign(file_set.begin(), file_set.end());
+        result.found = !result.dirs.empty() || !result.files.empty() || prefix.empty();
+        return result;
     }
 
     struct AssetResult {
@@ -205,9 +361,10 @@ private:
         BM25Engine                                      engine;
     };
 
-    cppjieba::Jieba                 jieba_;
+    std::unique_ptr<cppjieba::Jieba> jieba_;       // 仅缓存模式下为 nullptr
     std::string                     knowledge_dir_;
     std::string                     cache_path_;
+    bool                            cache_only_mode_ = false;
     std::unordered_set<std::string> stop_words_;
     CategoryIndex                   api_index_;
     CategoryIndex                   event_index_;
@@ -220,6 +377,22 @@ private:
 
     // ── 初始化入口 ──
     void init_indices() {
+        if (cache_only_mode_) {
+            // 仅缓存模式：直接从 .bin 加载，跳过 fingerprint 校验
+            if (cache_path_.empty()) {
+                std::cerr << "[MCDK] cache-only mode: no cache path provided" << std::endl;
+                return;
+            }
+            IndexCache::CacheData cached;
+            if (IndexCache::load(cache_path_, "", cached, /*skip_fingerprint_check=*/true)) {
+                std::cout << "[MCDK] 仅缓存模式：从缓存文件恢复索引..." << std::endl;
+                restore_from_cache(std::move(cached));
+            } else {
+                std::cerr << "[MCDK] 仅缓存模式：缓存文件加载失败: " << cache_path_ << std::endl;
+            }
+            return;
+        }
+
         if (!cache_path_.empty()) {
             std::string fp = IndexCache::compute_fingerprint(knowledge_dir_);
             std::cout << "[MCDK] knowledge fingerprint: " << fp << std::endl;
@@ -373,7 +546,7 @@ private:
 
     void tokenize(const std::string& text, std::vector<std::string>& tokens) const {
         std::vector<std::string> raw;
-        jieba_.CutForSearch(text, raw);
+        jieba_->CutForSearch(text, raw);
         tokens.clear();
         for (auto& w : raw) {
             if (w.empty() || w == " " || w == "\t" || w == "\n") continue;
