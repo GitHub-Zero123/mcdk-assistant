@@ -39,6 +39,14 @@ namespace mcp {
     using notification_handler    = std::function<void(const json&, const std::string&)>;
     using auth_handler            = std::function<bool(const std::string&, const std::string&)>;
     using session_cleanup_handler = std::function<void(const std::string&)>;
+    /**
+     * @brief Tool call event handler — fired every time a tool is successfully dispatched.
+     * @param tool_name  The name of the tool being invoked.
+     *
+     * The handler is called from within the request-processing thread, before the
+     * actual tool handler runs.  It must be non-blocking and thread-safe.
+     */
+    using tool_call_handler = std::function<void(const std::string& tool_name)>;
 
     class event_dispatcher {
     public:
@@ -316,6 +324,14 @@ namespace mcp {
         void set_auth_handler(auth_handler handler);
 
         /**
+         * @brief Register a callback invoked whenever a tool is called via tools/call.
+         *
+         * Thread-safe.  Pass nullptr to clear the handler.
+         * The callback receives the tool name and is called before the tool handler runs.
+         */
+        void set_tool_call_handler(tool_call_handler handler);
+
+        /**
          * @brief Send a request (or notification) to a client
          * @param session_id The session ID of the client
          * @param req The request to send
@@ -334,6 +350,24 @@ namespace mcp {
             const std::string& dir,
             httplib::Headers   headers = httplib::Headers()
         );
+
+        /**
+         * @brief Register a custom HTTP GET route on the MCP server's own HTTP port.
+         *
+         * Allows callers to expose extra REST endpoints (e.g. /api/tool-stats)
+         * on the same port as the MCP protocol without running a second server.
+         * Must be called before start().
+         *
+         * @param path     URL path (e.g. "/api/tool-stats")
+         * @param handler  httplib GET handler
+         */
+        void register_http_get(const std::string& path, httplib::Server::Handler handler);
+
+        /**
+         * @brief Register a custom HTTP POST route on the MCP server's own HTTP port.
+         * Must be called before start().
+         */
+        void register_http_post(const std::string& path, httplib::Server::Handler handler);
 
     private:
         std::string host_;
@@ -379,6 +413,9 @@ namespace mcp {
 
         // Authentication handler
         auth_handler auth_handler_;
+
+        // Tool call event handler (optional, e.g. for statistics)
+        tool_call_handler tool_call_handler_;
 
         // Mutex for thread safety
         mutable std::mutex mutex_;

@@ -129,9 +129,53 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Linux" AND NOT ANDROID)
     )
 endif()
 
+# ── Server 版（Linux 服务器部署，启用统计功能）─────────
+# 仅在 Linux 上构建，定义 MCDK_SERVER 宏
+# 特性：
+#   - 监听 0.0.0.0:18766（MCP）
+#   - 独立 HTTP 端口 18767 暴露 GET /api/tool-stats（工具调用统计）
+#   - 统计数据持久化到 <exe_dir>/datas/tool_stats.json，每 30 分钟写盘
+
+if(CMAKE_SYSTEM_NAME STREQUAL "Linux" AND NOT ANDROID)
+    file(GLOB_RECURSE MCDK_SERVER_SOURCES src/*.cpp)
+
+    add_executable(mcdk-asst-server ${MCDK_SERVER_SOURCES})
+
+    # Server 版同时定义 MCDK_LITE，屏蔽像素画/模型/动画等需要本地文件系统的高风险工具
+    target_compile_definitions(mcdk-asst-server PRIVATE MCDK_SERVER MCDK_LITE)
+
+    target_include_directories(mcdk-asst-server PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/src
+    )
+
+    # Server 版同时定义 MCDK_LITE，不编译像素画/模型/动画模块，无需 stb
+    target_link_libraries(mcdk-asst-server PRIVATE
+        mcp
+        cppjieba
+        nlohmann_json::nlohmann_json
+        Threads::Threads
+    )
+
+    target_compile_options(mcdk-asst-server PRIVATE
+        -Wno-deprecated-declarations
+        -Wno-unused-result
+    )
+
+    target_link_options(mcdk-asst-server PRIVATE
+        -static-libstdc++
+        -static-libgcc
+        -Wl,-Bstatic -lm
+        -Wl,-Bdynamic
+    )
+endif()
+
 # ── 安装 ──────────────────────────────────────────────
 
-install(TARGETS ${PROJECT_NAME} mcdk-asst-lite RUNTIME DESTINATION .)
+if(CMAKE_SYSTEM_NAME STREQUAL "Linux" AND NOT ANDROID)
+    install(TARGETS ${PROJECT_NAME} mcdk-asst-lite mcdk-asst-server RUNTIME DESTINATION .)
+else()
+    install(TARGETS ${PROJECT_NAME} mcdk-asst-lite RUNTIME DESTINATION .)
+endif()
 install(DIRECTORY dicts/ DESTINATION dicts)
 install(DIRECTORY knowledge/ DESTINATION knowledge)
 

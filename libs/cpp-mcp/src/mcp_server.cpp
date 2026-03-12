@@ -424,6 +424,18 @@ namespace mcp {
                     throw mcp_exception(error_code::invalid_params, "Tool not found: " + tool_name);
                 }
 
+                // Fire tool-call event hook (e.g. for statistics), non-blocking
+                {
+                    tool_call_handler cb;
+                    {
+                        std::lock_guard<std::mutex> lk(mutex_);
+                        cb = tool_call_handler_;
+                    }
+                    if (cb) {
+                        try { cb(tool_name); } catch (...) {}
+                    }
+                }
+
                 json tool_args = params.contains("arguments") ? params["arguments"] : json::array();
 
                 if (tool_args.is_string()) {
@@ -486,6 +498,11 @@ namespace mcp {
     void server::set_auth_handler(auth_handler handler) {
         std::lock_guard<std::mutex> lock(mutex_);
         auth_handler_ = handler;
+    }
+
+    void server::set_tool_call_handler(tool_call_handler handler) {
+        std::lock_guard<std::mutex> lock(mutex_);
+        tool_call_handler_ = std::move(handler);
     }
 
     void server::handle_sse(const httplib::Request& req, httplib::Response& res) {
@@ -988,6 +1005,14 @@ namespace mcp {
 
     bool server::set_mount_point(const std::string& mount_point, const std::string& dir, httplib::Headers headers) {
         return http_server_->set_mount_point(mount_point, dir, headers);
+    }
+
+    void server::register_http_get(const std::string& path, httplib::Server::Handler handler) {
+        http_server_->Get(path, std::move(handler));
+    }
+
+    void server::register_http_post(const std::string& path, httplib::Server::Handler handler) {
+        http_server_->Post(path, std::move(handler));
     }
 
     // ========================================================================
