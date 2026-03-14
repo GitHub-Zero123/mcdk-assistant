@@ -136,7 +136,7 @@ endif()
 #   - 独立 HTTP 端口 18767 暴露 GET /api/tool-stats（工具调用统计）
 #   - 统计数据持久化到 <exe_dir>/datas/tool_stats.json，每 30 分钟写盘
 
-if(CMAKE_SYSTEM_NAME STREQUAL "Linux" AND NOT ANDROID)
+if(NOT ANDROID)
     file(GLOB_RECURSE MCDK_SERVER_SOURCES src/*.cpp)
 
     add_executable(mcdk-asst-server ${MCDK_SERVER_SOURCES})
@@ -156,17 +156,23 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Linux" AND NOT ANDROID)
         Threads::Threads
     )
 
-    target_compile_options(mcdk-asst-server PRIVATE
-        -Wno-deprecated-declarations
-        -Wno-unused-result
-    )
+    if(WIN32)
+        target_link_libraries(mcdk-asst-server PRIVATE ws2_32)
+    endif()
 
-    target_link_options(mcdk-asst-server PRIVATE
-        -static-libstdc++
-        -static-libgcc
-        -Wl,-Bstatic -lm
-        -Wl,-Bdynamic
-    )
+    if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+        target_compile_options(mcdk-asst-server PRIVATE
+            -Wno-deprecated-declarations
+            -Wno-unused-result
+        )
+
+        target_link_options(mcdk-asst-server PRIVATE
+            -static-libstdc++
+            -static-libgcc
+            -Wl,-Bstatic -lm
+            -Wl,-Bdynamic
+        )
+    endif()
 endif()
 
 # ── 安装 ──────────────────────────────────────────────

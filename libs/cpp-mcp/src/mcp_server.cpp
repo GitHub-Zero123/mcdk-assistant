@@ -41,6 +41,8 @@ namespace mcp {
 #else
         http_server_ = std::make_unique<httplib::Server>();
 #endif
+        // Use elastic_task_queue: one detached thread per connection, no fixed upper bound.
+        http_server_->new_task_queue = [] { return new elastic_task_queue(); };
     }
 
     server::~server() { stop(); }
@@ -111,12 +113,50 @@ namespace mcp {
             });
         }
 
-        // Start resource check thread (only start in non-blocking mode)
+        // Start global heartbeat manager — one thread for ALL sessions (replaces per-session threads)
+        {
+            std::lock_guard<std::mutex> lk(heartbeat_mutex_);
+            heartbeat_run_ = true;
+        }
+        heartbeat_thread_ = std::make_unique<std::thread>([this]() {
+            LOG_INFO("Global heartbeat thread started (interval=", heartbeat_interval_s_, "s)");
+            int beat = 0;
+            while (true) {
+                std::unique_lock<std::mutex> lk(heartbeat_mutex_);
+                heartbeat_cv_.wait_for(lk, std::chrono::seconds(heartbeat_interval_s_), [this] {
+                    return !heartbeat_run_;
+                });
+                if (!heartbeat_run_) {
+                    LOG_INFO("Global heartbeat thread exiting");
+                    return;
+                }
+                lk.unlock();
+
+                // Collect live dispatchers under main mutex
+                std::vector<std::pair<std::string, std::shared_ptr<event_dispatcher>>> live;
+                {
+                    std::lock_guard<std::mutex> m(mutex_);
+                    live.reserve(session_dispatchers_.size());
+                    for (auto& [sid, disp] : session_dispatchers_) {
+                        if (!disp->is_closed()) live.emplace_back(sid, disp);
+                    }
+                }
+
+                // Send heartbeat to every live session (outside main mutex)
+                std::string hb = "event: heartbeat\ndata: " + std::to_string(beat++) + "\n\n";
+                for (auto& [sid, disp] : live) {
+                    if (!disp->send_event(hb, std::chrono::milliseconds(200))) {
+                        LOG_DEBUG("Heartbeat failed for session (likely disconnected): ", sid);
+                    }
+                }
+            }
+        });
+
+        // Start maintenance thread (inactive session cleanup) — only in non-blocking mode
         if (!blocking) {
             maintenance_thread_run_ = true;
             maintenance_thread_     = std::make_unique<std::thread>([this]() {
                 while (true) {
-                    // Check inactive sessions every 60 seconds
                     std::unique_lock<std::mutex> lock(maintenance_mutex_);
                     auto should_exit = maintenance_cond_.wait_for(lock, std::chrono::seconds(60), [this] {
                         return !maintenance_thread_run_;
@@ -171,6 +211,21 @@ namespace mcp {
         LOG_INFO("Stopping MCP server on ", host_, ":", port_);
         running_ = false;
 
+        // Stop global heartbeat thread
+        if (heartbeat_thread_ && heartbeat_thread_->joinable()) {
+            {
+                std::lock_guard<std::mutex> lk(heartbeat_mutex_);
+                heartbeat_run_ = false;
+            }
+            heartbeat_cv_.notify_all();
+            try {
+                heartbeat_thread_->join();
+            } catch (...) {
+                heartbeat_thread_->detach();
+            }
+            heartbeat_thread_.reset();
+        }
+
         // Close maintenance thread
         if (maintenance_thread_ && maintenance_thread_->joinable()) {
             {
@@ -187,103 +242,24 @@ namespace mcp {
             }
         }
 
-        // Copy all dispatchers and threads to avoid holding the lock for too long
+        // Close all live dispatchers (which wakes the parked IO threads)
         std::vector<std::shared_ptr<event_dispatcher>> dispatchers_to_close;
-        std::vector<std::unique_ptr<std::thread>>      threads_to_join;
-
         {
             std::lock_guard<std::mutex> lock(mutex_);
-
-            // Copy all dispatchers
             dispatchers_to_close.reserve(session_dispatchers_.size());
-            for (const auto& [_, dispatcher] : session_dispatchers_) {
-                dispatchers_to_close.push_back(dispatcher);
+            for (auto& [_, disp] : session_dispatchers_) {
+                dispatchers_to_close.push_back(disp);
             }
-
-            // Copy all threads
-            threads_to_join.reserve(sse_threads_.size());
-            for (auto& [_, thread] : sse_threads_) {
-                if (thread && thread->joinable()) {
-                    threads_to_join.push_back(std::move(thread));
-                }
-            }
-
-            // Clear the maps
             session_dispatchers_.clear();
-            sse_threads_.clear();
             session_initialized_.clear();
             session_protocol_version_.clear();
         }
-
-        // Close all sessions
-        for (const auto& [session_id, _] : session_dispatchers_) {
-            close_session(session_id);
+        for (auto& disp : dispatchers_to_close) {
+            if (disp && !disp->is_closed()) disp->close();
         }
 
-        // Give threads some time to handle close events
-        std::this_thread::sleep_for(std::chrono::milliseconds(300));
-
-        // Wait for threads to finish outside the lock (with timeout limit)
-        const auto timeout_point = std::chrono::steady_clock::now() + std::chrono::seconds(2);
-
-        for (auto& thread : threads_to_join) {
-            if (!thread || !thread->joinable()) {
-                continue;
-            }
-
-            if (std::chrono::steady_clock::now() >= timeout_point) {
-                // If timeout reached, detach remaining threads
-                LOG_WARNING("Thread join timeout reached, detaching remaining threads");
-                thread->detach();
-                continue;
-            }
-
-            // Try using timeout join
-            bool joined = false;
-            try {
-                // Create future and promise for timeout join
-                std::promise<void> thread_done;
-                auto               future = thread_done.get_future();
-
-                // Try join in another thread
-                std::thread join_helper([&thread, &thread_done]() {
-                    try {
-                        thread->join();
-                        thread_done.set_value();
-                    } catch (...) {
-                        try {
-                            thread_done.set_exception(std::current_exception());
-                        } catch (...) {}
-                    }
-                });
-
-                // Wait for join to complete or timeout
-                if (future.wait_for(std::chrono::milliseconds(100)) == std::future_status::ready) {
-                    future.get(); // Get possible exception
-                    joined = true;
-                }
-
-                // Process join_helper thread
-                if (join_helper.joinable()) {
-                    if (joined) {
-                        join_helper.join();
-                    } else {
-                        join_helper.detach();
-                    }
-                }
-            } catch (...) {
-                joined = false;
-            }
-
-            // If join fails, then detach
-            if (!joined) {
-                try {
-                    thread->detach();
-                } catch (...) {
-                    // Ignore exceptions
-                }
-            }
-        }
+        // Give IO threads a moment to unwind
+        std::this_thread::sleep_for(std::chrono::milliseconds(200));
 
         if (server_thread_ && server_thread_->joinable()) {
             http_server_->stop();
@@ -509,114 +485,42 @@ namespace mcp {
         std::string session_id  = generate_session_id();
         std::string session_uri = msg_endpoint_ + "?session_id=" + session_id;
 
-        // Setup SSE response headers
+        // SSE response headers
         res.set_header("Content-Type", "text/event-stream");
         res.set_header("Cache-Control", "no-cache");
         res.set_header("Connection", "keep-alive");
         res.set_header("Access-Control-Allow-Origin", "*");
 
-        // Create session-specific event dispatcher
+        // Create session dispatcher
         auto session_dispatcher = std::make_shared<event_dispatcher>();
-
-        // Initialize activity time
         session_dispatcher->update_activity();
 
-        // Add session dispatcher to mapping table
         {
             std::lock_guard<std::mutex> lock(mutex_);
             session_dispatchers_[session_id] = session_dispatcher;
         }
 
-        // Create session thread
-        auto thread = std::make_unique<std::thread>([this, res, session_id, session_uri, session_dispatcher]() {
-            try {
-                // Send initial session URI
-                std::this_thread::sleep_for(std::chrono::milliseconds(500));
-                std::stringstream ss;
-                ss << "event: endpoint\r\ndata: " << session_uri << "\r\n\r\n";
-                session_dispatcher->send_event(ss.str());
-
-                // Update activity time (after sending message)
-                session_dispatcher->update_activity();
-
-                // Send periodic heartbeats to detect connection status
-                int heartbeat_count = 0;
-                while (running_ && !session_dispatcher->is_closed()) {
-                    std::this_thread::sleep_for(
-                        std::chrono::seconds(5) + std::chrono::milliseconds(rand() % 500)
-                    ); // NOTE: DO NOT set it the same as the timeout of wait_event
-
-                    if (session_dispatcher->is_closed() || !running_) {
-                        break;
-                    }
-
-                    std::stringstream heartbeat;
-                    heartbeat << "event: heartbeat\r\ndata: " << heartbeat_count++ << "\r\n\r\n";
-
-                    try {
-                        bool sent = session_dispatcher->send_event(heartbeat.str());
-                        if (!sent) {
-                            LOG_WARNING("Failed to send heartbeat, client may have closed connection: ", session_id);
-                            break;
-                        }
-
-                        // Update activity time (heartbeat successful)
-                        session_dispatcher->update_activity();
-                    } catch (const std::exception& e) {
-                        LOG_ERROR("Failed to send heartbeat: ", e.what());
-                        break;
-                    }
-                }
-            } catch (const std::exception& e) {
-                LOG_ERROR("SSE session thread exception: ", session_id, ", ", e.what());
+        // Send the endpoint event once the IO thread has attached its sink.
+        // This runs in the httplib IO thread (same thread that will call the provider below),
+        // so we must do it BEFORE set_chunked_content_provider or in a detached thread.
+        // We use a detached thread here so the provider lambda can block in attach_and_wait.
+        std::thread([this, session_id, session_uri, session_dispatcher]() {
+            // Wait briefly for the IO thread to attach (attach_and_wait sets sink_ready_)
+            std::string endpoint_event = "event: endpoint\ndata: " + session_uri + "\n\n";
+            if (!session_dispatcher->send_event(endpoint_event)) {
+                LOG_WARNING("Failed to send endpoint event to session: ", session_id);
+                close_session(session_id);
             }
+        }).detach();
 
-            close_session(session_id);
-        });
-
-        // Store thread
-        {
-            std::lock_guard<std::mutex> lock(mutex_);
-            sse_threads_[session_id] = std::move(thread);
-        }
-
-        // Setup chunked content provider
+        // Chunked provider: IO thread parks here until close()
         res.set_chunked_content_provider(
             "text/event-stream",
             [this, session_id, session_dispatcher](size_t /* offset */, httplib::DataSink& sink) {
-                try {
-                    // Check if session is closed - directly get status from dispatcher, reduce lock contention
-                    if (session_dispatcher->is_closed()) {
-                        return false;
-                    }
-
-                    // Update activity time (received request)
-                    session_dispatcher->update_activity();
-
-                    // Wait for event (timeout is normal, just retry)
-                    bool result = session_dispatcher->wait_event(&sink);
-                    if (!result) {
-                        // Check if dispatcher was actually closed vs just timed out
-                        if (session_dispatcher->is_closed() || !running_) {
-                            LOG_DEBUG("SSE connection closed: ", session_id);
-                            close_session(session_id);
-                            return false;
-                        }
-                        // Timeout - just continue waiting
-                        return true;
-                    }
-
-                    // Update activity time (successfully received message)
-                    session_dispatcher->update_activity();
-
-                    return true;
-                } catch (const std::exception& e) {
-                    LOG_ERROR("SSE content provider exception: ", e.what());
-
-                    close_session(session_id);
-
-                    return false;
-                }
+                // Block until dispatcher is closed (zero CPU)
+                session_dispatcher->attach_and_wait(&sink);
+                close_session(session_id);
+                return false; // end the chunked response
             }
         );
     }
@@ -1186,7 +1090,7 @@ namespace mcp {
             dispatcher = it->second;
         }
 
-        // Setup SSE response for server-initiated messages
+        // Setup SSE response headers
         res.set_header("Content-Type", "text/event-stream");
         res.set_header("Cache-Control", "no-cache");
         res.set_header("Connection", "keep-alive");
@@ -1194,28 +1098,13 @@ namespace mcp {
 
         LOG_INFO("Streamable HTTP: SSE stream opened for session ", session_id);
 
+        // Chunked provider: IO thread parks here until close() (completion-signal model)
         res.set_chunked_content_provider(
             "text/event-stream",
             [this, session_id, dispatcher](size_t /* offset */, httplib::DataSink& sink) {
-                try {
-                    if (dispatcher->is_closed() || !running_) {
-                        return false;
-                    }
-
-                    dispatcher->update_activity();
-
-                    bool result = dispatcher->wait_event(&sink);
-                    if (!result) {
-                        LOG_WARNING("Streamable HTTP: SSE stream closed for session ", session_id);
-                        return false;
-                    }
-
-                    dispatcher->update_activity();
-                    return true;
-                } catch (const std::exception& e) {
-                    LOG_ERROR("Streamable HTTP: SSE exception: ", e.what());
-                    return false;
-                }
+                dispatcher->attach_and_wait(&sink);
+                LOG_DEBUG("Streamable HTTP: SSE stream closed for session ", session_id);
+                return false;
             }
         );
     }
@@ -1284,48 +1173,32 @@ namespace mcp {
     }
 
     void server::close_session(const std::string& session_id) {
-        // Clean up resources safely
         try {
-            for (const auto& [key, handler] : session_cleanup_handler_) {
-                handler(key);
+            // Run session-level cleanup handlers
+            {
+                std::lock_guard<std::mutex> lock(mutex_);
+                for (const auto& [key, handler] : session_cleanup_handler_) {
+                    try { handler(key); } catch (...) {}
+                }
             }
 
-            // Copy resources to be processed
             std::shared_ptr<event_dispatcher> dispatcher_to_close;
-            std::unique_ptr<std::thread>      thread_to_release;
-
             {
                 std::lock_guard<std::mutex> lock(mutex_);
 
-                // Get dispatcher pointer
                 auto dispatcher_it = session_dispatchers_.find(session_id);
                 if (dispatcher_it != session_dispatchers_.end()) {
                     dispatcher_to_close = dispatcher_it->second;
                     session_dispatchers_.erase(dispatcher_it);
                 }
 
-                // Get thread pointer
-                auto thread_it = sse_threads_.find(session_id);
-                if (thread_it != sse_threads_.end()) {
-                    thread_to_release = std::move(thread_it->second);
-                    sse_threads_.erase(thread_it);
-                }
-
-                // Clean up initialization status
                 session_initialized_.erase(session_id);
-
-                // Clean up protocol version
                 session_protocol_version_.erase(session_id);
             }
 
-            // Close dispatcher outside the lock
+            // close() wakes the IO thread parked in attach_and_wait()
             if (dispatcher_to_close && !dispatcher_to_close->is_closed()) {
                 dispatcher_to_close->close();
-            }
-
-            // Release thread resources
-            if (thread_to_release) {
-                thread_to_release.release();
             }
         } catch (const std::exception& e) {
             LOG_WARNING("Exception while cleaning up session resources: ", session_id, ", ", e.what());

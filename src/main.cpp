@@ -178,7 +178,7 @@ int main() {
             res.status = 200;
         });
     std::cout << "[MCDK-Server] 统计查询端点已注册: GET http://"
-              << conf.host << ":" << conf.port << "/api/tool-stats" << std::endl;
+              << "127.0.0.1:" << conf.port << "/api/tool-stats" << std::endl;
 #endif
 
     srv.start(true); // blocking

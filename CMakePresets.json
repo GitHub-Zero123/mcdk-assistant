@@ -133,25 +133,6 @@
             }
         },
         {
-            "name": "linux-server-debug",
-            "displayName": "Linux Server Debug (MCDK_SERVER)",
-            "inherits": "linux-base",
-            "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Debug"
-            }
-        },
-        {
-            "name": "linux-server-release",
-            "displayName": "Linux Server Release (MCDK_SERVER, static libstdc++/libgcc)",
-            "inherits": "linux-base",
-            "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Release",
-                "CMAKE_CXX_FLAGS_RELEASE": "-O2 -DNDEBUG -ffunction-sections -fdata-sections -fvisibility=hidden",
-                "CMAKE_C_FLAGS_RELEASE": "-O2 -DNDEBUG -ffunction-sections -fdata-sections -fvisibility=hidden",
-                "CMAKE_EXE_LINKER_FLAGS_RELEASE": "-s -Wl,--gc-sections"
-            }
-        },
-        {
             "name": "macos-debug",
             "displayName": "macOS Debug",
             "generator": "Ninja",
@@ -204,16 +185,6 @@
         {
             "name": "linux-release",
             "configurePreset": "linux-release"
-        },
-        {
-            "name": "linux-server-debug",
-            "configurePreset": "linux-server-debug",
-            "targets": ["mcdk-asst-server"]
-        },
-        {
-            "name": "linux-server-release",
-            "configurePreset": "linux-server-release",
-            "targets": ["mcdk-asst-server"]
         },
         {
             "name": "macos-debug",

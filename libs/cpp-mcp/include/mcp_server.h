@@ -48,127 +48,168 @@ namespace mcp {
      */
     using tool_call_handler = std::function<void(const std::string& tool_name)>;
 
+    /**
+     * @brief Completion-signal event dispatcher.
+     *
+     * Design:
+     *   - IO thread calls attach_and_wait(&sink): registers the DataSink and parks
+     *     in closed_cv_.wait() consuming zero CPU until close() is called.
+     *   - Worker thread calls send_event(msg): acquires sink_mutex_, writes directly
+     *     to the DataSink (zero-copy for the IO thread).
+     *   - close() signals closed_cv_ to wake the parked IO thread.
+     *
+     * Thread safety: send_event and attach_and_wait are mutually exclusive via sink_mutex_.
+     */
     class event_dispatcher {
     public:
-        event_dispatcher() {
-            message_.reserve(128); // Pre-allocate space for messages
-        }
+        event_dispatcher()
+            : last_activity_(std::chrono::steady_clock::now()) {}
 
         ~event_dispatcher() { close(); }
 
-        bool wait_event(
-            httplib::DataSink*               sink,
-            const std::chrono::milliseconds& timeout = std::chrono::milliseconds(10000)
-        ) {
-            if (!sink || closed_.load(std::memory_order_acquire)) {
-                return false;
-            }
+        /**
+         * @brief Called by the IO thread inside the chunked content provider.
+         *
+         * Registers the sink, then blocks until close() is called.
+         * Returns false (tells httplib to end the chunked response).
+         */
+        bool attach_and_wait(httplib::DataSink* sink) {
+            if (!sink) return false;
 
-            std::string message_copy;
             {
-                std::unique_lock<std::mutex> lk(m_);
+                std::lock_guard<std::mutex> lk(sink_mutex_);
+                sink_ = sink;
+                sink_ready_.store(true, std::memory_order_release);
+            }
+            sink_cv_.notify_all();
 
-                if (closed_.load(std::memory_order_acquire)) {
-                    return false;
-                }
-
-                int id = id_.load(std::memory_order_relaxed);
-
-                bool result = cv_.wait_for(lk, timeout, [&] {
-                    return cid_.load(std::memory_order_relaxed) == id || closed_.load(std::memory_order_acquire);
-                });
-
-                if (closed_.load(std::memory_order_acquire)) {
-                    return false;
-                }
-
-                if (!result) {
-                    return false;
-                }
-
-                // Only copy the message if there is one
-                if (!message_.empty()) {
-                    message_copy.swap(message_);
-                } else {
-                    return true; // No message but condition satisfied
-                }
+            // Park IO thread here (zero CPU) until close() is called
+            {
+                std::unique_lock<std::mutex> lk(closed_mutex_);
+                closed_cv_.wait(lk, [this] { return closed_.load(std::memory_order_acquire); });
             }
 
-            try {
-                if (!message_copy.empty()) {
-                    if (!sink->write(message_copy.data(), message_copy.size())) {
-                        close();
-                        return false;
-                    }
-                }
-                return true;
-            } catch (...) {
+            {
+                std::lock_guard<std::mutex> lk(sink_mutex_);
+                sink_ = nullptr;
+                sink_ready_.store(false, std::memory_order_release);
+            }
+            return false; // signal httplib to finish chunked response
+        }
+
+        /**
+         * @brief Called by worker/heartbeat threads to push an SSE event.
+         *
+         * Waits up to sink_wait for the IO thread to attach, then writes
+         * directly to the DataSink under sink_mutex_.
+         */
+        bool send_event(
+            const std::string&              message,
+            std::chrono::milliseconds sink_wait = std::chrono::milliseconds(5000)
+        ) {
+            if (closed_.load(std::memory_order_acquire) || message.empty()) return false;
+
+            std::unique_lock<std::mutex> lk(sink_mutex_);
+
+            // Wait for IO thread to attach sink (with timeout)
+            if (!sink_ready_.load(std::memory_order_acquire)) {
+                sink_cv_.wait_for(lk, sink_wait, [this] {
+                    return sink_ready_.load(std::memory_order_acquire)
+                        || closed_.load(std::memory_order_acquire);
+                });
+            }
+
+            if (!sink_ || closed_.load(std::memory_order_acquire)) return false;
+
+            bool ok = sink_->write(message.data(), message.size());
+            if (!ok) {
+                lk.unlock();
                 close();
                 return false;
             }
-        }
 
-        bool send_event(const std::string& message) {
-            if (closed_.load(std::memory_order_acquire) || message.empty()) {
-                return false;
+            // Update activity under sink_mutex_ (saves an extra lock acquisition)
+            {
+                std::lock_guard<std::mutex> alk(activity_mutex_);
+                last_activity_ = std::chrono::steady_clock::now();
             }
-
-            try {
-                std::lock_guard<std::mutex> lk(m_);
-
-                if (closed_.load(std::memory_order_acquire)) {
-                    return false;
-                }
-
-                // Efficiently set the message and allocate space as needed
-                if (message.size() > message_.capacity()) {
-                    message_.reserve(message.size() + 64); // Pre-allocate extra space to avoid frequent reallocations
-                }
-                message_ = message;
-
-                cid_.store(id_.fetch_add(1, std::memory_order_relaxed), std::memory_order_relaxed);
-                cv_.notify_one(); // Notify waiting threads
-                return true;
-            } catch (...) {
-                return false;
-            }
+            return true;
         }
 
         void close() {
             bool was_closed = closed_.exchange(true, std::memory_order_release);
-            if (was_closed) {
-                return;
-            }
+            if (was_closed) return;
 
-            try {
-                cv_.notify_all();
-            } catch (...) {
-                // Ignore exceptions
-            }
+            closed_cv_.notify_all();
+            sink_cv_.notify_all();
         }
 
         bool is_closed() const { return closed_.load(std::memory_order_acquire); }
 
-        // Get the last activity time
         std::chrono::steady_clock::time_point last_activity() const {
-            std::lock_guard<std::mutex> lk(m_);
+            std::lock_guard<std::mutex> lk(activity_mutex_);
             return last_activity_;
         }
 
-        // Update the activity time (when sending or receiving a message)
         void update_activity() {
-            std::lock_guard<std::mutex> lk(m_);
+            std::lock_guard<std::mutex> lk(activity_mutex_);
             last_activity_ = std::chrono::steady_clock::now();
         }
 
     private:
-        mutable std::mutex                    m_;
-        std::condition_variable               cv_;
-        std::atomic<int>                      id_{0};
-        std::atomic<int>                      cid_{-1};
-        std::string                           message_;
-        std::atomic<bool>                     closed_{false};
-        std::chrono::steady_clock::time_point last_activity_{std::chrono::steady_clock::now()};
+        // Sink access (worker ↔ IO thread)
+        mutable std::mutex      sink_mutex_;
+        std::condition_variable sink_cv_;
+        httplib::DataSink*      sink_{nullptr};
+        std::atomic<bool>       sink_ready_{false};
+
+        // Close signal (IO thread parks here)
+        std::mutex              closed_mutex_;
+        std::condition_variable closed_cv_;
+        std::atomic<bool>       closed_{false};
+
+        // Activity tracking
+        mutable std::mutex                     activity_mutex_;
+        std::chrono::steady_clock::time_point  last_activity_;
+    };
+
+    /**
+     * @brief Elastic task queue — one detached thread per connection.
+     *
+     * Replaces httplib's fixed-size ThreadPool.  There is no upper bound on
+     * concurrent connections; each enqueued task gets its own thread.
+     * shutdown() waits for all active tasks to finish before returning.
+     */
+    class elastic_task_queue : public httplib::TaskQueue {
+    public:
+        bool enqueue(std::function<void()> fn) override {
+            {
+                std::lock_guard<std::mutex> lk(m_);
+                if (shutdown_) return false;
+                ++active_;
+            }
+            std::thread([this, fn = std::move(fn)]() mutable {
+                try { fn(); } catch (...) {}
+                std::lock_guard<std::mutex> lk(m_);
+                if (--active_ == 0 && shutdown_) cv_.notify_all();
+            }).detach();
+            return true;
+        }
+
+        void shutdown() override {
+            {
+                std::lock_guard<std::mutex> lk(m_);
+                shutdown_ = true;
+            }
+            std::unique_lock<std::mutex> lk(m_);
+            cv_.wait(lk, [this] { return active_ == 0; });
+        }
+
+    private:
+        std::mutex              m_;
+        std::condition_variable cv_;
+        int                     active_{0};
+        bool                    shutdown_{false};
     };
 
     /**
@@ -382,14 +423,16 @@ namespace mcp {
         // Server thread (for non-blocking mode)
         std::unique_ptr<std::thread> server_thread_;
 
-        // SSE thread
-        std::map<std::string, std::unique_ptr<std::thread>> sse_threads_;
-
-        // Event dispatcher for server-sent events
-        event_dispatcher sse_dispatcher_;
-
-        // Session-specific event dispatchers
+        // Session-specific event dispatchers (session_id -> dispatcher)
         std::map<std::string, std::shared_ptr<event_dispatcher>> session_dispatchers_;
+
+        // Global heartbeat manager — one shared thread for all SSE sessions.
+        // Sends a heartbeat to every live dispatcher every heartbeat_interval_ seconds.
+        std::unique_ptr<std::thread> heartbeat_thread_;
+        std::mutex                   heartbeat_mutex_;
+        std::condition_variable      heartbeat_cv_;
+        bool                         heartbeat_run_{false};
+        static constexpr int         heartbeat_interval_s_{25}; // seconds between heartbeats
 
         // Server-sent events endpoint
         std::string sse_endpoint_;

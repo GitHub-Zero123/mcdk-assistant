@@ -110,7 +110,11 @@ namespace mcp {
 
             // Output log
             std::lock_guard<std::mutex> lock(mutex_);
-            std::cerr << ss.str() << std::endl;
+            #ifdef MCDK_SERVER
+            std::cerr << ss.str() << "\n";
+            #else
+            std::cout << ss.str() << std::endl;
+            #endif
         }
 
         log_level  level_;
