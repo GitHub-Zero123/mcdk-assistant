@@ -67,33 +67,32 @@ public:
     bool is_cache_only_mode() const { return cache_only_mode_; }
 
     std::vector<SearchResult> search_api(const std::string& keyword, int top_k = -1) const {
-        return search_category(api_index_, keyword, top_k);
+        return search_category_flexible(api_index_, keyword, top_k, SearchMode::Auto);
     }
     std::vector<SearchResult> search_event(const std::string& keyword, int top_k = -1) const {
-        auto results = search_category(event_index_, keyword, top_k);
-        if (!results.empty()) return results;
-
-        // 事件文档里大量事件名/接口名/英文 token 使用 ASCII 词形，
-        // 纯中文分词路径在部分关键词上可能完全失配，因此回退一次英文分词检索。
-        return search_category_en(event_index_, keyword, top_k);
+        if (looks_english_query(keyword) && !is_precise_identifier_query(keyword)) {
+            const int limited_top_k = top_k > 0 ? std::min(top_k, 8) : 8;
+            return search_event_keyword_index(keyword, limited_top_k);
+        }
+        return search_category_flexible(event_index_, keyword, top_k, SearchMode::PreferEnglishFallback);
     }
     std::vector<SearchResult> search_enum(const std::string& keyword, int top_k = -1) const {
-        return search_category(enum_index_, keyword, top_k);
+        return search_category_flexible(enum_index_, keyword, top_k, SearchMode::Auto);
     }
     std::vector<SearchResult> search_netease_guide(const std::string& keyword, int top_k = -1) const {
-        return search_category(netease_guide_index_, keyword, top_k);
+        return search_category_flexible(netease_guide_index_, keyword, top_k, SearchMode::Auto);
     }
     std::vector<SearchResult> search_all(const std::string& keyword, int top_k = -1) const {
         // 聚合搜索必须限制每个分区的候选数，否则高频词会把所有分区全量结果拼接，
         // 导致响应体过大甚至表现为无响应。
         const int per_bucket_k = top_k > 0 ? std::max(top_k * 3, 30) : 60;
 
-        auto a = search_category(api_index_, keyword, per_bucket_k);
+        auto a = search_api(keyword, per_bucket_k);
         auto b = search_event(keyword, per_bucket_k);
-        auto c = search_category(enum_index_, keyword, per_bucket_k);
-        auto d = search_category_en(wiki_index_, keyword, per_bucket_k);
-        auto e = search_category(qumod_index_, keyword, per_bucket_k);
-        auto f = search_category(netease_guide_index_, keyword, per_bucket_k);
+        auto c = search_enum(keyword, per_bucket_k);
+        auto d = search_wiki(keyword, per_bucket_k);
+        auto e = search_qumod(keyword, per_bucket_k);
+        auto f = search_netease_guide(keyword, per_bucket_k);
 
         std::vector<SearchResult> merged;
         merged.reserve(a.size() + b.size() + c.size() + d.size() + e.size() + f.size());
@@ -115,7 +114,7 @@ public:
         return search_category_en(wiki_index_, keyword, top_k);
     }
     std::vector<SearchResult> search_qumod(const std::string& keyword, int top_k = -1) const {
-        return search_category(qumod_index_, keyword, top_k);
+        return search_category_flexible(qumod_index_, keyword, top_k, SearchMode::Auto);
     }
 
     size_t doc_count() const {
@@ -257,6 +256,10 @@ public:
 
         std::vector<std::string> tokens;
         tokenize_en(keyword, tokens);
+        if (tokens.empty()) {
+            tokenize(keyword, tokens);
+            normalize_tokens(tokens);
+        }
         if (tokens.empty()) return {};
 
         std::string kw_lower = keyword;
@@ -299,6 +302,9 @@ public:
                 }
                 if (path_score > 0.0) {
                     score_map[rel] += path_score;
+                    if (snippet_map.find(rel) == snippet_map.end()) {
+                        snippet_map.emplace(rel, make_asset_path_snippet(rel));
+                    }
                 }
             }
         };
@@ -336,6 +342,13 @@ public:
     }
 
 private:
+    enum class SearchMode {
+        ChineseOnly,
+        EnglishOnly,
+        Auto,
+        PreferEnglishFallback,
+    };
+
     struct CategoryIndex {
         std::vector<DocFragment>              fragments;
         std::vector<std::vector<std::string>> tokenized_docs;
@@ -347,6 +360,11 @@ private:
         std::vector<DocFragment>                        fragments;
         std::vector<std::vector<std::string>>           tokenized_docs;
         BM25Engine                                      engine;
+    };
+
+    struct EventKeywordEntry {
+        size_t      fragment_index;
+        std::string identifier_lower;
     };
 
     std::unique_ptr<cppjieba::Jieba> jieba_;
@@ -362,6 +380,7 @@ private:
     CategoryIndex                   netease_guide_index_;
     GameAssetIndex                  game_assets_bp_;
     GameAssetIndex                  game_assets_rp_;
+    std::vector<EventKeywordEntry>  event_keyword_entries_;
 
     void init_indices() {
         if (cache_only_mode_) {
@@ -460,6 +479,8 @@ private:
             restore_ga(game_assets_rp_, cached.game_assets[1]);
         }
 
+        rebuild_event_keyword_entries();
+
         // CacheData 析构时 categories/game_assets 里剩余的临时内存自动释放
         std::cout << "[MCDK] 缓存恢复完成: " << doc_count() << " fragments, "
                   << game_assets_count() << " game assets" << std::endl;
@@ -524,6 +545,196 @@ private:
         std::vector<std::string> query_tokens;
         tokenize_en(keyword, query_tokens);
         return idx.engine.search(query_tokens, top_k);
+    }
+
+    std::vector<SearchResult> search_category_flexible(const CategoryIndex& idx,
+                                                       const std::string& keyword,
+                                                       int top_k,
+                                                       SearchMode mode) const {
+        std::vector<std::string> primary_tokens = make_query_tokens(keyword, mode, false);
+        auto results = idx.engine.search(primary_tokens, top_k);
+        if (!results.empty()) return results;
+
+        if (mode == SearchMode::ChineseOnly || mode == SearchMode::EnglishOnly) {
+            return results;
+        }
+
+        std::vector<std::string> fallback_tokens = make_query_tokens(keyword, mode, true);
+        if (fallback_tokens == primary_tokens) return results;
+        return idx.engine.search(fallback_tokens, top_k);
+    }
+
+    std::vector<SearchResult> search_event_keyword_index(const std::string& keyword, int top_k) const {
+        if (top_k <= 0) top_k = 8;
+
+        std::string keyword_lower = to_ascii_lower(keyword);
+        std::vector<SearchResult> exact_prefix_matches;
+        std::vector<SearchResult> loose_matches;
+        exact_prefix_matches.reserve(static_cast<size_t>(top_k));
+        loose_matches.reserve(static_cast<size_t>(top_k));
+
+        auto try_push = [&](std::vector<SearchResult>& out, const DocFragment& frag, double score) {
+            for (const auto& item : out) {
+                if (item.fragment == &frag) return;
+            }
+            out.push_back({&frag, score});
+        };
+
+        for (const auto& entry : event_keyword_entries_) {
+            const auto& frag = event_index_.fragments[entry.fragment_index];
+            const std::string& best_lower = entry.identifier_lower;
+
+            if (best_lower.find(keyword_lower) == 0) {
+                double score = 1000.0 - static_cast<double>(best_lower.size() - keyword_lower.size());
+                try_push(exact_prefix_matches, frag, score);
+                continue;
+            }
+            if (best_lower.find(keyword_lower) != std::string::npos) {
+                double score = 600.0 - static_cast<double>(best_lower.find(keyword_lower));
+                try_push(loose_matches, frag, score);
+            }
+        }
+
+        auto sorter = [](const SearchResult& a, const SearchResult& b) {
+            if (a.score != b.score) return a.score > b.score;
+            return a.fragment->file < b.fragment->file;
+        };
+        std::sort(exact_prefix_matches.begin(), exact_prefix_matches.end(), sorter);
+        std::sort(loose_matches.begin(), loose_matches.end(), sorter);
+
+        std::vector<SearchResult> merged;
+        merged.reserve(static_cast<size_t>(top_k));
+        for (const auto& item : exact_prefix_matches) {
+            if (merged.size() >= static_cast<size_t>(top_k)) break;
+            merged.push_back(item);
+        }
+        for (const auto& item : loose_matches) {
+            if (merged.size() >= static_cast<size_t>(top_k)) break;
+            merged.push_back(item);
+        }
+
+        if (!merged.empty()) return merged;
+        return search_category_flexible(event_index_, keyword, top_k, SearchMode::PreferEnglishFallback);
+    }
+
+    std::vector<std::string> make_query_tokens(const std::string& text,
+                                               SearchMode mode,
+                                               bool fallback_phase) const {
+        std::vector<std::string> tokens;
+
+        const bool prefer_english = mode == SearchMode::EnglishOnly
+            || (mode == SearchMode::PreferEnglishFallback && fallback_phase)
+            || (mode == SearchMode::Auto && looks_english_query(text));
+
+        const bool prefer_chinese = mode == SearchMode::ChineseOnly
+            || (mode == SearchMode::PreferEnglishFallback && !fallback_phase)
+            || (mode == SearchMode::Auto && !prefer_english);
+
+        if (prefer_chinese) {
+            tokenize(text, tokens);
+            if (!tokens.empty()) return tokens;
+            if (mode == SearchMode::ChineseOnly) return tokens;
+        }
+
+        if (prefer_english) {
+            tokenize_en(text, tokens);
+            return tokens;
+        }
+
+        tokenize_en(text, tokens);
+        return tokens;
+    }
+
+    static bool looks_english_query(const std::string& text) {
+        bool has_ascii_alnum = false;
+        bool has_non_ascii = false;
+        for (unsigned char c : text) {
+            if (c >= 128) {
+                has_non_ascii = true;
+                continue;
+            }
+            if (std::isalnum(c) || c == '_') has_ascii_alnum = true;
+        }
+        return has_ascii_alnum && !has_non_ascii;
+    }
+
+    static bool is_precise_identifier_query(const std::string& text) {
+        if (text.empty()) return false;
+        bool has_upper = false;
+        bool has_lower = false;
+        size_t alpha_count = 0;
+        for (unsigned char c : text) {
+            if (!std::isalnum(c) && c != '_') return false;
+            if (std::isalpha(c)) {
+                ++alpha_count;
+                if (std::isupper(c)) has_upper = true;
+                if (std::islower(c)) has_lower = true;
+            }
+        }
+        return alpha_count >= 12 && has_upper && has_lower;
+    }
+
+    static std::string to_ascii_lower(const std::string& text) {
+        std::string out = text;
+        for (auto& c : out) {
+            c = static_cast<char>(std::tolower(static_cast<unsigned char>(c)));
+        }
+        return out;
+    }
+
+    static std::string extract_best_event_identifier(const std::string& content) {
+        std::string best;
+        std::string word;
+        auto flush = [&]() {
+            if (word.empty()) return;
+            if (std::isupper(static_cast<unsigned char>(word[0])) && word.find("Event") != std::string::npos) {
+                if (word.size() > best.size()) best = word;
+            }
+            word.clear();
+        };
+
+        for (unsigned char c : content) {
+            if (std::isalnum(c) || c == '_') {
+                word.push_back(static_cast<char>(c));
+            } else {
+                flush();
+            }
+        }
+        flush();
+        return best;
+    }
+
+    void rebuild_event_keyword_entries() {
+        event_keyword_entries_.clear();
+        event_keyword_entries_.reserve(event_index_.fragments.size());
+        for (size_t i = 0; i < event_index_.fragments.size(); ++i) {
+            std::string best = extract_best_event_identifier(event_index_.fragments[i].content);
+            if (best.empty()) continue;
+            event_keyword_entries_.push_back({i, to_ascii_lower(best)});
+        }
+    }
+
+    static void normalize_tokens(std::vector<std::string>& tokens) {
+        std::vector<std::string> normalized;
+        normalized.reserve(tokens.size());
+        std::unordered_set<std::string> seen;
+        for (auto& token : tokens) {
+            if (token.empty()) continue;
+            std::string lowered;
+            lowered.reserve(token.size());
+            for (unsigned char c : token) {
+                if (c < 128) lowered.push_back(static_cast<char>(std::tolower(c)));
+                else lowered.push_back(static_cast<char>(c));
+            }
+            if (seen.insert(lowered).second) {
+                normalized.push_back(std::move(lowered));
+            }
+        }
+        tokens.swap(normalized);
+    }
+
+    static std::string make_asset_path_snippet(const std::string& rel_path) {
+        return std::string("[PATH MATCH] ") + rel_path;
     }
 
     // ── 文件分类 ──
@@ -741,6 +952,7 @@ private:
 
         build_cn(api_index_,            "API");
         build_cn(event_index_,          "Event");
+        rebuild_event_keyword_entries();
         build_cn(enum_index_,           "Enum");
         build_en_parallel(wiki_index_,  "Wiki");
         build_cn(qumod_index_,          "QuMod");

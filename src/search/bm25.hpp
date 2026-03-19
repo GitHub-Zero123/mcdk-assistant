@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
+#include <unordered_set>
 #include <cmath>
 #include <algorithm>
 
@@ -87,11 +88,26 @@ public:
                                      int top_k = -1) const {
         if (!fragments_ || num_docs_ == 0) return {};
 
+        std::vector<std::string> unique_tokens;
+        unique_tokens.reserve(query_tokens.size());
+        std::unordered_set<std::string> seen_tokens;
+        for (const auto& token : query_tokens) {
+            if (token.empty()) continue;
+            if (seen_tokens.insert(token).second) {
+                unique_tokens.push_back(token);
+            }
+        }
+        if (unique_tokens.empty()) return {};
+
         // 稀疏累积：只对命中文档累加得分，避免全量数组初始化+遍历
         std::unordered_map<size_t, double> score_map;
         score_map.reserve(std::min(num_docs_, size_t(4096)));
 
-        for (const auto& qt : query_tokens) {
+        const bool has_top_k = top_k > 0;
+        const size_t desired_results = has_top_k ? static_cast<size_t>(top_k) : size_t(64);
+        const size_t max_accumulate_docs = std::max<size_t>(desired_results * 48, 2048);
+
+        for (const auto& qt : unique_tokens) {
             auto idf_it = idf_.find(qt);
             if (idf_it == idf_.end()) continue;
             double idf_val = idf_it->second;
@@ -101,7 +117,11 @@ public:
 
             // 对超长 posting list 限制处理量（高频词 IDF 已经很低，继续扫描收益极小）
             const auto& postings = idx_it->second;
-            const size_t MAX_POSTING = 8000;
+            const bool extremely_common = postings.size() > num_docs_ / 3;
+            const bool low_signal_term   = qt.size() <= 3 || idf_val < 0.12;
+            const size_t MAX_POSTING = extremely_common
+                ? (low_signal_term ? 256 : 1024)
+                : (low_signal_term ? 1024 : 4096);
             size_t pcount = std::min(postings.size(), MAX_POSTING);
 
             for (size_t pi = 0; pi < pcount; ++pi) {
@@ -111,6 +131,14 @@ public:
                 double tf_norm = (tf * (K1 + 1.0))
                     / (tf + K1 * (1.0 - B + B * dl / avg_dl_));
                 score_map[posting.doc_id] += idf_val * tf_norm;
+
+                if (score_map.size() >= max_accumulate_docs && low_signal_term) {
+                    break;
+                }
+            }
+
+            if (score_map.size() >= max_accumulate_docs && low_signal_term) {
+                continue;
             }
         }
 
