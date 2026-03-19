@@ -14,6 +14,10 @@
 
 namespace mcdk {
 
+inline std::string fs_native_narrow(const std::filesystem::path& path) {
+    return path.string();
+}
+
 // 索引缓存文件格式 (v5):
 // [magic: 8B] [version: 4B] [fingerprint] [data...]
 // v5: 倒排表存储 (doc_id, tf) 对而非仅 doc_id，搜索时 O(1) 取 TF
@@ -93,7 +97,7 @@ public:
                      const std::vector<GameIndexRef>& ga_refs)
     {
         // 这里仍用 C stdio，主要是为了保持序列化实现简单且可控。
-        std::string cache_path_text = mcdk::path::to_utf8(cache_path);
+        std::string cache_path_text = fs_native_narrow(cache_path);
         FILE* fp = std::fopen(cache_path_text.c_str(), "wb");
         if (!fp) {
             std::cerr << "[MCDK] cache: cannot open for writing: " << cache_path_text << std::endl;
@@ -142,7 +146,7 @@ public:
                      bool skip_fingerprint_check = false)
     {
         // cache-only 模式会跳过 fingerprint 校验，其它模式仍要求目录指纹一致。
-        std::string cache_path_text = mcdk::path::to_utf8(cache_path);
+        std::string cache_path_text = fs_native_narrow(cache_path);
         FILE* fp = std::fopen(cache_path_text.c_str(), "rb");
         if (!fp) return false;
 

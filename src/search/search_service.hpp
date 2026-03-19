@@ -23,6 +23,10 @@
 
 namespace mcdk {
 
+inline std::string fs_to_ansi(const std::filesystem::path& path) {
+    return path.string();
+}
+
 enum class DocCategory { Unknown, API, Event, Enum, Beta, Wiki, QuMod, NeteaseGuide };
 
 class SearchService {
@@ -32,11 +36,11 @@ public:
                   const std::filesystem::path& knowledge_dir,
                   const std::filesystem::path& cache_path = {})
         : jieba_(std::make_unique<cppjieba::Jieba>(
-            mcdk::path::to_utf8(dicts_dir / "jieba.dict.utf8"),
-            mcdk::path::to_utf8(dicts_dir / "hmm_model.utf8"),
-            mcdk::path::to_utf8(dicts_dir / "user.dict.utf8"),
-            mcdk::path::to_utf8(dicts_dir / "idf.utf8"),
-            mcdk::path::to_utf8(dicts_dir / "stop_words.utf8")
+            fs_to_ansi(dicts_dir / "jieba.dict.utf8"),
+            fs_to_ansi(dicts_dir / "hmm_model.utf8"),
+            fs_to_ansi(dicts_dir / "user.dict.utf8"),
+            fs_to_ansi(dicts_dir / "idf.utf8"),
+            fs_to_ansi(dicts_dir / "stop_words.utf8")
           ))
         , knowledge_dir_(knowledge_dir)
         , cache_path_(cache_path)
@@ -51,11 +55,11 @@ public:
                   const std::filesystem::path& cache_path,
                   bool cache_only)
         : jieba_(std::make_unique<cppjieba::Jieba>(
-            mcdk::path::to_utf8(dicts_dir / "jieba.dict.utf8"),
-            mcdk::path::to_utf8(dicts_dir / "hmm_model.utf8"),
-            mcdk::path::to_utf8(dicts_dir / "user.dict.utf8"),
-            mcdk::path::to_utf8(dicts_dir / "idf.utf8"),
-            mcdk::path::to_utf8(dicts_dir / "stop_words.utf8")
+            fs_to_ansi(dicts_dir / "jieba.dict.utf8"),
+            fs_to_ansi(dicts_dir / "hmm_model.utf8"),
+            fs_to_ansi(dicts_dir / "user.dict.utf8"),
+            fs_to_ansi(dicts_dir / "idf.utf8"),
+            fs_to_ansi(dicts_dir / "stop_words.utf8")
           ))
         , cache_path_(cache_path)
         , cache_only_mode_(cache_only)
