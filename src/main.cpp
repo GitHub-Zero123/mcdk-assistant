@@ -27,7 +27,7 @@ int main(int argc, char* argv[]) {
     // stdio 模式下，诊断输出全部走 stderr，stdout 只允许写 JSON-RPC 协议数据。
 #define MCDK_LOG (use_stdio ? std::cerr : std::cout)
 #else
-#   define MCDK_LOG std::cout
+#define MCDK_LOG std::cout
 #endif
 
     namespace fs = std::filesystem;
@@ -82,11 +82,12 @@ int main(int argc, char* argv[]) {
 #ifndef MCDK_SERVER
     if (use_stdio) {
         // stdio 模式：不启动 HTTP 监听，直接在当前线程跑 stdio 循环。
-        std::cerr << "[MCDK] stdio transport mode\n";
-        std::cerr << "[MCDK] docs indexed: " << search_svc->doc_count() << "\n";
-        std::cerr << "[MCDK] game assets indexed: " << search_svc->game_assets_count() << "\n";
+        // 这里统一使用 std::endl，确保宿主按“逐行日志”处理 stderr。
+        std::cerr << "[MCDK] stdio transport mode" << std::endl;
+        std::cerr << "[MCDK] docs indexed: " << search_svc->doc_count() << std::endl;
+        std::cerr << "[MCDK] game assets indexed: " << search_svc->game_assets_count() << std::endl;
         if (cache_only_mode) {
-            std::cerr << "[MCDK] 已解析缓存索引库（缓存模式）\n";
+            std::cerr << "[MCDK] 已解析缓存索引库（缓存模式）" << std::endl;
         }
 
         mcp::stdio_server stdio_srv(srv);

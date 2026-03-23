@@ -85,17 +85,17 @@ void log_startup_banner(const mcp::server::configuration& conf,
                         const mcdk::SearchService& search_svc,
                         bool cache_only_mode) {
 #ifdef MCDK_SERVER
-    std::cout << "[MCDK-Server] ";
+    std::cerr << "[MCDK-Server] ";
 #elif defined(MCDK_LITE)
-    std::cout << "[MCDK-Lite] ";
+    std::cerr << "[MCDK-Lite] ";
 #else
-    std::cout << "[MCDK] ";
+    std::cerr << "[MCDK] ";
 #endif
-    std::cout << "MCP server starting on " << conf.host << ":" << conf.port << std::endl;
-    std::cout << "[MCDK] docs indexed: " << search_svc.doc_count() << std::endl;
-    std::cout << "[MCDK] game assets indexed: " << search_svc.game_assets_count() << std::endl;
+    std::cerr << "MCP server starting on " << conf.host << ":" << conf.port << std::endl;
+    std::cerr << "[MCDK] docs indexed: " << search_svc.doc_count() << std::endl;
+    std::cerr << "[MCDK] game assets indexed: " << search_svc.game_assets_count() << std::endl;
     if (cache_only_mode) {
-        std::cout << "[MCDK] 已解析缓存索引库（缓存模式）" << std::endl;
+        std::cerr << "[MCDK] 已解析缓存索引库（缓存模式）" << std::endl;
     }
 }
 
@@ -106,7 +106,7 @@ void register_server_endpoints(mcp::server& srv,
     // 统计模块只在 server 版启用，lite/full 保持最小启动面。
     auto datas_dir = exe_dir / mcdk::server::DATAS_DIR;
     auto stats = std::make_shared<mcdk::server::ToolStats>(datas_dir);
-    std::cout << "[MCDK-Server] 统计模块已启动，数据目录: "
+    std::cerr << "[MCDK-Server] 统计模块已启动，数据目录: "
               << mcdk::path::to_utf8(datas_dir) << std::endl;
 
     srv.set_tool_call_handler([stats](const std::string& tool_name) {
@@ -139,7 +139,7 @@ void register_server_endpoints(mcp::server& srv,
             res.status = 200;
         });
 
-    std::cout << "[MCDK-Server] 统计查询端点已注册: GET http://127.0.0.1:"
+    std::cerr << "[MCDK-Server] 统计查询端点已注册: GET http://127.0.0.1:"
               << port << "/api/tool-stats" << std::endl;
 #else
     (void)srv;
@@ -149,3 +149,4 @@ void register_server_endpoints(mcp::server& srv,
 }
 
 } // namespace mcdk::app
+
