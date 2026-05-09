@@ -37,6 +37,11 @@ inline mcp::json handle_search(SearchService& svc, SearchFn fn, const mcp::json&
 
 inline void register_search_tools(mcp::server& srv, SearchService& search_svc,
                                    const std::filesystem::path& knowledge_dir = {}) {
+    // register_tools() 可能传入局部 path（如缓存模式下的 effective_knowledge_dir）。
+    // 工具回调会在本函数返回后才执行，因此必须复制一份稳定路径，避免 lambda
+    // 捕获悬空引用导致 std::filesystem 访问已析构对象并抛出 bad_alloc 等异常。
+    const std::filesystem::path knowledge_root = knowledge_dir;
+
     struct ToolDef { const char* name; const char* desc; SearchFn fn; };
     static const ToolDef tools[] = {
         {"search_api",           "搜索 ModAPI 接口文档",
@@ -113,7 +118,7 @@ inline void register_search_tools(mcp::server& srv, SearchService& search_svc,
             .with_read_only_hint(true).with_idempotent_hint(true).build();
 
         srv.register_tool(tool,
-            [&knowledge_dir, &search_svc](const mcp::json& params, const std::string&) -> mcp::json {
+            [knowledge_root, &search_svc](const mcp::json& params, const std::string&) -> mcp::json {
                 std::string rel = params.value("path", "");
                 if (rel.empty())
                     throw mcp::mcp_exception(mcp::error_code::invalid_params, "path is required");
@@ -127,8 +132,8 @@ inline void register_search_tools(mcp::server& srv, SearchService& search_svc,
                 if (ls < 1) ls = 1;
                 if (le < ls) le = ls;
 
-                if (!knowledge_dir.empty()) {
-                    auto full = knowledge_dir / mcdk::path::from_utf8(rel);
+                if (!knowledge_root.empty()) {
+                    auto full = knowledge_root / mcdk::path::from_utf8(rel);
                     std::ifstream ifs(full);
                     if (ifs.is_open()) {
                         std::string result, line; int cur = 0;
@@ -164,14 +169,14 @@ inline void register_search_tools(mcp::server& srv, SearchService& search_svc,
             .with_read_only_hint(true).with_idempotent_hint(true).build();
 
         srv.register_tool(tool,
-            [&knowledge_dir, &search_svc](const mcp::json& params, const std::string&) -> mcp::json {
+            [knowledge_root, &search_svc](const mcp::json& params, const std::string&) -> mcp::json {
                 namespace fs = std::filesystem;
                 std::string rel = params.value("path", "");
                 if (rel.find("..") != std::string::npos)
                     throw mcp::mcp_exception(mcp::error_code::invalid_params, "path must not contain '..'");
 
-                if (!knowledge_dir.empty()) {
-                    fs::path dir = knowledge_dir / (rel.empty() ? fs::path() : mcdk::path::from_utf8(rel));
+                if (!knowledge_root.empty()) {
+                    fs::path dir = knowledge_root / (rel.empty() ? fs::path() : mcdk::path::from_utf8(rel));
                     if (fs::exists(dir) && fs::is_directory(dir)) {
                         mcp::json dirs = mcp::json::array(), files = mcp::json::array();
                         for (const auto& entry : fs::directory_iterator(dir)) {
