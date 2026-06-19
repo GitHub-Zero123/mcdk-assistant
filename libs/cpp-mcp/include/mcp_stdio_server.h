@@ -3,7 +3,8 @@
  * @brief MCP Stdio Server — thin stdio transport wrapper over mcp::server
  *
  * Wraps an existing mcp::server instance and drives it via stdin/stdout
- * using newline-delimited JSON-RPC 2.0 (the standard MCP stdio transport).
+ * using MCP Content-Length framed JSON-RPC 2.0, with a legacy newline
+ * JSON-RPC fallback for local scripts.
  *
  * Usage:
  *   mcp::server srv(conf);
@@ -27,7 +28,7 @@ namespace mcp {
  * @class stdio_server
  * @brief Drives an mcp::server instance over stdin/stdout transport.
  *
- * Reads newline-delimited JSON-RPC messages from stdin, dispatches them
+ * Reads JSON-RPC messages from stdin, dispatches them
  * through the wrapped server's handler pipeline, and writes responses to
  * stdout.  stderr is intentionally left untouched so callers can still
  * emit diagnostic output without polluting the protocol stream.
@@ -52,10 +53,9 @@ public:
     /**
      * @brief Enter the read-dispatch-write loop.
      *
-     * Reads lines from stdin until EOF or until stop() is called.
-     * Each non-empty line is parsed as JSON-RPC 2.0 and dispatched to the
-     * wrapped server.  Responses (if any) are written to stdout followed by
-     * a newline.
+     * Reads MCP Content-Length frames from stdin until EOF or until stop()
+     * is called.  A legacy newline-delimited JSON input is also accepted for
+     * local scripts.  Responses use the same framing style as the request.
      *
      * @note This call blocks the calling thread.
      */

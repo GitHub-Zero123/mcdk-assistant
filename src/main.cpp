@@ -3,6 +3,7 @@
 #include "common/path_utils.hpp"
 #include "search/search_service.hpp"
 #include <mcp_server.h>
+#include <mcp_logger.h>
 #ifndef MCDK_SERVER
 #include <mcp_stdio_server.h>
 #endif
@@ -25,6 +26,10 @@ int main(int argc, char* argv[]) {
         }
     }
     // stdio 模式下，诊断输出全部走 stderr，stdout 只允许写 JSON-RPC 协议数据。
+    if (use_stdio) {
+        // 避免 cpp-mcp 的逐请求 INFO 日志填满宿主未持续 drain 的 stderr 管道。
+        mcp::set_log_level(mcp::log_level::warning);
+    }
 #define MCDK_LOG (use_stdio ? std::cerr : std::cout)
 #else
 #define MCDK_LOG std::cout

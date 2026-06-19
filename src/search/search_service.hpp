@@ -395,6 +395,7 @@ private:
     bool                            force_rebuild_cache_ = false;
     bool                            cache_only_mode_ = false;
     std::unordered_set<std::string> stop_words_;
+    mutable std::mutex              jieba_mutex_;
     CategoryIndex                   api_index_;
     CategoryIndex                   event_index_;
     CategoryIndex                   enum_index_;
@@ -977,7 +978,11 @@ private:
 
     void tokenize(const std::string& text, std::vector<std::string>& tokens) const {
         std::vector<std::string> raw;
-        jieba_->CutForSearch(text, raw);
+        {
+            // cppjieba::Jieba 内部状态不保证并发读安全，分词入口统一串行化。
+            std::lock_guard<std::mutex> lock(jieba_mutex_);
+            jieba_->CutForSearch(text, raw);
+        }
         tokens.clear();
         for (auto& w : raw) {
             if (w.empty() || w == " " || w == "\t" || w == "\n") continue;

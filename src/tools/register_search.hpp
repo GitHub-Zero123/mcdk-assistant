@@ -18,6 +18,17 @@ namespace mcdk {
 
 using SearchFn = std::vector<SearchResult>(SearchService::*)(const std::string&, int) const;
 
+inline mcp::json make_search_content(mcp::json arr, const std::string& keyword) {
+    if (arr.empty()) {
+        // 部分 MCP 客户端会把 content: [] 展示成“无输出”，这里显式返回空结果文本。
+        arr.push_back({
+            {"type", "text"},
+            {"text", "未找到匹配结果。工具已正常返回，结果集为空。关键词: " + keyword}
+        });
+    }
+    return {{"content", arr}};
+}
+
 inline mcp::json handle_search(SearchService& svc, SearchFn fn, const mcp::json& params) {
     std::string keyword = params.value("keyword", "");
     if (keyword.empty())
@@ -32,7 +43,7 @@ inline mcp::json handle_search(SearchService& svc, SearchFn fn, const mcp::json&
         arr.push_back({{"type","text"},{"text",r.fragment->content},
             {"file",r.fragment->file},{"line_start",r.fragment->line_start},
             {"line_end",r.fragment->line_end},{"score",r.score}});
-    return {{"content", arr}};
+    return make_search_content(arr, keyword);
 }
 
 inline void register_search_tools(mcp::server& srv, SearchService& search_svc,
@@ -105,7 +116,7 @@ inline void register_search_tools(mcp::server& srv, SearchService& search_svc,
                 for (const auto& r : results)
                     arr.push_back({{"type","text"},{"text",r.snippet},
                         {"file",r.rel_path},{"score",r.score}});
-                return {{"content", arr}};
+                return make_search_content(arr, keyword);
             });
     }
 
