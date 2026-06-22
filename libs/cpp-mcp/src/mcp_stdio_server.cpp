@@ -91,7 +91,7 @@ std::string stdio_server::dispatch_one(const json& msg) {
         return {};
     }
 
-    return result.dump();
+    return result.dump(-1, ' ', false, json::error_handler_t::replace);
 }
 
 } // namespace mcp
