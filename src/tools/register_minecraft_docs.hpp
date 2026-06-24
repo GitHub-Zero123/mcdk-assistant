@@ -63,6 +63,10 @@ inline std::string minecraft_docs_help_text() {
 重要: 如果某个参数本身包含空格，必须用 "..." 或 '...' 包裹，整体才会算一个参数。
 示例: /wiki "custom food item"；/read "BedrockWiki/items/items intro.md" --start 1 --end 20
 
+【开发语义提醒】
+  网易 ModSDK/ModAPI 多为 C 接口封装，通常不是异常驱动设计；编写示例代码时优先按返回值、回调或文档约定判断成败，不要用 try/except 当兜底逻辑。
+  Mod 环境下客户端线程和服务端线程共享同一个 VM 上下文，并非完全隔离；跨线程行为尤其是跨线程初始化模块时，必须避免意外执行对方侧代码。
+
 【关键词传递规则】
   搜索类命令的关键词支持两种写法（效果相同，均为模糊匹配）：
     1. 多个词空格分隔:   wiki minecraft food        （会拼成 "minecraft food" 模糊匹配）

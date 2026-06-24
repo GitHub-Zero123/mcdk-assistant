@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="600" viewBox="0 0 1180 600" role="img" aria-labelledby="title desc">
+  <title id="title">MCDK Assistant MCP engineering workflow</title>
+  <desc id="desc">A technical architecture diagram showing how an LLM agent collaborates with MCDK Assistant MCP, knowledge sources, game assets, and project files.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M1,1 L8,5 L1,9" fill="none" stroke="var(--line)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="arrow-muted" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M1,1 L8,5 L1,9" fill="none" stroke="var(--muted-line)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <style>
+      svg {
+        color-scheme: light dark;
+        --bg: #fbfcfb;
+        --grid: #e7ece9;
+        --panel: #ffffff;
+        --panel-2: #f6f8f7;
+        --stroke: #c9d3cf;
+        --stroke-strong: #70817b;
+        --title: #172026;
+        --text: #35434a;
+        --muted: #6f7c83;
+        --line: #2d3b42;
+        --muted-line: #8a989e;
+        --accent: #0f766e;
+        --accent-soft: #dcefed;
+        --accent-2: #8a6f2a;
+        --accent-2-soft: #f2ead8;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        svg {
+          --bg: #0b0f12;
+          --grid: #182126;
+          --panel: #10161a;
+          --panel-2: #0d1316;
+          --stroke: #2b383d;
+          --stroke-strong: #687a7c;
+          --title: #e4ebe8;
+          --text: #c0cbc7;
+          --muted: #859390;
+          --line: #d1dbd8;
+          --muted-line: #6f7d7a;
+          --accent: #2dd4bf;
+          --accent-soft: #123532;
+          --accent-2: #d4b46a;
+          --accent-2-soft: #322918;
+        }
+      }
+
+      .background { fill: var(--bg); }
+      .grid { stroke: var(--grid); stroke-width: 1; }
+      .frame { fill: none; stroke: var(--stroke); stroke-width: 1.2; }
+      .panel { fill: var(--panel); stroke: var(--stroke); stroke-width: 1.2; }
+      .panel2 { fill: var(--panel-2); stroke: var(--stroke); stroke-width: 1.1; }
+      .module { fill: var(--panel); stroke: var(--stroke-strong); stroke-width: 1.15; }
+      .accentBox { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.2; }
+      .accentBox2 { fill: var(--accent-2-soft); stroke: var(--accent-2); stroke-width: 1.2; }
+      .title { font: 700 23px "Segoe UI", Arial, sans-serif; fill: var(--title); letter-spacing: 0; }
+      .eyebrow { font: 700 11px "Segoe UI", Arial, sans-serif; fill: var(--accent); letter-spacing: 1.4px; }
+      .label { font: 700 16px "Segoe UI", Arial, sans-serif; fill: var(--title); letter-spacing: 0; }
+      .text { font: 500 13px "Segoe UI", Arial, sans-serif; fill: var(--text); letter-spacing: 0; }
+      .muted { font: 500 12px "Segoe UI", Arial, sans-serif; fill: var(--muted); letter-spacing: 0; }
+      .mono { font: 600 12px "Cascadia Mono", Consolas, monospace; fill: var(--text); letter-spacing: 0; }
+      .mono-small { font: 600 11px "Cascadia Mono", Consolas, monospace; fill: var(--muted); letter-spacing: 0; }
+      .line { fill: none; stroke: var(--line); stroke-width: 1.8; marker-end: url(#arrow); }
+      .mutedLine { fill: none; stroke: var(--muted-line); stroke-width: 1.5; stroke-dasharray: 5 6; marker-end: url(#arrow-muted); }
+      .plainLine { fill: none; stroke: var(--stroke); stroke-width: 1.1; }
+    </style>
+  </defs>
+
+  <rect class="background" x="0" y="0" width="1180" height="600" rx="18"/>
+
+  <g opacity="0.75">
+    <path class="grid" d="M40 108 H1140"/>
+    <path class="grid" d="M40 492 H1140"/>
+    <path class="grid" d="M334 108 V492"/>
+    <path class="grid" d="M790 108 V492"/>
+  </g>
+
+  <text class="eyebrow" x="46" y="48">MCP ENGINEERING LAYER</text>
+  <text class="title" x="46" y="78">MCDK Assistant connects LLM agents to Minecraft engineering context</text>
+  <text class="muted" x="46" y="101">Agent 负责推理与代码修改；MCP Server 负责把资料、资产和工程工具整理成可验证的 tool 调用。</text>
+
+  <rect class="frame" x="34" y="126" width="258" height="320" rx="10"/>
+  <text class="eyebrow" x="58" y="158">CLIENT</text>
+  <text class="label" x="58" y="184">LLM Agent</text>
+  <text class="text" x="58" y="210">Codex / Claude Code / Roo</text>
+
+  <rect class="panel2" x="58" y="246" width="210" height="46" rx="7"/>
+  <text class="mono" x="76" y="274">plan · inspect · edit</text>
+
+  <rect class="panel2" x="58" y="312" width="210" height="46" rx="7"/>
+  <text class="mono" x="76" y="340">review · verify · iterate</text>
+
+  <path class="plainLine" d="M58 391 H268"/>
+  <text class="muted" x="58" y="420">只保留当前任务需要的上下文，</text>
+  <text class="muted" x="58" y="439">通过 MCP 拉取外部工程事实。</text>
+
+  <rect class="frame" x="380" y="126" width="368" height="320" rx="10"/>
+  <text class="eyebrow" x="406" y="158">LOCAL MCP SERVER</text>
+  <text class="label" x="406" y="184">MCDK Assistant</text>
+  <text class="text" x="406" y="210">C++20 · stdio / SSE · Minecraft focused</text>
+
+  <rect class="accentBox" x="406" y="244" width="144" height="42" rx="7"/>
+  <text class="mono" x="426" y="270">minecraft_docs</text>
+  <rect class="module" x="584" y="244" width="138" height="42" rx="7"/>
+  <text class="mono" x="610" y="270">json ui</text>
+
+  <rect class="module" x="406" y="306" width="144" height="42" rx="7"/>
+  <text class="mono" x="426" y="332">nbt / model</text>
+  <rect class="module" x="584" y="306" width="138" height="42" rx="7"/>
+  <text class="mono" x="610" y="332">animation</text>
+
+  <rect class="accentBox2" x="406" y="368" width="144" height="42" rx="7"/>
+  <text class="mono" x="429" y="394">py2 analysis</text>
+  <rect class="module" x="584" y="368" width="138" height="42" rx="7"/>
+  <text class="mono" x="613" y="394">pixel art</text>
+
+  <text class="mono-small" x="406" y="434">command style: /help · search · parse · view · edit · op</text>
+
+  <rect class="frame" x="844" y="126" width="292" height="320" rx="10"/>
+  <text class="eyebrow" x="870" y="158">ENGINEERING SOURCES</text>
+
+  <rect class="panel" x="870" y="182" width="238" height="56" rx="7"/>
+  <text class="label" x="890" y="207">Knowledge</text>
+  <text class="muted" x="890" y="226">网易教程 / Wiki / ModAPI / QuMod</text>
+
+  <rect class="panel" x="870" y="266" width="238" height="56" rx="7"/>
+  <text class="label" x="890" y="291">Game Assets</text>
+  <text class="muted" x="890" y="310">行为包 / 资源包 / 原版 JSON / 索引缓存</text>
+
+  <rect class="panel" x="870" y="350" width="238" height="56" rx="7"/>
+  <text class="label" x="890" y="375">Workspace</text>
+  <text class="muted" x="890" y="394">UI · NBT · geometry · animation · Python2</text>
+
+  <path class="line" d="M292 286 C330 286, 342 286, 378 286"/>
+  <text class="mono-small" x="308" y="268">tool request</text>
+
+  <path class="mutedLine" d="M380 332 C342 332, 330 332, 292 332"/>
+  <text class="mono-small" x="304" y="358">structured result</text>
+
+  <path class="line" d="M748 210 C786 210, 806 210, 844 210"/>
+  <path class="line" d="M748 294 C786 294, 806 294, 844 294"/>
+  <path class="line" d="M748 378 C786 378, 806 378, 844 378"/>
+
+  <path class="mutedLine" d="M844 235 C805 254, 787 263, 748 283"/>
+  <path class="mutedLine" d="M844 322 C805 341, 787 351, 748 371"/>
+
+  <rect class="panel2" x="118" y="506" width="944" height="52" rx="9"/>
+  <text class="text" x="146" y="531">典型闭环</text>
+  <text class="mono" x="224" y="531">检索资料 → 理解结构 → 定位文件 → 生成补丁 → 回读验证</text>
+  <text class="muted" x="146" y="550">LITE 版聚焦检索与参考；完整版只在需要本地资源读写时启用，减少上下文占用和误操作面。</text>
+</svg>
