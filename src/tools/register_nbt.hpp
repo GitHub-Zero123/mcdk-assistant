@@ -73,6 +73,19 @@ static const char* NBT_REFERENCE_TEXT = R"(
   template=empty: 仅空根 compound。
   json_value: 通用模式，直接用 tagged-JSON 根创建任意 NBT。
   默认不覆盖已存在文件，需 overwrite=true。
+
+七、mcstructure 的 block_indices 排布（★重要，最易错）
+  structure/block_indices = 两层 List<List<int>>：[0]=主层(放方块)，[1]=次层(通常全 -1=无方块)。
+  每层长度 = sizeX*sizeY*sizeZ，元素是 palette 下标，-1 表示空。
+  展开顺序（规范，文档称 "ZYX order"）：X 最外(最慢)、Y 中、Z 最内(最快变化)。
+  扁平下标公式：
+      index = x*(sizeY*sizeZ) + y*sizeZ + z
+  其中 Y 是【高度轴】(y=0 为最低层，向上递增)。逐格放置/计算下标必须用此公式。
+  ✗ 常见错误：把 Y(高度)当成最外层循环来写(index = y*sizeX*sizeZ + x*sizeZ + z)。
+     这样写出的文件被游戏按规范读回时，X 与 Y 轴会被对调，整座结构转置/倒伏，
+     表现为"颠倒"或躺倒(本该在顶部的方块跑到侧面/底部)。务必保持 X 最外、Z 最内。
+  建议：内容较多时用 action=create 的 json_value 一次性写入算好的 block_indices；
+        零散修改用 action=edit 对 structure/block_indices/0/<index> 做 set。
 )";
 
 // ── 单个 op 分发（s 为 tagged ordered_json 参数对象）─────────
@@ -212,6 +225,7 @@ inline void register_nbt_tools(mcp::server& srv) {
                 "    op=rename path,new_name\n"
                 "    op=add    path,(name 向 compound 加必给),(标量 tag_type+value 或 复杂子树 json_value)\n"
                 "  action=create  从零新建。file_path 必填；template=mcstructure(默认,需 size/blocks/fill)|empty，或 json_value(通用 tagged-JSON 根)；overwrite=true 才覆盖已存在文件。\n"
+                "    ★逐格放置方块时 block_indices 必须按 X 最外/Z 最内展开: index=x*sizeY*sizeZ+y*sizeZ+z(Y 为高度)，写反会导致结构转置/颠倒，详见 action=reference 第七节。\n"
                 "  action=reference  返回类型/路径/tagged-JSON 速查（仅需 action）。\n"
                 "路径以 '/' 分段（compound=键名，list=下标）。tagged-JSON 约定见 action=reference。")
             .with_string_param("action",    "操作类型: view | edit | create | reference（必填）", true)
