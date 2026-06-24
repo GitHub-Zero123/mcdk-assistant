@@ -197,7 +197,7 @@ inline mcp::json nbt_do_create(const mcp::json& p) {
     }
 
     nbt::save_nbt_file(fpath, f);
-    return nbt_ok(desc + "\n[已保存: " + fpath + "]\n提示: 用 action=view 查看，action=edit 修改 structure/block_indices 等内容。");
+    return nbt_ok(desc + "\n[已保存: " + fpath + "]\n提示: 用 view --file " + fpath + " 查看，用 edit --file " + fpath + " 修改 structure/block_indices 等内容。");
 }
 
 // ── 注册函数：单一工具 nbt ────────────────────────────────

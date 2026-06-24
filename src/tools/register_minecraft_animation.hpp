@@ -40,6 +40,7 @@ inline std::string animation_help_text() {
 3. --content 传 JSON 时推荐用单引号包裹（JSON 内部双引号无需转义）。
 4. 通道值（value）在 op 的 --ops 数组里传 JSON 字符串:
      "value": "[0,-30,0]"  或  "value": "[\"math.sin(q.anim_time*180)*30\",0,0]"
+5. 写入类命令不会自动创建父目录，目标目录必须已存在。
 
 【子命令】
 
@@ -56,7 +57,7 @@ inline std::string animation_help_text() {
 
   op --file <路径> --ops '<JSON操作数组>'
                                对动画文件执行增删改，全部成功后一次写回文件。
-                               文件不存在时自动创建空动画文件。
+                               文件不存在时自动创建空动画文件，但 --file 的父目录必须已存在。
                                --ops 为 JSON 数组字符串，每项含 op 字段:
                                  add_anim (anim_name, loop?=true, loop_str?, animation_length?)
                                    loop 取值: true(循环) | false(单次) | "hold_on_last_frame"(停在末帧)
@@ -300,7 +301,8 @@ inline void register_minecraft_animation_tools(mcp::server& srv) {
             "采用命令式用法，开发或修改动画时请先调用 command=\"help\" 查看完整命令与速查手册。")
         .with_string_param("command",
             "命令语句，如 'parse --file D:/mod/x.anim.json'、'bone --file <path> --anim <name> --bone <name>' 或 "
-            "'op --file <path> --ops [...]'；首次使用请传 'help'。", true)
+            "'op --file <path> --ops [...]'；首次使用请传 'help'。"
+            "写入目标的父目录必须已存在。", true)
         .build();
 
     srv.register_tool(tool,

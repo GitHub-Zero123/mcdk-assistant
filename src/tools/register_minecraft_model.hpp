@@ -43,6 +43,7 @@ inline std::string model_help_text() {
      parse --content '{"format_version":"1.12.0",...}'
 4. 向量参数（pivot/rotation/origin/size/uv/position）在 op 的 --ops 数组里传 JSON 字符串：
      "pivot": "[0,0,0]"  （字符串形式，内部会 json::parse）
+5. 写入类命令不会自动创建父目录，目标目录必须已存在。
 
 【子命令】
 
@@ -58,6 +59,7 @@ inline std::string model_help_text() {
 
   op --file <路径> [--id <geo标识符>] --ops '<JSON操作数组>'
                                对模型执行骨骼/cube 增删改，全部成功后一次写回文件。
+                               --file 的父目录必须已存在。
                                --ops 为 JSON 数组字符串，每项含 op 字段，向量参数传 JSON 字符串:
                                  add_bone (bone_name, parent?, pivot, rotation?)
                                  remove_bone (bone_name, cascade?=true)
@@ -74,11 +76,13 @@ inline std::string model_help_text() {
 
   mirror --file <路径> --src <骨骼名> --dst <骨骼名> [--id <geo标识符>] [--no-uv]
                                将 --src 骨骼的所有 cube 沿 X 轴镜像，生成 --dst 骨骼并写回文件。
+                               --file 的父目录必须已存在。
                                适用于左右对称建模（如 leftArm → rightArm）。默认镜像 UV，--no-uv 关闭。
                                镜像规则: pivot.x 取反, cube.origin.x = -origin.x - size.x
 
   create --save <路径> --id <geo标识符> --template <类型> [--tw <宽>] [--th <高>]
                                从骨骼模板创建新模型并保存到 --save 路径。
+                               --save 的父目录必须已存在。
                                --template 可选值:
                                  blank (仅 root 空白) | humanoid (标准人形) |
                                  sword (近战武器) | item_flat (平面物品) | quadruped (四足)
@@ -370,7 +374,8 @@ inline void register_minecraft_model_tools(mcp::server& srv) {
             "采用命令式用法，开发或修改模型时请先调用 command=\"help\" 查看完整命令与速查手册。")
         .with_string_param("command",
             "命令语句，如 'parse --file D:/mod/x.geo.json'、'op --file <path> --ops [...]' 或 "
-            "'create --save <path> --id geometry.x --template humanoid'；首次使用请传 'help'。", true)
+            "'create --save <path> --id geometry.x --template humanoid'；首次使用请传 'help'。"
+            "写入目标的父目录必须已存在。", true)
         .build();
 
     srv.register_tool(tool,

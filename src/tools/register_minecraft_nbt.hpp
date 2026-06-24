@@ -50,28 +50,30 @@ inline int flag_int_any(const ParsedCommand& pc,
 }
 
 inline std::string nbt_help_text() {
-    return R"(minecraft_nbt - Minecraft NBT file tool (command-style)
-Usage: minecraft_nbt(command="<subcommand> [args...] [--option value]")
-Command names may start with '/', for example /help or /view.
-Important: arguments containing spaces, JSON arrays, or JSON objects must be wrapped in quotes.
+    return R"(minecraft_nbt — Minecraft NBT 文件工具统一入口（命令式用法）
+用法: minecraft_nbt(command="<子命令> [参数...] [--选项 值]")
+命令名前可加 '/'，例如 /help、/view，与 help/view 等价。
+重要: 参数含空格、JSON 数组或 JSON 对象时，必须用 "..." 或 '...' 包裹成整体。
+写入类命令不会自动创建父目录，目标目录必须已存在。
 
-Subcommands:
+【子命令】
   help | reference
-      Show NBT format, tagged-JSON, path syntax, and edit operation reference.
+      查看 NBT 格式、tagged-JSON、路径语法和编辑操作速查。
 
   view --file <path> [--path <nbt/path>] [--format tree|json] [--max-depth <n>] [--max-items <n>]
-      Read an NBT file (.mcstructure, level.dat, uncompressed .nbt) and print a tree or tagged JSON.
+      读取 NBT 文件（.mcstructure / level.dat / 未压缩 .nbt），输出树或 tagged-JSON。
 
   create --file <path> [--template mcstructure|empty] [--size "[x,y,z]"] [--blocks "[\"minecraft:stone\"]"]
          [--fill <n>] [--block-version <n>] [--little-endian true|false] [--overwrite]
-      Create a new NBT file.
-      Existing files are protected unless --overwrite is supplied.
+      创建新的 NBT 文件。
+      父目录必须已存在；已有文件默认受保护，只有传入 --overwrite 才会覆盖。
 
   edit --file <path> [--save <path>] (--ops '<JSON array>' | --op set|remove|rename|add ...)
-      Edit an NBT file. Without --save this writes back to the original file.
-      Single-op common options: --path, --name, --tag-type, --value, --new-name, --json-value.
+      编辑 NBT 文件。不传 --save 时会直接写回原文件。
+      使用 --save 另存时，另存路径的父目录必须已存在。
+      单操作常用选项: --path、--name、--tag-type、--value、--new-name、--json-value。
 
-Examples:
+示例:
   view --file D:/world/structures/a.mcstructure --max-depth 6
   view --file D:/world/structures/a.mcstructure --path structure/palette/default/block_palette/0/name
   create --file D:/tmp/test.mcstructure --template mcstructure --size "[2,2,2]" --overwrite
@@ -79,62 +81,62 @@ Examples:
 }
 
 inline std::string nbt_reference_text() {
-    return R"(Reference
+    return R"(=== NBT 速查手册 ===
 
-Safe workflow:
-  1. Use view first to inspect the file and locate the path.
-  2. Prefer edit --save <new file> while experimenting.
-  3. Omit --save only when you intentionally want to overwrite the original file.
+安全工作流:
+  1. 先用 view 查看文件结构并定位 path。
+  2. 试改时优先使用 edit --save <新文件> 写到副本。
+  3. 只有确认要覆盖原文件时，才省略 --save。
 
-Supported files:
-  - Bedrock .mcstructure: little-endian, uncompressed.
-  - Bedrock level.dat: little-endian with the 8-byte Bedrock header.
-  - Uncompressed .nbt: Java big-endian or Bedrock little-endian, auto-detected.
-  - Gzip-compressed Java .nbt / level.dat is not supported.
-  Saving preserves the detected endian/header shape.
+支持的文件:
+  - 基岩版 .mcstructure: 小端、未压缩。
+  - 基岩版 level.dat: 小端，带 8 字节 Bedrock 头。
+  - 未压缩 .nbt: Java 大端或 Bedrock 小端，自动探测。
+  - gzip 压缩的 Java .nbt / level.dat 暂不支持。
+  保存时会保留探测到的端序和头部格式。
 
-Path syntax:
-  - Use '/' between path segments.
-  - Compound segments are key names.
-  - List segments are numeric indexes, starting at 0.
-  - Empty path means the root compound.
-  - Example: structure/palette/default/block_palette/0/name
-  - Current limitation: keys containing '/' cannot be addressed.
+路径语法:
+  - 用 '/' 分隔路径段。
+  - compound 路径段是键名。
+  - list 路径段是数字下标，从 0 开始。
+  - 空路径表示根 compound。
+  - 示例: structure/palette/default/block_palette/0/name
+  - 当前限制: 键名中包含 '/' 时无法寻址。
 
-Tag types for --tag-type:
+--tag-type 可用类型:
   byte, short, int, long, float, double, string,
   byte_array, int_array, long_array, list, compound
 
-Tagged JSON:
-  A tag is encoded as {"type":"int","value":123}.
-  Lists add elem_type, for example:
+tagged-JSON:
+  每个 tag 写成 {"type":"int","value":123}。
+  list 需要 elem_type，例如:
     {"type":"list","elem_type":"string","value":[{"type":"string","value":"a"}]}
-  Compounds use tagged child values:
+  compound 的子节点也使用 tagged 值:
     {"type":"compound","value":{"name":{"type":"string","value":"minecraft:stone"}}}
-  Use view --format json to copy a subtree as a template for --json-value.
+  可以先用 view --format json 复制一段子树，作为 --json-value 模板再修改。
 
-Edit operations:
+编辑操作:
   set
-      Set a scalar at --path. Existing tags keep their type when --tag-type is omitted.
-      New scalar tags require --tag-type.
-      Example: edit --file D:/x.mcstructure --op set --path format_version --value 2
+      设置 --path 处的标量值。已有 tag 省略 --tag-type 时沿用原类型。
+      新建标量 tag 时必须提供 --tag-type。
+      示例: edit --file D:/x.mcstructure --op set --path format_version --value 2
 
   remove
-      Remove a compound key or list item.
-      Example: edit --file D:/x.mcstructure --op remove --path metadata/foo
+      删除 compound 键或 list 项。
+      示例: edit --file D:/x.mcstructure --op remove --path metadata/foo
 
   rename
-      Rename a compound key.
-      Example: edit --file D:/x.mcstructure --op rename --path metadata/foo --new-name bar
+      重命名 compound 键。
+      示例: edit --file D:/x.mcstructure --op rename --path metadata/foo --new-name bar
 
   add
-      Add a child under a compound/list. Compound children require --name.
-      For scalar children, use --tag-type and --value.
-      For complex children, use --json-value with tagged JSON.
+      在 compound/list 下新增子节点。向 compound 新增时必须提供 --name。
+      新增标量子节点时使用 --tag-type 和 --value。
+      新增复杂子树时使用 --json-value 传 tagged-JSON。
 
-Batch operations:
-  Use --ops '<JSON array>' to execute multiple operations and save once.
-  Because JSON contains spaces, quotes, brackets, and braces, wrap the whole JSON array in quotes:
+批量操作:
+  使用 --ops '<JSON array>' 执行多项操作，并在全部成功后保存一次。
+  JSON 通常包含空格、引号、方括号和花括号，必须把整个 JSON 数组用引号包裹:
     edit --file D:/x.mcstructure --ops '[{"op":"set","path":"format_version","value":"2"}]'
 )";
 }
@@ -223,14 +225,14 @@ inline mcp::json dispatch_minecraft_nbt(const std::string& command) {
 inline void register_minecraft_nbt_tools(mcp::server& srv) {
     auto tool = mcp::tool_builder(minecraft_nbt_detail::kToolName)
         .with_description(
-            "Minecraft NBT file tool (.mcstructure / level.dat / uncompressed .nbt): "
-            "view, edit, create, and reference via command-style subcommands. "
-            "Call command=\"help\" first for syntax.")
+            "Minecraft NBT 文件工具（.mcstructure / level.dat / 未压缩 .nbt）："
+            "通过命令式子命令 view/edit/create/reference 查看、编辑、创建和查阅速查。"
+            "首次使用请传 command=\"help\" 查看语法。")
         .with_string_param("command",
-            "Command such as 'view --file D:/x.mcstructure', "
-            "'create --file D:/x.mcstructure --template mcstructure', "
-            "'edit --file <path> --save <copy> --ops [...]', or '/help'. "
-            "Wrap paths with spaces and JSON arrays/objects in quotes.", true)
+            "命令语句，如 'view --file D:/x.mcstructure'、"
+            "'create --file D:/x.mcstructure --template mcstructure'、"
+            "'edit --file <path> --save <copy> --ops [...]' 或 '/help'。"
+            "路径含空格、JSON 数组/对象参数需要用引号包裹；写入目标的父目录必须已存在。", true)
         .with_read_only_hint(false).with_idempotent_hint(false).build();
 
     srv.register_tool(tool, [](const mcp::json& params, const std::string&) -> mcp::json {

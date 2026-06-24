@@ -57,7 +57,9 @@ static void test_command_tool() {
     auto create = minecraft_nbt_detail::dispatch_minecraft_nbt(
         "create --file \"" + out + "\" --template mcstructure --size \"[2,2,1]\" "
         "--blocks \"[\\\"minecraft:stone\\\",\\\"minecraft:dirt\\\"]\" --fill 1 --overwrite");
-    CHECK(result_text(create).find("[ERROR]") == std::string::npos, "minecraft_nbt create command");
+    std::string create_text = result_text(create);
+    CHECK(create_text.find("[ERROR]") == std::string::npos, "minecraft_nbt create command");
+    CHECK(create_text.find("action=") == std::string::npos, "minecraft_nbt create result does not mention legacy action syntax");
     CHECK(fs::exists(out_file), "minecraft_nbt create writes file");
 
     auto view = minecraft_nbt_detail::dispatch_minecraft_nbt(
@@ -75,11 +77,14 @@ static void test_command_tool() {
 
     auto help = minecraft_nbt_detail::dispatch_minecraft_nbt("/help");
     std::string help_text = result_text(help);
-    CHECK(help_text.find("Usage: minecraft_nbt(command=") != std::string::npos, "minecraft_nbt /help shows command usage");
+    CHECK(help_text.find("用法: minecraft_nbt(command=") != std::string::npos, "minecraft_nbt /help shows command usage");
     CHECK(help_text.find("action=") == std::string::npos, "minecraft_nbt help does not expose legacy action tutorial");
-    CHECK(help_text.find("wrapped in quotes") != std::string::npos, "minecraft_nbt help explains quoted arguments");
-    CHECK(help_text.find("Without --save this writes back to the original file") != std::string::npos,
+    CHECK(help_text.find("必须用") != std::string::npos && help_text.find("包裹") != std::string::npos,
+          "minecraft_nbt help explains quoted arguments");
+    CHECK(help_text.find("不传 --save 时会直接写回原文件") != std::string::npos,
           "minecraft_nbt help warns about edit write-back");
+    CHECK(help_text.find("目标目录必须已存在") != std::string::npos,
+          "minecraft_nbt help explains parent directory requirement");
 }
 
 int main() {
