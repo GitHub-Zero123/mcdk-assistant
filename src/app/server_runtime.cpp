@@ -15,6 +15,7 @@
 #include "tools/register_minecraft_model.hpp"
 #include "tools/register_minecraft_animation.hpp"
 #include "tools/register_minecraft_pixelart.hpp"
+#include "tools/register_minecraft_nbt.hpp"
 #endif
 
 #ifdef MCDK_SERVER
@@ -90,6 +91,7 @@ void register_tools(mcp::server& srv,
     mcdk::register_minecraft_pixelart_tools(srv);
     mcdk::register_minecraft_model_tools(srv);
     mcdk::register_minecraft_animation_tools(srv);
+    mcdk::register_minecraft_nbt_tools(srv);
 #endif
 }
 
