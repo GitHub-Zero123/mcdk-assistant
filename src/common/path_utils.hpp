@@ -15,6 +15,10 @@
 #include <windows.h>
 #endif
 
+#ifdef __APPLE__
+#include <mach-o/dyld.h>
+#endif
+
 namespace mcdk::path {
 
 // 约定：模块内部尽量传 path，只有日志/协议边界再转 UTF-8 string。
@@ -48,6 +52,15 @@ inline std::filesystem::path executable_path() {
         }
         buffer.resize(buffer.size() * 2);
     }
+#elif defined(__APPLE__)
+    uint32_t size = 0;
+    _NSGetExecutablePath(nullptr, &size);
+    if (size == 0) return {};
+
+    std::string buffer(size, '\0');
+    if (_NSGetExecutablePath(buffer.data(), &size) != 0) return {};
+    buffer.resize(std::char_traits<char>::length(buffer.c_str()));
+    return std::filesystem::weakly_canonical(std::filesystem::path(buffer));
 #else
     return std::filesystem::canonical("/proc/self/exe");
 #endif

@@ -23,12 +23,18 @@ jobs:
           - name: Windows MSVC
             os: windows-latest
             build_type: Release
+            artifact: mcdk-assistant-windows-x64
+            archive_ext: zip
           - name: Ubuntu GCC
             os: ubuntu-latest
             build_type: Release
+            artifact: mcdk-assistant-linux-x64
+            archive_ext: tar.gz
           - name: macOS Clang
             os: macos-latest
             build_type: Release
+            artifact: mcdk-assistant-macos-arm64
+            archive_ext: tar.gz
 
     steps:
       - name: Checkout
@@ -85,3 +91,55 @@ jobs:
 
       - name: Build
         run: cmake --build build/ci --config ${{ matrix.build_type }} --parallel
+
+      - name: Package Unix
+        if: runner.os != 'Windows'
+        shell: bash
+        run: |
+          mkdir -p package dist
+
+          for bin in mcdk-assistant mcdk-asst-lite mcdk-asst-server mcdk-index-compiler mcdk-search; do
+            found="$(find build/ci -type f -name "$bin" -print -quit)"
+            test -n "$found"
+            cp "$found" "package/$bin"
+            chmod +x "package/$bin"
+          done
+
+          cp -R dicts package/dicts
+          cp -R knowledge package/knowledge
+
+          tar -czf "dist/${{ matrix.artifact }}.tar.gz" -C package .
+
+      - name: Package Windows
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path package, dist | Out-Null
+
+          $binaries = @(
+            "mcdk-assistant.exe",
+            "mcdk-asst-lite.exe",
+            "mcdk-asst-server.exe",
+            "mcdk-index-compiler.exe",
+            "mcdk-search.exe"
+          )
+
+          foreach ($binary in $binaries) {
+            $found = Get-ChildItem -Path build/ci -Recurse -Filter $binary | Select-Object -First 1
+            if (-not $found) {
+              throw "$binary not found"
+            }
+
+            Copy-Item $found.FullName (Join-Path package $binary)
+          }
+
+          Copy-Item -Recurse dicts package/dicts
+          Copy-Item -Recurse knowledge package/knowledge
+
+          Compress-Archive -Path package/* -DestinationPath "dist/${{ matrix.artifact }}.zip" -Force
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v6
+        with:
+          name: ${{ matrix.artifact }}
+          path: dist/*.${{ matrix.archive_ext }}

@@ -40,7 +40,8 @@ public:
             fs::path p = knowledge_dir / sub;
             std::string s = std::string(sub) + ":";
             if (fs::exists(p)) {
-                s += std::to_string(fs::last_write_time(p).time_since_epoch().count());
+                const auto ticks = static_cast<int64_t>(fs::last_write_time(p).time_since_epoch().count());
+                s += std::to_string(ticks);
             } else {
                 s += "0";
             }
