@@ -39,6 +39,15 @@ inline SearchFn search_fn_for_scope(const std::string& scope) {
     return it != kMap.end() ? it->second : nullptr;
 }
 
+inline std::string canonical_scope(std::string scope) {
+    scope = command_parser_detail::to_lower_ascii(std::move(scope));
+    if (scope == "bedrock" || scope == "bedrockdev" || scope == "bedrock_dev")
+        return "dev";
+    if (scope == "netease-guide" || scope == "netease_guide" || scope == "guide")
+        return "netease";
+    return scope;
+}
+
 inline std::string lower_ascii(std::string value) {
     return command_parser_detail::to_lower_ascii(std::move(value));
 }
@@ -50,27 +59,28 @@ inline mcp::json text_result(const std::string& text) {
 inline std::string minecraft_docs_help_text() {
     return R"(minecraft_docs — Minecraft 基岩版资料/文档统一入口（命令式用法）
 用法: minecraft_docs(command="<子命令> [参数...] [--选项 值]")
-命令名前可加 '/'，例如 /help、/search minecraft:food --scope wiki，与 help/search 等价。
+命令名前可加 '/'，例如 /help、/wiki minecraft:food，与 help/wiki 等价。
 重要: 如果某个参数本身包含空格，必须用 "..." 或 '...' 包裹，整体才会算一个参数。
-示例: /search "custom food item" --scope wiki；/read "BedrockWiki/items/items intro.md" --start 1 --end 20
+示例: /wiki "custom food item"；/read "BedrockWiki/items/items intro.md" --start 1 --end 20
 
-【search】 文档检索
-  search <关键词...> [--scope <分区>] [--top <n>] [--assets <0|1|2>]
-  --scope 分区（默认 all）:
-    all      全部（ModAPI 接口+事件+枚举 / Wiki / QuMod / 网易教程 / BedrockDev）
-    api      ModAPI 接口文档
-    event    ModAPI 事件文档
-    enum     ModAPI 枚举值文档
-    wiki     Bedrock Wiki（英文关键词）
-    dev      bedrock.dev 官方格式文档 1.21.90（英文关键词，schema/组件属性）
-    qumod    QuModLibs 框架库文档（网易热门框架，用 QuMod 开发时优先查这里）
-    netease  网易MC独占教学资料（不含国际版通用内容）
-    assets   原版游戏资产（行为包/资源包），配 --assets: 0=全部 1=仅行为包 2=仅资源包
-  --top    返回结果数量上限（默认 6；assets 默认更大）
+【资料搜索命令】
+  all <关键词...> [--top <n>]        全部文档（ModAPI / Wiki / QuMod / 网易教程 / BedrockDev），不搜索游戏资产
+  api <关键词...> [--top <n>]        ModAPI 接口文档
+  event <关键词...> [--top <n>]      ModAPI 事件文档
+  enum <关键词...> [--top <n>]       ModAPI 枚举值文档
+  wiki <关键词...> [--top <n>]       Bedrock Wiki（英文关键词）
+  dev <关键词...> [--top <n>]        bedrock.dev 官方格式文档 1.21.90（schema/组件属性）
+  qumod <关键词...> [--top <n>]      QuModLibs 框架库文档
+  netease <关键词...> [--top <n>]    网易MC独占教学资料（diff/jsonui 两个词保留为速查命令）
+  assets <关键词...> [--top <n>] [--assets <0|1|2>] [--bp|--rp]
+                                     原版游戏资产；0=全部，1/--bp=行为包，2/--rp=资源包
   示例:
-    search minecraft:food --scope wiki --top 8
-    search "自定义 方块"
-    search stair --scope assets --assets 1
+    wiki minecraft:food --top 8
+    api ListenForEvent
+    dev minecraft:entity
+    netease json ui
+    assets stair --rp --top 5
+    assets recipe --bp
 
 【read】 读取 knowledge 文件
   read <path> [--start <n>] [--end <n>]    （path 可直接用搜索结果里的 file 字段）
@@ -83,6 +93,7 @@ inline std::string minecraft_docs_help_text() {
 【netease】 网易版参考速查
   netease diff      网易版 ↔ 国际版关键差异（目录映射/脚本系统/框架/版本兼容）
   netease jsonui    网易版 JSON UI 内置组件库（netease_editor_template_namespace）定义
+  diff / jsonui     上面两个速查也可直接作为顶层命令调用
 
 【help】 显示本帮助
 )";
@@ -100,24 +111,38 @@ inline bool is_assets_scope(const std::string& scope) {
     return scope == "assets" || scope == "asset" || scope == "ga";
 }
 
-inline mcp::json dispatch_search(SearchService& svc, const ParsedCommand& pc) {
+inline int asset_scope_from_flags(const ParsedCommand& pc, int def = 0) {
+    if (has_flag(pc, "bp") || has_flag(pc, "behavior") ||
+        has_flag(pc, "behavior_pack") || has_flag(pc, "behavior-pack"))
+        return 1;
+    if (has_flag(pc, "rp") || has_flag(pc, "resource") ||
+        has_flag(pc, "resource_pack") || has_flag(pc, "resource-pack"))
+        return 2;
+    return flag_int(pc, "assets", def);
+}
+
+inline mcp::json dispatch_assets_search(SearchService& svc, const ParsedCommand& pc) {
     if (pc.positional.empty())
         return error_with_help("缺少搜索关键词。");
 
-    std::string scope = lower_ascii(flag_str(pc, "scope", "all"));
+    mcp::json params = {
+        {"keyword", pc.positional},
+        {"scope",   asset_scope_from_flags(pc)},
+    };
+    if (has_flag(pc, "top")) params["top_k"] = flag_int(pc, "top", 6);
+    return handle_search_game_assets(svc, params);
+}
 
-    if (is_assets_scope(scope)) {
-        mcp::json params = {
-            {"keyword", pc.positional},
-            {"scope",   flag_int(pc, "assets", 0)},
-        };
-        if (has_flag(pc, "top")) params["top_k"] = flag_int(pc, "top", 6);
-        return handle_search_game_assets(svc, params);
-    }
+inline mcp::json dispatch_scoped_search(SearchService& svc,
+                                        const ParsedCommand& pc,
+                                        const std::string& requested_scope) {
+    if (pc.positional.empty())
+        return error_with_help("缺少搜索关键词。");
 
+    std::string scope = canonical_scope(requested_scope);
     SearchFn fn = search_fn_for_scope(scope);
     if (!fn)
-        return error_with_help("未知的 --scope: '" + scope + "'。");
+        return error_with_help("未知搜索分区: '" + requested_scope + "'。");
 
     mcp::json params = {
         {"keyword", pc.positional},
@@ -157,13 +182,27 @@ inline mcp::json dispatch_minecraft_docs(const std::filesystem::path& knowledge_
                                          SearchService& svc,
                                          const std::string& command) {
     ParsedCommand pc = parse_command(command);
+    std::string sub = canonical_scope(pc.sub);
 
-    if (pc.sub.empty() || pc.sub == "help" || pc.sub == "?")
+    if (sub.empty() || sub == "help" || sub == "?")
         return help_result();
-    if (pc.sub == "search")  return dispatch_search(svc, pc);
-    if (pc.sub == "read")    return dispatch_read(knowledge_root, svc, pc);
-    if (pc.sub == "list")    return dispatch_list(knowledge_root, svc, pc);
-    if (pc.sub == "netease") return dispatch_netease(pc);
+    if (sub == "read")    return dispatch_read(knowledge_root, svc, pc);
+    if (sub == "list")    return dispatch_list(knowledge_root, svc, pc);
+    if (sub == "diff")    return text_result(netease_diff_text());
+    if (sub == "jsonui" || sub == "json-ui") return text_result(netease_jsonui_text());
+
+    if (is_assets_scope(sub))
+        return dispatch_assets_search(svc, pc);
+
+    if (sub == "netease") {
+        std::string topic = lower_ascii(pc.positional);
+        if (topic.empty() || topic == "diff" || topic == "jsonui" || has_flag(pc, "type"))
+            return dispatch_netease(pc);
+        return dispatch_scoped_search(svc, pc, sub);
+    }
+
+    if (search_fn_for_scope(sub))
+        return dispatch_scoped_search(svc, pc, sub);
 
     return error_with_help("未知子命令: '" + pc.sub + "'。");
 }
@@ -181,7 +220,7 @@ inline void register_minecraft_docs_tools(mcp::server& srv, SearchService& searc
             "网易版差异速查、知识库文件读取。采用命令式用法，"
             "开发 Minecraft addon/mod 时请先调用 command=\"help\" 查看完整命令与子命令用法。")
         .with_string_param("command",
-            "命令语句，如 'search minecraft:food --scope wiki' 或 'read <path>'；"
+            "命令语句，如 'wiki minecraft:food'、'assets stair --rp' 或 'read <path>'；"
             "首次使用请传 'help' 查看全部命令。", true)
         .with_read_only_hint(true).with_idempotent_hint(true).build();
 

@@ -20,7 +20,8 @@ minecraft_docs
 }
 ```
 
-命令协议、子命令语义与原 `minecraft_dev` 相同。旧名不作为 alias 注册，以免重新增加 MCP tool 数量。
+命令协议已调整为“资料源即子命令”，例如 `wiki minecraft:food`、`api ListenForEvent`、`assets stair --rp`。
+旧名不作为 alias 注册，以免重新增加 MCP tool 数量；旧 `search --scope ...` 写法也不再保留，避免 Agent 把资料源选择藏进参数里。
 
 ## 目的
 
@@ -55,7 +56,7 @@ minecraft_docs
 新增统一 tool：
 
 ```text
-minecraft_dev
+minecraft_docs
 ```
 
 唯一入参：
@@ -68,7 +69,7 @@ minecraft_dev
 
 设计意图：
 
-- tool 名称强调 Minecraft 开发语义，而不是品牌名，方便模型判断何时调用；
+- tool 名称强调资料/文档查询语义，而不是完整开发能力，方便模型判断何时调用；
 - tool 描述保持精简，只提示“Minecraft addon/mod 开发时先调用 `help`”；
 - 具体能力全部放到 `command` 子命令中；
 - 原有独立 tool 不再注册，从源头减少 MCP tools/list 注入上下文的体积。
@@ -79,7 +80,7 @@ minecraft_dev
 
 文件：[`src/tools/command_parser.hpp`](src/tools/command_parser.hpp)
 
-用途：为 `minecraft_dev` 以及未来其他合并后的单工具入口提供通用命令解析能力。
+用途：为 `minecraft_docs` 以及未来其他合并后的单工具入口提供通用命令解析能力。
 
 主要能力：
 
@@ -129,30 +130,40 @@ minecraft_dev
 
 ### 4. 新增统一入口 tool
 
-文件：[`src/tools/register_minecraft_dev.hpp`](src/tools/register_minecraft_dev.hpp)
+文件：[`src/tools/register_minecraft_docs.hpp`](src/tools/register_minecraft_docs.hpp)
 
 该文件注册单个 MCP tool：
 
 ```text
-minecraft_dev
+minecraft_docs
 ```
 
-内部通过 `dispatch_minecraft_dev(...)` 分派命令。
+内部通过 `dispatch_minecraft_docs(...)` 分派命令。
 
 当前支持命令：
 
 ```text
 help
-search <关键词...> [--scope <s>] [--top <n>] [--assets <0|1|2>]
+all     <关键词...> [--top <n>]
+api     <关键词...> [--top <n>]
+event   <关键词...> [--top <n>]
+enum    <关键词...> [--top <n>]
+wiki    <关键词...> [--top <n>]
+dev     <关键词...> [--top <n>]
+qumod   <关键词...> [--top <n>]
+netease <关键词...> [--top <n>]
+assets  <关键词...> [--top <n>] [--assets <0|1|2>] [--bp|--rp]
 read   <path> [--start <n>] [--end <n>]
 list   [path]
 netease diff
 netease jsonui
+diff
+jsonui
 ```
 
-`search --scope` 映射关系：
+资料源子命令映射关系：
 
-| scope | 复用方法 |
+| 子命令 | 复用方法 |
 |---|---|
 | `all` | `SearchService::search_all` |
 | `api` | `SearchService::search_api` |
@@ -164,6 +175,8 @@ netease jsonui
 | `netease` | `SearchService::search_netease_guide` |
 | `assets` | `SearchService::search_game_assets` |
 
+注意：`all` 只聚合文档索引，不搜索 GameAssets；游戏资产只通过 `assets` 子命令进入。
+
 ### 5. 切换服务注册入口
 
 文件：[`src/app/server_runtime.cpp`](src/app/server_runtime.cpp)
@@ -171,7 +184,7 @@ netease jsonui
 已改为注册：
 
 ```cpp
-mcdk::register_minecraft_dev_tools(srv, search_svc, effective_knowledge_dir);
+mcdk::register_minecraft_docs_tools(srv, search_svc, effective_knowledge_dir);
 ```
 
 并注释保留旧注册：
@@ -217,7 +230,7 @@ mcdk::register_minecraft_dev_tools(srv, search_svc, effective_knowledge_dir);
 暂未完成：
 
 - MCP tools/list 实际运行验证；
-- `minecraft_dev` 子命令实际调用验证；
+- `minecraft_docs` 子命令实际调用验证；
 - 确认旧 13 个资料类 tool 不再出现在 MCP tools/list 中。
 
 ## 下次接手建议验证清单
@@ -237,7 +250,7 @@ cmake --build build\x64-msvc-release --target mcdk-assistant
 
 确认工具列表中：
 
-- 出现 `minecraft_dev`；
+- 出现 `minecraft_docs`；
 - 不再出现以下旧资料类工具：
   - `search_api`
   - `search_event`
@@ -253,26 +266,30 @@ cmake --build build\x64-msvc-release --target mcdk-assistant
   - `get_netease_diff`
   - `get_netease_jsonui`
 
-### 3. `minecraft_dev` 子命令冒烟
+### 3. `minecraft_docs` 子命令冒烟
 
 建议调用：
 
 ```text
 help
-search minecraft:food --scope wiki --top 8
-search "minecraft:food block" --scope wiki
-search 自定义方块
-search stair --scope assets --assets 1
+wiki minecraft:food --top 8
+wiki "minecraft:food block"
+all 自定义方块
+api ListenForEvent
+assets stair --bp
+assets stair --rp --top 5
 list BedrockWiki
 read BedrockWiki/items/items-intro.md --start 1 --end 40
 netease diff
 netease jsonui
+diff
+jsonui
 ```
 
 非法输入也要检查：
 
 ```text
-search
+wiki
 bogus
 netease
 ```
@@ -283,7 +300,7 @@ netease
 
 ### 第一阶段（当前）
 
-搜索 / 资料库 / 网易参考速查 → 已合并到 `minecraft_dev`。
+搜索 / 资料库 / 网易参考速查 → 已合并到 `minecraft_docs`。
 
 ### 第二阶段（建议）
 
@@ -293,7 +310,7 @@ netease
 minecraft_ui
 ```
 
-或继续收编到 `minecraft_dev ui ...` 分层命令，待设计确认。
+或继续收编到新的资料/开发入口分层命令，待设计确认。
 
 ### 第三阶段（建议）
 
@@ -312,5 +329,5 @@ minecraft_ui
 1. 目前 `.mcp.json` 是项目级配置，可能会被纳入 git；是否提交由维护者决定。
 2. `command_parser.hpp` 是后续所有合并工作的关键基础设施，修改时要注意保持无业务依赖。
 3. `register_search.hpp` / `register_netease.hpp` 中虽然旧注册被注释，但 handler / 文本函数仍是新入口依赖，不能删除。
-4. `minecraft_dev` 名称是当前确认结果：强调 Minecraft 开发语义，便于模型选择工具。
+4. `minecraft_docs` 名称是当前确认结果：强调资料/文档查询语义，避免与完整开发能力混淆。
 5. 本次没有改 `CMakeLists.txt`，因为新增的是 header-only 文件，通过 `server_runtime.cpp` 间接包含。

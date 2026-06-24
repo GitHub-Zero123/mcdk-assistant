@@ -2,8 +2,8 @@
 // Small shell-like command parser used by merged MCP tools.
 //
 // It intentionally has no MCP or business dependencies.  The public surface is:
-//   tokenize_command_line("search \"custom food\" --scope wiki")
-//   parse_command("/search \"custom food\" --scope wiki")
+//   tokenize_command_line("wiki \"custom food\" --top 5")
+//   parse_command("/assets stair --rp --top 5")
 //   flag_str / flag_int / has_flag
 #include <cctype>
 #include <map>
