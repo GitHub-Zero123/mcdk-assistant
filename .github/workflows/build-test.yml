@@ -1,0 +1,87 @@
+name: Build Test
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: "Branch, tag, or commit SHA to build"
+        required: false
+        default: "main"
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: Windows MSVC
+            os: windows-latest
+            build_type: Release
+          - name: Ubuntu GCC
+            os: ubuntu-latest
+            build_type: Release
+          - name: macOS Clang
+            os: macos-latest
+            build_type: Release
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event_name == 'workflow_dispatch' && inputs.ref || github.ref }}
+          submodules: recursive
+
+      - name: Setup MSVC
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $vswhere = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
+          $installPath = & $vswhere -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath
+          if (-not $installPath) {
+            throw "Visual Studio installation with C++ tools was not found."
+          }
+
+          $vcvars = Join-Path $installPath "VC\Auxiliary\Build\vcvars64.bat"
+          if (-not (Test-Path $vcvars)) {
+            throw "vcvars64.bat was not found: $vcvars"
+          }
+
+          $envDump = cmd /c "`"$vcvars`" && set"
+          foreach ($line in $envDump) {
+            if ($line -match "^(.*?)=(.*)$") {
+              $name = $matches[1]
+              $value = $matches[2]
+
+              if ($name -eq "Path") {
+                $value -split ";" | Where-Object { $_ } | Add-Content -Path $env:GITHUB_PATH
+              } elseif ($name -match "^(INCLUDE|LIB|LIBPATH|VSCMD_ARG_TGT_ARCH|VSCMD_VER|VCINSTALLDIR|VSINSTALLDIR|WindowsSdkDir|WindowsSDKVersion|UCRTVersion|UniversalCRTSdkDir)$") {
+                "$name=$value" | Add-Content -Path $env:GITHUB_ENV
+              }
+            }
+          }
+
+      - name: Install Linux build tools
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ninja-build
+
+      - name: Install macOS build tools
+        if: runner.os == 'macOS'
+        run: brew install ninja
+
+      - name: Configure
+        run: >
+          cmake -S . -B build/ci
+          -G Ninja
+          -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
+          -DMCDK_BUILD_TESTS=ON
+
+      - name: Build
+        run: cmake --build build/ci --config ${{ matrix.build_type }} --parallel
