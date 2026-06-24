@@ -1,15 +1,18 @@
 #pragma once
-// register_netease.hpp — 网易版差异说明 & JSON UI 内置组件库工具注册
-// 包含: get_netease_diff, get_netease_jsonui
+// register_netease.hpp — 网易版差异说明 & JSON UI 内置组件库 参考文本
+//
+// 【已合并】原 get_netease_diff / get_netease_jsonui 两个独立工具，现统一并入
+// minecraft_docs 单工具的 `netease diff` / `netease jsonui` 子命令
+// （见 register_minecraft_docs.hpp）。本文件保留两段参考文本为自由函数供路由器取用；
+// 下方 register_netease_tools() 的注册代码整段注释保留，便于随时审视/回滚。
 #include <mcp_server.h>
 #include <mcp_tool.h>
 #include <mcp_message.h>
 
 namespace mcdk {
 
-inline void register_netease_tools(mcp::server& srv) {
-
-    // ── get_netease_diff ──────────────────────────────
+// ── 网易版 ↔ 国际版差异速查文本 ──
+inline const char* netease_diff_text() {
     static const char* NETEASE_DIFF_TEXT =
         "网易中国版基岩版与国际版基岩版的关键差异（当Wiki文档提到以下国际版路径时，请自动替换为网易版路径）：\n"
         "\n"
@@ -36,17 +39,12 @@ inline void register_netease_tools(mcp::server& srv) {
         "网易版本号通常比国际版慢几个版本，编写JSON时应尽可能使用兼容性最高的 format_version，避免使用国际版最新特性。\n"
         "\n"
         "[JSON UI]\n"
-        "JSON UI文件与网易版存在少许差异，涉及相关功能时请调用 get_netease_jsonui 工具获取网易版JSON UI控件库定义。";
+        "JSON UI文件与网易版存在少许差异，涉及相关功能时请使用 minecraft_docs 的 `netease jsonui` 子命令获取网易版JSON UI控件库定义。";
+    return NETEASE_DIFF_TEXT;
+}
 
-    auto diff_tool = mcp::tool_builder("get_netease_diff")
-        .with_description("获取网易版与国际版基岩版之间的差异说明")
-        .with_read_only_hint(true).with_idempotent_hint(true).build();
-
-    srv.register_tool(diff_tool, [](const mcp::json&, const std::string&) -> mcp::json {
-        return {{"content", mcp::json::array({{{"type","text"},{"text", NETEASE_DIFF_TEXT}}})}};
-    });
-
-    // ── get_netease_jsonui ────────────────────────────
+// ── 网易版 JSON UI 内置组件库定义文本 ──
+inline const char* netease_jsonui_text() {
     static const char* NETEASE_JSONUI_TEXT = R"(网易版JSON UI内置组件库（namespace: netease_editor_template_namespace）
 可以被自定义UI控件直接引用继承使用，也可以覆写属性扩展功能
 以下是完整的组件定义：
@@ -220,14 +218,31 @@ inline void register_netease_tools(mcp::server& srv) {
   }
 }
 )";
-
-    auto jsonui_tool = mcp::tool_builder("get_netease_jsonui")
-        .with_description("获取网易版JSON UI内置组件库（netease_editor_template_namespace）的完整定义，包含可通过%引用的预定义控件")
-        .with_read_only_hint(true).with_idempotent_hint(true).build();
-
-    srv.register_tool(jsonui_tool, [](const mcp::json&, const std::string&) -> mcp::json {
-        return {{"content", mcp::json::array({{{"type","text"},{"text", NETEASE_JSONUI_TEXT}}})}};
-    });
+    return NETEASE_JSONUI_TEXT;
 }
+
+// ──────────────────────────────────────────────────────────────────────────
+// 【已合并到 minecraft_docs — 注册代码整段注释保留，便于随时审视/回滚】
+//
+// 原 register_netease_tools() 注册的 get_netease_diff / get_netease_jsonui，
+// 现统一由 minecraft_docs 的 `netease diff` / `netease jsonui` 子命令承担
+// （复用上方 netease_diff_text() / netease_jsonui_text()）。
+//
+// inline void register_netease_tools(mcp::server& srv) {
+//     auto diff_tool = mcp::tool_builder("get_netease_diff")
+//         .with_description("获取网易版与国际版基岩版之间的差异说明")
+//         .with_read_only_hint(true).with_idempotent_hint(true).build();
+//     srv.register_tool(diff_tool, [](const mcp::json&, const std::string&) -> mcp::json {
+//         return {{"content", mcp::json::array({{{"type","text"},{"text", netease_diff_text()}}})}};
+//     });
+//
+//     auto jsonui_tool = mcp::tool_builder("get_netease_jsonui")
+//         .with_description("获取网易版JSON UI内置组件库（netease_editor_template_namespace）的完整定义，包含可通过%引用的预定义控件")
+//         .with_read_only_hint(true).with_idempotent_hint(true).build();
+//     srv.register_tool(jsonui_tool, [](const mcp::json&, const std::string&) -> mcp::json {
+//         return {{"content", mcp::json::array({{{"type","text"},{"text", netease_jsonui_text()}}})}};
+//     });
+// }
+// ──────────────────────────────────────────────────────────────────────────
 
 } // namespace mcdk
