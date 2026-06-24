@@ -63,6 +63,13 @@ inline std::string minecraft_docs_help_text() {
 重要: 如果某个参数本身包含空格，必须用 "..." 或 '...' 包裹，整体才会算一个参数。
 示例: /wiki "custom food item"；/read "BedrockWiki/items/items intro.md" --start 1 --end 20
 
+【关键词传递规则】
+  搜索类命令的关键词支持两种写法（效果相同，均为模糊匹配）：
+    1. 多个词空格分隔:   wiki minecraft food        （会拼成 "minecraft food" 模糊匹配）
+    2. 引号包裹整体:     wiki "minecraft food"      （同上，适合含特殊字符的词）
+  搜索是模糊匹配（子串包含），不是精确匹配也不是 AND/OR 布尔检索。
+  多个词会被空格拼成一个字符串再匹配，想搜精确短语用引号包裹。
+
 【资料搜索命令】
   all <关键词...> [--top <n>]        全部文档（ModAPI / Wiki / QuMod / 网易教程 / BedrockDev），不搜索游戏资产
   api <关键词...> [--top <n>]        ModAPI 接口文档
@@ -71,14 +78,18 @@ inline std::string minecraft_docs_help_text() {
   wiki <关键词...> [--top <n>]       Bedrock Wiki（英文关键词）
   dev <关键词...> [--top <n>]        bedrock.dev 官方格式文档 1.21.90（schema/组件属性）
   qumod <关键词...> [--top <n>]      QuModLibs 框架库文档
-  netease <关键词...> [--top <n>]    网易MC独占教学资料（diff/jsonui 两个词保留为速查命令）
+  netease <关键词...> [--top <n>]    网易MC独占教学资料。
+                                     注意: diff 和 jsonui 是保留词 —— 当关键词仅为 "diff" 或 "jsonui"
+                                     时，会触发网易速查而非搜索（见下方【netease】节）。
+                                     如确实想搜含 diff/jsonui 的文档，加其他词，如 netease 差异 兼容。
   assets <关键词...> [--top <n>] [--assets <0|1|2>] [--bp|--rp]
-                                     原版游戏资产；0=全部，1/--bp=行为包，2/--rp=资源包
+                                     原版游戏资产（文件名+内容模糊匹配）；0=全部，1/--bp=行为包，2/--rp=资源包
   示例:
     wiki minecraft:food --top 8
     api ListenForEvent
     dev minecraft:entity
-    netease json ui
+    netease json ui          （多词，走搜索，匹配含"json ui"的网易文档）
+    netease diff             （单词保留词，走速查）
     assets stair --rp --top 5
     assets recipe --bp
 

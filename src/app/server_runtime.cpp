@@ -13,7 +13,10 @@
 #ifndef MCDK_LITE
 #include "tools/register_animation.hpp"
 #include "tools/register_jsonui.hpp"
+#include "tools/register_minecraft_ui.hpp"
 #include "tools/register_model.hpp"
+#include "tools/register_minecraft_model.hpp"
+#include "tools/register_minecraft_animation.hpp"
 #include "tools/register_pixel_art.hpp"
 #include "tools/register_minecraft_pixelart.hpp"
 #endif
@@ -86,13 +89,20 @@ void register_tools(mcp::server& srv,
     mcdk::register_python_analysis_tools(srv);
 #endif
 #ifndef MCDK_LITE
-    mcdk::register_jsonui_tools(srv);
+    // 【已合并】原 register_jsonui_tools 的 7 个 JSON UI 工具，
+    // 现统一为 minecraft_ui 单工具（命令式）。
+    //   mcdk::register_jsonui_tools(srv);
+    mcdk::register_minecraft_ui_tools(srv);
     // 【已合并】原 register_pixel_art_tools 的 28 个像素画工具，
     // 现统一为 minecraft_pixelart 单工具（命令式），大幅降低上下文 token 占用。
     //   mcdk::register_pixel_art_tools(srv);
     mcdk::register_minecraft_pixelart_tools(srv);
-    mcdk::register_model_tools(srv);
-    mcdk::register_animation_tools(srv);
+    // 【已合并】原 register_model_tools 的 6 个模型工具，现统一为 minecraft_model 单工具。
+    //   mcdk::register_model_tools(srv);
+    mcdk::register_minecraft_model_tools(srv);
+    // 【已合并】原 register_animation_tools 的 4 个动画工具，现统一为 minecraft_animation 单工具。
+    //   mcdk::register_animation_tools(srv);
+    mcdk::register_minecraft_animation_tools(srv);
 #endif
 }
 

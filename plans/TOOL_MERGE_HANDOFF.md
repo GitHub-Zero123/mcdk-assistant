@@ -308,22 +308,29 @@ netease
 
 详见下方"第二阶段：像素画合并记录"。
 
-### 第三阶段（建议）
+### 第三阶段（已完成，2026-06-24）
 
-JSON UI、模型、动画、Python 分析等功能性 tool 继续按能力族合并。
-建议的下一批整合目标（按性价比排序）：
+JSON UI 7 个独立工具 → 已合并到 `minecraft_ui` 单工具（命令式）。
 
-1. **JSON UI**（7 → 1，建议名 `minecraft_ui`）：handler 已共享 `resolve_json_content`，
-   速查手册自带工具指引，CLI 化几乎零成本，性价比最高。
-2. **Model**（6 → 1，建议名 `minecraft_model`）+ **Animation**（4 → 1，建议名 `minecraft_animation`）：
-   两者 `*_op` 工具本身就是 op 分发器，CLI 化是把内层 op 模式外推到顶层，结构天然吻合。
-3. **Python 分析**（2 → 1，建议名 `minecraft_py_analysis`）：数量少但工作流配对清晰，
-   且是唯一在 lite 版也启用的非资料工具，整合后 lite 版 tools/list 更干净。
+详见下方"第三阶段：JSON UI 合并记录"。
+
+### 第四阶段（已完成，2026-06-24）
+
+模型 6 个独立工具 → 已合并到 `minecraft_model` 单工具（命令式）。
+动画 4 个独立工具 → 已合并到 `minecraft_animation` 单工具（命令式）。
+
+详见下方"第四阶段：模型 + 动画合并记录"。
+
+### 第五阶段（建议，仅剩）
+
+Python 分析 2 个独立工具待整合（`scan_py2_mod_architecture` + `scan_py2_import_chain`）。
+数量少但工作流配对清晰（先总览后深挖），且是唯一在 lite 版也启用的非资料工具，
+整合后 lite 版 tools/list 更干净。
 
 建议总原则：
 
 - 一个能力族只暴露一个 MCP tool；
-- tool 描述只讲“何时使用 + help”；
+- tool 描述只讲"何时使用 + help"；
 - 详细用法全部放到 `help` 子命令；
 - 旧注册代码注释保留，不直接删除；
 - 尽量复用现有 handler / service，不重写业务逻辑。
@@ -441,12 +448,214 @@ python tests/minecraft_pixelart_stdio_probe.py
 python tests/minecraft_pixelart_stdio_probe.py --exe build/x64-msvc-release/mcdk-assistant.exe
 ```
 
+另有可视化观测脚本 `tests/minecraft_pixelart_render_demo.py`，会生成实际 PNG 样例
+（棋盘格/圆/渐变/笑脸/描边/像素化/阴影/变换链）供肉眼查看，并打印发现的 tool 列表。
+
+---
+
+## 第三阶段：JSON UI 合并记录（2026-06-24）
+
+### 目的
+
+将 `register_jsonui.hpp` 中 7 个 JSON UI 独立工具合并为单一命令式入口
+`minecraft_ui`。本阶段与像素画阶段一样，完全不触碰 search 模块与底层编辑器核心。
+
+### 子命令协议
+
+原 7 工具 → 子命令映射：
+
+| 旧工具 | 新子命令 |
+|---|---|
+| get_jsonui_reference | help（help 同时返回命令用法 + 速查手册） |
+| generate_ui_fullstack | gen |
+| diagnose_ui | diag |
+| query_ui_control | query |
+| dump_ui_tree | tree |
+| search_ui_content | search |
+| patch_ui_file | patch |
+
+参数风格：长 flag（`--file --content --path --ops` 等），与 docs/pixelart 一致。
+内容来源统一为 `--file <绝对路径>` 或 `--content <JSON文本>` 二选一（替代旧的 `file_path`/`json_content`）。
+patch 的 ops 数组通过 `--ops '<JSON>'` 传入。
+
+### 已完成改动
+
+#### 1. 新增统一入口 tool
+
+文件：[`src/tools/register_minecraft_ui.hpp`](src/tools/register_minecraft_ui.hpp)
+
+结构仿 `register_minecraft_docs.hpp` / `register_minecraft_pixelart.hpp`：
+
+- `namespace minecraft_ui_detail`
+- `ui_reference_text()` 速查手册（从原 `JSONUI_REFERENCE_TEXT` 搬迁并更新工具引用措辞）
+- `ui_help_text()` 命令用法
+- `help_result()` 同时返回命令用法 + 速查手册（AI 一次拿到全部知识）
+- 各 `dispatch_*` 自由函数：gen/diag/query/tree/search/patch 各一个
+- **query/tree/search 三个工具原本是内联在 register_jsonui.hpp 的 lambda 里**，
+  本次将其逻辑整体搬迁到本文件的 dispatch 函数，改造为基于 `ParsedCommand`。
+  tree 用 `std::function` 实现自递归（lambda 无法直接自递归）。
+- `register_minecraft_ui_tools(srv)` 注册单 tool，唯一入参 `command`
+
+#### 2. 注释旧注册
+
+文件：[`src/tools/register_jsonui.hpp`](src/tools/register_jsonui.hpp)
+
+- 顶部注释更新为"已合并到 minecraft_ui"，附 7 工具 → 子命令映射表
+- `register_jsonui_tools()` 函数体用 `#if 0 ... #endif` 整段注释保留
+  （用 `#if 0` 而非 `/* */` 是因为函数体内含 `"/* 覆写属性 */"` 等字符串/注释，
+  块注释嵌套会提前闭合）
+- `JSONUI_REFERENCE_TEXT` / `resolve_json_content` 保留不动（新入口不依赖，便于回滚）
+
+#### 3. 切换服务注册入口
+
+文件：[`src/app/server_runtime.cpp`](src/app/server_runtime.cpp)
+
+`#ifndef MCDK_LITE` 块内注释 `register_jsonui_tools`，新增 `register_minecraft_ui_tools`。
+
+### help 文本准确性要点（已审查）
+
+- patch 的 8 种 op 参数已与 `ui_patcher.h` 的真实结构对齐：
+  `set_prop` 用 `props` 对象（非 key/value）、`remove_prop` 用 `keys` 数组、
+  `merge_ctrl` 用 `key+props` 等。help 与速查手册都给出了正确示例。
+- 通用规则提示：`--file`/`--content` 二选一、Windows 路径用正斜杠、参数含空格用引号包裹。
+- tree 子命令标注"推荐修改 UI 前先调用了解整体结构"。
+- help 子命令同时返回速查手册，避免 AI 需要两次调用。
+
+### 验证状态
+
+已完成：
+
+- `mcdk-assistant`（full 版）MSVC release 编译通过；
+- stdio MCP 冒烟测试 30 项全部通过（脚本 `tests/minecraft_ui_stdio_probe.py`）。
+
+测试覆盖：
+
+- tools/list 包含 `minecraft_ui`，旧 7 个 JSON UI 工具不再注册；
+- help / 空 command / 前导 `/` / reference 四种触发方式；
+- gen 生成全栈模板（json_ui + python_class 双段输出验证）+ 缺参数报错；
+- query 顶层列表 / 指定控件 / 深层路径 / 不存在路径报错；
+- tree 完整树 / depth 限制 / root 指定路径 / search 匹配；
+- search 匹配纹理 / 绑定名 / 无匹配 / 缺 keyword 报错；
+- diag 正常 UI 通过 / 问题 UI 报错；
+- patch set_prop 成功 + 读回验证 size 已修改 + 缺参数 / 非法 JSON 报错；
+- bogus 子命令 / 缺内容参数容错。
+
+测试用法：
+
+```bat
+python tests/minecraft_ui_stdio_probe.py
+python tests/minecraft_ui_stdio_probe.py --exe build/x64-msvc-release/mcdk-assistant.exe
+```
+
+---
+
+## 第四阶段：模型 + 动画合并记录（2026-06-24）
+
+### 目的
+
+将 `register_model.hpp` 的 6 个模型工具合并为 `minecraft_model`，
+将 `register_animation.hpp` 的 4 个动画工具合并为 `minecraft_animation`。
+命名按"不绝对强调准确"原则，用通用的 model/animation 而非强调格式的
+geometry/animations。本阶段同样完全不触碰 search 模块。
+
+### 关键技术决策：op 执行逻辑抽取
+
+模型/动画的 `model_op`/`anim_op` 工具原本各自内联了一个 `exec_one_op` lambda
+（op 分发器），用于把扁平参数路由到 `op_*` 函数。本次将其抽取为自由函数：
+
+- `model_editor.hpp` 新增 `inline std::string exec_model_op(json& geo, const json& src)`
+- `animation_editor.hpp` 新增 `inline std::string exec_anim_op(json& root, const json& src)`
+
+原 register_*.hpp 的 lambda 改为转发调用，**新旧入口共用同一逻辑**，
+行为完全一致（含向量参数的 `json::parse` 字符串解析）。
+
+### 子命令协议
+
+#### minecraft_model（6 → 1）
+
+| 旧工具 | 子命令 |
+|---|---|
+| get_model_reference | help（速查手册 + 命令用法） |
+| model_parse | parse (--file \| --content) [--id] |
+| model_get_bone | bone (--file \| --content) --bone [--id] |
+| model_op | op --file [--id] --ops '<JSON数组>' |
+| model_mirror_symmetry | mirror --file --src --dst [--id] [--no-uv] |
+| model_create_from_template | create --save --id --template [--tw --th] |
+
+#### minecraft_animation（4 → 1）
+
+| 旧工具 | 子命令 |
+|---|---|
+| get_animation_reference | help（速查手册 + 命令用法） |
+| animation_parse | parse (--file \| --content) [--filter] |
+| animation_get_bone_channel | bone (--file \| --content) --anim --bone [--channel] |
+| anim_op | op --file --ops '<JSON数组>' |
+
+op 统一只用 `--ops '<JSON数组>'`（无单次 op 扁平参数模式，简化 AI 认知）。
+向量/通道值参数在 ops 数组里传 JSON 字符串，内部 `json::parse` 解析（与原工具一致）。
+
+### 已完成改动
+
+#### 1. op 执行逻辑抽取（关键复用基础设施）
+
+- `model_editor.hpp`：新增 `exec_model_op(json& geo, const json& src)`，10 种 op 分发
+- `animation_editor.hpp`：新增 `exec_anim_op(json& root, const json& src)`，9 种 op 分发
+- `register_model.hpp` / `register_animation.hpp`：原 `exec_one_op`/`exec_one_anim_op`
+  lambda 改为转发调用（虽然旧注册已 #if 0 注释，但保留转发便于理解）
+
+#### 2. 新增统一入口 tool
+
+- `register_minecraft_model.hpp`：6 个子命令 dispatch + 速查手册 + 命令用法
+- `register_minecraft_animation.hpp`：4 个子命令 dispatch + 速查手册 + 命令用法
+
+结构仿 register_minecraft_ui.hpp，help 同时返回命令用法 + 速查手册。
+
+#### 3. 注释旧注册
+
+- `register_model.hpp`：`register_model_tools()` 用 `#if 0`/`#endif` 注释保留
+- `register_animation.hpp`：同上
+- `MODEL_REFERENCE_TEXT`/`ANIMATION_REFERENCE_TEXT`/辅助函数保留
+
+#### 4. 切换服务注册入口
+
+`server_runtime.cpp` 的 `#ifndef MCDK_LITE` 块内注释旧注册，新增新入口。
+
+### 验证状态
+
+已完成：
+
+- `mcdk-assistant`（full 版）MSVC release 编译通过；
+- 模型+动画 stdio 测试 27 项全部通过；
+- 全量回归：像素画 42 项 + UI 30 项 + 模型/动画 27 项 = **99 项全部通过，无回归**。
+
+测试覆盖（`tests/minecraft_model_anim_stdio_probe.py`）：
+
+- tools/list：minecraft_model/minecraft_animation 出现，旧 10 工具消失；
+- 模型：create humanoid → parse 验证骨骼 → op add_bone+add_cube → parse 验证生效 →
+  bone 验证 cube → mirror leftArm→testRight → help → 非法输入容错；
+- 动画：op add_anim+set_keyframe（文件自动创建）→ parse 验证 → bone 查看 keyframe →
+  bone 指定 channel → help → 非法输入容错。
+
+逆向审查：14 个 help 关键引导点全部命中（向量参数 JSON 字符串说明、
+op 操作完整列表、--file/--content 二选一、路径正斜杠、文件自动创建等）。
+
+测试用法：
+
+```bat
+python tests/minecraft_model_anim_stdio_probe.py
+```
+
 ## 注意事项
 
 1. 目前 `.mcp.json` 是项目级配置，可能会被纳入 git；是否提交由维护者决定。
 2. `command_parser.hpp` 是后续所有合并工作的关键基础设施，修改时要注意保持无业务依赖。
 3. `register_search.hpp` / `register_netease.hpp` 中虽然旧注册被注释，但 handler / 文本函数仍是新入口依赖，不能删除。
-4. `register_pixel_art.hpp` 中旧注册被注释，但 `jstr/jint/jfloat/jbool/ok/err` 辅助函数保留（便于回滚）；新入口 `register_minecraft_pixelart.hpp` 不依赖这些辅助，直接调用 `get_canvas()`。
-5. `minecraft_docs` 名称是当前确认结果：强调资料/文档查询语义，避免与完整开发能力混淆。
-6. `minecraft_pixelart` 强调像素画处理语义，不用偏底层的 `minecraft_canvas`。
-7. 本次没有改 `CMakeLists.txt`，因为新增的是 header-only 文件，通过 `server_runtime.cpp` 间接包含。
+4. `register_pixel_art.hpp` 中旧注册被注释（`/* */` 块注释），但 `jstr/jint/jfloat/jbool/ok/err` 辅助函数保留（便于回滚）；新入口 `register_minecraft_pixelart.hpp` 不依赖这些辅助，直接调用 `get_canvas()`。
+5. `register_jsonui.hpp` 中旧注册被注释（`#if 0` 预处理指令，因函数体含 `"/* */"` 字符串），`JSONUI_REFERENCE_TEXT` / `resolve_json_content` 保留；新入口 `register_minecraft_ui.hpp` 自带速查手册与内容解析，不依赖这些符号。
+6. `minecraft_docs` 名称是当前确认结果：强调资料/文档查询语义，避免与完整开发能力混淆。
+7. `minecraft_pixelart` 强调像素画处理语义，不用偏底层的 `minecraft_canvas`。
+8. `minecraft_ui` 覆盖 JSON UI 全栈（手册/生成/诊断/查询/树/搜索/补丁），命名不绝对强调"准确"，留有余地。
+9. `minecraft_model` / `minecraft_animation` 命名按"不绝对强调准确"原则用通用名（非 geometry/animations）。
+   op 执行逻辑已抽取为 `exec_model_op`/`exec_anim_op` 自由函数，新旧入口共用。
+   旧注册用 `#if 0` 注释保留，`MODEL_REFERENCE_TEXT`/`ANIMATION_REFERENCE_TEXT` 保留。
+10. 本次没有改 `CMakeLists.txt`，因为新增的是 header-only 文件，通过 `server_runtime.cpp` 间接包含。

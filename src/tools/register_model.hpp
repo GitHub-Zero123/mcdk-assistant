@@ -1,12 +1,18 @@
 #pragma once
-// register_model.hpp — 基岩版 JSON 模型 MCP 工具注册
-// 工具列表:
-//   get_model_reference       — 语法速查手册（无参数）
-//   model_parse               — 解析模型结构，输出骨骼节点列表
-//   model_get_bone            — 获取单骨骼完整 JSON 详情
-//   model_op                  — 核心增删改操作（file_path 必选，写回文件）
-//   model_mirror_symmetry     — X轴对称骨骼复制（写回文件）
-//   model_create_from_template — 从模板创建新模型（写入 save_path）
+// register_model.hpp — 模型 MCP 工具注册（旧 6 工具，已合并）
+//
+// 【已合并】原先这里直接注册的 6 个模型独立工具，现已统一并入
+// minecraft_model 单工具（见 register_minecraft_model.hpp）。
+// 本文件保留 MODEL_REFERENCE_TEXT / exec_one_op（转发到 model_editor.hpp 的 exec_model_op）
+// 及原注册函数体（#if 0 注释保留），便于随时审视 / 回滚。
+//
+// 原 6 个工具与 minecraft_model 子命令的映射：
+//   get_model_reference        → help (help 同时返回命令用法 + 速查手册)
+//   model_parse                → parse
+//   model_get_bone             → bone
+//   model_op                   → op
+//   model_mirror_symmetry      → mirror
+//   model_create_from_template → create
 #include "tools/model_editor.hpp"
 #include <mcp_server.h>
 #include <mcp_tool.h>
@@ -17,7 +23,7 @@
 
 namespace mcdk {
 
-// ── 辅助：标准返回格式 ────────────────────────────────────
+// ── 辅助：标准返回格式（保留，便于回滚时复用）──
 static inline mcp::json model_ok(const std::string& text) {
     return {{"content", mcp::json::array({{{ "type","text"},{"text", text}}})}};
 }
@@ -25,7 +31,7 @@ static inline mcp::json model_err(const std::string& text) {
     return {{"content", mcp::json::array({{{ "type","text"},{"text", "[ERROR] " + text}}})}};
 }
 
-// ── get_model_reference 手册文本 ──────────────────────────
+// ── get_model_reference 手册文本（保留，新入口自带一份更新版）──
 static const char* MODEL_REFERENCE_TEXT = R"(
 === 基岩版 geometry.json 全栈速查手册 ===
 
@@ -124,7 +130,10 @@ static const char* MODEL_REFERENCE_TEXT = R"(
   其他:     mirror_bone / set_texture_size / add_locator
 )";
 
-// ── 注册函数 ──────────────────────────────────────────────
+// ──────────────────────────────────────────────────────────────────────────
+// 【已合并到 minecraft_model — 注册代码整段注释保留，便于随时审视/回滚】
+#if 0
+
 inline void register_model_tools(mcp::server& srv) {
 
     // ════════════════════════════════════════════════════════
@@ -182,100 +191,10 @@ inline void register_model_tools(mcp::server& srv) {
     //    支持单次模式（op + 参数）和批量模式（ops 数组）
     // ════════════════════════════════════════════════════════
 
-    // 辅助：执行单个 op（在已找到的 geo 引用上），返回结果字符串；失败则抛出 runtime_error
+    // 辅助：执行单个 op —— 逻辑已抽到 model_editor.hpp 的 exec_model_op，新旧入口共用。
+    // 此处保留转发，行为与原内联 lambda 完全一致。
     auto exec_one_op = [](json& geo, const json& src) -> std::string {
-        // 内部辅助：从 src 中解析 JSON 参数
-        auto parse_jp = [&src](const char* key) -> json {
-            if (!src.contains(key) || src[key].is_null()) return json(nullptr);
-            if (src[key].is_string()) {
-                std::string s = src[key].get<std::string>();
-                if (s.empty()) return json(nullptr);
-                return json::parse(s, nullptr, true, true);
-            }
-            return src[key];
-        };
-        std::string op = src.value("op", "");
-
-        if (op == "add_bone") {
-            std::string bone_name = src.value("bone_name", "");
-            std::string parent    = src.value("parent", "");
-            json pivot    = parse_jp("pivot");
-            json rotation = parse_jp("rotation");
-            return op_add_bone(geo, bone_name, parent, pivot, rotation);
-
-        } else if (op == "remove_bone") {
-            std::string bone_name = src.value("bone_name", "");
-            bool cascade = src.contains("cascade") && src["cascade"].is_boolean()
-                           ? src["cascade"].get<bool>() : true;
-            return op_remove_bone(geo, bone_name, cascade);
-
-        } else if (op == "rename_bone") {
-            std::string bone_name = src.value("bone_name", "");
-            std::string new_name  = src.value("new_name", "");
-            return op_rename_bone(geo, bone_name, new_name);
-
-        } else if (op == "set_bone_transform") {
-            std::string bone_name = src.value("bone_name", "");
-            json pivot    = parse_jp("pivot");
-            json rotation = parse_jp("rotation");
-            return op_set_bone_transform(geo, bone_name, pivot, rotation);
-
-        } else if (op == "add_cube") {
-            std::string bone_name = src.value("bone_name", "");
-            json origin   = parse_jp("origin");
-            json size     = parse_jp("size");
-            json uv       = parse_jp("uv");
-            json inflate  = parse_jp("inflate");
-            json rotation = parse_jp("cube_rotation");
-            json cpivot   = parse_jp("cube_pivot");
-            if (origin.is_null() || size.is_null() || uv.is_null())
-                throw std::runtime_error("add_cube 需要 origin, size, uv 参数");
-            return op_add_cube(geo, bone_name, origin, size, uv, inflate, rotation, cpivot);
-
-        } else if (op == "remove_cube") {
-            std::string bone_name = src.value("bone_name", "");
-            int cube_index = src.contains("cube_index") && src["cube_index"].is_number()
-                             ? src["cube_index"].get<int>() : -1;
-            if (cube_index < 0) throw std::runtime_error("remove_cube 需要 cube_index >= 0");
-            return op_remove_cube(geo, bone_name, cube_index);
-
-        } else if (op == "edit_cube") {
-            std::string bone_name = src.value("bone_name", "");
-            int cube_index = src.contains("cube_index") && src["cube_index"].is_number()
-                             ? src["cube_index"].get<int>() : -1;
-            if (cube_index < 0) throw std::runtime_error("edit_cube 需要 cube_index >= 0");
-            json origin   = parse_jp("origin");
-            json size     = parse_jp("size");
-            json uv       = parse_jp("uv");
-            json inflate  = parse_jp("inflate");
-            json rotation = parse_jp("cube_rotation");
-            json cpivot   = parse_jp("cube_pivot");
-            return op_edit_cube(geo, bone_name, cube_index, origin, size, uv, inflate, rotation, cpivot);
-
-        } else if (op == "mirror_bone") {
-            std::string bone_name = src.value("bone_name", "");
-            std::string new_name  = src.value("new_name", "");
-            bool mirror_uv = src.contains("mirror_uv") && src["mirror_uv"].is_boolean()
-                             ? src["mirror_uv"].get<bool>() : true;
-            return op_mirror_bone(geo, bone_name, new_name, mirror_uv);
-
-        } else if (op == "set_texture_size") {
-            int tw = src.contains("tex_width")  && src["tex_width"].is_number()  ? src["tex_width"].get<int>()  : 64;
-            int th = src.contains("tex_height") && src["tex_height"].is_number() ? src["tex_height"].get<int>() : 64;
-            return op_set_texture_size(geo, tw, th);
-
-        } else if (op == "add_locator") {
-            std::string bone_name    = src.value("bone_name", "");
-            std::string locator_name = src.value("locator_name", "");
-            json position = parse_jp("position");
-            if (position.is_null()) throw std::runtime_error("add_locator 需要 position [x,y,z]");
-            return op_add_locator(geo, bone_name, locator_name, position);
-
-        } else {
-            throw std::runtime_error("未知 op: " + op +
-                "  有效值: add_bone/remove_bone/rename_bone/set_bone_transform/"
-                "add_cube/remove_cube/edit_cube/mirror_bone/set_texture_size/add_locator");
-        }
+        return exec_model_op(geo, src);
     };
 
     srv.register_tool(
@@ -443,5 +362,8 @@ inline void register_model_tools(mcp::server& srv) {
             } catch (const std::exception& e) { return model_err(e.what()); }
         });
 }
+
+#endif // 0（旧 register_model_tools 注释段结束）
+// ──────────────────────────────────────────────────────────────────────────
 
 } // namespace mcdk

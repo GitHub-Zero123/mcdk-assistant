@@ -1,6 +1,20 @@
 #pragma once
-// register_jsonui.hpp — JSON UI 全栈工具注册
-// 包含: get_jsonui_reference, generate_ui_fullstack, diagnose_ui, query_ui_control, dump_ui_tree, patch_ui_file
+// register_jsonui.hpp — JSON UI 全栈工具注册（旧 7 工具，已合并）
+//
+// 【已合并】原先这里直接注册的 7 个 JSON UI 独立工具，现已统一并入
+// minecraft_ui 单工具（见 register_minecraft_ui.hpp）。
+// 本文件保留 JSONUI_REFERENCE_TEXT / resolve_json_content 及原注册函数体
+// （整段注释保留），便于随时审视 / 回滚。新入口自带速查手册与内容解析，
+// 不依赖本文件的符号。
+//
+// 原 7 个工具与 minecraft_ui 子命令的映射：
+//   get_jsonui_reference          → help (help 同时返回命令用法 + 速查手册)
+//   generate_ui_fullstack         → gen
+//   diagnose_ui                   → diag
+//   query_ui_control              → query
+//   dump_ui_tree                  → tree
+//   search_ui_content             → search
+//   patch_ui_file                 → patch
 #include "tools/ui_templates.h"
 #include "tools/ui_diagnoser.h"
 #include "tools/ui_patcher.h"
@@ -15,7 +29,7 @@
 
 namespace mcdk {
 
-// 辅助：从文件或参数获取 JSON UI 内容
+// 辅助：从文件或参数获取 JSON UI 内容（保留，便于回滚时复用）
 static inline std::string resolve_json_content(const mcp::json& params) {
     std::string content = params.value("json_content", "");
     std::string fpath   = params.value("file_path", "");
@@ -33,7 +47,7 @@ static inline std::string resolve_json_content(const mcp::json& params) {
     return content;
 }
 
-// ── get_jsonui_reference 内容 ─────────────────────────
+// ── get_jsonui_reference 内容（保留，新入口自带一份更新版）──
 static const char* JSONUI_REFERENCE_TEXT = R"(
 === MC JSON UI 全栈速查手册 ===
 
@@ -265,6 +279,12 @@ static const char* JSONUI_REFERENCE_TEXT = R"(
     - knowledge/NeteaseGuide/mcguide/18-界面与交互/13-继承和自定义控件.md （继承机制）
   遇到不确定的属性或用法时，务必先查阅上述文档。
 )";
+
+// ──────────────────────────────────────────────────────────────────────────
+// 【已合并到 minecraft_ui — 注册代码整段注释保留，便于随时审视/回滚】
+// 用 #if 0 而非 /* */ 是因为函数体内含 "/* 覆写属性 */" 等注释/字符串，
+// 块注释嵌套会提前闭合。
+#if 0
 
 inline void register_jsonui_tools(mcp::server& srv) {
 
@@ -879,5 +899,8 @@ inline void register_jsonui_tools(mcp::server& srv) {
         }})}};
     });
 }
+
+#endif // 0（旧 register_jsonui_tools 注释段结束）
+// ──────────────────────────────────────────────────────────────────────────
 
 } // namespace mcdk

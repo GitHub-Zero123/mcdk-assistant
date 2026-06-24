@@ -560,4 +560,104 @@ inline json model_create_template(const std::string& identifier,
     return root;
 }
 
+// ── exec_model_op：执行单个 op（model_op 工具的核心分发）────────
+// 从 register_model.hpp 的 exec_one_op lambda 抽取，新旧入口共用。
+// src 是一个 json 对象，含 "op" 字段及该 op 所需的参数。
+// 向量类参数（pivot/rotation/origin/size/uv 等）支持传 JSON 字符串或原生 JSON 值。
+// 失败时抛 runtime_error，由调用方捕获。
+inline std::string exec_model_op(json& geo, const json& src) {
+    // 内部辅助：从 src 中解析 JSON 参数（字符串则 parse，否则原样返回）
+    auto parse_jp = [&src](const char* key) -> json {
+        if (!src.contains(key) || src[key].is_null()) return json(nullptr);
+        if (src[key].is_string()) {
+            std::string s = src[key].get<std::string>();
+            if (s.empty()) return json(nullptr);
+            return json::parse(s, nullptr, true, true);
+        }
+        return src[key];
+    };
+    std::string op = src.value("op", "");
+
+    if (op == "add_bone") {
+        std::string bone_name = src.value("bone_name", "");
+        std::string parent    = src.value("parent", "");
+        json pivot    = parse_jp("pivot");
+        json rotation = parse_jp("rotation");
+        return op_add_bone(geo, bone_name, parent, pivot, rotation);
+
+    } else if (op == "remove_bone") {
+        std::string bone_name = src.value("bone_name", "");
+        bool cascade = src.contains("cascade") && src["cascade"].is_boolean()
+                       ? src["cascade"].get<bool>() : true;
+        return op_remove_bone(geo, bone_name, cascade);
+
+    } else if (op == "rename_bone") {
+        std::string bone_name = src.value("bone_name", "");
+        std::string new_name  = src.value("new_name", "");
+        return op_rename_bone(geo, bone_name, new_name);
+
+    } else if (op == "set_bone_transform") {
+        std::string bone_name = src.value("bone_name", "");
+        json pivot    = parse_jp("pivot");
+        json rotation = parse_jp("rotation");
+        return op_set_bone_transform(geo, bone_name, pivot, rotation);
+
+    } else if (op == "add_cube") {
+        std::string bone_name = src.value("bone_name", "");
+        json origin   = parse_jp("origin");
+        json size     = parse_jp("size");
+        json uv       = parse_jp("uv");
+        json inflate  = parse_jp("inflate");
+        json rotation = parse_jp("cube_rotation");
+        json cpivot   = parse_jp("cube_pivot");
+        if (origin.is_null() || size.is_null() || uv.is_null())
+            throw std::runtime_error("add_cube 需要 origin, size, uv 参数");
+        return op_add_cube(geo, bone_name, origin, size, uv, inflate, rotation, cpivot);
+
+    } else if (op == "remove_cube") {
+        std::string bone_name = src.value("bone_name", "");
+        int cube_index = src.contains("cube_index") && src["cube_index"].is_number()
+                         ? src["cube_index"].get<int>() : -1;
+        if (cube_index < 0) throw std::runtime_error("remove_cube 需要 cube_index >= 0");
+        return op_remove_cube(geo, bone_name, cube_index);
+
+    } else if (op == "edit_cube") {
+        std::string bone_name = src.value("bone_name", "");
+        int cube_index = src.contains("cube_index") && src["cube_index"].is_number()
+                         ? src["cube_index"].get<int>() : -1;
+        if (cube_index < 0) throw std::runtime_error("edit_cube 需要 cube_index >= 0");
+        json origin   = parse_jp("origin");
+        json size     = parse_jp("size");
+        json uv       = parse_jp("uv");
+        json inflate  = parse_jp("inflate");
+        json rotation = parse_jp("cube_rotation");
+        json cpivot   = parse_jp("cube_pivot");
+        return op_edit_cube(geo, bone_name, cube_index, origin, size, uv, inflate, rotation, cpivot);
+
+    } else if (op == "mirror_bone") {
+        std::string bone_name = src.value("bone_name", "");
+        std::string new_name  = src.value("new_name", "");
+        bool mirror_uv = src.contains("mirror_uv") && src["mirror_uv"].is_boolean()
+                         ? src["mirror_uv"].get<bool>() : true;
+        return op_mirror_bone(geo, bone_name, new_name, mirror_uv);
+
+    } else if (op == "set_texture_size") {
+        int tw = src.contains("tex_width")  && src["tex_width"].is_number()  ? src["tex_width"].get<int>()  : 64;
+        int th = src.contains("tex_height") && src["tex_height"].is_number() ? src["tex_height"].get<int>() : 64;
+        return op_set_texture_size(geo, tw, th);
+
+    } else if (op == "add_locator") {
+        std::string bone_name    = src.value("bone_name", "");
+        std::string locator_name = src.value("locator_name", "");
+        json position = parse_jp("position");
+        if (position.is_null()) throw std::runtime_error("add_locator 需要 position [x,y,z]");
+        return op_add_locator(geo, bone_name, locator_name, position);
+
+    } else {
+        throw std::runtime_error("未知 op: " + op +
+            "  有效值: add_bone/remove_bone/rename_bone/set_bone_transform/"
+            "add_cube/remove_cube/edit_cube/mirror_bone/set_texture_size/add_locator");
+    }
+}
+
 } // namespace mcdk
