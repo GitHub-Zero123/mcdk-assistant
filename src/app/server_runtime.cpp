@@ -13,6 +13,7 @@
 #include "tools/register_animation.hpp"
 #include "tools/register_jsonui.hpp"
 #include "tools/register_model.hpp"
+#include "tools/register_nbt.hpp"
 #include "tools/register_pixel_art.hpp"
 #endif
 
@@ -85,6 +86,7 @@ void register_tools(mcp::server& srv,
     mcdk::register_pixel_art_tools(srv);
     mcdk::register_model_tools(srv);
     mcdk::register_animation_tools(srv);
+    mcdk::register_nbt_tools(srv);
 #endif
 }
 

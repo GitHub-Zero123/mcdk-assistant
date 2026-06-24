@@ -38,3 +38,15 @@ target_compile_definitions(search_test PRIVATE
     MCDK_KNOWLEDGE_DIR="${CMAKE_CURRENT_SOURCE_DIR}/../knowledge"
     MCDK_DICTS_DIR="${CMAKE_CURRENT_SOURCE_DIR}/../dicts"
 )
+
+# NBT 编解码自检（仅依赖 nlohmann，夹具用真实 .mcstructure）
+add_executable(nbt_test nbt_test.cpp)
+target_include_directories(nbt_test PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../src)
+target_compile_features(nbt_test PRIVATE cxx_std_20)
+if(MSVC)
+    target_compile_options(nbt_test PRIVATE /utf-8 /EHsc)
+endif()
+target_link_libraries(nbt_test PRIVATE nlohmann_json::nlohmann_json)
+target_compile_definitions(nbt_test PRIVATE
+    MCDK_KNOWLEDGE_DIR="${CMAKE_CURRENT_SOURCE_DIR}/../knowledge"
+)
