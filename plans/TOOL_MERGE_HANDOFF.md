@@ -298,23 +298,27 @@ netease
 
 ## 后续路线
 
-### 第一阶段（当前）
+### 第一阶段（已完成）
 
 搜索 / 资料库 / 网易参考速查 → 已合并到 `minecraft_docs`。
 
-### 第二阶段（建议）
+### 第二阶段（已完成，2026-06-24）
 
-把 JSON UI 相关 tool 合并为一个命令式入口，例如：
+像素画 28 个独立工具 → 已合并到 `minecraft_pixelart` 单工具（命令式）。
 
-```text
-minecraft_ui
-```
-
-或继续收编到新的资料/开发入口分层命令，待设计确认。
+详见下方"第二阶段：像素画合并记录"。
 
 ### 第三阶段（建议）
 
-模型、动画、像素画、Python 分析等功能性 tool 继续按能力族合并。
+JSON UI、模型、动画、Python 分析等功能性 tool 继续按能力族合并。
+建议的下一批整合目标（按性价比排序）：
+
+1. **JSON UI**（7 → 1，建议名 `minecraft_ui`）：handler 已共享 `resolve_json_content`，
+   速查手册自带工具指引，CLI 化几乎零成本，性价比最高。
+2. **Model**（6 → 1，建议名 `minecraft_model`）+ **Animation**（4 → 1，建议名 `minecraft_animation`）：
+   两者 `*_op` 工具本身就是 op 分发器，CLI 化是把内层 op 模式外推到顶层，结构天然吻合。
+3. **Python 分析**（2 → 1，建议名 `minecraft_py_analysis`）：数量少但工作流配对清晰，
+   且是唯一在 lite 版也启用的非资料工具，整合后 lite 版 tools/list 更干净。
 
 建议总原则：
 
@@ -324,10 +328,125 @@ minecraft_ui
 - 旧注册代码注释保留，不直接删除；
 - 尽量复用现有 handler / service，不重写业务逻辑。
 
+---
+
+## 第二阶段：像素画合并记录（2026-06-24）
+
+### 目的
+
+将 `register_pixel_art.hpp` 中 28 个像素画独立工具合并为单一命令式入口
+`minecraft_pixelart`，进一步降低 MCP tools/list 注入上下文的 token 占用。
+本次与搜索性能优化工作完全隔离，未触碰 search 模块与 `canvas_manager.hpp` 核心。
+
+### 工具命名
+
+入口名定为 `minecraft_pixelart`（曾考虑 `minecraft_canvas`，但"canvas"偏底层容器语义，
+`pixelart` 更准确表达"像素画处理"能力族）。
+
+### 子命令协议
+
+原 28 工具 → 子命令映射：
+
+| 旧工具 | 新子命令 |
+|---|---|
+| canvas_new / canvas_load / canvas_save / canvas_info / canvas_preview | new / load / save / info / preview |
+| draw_pixel / draw_pixels_batch / draw_line / draw_rect / draw_circle | pixel / batch / line / rect / circle |
+| fill_flood / fill_rect / fill_gradient | flood / (rect --filled) / gradient |
+| apply_outline / apply_shadow / apply_dithering / apply_palette_quantize | outline / shadow / dither / quantize |
+| pixelate | pixelate |
+| read_pixel / read_area / extract_palette / replace_color | rpixel / rarea / palette / recolor |
+| transform_flip / transform_rotate / transform_scale / transform_crop | flip / rotate / scale / crop |
+
+参数风格：长 flag（`--x --y --color --filled`），与 `minecraft_docs` 一致。
+`fill_rect` 与 `draw_rect` 合并为 `rect`，用 `--filled` 区分实心/空心。
+批量像素 `draw_pixels_batch` 的 pixels 数组通过 `--pixels '<JSON>'` 传入。
+
+flag 别名：`--w=--width`、`--h=--height`、`--bg=--background`、`--tol=--tolerance`、
+`--filled=--fill`、`--from=--old-color/--old`、`--to=--new-color/--new`、`--no-dither=--nodither`、
+`--color-a=--ca`、`--color-b=--cb`、`--offset-x=--ox`、`--offset-y=--oy`。
+
+### 已完成改动
+
+#### 1. 新增统一入口 tool
+
+文件：[`src/tools/register_minecraft_pixelart.hpp`](src/tools/register_minecraft_pixelart.hpp)
+
+结构仿 `register_minecraft_docs.hpp`：
+
+- `namespace minecraft_pixelart_detail`
+- `pixelart_help_text()` 完整命令帮助
+- `text_result()` / `image_result()` / `error_with_help()` 标准返回辅助
+- 每个 dispatch 自由函数内部直接调用 `get_canvas()` 单例的 public 方法，
+  不抽 handler 函数（canvas 操作是过程式的，逐子命令内联更清晰）
+- `dispatch_minecraft_pixelart(command)` 主分发器
+- `register_minecraft_pixelart_tools(srv)` 注册单 tool，唯一入参 `command`
+
+`preview` 子命令返回 image 内容；`rarea`/`palette` 返回 JSON 文本；其余返回操作结果文本。
+
+#### 2. 注释旧注册
+
+文件：[`src/tools/register_pixel_art.hpp`](src/tools/register_pixel_art.hpp)
+
+- 顶部注释更新为"已合并到 minecraft_pixelart"，附 28 工具 → 子命令映射表
+- `register_pixel_art_tools()` 函数体整段用 `/* ... */` 注释保留
+- `jstr/jint/jfloat/jbool/ok/err` 辅助函数保留不动（新入口未复用，但便于回滚）
+
+#### 3. 切换服务注册入口
+
+文件：[`src/app/server_runtime.cpp`](src/app/server_runtime.cpp)
+
+`#ifndef MCDK_LITE` 块内：
+
+```cpp
+mcdk::register_jsonui_tools(srv);
+// mcdk::register_pixel_art_tools(srv);   // 已合并
+mcdk::register_minecraft_pixelart_tools(srv);
+mcdk::register_model_tools(srv);
+mcdk::register_animation_tools(srv);
+```
+
+仅改 full 版；lite 版原本就没注册像素画，不动。
+
+### 已知行为差异（非缺陷）
+
+**路径反斜杠转义**：`command_parser.hpp` 的词法分析会把 `\<char>` 当转义序列处理，
+因此 Windows 反斜杠路径（如 `D:\mod\icon.png`）会被吃掉反斜杠。
+已在 `pixelart_help_text()` 中明确提示"路径请使用正斜杠"。
+这是 command_parser 的既有设计（docs 阶段就存在），不在本次修改范围。
+若后续要根治，应在 command_parser 层面统一处理，而非各 dispatch 单独修补。
+
+### 验证状态
+
+已完成：
+
+- `mcdk-assistant`（full 版）MSVC release 编译通过；
+- stdio MCP 冒烟测试 42 项全部通过（脚本 `tests/minecraft_pixelart_stdio_probe.py`）。
+
+测试覆盖：
+
+- tools/list 包含 `minecraft_pixelart`，旧 26 个像素画工具不再注册；
+- help / 空 command / 前导 `/` 三种触发方式；
+- 画布生命周期：new → info → pixel → rpixel → save → PNG 实际生成 → load → info；
+- 绘制形状：rect --filled + rarea 区域读取；
+- 变换链：pixel → flip H → rpixel 验证像素位移；
+- batch 批量绘制（JSON 数组参数）；
+- 非法输入容错：bogus 子命令 / 缺参数 / 非法角度，均返回 help 友好错误；
+- preview 返回 image 内容；
+- 其余子命令（line/circle/flood/gradient/outline/shadow/pixelate/rotate/scale/crop/recolor/quantize/dither/palette）冒烟通过。
+
+测试用法：
+
+```bat
+python tests/minecraft_pixelart_stdio_probe.py
+python tests/minecraft_pixelart_stdio_probe.py --exe build/x64-msvc-release/mcdk-assistant.exe
+```
+
 ## 注意事项
 
 1. 目前 `.mcp.json` 是项目级配置，可能会被纳入 git；是否提交由维护者决定。
 2. `command_parser.hpp` 是后续所有合并工作的关键基础设施，修改时要注意保持无业务依赖。
 3. `register_search.hpp` / `register_netease.hpp` 中虽然旧注册被注释，但 handler / 文本函数仍是新入口依赖，不能删除。
-4. `minecraft_docs` 名称是当前确认结果：强调资料/文档查询语义，避免与完整开发能力混淆。
-5. 本次没有改 `CMakeLists.txt`，因为新增的是 header-only 文件，通过 `server_runtime.cpp` 间接包含。
+4. `register_pixel_art.hpp` 中旧注册被注释，但 `jstr/jint/jfloat/jbool/ok/err` 辅助函数保留（便于回滚）；新入口 `register_minecraft_pixelart.hpp` 不依赖这些辅助，直接调用 `get_canvas()`。
+5. `minecraft_docs` 名称是当前确认结果：强调资料/文档查询语义，避免与完整开发能力混淆。
+6. `minecraft_pixelart` 强调像素画处理语义，不用偏底层的 `minecraft_canvas`。
+7. 本次没有改 `CMakeLists.txt`，因为新增的是 header-only 文件，通过 `server_runtime.cpp` 间接包含。

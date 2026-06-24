@@ -1,8 +1,20 @@
 #pragma once
-// register_pixel_art.hpp — 像素画 MCP 工具注册
-// 提供: canvas_new/load/save/preview, draw_pixel/batch/line/rect/circle,
-//       fill_flood/gradient, apply_outline/shadow/palette_quantize/dithering,
-//       read_pixel/area, extract_palette, transform_*
+// register_pixel_art.hpp — 像素画 MCP 工具注册（旧 28 工具，已合并）
+//
+// 【已合并】原先这里直接注册的 28 个像素画独立工具，现已统一并入
+// minecraft_pixelart 单工具（见 register_minecraft_pixelart.hpp）。
+// 本文件保留 jstr/jint/jfloat/jbool/ok/err 等辅助函数与原注册函数体
+// （整段注释保留），便于随时审视 / 回滚。新入口直接调用 canvas_manager.hpp
+// 的 get_canvas() 单例，不依赖本文件的辅助函数。
+//
+// 原 28 个工具与 minecraft_pixelart 子命令的映射：
+//   canvas_new/load/save/info/preview          → new/load/save/info/preview
+//   draw_pixel/pixels_batch/line/rect/circle   → pixel/batch/line/rect/circle
+//   fill_flood/rect/gradient                   → flood/(rect --filled)/gradient
+//   apply_outline/shadow/dithering/palette_quantize → outline/shadow/dither/quantize
+//   pixelate                                   → pixelate
+//   read_pixel/area, extract_palette, replace_color → rpixel/rarea/palette/recolor
+//   transform_flip/rotate/scale/crop           → flip/rotate/scale/crop
 #include <mcp_server.h>
 #include <mcp_tool.h>
 #include <mcp_message.h>
@@ -13,7 +25,7 @@
 
 namespace mcdk {
 
-// ── 工具: 从 JSON 参数读取辅助 ──────────────────────────
+// ── 工具: 从 JSON 参数读取辅助（保留，便于回滚时复用）──
 static inline std::string jstr(const mcp::json& p, const char* k, const char* def = "") {
     return p.contains(k) && p[k].is_string() ? p[k].get<std::string>() : def;
 }
@@ -36,8 +48,12 @@ static mcp::json err(const std::string& msg) {
     return {{"content", mcp::json::array({{{ "type","text"},{"text", "[ERROR] " + msg}}})}};
 }
 
-inline void register_pixel_art_tools(mcp::server& srv) {
+// ──────────────────────────────────────────────────────────────────────────
+// 【已合并到 minecraft_pixelart — 注册代码整段注释保留，便于随时审视/回滚】
+//
+// inline void register_pixel_art_tools(mcp::server& srv) {
 
+/*
     auto& canvas = get_canvas();
 
     // ════════════════════════════════════════════════════════
@@ -478,6 +494,8 @@ inline void register_pixel_art_tools(mcp::server& srv) {
             } catch (const std::exception& e) { return err(e.what()); }
         });
 
-} // register_pixel_art_tools
+} // register_pixel_art_tools */
+
+// ──────────────────────────────────────────────────────────────────────────
 
 } // namespace mcdk
