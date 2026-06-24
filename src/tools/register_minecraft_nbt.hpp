@@ -53,7 +53,7 @@ inline std::string nbt_help_text() {
     return R"(minecraft_nbt - Minecraft NBT file tool (command-style)
 Usage: minecraft_nbt(command="<subcommand> [args...] [--option value]")
 Command names may start with '/', for example /help or /view.
-Important: arguments containing spaces or JSON arrays/objects must be wrapped in quotes.
+Important: arguments containing spaces, JSON arrays, or JSON objects must be wrapped in quotes.
 
 Subcommands:
   help | reference
@@ -65,20 +65,82 @@ Subcommands:
   create --file <path> [--template mcstructure|empty] [--size "[x,y,z]"] [--blocks "[\"minecraft:stone\"]"]
          [--fill <n>] [--block-version <n>] [--little-endian true|false] [--overwrite]
       Create a new NBT file.
+      Existing files are protected unless --overwrite is supplied.
 
   edit --file <path> [--save <path>] (--ops '<JSON array>' | --op set|remove|rename|add ...)
-      Edit an NBT file and write it back.
+      Edit an NBT file. Without --save this writes back to the original file.
       Single-op common options: --path, --name, --tag-type, --value, --new-name, --json-value.
 
 Examples:
   view --file D:/world/structures/a.mcstructure --max-depth 6
   view --file D:/world/structures/a.mcstructure --path structure/palette/default/block_palette/0/name
   create --file D:/tmp/test.mcstructure --template mcstructure --size "[2,2,2]" --overwrite
-  edit --file D:/tmp/test.mcstructure --ops '[{"op":"set","path":"format_version","value":"2"}]')";
+  edit --file D:/tmp/test.mcstructure --save D:/tmp/test.copy.mcstructure --ops '[{"op":"set","path":"format_version","value":"2"}]')";
+}
+
+inline std::string nbt_reference_text() {
+    return R"(Reference
+
+Safe workflow:
+  1. Use view first to inspect the file and locate the path.
+  2. Prefer edit --save <new file> while experimenting.
+  3. Omit --save only when you intentionally want to overwrite the original file.
+
+Supported files:
+  - Bedrock .mcstructure: little-endian, uncompressed.
+  - Bedrock level.dat: little-endian with the 8-byte Bedrock header.
+  - Uncompressed .nbt: Java big-endian or Bedrock little-endian, auto-detected.
+  - Gzip-compressed Java .nbt / level.dat is not supported.
+  Saving preserves the detected endian/header shape.
+
+Path syntax:
+  - Use '/' between path segments.
+  - Compound segments are key names.
+  - List segments are numeric indexes, starting at 0.
+  - Empty path means the root compound.
+  - Example: structure/palette/default/block_palette/0/name
+  - Current limitation: keys containing '/' cannot be addressed.
+
+Tag types for --tag-type:
+  byte, short, int, long, float, double, string,
+  byte_array, int_array, long_array, list, compound
+
+Tagged JSON:
+  A tag is encoded as {"type":"int","value":123}.
+  Lists add elem_type, for example:
+    {"type":"list","elem_type":"string","value":[{"type":"string","value":"a"}]}
+  Compounds use tagged child values:
+    {"type":"compound","value":{"name":{"type":"string","value":"minecraft:stone"}}}
+  Use view --format json to copy a subtree as a template for --json-value.
+
+Edit operations:
+  set
+      Set a scalar at --path. Existing tags keep their type when --tag-type is omitted.
+      New scalar tags require --tag-type.
+      Example: edit --file D:/x.mcstructure --op set --path format_version --value 2
+
+  remove
+      Remove a compound key or list item.
+      Example: edit --file D:/x.mcstructure --op remove --path metadata/foo
+
+  rename
+      Rename a compound key.
+      Example: edit --file D:/x.mcstructure --op rename --path metadata/foo --new-name bar
+
+  add
+      Add a child under a compound/list. Compound children require --name.
+      For scalar children, use --tag-type and --value.
+      For complex children, use --json-value with tagged JSON.
+
+Batch operations:
+  Use --ops '<JSON array>' to execute multiple operations and save once.
+  Because JSON contains spaces, quotes, brackets, and braces, wrap the whole JSON array in quotes:
+    edit --file D:/x.mcstructure --ops '[{"op":"set","path":"format_version","value":"2"}]'
+)";
 }
 
 inline mcp::json help_result() {
-    return text_result(nbt_help_text() + "\n\n" + NBT_REFERENCE_TEXT);
+    return text_result(nbt_help_text() + "\n\n" + nbt_reference_text());
 }
 
 inline mcp::json error_with_help(const std::string& message) {
@@ -167,7 +229,8 @@ inline void register_minecraft_nbt_tools(mcp::server& srv) {
         .with_string_param("command",
             "Command such as 'view --file D:/x.mcstructure', "
             "'create --file D:/x.mcstructure --template mcstructure', "
-            "or 'edit --file <path> --ops [...]'.", true)
+            "'edit --file <path> --save <copy> --ops [...]', or '/help'. "
+            "Wrap paths with spaces and JSON arrays/objects in quotes.", true)
         .with_read_only_hint(false).with_idempotent_hint(false).build();
 
     srv.register_tool(tool, [](const mcp::json& params, const std::string&) -> mcp::json {

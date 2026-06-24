@@ -72,6 +72,14 @@ static void test_command_tool() {
     auto segs = nbt::split_path("format_version");
     nbt::NbtTag* format = nbt::navigate(edited.root, segs, segs.size());
     CHECK(format && std::get<int32_t>(format->value) == 2, "minecraft_nbt edit updated file");
+
+    auto help = minecraft_nbt_detail::dispatch_minecraft_nbt("/help");
+    std::string help_text = result_text(help);
+    CHECK(help_text.find("Usage: minecraft_nbt(command=") != std::string::npos, "minecraft_nbt /help shows command usage");
+    CHECK(help_text.find("action=") == std::string::npos, "minecraft_nbt help does not expose legacy action tutorial");
+    CHECK(help_text.find("wrapped in quotes") != std::string::npos, "minecraft_nbt help explains quoted arguments");
+    CHECK(help_text.find("Without --save this writes back to the original file") != std::string::npos,
+          "minecraft_nbt help warns about edit write-back");
 }
 
 int main() {
