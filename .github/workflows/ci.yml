@@ -1,0 +1,61 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: Windows MSVC
+            os: windows-latest
+            build_type: Release
+          - name: Ubuntu GCC
+            os: ubuntu-latest
+            build_type: Release
+          - name: macOS Clang
+            os: macos-latest
+            build_type: Release
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Setup MSVC
+        if: runner.os == 'Windows'
+        uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x64
+
+      - name: Install Linux build tools
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ninja-build
+
+      - name: Install macOS build tools
+        if: runner.os == 'macOS'
+        run: brew install ninja
+
+      - name: Configure
+        run: >
+          cmake -S . -B build/ci
+          -G Ninja
+          -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
+          -DMCDK_BUILD_TESTS=ON
+
+      - name: Build
+        run: cmake --build build/ci --config ${{ matrix.build_type }} --parallel
