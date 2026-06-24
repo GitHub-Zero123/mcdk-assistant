@@ -14,6 +14,12 @@
 
 MCDK-ASSISTANT 不直接替代编辑器或 AI Agent，而是作为一个面向 Minecraft 工程语境的能力层：把知识库、原版资产、JSON UI、NBT、模型、动画和 Python2 Addon 分析能力整理成稳定的 MCP 工具，让 Agent 在“查资料、理解结构、定位文件、生成修改、回读验证”的闭环里少猜测、多验证。
 
+<p align="center">
+  <img src="docs/tool-layering.svg" alt="MCDK Assistant MCP Tool 分层设计" width="100%">
+</p>
+
+MCP Tool 暴露面采用分层式设计：顶层只保留少量能力族入口，细粒度教程、子命令和操作参数延迟到 `/help` 或具体 `command` 调用时展开，从而减少 AI 客户端在 `tools/list` 阶段被迫接收的初始上下文。
+
 ## 生态项目
 - [QuMod](http://qumod.cc)：QuMod 主站点，汇总文档、资源、项目动态与相关内容
 - [MCDK](https://github.com/GitHub-Zero123/MCDevTool)：轻量化网易 MOD 开发调试工具，支持后端内核与 VS Code 插件两种形态

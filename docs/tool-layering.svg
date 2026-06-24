@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="720" viewBox="0 0 1180 720" role="img" aria-labelledby="title desc">
+  <title id="title">MCDK Assistant MCP tool layering design</title>
+  <desc id="desc">A layered architecture diagram showing how many fine-grained MCP tools are reduced into capability-domain command tools.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M1,1 L8,5 L1,9" fill="none" stroke="var(--line)" stroke-width="1.55" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <style>
+      svg {
+        color-scheme: light dark;
+        --bg: transparent;
+        --panel: #ffffff;
+        --panel-soft: #f6f8fa;
+        --panel-tint: #edf4ff;
+        --panel-warm: #fff8c5;
+        --stroke: #d0d7de;
+        --stroke-strong: #8c959f;
+        --title: #1f2328;
+        --text: #3f4a55;
+        --muted: #66717d;
+        --line: #57606a;
+        --accent: #316dca;
+        --warm: #9a6700;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        svg {
+          --bg: #0b0f12;
+          --panel: #161b22;
+          --panel-soft: #0f141b;
+          --panel-tint: #0d2740;
+          --panel-warm: #2d2412;
+          --stroke: #30363d;
+          --stroke-strong: #68727d;
+          --title: #f0f6fc;
+          --text: #c9d1d9;
+          --muted: #8b949e;
+          --line: #b1bac4;
+          --accent: #79c0ff;
+          --warm: #d29922;
+        }
+      }
+
+      .background { fill: var(--bg); }
+      .layer { fill: var(--panel-soft); stroke: var(--stroke); stroke-width: 1.2; }
+      .box { fill: var(--panel); stroke: var(--stroke); stroke-width: 1.15; }
+      .boxStrong { fill: var(--panel); stroke: var(--stroke-strong); stroke-width: 1.2; }
+      .boxAccent { fill: var(--panel-tint); stroke: var(--accent); stroke-width: 1.2; }
+      .boxWarm { fill: var(--panel-warm); stroke: var(--warm); stroke-width: 1.2; }
+      .title { font: 700 23px "Segoe UI", Arial, sans-serif; fill: var(--title); letter-spacing: 0; }
+      .eyebrow { font: 700 11px "Segoe UI", Arial, sans-serif; fill: var(--accent); letter-spacing: 1.1px; }
+      .layerTitle { font: 700 14px "Segoe UI", Arial, sans-serif; fill: var(--title); letter-spacing: 0; }
+      .label { font: 700 15px "Segoe UI", Arial, sans-serif; fill: var(--title); letter-spacing: 0; }
+      .text { font: 500 12.5px "Segoe UI", Arial, sans-serif; fill: var(--text); letter-spacing: 0; }
+      .muted { font: 500 12px "Segoe UI", Arial, sans-serif; fill: var(--muted); letter-spacing: 0; }
+      .mono { font: 600 11.5px "Cascadia Mono", Consolas, monospace; fill: var(--text); letter-spacing: 0; }
+      .monoMuted { font: 600 11px "Cascadia Mono", Consolas, monospace; fill: var(--muted); letter-spacing: 0; }
+      .line { fill: none; stroke: var(--line); stroke-width: 1.55; marker-end: url(#arrow); }
+      .thin { fill: none; stroke: var(--stroke); stroke-width: 1; }
+    </style>
+  </defs>
+
+  <rect class="background" x="0" y="0" width="1180" height="720" rx="18"/>
+
+  <text class="eyebrow" x="48" y="48">TOOL SURFACE REDUCTION</text>
+  <text class="title" x="48" y="78">Layered MCP tools keep the agent context small while preserving deep capability</text>
+  <text class="muted" x="48" y="101">顶层只暴露少量能力族；完整教程、子命令和细粒度操作延迟到 /help 或具体 command 调用时展开。</text>
+
+  <rect class="layer" x="52" y="136" width="1076" height="76" rx="10"/>
+  <text class="layerTitle" x="78" y="164">Layer 1 · AI Client Context</text>
+  <rect class="box" x="286" y="152" width="168" height="42" rx="7"/>
+  <text class="label" x="310" y="178">Codex</text>
+  <rect class="box" x="506" y="152" width="168" height="42" rx="7"/>
+  <text class="label" x="530" y="178">Claude Code</text>
+  <rect class="box" x="726" y="152" width="168" height="42" rx="7"/>
+  <text class="label" x="750" y="178">Roo / Copilot</text>
+
+  <rect class="layer" x="52" y="238" width="1076" height="126" rx="10"/>
+  <text class="layerTitle" x="78" y="266">Layer 2 · Thin MCP Tool Surface</text>
+  <text class="muted" x="78" y="287">tools/list 阶段只注入能力族名称与短说明，避免把所有教程和细粒度操作塞进初始上下文。</text>
+  <rect class="boxAccent" x="286" y="306" width="142" height="36" rx="7"/>
+  <text class="mono" x="310" y="329">minecraft_docs</text>
+  <rect class="boxAccent" x="462" y="306" width="128" height="36" rx="7"/>
+  <text class="mono" x="486" y="329">minecraft_ui</text>
+  <rect class="boxAccent" x="624" y="306" width="154" height="36" rx="7"/>
+  <text class="mono" x="648" y="329">model / anim</text>
+  <rect class="boxAccent" x="812" y="306" width="132" height="36" rx="7"/>
+  <text class="mono" x="838" y="329">minecraft_nbt</text>
+
+  <rect class="layer" x="52" y="390" width="1076" height="124" rx="10"/>
+  <text class="layerTitle" x="78" y="418">Layer 3 · Capability Domains</text>
+  <rect class="boxStrong" x="88" y="442" width="160" height="46" rx="7"/>
+  <text class="mono" x="112" y="470">docs / assets</text>
+  <rect class="boxStrong" x="280" y="442" width="160" height="46" rx="7"/>
+  <text class="mono" x="306" y="470">json ui</text>
+  <rect class="boxStrong" x="472" y="442" width="160" height="46" rx="7"/>
+  <text class="mono" x="496" y="470">model / anim</text>
+  <rect class="boxStrong" x="664" y="442" width="160" height="46" rx="7"/>
+  <text class="mono" x="708" y="470">nbt</text>
+  <rect class="boxStrong" x="856" y="442" width="220" height="46" rx="7"/>
+  <text class="mono" x="884" y="470">python addon analysis</text>
+
+  <rect class="layer" x="52" y="540" width="1076" height="132" rx="10"/>
+  <text class="layerTitle" x="78" y="568">Layer 4 · Deferred Subcommands</text>
+  <rect class="boxWarm" x="278" y="580" width="128" height="34" rx="7"/>
+  <text class="mono" x="313" y="602">/help</text>
+  <rect class="boxWarm" x="430" y="580" width="144" height="34" rx="7"/>
+  <text class="mono" x="462" y="602">search / read</text>
+  <rect class="boxWarm" x="598" y="580" width="144" height="34" rx="7"/>
+  <text class="mono" x="630" y="602">parse / view</text>
+  <rect class="boxWarm" x="766" y="580" width="144" height="34" rx="7"/>
+  <text class="mono" x="805" y="602">edit / op</text>
+  <rect class="boxWarm" x="430" y="626" width="144" height="34" rx="7"/>
+  <text class="mono" x="468" y="648">create</text>
+  <rect class="boxWarm" x="598" y="626" width="144" height="34" rx="7"/>
+  <text class="mono" x="638" y="648">diag / tree</text>
+
+  <path class="line" d="M590 212 V236"/>
+  <path class="line" d="M590 364 V388"/>
+  <path class="line" d="M590 514 V538"/>
+
+  <path class="thin" d="M168 488 C168 520, 342 520, 342 540"/>
+  <path class="thin" d="M360 488 C360 520, 502 520, 502 540"/>
+  <path class="thin" d="M552 488 C552 520, 670 520, 670 540"/>
+  <path class="thin" d="M744 488 C744 520, 838 520, 838 540"/>
+</svg>
