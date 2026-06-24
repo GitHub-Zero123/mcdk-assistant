@@ -10,6 +10,7 @@
 #include <mcp_tool.h>
 #include <mcp_message.h>
 #include <nlohmann/json.hpp>
+#include <filesystem>
 #include <sstream>
 #include <string>
 
@@ -175,7 +176,7 @@ inline mcp::json nbt_do_create(const mcp::json& p) {
     std::string desc;
     if (!jv.empty()) {
         f.root = nbt::from_tagged_json(nbt::ojson::parse(jv));
-        if (f.root.type != nbt::TAG_Compound) return nbt_err("NBT 根必须是 compound");
+        if (f.root.type != nbt::TagType::Compound) return nbt_err("NBT 根必须是 compound");
         f.little_endian = resolve_le();
         desc = "从 json_value 创建";
     } else {
@@ -209,10 +210,14 @@ inline mcp::json nbt_do_create(const mcp::json& p) {
     }
 
     nbt::save_nbt_file(fpath, f);
-    return nbt_ok(desc + "\n[已保存: " + fpath + "]\n提示: 用 action=view 查看，action=edit 修改 structure/block_indices 等内容。");
+    return nbt_ok(desc + "\n[已保存: " + fpath + "]\n提示: 用 view --file " + fpath + " 查看，用 edit --file " + fpath + " 修改 structure/block_indices 等内容。");
 }
 
 // ── 注册函数：单一工具 nbt ────────────────────────────────
+// Compatibility shim for the original PR tool shape. Runtime registration uses
+// minecraft_nbt (command-style) instead; keep this behind a macro so the legacy
+// MCP surface cannot be exposed accidentally.
+#ifdef MCDK_ENABLE_LEGACY_NBT_TOOL
 inline void register_nbt_tools(mcp::server& srv) {
     srv.register_tool(
         mcp::tool_builder("nbt")
@@ -265,5 +270,6 @@ inline void register_nbt_tools(mcp::server& srv) {
             } catch (const std::exception& e) { return nbt_err(e.what()); }
         });
 }
+#endif
 
 } // namespace mcdk

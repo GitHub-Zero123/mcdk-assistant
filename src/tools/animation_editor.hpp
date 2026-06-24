@@ -485,4 +485,112 @@ inline json anim_create_file() {
     return root;
 }
 
+// ── exec_anim_op：执行单个 op（anim_op 工具的核心分发）──────────
+// 从 register_animation.hpp 的 exec_one_anim_op lambda 抽取，新旧入口共用。
+// src 是一个 json 对象，含 "op" 字段及该 op 所需的参数。
+// 向量/通道值参数（value 等）支持传 JSON 字符串或原生 JSON 值。
+// 失败时抛 runtime_error，由调用方捕获。
+inline std::string exec_anim_op(json& root, const json& src) {
+    // 内部辅助：从 src 解析 JSON 参数（字符串则 parse，否则原样返回）
+    auto pj = [&src](const char* key) -> json {
+        if (!src.contains(key) || src[key].is_null()) return json(nullptr);
+        if (src[key].is_string()) {
+            std::string s = src[key].get<std::string>();
+            if (s.empty()) return json(nullptr);
+            try { return json::parse(s, nullptr, true, true); } catch (...) {}
+        }
+        return src[key];
+    };
+
+    std::string op        = src.value("op", "");
+    std::string anim_name = src.value("anim_name", "");
+
+    if (op == "add_anim") {
+        bool loop            = src.value("loop", true);
+        std::string loop_str = src.value("loop_str", "");
+        double anim_length   = src.contains("animation_length") && src["animation_length"].is_number()
+                               ? src["animation_length"].get<double>() : 0.0;
+        if (anim_name.empty()) throw std::runtime_error("add_anim 需要 anim_name");
+        return op_anim_add_anim(root, anim_name, loop, loop_str, anim_length);
+
+    } else if (op == "remove_anim") {
+        if (anim_name.empty()) throw std::runtime_error("remove_anim 需要 anim_name");
+        return op_anim_remove_anim(root, anim_name);
+
+    } else if (op == "set_anim_prop") {
+        if (anim_name.empty()) throw std::runtime_error("set_anim_prop 需要 anim_name");
+        std::string prop = src.value("prop", "");
+        if (prop.empty()) throw std::runtime_error("set_anim_prop 需要 prop 参数");
+        json value = pj("value");
+        if (value.is_null()) throw std::runtime_error("set_anim_prop 需要 value 参数");
+        json& anim = get_anim(root, anim_name);
+        return op_anim_set_prop(anim, prop, value);
+
+    } else if (op == "set_keyframe") {
+        if (anim_name.empty()) throw std::runtime_error("set_keyframe 需要 anim_name");
+        std::string bone_name = src.value("bone_name", "");
+        std::string channel   = src.value("channel", "rotation");
+        std::string time_str  = src.value("time", "");
+        if (bone_name.empty()) throw std::runtime_error("set_keyframe 需要 bone_name");
+        if (time_str.empty())  throw std::runtime_error("set_keyframe 需要 time（秒，如 '0.3'）");
+        json value = pj("value");
+        if (value.is_null()) throw std::runtime_error("set_keyframe 需要 value");
+        json& anim = get_anim(root, anim_name);
+        return op_anim_set_keyframe(anim, bone_name, channel, time_str, value);
+
+    } else if (op == "remove_keyframe") {
+        if (anim_name.empty()) throw std::runtime_error("remove_keyframe 需要 anim_name");
+        std::string bone_name = src.value("bone_name", "");
+        std::string channel   = src.value("channel", "rotation");
+        std::string time_str  = src.value("time", "");
+        if (bone_name.empty()) throw std::runtime_error("remove_keyframe 需要 bone_name");
+        if (time_str.empty())  throw std::runtime_error("remove_keyframe 需要 time");
+        json& anim = get_anim(root, anim_name);
+        return op_anim_remove_keyframe(anim, bone_name, channel, time_str);
+
+    } else if (op == "set_constant") {
+        if (anim_name.empty()) throw std::runtime_error("set_constant 需要 anim_name");
+        std::string bone_name = src.value("bone_name", "");
+        std::string channel   = src.value("channel", "rotation");
+        if (bone_name.empty()) throw std::runtime_error("set_constant 需要 bone_name");
+        json value = pj("value");
+        if (value.is_null()) throw std::runtime_error("set_constant 需要 value");
+        json& anim = get_anim(root, anim_name);
+        return op_anim_set_constant(anim, bone_name, channel, value);
+
+    } else if (op == "remove_bone_channel") {
+        if (anim_name.empty()) throw std::runtime_error("remove_bone_channel 需要 anim_name");
+        std::string bone_name = src.value("bone_name", "");
+        std::string channel   = src.value("channel", "");
+        if (bone_name.empty()) throw std::runtime_error("remove_bone_channel 需要 bone_name");
+        json& anim = get_anim(root, anim_name);
+        return op_anim_remove_bone_channel(anim, bone_name, channel);
+
+    } else if (op == "mirror_bone_rotation") {
+        if (anim_name.empty()) throw std::runtime_error("mirror_bone_rotation 需要 anim_name");
+        std::string src_bone  = src.value("source_bone", "");
+        std::string dst_bone  = src.value("target_bone", "");
+        double phase_offset   = src.contains("phase_offset") && src["phase_offset"].is_number()
+                                ? src["phase_offset"].get<double>() : 0.0;
+        double anim_length    = src.contains("anim_length") && src["anim_length"].is_number()
+                                ? src["anim_length"].get<double>() : 0.0;
+        if (src_bone.empty()) throw std::runtime_error("mirror_bone_rotation 需要 source_bone");
+        if (dst_bone.empty()) throw std::runtime_error("mirror_bone_rotation 需要 target_bone");
+        json& anim = get_anim(root, anim_name);
+        return op_anim_mirror_bone_rotation(anim, src_bone, dst_bone, phase_offset, anim_length);
+
+    } else if (op == "scale_time") {
+        if (anim_name.empty()) throw std::runtime_error("scale_time 需要 anim_name");
+        double time_scale = src.contains("time_scale") && src["time_scale"].is_number()
+                            ? src["time_scale"].get<double>() : 1.0;
+        json& anim = get_anim(root, anim_name);
+        return op_anim_scale_time(anim, time_scale);
+
+    } else {
+        throw std::runtime_error("未知 op: " + op +
+            "  有效值: add_anim/remove_anim/set_anim_prop/set_keyframe/remove_keyframe/"
+            "set_constant/remove_bone_channel/mirror_bone_rotation/scale_time");
+    }
+}
+
 } // namespace mcdk

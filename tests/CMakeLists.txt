@@ -41,7 +41,12 @@ target_compile_definitions(search_test PRIVATE
 
 # NBT 编解码自检（仅依赖 nlohmann，夹具用真实 .mcstructure）
 add_executable(nbt_test nbt_test.cpp)
-target_include_directories(nbt_test PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../src)
+target_include_directories(nbt_test PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/../src
+    ${CMAKE_CURRENT_SOURCE_DIR}/../libs/cpp-mcp/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/../libs/cpp-mcp/src
+    ${CMAKE_CURRENT_SOURCE_DIR}/../libs/cpp-mcp/common
+)
 target_compile_features(nbt_test PRIVATE cxx_std_20)
 if(MSVC)
     target_compile_options(nbt_test PRIVATE /utf-8 /EHsc)

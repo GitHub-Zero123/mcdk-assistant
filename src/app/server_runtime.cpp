@@ -2,19 +2,20 @@
 
 #include "common/path_utils.hpp"
 #include "search/search_service.hpp"
-#include "tools/register_netease.hpp"
-#include "tools/register_search.hpp"
+#include "tools/register_minecraft_docs.hpp"
+// register_netease.hpp / register_search.hpp 经 register_minecraft_docs.hpp 间接包含
+// （其 handler 已合并进 minecraft_docs 单工具）。
 
 #if !defined(MCDK_SERVER) && !defined(MCDK_INDEX_COMPILER)
 #include "tools/register_python_analysis.hpp"
 #endif
 
 #ifndef MCDK_LITE
-#include "tools/register_animation.hpp"
-#include "tools/register_jsonui.hpp"
-#include "tools/register_model.hpp"
-#include "tools/register_nbt.hpp"
-#include "tools/register_pixel_art.hpp"
+#include "tools/register_minecraft_ui.hpp"
+#include "tools/register_minecraft_model.hpp"
+#include "tools/register_minecraft_animation.hpp"
+#include "tools/register_minecraft_pixelart.hpp"
+#include "tools/register_minecraft_nbt.hpp"
 #endif
 
 #ifdef MCDK_SERVER
@@ -76,17 +77,21 @@ void register_tools(mcp::server& srv,
         ? std::filesystem::path()
         : knowledge_dir;
 
-    mcdk::register_search_tools(srv, search_svc, effective_knowledge_dir);
-    mcdk::register_netease_tools(srv);
+    // 【已合并】原 register_search_tools + register_netease_tools 的 13 个资料类工具，
+    // 现统一为 minecraft_docs 单工具（命令式），大幅降低上下文 token 占用。
+    //   mcdk::register_search_tools(srv, search_svc, effective_knowledge_dir);
+    //   mcdk::register_netease_tools(srv);
+    mcdk::register_minecraft_docs_tools(srv, search_svc, effective_knowledge_dir);
 #if !defined(MCDK_SERVER) && !defined(MCDK_INDEX_COMPILER)
     mcdk::register_python_analysis_tools(srv);
 #endif
 #ifndef MCDK_LITE
-    mcdk::register_jsonui_tools(srv);
-    mcdk::register_pixel_art_tools(srv);
-    mcdk::register_model_tools(srv);
-    mcdk::register_animation_tools(srv);
-    mcdk::register_nbt_tools(srv);
+    // Legacy split tools are replaced by these command-style Minecraft tools.
+    mcdk::register_minecraft_ui_tools(srv);
+    mcdk::register_minecraft_pixelart_tools(srv);
+    mcdk::register_minecraft_model_tools(srv);
+    mcdk::register_minecraft_animation_tools(srv);
+    mcdk::register_minecraft_nbt_tools(srv);
 #endif
 }
 

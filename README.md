@@ -8,6 +8,12 @@
 
 聚合文档检索、原版资源搜索、参考速查与扩展分析能力，使 AI 能以更工程化的方式参与 Minecraft 开发流程。
 
+<p align="center">
+  <img src="docs/agent-mcp-workflow.svg" alt="MCDK Assistant MCP 与 LLM Agent 的工程协作关系" width="100%">
+</p>
+
+MCDK-ASSISTANT 不直接替代编辑器或 AI Agent，而是作为一个面向 Minecraft 工程语境的能力层：把知识库、原版资产、JSON UI、NBT、模型、动画和 Python2 Addon 分析能力整理成稳定的 MCP 工具，让 Agent 在“查资料、理解结构、定位文件、生成修改、回读验证”的闭环里少猜测、多验证。
+
 ## 生态项目
 - [QuMod](http://qumod.cc)：QuMod 主站点，汇总文档、资源、项目动态与相关内容
 - [MCDK](https://github.com/GitHub-Zero123/MCDevTool)：轻量化网易 MOD 开发调试工具，支持后端内核与 VS Code 插件两种形态
@@ -23,8 +29,6 @@
 🧩 JSON UI 分析 | 支持控件结构查询、属性搜索与问题诊断；涉及资源修改的能力仅在完整版提供
 
 > 默认分发以 `LITE` 为主，聚焦检索、搜索、参考与分析能力。
-<!-- >
-> 完整版额外提供模型、动画、像素画等本地资源读写与编辑能力；这部分涉及敏感文件操作，默认不提供 release 包，需自行编译。 -->
 
 ## 🎯 适用场景
 
@@ -40,7 +44,7 @@
 能力版本 | 可执行文件 | 说明
 --- | --- | ---
 LITE 版 | `mcdk-asst-lite` | 默认发布版本，聚焦资料检索、原版资源搜索和参考说明，不包含本地文件修改能力
-完整版 | `mcdk-assistant` | 提供 JSON UI、NBT、模型、动画、像素画等本地资源读写与编辑能力；相关能力涉及敏感操作，默认不提供 release 包，需自行编译
+完整版 | `mcdk-assistant` | 提供 JSON UI、NBT、模型、动画、像素画等本地资源读写与编辑能力；相关能力涉及敏感操作，但会占用更多初始上下文，建议仅在确认需要的情况下使用。
 Server 版 | `mcdk-asst-server` | 在 LITE 能力基础上扩展后台请求记录与统计接口，适合服务化部署
 
 默认端口为 `18766`（HTTP 模式）。
@@ -76,6 +80,43 @@ LITE 版和完整版支持 `--stdio` 参数，直接以 stdio 传输模式启动
   }
 }
 ```
+
+#### Codex
+
+Codex 的 MCP 配置写在用户目录的 `config.toml` 中。Windows 默认路径：
+
+```text
+C:\Users\<你的用户名>\.codex\config.toml
+```
+
+也可以在 Codex IDE 扩展右上角齿轮菜单中选择 `Codex Settings > Open config.toml` 打开同一个文件。
+
+Windows 下可直接运行：
+
+```powershell
+notepad $env:USERPROFILE\.codex\config.toml
+```
+
+在文件末尾追加以下配置。下面示例使用 LITE 版；如果需要 JSON UI、NBT、模型、动画、像素画等本地读写能力，把 `command` 改成完整版 `mcdk-assistant.exe`。
+
+```toml
+[mcp_servers.mcdk-asst-lite]
+command = "D:/Zero123/CPP/CMAKE/mcdk-assistant/build/x64-msvc-release/mcdk-asst-lite.exe"
+args = ["--stdio"]
+enabled = true
+startup_timeout_sec = 30
+tool_timeout_sec = 120
+
+# 可选：完整版，默认关闭。需要本地资源编辑能力时再启用。
+[mcp_servers.mcdk-assistant]
+command = "D:/Zero123/CPP/CMAKE/mcdk-assistant/build/x64-msvc-release/mcdk-assistant.exe"
+args = ["--stdio"]
+enabled = false
+startup_timeout_sec = 30
+tool_timeout_sec = 120
+```
+
+保存后重启 Codex，或开启新会话。在 Codex CLI/TUI 中可用 `/mcp` 查看连接状态。通常只启用 LITE 版和完整版中的一个，避免重复暴露同类工具。
 
 #### Claude Desktop / 其他支持 stdio 的客户端
 
