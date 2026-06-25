@@ -129,6 +129,12 @@ JS / TS 关系：
   - 世界刚加载时不要假设所有对象都已就绪，复杂初始化可延后若干 tick。
   - TypeScript 项目最终仍需编译成 JS，manifest 的 entry 指向编译后的 JS。
 
+Py/JS 通信经验：
+  - Py ModSDK 可执行 scriptevent 命令，JS 侧监听 ScriptEvent 可实现 Py -> JS 实时同步。
+  - scriptevent 事件名建议带项目名/命名空间隔离，避免跨 Mod 冲突。
+  - 截至目前，JS 反向用该方案通信会导致游戏进程崩溃；不要尝试 JS -> Py 反向 scriptevent。
+  - 如需 JS -> Py 通信，先评估其他方案，不要套用上述单向通道。
+
 新手任务检索提示：
   生成实体：search "spawn entity"
   发送消息：search "send message"
