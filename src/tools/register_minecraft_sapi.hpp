@@ -32,7 +32,9 @@ inline std::string help_text() {
 若项目含 @minecraft/server、script 模块、scripts/main.js/ts，继续用本工具。
 若项目含 modMain.py、extraServerApi、extraClientApi，优先查 minecraft_docs 的 Py ModSDK。
 
-规则建议：
+强制触发：
+- 遇到 SAPI 线索时先调用本工具；不要先按普通仓库流程读结构后凭经验设计。
+- SAPI 线索包括：@minecraft/server、manifest script 模块、scripts/main.ts/js、world.afterEvents、system.run、用户提到 SAPI/Script API/国际版脚本。
 - 只要任务涉及 SAPI/Script API/@minecraft/server 开发、事件名、组件名、manifest 依赖版本或 API 签名，先查本工具，不要只凭记忆写。
 - 新建或改造 SAPI TypeScript 项目时，先读 ts-setup，再写 manifest/package/tsconfig。
 - 写具体 API 前，先 search，再 symbol 精确确认签名、成员和版本线索。
@@ -694,7 +696,7 @@ inline void register_minecraft_sapi_tools(mcp::server& srv,
     auto tool = mcp::tool_builder(minecraft_sapi_detail::kToolName)
         .with_description(
             "Minecraft Bedrock SAPI/Script API symbol database. "
-            "SAPI/@minecraft/server 开发建议先查本工具，不要只凭记忆写；"
+            "遇到 SAPI 线索(@minecraft/server/script 模块/scripts/main.ts)时先查本工具再读写工程；"
             "新建 TS 项目先用 ts-setup，API 用 search 再 symbol。"
             "网易 Py ModSDK 项目改查 minecraft_docs。")
         .with_string_param("command",
