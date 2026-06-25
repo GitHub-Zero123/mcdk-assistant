@@ -59,6 +59,7 @@ struct SapiSearchResult {
     double score = 0.0;
     std::string match_kind;
     std::vector<int> referenced_symbols;
+    std::vector<int> referenced_depths;
 };
 
 SapiIndex build_sapi_index(const std::filesystem::path& sapi_root);

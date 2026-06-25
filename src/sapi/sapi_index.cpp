@@ -857,19 +857,27 @@ std::vector<int> expand_refs(const SapiIndex& index,
                              int symbol_id,
                              int member_index,
                              int depth,
+                             std::vector<int>* out_depths = nullptr,
                              size_t limit = 24) {
     std::vector<int> result;
+    if (out_depths) out_depths->clear();
     if (depth <= 0 || symbol_id < 0 || symbol_id >= static_cast<int>(index.symbols.size())) return result;
 
     std::set<int> seen;
-    std::vector<std::pair<int, int>> queue;
+    struct QueueItem {
+        int id = -1;
+        int remaining = 0;
+        int depth = 1;
+    };
+    std::vector<QueueItem> queue;
 
-    auto enqueue_refs = [&](const std::vector<std::string>& refs, int next_depth) {
+    auto enqueue_refs = [&](const std::vector<std::string>& refs, int next_depth, int ref_depth) {
         for (int id : resolve_type_refs(index, refs)) {
             if (id == symbol_id) continue;
             if (seen.insert(id).second) {
                 result.push_back(id);
-                queue.push_back({id, next_depth});
+                if (out_depths) out_depths->push_back(ref_depth);
+                queue.push_back({id, next_depth, ref_depth});
                 if (result.size() >= limit) return;
             }
         }
@@ -879,15 +887,15 @@ std::vector<int> expand_refs(const SapiIndex& index,
     if (member_index >= 0 && member_index < static_cast<int>(symbol.members.size())) {
         std::vector<std::string> refs;
         collect_type_refs_from_text(symbol.members[member_index].signature, refs);
-        enqueue_refs(refs, depth - 1);
+        enqueue_refs(refs, depth - 1, 1);
     } else {
-        enqueue_refs(symbol.type_refs, depth - 1);
+        enqueue_refs(symbol.type_refs, depth - 1, 1);
     }
 
     for (size_t head = 0; head < queue.size() && result.size() < limit; ++head) {
-        auto [id, remaining] = queue[head];
-        if (remaining <= 0) continue;
-        enqueue_refs(index.symbols[id].type_refs, remaining - 1);
+        const auto item = queue[head];
+        if (item.remaining <= 0) continue;
+        enqueue_refs(index.symbols[item.id].type_refs, item.remaining - 1, item.depth + 1);
     }
 
     return result;
@@ -1012,7 +1020,8 @@ double score_member_candidate(const SapiMember& member,
 
 void attach_refs(const SapiIndex& index, std::vector<SapiSearchResult>& results, int ref_depth) {
     for (auto& result : results)
-        result.referenced_symbols = expand_refs(index, result.symbol_id, result.member_index, ref_depth);
+        result.referenced_symbols = expand_refs(index, result.symbol_id, result.member_index,
+                                                ref_depth, &result.referenced_depths);
 }
 
 } // namespace
@@ -1065,26 +1074,39 @@ std::vector<SapiSearchResult> search_sapi_symbols(const SapiIndex& index,
 std::vector<SapiSearchResult> lookup_sapi_symbol(const SapiIndex& index,
                                                  const std::string& name,
                                                  int ref_depth) {
-    std::vector<SapiSearchResult> results;
+    std::vector<SapiSearchResult> exact_symbols;
+    std::vector<SapiSearchResult> exact_members;
+    std::vector<SapiSearchResult> member_name_matches;
     std::string q = trim(name);
-    if (q.empty()) return results;
+    if (q.empty()) return {};
     std::string q_lower = to_lower_ascii(q);
     ref_depth = std::clamp(ref_depth, 0, 3);
 
     for (int i = 0; i < static_cast<int>(index.symbols.size()); ++i) {
         const auto& symbol = index.symbols[i];
         if (to_lower_ascii(symbol.fqname) == q_lower || to_lower_ascii(symbol.name) == q_lower) {
-            results.push_back({i, -1, 1000.0, "symbol", {}});
+            exact_symbols.push_back({i, -1, 1000.0, "symbol", {}});
         }
         for (int m = 0; m < static_cast<int>(symbol.members.size()); ++m) {
             const auto& member = symbol.members[m];
             if (to_lower_ascii(member.fqname) == q_lower ||
-                to_lower_ascii(symbol.name + "." + member.name) == q_lower ||
-                to_lower_ascii(member.name) == q_lower) {
-                results.push_back({i, m, 980.0, "member", {}});
+                to_lower_ascii(symbol.name + "." + member.name) == q_lower) {
+                exact_members.push_back({i, m, 980.0, "member", {}});
+            } else if (to_lower_ascii(member.name) == q_lower) {
+                member_name_matches.push_back({i, m, 860.0, "member-name", {}});
             }
         }
     }
+
+    std::vector<SapiSearchResult> results;
+    if (!exact_symbols.empty()) {
+        results = std::move(exact_symbols);
+    } else if (!exact_members.empty()) {
+        results = std::move(exact_members);
+    } else {
+        results = std::move(member_name_matches);
+    }
+
     std::sort(results.begin(), results.end(), [](const auto& a, const auto& b) {
         if (a.score != b.score) return a.score > b.score;
         if (a.symbol_id != b.symbol_id) return a.symbol_id < b.symbol_id;

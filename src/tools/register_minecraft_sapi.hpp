@@ -8,6 +8,7 @@
 #include <mcp_tool.h>
 
 #include <algorithm>
+#include <cctype>
 #include <memory>
 #include <sstream>
 #include <string>
@@ -140,10 +141,15 @@ inline void append_refs(std::ostringstream& out,
                         const sapi::SapiSearchResult& result) {
     if (result.referenced_symbols.empty()) return;
     out << "referenced types:\n";
-    for (int id : result.referenced_symbols) {
+    for (size_t i = 0; i < result.referenced_symbols.size(); ++i) {
+        int id = result.referenced_symbols[i];
         if (id < 0 || id >= static_cast<int>(index.symbols.size())) continue;
         const auto& ref = index.symbols[id];
-        out << "- " << ref.fqname << " (" << ref.kind << ")";
+        int depth = i < result.referenced_depths.size() ? result.referenced_depths[i] : 1;
+        out << "- ";
+        if (depth <= 1) out << "direct ";
+        else out << "depth " << depth << " ";
+        out << ref.fqname << " (" << ref.kind << ")";
         if (!ref.signature.empty()) out << " - " << ref.signature;
         out << "\n";
     }
@@ -355,9 +361,29 @@ inline std::vector<std::string> reverse_ref_names(const sapi::SapiIndex& index,
 }
 
 inline bool text_references_any(const std::string& text, const std::vector<std::string>& names) {
-    std::string lower = command_parser_detail::to_lower_ascii(text);
+    std::unordered_set<std::string> wanted;
     for (const auto& name : names) {
-        if (!name.empty() && lower.find(name) != std::string::npos) return true;
+        size_t dot = name.rfind('.');
+        std::string simple = dot == std::string::npos ? name : name.substr(dot + 1);
+        if (!simple.empty()) wanted.insert(command_parser_detail::to_lower_ascii(simple));
+    }
+    if (wanted.empty()) return false;
+
+    for (size_t pos = 0; pos < text.size();) {
+        unsigned char ch = static_cast<unsigned char>(text[pos]);
+        if (!(std::isalpha(ch) || text[pos] == '_' || text[pos] == '$')) {
+            ++pos;
+            continue;
+        }
+        size_t begin = pos++;
+        while (pos < text.size()) {
+            unsigned char next = static_cast<unsigned char>(text[pos]);
+            if (!(std::isalnum(next) || text[pos] == '_' || text[pos] == '$')) break;
+            ++pos;
+        }
+        std::string token = text.substr(begin, pos - begin);
+        if (!std::isupper(static_cast<unsigned char>(token[0]))) continue;
+        if (wanted.count(command_parser_detail::to_lower_ascii(token))) return true;
     }
     return false;
 }
