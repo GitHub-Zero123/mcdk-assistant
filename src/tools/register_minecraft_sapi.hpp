@@ -25,55 +25,98 @@ inline mcp::json text_result(const std::string& text) {
 }
 
 inline std::string help_text() {
-    return R"(minecraft_sapi - Minecraft Bedrock Script API symbol database
-Usage: minecraft_sapi(command="<subcommand> [args...] [--option value]")
+    return R"(minecraft_sapi - Minecraft Bedrock Script API 符号库
+用法: minecraft_sapi(command="<子命令> [参数...] [--选项 值]")
 
-This tool searches the compiled SAPI symbol index from mcdk_sapi_index_cache.bin.
-It is registered only when that cache file is available.
+注意：先识别项目框架，不要仅凭“网易版/国际版”判断。
+若项目含 @minecraft/server、script 模块、scripts/main.js/ts，继续用本工具。
+若项目含 modMain.py、extraServerApi、extraClientApi，优先查 minecraft_docs 的 Py ModSDK。
 
-重要：网易版 MC MOD 通常使用 Py ModSDK；相关资料在 minecraft_docs。
-仅当项目明确使用 SAPI / Script API / 国际版脚本时再调用本工具。
+推荐工作流：
+1. 先用 search 模糊找 API，一次只搜一个目标。
+2. 再用 symbol 精确看签名、文档、成员、关联类型。
+3. 命中模块后用 module 分页看清单。
+4. 想知道谁用了某类型，用 refs 反查。
 
-Commands:
+子命令：
   help
-      Show this help.
+      显示本说明。
 
-  search <query...> [--offset <n>] [--limit <n>|--top <n>] [--refs <0-3>]
-      Fuzzy English search for API symbols and members.
-      Designed for dirty queries such as "spawn entity", "secret string",
-      "camera preset", or "scoreboard objective".
-      Search one target per command. Do not combine independent API names
-      such as "Player Dimension ItemStack"; run separate searches instead.
-      Continue a previous search by reusing the same query with --offset.
+  search <英文查询> [--offset <n>] [--limit <n>] [--refs <0-3>]
+      英文模糊搜索，支持大小写、驼峰、少量拼写错误。
+      例：search spawn entity --limit 5 --refs 0
+          search scoreboard objective --refs 1
+      不要把多个独立目标塞在一起，如 Player Dimension ItemStack。
 
-  symbol <name> [--refs <0-3>] [--member-offset <n>] [--members <n>]
-      Exact or near-exact symbol/member lookup. Class/interface results include
-      a compact member list by default.
-      Examples: symbol Player --refs 1
-                symbol Player --member-offset 32 --members 32
-                symbol Dimension.spawnEntity --refs 1
-                symbol @minecraft/server.Player --refs 1
+  symbol <符号名> [--refs <0-3>] [--member-offset <n>] [--members <n>]
+      精确查符号/成员。类和接口默认给成员摘要。
+      例：symbol Player --members 16 --refs 0
+          symbol Dimension.spawnEntity --refs 1
+          symbol @minecraft/server.Player --member-offset 16 --members 16
 
-  refs <symbol> [--offset <n>] [--limit <n>]
-      Reverse lookup: list symbols/members whose signatures reference a type.
-      Example: refs SecretString --limit 20
+  refs <符号名> [--offset <n>] [--limit <n>]
+      反查哪些签名引用了该类型。
+      例：refs SecretString --limit 20
 
-  module <module> [--offset <n>] [--limit <n>|--top <n>] [--detail true] [--refs <0-3>]
-      List symbols from a module/package. Default output is compact and paged,
-      so large modules do not flood the context.
-      Examples: module @minecraft/server --limit 40
-                module @minecraft/server --offset 40 --limit 40
-                module @minecraft/server --detail true --limit 8 --refs 1
+  module <包名> [--offset <n>] [--limit <n>] [--detail true] [--refs <0-3>]
+      分页列出包内符号。默认紧凑输出，避免大模块刷屏。
+      例：module @minecraft/server --limit 40
+          module @minecraft/server --offset 40 --limit 40
+          module @minecraft/server --detail true --limit 5 --refs 1
 
-Reference depth:
-  --refs 0   Return only matched symbol/member.
-  --refs 1   Include directly referenced types. Default.
-  --refs 2   Include one more hop, with an internal safety limit.
-  For module list, refs default to 0 unless explicitly requested.
+引用深度：
+  --refs 0  只返回命中项，最省上下文。
+  --refs 1  返回直接引用类型，默认值。
+  --refs 2  再展开一层间接引用，可能较长。
+  输出中的 direct 表示直接引用，depth 2 表示间接引用。
 
-Guide placeholder:
-  Later versions may add a short SAPI project setup guide here, including
-  manifest/module configuration and script entry conventions.)";
+原版 SAPI 最小入口：
+  SAPI 脚本属于行为包。行为包 manifest.json 里通常需要 data 模块、
+  script 模块和 @minecraft/server 依赖。script 模块 entry 指向 JS 入口：
+
+  {
+    "format_version": 2,
+    "header": { "name": "My Pack", "uuid": "...", "version": [1,0,0],
+      "min_engine_version": [1,20,30] },
+    "modules": [
+      { "type": "data", "uuid": "...", "version": [1,0,0] },
+      { "type": "script", "uuid": "...", "version": [1,0,0],
+        "entry": "scripts/main.js" }
+    ],
+    "dependencies": [
+      { "module_name": "@minecraft/server", "version": "1.5.0" }
+    ]
+  }
+
+入口脚本 scripts/main.js：
+  import { world, system } from "@minecraft/server";
+
+  system.run(() => {
+    world.sendMessage("SAPI loaded");
+  });
+
+事件注册：
+  import { world } from "@minecraft/server";
+
+  world.afterEvents.playerSpawn.subscribe((ev) => {
+    ev.player.sendMessage("Welcome");
+  });
+
+常用模式：
+  - world.afterEvents：事件已经发生后处理，适合大多数玩法逻辑。
+  - world.beforeEvents：事件发生前拦截/取消，限制更多，谨慎使用。
+  - system.run(fn)：下一 tick 执行；system.runInterval(fn, ticks) 定时执行。
+  - 世界刚加载时不要假设所有对象都已就绪，复杂初始化可延后若干 tick。
+  - TypeScript 项目最终仍需编译成 JS，manifest 的 entry 指向编译后的 JS。
+
+新手任务检索提示：
+  生成实体：search spawn entity
+  发送消息：search send message
+  玩家事件：search player spawn event
+  定时逻辑：symbol system --members 40 --refs 0
+  记分板：search scoreboard objective
+  物品：search item stack
+  方块：search block permutation)";
 }
 
 inline mcp::json help_result() {
@@ -224,9 +267,11 @@ inline mcp::json format_results(const sapi::SapiIndex& index,
                                 const std::string& empty_message,
                                 int max_members = 24,
                                 int member_offset = 0,
-                                int ordinal_base = 0) {
+                                int ordinal_base = 0,
+                                const std::string& prefix = {}) {
     if (results.empty()) return text_result(empty_message);
     std::ostringstream out;
+    if (!prefix.empty()) out << prefix << "\n\n";
     for (size_t i = 0; i < results.size(); ++i) {
         if (i > 0) out << "\n---\n";
         out << format_result(index, results[i], ordinal_base + static_cast<int>(i + 1),
@@ -320,16 +365,28 @@ inline mcp::json dispatch_search(const sapi::SapiIndex& index, const ParsedComma
         return text_result("No more SAPI symbols matched the query at offset " + std::to_string(offset) + ".");
     int end = std::min(static_cast<int>(results.size()), offset + limit);
     std::vector<sapi::SapiSearchResult> page(results.begin() + offset, results.begin() + end);
+    std::string prefix;
+    if (!page.empty() && page.front().score < 300.0) {
+        prefix = "Low-confidence fuzzy results. Treat these as discovery hints, not exact API matches.";
+    }
     return format_results(index, page, "No SAPI symbol matched the query.",
-                          clamped_members(pc, 12), clamped_member_offset(pc), offset);
+                          clamped_members(pc, 12), clamped_member_offset(pc), offset, prefix);
 }
 
 inline mcp::json dispatch_symbol(const sapi::SapiIndex& index, const ParsedCommand& pc) {
     if (pc.positional.empty())
         return error_with_help("symbol requires a symbol name.");
     auto results = sapi::lookup_sapi_symbol(index, pc.positional, clamped_refs(pc));
-    if (results.empty())
+    if (results.empty()) {
         results = sapi::search_sapi_symbols(index, pc.positional, clamped_top(pc, 8), clamped_refs(pc));
+        results.erase(std::remove_if(results.begin(), results.end(), [](const sapi::SapiSearchResult& result) {
+            return result.score < 300.0;
+        }), results.end());
+    }
+    if (results.empty()) {
+        return text_result("No exact SAPI symbol matched the name: " + pc.positional +
+                           "\nUse search " + pc.positional + " when fuzzy discovery is intended.");
+    }
     return format_results(index, results, "No SAPI symbol matched the name.",
                           clamped_members(pc, 32), clamped_member_offset(pc));
 }
