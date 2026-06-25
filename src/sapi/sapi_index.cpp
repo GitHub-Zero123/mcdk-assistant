@@ -105,6 +105,39 @@ std::vector<std::string> query_tokens(const std::string& query) {
     return out;
 }
 
+int edit_distance_limited(const std::string& a, const std::string& b, int limit) {
+    if (limit < 0) return limit + 1;
+    int n = static_cast<int>(a.size());
+    int m = static_cast<int>(b.size());
+    if (std::abs(n - m) > limit) return limit + 1;
+    if (n == 0) return m;
+    if (m == 0) return n;
+
+    std::vector<int> prev(m + 1), cur(m + 1);
+    for (int j = 0; j <= m; ++j) prev[j] = j;
+    for (int i = 1; i <= n; ++i) {
+        cur[0] = i;
+        int row_min = cur[0];
+        for (int j = 1; j <= m; ++j) {
+            int cost = a[i - 1] == b[j - 1] ? 0 : 1;
+            cur[j] = std::min({prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + cost});
+            row_min = std::min(row_min, cur[j]);
+        }
+        if (row_min > limit) return limit + 1;
+        prev.swap(cur);
+    }
+    return prev[m];
+}
+
+bool token_near_match(const std::string& query, const std::string& field) {
+    if (field.find(query) == 0 || query.find(field) == 0) return true;
+    if (query.size() < 4 || field.size() < 4) return false;
+    if (query.size() > 32 || field.size() > 32) return false;
+    if (query.front() != field.front()) return false;
+    int limit = (query.size() >= 5 || field.size() >= 5) ? 2 : 1;
+    return edit_distance_limited(query, field, limit) <= limit;
+}
+
 bool contains_ascii_ci(const std::string& haystack, const std::string& needle) {
     if (needle.empty()) return true;
     return to_lower_ascii(haystack).find(to_lower_ascii(needle)) != std::string::npos;
@@ -113,7 +146,8 @@ bool contains_ascii_ci(const std::string& haystack, const std::string& needle) {
 double token_coverage_score(const std::vector<std::string>& query,
                             const std::vector<std::string>& field,
                             double all_score,
-                            double partial_score) {
+                            double partial_score,
+                            bool fuzzy = true) {
     if (query.empty() || field.empty()) return 0.0;
     std::unordered_set<std::string> field_set(field.begin(), field.end());
     int hits = 0;
@@ -124,7 +158,7 @@ double token_coverage_score(const std::vector<std::string>& query,
         }
         bool prefix = false;
         for (const auto& f : field) {
-            if (f.find(q) == 0 || q.find(f) == 0) {
+            if (fuzzy ? token_near_match(q, f) : (f.find(q) == 0 || q.find(f) == 0)) {
                 prefix = true;
                 break;
             }
@@ -895,7 +929,7 @@ double score_symbol_candidate(const SapiSymbol& symbol,
     }
 
     auto sig_tokens = split_identifier_tokens(symbol.signature);
-    double sig_score = token_coverage_score(q_tokens, sig_tokens, 220.0, 90.0);
+    double sig_score = token_coverage_score(q_tokens, sig_tokens, 220.0, 90.0, false);
     if (sig_score > score) {
         score = sig_score;
         match_kind = "signature";
@@ -945,8 +979,15 @@ double score_member_candidate(const SapiMember& member,
         match_kind = "member-name-tokens";
     }
 
+    auto fq_tokens = split_identifier_tokens(member.fqname);
+    double fq_score = token_coverage_score(q_tokens, fq_tokens, 760.0, 360.0, false);
+    if (fq_score > score) {
+        score = fq_score;
+        match_kind = "member-fqname-tokens";
+    }
+
     auto sig_tokens = split_identifier_tokens(member.signature);
-    double sig_score = token_coverage_score(q_tokens, sig_tokens, 300.0, 120.0);
+    double sig_score = token_coverage_score(q_tokens, sig_tokens, 300.0, 120.0, false);
     if (sig_score > score) {
         score = sig_score;
         match_kind = "member-signature";

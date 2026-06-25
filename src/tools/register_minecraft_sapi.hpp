@@ -11,6 +11,8 @@
 #include <memory>
 #include <sstream>
 #include <string>
+#include <unordered_set>
+#include <vector>
 
 namespace mcdk {
 namespace minecraft_sapi_detail {
@@ -35,18 +37,25 @@ Commands:
   help
       Show this help.
 
-  search <query...> [--top <n>] [--refs <0-3>]
+  search <query...> [--offset <n>] [--limit <n>|--top <n>] [--refs <0-3>]
       Fuzzy English search for API symbols and members.
       Designed for dirty queries such as "spawn entity", "secret string",
       "camera preset", or "scoreboard objective".
       Search one target per command. Do not combine independent API names
       such as "Player Dimension ItemStack"; run separate searches instead.
+      Continue a previous search by reusing the same query with --offset.
 
-  symbol <name> [--refs <0-3>]
-      Exact or near-exact symbol/member lookup.
+  symbol <name> [--refs <0-3>] [--member-offset <n>] [--members <n>]
+      Exact or near-exact symbol/member lookup. Class/interface results include
+      a compact member list by default.
       Examples: symbol Player --refs 1
+                symbol Player --member-offset 32 --members 32
                 symbol Dimension.spawnEntity --refs 1
                 symbol @minecraft/server.Player --refs 1
+
+  refs <symbol> [--offset <n>] [--limit <n>]
+      Reverse lookup: list symbols/members whose signatures reference a type.
+      Example: refs SecretString --limit 20
 
   module <module> [--offset <n>] [--limit <n>|--top <n>] [--detail true] [--refs <0-3>]
       List symbols from a module/package. Default output is compact and paged,
@@ -95,6 +104,14 @@ inline int clamped_offset(const ParsedCommand& pc) {
     return std::clamp(flag_int(pc, "offset", 0), 0, 1000000);
 }
 
+inline int clamped_members(const ParsedCommand& pc, int def = 24) {
+    return std::clamp(flag_int(pc, "members", def), 0, 200);
+}
+
+inline int clamped_member_offset(const ParsedCommand& pc) {
+    return std::clamp(flag_int(pc, "member-offset", flag_int(pc, "member_offset", 0)), 0, 1000000);
+}
+
 inline bool flag_bool(const ParsedCommand& pc, const std::string& key, bool def = false) {
     if (!has_flag(pc, key)) return def;
     std::string value = command_parser_detail::to_lower_ascii(flag_str(pc, key));
@@ -132,9 +149,36 @@ inline void append_refs(std::ostringstream& out,
     }
 }
 
+inline void append_member_summary(std::ostringstream& out,
+                                  const sapi::SapiSymbol& symbol,
+                                  int max_members,
+                                  int member_offset = 0) {
+    if (max_members <= 0 || symbol.members.empty()) return;
+    int total = static_cast<int>(symbol.members.size());
+    if (member_offset >= total) {
+        out << "members: " << total << ". member-offset " << member_offset
+            << " is out of range.\n";
+        return;
+    }
+    int end = std::min(total, member_offset + max_members);
+    out << "members (" << member_offset << "-" << end << "/" << total << "):\n";
+    for (int i = member_offset; i < end; ++i) {
+        const auto& member = symbol.members[i];
+        out << "- " << member.kind << " " << member.name;
+        if (!member.signature.empty()) out << ": " << member.signature;
+        out << "\n";
+    }
+    if (end < total)
+        out << "Use symbol " << symbol.fqname << " --members " << total
+            << " or --member-offset " << end << " --members " << max_members
+            << " to list more members.\n";
+}
+
 inline std::string format_result(const sapi::SapiIndex& index,
                                  const sapi::SapiSearchResult& result,
-                                 int ordinal) {
+                                 int ordinal,
+                                 int max_members = 24,
+                                 int member_offset = 0) {
     std::ostringstream out;
     if (result.symbol_id < 0 || result.symbol_id >= static_cast<int>(index.symbols.size()))
         return {};
@@ -163,6 +207,7 @@ inline std::string format_result(const sapi::SapiIndex& index,
             out << "signature: " << symbol.signature << "\n";
         if (!symbol.doc.empty())
             out << "doc:\n" << symbol.doc << "\n";
+        append_member_summary(out, symbol, max_members, member_offset);
     }
     append_refs(out, index, result);
     return out.str();
@@ -170,20 +215,25 @@ inline std::string format_result(const sapi::SapiIndex& index,
 
 inline mcp::json format_results(const sapi::SapiIndex& index,
                                 const std::vector<sapi::SapiSearchResult>& results,
-                                const std::string& empty_message) {
+                                const std::string& empty_message,
+                                int max_members = 24,
+                                int member_offset = 0,
+                                int ordinal_base = 0) {
     if (results.empty()) return text_result(empty_message);
     std::ostringstream out;
     for (size_t i = 0; i < results.size(); ++i) {
         if (i > 0) out << "\n---\n";
-        out << format_result(index, results[i], static_cast<int>(i + 1));
+        out << format_result(index, results[i], ordinal_base + static_cast<int>(i + 1),
+                             max_members, member_offset);
     }
     return text_result(out.str());
 }
 
 inline const sapi::SapiModule* find_module_exact(const sapi::SapiIndex& index,
                                                  const std::string& module_name) {
+    std::string query = command_parser_detail::to_lower_ascii(module_name);
     for (const auto& module : index.modules) {
-        if (module.name == module_name) return &module;
+        if (command_parser_detail::to_lower_ascii(module.name) == query) return &module;
     }
     return nullptr;
 }
@@ -256,8 +306,16 @@ inline mcp::json format_module_compact(const sapi::SapiIndex& index,
 inline mcp::json dispatch_search(const sapi::SapiIndex& index, const ParsedCommand& pc) {
     if (pc.positional.empty())
         return error_with_help("search requires a query.");
-    auto results = sapi::search_sapi_symbols(index, pc.positional, clamped_top(pc), clamped_refs(pc));
-    return format_results(index, results, "No SAPI symbol matched the query.");
+    int offset = clamped_offset(pc);
+    int limit = clamped_limit(pc, 8);
+    int requested = std::clamp(offset + limit, 1, 300);
+    auto results = sapi::search_sapi_symbols(index, pc.positional, requested, clamped_refs(pc));
+    if (offset >= static_cast<int>(results.size()))
+        return text_result("No more SAPI symbols matched the query at offset " + std::to_string(offset) + ".");
+    int end = std::min(static_cast<int>(results.size()), offset + limit);
+    std::vector<sapi::SapiSearchResult> page(results.begin() + offset, results.begin() + end);
+    return format_results(index, page, "No SAPI symbol matched the query.",
+                          clamped_members(pc, 12), clamped_member_offset(pc), offset);
 }
 
 inline mcp::json dispatch_symbol(const sapi::SapiIndex& index, const ParsedCommand& pc) {
@@ -266,7 +324,102 @@ inline mcp::json dispatch_symbol(const sapi::SapiIndex& index, const ParsedComma
     auto results = sapi::lookup_sapi_symbol(index, pc.positional, clamped_refs(pc));
     if (results.empty())
         results = sapi::search_sapi_symbols(index, pc.positional, clamped_top(pc, 8), clamped_refs(pc));
-    return format_results(index, results, "No SAPI symbol matched the name.");
+    return format_results(index, results, "No SAPI symbol matched the name.",
+                          clamped_members(pc, 32), clamped_member_offset(pc));
+}
+
+inline std::vector<std::string> reverse_ref_names(const sapi::SapiIndex& index,
+                                                  const ParsedCommand& pc,
+                                                  std::unordered_set<int>& target_ids) {
+    std::vector<std::string> names;
+    auto targets = sapi::lookup_sapi_symbol(index, pc.positional, 0);
+    for (const auto& target : targets) {
+        if (target.symbol_id < 0 || target.symbol_id >= static_cast<int>(index.symbols.size()))
+            continue;
+        target_ids.insert(target.symbol_id);
+        const auto& symbol = index.symbols[target.symbol_id];
+        names.push_back(symbol.name);
+        names.push_back(symbol.fqname);
+        size_t dot = symbol.fqname.rfind('.');
+        if (dot != std::string::npos) names.push_back(symbol.fqname.substr(dot + 1));
+    }
+    if (names.empty()) names.push_back(pc.positional);
+
+    std::vector<std::string> out;
+    std::unordered_set<std::string> seen;
+    for (auto& name : names) {
+        name = command_parser_detail::to_lower_ascii(name);
+        if (!name.empty() && seen.insert(name).second) out.push_back(std::move(name));
+    }
+    return out;
+}
+
+inline bool text_references_any(const std::string& text, const std::vector<std::string>& names) {
+    std::string lower = command_parser_detail::to_lower_ascii(text);
+    for (const auto& name : names) {
+        if (!name.empty() && lower.find(name) != std::string::npos) return true;
+    }
+    return false;
+}
+
+inline mcp::json dispatch_reverse_refs(const sapi::SapiIndex& index, const ParsedCommand& pc) {
+    if (pc.positional.empty())
+        return error_with_help("refs requires a symbol name, for example SecretString.");
+
+    std::unordered_set<int> target_ids;
+    auto names = reverse_ref_names(index, pc, target_ids);
+    int offset = clamped_offset(pc);
+    int limit = clamped_limit(pc, 30);
+    std::vector<sapi::SapiSearchResult> matches;
+
+    for (int i = 0; i < static_cast<int>(index.symbols.size()); ++i) {
+        if (target_ids.count(i)) continue;
+        const auto& symbol = index.symbols[i];
+        if (text_references_any(symbol.signature, names)) {
+            matches.push_back({i, -1, 100.0, "used-by", {}});
+        }
+        for (int m = 0; m < static_cast<int>(symbol.members.size()); ++m) {
+            if (text_references_any(symbol.members[m].signature, names)) {
+                matches.push_back({i, m, 100.0, "used-by", {}});
+            }
+        }
+    }
+
+    if (matches.empty())
+        return text_result("No reverse references found for: " + pc.positional);
+
+    int total = static_cast<int>(matches.size());
+    if (offset >= total) {
+        std::ostringstream out;
+        out << "Reverse refs for " << pc.positional << ": " << total
+            << " matches. Offset " << offset << " is out of range.";
+        return text_result(out.str());
+    }
+
+    int end = std::min(total, offset + limit);
+    std::ostringstream out;
+    out << "reverse refs: " << pc.positional << "\n"
+        << "matches: " << total << "\n"
+        << "range: [" << offset << ", " << end << ")\n\n";
+    for (int i = offset; i < end; ++i) {
+        const auto& match = matches[i];
+        const auto& symbol = index.symbols[match.symbol_id];
+        out << (i + 1) << ". ";
+        if (match.member_index >= 0 && match.member_index < static_cast<int>(symbol.members.size())) {
+            const auto& member = symbol.members[match.member_index];
+            out << member.fqname << "\n"
+                << "   kind: " << member.kind << "\n"
+                << "   signature: " << member.signature << "\n";
+        } else {
+            out << symbol.fqname << "\n"
+                << "   kind: " << symbol.kind << "\n"
+                << "   signature: " << symbol.signature << "\n";
+        }
+    }
+    if (end < total)
+        out << "\nNext page: refs " << pc.positional << " --offset " << end
+            << " --limit " << limit;
+    return text_result(out.str());
 }
 
 inline mcp::json dispatch_module(const sapi::SapiIndex& index, const ParsedCommand& pc) {
@@ -306,7 +459,7 @@ inline mcp::json dispatch_module(const sapi::SapiIndex& index, const ParsedComma
         }
         results.push_back(std::move(result));
     }
-    return format_results(index, results, "No SAPI module matched the name.");
+    return format_results(index, results, "No SAPI module matched the name.", clamped_members(pc, 12));
 }
 
 inline mcp::json dispatch_minecraft_sapi(const sapi::SapiIndex& index, const std::string& command) {
@@ -319,6 +472,8 @@ inline mcp::json dispatch_minecraft_sapi(const sapi::SapiIndex& index, const std
         return dispatch_search(index, pc);
     if (sub == "symbol" || sub == "sym" || sub == "member")
         return dispatch_symbol(index, pc);
+    if (sub == "refs" || sub == "used-by" || sub == "usages")
+        return dispatch_reverse_refs(index, pc);
     if (sub == "module" || sub == "mod")
         return dispatch_module(index, pc);
 
