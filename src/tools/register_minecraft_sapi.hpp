@@ -94,10 +94,10 @@ inline std::string help_text() {
         "entry": "scripts/main.js" }
     ],
     "dependencies": [
-      { "module_name": "@minecraft/server", "version": "2.8.0" }
+      { "module_name": "@minecraft/server", "version": "2.3.0" }
     ]
   }
-  2.8.0 是 2026-06-26 查询到的官方 stable 模板版本；按实况游戏版本调整。
+  2.3.0 是当前网易实况可用模板版本；按实况游戏可用版本调整。
 
 运行入口 scripts/main.js：
   import { world, system } from "@minecraft/server";
@@ -152,7 +152,7 @@ inline std::string ts_setup_text() {
   - manifest.json 的 script entry 必须指向编译后的 .js 文件。
   - 新建 SAPI 项目默认按 TS 编写；除非现有项目本来是 JS，不要主动裸写 JS。
   - API 包版本需和目标游戏/manifest dependency 对齐，不要盲目使用 latest。
-  - 网易 MC 最新版目前对应国际版 1.21.120，可先按当前 stable 模板写，再按实况游戏调整。
+  - 网易 MC 最新版目前对应国际版 1.21.120，可先按当前实况模板写，再按游戏可用版本调整。
   - 版本号优先看目标文档/本地 d.ts 顶部 Manifest Details；搜索结果若标出最小版本，以该 API 的要求为准。
 
 推荐结构：
@@ -177,12 +177,12 @@ manifest.json 关键片段：
       }
     ],
     "dependencies": [
-      { "module_name": "@minecraft/server", "version": "2.8.0" }
+      { "module_name": "@minecraft/server", "version": "2.3.0" }
     ]
   }
 
 SAPI 依赖版本：
-  - @minecraft/server stable 模板版本：2.8.0（2026-06-26 查官方文档，具有时效性）。
+  - @minecraft/server 模板版本：2.3.0（当前网易实况可用版本，具有时效性）。
   - 若资料检索结果/官方文档显示某 API 需要更高版本，manifest 和 npm 包需同步调整。
   - 若游戏实际不支持该版本，降到该游戏可用的 @minecraft/server 版本，并重新查询 API 是否存在。
 
@@ -199,7 +199,7 @@ package.json 最小思路：
       "typescript": "^6.0.3"
     },
     "dependencies": {
-      "@minecraft/server": "2.8.0"
+      "@minecraft/server": "2.3.0"
     }
   }
 
@@ -231,10 +231,9 @@ src/main.ts 示例：
 
 构建/测试流程：
   1. npm install
-  2. npm run build，确认生成 B/scripts/main.js
-  3. 检查 B/manifest.json 的 script entry 为 scripts/main.js，且文件实际存在。
-  4. 若无游戏控制工具，不要反复要求进游戏验证；把运行验证交给用户。
-  5. 修改 TS 后重新 build；游戏内通常需要 /reload 或重进世界加载新 JS
+  2. npm run build
+  3. 若无游戏控制工具，不要反复要求进游戏验证；把运行验证交给用户。
+  4. 修改 TS 后重新 build；游戏内通常需要 /reload 或重进世界加载新 JS
 
 开发约束：
   - 不要把 main.ts 写进 manifest entry。
