@@ -28,6 +28,7 @@ target_link_libraries(mcp PUBLIC nlohmann_json::nlohmann_json)
 
 add_subdirectory(libs/tree-sitter)
 add_subdirectory(libs/tree-sitter-python)
+add_subdirectory(libs/tree-sitter-typescript)
 
 add_library(cppjieba INTERFACE)
 target_include_directories(cppjieba INTERFACE
@@ -87,6 +88,7 @@ function(mcdk_add_target target_name)
         cppjieba
         tree-sitter
         tree-sitter-python
+        tree-sitter-typescript
         nlohmann_json::nlohmann_json
         Threads::Threads
     )
