@@ -32,6 +32,11 @@ inline std::string help_text() {
 若项目含 @minecraft/server、script 模块、scripts/main.js/ts，继续用本工具。
 若项目含 modMain.py、extraServerApi、extraClientApi，优先查 minecraft_docs 的 Py ModSDK。
 
+规则建议：
+- 只要任务涉及 SAPI/Script API/@minecraft/server 开发、事件名、组件名、manifest 依赖版本或 API 签名，先查本工具，不要只凭记忆写。
+- 新建或改造 SAPI TypeScript 项目时，先读 ts-setup，再写 manifest/package/tsconfig。
+- 写具体 API 前，先 search，再 symbol 精确确认签名、成员和版本线索。
+
 推荐工作流：
 1. 先用 search 模糊找 API，一次只搜一个目标。
 2. 再用 symbol 精确看签名、文档、成员、关联类型。
@@ -689,8 +694,9 @@ inline void register_minecraft_sapi_tools(mcp::server& srv,
     auto tool = mcp::tool_builder(minecraft_sapi_detail::kToolName)
         .with_description(
             "Minecraft Bedrock SAPI/Script API symbol database. "
-            "网易版MC通常用 Py ModSDK，请优先查 minecraft_docs；"
-            "仅项目明确使用 SAPI/Script API/国际版脚本时调用。")
+            "SAPI/@minecraft/server 开发建议先查本工具，不要只凭记忆写；"
+            "新建 TS 项目先用 ts-setup，API 用 search 再 symbol。"
+            "网易 Py ModSDK 项目改查 minecraft_docs。")
         .with_string_param("command",
             "命令，如 'search \"spawn entity\" --refs 1', 'symbol Player --refs 1', "
             "'ts-setup'，或 'module @minecraft/server --limit 30'；首次用 'help'学习用法。", true)
