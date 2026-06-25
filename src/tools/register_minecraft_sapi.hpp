@@ -88,12 +88,21 @@ inline std::string help_text() {
     ]
   }
 
-入口脚本 scripts/main.js：
+运行入口 scripts/main.js：
   import { world, system } from "@minecraft/server";
 
   system.run(() => {
     world.sendMessage("SAPI loaded");
   });
+
+JS / TS 关系：
+  - 游戏实际加载 JavaScript，manifest 的 entry 指向 .js 文件。
+  - 主流 SAPI 项目使用 TypeScript 开发，因为类型提示更好、错误更早暴露。
+  - 新建项目默认按 TS 编写；除非用户项目本来就是 JS，或只做极小验证，不要主动裸写 JS。
+  - TypeScript 不能被游戏直接加载，必须由 tsc/打包工具先编译成 JS。
+  - TS 项目常见写法是编辑 scripts/main.ts，构建后输出 scripts/main.js。
+  - import 其他 TS 文件时，源码中通常按编译后路径写 .js 后缀，例如：
+    import Utils from "./Utils.js";
 
 事件注册：
   import { world } from "@minecraft/server";
