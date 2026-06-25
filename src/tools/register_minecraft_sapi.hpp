@@ -44,8 +44,8 @@ inline std::string help_text() {
 
   search <英文查询> [--offset <n>] [--limit <n>] [--refs <0-3>]
       英文模糊搜索，支持大小写、驼峰、少量拼写错误。
-      例：search spawn entity --limit 5 --refs 0
-          search scoreboard objective --refs 1
+      例：search "spawn entity" --limit 5 --refs 0
+          search "scoreboard objective" --refs 1
       不要把多个独立目标塞在一起，如 Player Dimension ItemStack。
 
   symbol <符号名> [--refs <0-3>] [--member-offset <n>] [--members <n>]
@@ -119,13 +119,13 @@ JS / TS 关系：
   - TypeScript 项目最终仍需编译成 JS，manifest 的 entry 指向编译后的 JS。
 
 新手任务检索提示：
-  生成实体：search spawn entity
-  发送消息：search send message
-  玩家事件：search player spawn event
+  生成实体：search "spawn entity"
+  发送消息：search "send message"
+  玩家事件：search "player spawn event"
   定时逻辑：symbol system --members 40 --refs 0
-  记分板：search scoreboard objective
-  物品：search item stack
-  方块：search block permutation)";
+  记分板：search "scoreboard objective"
+  物品：search "item stack"
+  方块：search "block permutation")";
 }
 
 inline mcp::json help_result() {
@@ -582,8 +582,8 @@ inline void register_minecraft_sapi_tools(mcp::server& srv,
             "网易版MC通常用 Py ModSDK，请优先查 minecraft_docs；"
             "仅项目明确使用 SAPI/Script API/国际版脚本时调用。")
         .with_string_param("command",
-            "命令，如 'search spawn entity --refs 1', 'symbol Player --refs 1', "
-            "或 'module @minecraft/server --limit 30'；首次用 'help'。", true)
+            "命令，如 'search \"spawn entity\" --refs 1', 'symbol Player --refs 1', "
+            "或 'module @minecraft/server --limit 30'；首次用 'help'学习用法。", true)
         .with_read_only_hint(true)
         .with_idempotent_hint(true)
         .build();
