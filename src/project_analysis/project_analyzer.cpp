@@ -1048,7 +1048,7 @@ std::string summarize_module_inventory(const ProjectIndex& index, const ModPacka
     }
     if (static_cast<int>(rows.size()) > max_modules) {
         oss << "- ... 其余 " << (rows.size() - max_modules)
-            << " 个模块已省略；若需深挖，请对具体目录/文件调用 scan_py2_import_chain。\n";
+            << " 个模块已省略；若需深挖，可使用 minecraft_py(command=\"imports <目标目录或文件>\")。\n";
     }
     return oss.str();
 }
@@ -1069,7 +1069,7 @@ std::string format_behavior_pack_report(const ProjectIndex& index, const Analysi
 
     oss << "AI 阅读建议\n";
     oss << "- 先看“子系统画像”和“关键依赖枢纽”确定架构层次。\n";
-    oss << "- 再对具体目录/文件调用 scan_py2_import_chain 获取局部调用上下文。\n";
+    oss << "- 再使用 minecraft_py(command=\"imports <目标目录或文件>\") 获取局部调用上下文。\n";
     oss << "- 下方模块画像是抽样摘要，不再 dump 全量模块，避免淹没主线。\n\n";
 
     oss << "入口与子包总览\n";
