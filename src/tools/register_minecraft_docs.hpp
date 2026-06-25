@@ -56,6 +56,124 @@ inline mcp::json text_result(const std::string& text) {
     return {{"content", mcp::json::array({{{"type","text"},{"text", text}}})}};
 }
 
+inline const char* modsdk_arch_text() {
+    return R"(# 原版 ModSDK 速查
+
+面向 AI Agent 的原版 ModSDK 加载器速查。若项目使用 QuModLibs 等三方框架，应优先遵循框架自己的 modMain 注册风格；本文只作为原版加载器参考。Python 2 编码、端侧边界、事件参数、跨端通信安全等规则仍适用于多数网易 MC MOD 项目。
+
+## 运行模型
+
+- BH = Behavior-Pack。BH 根目录是 ModSDK 的 Python import root。
+- 入口通常是 `BH/<python_package>/modMain.py`，包名/模块名应是合法 Python 标识符。
+- ModSDK 使用 Python 2.7.18；含中文源码必须写 `# -*- coding: utf-8 -*-`。
+- ModSDK/ModAPI 多为 C 接口封装，通常不是异常驱动；不要用 `try/except` 当常规兜底逻辑。
+- 客户端线程和服务端线程共享同一个 VM 上下文。跨端 import 和初始化要谨慎。
+- `modMain.py` 同时 import `mod.server.extraServerApi` 和 `mod.client.extraClientApi` 是安全特例：它们是端侧 API 跳板，未调用具体接口时不会执行端侧业务。
+
+## 原版加载器流程
+
+1. 遍历 BH 下 Python 包目录。
+2. 按是否存在 `modMain.py` 判定入口包。
+3. import 并执行目标 `modMain.py`。
+4. 对 `modMain` 做 `dir` 反射，收集所有带 `@Mod.Binding` 的 class。
+5. 对每个匹配 class 无参构造。
+6. 继续反射实例方法，按端侧调用 `@Mod.InitServer()`、`@Mod.InitClient()`、`@Mod.DestroyServer()`、`@Mod.DestroyClient()`。
+
+约束：
+
+- 一个 `modMain.py` 可以有多个 `@Mod.Binding` class。
+- 客户端线程和服务端线程会各自走一遍流程；通常同一个 Mod class 会被构造两次，不是两端复用一个对象。
+- 不要把 `@Mod.Binding` class 的实例属性当跨端共享状态。
+- `@Mod.Binding(name=..., version=...)` 基本是早期设计产物，通常几乎不参与引擎侧计算；主要用于人为阅读和区分。
+
+## 入口模板
+
+```python
+# -*- coding: utf-8 -*-
+from mod.common.mod import Mod
+import mod.server.extraServerApi as serverApi
+import mod.client.extraClientApi as clientApi
+
+@Mod.Binding(name="my_mod", version="1.0.0")
+class ModEntry(object):
+    @Mod.InitServer()
+    def serverInit(self):
+        serverApi.RegisterSystem("my_mod", "server", "my_mod.Server.MyServerSystem")
+
+    @Mod.InitClient()
+    def clientInit(self):
+        clientApi.RegisterSystem("my_mod", "client", "my_mod.Client.MyClientSystem")
+
+    @Mod.DestroyServer()
+    def serverDestroy(self):
+        pass
+
+    @Mod.DestroyClient()
+    def clientDestroy(self):
+        pass
+```
+
+`RegisterSystem(namespace, systemName, "package.module.Class")` 的第三个参数是 Python import 路径，不是文件系统路径。例如 `my_mod.Server.MyServerSystem` 对应 `BH/my_mod/Server.py` 中的 `class MyServerSystem`。
+
+## 系统类
+
+```python
+# -*- coding: utf-8 -*-
+import mod.server.extraServerApi as serverApi
+ServerSystem = serverApi.GetServerSystemCls()
+
+class MyServerSystem(ServerSystem):
+    def __init__(self, namespace, systemName):
+        ServerSystem.__init__(self, namespace, systemName)
+```
+
+客户端:
+
+```python
+# -*- coding: utf-8 -*-
+import mod.client.extraClientApi as clientApi
+ClientSystem = clientApi.GetClientSystemCls()
+
+class MyClientSystem(ClientSystem):
+    def __init__(self, namespace, systemName):
+        ClientSystem.__init__(self, namespace, systemName)
+```
+
+- 服务端处理真实数据：血量、位置、属性、物理、掉落、规则校验。
+- 客户端处理本地表现：渲染、GUI、输入、本地玩家视角。
+
+## 事件与跨端
+
+- 原版事件通常监听引擎命名空间和系统名：`serverApi.GetEngineNamespace()` / `serverApi.GetEngineSystemName()`。
+- `ListenForEvent(namespace, systemName, eventName, self, callback)` 注册监听，回调必须是系统实例方法。
+- 事件参数以对应事件定义为准，不要凭事件名猜 `args` 字段。
+- 自定义事件也通过 namespace + systemName 区分来源。
+- 跨端接口：`NotifyToClient`、`NotifyToServer`、`NotifyToMultiClients`、`BroadcastToAllClient`。
+- 网络型 Mod 不要信任客户端关键数据；服务端必须二次校验。
+- 高频跨端通信会立即发包，需控制频率。
+
+## 代码风格
+
+- 不建议到处写 `try: xrange` / `except NameError: range` 这类 Python 2/3 环境探测兼容层；它会破坏 IDE 静态分析体验。优先遵循当前项目风格。
+- `print` 默认建议写成 `print("message")`；若项目统一使用 `print "message"`，则延续既有风格。
+
+## AI 生成代码检查清单
+
+- 是否先识别项目使用原版 ModSDK 加载器还是 QuModLibs 等三方框架。
+- 是否遵循对应入口注册风格。
+- 文件顶部是否有 `# -*- coding: utf-8 -*-`。
+- `modMain.py` 是否只负责绑定入口和注册系统，业务逻辑是否放到系统类文件。
+- `RegisterSystem` 类路径是否是从 BH 根目录解析的 Python import 路径。
+- 是否避免在模块 import 阶段执行跨端敏感逻辑。
+- 是否按事件定义读取 `args`，而不是猜参数名。
+- 是否区分运行时 `entityId` 和 JSON 标识符。
+- 是否避免用 `try/except` 掩盖 ModAPI 调用设计问题。
+- 是否避免无必要的 Python 2/3 环境探测兼容层，并遵循当前项目既有风格。
+- `print` 写法是否优先使用 `print(...)`，或延续用户项目已有的语句式风格。
+- 是否控制跨端通信频率，并对客户端输入做服务端校验。
+)";
+}
+
 inline std::string minecraft_docs_help_text() {
     return R"(minecraft_docs — Minecraft 基岩版资料/文档统一入口（命令式用法）
 用法: minecraft_docs(command="<子命令> [参数...] [--选项 值]")
@@ -109,6 +227,12 @@ inline std::string minecraft_docs_help_text() {
   netease diff      网易版 ↔ 国际版关键差异（目录映射/脚本系统/框架/版本兼容）
   netease jsonui    网易版 JSON UI 内置组件库（netease_editor_template_namespace）定义
   diff / jsonui     上面两个速查也可直接作为顶层命令调用
+
+【modsdk-help】 原版 ModSDK 架构速查
+  modsdk-help       快速了解原版 ModSDK 加载器、modMain、系统类、事件与跨端模型
+                    推荐在参与原版 ModSDK 开发框架的项目时先阅读一遍。
+                    注意: 仅针对原版 ModSDK 加载器；若项目使用 QuModLibs 等三方框架，
+                    应按框架自己的入口注册风格，无需优先查阅本速查。
 
 【help】 显示本帮助
 )";
@@ -203,6 +327,8 @@ inline mcp::json dispatch_minecraft_docs(const std::filesystem::path& knowledge_
         return help_result();
     if (sub == "read")    return dispatch_read(knowledge_root, svc, pc);
     if (sub == "list")    return dispatch_list(knowledge_root, svc, pc);
+    if (sub == "modsdk-help" || sub == "mod-sdk-help" || sub == "vanilla-modsdk-help" || sub == "original-modsdk-help")
+        return text_result(modsdk_arch_text());
     if (sub == "diff")    return text_result(netease_diff_text());
     if (sub == "jsonui" || sub == "json-ui") return text_result(netease_jsonui_text());
 
@@ -232,11 +358,11 @@ inline void register_minecraft_docs_tools(mcp::server& srv, SearchService& searc
         .with_description(
             "Minecraft 基岩版 Addon/Mod 资料和文档统一入口（网易版/国际版通用）："
             "文档检索（ModAPI/Wiki/QuMod/BedrockDev/网易教程）、原版资源搜索、"
-            "网易版差异速查、知识库文件读取。采用命令式用法，"
+            "原版 ModSDK 架构速查、网易版差异速查、知识库文件读取。采用命令式用法，"
             "开发 Minecraft addon/mod 时请先调用 command=\"help\" 查看完整命令与子命令用法。")
         .with_string_param("command",
-            "命令语句，如 'wiki minecraft:food'、'assets stair --rp' 或 'read <path>'；"
-            "首次使用请传 'help' 查看全部命令。", true)
+            "命令语句，如 'wiki minecraft:food'、'assets stair --rp'、'modsdk-help' 或 'read <path>'；"
+            "首次使用请传 'help' 查看全部命令；参与原版 ModSDK 开发框架项目时推荐先阅读 modsdk-help。", true)
         .with_read_only_hint(true).with_idempotent_hint(true).build();
 
     srv.register_tool(tool,
