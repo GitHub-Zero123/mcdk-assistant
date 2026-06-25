@@ -24,7 +24,6 @@ jobs:
             os: windows-latest
             build_type: Release
             artifact: mcdk-assistant-windows-x64
-            archive_ext: zip
           - name: Ubuntu GCC
             os: ubuntu-latest
             build_type: Release
@@ -106,7 +105,6 @@ jobs:
           done
 
           cp -R dicts package/dicts
-          cp -R knowledge package/knowledge
 
           tar -czf "dist/${{ matrix.artifact }}.tar.gz" -C package .
 
@@ -134,12 +132,17 @@ jobs:
           }
 
           Copy-Item -Recurse dicts package/dicts
-          Copy-Item -Recurse knowledge package/knowledge
 
-          Compress-Archive -Path package/* -DestinationPath "dist/${{ matrix.artifact }}.zip" -Force
-
-      - name: Upload artifact
+      - name: Upload Unix artifact
+        if: runner.os != 'Windows'
         uses: actions/upload-artifact@v6
         with:
           name: ${{ matrix.artifact }}
           path: dist/*.${{ matrix.archive_ext }}
+
+      - name: Upload Windows artifact
+        if: runner.os == 'Windows'
+        uses: actions/upload-artifact@v6
+        with:
+          name: ${{ matrix.artifact }}
+          path: package/*
