@@ -42,6 +42,9 @@ inline std::string help_text() {
   help
       显示本说明。
 
+  ts-setup
+      查看原版 SAPI TypeScript/npm 项目配置教程。新建 SAPI 项目建议先读。
+
   search <英文查询> [--offset <n>] [--limit <n>] [--refs <0-3>]
       英文模糊搜索，支持大小写、驼峰、少量拼写错误。
       例：search "spawn entity" --limit 5 --refs 0
@@ -84,9 +87,10 @@ inline std::string help_text() {
         "entry": "scripts/main.js" }
     ],
     "dependencies": [
-      { "module_name": "@minecraft/server", "version": "1.5.0" }
+      { "module_name": "@minecraft/server", "version": "2.8.0" }
     ]
   }
+  2.8.0 是 2026-06-26 查询到的官方 stable 模板版本；按实况游戏版本调整。
 
 运行入口 scripts/main.js：
   import { world, system } from "@minecraft/server";
@@ -130,6 +134,110 @@ JS / TS 关系：
 
 inline mcp::json help_result() {
     return text_result(help_text());
+}
+
+inline std::string ts_setup_text() {
+    return R"(minecraft_sapi ts-setup - 原版 SAPI TypeScript 项目配置
+
+核心规则：
+  - Bedrock 运行时加载 JavaScript，不直接加载 TypeScript。
+  - TypeScript 必须由 tsc/打包工具先编译成 JS。
+  - manifest.json 的 script entry 必须指向编译后的 .js 文件。
+  - 新建 SAPI 项目默认按 TS 编写；除非现有项目本来是 JS，不要主动裸写 JS。
+  - API 包版本需和目标游戏/manifest dependency 对齐，不要盲目使用 latest。
+  - 网易 MC 最新版目前对应国际版 1.21.120，可先按当前 stable 模板写，再按实况游戏调整。
+  - 版本号优先看目标文档/本地 d.ts 顶部 Manifest Details；搜索结果若标出最小版本，以该 API 的要求为准。
+
+推荐结构：
+  project/
+    package.json
+    tsconfig.json
+    src/main.ts
+    B/manifest.json             # 行为包；目录名可自定，以 manifest 内容区分
+    B/scripts/main.js           # 构建产物
+    R/manifest.json             # 资源包；需要资源时才有
+
+manifest.json 关键片段：
+  {
+    "format_version": 2,
+    "modules": [
+      {
+        "type": "script",
+        "language": "javascript",
+        "uuid": "...",
+        "version": [1, 0, 0],
+        "entry": "scripts/main.js"
+      }
+    ],
+    "dependencies": [
+      { "module_name": "@minecraft/server", "version": "2.8.0" }
+    ]
+  }
+
+SAPI 依赖版本：
+  - @minecraft/server stable 模板版本：2.8.0（2026-06-26 查官方文档，具有时效性）。
+  - 若资料检索结果/官方文档显示某 API 需要更高版本，manifest 和 npm 包需同步调整。
+  - 若游戏实际不支持该版本，降到该游戏可用的 @minecraft/server 版本，并重新查询 API 是否存在。
+
+package.json 最小思路：
+  TypeScript 模板版本按 2026-06-26 npm latest 给出，具有时效性；真实项目可按锁文件/团队规范更新。
+  {
+    "private": true,
+    "type": "module",
+    "scripts": {
+      "build": "tsc -p tsconfig.json",
+      "watch": "tsc -p tsconfig.json --watch"
+    },
+    "devDependencies": {
+      "typescript": "^6.0.3"
+    },
+    "dependencies": {
+      "@minecraft/server": "2.8.0"
+    }
+  }
+
+tsconfig.json 最小思路：
+  {
+    "compilerOptions": {
+      "target": "ES2020",
+      "module": "ES2020",
+      "moduleResolution": "Bundler",
+      "strict": true,
+      "rootDir": "src",
+      "outDir": "B/scripts",
+      "skipLibCheck": true,
+      "forceConsistentCasingInFileNames": true
+    },
+    "include": ["src/**/*.ts"]
+  }
+
+src/main.ts 示例：
+  import { world, system } from "@minecraft/server";
+
+  system.run(() => {
+    world.sendMessage("SAPI loaded");
+  });
+
+本地模块导入：
+  - TS 项目输出为 ESM JS，源代码中导入本地文件时通常写编译后的 .js 后缀。
+  - 例：import Utils from "./Utils.js";  // 对应 src/Utils.ts
+
+构建/测试流程：
+  1. npm install
+  2. npm run build，确认生成 B/scripts/main.js
+  3. 检查 B/manifest.json 的 script entry 为 scripts/main.js，且文件实际存在。
+  4. 若无游戏控制工具，不要反复要求进游戏验证；把运行验证交给用户。
+  5. 修改 TS 后重新 build；游戏内通常需要 /reload 或重进世界加载新 JS
+
+开发约束：
+  - 不要把 main.ts 写进 manifest entry。
+  - 不要因为运行时是 JS 就放弃 TS。
+  - 不确定 API 名称时用 search/symbol 查，不要编造 @minecraft/server 成员。
+  - 若项目已有构建链路，延续原项目配置，不要强行替换成这份最小模板。)";
+}
+
+inline mcp::json ts_setup_result() {
+    return text_result(ts_setup_text());
 }
 
 inline mcp::json error_with_help(const std::string& message) {
@@ -560,6 +668,8 @@ inline mcp::json dispatch_minecraft_sapi(const sapi::SapiIndex& index, const std
 
     if (sub.empty() || sub == "help" || sub == "?")
         return help_result();
+    if (sub == "ts-setup" || sub == "npm-help" || sub == "typescript-setup")
+        return ts_setup_result();
     if (sub == "search" || sub == "find")
         return dispatch_search(index, pc);
     if (sub == "symbol" || sub == "sym" || sub == "member")
@@ -583,7 +693,7 @@ inline void register_minecraft_sapi_tools(mcp::server& srv,
             "仅项目明确使用 SAPI/Script API/国际版脚本时调用。")
         .with_string_param("command",
             "命令，如 'search \"spawn entity\" --refs 1', 'symbol Player --refs 1', "
-            "或 'module @minecraft/server --limit 30'；首次用 'help'学习用法。", true)
+            "'ts-setup'，或 'module @minecraft/server --limit 30'；首次用 'help'学习用法。", true)
         .with_read_only_hint(true)
         .with_idempotent_hint(true)
         .build();
