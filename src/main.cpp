@@ -1,6 +1,7 @@
 #include "app/runtime_paths.hpp"
 #include "app/server_runtime.hpp"
 #include "common/path_utils.hpp"
+#include "sapi/sapi_index.hpp"
 #include "search/search_service.hpp"
 #include <mcp_server.h>
 #ifndef MCDK_SERVER
@@ -37,14 +38,17 @@ int main(int argc, char* argv[]) {
     const auto& dicts_dir     = runtime_paths.dicts_dir;
     const auto& knowledge_dir = runtime_paths.knowledge_dir;
     const auto& cache_path    = runtime_paths.cache_path;
+    const auto sapi_cache_path = mcdk::sapi::default_sapi_cache_path(exe_dir);
 
     bool has_dicts     = fs::exists(dicts_dir);
     bool has_knowledge = fs::exists(knowledge_dir);
     bool has_cache     = fs::is_regular_file(cache_path);
+    bool has_sapi_cache = fs::is_regular_file(sapi_cache_path);
 
     MCDK_LOG << "[MCDK] dicts: "     << mcdk::path::to_utf8(dicts_dir)     << (has_dicts     ? "" : " (NOT FOUND)") << std::endl;
     MCDK_LOG << "[MCDK] knowledge: " << mcdk::path::to_utf8(knowledge_dir) << (has_knowledge ? "" : " (NOT FOUND)") << std::endl;
     MCDK_LOG << "[MCDK] cache: "     << mcdk::path::to_utf8(cache_path)    << (has_cache     ? "" : " (NOT FOUND)") << std::endl;
+    MCDK_LOG << "[MCDK] sapi cache: " << mcdk::path::to_utf8(sapi_cache_path) << (has_sapi_cache ? "" : " (NOT FOUND)") << std::endl;
 
     if (!has_dicts) {
         std::cerr << "[MCDK] 错误：词库目录不存在: " << mcdk::path::to_utf8(dicts_dir) << std::endl;
@@ -72,12 +76,24 @@ int main(int argc, char* argv[]) {
         search_svc = std::make_unique<mcdk::SearchService>(dicts_dir, knowledge_dir, cache_path);
     }
 
+    std::shared_ptr<mcdk::sapi::SapiIndex> sapi_index;
+    if (has_sapi_cache) {
+        auto loaded = std::make_shared<mcdk::sapi::SapiIndex>();
+        std::string error;
+        if (mcdk::sapi::load_sapi_cache(sapi_cache_path, *loaded, &error)) {
+            sapi_index = std::move(loaded);
+            MCDK_LOG << "[MCDK] SAPI symbols indexed: " << sapi_index->symbols.size() << std::endl;
+        } else {
+            MCDK_LOG << "[MCDK] SAPI cache load failed: " << error << std::endl;
+        }
+    }
+
     mcp::server::configuration conf = mcdk::app::make_server_config();
 
     mcp::server srv(conf);
 
     mcdk::app::register_server_endpoints(srv, exe_dir, conf.port);
-    mcdk::app::register_tools(srv, *search_svc, knowledge_dir, cache_only_mode);
+    mcdk::app::register_tools(srv, *search_svc, knowledge_dir, cache_only_mode, sapi_index);
 
 #ifndef MCDK_SERVER
     if (use_stdio) {
