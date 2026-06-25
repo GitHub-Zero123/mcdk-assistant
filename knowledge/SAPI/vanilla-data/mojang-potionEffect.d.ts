@@ -1,0 +1,56 @@
+/**
+ * All possible MinecraftPotionEffectTypes
+ */
+export declare enum MinecraftPotionEffectTypes {
+    Awkward = "minecraft:awkward",
+    FireResistance = "minecraft:fire_resistance",
+    Harming = "minecraft:harming",
+    Healing = "minecraft:healing",
+    Infested = "minecraft:infested",
+    Invisibility = "minecraft:invisibility",
+    Leaping = "minecraft:leaping",
+    LongFireResistance = "minecraft:long_fire_resistance",
+    LongInvisibility = "minecraft:long_invisibility",
+    LongLeaping = "minecraft:long_leaping",
+    LongMundane = "minecraft:long_mundane",
+    LongNightvision = "minecraft:long_nightvision",
+    LongPoison = "minecraft:long_poison",
+    LongRegeneration = "minecraft:long_regeneration",
+    LongSlowFalling = "minecraft:long_slow_falling",
+    LongSlowness = "minecraft:long_slowness",
+    LongStrength = "minecraft:long_strength",
+    LongSwiftness = "minecraft:long_swiftness",
+    LongTurtleMaster = "minecraft:long_turtle_master",
+    LongWaterBreathing = "minecraft:long_water_breathing",
+    LongWeakness = "minecraft:long_weakness",
+    Mundane = "minecraft:mundane",
+    Nightvision = "minecraft:nightvision",
+    Oozing = "minecraft:oozing",
+    Poison = "minecraft:poison",
+    Regeneration = "minecraft:regeneration",
+    SlowFalling = "minecraft:slow_falling",
+    Slowness = "minecraft:slowness",
+    Strength = "minecraft:strength",
+    StrongHarming = "minecraft:strong_harming",
+    StrongHealing = "minecraft:strong_healing",
+    StrongLeaping = "minecraft:strong_leaping",
+    StrongPoison = "minecraft:strong_poison",
+    StrongRegeneration = "minecraft:strong_regeneration",
+    StrongSlowness = "minecraft:strong_slowness",
+    StrongStrength = "minecraft:strong_strength",
+    StrongSwiftness = "minecraft:strong_swiftness",
+    StrongTurtleMaster = "minecraft:strong_turtle_master",
+    Swiftness = "minecraft:swiftness",
+    Thick = "minecraft:thick",
+    TurtleMaster = "minecraft:turtle_master",
+    Water = "minecraft:water",
+    WaterBreathing = "minecraft:water_breathing",
+    Weakness = "minecraft:weakness",
+    Weaving = "minecraft:weaving",
+    WindCharged = "minecraft:wind_charged",
+    Wither = "minecraft:wither"
+}
+/**
+ * Union type equivalent of the MinecraftPotionEffectTypes enum.
+ */
+export type MinecraftPotionEffectTypesUnion = keyof typeof MinecraftPotionEffectTypes;
