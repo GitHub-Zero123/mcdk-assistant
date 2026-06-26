@@ -839,6 +839,80 @@ std::unordered_map<std::string, std::vector<int>> build_name_map(const SapiIndex
     return map;
 }
 
+std::optional<std::string> base_type_from_signature(const std::string& signature) {
+    static const std::regex re(R"(\bextends\s+([A-Za-z_$][A-Za-z0-9_.$]*))");
+    std::smatch match;
+    if (!std::regex_search(signature, match, re) || match.size() < 2) return std::nullopt;
+    std::string base = match[1].str();
+    size_t dot = base.rfind('.');
+    if (dot != std::string::npos) base = base.substr(dot + 1);
+    return base;
+}
+
+std::vector<int> find_symbols_by_name(const SapiIndex& index, const std::string& name) {
+    std::vector<int> ids;
+    std::string needle = to_lower_ascii(name);
+    for (int i = 0; i < static_cast<int>(index.symbols.size()); ++i) {
+        const auto& symbol = index.symbols[i];
+        if (to_lower_ascii(symbol.name) == needle || to_lower_ascii(symbol.fqname) == needle)
+            ids.push_back(i);
+    }
+    return ids;
+}
+
+std::vector<SapiSearchResult> lookup_inherited_member(const SapiIndex& index,
+                                                      const std::string& owner_name,
+                                                      const std::string& member_name) {
+    std::vector<SapiSearchResult> results;
+    auto owners = find_symbols_by_name(index, owner_name);
+    if (owners.empty()) return results;
+
+    std::string member_lower = to_lower_ascii(member_name);
+    std::set<int> visited;
+
+    struct QueueItem {
+        int symbol_id = -1;
+        std::vector<std::string> path;
+    };
+    std::vector<QueueItem> queue;
+    for (int id : owners) {
+        if (id < 0 || id >= static_cast<int>(index.symbols.size())) continue;
+        queue.push_back({id, {index.symbols[id].name}});
+        visited.insert(id);
+    }
+
+    for (size_t head = 0; head < queue.size() && results.size() < 16; ++head) {
+        const auto item = queue[head];
+        const auto& symbol = index.symbols[item.symbol_id];
+        auto base = base_type_from_signature(symbol.signature);
+        if (!base) continue;
+
+        auto base_ids = find_symbols_by_name(index, *base);
+        for (int base_id : base_ids) {
+            if (base_id < 0 || base_id >= static_cast<int>(index.symbols.size())) continue;
+            const auto& base_symbol = index.symbols[base_id];
+            std::vector<std::string> path = item.path;
+            path.push_back(base_symbol.name);
+
+            for (int m = 0; m < static_cast<int>(base_symbol.members.size()); ++m) {
+                if (to_lower_ascii(base_symbol.members[m].name) != member_lower) continue;
+                SapiSearchResult result;
+                result.symbol_id = base_id;
+                result.member_index = m;
+                result.score = 940.0;
+                result.match_kind = "inherited-member";
+                result.inherited_from = item.path.front() + "." + member_name;
+                result.inheritance_path = std::move(path);
+                results.push_back(std::move(result));
+            }
+
+            if (visited.insert(base_id).second) queue.push_back({base_id, std::move(path)});
+        }
+    }
+
+    return results;
+}
+
 std::vector<int> resolve_type_refs(const SapiIndex& index, const std::vector<std::string>& refs) {
     auto name_map = build_name_map(index);
     std::vector<int> ids;
@@ -1104,7 +1178,12 @@ std::vector<SapiSearchResult> lookup_sapi_symbol(const SapiIndex& index,
     } else if (!exact_members.empty()) {
         results = std::move(exact_members);
     } else {
-        results = std::move(member_name_matches);
+        size_t dot = q.rfind('.');
+        if (dot != std::string::npos && dot + 1 < q.size()) {
+            auto inherited = lookup_inherited_member(index, q.substr(0, dot), q.substr(dot + 1));
+            if (!inherited.empty()) results = std::move(inherited);
+        }
+        if (results.empty()) results = std::move(member_name_matches);
     }
 
     std::sort(results.begin(), results.end(), [](const auto& a, const auto& b) {

@@ -303,6 +303,15 @@ inline bool flag_bool(const ParsedCommand& pc, const std::string& key, bool def 
     return def;
 }
 
+inline std::string sapi_version_note() {
+    return "version context: symbol source=bundled SAPI d.ts; project availability depends on its manifest/package/local d.ts. "
+           "Verify with the current project version or tsc before relying on version-sensitive APIs.";
+}
+
+inline void append_version_note(std::ostringstream& out) {
+    out << "version note: " << sapi_version_note() << "\n";
+}
+
 inline std::string symbol_header(const sapi::SapiSymbol& symbol) {
     std::ostringstream out;
     out << symbol.fqname << "\n"
@@ -373,7 +382,20 @@ inline std::string format_result(const sapi::SapiIndex& index,
     out << ordinal << ". ";
     if (result.member_index >= 0 && result.member_index < static_cast<int>(symbol.members.size())) {
         const auto& member = symbol.members[result.member_index];
-        out << member.fqname << "\n"
+        if (!result.inherited_from.empty()) {
+            out << result.inherited_from << " inherited from " << member.fqname << "\n";
+            if (!result.inheritance_path.empty()) {
+                out << "inheritance path: ";
+                for (size_t i = 0; i < result.inheritance_path.size(); ++i) {
+                    if (i > 0) out << " -> ";
+                    out << result.inheritance_path[i];
+                }
+                out << "\n";
+            }
+        } else {
+            out << member.fqname << "\n";
+        }
+        out << "resolved symbol: " << member.fqname << "\n"
             << "kind: " << member.kind << "\n"
             << "owner: " << symbol.fqname << "\n"
             << "module: " << symbol.module << "\n"
@@ -409,6 +431,8 @@ inline mcp::json format_results(const sapi::SapiIndex& index,
     if (results.empty()) return text_result(empty_message);
     std::ostringstream out;
     if (!prefix.empty()) out << prefix << "\n\n";
+    append_version_note(out);
+    out << "\n";
     for (size_t i = 0; i < results.size(); ++i) {
         if (i > 0) out << "\n---\n";
         out << format_result(index, results[i], ordinal_base + static_cast<int>(i + 1),

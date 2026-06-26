@@ -58,6 +58,8 @@ struct SapiSearchResult {
     int member_index = -1;
     double score = 0.0;
     std::string match_kind;
+    std::string inherited_from;
+    std::vector<std::string> inheritance_path;
     std::vector<int> referenced_symbols;
     std::vector<int> referenced_depths;
 };
