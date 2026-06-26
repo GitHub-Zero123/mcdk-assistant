@@ -218,6 +218,8 @@ tool_timeout_sec = 120
   通用语法分析与结构树构建
 - `tree-sitter-python`
   Python 语言的 Tree-sitter 语法定义，用于解析 Python 代码
+- `tree-sitter-typescript`
+  TypeScript 的 Tree-sitter 语法定义，用于解析 SAPI `.d.ts` 声明文件并构建符号索引
 
 ### 🛠️ 关于 `cpp-mcp`
 

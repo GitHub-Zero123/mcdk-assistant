@@ -3,6 +3,7 @@
 #include "common/path_utils.hpp"
 #include "search/search_service.hpp"
 #include "tools/register_minecraft_docs.hpp"
+#include "tools/register_minecraft_sapi.hpp"
 // register_netease.hpp / register_search.hpp 经 register_minecraft_docs.hpp 间接包含
 // （其 handler 已合并进 minecraft_docs 单工具）。
 
@@ -71,7 +72,8 @@ mcp::server::configuration make_server_config() {
 void register_tools(mcp::server& srv,
                     mcdk::SearchService& search_svc,
                     const std::filesystem::path& knowledge_dir,
-                    bool cache_only_mode) {
+                    bool cache_only_mode,
+                    std::shared_ptr<sapi::SapiIndex> sapi_index) {
     // 缓存模式下禁用磁盘 knowledge 根目录，让工具自动回退到缓存读取。
     const std::filesystem::path effective_knowledge_dir = cache_only_mode
         ? std::filesystem::path()
@@ -82,6 +84,9 @@ void register_tools(mcp::server& srv,
     //   mcdk::register_search_tools(srv, search_svc, effective_knowledge_dir);
     //   mcdk::register_netease_tools(srv);
     mcdk::register_minecraft_docs_tools(srv, search_svc, effective_knowledge_dir);
+    if (sapi_index) {
+        mcdk::register_minecraft_sapi_tools(srv, std::move(sapi_index));
+    }
 #if !defined(MCDK_SERVER) && !defined(MCDK_INDEX_COMPILER)
     mcdk::register_python_analysis_tools(srv);
 #endif

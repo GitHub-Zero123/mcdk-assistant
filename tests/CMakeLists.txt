@@ -8,6 +8,11 @@ add_executable(python_analysis_test
     ../src/project_analysis/project_analyzer.cpp
 )
 
+add_executable(sapi_index_test
+    sapi_index_test.cpp
+    ../src/sapi/sapi_index.cpp
+)
+
 target_include_directories(search_test PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/../src
 )
@@ -16,12 +21,18 @@ target_include_directories(python_analysis_test PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/../src
 )
 
+target_include_directories(sapi_index_test PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/../src
+)
+
 target_compile_features(search_test PRIVATE cxx_std_20)
 target_compile_features(python_analysis_test PRIVATE cxx_std_20)
+target_compile_features(sapi_index_test PRIVATE cxx_std_20)
 
 if(MSVC)
     target_compile_options(search_test PRIVATE /utf-8 /EHsc)
     target_compile_options(python_analysis_test PRIVATE /utf-8 /EHsc)
+    target_compile_options(sapi_index_test PRIVATE /utf-8 /EHsc)
 endif()
 
 target_link_libraries(search_test PRIVATE
@@ -34,9 +45,18 @@ target_link_libraries(python_analysis_test PRIVATE
     tree-sitter-python
 )
 
+target_link_libraries(sapi_index_test PRIVATE
+    tree-sitter
+    tree-sitter-typescript
+)
+
 target_compile_definitions(search_test PRIVATE
     MCDK_KNOWLEDGE_DIR="${CMAKE_CURRENT_SOURCE_DIR}/../knowledge"
     MCDK_DICTS_DIR="${CMAKE_CURRENT_SOURCE_DIR}/../dicts"
+)
+
+target_compile_definitions(sapi_index_test PRIVATE
+    MCDK_WORKSPACE_DIR="${CMAKE_CURRENT_SOURCE_DIR}/.."
 )
 
 # NBT 编解码自检（仅依赖 nlohmann，夹具用真实 .mcstructure）

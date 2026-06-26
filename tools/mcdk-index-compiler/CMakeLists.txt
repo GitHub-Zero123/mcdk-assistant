@@ -2,6 +2,7 @@ add_executable(mcdk-index-compiler
     index_compiler_main.cpp
     ${CMAKE_SOURCE_DIR}/src/app/runtime_paths.cpp
     ${CMAKE_SOURCE_DIR}/src/app/server_runtime.cpp
+    ${CMAKE_SOURCE_DIR}/src/sapi/sapi_index.cpp
 )
 
 target_include_directories(mcdk-index-compiler PRIVATE
@@ -11,6 +12,8 @@ target_include_directories(mcdk-index-compiler PRIVATE
 target_link_libraries(mcdk-index-compiler PRIVATE
     mcp
     cppjieba
+    tree-sitter
+    tree-sitter-typescript
     nlohmann_json::nlohmann_json
     Threads::Threads
 )
