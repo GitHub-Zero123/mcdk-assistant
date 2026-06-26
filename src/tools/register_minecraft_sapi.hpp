@@ -112,6 +112,7 @@ JS / TS 关系：
   - 新建项目默认按 TS 编写；除非用户项目本来就是 JS，或只做极小验证，不要主动裸写 JS。
   - TypeScript 不能被游戏直接加载，必须由 tsc/打包工具先编译成 JS。
   - TS 项目常见写法是编辑 scripts/main.ts，构建后输出 scripts/main.js。
+  - 正式项目推荐让 main.ts/js 作为加载器入口，导入其他模块完成事件注册和初始化。
   - import 其他 TS 文件时，源码中通常按编译后路径写 .js 后缀，例如：
     import Utils from "./Utils.js";
 
@@ -226,10 +227,17 @@ tsconfig.json 最小思路：
 
 src/main.ts 示例：
   import { world, system } from "@minecraft/server";
+  import "./features/playerJoin.js";
+  import "./features/timers.js";
 
   system.run(() => {
     world.sendMessage("SAPI loaded");
   });
+
+正式项目入口：
+  - 推荐 main.ts 只做加载器/总入口，按功能导入其他模块初始化事件和系统。
+  - 相比在一个入口里逐个堆注册逻辑，模块化导入更方便维护、测试和增量修改。
+  - 示例：import "./features/playerJoin.js"; 对应 src/features/playerJoin.ts。
 
 本地模块导入：
   - TS 项目输出为 ESM JS，源代码中导入本地文件时通常写编译后的 .js 后缀。

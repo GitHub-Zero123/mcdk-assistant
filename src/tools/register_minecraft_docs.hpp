@@ -152,6 +152,12 @@ class MyClientSystem(ClientSystem):
 - 网络型 Mod 不要信任客户端关键数据；服务端必须二次校验。
 - 高频跨端通信会立即发包，需控制频率。
 
+## 小技巧
+
+- 可在系统实例中缓存组件工厂，例如 `self.compFactory = serverApi.GetEngineCompFactory()`，后续复用 `self.compFactory.CreateXxx(...)`，减少重复获取开销。
+- 三方框架可能已经封装或缓存组件工厂；若项目使用 QuModLibs 等框架，优先遵循框架既有写法。
+- 部分无参数事件不会传入 `args`；为统一回调签名，可写 `def OnEvent(self, _=None):` 显式丢弃参数。
+
 ## 代码风格
 
 - 不建议到处写 `try: xrange` / `except NameError: range` 这类 Python 2/3 环境探测兼容层；它会破坏 IDE 静态分析体验。优先遵循当前项目风格。
@@ -166,7 +172,9 @@ class MyClientSystem(ClientSystem):
 - `RegisterSystem` 类路径是否是从 BH 根目录解析的 Python import 路径。
 - 是否避免在模块 import 阶段执行跨端敏感逻辑。
 - 是否按事件定义读取 `args`，而不是猜参数名。
+- 无参数事件回调是否使用 `_=None` 等写法显式丢弃参数，避免形参不一致。
 - 是否区分运行时 `entityId` 和 JSON 标识符。
+- 高频使用组件时，是否可缓存 `serverApi.GetEngineCompFactory()` / `clientApi.GetEngineCompFactory()`，或沿用框架已有缓存。
 - 是否避免用 `try/except` 掩盖 ModAPI 调用设计问题。
 - 是否避免无必要的 Python 2/3 环境探测兼容层，并遵循当前项目既有风格。
 - `print` 写法是否优先使用 `print(...)`，或延续用户项目已有的语句式风格。
