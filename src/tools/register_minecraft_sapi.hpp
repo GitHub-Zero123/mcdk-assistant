@@ -344,6 +344,25 @@ inline void append_refs(std::ostringstream& out,
     }
 }
 
+// 取文档里第一句人类可读的描述，跳过 @remarks/@beta/@throws 这类纯 JSDoc 标签行。
+inline std::string doc_summary_line(const std::string& doc) {
+    std::istringstream iss(doc);
+    std::string line;
+    while (std::getline(iss, line)) {
+        size_t b = line.find_first_not_of(" \t\r");
+        if (b == std::string::npos) continue;
+        size_t e = line.find_last_not_of(" \t\r");
+        std::string t = line.substr(b, e - b + 1);
+        if (t.empty() || t[0] == '@') continue;
+        if (t.size() > 140) {
+            t.resize(137);
+            t += "...";
+        }
+        return t;
+    }
+    return {};
+}
+
 inline void append_member_summary(std::ostringstream& out,
                                   const sapi::SapiSymbol& symbol,
                                   int max_members,
@@ -360,8 +379,14 @@ inline void append_member_summary(std::ostringstream& out,
     for (int i = member_offset; i < end; ++i) {
         const auto& member = symbol.members[i];
         out << "- " << member.kind << " " << member.name;
-        if (!member.signature.empty()) out << ": " << member.signature;
+        if (member.kind == "enum-value") {
+            if (!member.value.empty()) out << " = " << member.value;
+        } else if (!member.signature.empty()) {
+            out << ": " << member.signature;
+        }
         out << "\n";
+        std::string doc_line = doc_summary_line(member.doc);
+        if (!doc_line.empty()) out << "    " << doc_line << "\n";
     }
     if (end < total)
         out << "Use symbol " << symbol.fqname << " --members " << total
@@ -477,6 +502,16 @@ inline std::string first_doc_line(const std::string& doc) {
     return line;
 }
 
+// 模块级 @packageDocumentation 以 kind=module 的合成符号入库，这里按模块名取回它的文档
+// （含 Manifest Details 版本块），供 module 命令顶部展示。
+inline std::string module_package_doc(const sapi::SapiIndex& index, const std::string& module_name) {
+    for (const auto& symbol : index.symbols) {
+        if (symbol.kind == "module" && symbol.fqname == module_name)
+            return symbol.doc;
+    }
+    return {};
+}
+
 inline mcp::json format_module_compact(const sapi::SapiIndex& index,
                                        const sapi::SapiModule& module,
                                        int offset,
@@ -494,7 +529,12 @@ inline mcp::json format_module_compact(const sapi::SapiIndex& index,
     out << "module: " << module.name << "\n"
         << "source: " << module.source_file << "\n"
         << "symbols: " << total << "\n"
-        << "range: [" << offset << ", " << end << ")\n\n";
+        << "range: [" << offset << ", " << end << ")\n";
+    if (offset == 0) {
+        std::string pkg_doc = module_package_doc(index, module.name);
+        if (!pkg_doc.empty()) out << "package doc:\n" << pkg_doc << "\n";
+    }
+    out << "\n";
 
     for (int ordinal = offset; ordinal < end; ++ordinal) {
         int id = module.symbol_ids[ordinal];
@@ -703,7 +743,13 @@ inline mcp::json dispatch_module(const sapi::SapiIndex& index, const ParsedComma
         }
         results.push_back(std::move(result));
     }
-    return format_results(index, results, "No SAPI module matched the name.", clamped_members(pc, 12));
+    std::string prefix;
+    if (offset == 0) {
+        std::string pkg_doc = module_package_doc(index, module->name);
+        if (!pkg_doc.empty()) prefix = "package doc:\n" + pkg_doc;
+    }
+    return format_results(index, results, "No SAPI module matched the name.",
+                          clamped_members(pc, 12), 0, 0, prefix);
 }
 
 inline mcp::json dispatch_minecraft_sapi(const sapi::SapiIndex& index, const std::string& command) {

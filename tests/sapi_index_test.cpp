@@ -76,7 +76,49 @@ int main() {
     ok &= require(blocks != nullptr, "missing vanilla-data MinecraftBlockTypes");
     if (blocks) {
         ok &= require(blocks->kind == "enum", "MinecraftBlockTypes should be enum");
+        ok &= require(!blocks->members.empty(), "enum should capture members");
     }
+
+    // 枚举成员必须带名 + 字面值（problem 2 回归保护）。
+    const auto* aim = find_symbol(index, "@minecraft/server.AimAssistTargetMode");
+    ok &= require(aim != nullptr, "missing AimAssistTargetMode enum");
+    if (aim) {
+        const auto* angle = find_member(*aim, "Angle");
+        ok &= require(angle != nullptr, "enum missing Angle member");
+        if (angle) {
+            ok &= require(angle->kind == "enum-value", "Angle should be enum-value");
+            ok &= require(angle->value == "Angle", "Angle enum value missing");
+        }
+    }
+
+    // 类 JSDoc 不应被 // @ts-ignore 指令行遮挡（problem 1 回归保护）。
+    const auto* player = find_symbol(index, "@minecraft/server.Player");
+    ok &= require(player != nullptr, "missing Player class");
+    if (player) {
+        ok &= require(player->doc.find("@ts-ignore") == std::string::npos,
+                      "Player doc must not be the @ts-ignore directive");
+        ok &= require(player->doc.find("Represents a player") != std::string::npos,
+                      "Player should keep real JSDoc");
+        const auto* camera = find_member(*player, "camera");
+        ok &= require(camera != nullptr && camera->doc.find("Camera") != std::string::npos,
+                      "Player.camera should keep member JSDoc");
+    }
+
+    // 文件头 @packageDocumentation（Manifest Details 版本块）应作为 kind=module 符号入库。
+    const auto* common_module = find_symbol(index, "@minecraft/common");
+    ok &= require(common_module != nullptr, "missing module-doc symbol @minecraft/common");
+    if (common_module) {
+        ok &= require(common_module->kind == "module", "package doc symbol should be kind=module");
+        ok &= require(common_module->doc.find("Manifest Details") != std::string::npos,
+                      "module doc should keep Manifest Details block");
+    }
+    // 模块文档应可被 search 命中（演示代码/版本块可检索）。
+    auto manifest_hits = mcdk::sapi::search_sapi_symbols(index, "manifest details", 8, 0);
+    bool found_manifest = false;
+    for (const auto& result : manifest_hits) {
+        if (index.symbols[result.symbol_id].kind == "module") { found_manifest = true; break; }
+    }
+    ok &= require(found_manifest, "search should surface module package docs for 'manifest details'");
 
     auto fuzzy_spawn = mcdk::sapi::search_sapi_symbols(index, "spawn entity", 8, 1);
     bool found_spawn = false;

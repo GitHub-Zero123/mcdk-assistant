@@ -25,7 +25,7 @@ namespace fs = std::filesystem;
 namespace {
 
 constexpr char kMagic[8] = {'M','C','D','K','S','A','P','I'};
-constexpr uint32_t kVersion = 1;
+constexpr uint32_t kVersion = 2;  // v2: SapiMember 增加 enum 字面值 value
 constexpr size_t kMaxTreeWalkNodes = 2'000'000;
 constexpr int kMaxDirectoryDepth = 16;
 constexpr size_t kMaxSapiFiles = 50'000;
@@ -325,12 +325,35 @@ std::string clean_doc_comment(std::string raw) {
     return trim(out.str());
 }
 
+// 紧邻声明的一行 `// ...` 是否为编译器/工具指令（@ts-ignore、eslint、prettier 等），
+// 这类行夹在 JSDoc 与声明之间，不是文档，应当跳过以免遮挡上方真正的 /** */ 块。
+bool preceding_line_is_directive(const std::string& source, size_t end_pos, size_t& line_begin_out) {
+    size_t nl = end_pos == 0 ? std::string::npos : source.rfind('\n', end_pos - 1);
+    size_t begin = (nl == std::string::npos) ? 0 : nl + 1;
+    line_begin_out = begin;
+    std::string line = trim(source.substr(begin, end_pos - begin));
+    if (line.rfind("//", 0) != 0) return false;
+    std::string body = trim(line.substr(2));
+    return !body.empty() &&
+           (body.front() == '@' ||
+            body.find("eslint") != std::string::npos ||
+            body.find("prettier") != std::string::npos);
+}
+
 std::string preceding_doc_comment(const std::string& source, TSNode node) {
     size_t start = ts_node_start_byte(node);
     if (start == 0 || start > source.size()) return {};
 
     size_t pos = start;
-    while (pos > 0 && std::isspace(static_cast<unsigned char>(source[pos - 1]))) --pos;
+    while (true) {
+        while (pos > 0 && std::isspace(static_cast<unsigned char>(source[pos - 1]))) --pos;
+        size_t line_begin = 0;
+        if (pos > 0 && preceding_line_is_directive(source, pos, line_begin)) {
+            pos = line_begin;
+            continue;
+        }
+        break;
+    }
     if (pos >= 2 && source[pos - 1] == '/' && source[pos - 2] == '*') {
         size_t begin = source.rfind("/**", pos - 2);
         if (begin != std::string::npos) return clean_doc_comment(source.substr(begin, pos - begin));
@@ -356,6 +379,18 @@ std::string preceding_doc_comment(const std::string& source, TSNode node) {
     std::ostringstream raw;
     for (const auto& line : lines) raw << line << '\n';
     return clean_doc_comment(raw.str());
+}
+
+// 提取文件头 @packageDocumentation JSDoc（含 Manifest Details 的 ```json 版本块/示例）。
+// 该块描述整个包，不属于任何符号，常规符号遍历会跳过它。
+std::string extract_package_doc(const std::string& source) {
+    size_t marker = source.find("@packageDocumentation");
+    if (marker == std::string::npos) return {};
+    size_t begin = source.rfind("/**", marker);
+    size_t end = source.find("*/", marker);
+    if (begin == std::string::npos || end == std::string::npos) return {};
+    end += 2;
+    return clean_doc_comment(source.substr(begin, end - begin));
 }
 
 bool count_tree_errors(TSNode root, int& errors, int& missing) {
@@ -438,11 +473,36 @@ std::string member_name_from_text(const std::string& text) {
     return s.substr(start, pos - start);
 }
 
+void collect_enum_member(const std::string& source, TSNode child, SapiSymbol& symbol) {
+    std::string text = slice(source, child);
+    SapiMember member;
+    member.kind = "enum-value";
+    member.name = name_from_field(source, child);
+    auto value = field_child(child, "value");
+    if (value) member.value = strip_quotes(slice(source, *value));
+    if (member.name.empty()) member.name = trim(text);
+    if (member.name.empty()) return;
+    member.fqname = symbol.fqname + "." + member.name;
+    member.signature = std::regex_replace(trim(text), std::regex(R"(\s+)"), " ");
+    member.doc = preceding_doc_comment(source, child);
+    member.line_start = line_start(child);
+    member.line_end = line_end(child);
+    symbol.members.push_back(std::move(member));
+}
+
 void collect_members(const std::string& source, TSNode body, SapiSymbol& symbol) {
+    bool is_enum_body = node_type(body) == "enum_body";
     uint32_t n = ts_node_child_count(body);
     for (uint32_t i = 0; i < n; ++i) {
         TSNode child = ts_node_child(body, i);
         std::string type = node_type(child);
+        if (is_enum_body) {
+            // 枚举成员有两种形态：带值的 `Angle = 'Angle'`（enum_assignment）
+            // 与裸成员 `Angle`（property_identifier，TS 自动编号）。
+            if (type == "enum_assignment" || type == "property_identifier")
+                collect_enum_member(source, child, symbol);
+            continue;
+        }
         if (!is_member_node(type)) continue;
 
         std::string text = slice(source, child);
@@ -565,6 +625,24 @@ void parse_sapi_file(const fs::path& root, const fs::path& file, SapiIndex& inde
         index.diagnostics.push_back(rel_file + ": symbol scan truncated after " +
                                     std::to_string(kMaxTreeWalkNodes) + " nodes");
     }
+
+    // 把模块级 @packageDocumentation 作为一个 kind=module 的合成符号入库，
+    // 让它可被 search 命中、被 symbol <模块名> 查到，也供 module 命令展示版本块。
+    std::string pkg_doc = extract_package_doc(source);
+    if (!pkg_doc.empty()) {
+        SapiSymbol module_sym;
+        module_sym.module = module.name;
+        module_sym.kind = "module";
+        module_sym.name = module.name;
+        module_sym.fqname = module.name;
+        module_sym.signature = "module " + module.name;
+        module_sym.doc = std::move(pkg_doc);
+        module_sym.source_file = rel_file;
+        module_sym.line_start = 1;
+        module_sym.line_end = 1;
+        index.symbols.push_back(std::move(module_sym));
+    }
+
     index.modules.push_back(std::move(module));
 
     ts_tree_delete(tree);
@@ -715,6 +793,7 @@ bool save_sapi_cache(const std::filesystem::path& cache_path,
             write_string(fp, member.fqname);
             write_string(fp, member.signature);
             write_string(fp, member.doc);
+            write_string(fp, member.value);
             write_i32(fp, member.line_start);
             write_i32(fp, member.line_end);
         }
@@ -800,7 +879,8 @@ bool load_sapi_cache(const std::filesystem::path& cache_path,
                 !read_string(fp, member.name) ||
                 !read_string(fp, member.fqname) ||
                 !read_string(fp, member.signature) ||
-                !read_string(fp, member.doc)) {
+                !read_string(fp, member.doc) ||
+                !read_string(fp, member.value)) {
                 std::fclose(fp); return false;
             }
             member.line_start = read_i32(fp);
@@ -1023,10 +1103,14 @@ double score_symbol_candidate(const SapiSymbol& symbol,
         for (const auto& token : q_tokens)
             if (doc_lower.find(token) != std::string::npos) ++hits;
         if (hits > 0) {
-            double doc_score = 60.0 + 40.0 * hits / std::max<size_t>(1, q_tokens.size());
+            double per = static_cast<double>(hits) / std::max<size_t>(1, q_tokens.size());
+            // 模块符号的文档即其主要内容（Manifest Details/版本/示例），权重高于普通符号 doc，
+            // 但仍低于精确/前缀名匹配，避免淹没真实 API。
+            bool is_module = symbol.kind == "module";
+            double doc_score = is_module ? 200.0 + 140.0 * per : 60.0 + 40.0 * per;
             if (doc_score > score) {
                 score = doc_score;
-                match_kind = "doc";
+                match_kind = is_module ? "module-doc" : "doc";
             }
         }
     }

@@ -18,6 +18,7 @@ struct SapiMember {
     std::string fqname;
     std::string signature;
     std::string doc;
+    std::string value;  // enum 成员的字面值，如 'Angle'；非枚举成员为空
     int line_start = 0;
     int line_end = 0;
 };
