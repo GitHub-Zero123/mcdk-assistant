@@ -44,14 +44,17 @@ inline void append_pointer_block(mcp::json& result, const SolutionIndex& index,
     auto matches = mcdk::solutions::match_solutions(index, query, scope, result_texts, 3);
     if (matches.empty()) return;
 
+    // 只给引用（标题 + 简介 + 读全文的命令），不内联正文；按相关度排序，引导挑一篇再读。
     std::ostringstream out;
-    out << "相关解决方案（动手写代码前建议先读完整范式，避免盲猜用法）:\n";
+    out << "相关解决方案（仅引用；按相关度排序，挑与当前任务最贴合的一篇用下面命令读全文，勿逐条跳读）:\n";
     for (const auto& m : matches) {
         const auto& s = index.solutions[m.solution_index];
-        out << "  - " << (s.title.empty() ? s.id : s.title)
-            << "  →  minecraft_docs(command=\"solution " << s.id << "\")\n";
+        out << "  - " << (s.title.empty() ? s.id : s.title) << "\n";
+        if (!s.summary.empty())
+            out << "      简介: " << s.summary << "\n";
+        out << "      读全文: minecraft_docs(command=\"solution " << s.id << "\")\n";
     }
-    out << "说明: 解决方案是经维护、可运行的接口组合范式；先读完再写代码。";
+    out << "说明: 以上仅为引用（标题+简介）；正文经维护、可运行，先读最贴合的一篇再动手，避免盲猜用法。";
     result["content"].push_back({{"type", "text"}, {"text", out.str()}});
 }
 
