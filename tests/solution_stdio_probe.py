@@ -205,33 +205,24 @@ def run_positive(client, out_queue, r):
 
     print("\n[2] help 含解决方案节（bin 已加载）")
     r.run_text(client, "help 含【solution】节", "help",
-               lambda t: t is not None and "【solution】" in t and "--solution" in t and "solution <id>" in t)
+               lambda t: t is not None and "【solution】" in t and "--no-solution" in t and "solution <id>" in t)
     r.run_text(client, "help 底部含 KID Studio 署名", "help",
                lambda t: t is not None and "By Zero123" in t and "KID Studio" in t)
     r.run_text(client, "help 含 Addon 资源路由无隔离提醒", "help",
                lambda t: t is not None and "无天然隔离" in t and "命名空间" in t)
+    r.run_text(client, "help 含架构/可维护性提醒", "help",
+               lambda t: t is not None and "可维护性" in t and "数据类" in t and "1500" in t)
 
-    print("\n[3] --solution 触发指针块")
-    r.run_text(client, "api PushScreen --solution 追加相关解决方案", "api PushScreen --solution",
+    print("\n[3] 默认开启：无 flag 也追加指针块")
+    r.run_text(client, "无 flag 默认追加相关解决方案", "api PushScreen",
                lambda t: t is not None and "相关解决方案" in t and "ui-custom-screen" in t
                          and 'solution ui-custom-screen' in t)
-    r.run_text(client, "中文意图词 api 界面 --solution 触发", "api 界面 --solution",
+    r.run_text(client, "中文意图词 api 界面 默认触发", "api 界面",
                lambda t: t is not None and "相关解决方案" in t and "ui-custom-screen" in t)
 
-    print("\n[4] 默认关闭：不加 --solution 不追加指针")
-    r.run_text(client, "api PushScreen（无 flag）不含指针块", "api PushScreen",
-               lambda t: t is not None and "相关解决方案" not in t)
-
-    print("\n[4b] tip（踩坑/小技巧）内联、不跳转")
-    # SetButtonTouchUpCallback 同时命中 ui-custom-screen(方案) 与 ui-button-mappings-empty(tip)
-    r.run_text(client, "tip 内联在「提示/踩坑」栏且不给跳转命令",
-               "api SetButtonTouchUpCallback --solution",
-               lambda t: t is not None and "提示 / 踩坑" in t and "button_mappings 必须" in t
-                         and 'solution ui-button-mappings-empty' not in t)
-    r.run_text(client, "同一次命中里普通方案仍以引用+跳转呈现",
-               "api SetButtonTouchUpCallback --solution",
-               lambda t: t is not None and "相关解决方案" in t
-                         and 'solution ui-custom-screen' in t)
+    print("\n[4] --no-solution 关闭本次指针块")
+    r.run_text(client, "--no-solution 不追加指针块", "api PushScreen --no-solution",
+               lambda t: t is not None and "相关解决方案" not in t and "读全文" not in t)
 
     print("\n[5] solution <id> 读取正文")
     r.run_text(client, "solution ui-custom-screen 返回内嵌正文", "solution ui-custom-screen",
@@ -247,7 +238,7 @@ def run_negative(client, r):
     print("\n[6] 运行时闸门：移走 bin 后无解决方案功能")
     r.run_text(client, "help 不含【solution】节", "help",
                lambda t: t is not None and "【solution】" not in t and "minecraft_docs" in t)
-    r.run_text(client, "--solution 传入也不触发（无指针块）", "api PushScreen --solution",
+    r.run_text(client, "无 bin 时默认也不追加指针块", "api PushScreen",
                lambda t: t is not None and "相关解决方案" not in t)
     r.run_text(client, "solution 子命令按未知处理", "solution ui-custom-screen",
                lambda t: t is not None and "未知子命令" in t)

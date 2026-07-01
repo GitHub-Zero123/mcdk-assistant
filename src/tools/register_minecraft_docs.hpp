@@ -194,6 +194,7 @@ inline std::string minecraft_docs_help_text(bool with_solutions = false) {
   网易 ModSDK/ModAPI 多为 C 接口封装，通常不是异常驱动设计；编写示例代码时优先按返回值、回调或文档约定判断成败，不要用 try/except 当兜底逻辑。
   Mod 环境下客户端线程和服务端线程共享同一个 VM 上下文，并非完全隔离；跨线程行为尤其是跨线程初始化模块时，必须避免意外执行对方侧代码。
   MC Addon 的资源与定义（identifier / 贴图·音效等资源路径 / JSON UI namespace / 动画·控制器名等）是全局路由、无天然隔离；不同项目撞名会互相覆盖冲突。开发时统一按项目加命名空间前缀，并把资源放进项目独立子目录/路径，避免与原版或其他 Mod 冲突。
+  架构与可维护性优先：用封装的数据类/结构体承载数据，别滥用 dict 到处传散字段；函数参数变多就聚成 class/配置对象，别让签名越拉越长；按职责拆分模块与类。单文件别堆几千行——超过约 1000 行就该警惕、1500 行以上通常已是需要拆分的信号。写"能长期维护"的代码，而非一次性堆砌。
 
 【关键词传递规则】
   搜索类命令的关键词支持两种写法（效果相同，均为模糊匹配）：
@@ -249,11 +250,10 @@ inline std::string minecraft_docs_help_text(bool with_solutions = false) {
 
     if (with_solutions) {
         help += R"(
-【solution】 解决方案层（经维护、可运行的接口组合范式，治"查到接口却盲猜用法"）
-  <搜索命令> ... --solution        在搜索结果后追加"相关解决方案"指针（默认关闭；按需开启，省 token）
-                                   例: api PushScreen --solution
-                                       wiki "custom screen" --solution
-                                   仅当你想要"完整做法范式"时加；只想确认某接口签名时不必开。
+【solution】 解决方案层（经维护、可运行的接口组合范式 + 踩坑，治"查到接口却盲猜用法"）
+  说明: 搜索命令【默认就会】在结果后追加"相关解决方案/踩坑"指针（仅在确有相关命中时），无需额外参数。
+  <搜索命令> ... --no-solution     本次不要解决方案指针（只看纯资料、想省 token 时用）
+                                   例: api PushScreen --no-solution
   solution <id>                    读取某解决方案的完整正文（照着写可运行代码）
                                    例: solution ui-custom-screen
 )";
@@ -343,6 +343,12 @@ inline mcp::json dispatch_netease(const ParsedCommand& pc) {
     return error_with_help("netease 子项应为 'diff' 或 'jsonui'。");
 }
 
+// 解决方案指针块默认开启；仅当显式传 --no-solution（及别名）时本次关闭。
+inline bool wants_no_solution(const ParsedCommand& pc) {
+    return has_flag(pc, "no-solution") || has_flag(pc, "nosolution") ||
+           has_flag(pc, "no-sol") || has_flag(pc, "nosol") || has_flag(pc, "nosolutions");
+}
+
 inline mcp::json dispatch_minecraft_docs(const std::filesystem::path& knowledge_root,
                                          SearchService& svc,
                                          const std::string& command
@@ -360,10 +366,11 @@ inline mcp::json dispatch_minecraft_docs(const std::filesystem::path& knowledge_
     const bool with_solutions = false;
 #endif
 
-    // 命中搜索结果后按需追加"相关解决方案"指针块（仅在 --solution 且有关键词时）。
+    // 搜索结果后处理：默认就追加"相关解决方案/踩坑"指针块（仅在确有相关命中时；治 AI 忘开）；
+    // 只有显式 --no-solution 时本次关闭。均需有关键词、且运行时加载了解决方案缓存。
     auto maybe_append_solutions = [&](mcp::json&& res, const std::string& scope) -> mcp::json {
 #ifdef MCDK_WITH_SOLUTIONS
-        if (with_solutions && has_flag(pc, "solution") && !pc.positional.empty())
+        if (with_solutions && !pc.positional.empty() && !wants_no_solution(pc))
             mcdk::solution_tool::append_pointer_block(res, *solutions, pc.positional, scope);
 #else
         (void)scope;
@@ -421,8 +428,8 @@ inline void register_minecraft_docs_tools(mcp::server& srv, SearchService& searc
         "开发 Minecraft addon/mod 时请先调用 command=\"help\" 查看完整命令与子命令用法。";
 #ifdef MCDK_WITH_SOLUTIONS
     if (solutions)
-        description += "搜索命令可加 --solution 触发相关\"解决方案\"（可运行组合范式），"
-                      "或用 solution <id> 读取完整正文。";
+        description += "解决方案层默认开启：检索会自动附带相关\"解决方案/踩坑\"（经维护、可运行的组合范式），"
+                      "再用 solution <id> 读完整正文；只看纯资料/想省 token 时加 --no-solution 关闭本次。";
 #endif
 
     auto tool = mcp::tool_builder(minecraft_docs_detail::kToolName)
