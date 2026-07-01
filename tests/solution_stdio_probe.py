@@ -206,6 +206,10 @@ def run_positive(client, out_queue, r):
     print("\n[2] help 含解决方案节（bin 已加载）")
     r.run_text(client, "help 含【solution】节", "help",
                lambda t: t is not None and "【solution】" in t and "--solution" in t and "solution <id>" in t)
+    r.run_text(client, "help 底部含 KID Studio 署名", "help",
+               lambda t: t is not None and "By Zero123" in t and "KID Studio" in t)
+    r.run_text(client, "help 含 Addon 资源路由无隔离提醒", "help",
+               lambda t: t is not None and "无天然隔离" in t and "命名空间" in t)
 
     print("\n[3] --solution 触发指针块")
     r.run_text(client, "api PushScreen --solution 追加相关解决方案", "api PushScreen --solution",

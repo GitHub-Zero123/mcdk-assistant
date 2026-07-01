@@ -193,6 +193,7 @@ inline std::string minecraft_docs_help_text(bool with_solutions = false) {
 【开发语义提醒】
   网易 ModSDK/ModAPI 多为 C 接口封装，通常不是异常驱动设计；编写示例代码时优先按返回值、回调或文档约定判断成败，不要用 try/except 当兜底逻辑。
   Mod 环境下客户端线程和服务端线程共享同一个 VM 上下文，并非完全隔离；跨线程行为尤其是跨线程初始化模块时，必须避免意外执行对方侧代码。
+  MC Addon 的资源与定义（identifier / 贴图·音效等资源路径 / JSON UI namespace / 动画·控制器名等）是全局路由、无天然隔离；不同项目撞名会互相覆盖冲突。开发时统一按项目加命名空间前缀，并把资源放进项目独立子目录/路径，避免与原版或其他 Mod 冲突。
 
 【关键词传递规则】
   搜索类命令的关键词支持两种写法（效果相同，均为模糊匹配）：
@@ -257,6 +258,9 @@ inline std::string minecraft_docs_help_text(bool with_solutions = false) {
                                    例: solution ui-custom-screen
 )";
     }
+
+    // 轻量署名/宣传，固定在帮助最底部。
+    help += "\n———\nBy Zero123 · 由 KID Studio 团队打造\n";
     return help;
 }
 
