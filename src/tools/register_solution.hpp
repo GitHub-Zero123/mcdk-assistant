@@ -41,20 +41,42 @@ inline void append_pointer_block(mcp::json& result, const SolutionIndex& index,
                                  const std::string& query, const std::string& scope) {
     if (!result.contains("content") || !result["content"].is_array()) return;
     auto result_texts = collect_result_texts(result);
-    auto matches = mcdk::solutions::match_solutions(index, query, scope, result_texts, 3);
+    // 略放宽候选数，给「解决方案引用」与「提示/踩坑」各留位；仍受库内相关度闸门约束。
+    auto matches = mcdk::solutions::match_solutions(index, query, scope, result_texts, 6);
     if (matches.empty()) return;
 
-    // 只给引用（标题 + 简介 + 读全文的命令），不内联正文；按相关度排序，引导挑一篇再读。
-    std::ostringstream out;
-    out << "相关解决方案（仅引用；按相关度排序，挑与当前任务最贴合的一篇用下面命令读全文，勿逐条跳读）:\n";
+    // 按 kind 分桶：普通方案=只给引用+跳转命令；tip（踩坑/小技巧）=summary 直接内联、不跳转。
+    std::vector<const Solution*> sols, tips;
     for (const auto& m : matches) {
-        const auto& s = index.solutions[m.solution_index];
-        out << "  - " << (s.title.empty() ? s.id : s.title) << "\n";
-        if (!s.summary.empty())
-            out << "      简介: " << s.summary << "\n";
-        out << "      读全文: minecraft_docs(command=\"solution " << s.id << "\")\n";
+        const Solution& s = index.solutions[m.solution_index];
+        if (mcdk::solutions::is_tip_kind(s.kind)) tips.push_back(&s);
+        else sols.push_back(&s);
     }
-    out << "说明: 以上仅为引用（标题+简介）；正文经维护、可运行，先读最贴合的一篇再动手，避免盲猜用法。";
+    if (sols.size() > 3) sols.resize(3);   // 引用最多 3 条
+    if (tips.size() > 2) tips.resize(2);   // 内联提示最多 2 条
+    if (sols.empty() && tips.empty()) return;
+
+    std::ostringstream out;
+    if (!sols.empty()) {
+        out << "相关解决方案（仅引用；按相关度排序，挑与当前任务最贴合的一篇用下面命令读全文，勿逐条跳读）:\n";
+        for (const Solution* s : sols) {
+            out << "  - " << (s->title.empty() ? s->id : s->title) << "\n";
+            if (!s->summary.empty())
+                out << "      简介: " << s->summary << "\n";
+            out << "      读全文: minecraft_docs(command=\"solution " << s->id << "\")\n";
+        }
+    }
+    if (!tips.empty()) {
+        if (!sols.empty()) out << "\n";
+        out << "提示 / 踩坑（可直接采纳，无需跳转读全文）:\n";
+        for (const Solution* s : tips) {
+            out << "  - " << (s->title.empty() ? s->id : s->title);
+            if (!s->summary.empty()) out << "：" << s->summary;
+            out << "\n";
+        }
+    }
+    if (!sols.empty())
+        out << "说明: 解决方案栏仅为引用（标题+简介）；正文经维护、可运行，先读最贴合的一篇再动手，避免盲猜用法。";
     result["content"].push_back({{"type", "text"}, {"text", out.str()}});
 }
 
@@ -100,10 +122,14 @@ inline mcp::json solution_result(const SolutionIndex& index, const std::string& 
     }
 
     out << "\n";
-    if (s->entry_body.empty())
-        out << "(该解决方案正文为空，或未随缓存打包)";
-    else
+    if (s->entry_body.empty()) {
+        if (mcdk::solutions::is_tip_kind(s->kind))
+            out << "（提示/踩坑类：内容即上方简介，无独立正文，触发时会直接内联）";
+        else
+            out << "(该解决方案正文为空，或未随缓存打包)";
+    } else {
         out << s->entry_body;
+    }
 
     if (s->status == "draft")
         out << "\n\n注意: 本解决方案标记为 draft（可能未完全实测）；套用时请结合实际验证。";

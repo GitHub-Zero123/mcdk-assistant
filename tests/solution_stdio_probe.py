@@ -218,6 +218,17 @@ def run_positive(client, out_queue, r):
     r.run_text(client, "api PushScreen（无 flag）不含指针块", "api PushScreen",
                lambda t: t is not None and "相关解决方案" not in t)
 
+    print("\n[4b] tip（踩坑/小技巧）内联、不跳转")
+    # SetButtonTouchUpCallback 同时命中 ui-custom-screen(方案) 与 ui-button-mappings-empty(tip)
+    r.run_text(client, "tip 内联在「提示/踩坑」栏且不给跳转命令",
+               "api SetButtonTouchUpCallback --solution",
+               lambda t: t is not None and "提示 / 踩坑" in t and "button_mappings 必须" in t
+                         and 'solution ui-button-mappings-empty' not in t)
+    r.run_text(client, "同一次命中里普通方案仍以引用+跳转呈现",
+               "api SetButtonTouchUpCallback --solution",
+               lambda t: t is not None and "相关解决方案" in t
+                         and 'solution ui-custom-screen' in t)
+
     print("\n[5] solution <id> 读取正文")
     r.run_text(client, "solution ui-custom-screen 返回内嵌正文", "solution ui-custom-screen",
                lambda t: t is not None and "自定义 UI 界面" in t and "解决什么问题" in t
