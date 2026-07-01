@@ -1,0 +1,161 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="650" viewBox="0 0 1180 650" role="img" aria-labelledby="title desc">
+  <title id="title">mcdk-solutions runnable pattern library</title>
+  <desc id="desc">Product overview: describing an intent surfaces battle-tested runnable solutions, which compose by dependency from API-level to feature-level into working code, shown with the three real solutions player-appearance-transform, query-mod-state and ui-custom-screen.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M1,1 L8,5 L1,9" fill="none" stroke="var(--line)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="arrow-accent" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M1,1 L8,5 L1,9" fill="none" stroke="var(--accent)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <style>
+      svg {
+        color-scheme: light dark;
+        --bg: transparent;
+        --grid: #e8edf2;
+        --panel: #ffffff;
+        --panel-2: #f6f8fa;
+        --stroke: #d0d7de;
+        --stroke-strong: #8c959f;
+        --title: #1f2328;
+        --text: #3f4a55;
+        --muted: #66717d;
+        --line: #57606a;
+        --accent: #316dca;
+        --accent-soft: #edf4ff;
+        --accent-2: #9a6700;
+        --accent-2-soft: #fff8c5;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        svg {
+          --bg: #0b0f12;
+          --grid: #1f2933;
+          --panel: #161b22;
+          --panel-2: #0f141b;
+          --stroke: #30363d;
+          --stroke-strong: #68727d;
+          --title: #f0f6fc;
+          --text: #c9d1d9;
+          --muted: #8b949e;
+          --line: #b1bac4;
+          --accent: #79c0ff;
+          --accent-soft: #0d2740;
+          --accent-2: #d29922;
+          --accent-2-soft: #2d2412;
+        }
+      }
+
+      .background { fill: var(--bg); }
+      .grid { stroke: var(--grid); stroke-width: 1; opacity: 0.7; }
+      .frame { fill: var(--panel-2); stroke: var(--stroke); stroke-width: 1.2; }
+      .panel { fill: var(--panel); stroke: var(--stroke); stroke-width: 1.2; }
+      .panel2 { fill: var(--panel-2); stroke: var(--stroke); stroke-width: 1.1; }
+      .module { fill: var(--panel); stroke: var(--stroke-strong); stroke-width: 1.15; }
+      .accentBox { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.25; }
+      .accentBox2 { fill: var(--accent-2-soft); stroke: var(--accent-2); stroke-width: 1.25; }
+      .title { font: 700 23px "Segoe UI", Arial, sans-serif; fill: var(--title); }
+      .eyebrow { font: 700 11px "Segoe UI", Arial, sans-serif; fill: var(--accent); letter-spacing: 1.1px; }
+      .eyebrow2 { font: 700 11px "Segoe UI", Arial, sans-serif; fill: var(--accent-2); letter-spacing: 1.1px; }
+      .label { font: 700 16px "Segoe UI", Arial, sans-serif; fill: var(--title); }
+      .cardLabel { font: 700 14px "Segoe UI", Arial, sans-serif; fill: var(--title); }
+      .chip { font: 600 13px "Segoe UI", Arial, sans-serif; fill: var(--text); }
+      .text { font: 500 13px "Segoe UI", Arial, sans-serif; fill: var(--text); }
+      .muted { font: 500 12px "Segoe UI", Arial, sans-serif; fill: var(--muted); }
+      .monoAccent { font: 600 12px "Cascadia Mono", Consolas, monospace; fill: var(--accent); }
+      .monoSmall { font: 600 11px "Cascadia Mono", Consolas, monospace; fill: var(--muted); }
+      .edge { fill: none; stroke: var(--line); stroke-width: 1.8; marker-end: url(#arrow); }
+      .edgeAccent { fill: none; stroke: var(--accent); stroke-width: 1.9; marker-end: url(#arrow-accent); }
+      .plainLine { fill: none; stroke: var(--stroke); stroke-width: 1.1; }
+    </style>
+  </defs>
+
+  <rect class="background" x="0" y="0" width="1180" height="650" rx="18"/>
+
+  <g opacity="0.75">
+    <path class="grid" d="M40 116 H1140"/>
+    <path class="grid" d="M40 520 H1140"/>
+    <path class="grid" d="M334 116 V520"/>
+    <path class="grid" d="M790 116 V520"/>
+  </g>
+
+  <text class="eyebrow" x="46" y="48">SOLUTION LAYER · RUNNABLE PATTERNS</text>
+  <text class="title" x="46" y="78">Search surfaces runnable solutions that compose into complete features</text>
+  <text class="muted" x="46" y="101">知识库只说"接口长什么样"；解决方案层补"怎么把接口拼成能跑的功能"，随检索按需浮现。</text>
+
+  <!-- Stage 1 · 开发意图 -->
+  <rect class="frame" x="34" y="130" width="258" height="356" rx="10"/>
+  <text class="eyebrow" x="58" y="162">开发意图</text>
+  <text class="label" x="58" y="188">描述需求</text>
+  <text class="muted" x="58" y="212">无需知道确切接口</text>
+  <rect class="panel2" x="58" y="238" width="210" height="40" rx="7"/>
+  <text class="chip" x="76" y="263">玩家变身 / 换外观</text>
+  <rect class="panel2" x="58" y="292" width="210" height="40" rx="7"/>
+  <text class="chip" x="76" y="317">自定义 query 状态</text>
+  <rect class="panel2" x="58" y="346" width="210" height="40" rx="7"/>
+  <text class="chip" x="76" y="371">弹出自定义界面</text>
+  <path class="plainLine" d="M58 412 H268"/>
+  <text class="muted" x="58" y="438">命中才现，</text>
+  <text class="muted" x="58" y="457">不打扰纯资料检索。</text>
+
+  <!-- Stage 2 · 解决方案层（浮现 + 组装） -->
+  <rect class="frame" x="380" y="130" width="368" height="356" rx="10"/>
+  <text class="eyebrow2" x="406" y="162">可运行范式 · 命中即现</text>
+  <text class="label" x="406" y="188">相关解决方案 / 踩坑</text>
+
+  <rect class="accentBox2" x="406" y="212" width="316" height="62" rx="8"/>
+  <text class="eyebrow2" x="426" y="234">功能级</text>
+  <text class="cardLabel" x="474" y="235">玩家外观与变身</text>
+  <text class="monoSmall" x="426" y="258">player-appearance-transform</text>
+
+  <rect class="module" x="406" y="336" width="152" height="62" rx="8"/>
+  <text class="eyebrow" x="424" y="358">接口级</text>
+  <text class="cardLabel" x="424" y="378">query.mod 状态</text>
+  <text class="monoSmall" x="424" y="392">query-mod-state</text>
+
+  <rect class="module" x="570" y="336" width="152" height="62" rx="8"/>
+  <text class="eyebrow" x="588" y="358">接口级</text>
+  <text class="cardLabel" x="588" y="378">自定义 UI</text>
+  <text class="monoSmall" x="588" y="392">ui-custom-screen</text>
+
+  <!-- 组装边：功能级由接口级按依赖组装 -->
+  <path class="edgeAccent" d="M482 274 V334"/>
+  <text class="monoAccent" x="496" y="312">组装依赖</text>
+
+  <rect class="panel2" x="406" y="420" width="316" height="46" rx="7"/>
+  <text class="muted" x="424" y="440">经实测 · 端到端 · 拿来即用</text>
+  <text class="muted" x="424" y="457">踩坑（tip）命中即内联，直接采纳</text>
+
+  <!-- Stage 3 · 可运行产出 -->
+  <rect class="frame" x="844" y="130" width="292" height="356" rx="10"/>
+  <text class="eyebrow" x="870" y="162">拿来即用</text>
+  <text class="label" x="870" y="188">照着写，不再盲猜</text>
+
+  <rect class="accentBox" x="870" y="212" width="238" height="70" rx="8"/>
+  <text class="cardLabel" x="890" y="242">完整可运行范式</text>
+  <text class="muted" x="890" y="266">调用顺序 / 参数 / 端侧</text>
+
+  <rect class="panel" x="870" y="300" width="238" height="70" rx="8"/>
+  <text class="cardLabel" x="890" y="330">按依赖组装</text>
+  <text class="muted" x="890" y="354">接口级 → 功能级</text>
+
+  <rect class="panel" x="870" y="388" width="238" height="70" rx="8"/>
+  <text class="cardLabel" x="890" y="418">→ 可运行代码</text>
+  <text class="muted" x="890" y="442">不再"查到接口却盲猜"</text>
+
+  <!-- 跨阶段连线 -->
+  <path class="edge" d="M292 268 C334 268, 344 240, 380 240"/>
+  <text class="monoSmall" x="300" y="290">命中即浮现</text>
+
+  <path class="edge" d="M722 244 C786 244, 806 244, 844 244"/>
+  <text class="monoSmall" x="756" y="232">取完整范式</text>
+  <path class="edge" d="M722 360 C786 360, 806 334, 844 334"/>
+
+  <!-- 底部：从盲猜到可运行 -->
+  <rect class="panel2" x="118" y="548" width="944" height="66" rx="9"/>
+  <text class="text" x="146" y="576">从盲猜到可运行</text>
+  <text class="text" x="286" y="576">描述需求 → 浮现相关范式 → 按依赖组装 → 可运行代码</text>
+  <text class="muted" x="146" y="600">经实测、可维护的开发范式库，随检索按需浮现——共创维护、持续扩充。</text>
+
+  <text class="monoSmall" x="1114" y="637" text-anchor="end">By Zero123 · KID Studio</text>
+</svg>
