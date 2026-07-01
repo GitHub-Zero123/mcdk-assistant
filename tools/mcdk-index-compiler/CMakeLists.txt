@@ -20,6 +20,15 @@ target_link_libraries(mcdk-index-compiler PRIVATE
 
 target_compile_definitions(mcdk-index-compiler PRIVATE MCDK_LITE MCDK_INDEX_COMPILER)
 
+# 解决方案层可用时，让索引编译器一并产出 mcdk_solutions_cache.bin（与 SAPI 缓存同处理）。
+if(MCDK_WITH_SOLUTIONS)
+    target_link_libraries(mcdk-index-compiler PRIVATE mcdk_solutions)
+    target_compile_definitions(mcdk-index-compiler PRIVATE
+        MCDK_WITH_SOLUTIONS
+        MCDK_SOLUTIONS_CONTENT_DIR="${CMAKE_SOURCE_DIR}/solutions/solutions"
+    )
+endif()
+
 if(WIN32)
     target_link_libraries(mcdk-index-compiler PRIVATE ws2_32)
 endif()

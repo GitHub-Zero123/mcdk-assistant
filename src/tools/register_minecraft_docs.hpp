@@ -9,6 +9,7 @@
 #include "tools/command_parser.hpp"
 #include "tools/register_search.hpp"
 #include "tools/register_netease.hpp"
+#include "tools/register_solution.hpp"  // 空实现除非编译期启用 MCDK_WITH_SOLUTIONS
 #include <mcp_message.h>
 #include <mcp_server.h>
 #include <mcp_tool.h>
@@ -182,8 +183,8 @@ class MyClientSystem(ClientSystem):
 )";
 }
 
-inline std::string minecraft_docs_help_text() {
-    return R"(minecraft_docs — Minecraft 基岩版资料/文档统一入口（命令式用法）
+inline std::string minecraft_docs_help_text(bool with_solutions = false) {
+    std::string help = R"(minecraft_docs — Minecraft 基岩版资料/文档统一入口（命令式用法）
 用法: minecraft_docs(command="<子命令> [参数...] [--选项 值]")
 命令名前可加 '/'，例如 /help、/wiki minecraft:food，与 help/wiki 等价。
 重要: 如果某个参数本身包含空格，必须用 "..." 或 '...' 包裹，整体才会算一个参数。
@@ -244,14 +245,27 @@ inline std::string minecraft_docs_help_text() {
 
 【help】 显示本帮助
 )";
+
+    if (with_solutions) {
+        help += R"(
+【solution】 解决方案层（经维护、可运行的接口组合范式，治"查到接口却盲猜用法"）
+  <搜索命令> ... --solution        在搜索结果后追加"相关解决方案"指针（默认关闭；按需开启，省 token）
+                                   例: api PushScreen --solution
+                                       wiki "custom screen" --solution
+                                   仅当你想要"完整做法范式"时加；只想确认某接口签名时不必开。
+  solution <id>                    读取某解决方案的完整正文（照着写可运行代码）
+                                   例: solution ui-custom-screen
+)";
+    }
+    return help;
 }
 
-inline mcp::json help_result() {
-    return text_result(minecraft_docs_help_text());
+inline mcp::json help_result(bool with_solutions = false) {
+    return text_result(minecraft_docs_help_text(with_solutions));
 }
 
-inline mcp::json error_with_help(const std::string& message) {
-    return text_result(message + "\n\n" + minecraft_docs_help_text());
+inline mcp::json error_with_help(const std::string& message, bool with_solutions = false) {
+    return text_result(message + "\n\n" + minecraft_docs_help_text(with_solutions));
 }
 
 inline bool is_assets_scope(const std::string& scope) {
@@ -327,18 +341,48 @@ inline mcp::json dispatch_netease(const ParsedCommand& pc) {
 
 inline mcp::json dispatch_minecraft_docs(const std::filesystem::path& knowledge_root,
                                          SearchService& svc,
-                                         const std::string& command) {
+                                         const std::string& command
+#ifdef MCDK_WITH_SOLUTIONS
+                                         , const mcdk::solutions::SolutionIndex* solutions
+#endif
+                                         ) {
     ParsedCommand pc = parse_command(command);
     std::string sub = canonical_scope(pc.sub);
 
+#ifdef MCDK_WITH_SOLUTIONS
+    // 运行时闸门：只有 exe 相邻确实加载到解决方案缓存时才提供相关功能。
+    const bool with_solutions = (solutions != nullptr);
+#else
+    const bool with_solutions = false;
+#endif
+
+    // 命中搜索结果后按需追加"相关解决方案"指针块（仅在 --solution 且有关键词时）。
+    auto maybe_append_solutions = [&](mcp::json&& res, const std::string& scope) -> mcp::json {
+#ifdef MCDK_WITH_SOLUTIONS
+        if (with_solutions && has_flag(pc, "solution") && !pc.positional.empty())
+            mcdk::solution_tool::append_pointer_block(res, *solutions, pc.positional, scope);
+#else
+        (void)scope;
+#endif
+        return std::move(res);
+    };
+
     if (sub.empty() || sub == "help" || sub == "?")
-        return help_result();
+        return help_result(with_solutions);
     if (sub == "read")    return dispatch_read(knowledge_root, svc, pc);
     if (sub == "list")    return dispatch_list(knowledge_root, svc, pc);
     if (sub == "modsdk-help" || sub == "mod-sdk-help" || sub == "vanilla-modsdk-help" || sub == "original-modsdk-help")
         return text_result(modsdk_arch_text());
     if (sub == "diff")    return text_result(netease_diff_text());
     if (sub == "jsonui" || sub == "json-ui") return text_result(netease_jsonui_text());
+
+#ifdef MCDK_WITH_SOLUTIONS
+    if (with_solutions && (sub == "solution" || sub == "sol")) {
+        if (pc.positional.empty())
+            return error_with_help("solution 需要一个 id，例如 solution ui-custom-screen。", with_solutions);
+        return mcdk::solution_tool::solution_result(*solutions, pc.positional);
+    }
+#endif
 
     if (is_assets_scope(sub))
         return dispatch_assets_search(svc, pc);
@@ -347,36 +391,55 @@ inline mcp::json dispatch_minecraft_docs(const std::filesystem::path& knowledge_
         std::string topic = lower_ascii(pc.positional);
         if (topic.empty() || topic == "diff" || topic == "jsonui" || has_flag(pc, "type"))
             return dispatch_netease(pc);
-        return dispatch_scoped_search(svc, pc, sub);
+        return maybe_append_solutions(dispatch_scoped_search(svc, pc, sub), "netease");
     }
 
     if (search_fn_for_scope(sub))
-        return dispatch_scoped_search(svc, pc, sub);
+        return maybe_append_solutions(dispatch_scoped_search(svc, pc, sub), canonical_scope(sub));
 
-    return error_with_help("未知子命令: '" + pc.sub + "'。");
+    return error_with_help("未知子命令: '" + pc.sub + "'。", with_solutions);
 }
 
 } // namespace minecraft_docs_detail
 
 inline void register_minecraft_docs_tools(mcp::server& srv, SearchService& search_svc,
-                                          const std::filesystem::path& knowledge_dir = {}) {
+                                          const std::filesystem::path& knowledge_dir = {}
+#ifdef MCDK_WITH_SOLUTIONS
+                                          , std::shared_ptr<solutions::SolutionIndex> solutions = nullptr
+#endif
+                                          ) {
     const std::filesystem::path knowledge_root = knowledge_dir;
 
+    std::string description =
+        "Minecraft 基岩版 Addon/Mod 资料和文档统一入口（网易版/国际版通用）："
+        "文档检索（ModAPI/Wiki/QuMod/BedrockDev/网易教程）、原版资源搜索、"
+        "原版 ModSDK 架构速查、网易版差异速查、知识库文件读取。采用命令式用法，"
+        "开发 Minecraft addon/mod 时请先调用 command=\"help\" 查看完整命令与子命令用法。";
+#ifdef MCDK_WITH_SOLUTIONS
+    if (solutions)
+        description += "搜索命令可加 --solution 触发相关\"解决方案\"（可运行组合范式），"
+                      "或用 solution <id> 读取完整正文。";
+#endif
+
     auto tool = mcp::tool_builder(minecraft_docs_detail::kToolName)
-        .with_description(
-            "Minecraft 基岩版 Addon/Mod 资料和文档统一入口（网易版/国际版通用）："
-            "文档检索（ModAPI/Wiki/QuMod/BedrockDev/网易教程）、原版资源搜索、"
-            "原版 ModSDK 架构速查、网易版差异速查、知识库文件读取。采用命令式用法，"
-            "开发 Minecraft addon/mod 时请先调用 command=\"help\" 查看完整命令与子命令用法。")
+        .with_description(description)
         .with_string_param("command",
             "命令语句，如 'wiki minecraft:food'、'assets stair --rp'、'modsdk-help' 或 'read <path>'；"
             "首次使用请传 'help' 查看全部命令；参与原版 ModSDK 开发框架项目时推荐先阅读 modsdk-help。", true)
         .with_read_only_hint(true).with_idempotent_hint(true).build();
 
     srv.register_tool(tool,
-        [knowledge_root, &search_svc](const mcp::json& params, const std::string&) -> mcp::json {
+        [knowledge_root, &search_svc
+#ifdef MCDK_WITH_SOLUTIONS
+         , solutions
+#endif
+        ](const mcp::json& params, const std::string&) -> mcp::json {
             std::string command = params.value("command", "");
-            return minecraft_docs_detail::dispatch_minecraft_docs(knowledge_root, search_svc, command);
+            return minecraft_docs_detail::dispatch_minecraft_docs(knowledge_root, search_svc, command
+#ifdef MCDK_WITH_SOLUTIONS
+                , solutions.get()
+#endif
+            );
         });
 }
 

@@ -3,6 +3,9 @@
 #include "common/path_utils.hpp"
 #include "sapi/sapi_index.hpp"
 #include "search/search_service.hpp"
+#ifdef MCDK_WITH_SOLUTIONS
+#include <mcdk_solutions/solution_index.hpp>
+#endif
 #include <mcp_server.h>
 #ifndef MCDK_SERVER
 #include <mcp_stdio_server.h>
@@ -88,12 +91,35 @@ int main(int argc, char* argv[]) {
         }
     }
 
+#ifdef MCDK_WITH_SOLUTIONS
+    // 运行时闸门：exe 相邻存在解决方案缓存时才加载；缺失则整套 --solution 功能自动不提供。
+    std::shared_ptr<mcdk::solutions::SolutionIndex> solutions_index;
+    const auto solutions_cache_path = mcdk::solutions::default_solution_cache_path(exe_dir);
+    const bool has_solutions_cache = fs::is_regular_file(solutions_cache_path);
+    MCDK_LOG << "[MCDK] solutions cache: " << mcdk::path::to_utf8(solutions_cache_path)
+             << (has_solutions_cache ? "" : " (NOT FOUND)") << std::endl;
+    if (has_solutions_cache) {
+        auto loaded = std::make_shared<mcdk::solutions::SolutionIndex>();
+        std::string error;
+        if (mcdk::solutions::load_solution_cache(solutions_cache_path, *loaded, &error)) {
+            solutions_index = std::move(loaded);
+            MCDK_LOG << "[MCDK] solutions indexed: " << solutions_index->solutions.size() << std::endl;
+        } else {
+            MCDK_LOG << "[MCDK] solutions cache load failed: " << error << std::endl;
+        }
+    }
+#endif
+
     mcp::server::configuration conf = mcdk::app::make_server_config();
 
     mcp::server srv(conf);
 
     mcdk::app::register_server_endpoints(srv, exe_dir, conf.port);
-    mcdk::app::register_tools(srv, *search_svc, knowledge_dir, cache_only_mode, sapi_index);
+    mcdk::app::register_tools(srv, *search_svc, knowledge_dir, cache_only_mode, sapi_index
+#ifdef MCDK_WITH_SOLUTIONS
+        , solutions_index
+#endif
+    );
 
 #ifndef MCDK_SERVER
     if (use_stdio) {

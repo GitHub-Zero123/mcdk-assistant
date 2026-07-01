@@ -8,6 +8,9 @@
 
 namespace mcdk { class SearchService; }
 namespace mcdk::sapi { struct SapiIndex; }
+#ifdef MCDK_WITH_SOLUTIONS
+namespace mcdk::solutions { struct SolutionIndex; }
+#endif
 
 namespace mcdk::app {
 
@@ -17,7 +20,11 @@ void register_tools(mcp::server& srv,
                     SearchService& search_svc,
                     const std::filesystem::path& knowledge_dir,
                     bool cache_only_mode,
-                    std::shared_ptr<sapi::SapiIndex> sapi_index = {});
+                    std::shared_ptr<sapi::SapiIndex> sapi_index = {}
+#ifdef MCDK_WITH_SOLUTIONS
+                    , std::shared_ptr<solutions::SolutionIndex> solutions = {}
+#endif
+                    );
 void log_startup_banner(const mcp::server::configuration& conf,
                         const SearchService& search_svc,
                         bool cache_only_mode);

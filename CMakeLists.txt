@@ -102,15 +102,41 @@ function(mcdk_add_target target_name)
         target_compile_definitions(${target_name} PRIVATE ${MCDK_TARGET_DEFINITIONS})
     endif()
 
+    # 解决方案层是"查询/文档类"只读增强（非敏感文件操作），full/lite/server 各变体都应具备。
+    # MCDK_WITH_SOLUTIONS 在函数被调用时已求值（检测块位于首个 mcdk_add_target 调用之前）。
+    if(MCDK_WITH_SOLUTIONS)
+        target_link_libraries(${target_name} PRIVATE mcdk_solutions)
+        target_compile_definitions(${target_name} PRIVATE MCDK_WITH_SOLUTIONS)
+    endif()
+
     mcdk_apply_platform_options(${target_name})
 endfunction()
+
+# ── 解决方案层（mcdk-solutions 子模块，可选）──
+# 向下兼容：无子模块权限时，solutions/ 为空目录 —— 此时整体禁用相关功能，
+# 主工程照常编译。以标记源文件是否存在判定「内容非空且含 C++ 部分」。
+set(MCDK_WITH_SOLUTIONS OFF)
+set(MCDK_SOLUTIONS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/solutions")
+file(GLOB _mcdk_solutions_contents "${MCDK_SOLUTIONS_DIR}/*")
+if(_mcdk_solutions_contents AND EXISTS "${MCDK_SOLUTIONS_DIR}/cpp/solution_index.cpp")
+    set(MCDK_WITH_SOLUTIONS ON)
+endif()
+
+if(MCDK_WITH_SOLUTIONS)
+    message(STATUS "[MCDK] solutions submodule detected — enabling --solution support")
+    # 必须在任何链接 mcdk_solutions 的目标之前（下方 mcdk-assistant、以及末尾 add_subdirectory(tools)
+    # 里的 mcdk-index-compiler）声明该库目标；勿把本行移到那些目标之后。
+    add_subdirectory(solutions)
+else()
+    message(STATUS "[MCDK] solutions submodule absent/empty — building without --solution support")
+endif()
 
 mcdk_add_target(mcdk-assistant
     WITH_STB
     SOURCES ${MCDK_SOURCES}
 )
 
-# LITE版最简分发（不提供任何涉及文件操作的敏感行为内容）
+# LITE版最简分发（不提供任何涉及文件操作的敏感行为内容；但查询类的解决方案层仍具备）
 mcdk_add_target(mcdk-asst-lite
     SOURCES ${MCDK_LITE_SOURCES}
     DEFINITIONS MCDK_LITE
