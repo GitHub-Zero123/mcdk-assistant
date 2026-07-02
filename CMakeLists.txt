@@ -157,6 +157,13 @@ if(NOT ANDROID)
 endif()
 install(TARGETS ${MCDK_INSTALL_RUNTIME_TARGETS} RUNTIME DESTINATION .)
 
+# Install is intentionally a packaging step only.
+# Recommended flow:
+#   1. cmake --build <build-dir> --config <config>
+#   2. cmake --install <build-dir> --config <config>
+# The cache bins below are generated during install by the already-built
+# mcdk-index-compiler executable, using this workspace's dicts/knowledge data.
+# Install does not build mcdk-index-compiler; build the full project first.
 install(DIRECTORY dicts/ DESTINATION dicts)
 
 option(MCDK_INSTALL_TOOLS "Install helper tool executables" OFF)
@@ -166,26 +173,26 @@ add_subdirectory(tools)
 
 if(MCDK_GENERATE_CACHE_BINS_ON_INSTALL AND NOT ANDROID)
     set(MCDK_INSTALL_SOLUTION_CACHE_CODE)
+    set(MCDK_INSTALL_EXPECTED_CACHE_BINS_CODE)
     if(MCDK_WITH_SOLUTIONS)
         set(MCDK_INSTALL_SOLUTION_CACHE_CODE
             "                --solutions-dir \"${CMAKE_CURRENT_SOURCE_DIR}/solutions/solutions\"\n"
         )
+        set(MCDK_INSTALL_EXPECTED_CACHE_BINS_CODE
+            "        list(APPEND _mcdk_expected_cache_bins \"mcdk_solutions_cache.bin\")\n"
+        )
     endif()
 
     install(CODE "
-        message(STATUS \"Building mcdk-index-compiler for install-time cache generation\")
-        execute_process(
-            COMMAND \"${CMAKE_COMMAND}\" --build \"${CMAKE_BINARY_DIR}\" --config \"\${CMAKE_INSTALL_CONFIG_NAME}\" --target mcdk-index-compiler
-            RESULT_VARIABLE _mcdk_index_compiler_build_result
-        )
-        if(NOT _mcdk_index_compiler_build_result EQUAL 0)
-            message(FATAL_ERROR \"mcdk-index-compiler build failed: \${_mcdk_index_compiler_build_result}\")
+        set(_mcdk_index_compiler \"$<TARGET_FILE:mcdk-index-compiler>\")
+        if(NOT EXISTS \"\${_mcdk_index_compiler}\")
+            message(FATAL_ERROR \"mcdk-index-compiler is not built: \${_mcdk_index_compiler}. Build target mcdk-index-compiler before running install.\")
         endif()
 
         set(_mcdk_cache_output_dir \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}\")
         message(STATUS \"Generating MCDK cache bins into: \${_mcdk_cache_output_dir}\")
         execute_process(
-            COMMAND \"$<TARGET_FILE:mcdk-index-compiler>\"
+            COMMAND \"\${_mcdk_index_compiler}\"
                 --output-dir \"\${_mcdk_cache_output_dir}\"
                 --dicts-dir \"${CMAKE_CURRENT_SOURCE_DIR}/dicts\"
                 --knowledge-dir \"${CMAKE_CURRENT_SOURCE_DIR}/knowledge\"
@@ -195,6 +202,17 @@ ${MCDK_INSTALL_SOLUTION_CACHE_CODE}
         if(NOT _mcdk_index_compiler_result EQUAL 0)
             message(FATAL_ERROR \"mcdk cache bin generation failed: \${_mcdk_index_compiler_result}\")
         endif()
+
+        set(_mcdk_expected_cache_bins
+            \"mcdk_index_cache.bin\"
+            \"mcdk_sapi_index_cache.bin\"
+        )
+${MCDK_INSTALL_EXPECTED_CACHE_BINS_CODE}
+        foreach(_mcdk_cache_bin IN LISTS _mcdk_expected_cache_bins)
+            if(NOT EXISTS \"\${_mcdk_cache_output_dir}/\${_mcdk_cache_bin}\")
+                message(FATAL_ERROR \"expected cache bin was not generated in install dir: \${_mcdk_cache_output_dir}/\${_mcdk_cache_bin}. Rebuild mcdk-index-compiler or the full project before install; stale compiler executables write caches next to themselves and ignore --output-dir.\")
+            endif()
+        endforeach()
     ")
 endif()
 
