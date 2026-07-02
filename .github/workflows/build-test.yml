@@ -143,7 +143,7 @@ jobs:
           Compress-Archive -Path package\* -DestinationPath "dist\${{ matrix.artifact }}.zip" -Force
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: ${{ matrix.artifact }}
           path: dist/*.${{ matrix.archive_ext }}
