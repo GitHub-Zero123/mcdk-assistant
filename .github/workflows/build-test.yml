@@ -24,6 +24,7 @@ jobs:
             os: windows-latest
             build_type: Release
             artifact: mcdk-assistant-windows-x64
+            archive_ext: zip
           - name: Ubuntu GCC
             os: ubuntu-latest
             build_type: Release
@@ -40,7 +41,15 @@ jobs:
         uses: actions/checkout@v7
         with:
           ref: ${{ github.event_name == 'workflow_dispatch' && inputs.ref || github.ref }}
-          submodules: recursive
+          submodules: false
+
+      - name: Checkout public submodules
+        run: git submodule update --init --recursive libs/cppjieba/deps/limonp
+
+      - name: Checkout optional solutions submodule
+        shell: bash
+        run: |
+          git submodule update --init --recursive solutions || true
 
       - name: Setup MSVC
         if: runner.os == 'Windows'
@@ -86,63 +95,55 @@ jobs:
           cmake -S . -B build/ci
           -G Ninja
           -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
+          -DCMAKE_INSTALL_PREFIX=${{ github.workspace }}/package
           -DMCDK_BUILD_TESTS=ON
 
       - name: Build
-        run: cmake --build build/ci --config ${{ matrix.build_type }} --parallel
+        run: cmake --build build/ci --config ${{ matrix.build_type }} --target all --parallel
+
+      - name: Install
+        run: cmake --install build/ci --config ${{ matrix.build_type }}
+
+      - name: Verify installed package
+        shell: bash
+        run: |
+          test -d package/dicts
+          test ! -d package/knowledge
+          test -f package/mcdk_index_cache.bin
+          test -f package/mcdk_sapi_index_cache.bin
+
+          if [ "${{ runner.os }}" = "Windows" ]; then
+            test -f package/mcdk-assistant.exe
+            test -f package/mcdk-asst-lite.exe
+            test -f package/mcdk-asst-server.exe
+          else
+            test -f package/mcdk-assistant
+            test -f package/mcdk-asst-lite
+            test -f package/mcdk-asst-server
+          fi
+
+          if [ -f solutions/cpp/solution_index.cpp ]; then
+            test -f package/mcdk_solutions_cache.bin
+          else
+            test ! -f package/mcdk_solutions_cache.bin
+          fi
 
       - name: Package Unix
         if: runner.os != 'Windows'
         shell: bash
         run: |
-          mkdir -p package dist
-
-          for bin in mcdk-assistant mcdk-asst-lite mcdk-asst-server mcdk-index-compiler mcdk-search; do
-            found="$(find build/ci -type f -name "$bin" -print -quit)"
-            test -n "$found"
-            cp "$found" "package/$bin"
-            chmod +x "package/$bin"
-          done
-
-          cp -R dicts package/dicts
-
+          mkdir -p dist
           tar -czf "dist/${{ matrix.artifact }}.tar.gz" -C package .
 
       - name: Package Windows
         if: runner.os == 'Windows'
         shell: pwsh
         run: |
-          New-Item -ItemType Directory -Force -Path package, dist | Out-Null
+          New-Item -ItemType Directory -Force -Path dist | Out-Null
+          Compress-Archive -Path package\* -DestinationPath "dist\${{ matrix.artifact }}.zip" -Force
 
-          $binaries = @(
-            "mcdk-assistant.exe",
-            "mcdk-asst-lite.exe",
-            "mcdk-asst-server.exe",
-            "mcdk-index-compiler.exe",
-            "mcdk-search.exe"
-          )
-
-          foreach ($binary in $binaries) {
-            $found = Get-ChildItem -Path build/ci -Recurse -Filter $binary | Select-Object -First 1
-            if (-not $found) {
-              throw "$binary not found"
-            }
-
-            Copy-Item $found.FullName (Join-Path package $binary)
-          }
-
-          Copy-Item -Recurse dicts package/dicts
-
-      - name: Upload Unix artifact
-        if: runner.os != 'Windows'
+      - name: Upload artifact
         uses: actions/upload-artifact@v6
         with:
           name: ${{ matrix.artifact }}
           path: dist/*.${{ matrix.archive_ext }}
-
-      - name: Upload Windows artifact
-        if: runner.os == 'Windows'
-        uses: actions/upload-artifact@v6
-        with:
-          name: ${{ matrix.artifact }}
-          path: package/*
