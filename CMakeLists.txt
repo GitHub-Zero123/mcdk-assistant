@@ -159,19 +159,44 @@ install(TARGETS ${MCDK_INSTALL_RUNTIME_TARGETS} RUNTIME DESTINATION .)
 
 install(DIRECTORY dicts/ DESTINATION dicts)
 
-set(MCDK_INSTALL_CACHE_BINS
-    "${CMAKE_CURRENT_BINARY_DIR}/mcdk_index_cache.bin"
-    "${CMAKE_CURRENT_BINARY_DIR}/mcdk_sapi_index_cache.bin"
-)
-if(MCDK_WITH_SOLUTIONS)
-    list(APPEND MCDK_INSTALL_CACHE_BINS
-        "${CMAKE_CURRENT_BINARY_DIR}/mcdk_solutions_cache.bin"
-    )
-endif()
 option(MCDK_INSTALL_TOOLS "Install helper tool executables" OFF)
-install(FILES ${MCDK_INSTALL_CACHE_BINS} DESTINATION . OPTIONAL)
+option(MCDK_GENERATE_CACHE_BINS_ON_INSTALL "Generate index cache bin files during install" ON)
 
 add_subdirectory(tools)
+
+if(MCDK_GENERATE_CACHE_BINS_ON_INSTALL AND NOT ANDROID)
+    set(MCDK_INSTALL_SOLUTION_CACHE_CODE)
+    if(MCDK_WITH_SOLUTIONS)
+        set(MCDK_INSTALL_SOLUTION_CACHE_CODE
+            "                --solutions-dir \"${CMAKE_CURRENT_SOURCE_DIR}/solutions/solutions\"\n"
+        )
+    endif()
+
+    install(CODE "
+        message(STATUS \"Building mcdk-index-compiler for install-time cache generation\")
+        execute_process(
+            COMMAND \"${CMAKE_COMMAND}\" --build \"${CMAKE_BINARY_DIR}\" --config \"\${CMAKE_INSTALL_CONFIG_NAME}\" --target mcdk-index-compiler
+            RESULT_VARIABLE _mcdk_index_compiler_build_result
+        )
+        if(NOT _mcdk_index_compiler_build_result EQUAL 0)
+            message(FATAL_ERROR \"mcdk-index-compiler build failed: \${_mcdk_index_compiler_build_result}\")
+        endif()
+
+        set(_mcdk_cache_output_dir \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}\")
+        message(STATUS \"Generating MCDK cache bins into: \${_mcdk_cache_output_dir}\")
+        execute_process(
+            COMMAND \"$<TARGET_FILE:mcdk-index-compiler>\"
+                --output-dir \"\${_mcdk_cache_output_dir}\"
+                --dicts-dir \"${CMAKE_CURRENT_SOURCE_DIR}/dicts\"
+                --knowledge-dir \"${CMAKE_CURRENT_SOURCE_DIR}/knowledge\"
+${MCDK_INSTALL_SOLUTION_CACHE_CODE}
+            RESULT_VARIABLE _mcdk_index_compiler_result
+        )
+        if(NOT _mcdk_index_compiler_result EQUAL 0)
+            message(FATAL_ERROR \"mcdk cache bin generation failed: \${_mcdk_index_compiler_result}\")
+        endif()
+    ")
+endif()
 
 option(MCDK_BUILD_TESTS "Build test executables" OFF)
 if(MCDK_BUILD_TESTS)
