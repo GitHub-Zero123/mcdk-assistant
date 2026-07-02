@@ -46,4 +46,6 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Linux" AND NOT ANDROID)
     )
 endif()
 
-install(TARGETS mcdk-index-compiler RUNTIME DESTINATION .)
+if(MCDK_INSTALL_TOOLS)
+    install(TARGETS mcdk-index-compiler RUNTIME DESTINATION .)
+endif()

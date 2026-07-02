@@ -23,12 +23,12 @@ target_include_directories(nlohmann_json INTERFACE
 
 find_package(Threads REQUIRED)
 
-add_subdirectory(libs/cpp-mcp)
+add_subdirectory(libs/cpp-mcp EXCLUDE_FROM_ALL)
 target_link_libraries(mcp PUBLIC nlohmann_json::nlohmann_json)
 
-add_subdirectory(libs/tree-sitter)
-add_subdirectory(libs/tree-sitter-python)
-add_subdirectory(libs/tree-sitter-typescript)
+add_subdirectory(libs/tree-sitter EXCLUDE_FROM_ALL)
+add_subdirectory(libs/tree-sitter-python EXCLUDE_FROM_ALL)
+add_subdirectory(libs/tree-sitter-typescript EXCLUDE_FROM_ALL)
 
 add_library(cppjieba INTERFACE)
 target_include_directories(cppjieba INTERFACE
@@ -126,7 +126,7 @@ if(MCDK_WITH_SOLUTIONS)
     message(STATUS "[MCDK] solutions submodule detected — enabling --solution support")
     # 必须在任何链接 mcdk_solutions 的目标之前（下方 mcdk-assistant、以及末尾 add_subdirectory(tools)
     # 里的 mcdk-index-compiler）声明该库目标；勿把本行移到那些目标之后。
-    add_subdirectory(solutions)
+    add_subdirectory(solutions EXCLUDE_FROM_ALL)
 else()
     message(STATUS "[MCDK] solutions submodule absent/empty — building without --solution support")
 endif()
@@ -151,13 +151,25 @@ if(NOT ANDROID)
     )
 endif()
 
-if(CMAKE_SYSTEM_NAME STREQUAL "Linux" AND NOT ANDROID)
-    install(TARGETS mcdk-asst-lite mcdk-asst-lite mcdk-asst-server RUNTIME DESTINATION .)
-else()
-    install(TARGETS mcdk-asst-lite mcdk-asst-lite RUNTIME DESTINATION .)
+set(MCDK_INSTALL_RUNTIME_TARGETS mcdk-assistant mcdk-asst-lite)
+if(NOT ANDROID)
+    list(APPEND MCDK_INSTALL_RUNTIME_TARGETS mcdk-asst-server)
 endif()
+install(TARGETS ${MCDK_INSTALL_RUNTIME_TARGETS} RUNTIME DESTINATION .)
+
 install(DIRECTORY dicts/ DESTINATION dicts)
-install(DIRECTORY knowledge/ DESTINATION knowledge)
+
+set(MCDK_INSTALL_CACHE_BINS
+    "${CMAKE_CURRENT_BINARY_DIR}/mcdk_index_cache.bin"
+    "${CMAKE_CURRENT_BINARY_DIR}/mcdk_sapi_index_cache.bin"
+)
+if(MCDK_WITH_SOLUTIONS)
+    list(APPEND MCDK_INSTALL_CACHE_BINS
+        "${CMAKE_CURRENT_BINARY_DIR}/mcdk_solutions_cache.bin"
+    )
+endif()
+option(MCDK_INSTALL_TOOLS "Install helper tool executables" OFF)
+install(FILES ${MCDK_INSTALL_CACHE_BINS} DESTINATION . OPTIONAL)
 
 add_subdirectory(tools)
 

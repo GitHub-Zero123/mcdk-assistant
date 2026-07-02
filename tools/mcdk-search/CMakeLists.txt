@@ -1,4 +1,5 @@
 include(FetchContent)
+set(FTXUI_ENABLE_INSTALL OFF CACHE BOOL "" FORCE)
 FetchContent_Declare(ftxui
     GIT_REPOSITORY https://github.com/ArthurSonzogni/ftxui
     GIT_TAG v6.1.9
@@ -38,4 +39,6 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Linux" AND NOT ANDROID)
     )
 endif()
 
-install(TARGETS mcdk-search RUNTIME DESTINATION .)
+if(MCDK_INSTALL_TOOLS)
+    install(TARGETS mcdk-search RUNTIME DESTINATION .)
+endif()
