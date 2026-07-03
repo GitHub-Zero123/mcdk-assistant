@@ -52,7 +52,7 @@ class Context:
         return key in self._data
 
     def to_json(self) -> dict[str, Any]:
-        return dict(self._data)
+        return self._data.copy()
 
 
 class ToolContext(Context):
@@ -114,7 +114,7 @@ class _SchemaField:
             self._data["maximum"] = maximum
 
     def to_json(self) -> dict[str, Any]:
-        return dict(self._data)
+        return self._data.copy()
 
 
 class _ArraySchema:
