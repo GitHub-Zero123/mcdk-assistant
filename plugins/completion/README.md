@@ -18,11 +18,11 @@ HELLO_SCHEMA = (
     .field("name", mcdk.schema.String("要问候的名字", default="Steve"))
 )
 
-@mcdk.tool(name="hello", description="返回一个问候", schema=HELLO_SCHEMA)
+@mcdk.tool("hello", "返回一个问候", HELLO_SCHEMA)
 def hello(args, ctx):
     return "hello " + str(args.get("name", "Steve"))
 
-@mcdk.hook(mcdk.hooks.MINECRAFT_DOCS_SEARCH_AFTER_RENDER, priority=10)
+@mcdk.hook(mcdk.hooks.MINECRAFT_DOCS_SEARCH_AFTER_RENDER, 10)
 def after_render(args, ctx):
     return None
 ```

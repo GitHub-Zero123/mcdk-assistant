@@ -43,11 +43,7 @@ def _get_doc_index(ctx):
     return DOC_INDEX
 
 
-@mcdk.tool(
-    name="demo_tech_search",
-    description="搜索 custom_search_demo 插件内置的伪技术文档。",
-    schema=SEARCH_SCHEMA,
-)
+@mcdk.tool("demo_tech_search", "搜索 custom_search_demo 插件内置的伪技术文档。", SEARCH_SCHEMA)
 def demo_tech_search(args: dict, ctx: mcdk.ToolContext):
     keyword = str(args.get("keyword", "")).strip()
     top_k = _as_int(args.get("top_k", 5), 5)

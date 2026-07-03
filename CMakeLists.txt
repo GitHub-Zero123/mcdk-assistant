@@ -196,8 +196,14 @@ if(NOT ANDROID)
     list(APPEND MCDK_INSTALL_RUNTIME_TARGETS mcdk-asst-server)
 endif()
 install(TARGETS ${MCDK_INSTALL_RUNTIME_TARGETS} RUNTIME DESTINATION .)
-install(DIRECTORY plugins/completion DESTINATION plugins-dev)
-install(DIRECTORY plugins/docs plugins/templates DESTINATION plugins-dev)
+install(DIRECTORY plugins/completion DESTINATION plugins-dev
+    PATTERN "__pycache__" EXCLUDE
+    PATTERN "*.pyc" EXCLUDE
+)
+install(DIRECTORY plugins/docs plugins/templates DESTINATION plugins-dev
+    PATTERN "__pycache__" EXCLUDE
+    PATTERN "*.pyc" EXCLUDE
+)
 install(FILES plugins/docs/plugins-directory.md DESTINATION plugins RENAME README.md)
 
 # Install is intentionally a packaging step only.
