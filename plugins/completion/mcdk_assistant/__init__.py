@@ -10,6 +10,7 @@ smoke checks.
 
 from __future__ import annotations
 
+import os as _os
 from typing import Any, Callable
 
 
@@ -41,6 +42,7 @@ class Context:
         self.priority = int(self._data.get("priority", 10))
         self.log = log
         self.search = search
+        self.fs = fs
 
     def get(self, key: str, default: Any = None) -> Any:
         return self._data.get(key, default)
@@ -298,7 +300,43 @@ class _Search:
         return idx
 
 
+class _Fs:
+    def scandir(self, path: object) -> list[dict[str, Any]]:
+        entries: list[dict[str, Any]] = []
+        with _os.scandir(str(path)) as it:
+            for item in it:
+                entries.append({
+                    "name": item.name,
+                    "path": item.path,
+                    "is_file": item.is_file(),
+                    "is_dir": item.is_dir(),
+                })
+        return entries
+
+    def listdir(self, path: object) -> list[str]:
+        return _os.listdir(str(path))
+
+    def exists(self, path: object) -> bool:
+        return _os.path.exists(str(path))
+
+    def isfile(self, path: object) -> bool:
+        return _os.path.isfile(str(path))
+
+    def isdir(self, path: object) -> bool:
+        return _os.path.isdir(str(path))
+
+    def walk(
+        self,
+        top: object,
+        topdown: bool = True,
+        onerror: Callable[[Exception], Any] | None = None,
+        followlinks: bool = False,
+    ):
+        yield from _os.walk(str(top), topdown=topdown, onerror=onerror, followlinks=followlinks)
+
+
 log = _Log()
 hooks = _Hooks()
 schema = _Schema()
 search = _Search()
+fs = _Fs()

@@ -5,6 +5,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <wchar.h>
+
+#ifdef _WIN32
+#ifndef WIN32_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN
+#endif
+#include <windows.h>
+#else
+#include <dirent.h>
+#include <sys/stat.h>
+#include <unistd.h>
+#endif
 
 static mcdk_py_config g_cfg;
 static char g_current_plugin_id[128];
@@ -20,6 +32,256 @@ static char* mcdk_strdup(const char* s) {
     if(!out) return NULL;
     memcpy(out, s, n + 1);
     return out;
+}
+
+typedef struct mcdk_buf {
+    char* data;
+    size_t len;
+    size_t cap;
+} mcdk_buf;
+
+static bool buf_reserve(mcdk_buf* b, size_t extra) {
+    size_t need = b->len + extra + 1;
+    if(need <= b->cap) return true;
+    size_t cap = b->cap ? b->cap : 256;
+    while(cap < need) cap *= 2;
+    char* next = (char*)realloc(b->data, cap);
+    if(!next) return false;
+    b->data = next;
+    b->cap = cap;
+    return true;
+}
+
+static bool buf_append_n(mcdk_buf* b, const char* s, size_t n) {
+    if(!buf_reserve(b, n)) return false;
+    memcpy(b->data + b->len, s, n);
+    b->len += n;
+    b->data[b->len] = '\0';
+    return true;
+}
+
+static bool buf_append(mcdk_buf* b, const char* s) {
+    return buf_append_n(b, s ? s : "", strlen(s ? s : ""));
+}
+
+static bool buf_append_char(mcdk_buf* b, char c) {
+    if(!buf_reserve(b, 1)) return false;
+    b->data[b->len++] = c;
+    b->data[b->len] = '\0';
+    return true;
+}
+
+static char* buf_detach(mcdk_buf* b) {
+    if(!b->data) return mcdk_strdup("");
+    char* out = b->data;
+    b->data = NULL;
+    b->len = 0;
+    b->cap = 0;
+    return out;
+}
+
+static bool json_escape_append(mcdk_buf* b, const char* s) {
+    if(!buf_append_char(b, '"')) return false;
+    if(!s) s = "";
+    for(const unsigned char* p = (const unsigned char*)s; *p; ++p) {
+        char tmp[8];
+        switch(*p) {
+        case '\\': if(!buf_append(b, "\\\\")) return false; break;
+        case '"':  if(!buf_append(b, "\\\"")) return false; break;
+        case '\b': if(!buf_append(b, "\\b")) return false; break;
+        case '\f': if(!buf_append(b, "\\f")) return false; break;
+        case '\n': if(!buf_append(b, "\\n")) return false; break;
+        case '\r': if(!buf_append(b, "\\r")) return false; break;
+        case '\t': if(!buf_append(b, "\\t")) return false; break;
+        default:
+            if(*p < 0x20) {
+                snprintf(tmp, sizeof(tmp), "\\u%04x", (unsigned int)*p);
+                if(!buf_append(b, tmp)) return false;
+            } else {
+                if(!buf_append_char(b, (char)*p)) return false;
+            }
+            break;
+        }
+    }
+    return buf_append_char(b, '"');
+}
+
+static char* join_path_utf8(const char* root, const char* name) {
+    if(!root) root = "";
+    if(!name) name = "";
+    size_t root_len = strlen(root);
+    size_t name_len = strlen(name);
+    bool has_sep = root_len > 0 && (root[root_len - 1] == '/' || root[root_len - 1] == '\\');
+    char* out = (char*)malloc(root_len + (has_sep ? 0 : 1) + name_len + 1);
+    if(!out) return NULL;
+    memcpy(out, root, root_len);
+    size_t pos = root_len;
+    if(!has_sep) out[pos++] = '/';
+    memcpy(out + pos, name, name_len);
+    out[pos + name_len] = '\0';
+    return out;
+}
+
+#ifdef _WIN32
+static wchar_t* utf8_to_wide(const char* s) {
+    if(!s) s = "";
+    int n = MultiByteToWideChar(CP_UTF8, MB_ERR_INVALID_CHARS, s, -1, NULL, 0);
+    if(n <= 0) return NULL;
+    wchar_t* out = (wchar_t*)malloc((size_t)n * sizeof(wchar_t));
+    if(!out) return NULL;
+    if(MultiByteToWideChar(CP_UTF8, MB_ERR_INVALID_CHARS, s, -1, out, n) <= 0) {
+        free(out);
+        return NULL;
+    }
+    return out;
+}
+
+static char* wide_to_utf8(const wchar_t* s) {
+    if(!s) return mcdk_strdup("");
+    int n = WideCharToMultiByte(CP_UTF8, 0, s, -1, NULL, 0, NULL, NULL);
+    if(n <= 0) return NULL;
+    char* out = (char*)malloc((size_t)n);
+    if(!out) return NULL;
+    if(WideCharToMultiByte(CP_UTF8, 0, s, -1, out, n, NULL, NULL) <= 0) {
+        free(out);
+        return NULL;
+    }
+    return out;
+}
+
+static DWORD fs_attrs_utf8(const char* path) {
+    wchar_t* w = utf8_to_wide(path);
+    if(!w) return INVALID_FILE_ATTRIBUTES;
+    DWORD attrs = GetFileAttributesW(w);
+    free(w);
+    return attrs;
+}
+
+static bool fs_exists_utf8(const char* path) {
+    return fs_attrs_utf8(path) != INVALID_FILE_ATTRIBUTES;
+}
+
+static bool fs_is_dir_utf8(const char* path) {
+    DWORD attrs = fs_attrs_utf8(path);
+    return attrs != INVALID_FILE_ATTRIBUTES && (attrs & FILE_ATTRIBUTE_DIRECTORY) != 0;
+}
+
+static bool fs_is_file_utf8(const char* path) {
+    DWORD attrs = fs_attrs_utf8(path);
+    return attrs != INVALID_FILE_ATTRIBUTES && (attrs & FILE_ATTRIBUTE_DIRECTORY) == 0;
+}
+
+static wchar_t* make_find_pattern(const wchar_t* root) {
+    size_t len = wcslen(root);
+    bool has_sep = len > 0 && (root[len - 1] == L'/' || root[len - 1] == L'\\');
+    wchar_t* out = (wchar_t*)malloc((len + (has_sep ? 1 : 2) + 1) * sizeof(wchar_t));
+    if(!out) return NULL;
+    wcscpy(out, root);
+    if(!has_sep) wcscat(out, L"\\");
+    wcscat(out, L"*");
+    return out;
+}
+#else
+static bool fs_stat_utf8(const char* path, struct stat* st) {
+    return path && stat(path, st) == 0;
+}
+
+static bool fs_exists_utf8(const char* path) {
+    struct stat st;
+    return fs_stat_utf8(path, &st);
+}
+
+static bool fs_is_dir_utf8(const char* path) {
+    struct stat st;
+    return fs_stat_utf8(path, &st) && S_ISDIR(st.st_mode);
+}
+
+static bool fs_is_file_utf8(const char* path) {
+    struct stat st;
+    return fs_stat_utf8(path, &st) && S_ISREG(st.st_mode);
+}
+#endif
+
+static char* fs_scandir_json(const char* root) {
+    const char* scan_root = (root && *root) ? root : ".";
+    mcdk_buf b = {0};
+    if(!buf_append_char(&b, '[')) return mcdk_strdup("[]");
+    bool first = true;
+
+#ifdef _WIN32
+    wchar_t* wroot = utf8_to_wide(scan_root);
+    if(!wroot) {
+        free(b.data);
+        return mcdk_strdup("[]");
+    }
+    wchar_t* pattern = make_find_pattern(wroot);
+    free(wroot);
+    if(!pattern) {
+        free(b.data);
+        return mcdk_strdup("[]");
+    }
+
+    WIN32_FIND_DATAW data;
+    HANDLE h = FindFirstFileW(pattern, &data);
+    free(pattern);
+    if(h != INVALID_HANDLE_VALUE) {
+        do {
+            if(wcscmp(data.cFileName, L".") == 0 || wcscmp(data.cFileName, L"..") == 0) continue;
+            char* name = wide_to_utf8(data.cFileName);
+            if(!name) continue;
+            char* path = join_path_utf8(scan_root, name);
+            bool is_dir = (data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) != 0;
+            bool is_file = !is_dir;
+
+            if(!first) buf_append_char(&b, ',');
+            first = false;
+            buf_append(&b, "{\"name\":");
+            json_escape_append(&b, name);
+            buf_append(&b, ",\"path\":");
+            json_escape_append(&b, path ? path : "");
+            buf_append(&b, ",\"is_file\":");
+            buf_append(&b, is_file ? "true" : "false");
+            buf_append(&b, ",\"is_dir\":");
+            buf_append(&b, is_dir ? "true" : "false");
+            buf_append_char(&b, '}');
+
+            free(path);
+            free(name);
+        } while(FindNextFileW(h, &data));
+        FindClose(h);
+    }
+#else
+    DIR* dir = opendir(scan_root);
+    if(dir) {
+        struct dirent* ent;
+        while((ent = readdir(dir)) != NULL) {
+            if(strcmp(ent->d_name, ".") == 0 || strcmp(ent->d_name, "..") == 0) continue;
+            char* path = join_path_utf8(scan_root, ent->d_name);
+            struct stat st;
+            bool ok = path && stat(path, &st) == 0;
+            bool is_dir = ok && S_ISDIR(st.st_mode);
+            bool is_file = ok && S_ISREG(st.st_mode);
+
+            if(!first) buf_append_char(&b, ',');
+            first = false;
+            buf_append(&b, "{\"name\":");
+            json_escape_append(&b, ent->d_name);
+            buf_append(&b, ",\"path\":");
+            json_escape_append(&b, path ? path : "");
+            buf_append(&b, ",\"is_file\":");
+            buf_append(&b, is_file ? "true" : "false");
+            buf_append(&b, ",\"is_dir\":");
+            buf_append(&b, is_dir ? "true" : "false");
+            buf_append_char(&b, '}');
+
+            free(path);
+        }
+        closedir(dir);
+    }
+#endif
+
+    buf_append_char(&b, ']');
+    return buf_detach(&b);
 }
 
 void mcdk_py_free(char* ptr) {
@@ -221,9 +483,44 @@ static bool native_memory_index_search(int argc, py_StackRef argv) {
     return true;
 }
 
+static bool native_fs_scandir(int argc, py_StackRef argv) {
+    PY_CHECK_ARGC(1);
+    if(!py_checkstr(py_arg(0))) return false;
+    char* json = fs_scandir_json(py_tostr(py_arg(0)));
+    if(!json) json = mcdk_strdup("[]");
+    py_newstr(py_retval(), json);
+    free(json);
+    return true;
+}
+
+static bool native_fs_exists(int argc, py_StackRef argv) {
+    PY_CHECK_ARGC(1);
+    if(!py_checkstr(py_arg(0))) return false;
+    py_newbool(py_retval(), fs_exists_utf8(py_tostr(py_arg(0))));
+    return true;
+}
+
+static bool native_fs_isfile(int argc, py_StackRef argv) {
+    PY_CHECK_ARGC(1);
+    if(!py_checkstr(py_arg(0))) return false;
+    py_newbool(py_retval(), fs_is_file_utf8(py_tostr(py_arg(0))));
+    return true;
+}
+
+static bool native_fs_isdir(int argc, py_StackRef argv) {
+    PY_CHECK_ARGC(1);
+    if(!py_checkstr(py_arg(0))) return false;
+    py_newbool(py_retval(), fs_is_dir_utf8(py_tostr(py_arg(0))));
+    return true;
+}
+
 static const char* BOOTSTRAP_SOURCE =
     "import json\n"
     "import sys\n"
+    "try:\n"
+    "    import os as _os\n"
+    "except Exception:\n"
+    "    _os = None\n"
     "_handlers = {}\n"
     "def _schema_json(schema):\n"
     "    return json.dumps(_schema_to_jsonable(schema))\n"
@@ -252,6 +549,7 @@ static const char* BOOTSTRAP_SOURCE =
     "        self.priority = int(self._data.get('priority', 10))\n"
     "        self.log = log\n"
     "        self.search = search\n"
+    "        self.fs = fs\n"
     "    def get(self, key, default=None):\n"
     "        return self._data.get(key, default)\n"
     "    def __getitem__(self, key):\n"
@@ -417,6 +715,58 @@ static const char* BOOTSTRAP_SOURCE =
     "    def warn(self, text): _native_write_output('[plugin][warn] ' + str(text) + '\\n')\n"
     "    def error(self, text): _native_write_output('[plugin][error] ' + str(text) + '\\n')\n"
     "log = _Log()\n"
+    "def _join_path(root, name):\n"
+    "    root = str(root)\n"
+    "    name = str(name)\n"
+    "    if not root:\n"
+    "        return name\n"
+    "    if root.endswith('/') or root.endswith('\\\\'):\n"
+    "        return root + name\n"
+    "    return root + '/' + name\n"
+    "class _Fs:\n"
+    "    def scandir(self, path):\n"
+    "        return json.loads(_native_fs_scandir(str(path)))\n"
+    "    def listdir(self, path):\n"
+    "        return [item.get('name', '') for item in self.scandir(path)]\n"
+    "    def exists(self, path):\n"
+    "        return bool(_native_fs_exists(str(path)))\n"
+    "    def isfile(self, path):\n"
+    "        return bool(_native_fs_isfile(str(path)))\n"
+    "    def isdir(self, path):\n"
+    "        return bool(_native_fs_isdir(str(path)))\n"
+    "    def walk(self, top, topdown=True, onerror=None, followlinks=False):\n"
+    "        stack = [str(top)]\n"
+    "        while stack:\n"
+    "            root = stack.pop()\n"
+    "            try:\n"
+    "                entries = self.scandir(root)\n"
+    "            except Exception as e:\n"
+    "                if onerror is not None:\n"
+    "                    onerror(e)\n"
+    "                continue\n"
+    "            dirs = []\n"
+    "            files = []\n"
+    "            for item in entries:\n"
+    "                name = item.get('name', '')\n"
+    "                if item.get('is_dir', False):\n"
+    "                    dirs.append(name)\n"
+    "                elif item.get('is_file', False):\n"
+    "                    files.append(name)\n"
+    "            if topdown:\n"
+    "                yield (root, dirs, files)\n"
+    "            for name in reversed(dirs):\n"
+    "                stack.append(_join_path(root, name))\n"
+    "            if not topdown:\n"
+    "                yield (root, dirs, files)\n"
+    "fs = _Fs()\n"
+    "if _os is not None:\n"
+    "    _os.walk = fs.walk\n"
+    "    _os.listdir = fs.listdir\n"
+    "    _os.scandir = fs.scandir\n"
+    "    if hasattr(_os, 'path'):\n"
+    "        _os.path.exists = fs.exists\n"
+    "        _os.path.isfile = fs.isfile\n"
+    "        _os.path.isdir = fs.isdir\n"
     "class MemoryIndex:\n"
     "    def __init__(self, mode='zh'):\n"
     "        self._handle = _native_memory_index_create(str(mode))\n"
@@ -461,6 +811,10 @@ bool mcdk_py_initialize(const mcdk_py_config* config, char** error) {
     py_bindfunc(mod, "_native_memory_index_build", native_memory_index_build);
     py_bindfunc(mod, "_native_memory_index_invalidate", native_memory_index_invalidate);
     py_bindfunc(mod, "_native_memory_index_search", native_memory_index_search);
+    py_bindfunc(mod, "_native_fs_scandir", native_fs_scandir);
+    py_bindfunc(mod, "_native_fs_exists", native_fs_exists);
+    py_bindfunc(mod, "_native_fs_isfile", native_fs_isfile);
+    py_bindfunc(mod, "_native_fs_isdir", native_fs_isdir);
 
     if(!py_exec(BOOTSTRAP_SOURCE, "<mcdk_assistant>", EXEC_MODE, mod)) {
         bool ret = set_py_error(error);

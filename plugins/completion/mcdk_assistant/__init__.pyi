@@ -6,7 +6,7 @@
 插件发布时不需要把本目录复制进插件包。
 """
 
-from typing import Any, Callable, Dict, Final, List, Mapping, Optional, Sequence, TypeVar, Union, overload
+from typing import Any, Callable, Dict, Final, Iterable, List, Mapping, Optional, Sequence, Tuple, TypeVar, Union, overload
 
 Json = Union[None, bool, int, float, str, List["Json"], Dict[str, "Json"]]
 """可被 JSON 序列化的基础值类型。插件 tool/hook 参数和返回值都按 JSON 传递。"""
@@ -57,6 +57,9 @@ class Context:
 
     search: "Search"
     """搜索能力命名空间。"""
+
+    fs: "Fs"
+    """文件系统能力命名空间。"""
 
     def get(self, key: str, default: Any = None) -> Any:
         """按字典风格读取上下文字段；建议新代码优先使用属性访问。"""
@@ -343,6 +346,54 @@ class Search:
         """
         ...
 
+class FsEntry(JsonObject):
+    """目录项信息。
+
+    `mcdk.fs.scandir(path)` 返回该结构的列表。路径和名称均为 UTF-8 字符串。
+    """
+
+    name: str
+    path: str
+    is_file: bool
+    is_dir: bool
+
+class Fs:
+    """文件系统能力命名空间。
+
+    运行时会同时补齐常用 `os` / `os.path` 写法，例如 `os.walk`、`os.listdir`、
+    `os.path.exists`、`os.path.isfile` 和 `os.path.isdir`。
+    """
+
+    def scandir(self, path: object) -> List[FsEntry]:
+        """列出目录项，一次性返回名称、完整路径、文件/目录类型。"""
+        ...
+
+    def listdir(self, path: object) -> List[str]:
+        """返回目录下的文件/目录名称列表。"""
+        ...
+
+    def exists(self, path: object) -> bool:
+        """路径是否存在。"""
+        ...
+
+    def isfile(self, path: object) -> bool:
+        """路径是否为普通文件。"""
+        ...
+
+    def isdir(self, path: object) -> bool:
+        """路径是否为目录。"""
+        ...
+
+    def walk(
+        self,
+        top: object,
+        topdown: bool = True,
+        onerror: Optional[Callable[[Exception], Any]] = None,
+        followlinks: bool = False,
+    ) -> Iterable[Tuple[str, List[str], List[str]]]:
+        """按 `os.walk` 风格递归遍历目录。"""
+        ...
+
 log: Log
 """插件日志对象。"""
 
@@ -354,6 +405,9 @@ schema: Schema
 
 search: Search
 """搜索能力命名空间，包含内存索引构建 API。"""
+
+fs: Fs
+"""文件系统能力命名空间，提供 listdir/scandir/walk/exists/isfile/isdir。"""
 
 @overload
 def register_tool(

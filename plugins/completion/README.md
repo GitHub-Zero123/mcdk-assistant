@@ -10,6 +10,10 @@
 
 最小插件示例：
 
+Runtime also provides `mcdk.fs` and patches common standard-library style APIs:
+`os.walk`, `os.listdir`, `os.scandir`, `os.path.exists`, `os.path.isfile`, and
+`os.path.isdir`. Paths exchanged with the host are UTF-8 strings.
+
 ```python
 import mcdk_assistant as mcdk
 
