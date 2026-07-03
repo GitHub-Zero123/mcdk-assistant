@@ -18,7 +18,12 @@ HELLO_SCHEMA = (
     .field("name", mcdk.schema.String("要问候的名字", default="Steve"))
 )
 
-@mcdk.tool("hello", "返回一个问候", HELLO_SCHEMA)
+@mcdk.tool(
+    "hello",
+    "返回一个问候",
+    HELLO_SCHEMA,
+    options=mcdk.ToolOptions(read_only=True, idempotent=True),
+)
 def hello(args, ctx):
     return "hello " + str(args.get("name", "Steve"))
 

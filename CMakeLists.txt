@@ -41,8 +41,11 @@ target_include_directories(stb INTERFACE
     ${CMAKE_CURRENT_SOURCE_DIR}/libs/stb
 )
 
+option(MCDK_ENABLE_PLUGINS "Enable pocketPy plugin support when pocketPy is available" ON)
+
 set(MCDK_WITH_PLUGINS OFF)
-if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/libs/pocketPy/pocketpy.c"
+if(MCDK_ENABLE_PLUGINS
+   AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/libs/pocketPy/pocketpy.c"
    AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/libs/pocketPy/pocketpy.h")
     set(MCDK_WITH_PLUGINS ON)
     add_library(pocketpy STATIC libs/pocketPy/pocketpy.c)

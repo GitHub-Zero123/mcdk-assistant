@@ -87,6 +87,38 @@ class HookContext(Context):
     priority: int
     """当前 Hook 监听器优先级。"""
 
+class ToolOptions:
+    """MCP tool 行为提示。
+
+    这些字段会映射到 MCP `annotations`。默认全为 `None`，表示不声明该提示。
+    插件作者应只在确定语义时填写，避免误导客户端的安全确认和并行调度策略。
+    """
+
+    read_only: Optional[bool]
+    """是否只读，不修改外部状态。"""
+
+    idempotent: Optional[bool]
+    """相同参数重复调用是否等价。"""
+
+    open_world: Optional[bool]
+    """是否会访问或影响外部世界、网络、文件系统等开放环境。"""
+
+    destructive: Optional[bool]
+    """是否可能执行破坏性操作。"""
+
+    def __init__(
+        self,
+        read_only: Optional[bool] = None,
+        idempotent: Optional[bool] = None,
+        open_world: Optional[bool] = None,
+        destructive: Optional[bool] = None,
+    ) -> None:
+        ...
+
+    def to_annotations(self) -> Dict[str, bool]:
+        """转换为 MCP annotations 字段名。"""
+        ...
+
 class SchemaNode:
     """JSON Schema 构建节点。
 
@@ -329,6 +361,7 @@ def register_tool(
     description: str = "",
     schema: Optional[ToolSchema] = None,
     handler: None = None,
+    options: Optional[Union[ToolOptions, Mapping[str, bool]]] = None,
 ) -> Callable[[_ToolFunc], _ToolFunc]: ...
 
 @overload
@@ -337,6 +370,7 @@ def register_tool(
     description: str = "",
     schema: Optional[ToolSchema] = None,
     handler: _ToolFunc = ...,
+    options: Optional[Union[ToolOptions, Mapping[str, bool]]] = None,
 ) -> _ToolFunc: ...
 
 def register_tool(
@@ -344,6 +378,7 @@ def register_tool(
     description: str = "",
     schema: Optional[ToolSchema] = None,
     handler: Optional[_ToolFunc] = None,
+    options: Optional[Union[ToolOptions, Mapping[str, bool]]] = None,
 ) -> Union[Callable[[_ToolFunc], _ToolFunc], _ToolFunc]:
     """注册一个 MCP tool。
 
@@ -365,6 +400,7 @@ def tool(
     name: str,
     description: str = "",
     schema: Optional[ToolSchema] = None,
+    options: Optional[Union[ToolOptions, Mapping[str, bool]]] = None,
 ) -> Callable[[_ToolFunc], _ToolFunc]:
     """`register_tool(...)` 的装饰器简写。"""
     ...

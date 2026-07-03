@@ -64,6 +64,32 @@ class HookContext(Context):
     priority: int
 
 
+class ToolOptions:
+    def __init__(
+        self,
+        read_only: bool | None = None,
+        idempotent: bool | None = None,
+        open_world: bool | None = None,
+        destructive: bool | None = None,
+    ) -> None:
+        self.read_only = read_only
+        self.idempotent = idempotent
+        self.open_world = open_world
+        self.destructive = destructive
+
+    def to_annotations(self) -> dict[str, bool]:
+        data: dict[str, bool] = {}
+        if self.read_only is not None:
+            data["readOnlyHint"] = bool(self.read_only)
+        if self.idempotent is not None:
+            data["idempotentHint"] = bool(self.idempotent)
+        if self.open_world is not None:
+            data["openWorldHint"] = bool(self.open_world)
+        if self.destructive is not None:
+            data["destructiveHint"] = bool(self.destructive)
+        return data
+
+
 def _wrap_handler(func: Callable[..., Any]) -> Callable[..., Any]:
     def wrapped(args: Any, ctx: Any) -> Any:
         if isinstance(ctx, Context):
@@ -202,15 +228,21 @@ class _Schema:
         return _ObjectSchema(properties, description)
 
 
-def register_tool(name: str, description: str = "", schema: Any = None, handler: Callable[..., Any] | None = None):
+def register_tool(
+    name: str,
+    description: str = "",
+    schema: Any = None,
+    handler: Callable[..., Any] | None = None,
+    options: ToolOptions | dict[str, bool] | None = None,
+):
     def deco(func: Callable[..., Any]) -> Callable[..., Any]:
         return func
 
     return deco if handler is None else handler
 
 
-def tool(name: str, description: str = "", schema: Any = None):
-    return register_tool(name, description, schema)
+def tool(name: str, description: str = "", schema: Any = None, options: ToolOptions | dict[str, bool] | None = None):
+    return register_tool(name, description, schema, None, options)
 
 
 def register_hook(event: str, handler: Callable[..., Any] | None = None, priority: int = 10):

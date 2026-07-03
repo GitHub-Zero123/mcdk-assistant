@@ -115,7 +115,9 @@ int main(int argc, char* argv[]) {
 
 #ifdef MCDK_WITH_PLUGINS
     auto plugin_manager = std::make_shared<mcdk::plugins::PluginManager>(exe_dir / "plugins", dicts_dir, use_stdio);
-    plugin_manager->load_all();
+    if (!plugin_manager->load_all()) {
+        plugin_manager.reset();
+    }
 #endif
 
     mcp::server::configuration conf = mcdk::app::make_server_config();

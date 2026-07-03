@@ -2,6 +2,7 @@
 
 #include <mcp_message.h>
 #include <mcp_server.h>
+#include <mcp_tool.h>
 
 #include <filesystem>
 #include <memory>
@@ -29,6 +30,7 @@ struct PluginTool {
     std::string local_name;
     std::string description;
     mcp::json schema;
+    mcp::tool_annotations annotations;
     std::string handler_key;
     size_t runtime_index = 0;
 };
@@ -63,6 +65,7 @@ public:
                   std::string name,
                   std::string description,
                   mcp::json schema,
+                  mcp::tool_annotations annotations,
                   std::string handler_key);
     void add_hook(std::string plugin_id,
                   std::string event,

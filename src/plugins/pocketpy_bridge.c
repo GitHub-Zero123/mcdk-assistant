@@ -89,22 +89,24 @@ static bool store_handler(py_Ref func, char* key, size_t key_size) {
 }
 
 static bool native_register_tool(int argc, py_StackRef argv) {
-    PY_CHECK_ARGC(4);
+    PY_CHECK_ARGC(5);
     if(!py_checkstr(py_arg(0))) return false;
     if(!py_checkstr(py_arg(1))) return false;
     if(!py_checkstr(py_arg(2))) return false;
-    if(!py_callable(py_arg(3))) {
+    if(!py_checkstr(py_arg(3))) return false;
+    if(!py_callable(py_arg(4))) {
         return TypeError("tool handler must be callable");
     }
 
     char key[192];
-    if(!store_handler(py_arg(3), key, sizeof(key))) return false;
+    if(!store_handler(py_arg(4), key, sizeof(key))) return false;
 
     if(g_cfg.register_tool) {
         g_cfg.register_tool(g_current_plugin_id,
                             py_tostr(py_arg(0)),
                             py_tostr(py_arg(1)),
                             py_tostr(py_arg(2)),
+                            py_tostr(py_arg(3)),
                             key,
                             g_cfg.userdata);
     }
@@ -281,6 +283,41 @@ static const char* BOOTSTRAP_SOURCE =
     "    if isinstance(value, list):\n"
     "        return [_schema_to_jsonable(v) for v in value]\n"
     "    return value\n"
+    "class ToolOptions:\n"
+    "    def __init__(self, read_only=None, idempotent=None, open_world=None, destructive=None):\n"
+    "        self.read_only = read_only\n"
+    "        self.idempotent = idempotent\n"
+    "        self.open_world = open_world\n"
+    "        self.destructive = destructive\n"
+    "    def to_annotations(self):\n"
+    "        out = {}\n"
+    "        if self.read_only is not None:\n"
+    "            out['readOnlyHint'] = bool(self.read_only)\n"
+    "        if self.idempotent is not None:\n"
+    "            out['idempotentHint'] = bool(self.idempotent)\n"
+    "        if self.open_world is not None:\n"
+    "            out['openWorldHint'] = bool(self.open_world)\n"
+    "        if self.destructive is not None:\n"
+    "            out['destructiveHint'] = bool(self.destructive)\n"
+    "        return out\n"
+    "def _tool_options_json(options):\n"
+    "    if options is None:\n"
+    "        return '{}'\n"
+    "    if hasattr(options, 'to_annotations'):\n"
+    "        return json.dumps(options.to_annotations())\n"
+    "    if isinstance(options, dict):\n"
+    "        out = {}\n"
+    "        pairs = [\n"
+    "            ('read_only', 'readOnlyHint'), ('readOnlyHint', 'readOnlyHint'),\n"
+    "            ('idempotent', 'idempotentHint'), ('idempotentHint', 'idempotentHint'),\n"
+    "            ('open_world', 'openWorldHint'), ('openWorldHint', 'openWorldHint'),\n"
+    "            ('destructive', 'destructiveHint'), ('destructiveHint', 'destructiveHint'),\n"
+    "        ]\n"
+    "        for src, dst in pairs:\n"
+    "            if src in options and options[src] is not None:\n"
+    "                out[dst] = bool(options[src])\n"
+    "        return json.dumps(out)\n"
+    "    return '{}'\n"
     "class _SchemaField:\n"
     "    def __init__(self, type_name, description='', required=False, default=None, enum=None, minimum=None, maximum=None):\n"
     "        self.required = bool(required)\n"
@@ -355,16 +392,16 @@ static const char* BOOTSTRAP_SOURCE =
     "    def Object(self, properties=None, description=''):\n"
     "        return _ObjectSchema(properties, description)\n"
     "schema = _Schema()\n"
-    "def register_tool(name, description='', schema=None, handler=None):\n"
+    "def register_tool(name, description='', schema=None, handler=None, options=None):\n"
     "    if handler is None:\n"
     "        def deco(func):\n"
-    "            _native_register_tool(name, description, _schema_json(schema), _wrap_handler(func))\n"
+    "            _native_register_tool(name, description, _schema_json(schema), _tool_options_json(options), _wrap_handler(func))\n"
     "            return func\n"
     "        return deco\n"
-    "    _native_register_tool(name, description, _schema_json(schema), _wrap_handler(handler))\n"
+    "    _native_register_tool(name, description, _schema_json(schema), _tool_options_json(options), _wrap_handler(handler))\n"
     "    return handler\n"
-    "def tool(name, description='', schema=None):\n"
-    "    return register_tool(name, description, schema)\n"
+    "def tool(name, description='', schema=None, options=None):\n"
+    "    return register_tool(name, description, schema, None, options)\n"
     "def register_hook(event, handler=None, priority=10):\n"
     "    if handler is None:\n"
     "        def deco(func):\n"

@@ -11,6 +11,7 @@ typedef void (*mcdk_py_register_tool_fn)(const char* plugin_id,
                                          const char* name,
                                          const char* description,
                                          const char* schema_json,
+                                         const char* annotations_json,
                                          const char* handler_key,
                                          void* userdata);
 typedef void (*mcdk_py_register_hook_fn)(const char* plugin_id,

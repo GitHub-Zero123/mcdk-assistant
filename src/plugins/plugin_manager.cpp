@@ -75,6 +75,7 @@ void bridge_register_tool(const char* plugin_id,
                           const char* name,
                           const char* description,
                           const char* schema_json,
+                          const char* annotations_json,
                           const char* handler_key,
                           void* userdata) {
     auto* self = from_userdata(userdata);
@@ -85,10 +86,31 @@ void bridge_register_tool(const char* plugin_id,
     } catch (const std::exception& e) {
         self->log_output("[plugin] invalid tool schema for " + safe_string(name) + ": " + e.what() + "\n");
     }
+    mcp::tool_annotations annotations;
+    try {
+        auto parsed = mcp::json::parse(annotations_json && *annotations_json ? annotations_json : "{}");
+        if (parsed.is_object()) {
+            if (parsed.contains("readOnlyHint") && parsed["readOnlyHint"].is_boolean()) {
+                annotations.read_only_hint = parsed["readOnlyHint"].get<bool>();
+            }
+            if (parsed.contains("idempotentHint") && parsed["idempotentHint"].is_boolean()) {
+                annotations.idempotent_hint = parsed["idempotentHint"].get<bool>();
+            }
+            if (parsed.contains("openWorldHint") && parsed["openWorldHint"].is_boolean()) {
+                annotations.open_world_hint = parsed["openWorldHint"].get<bool>();
+            }
+            if (parsed.contains("destructiveHint") && parsed["destructiveHint"].is_boolean()) {
+                annotations.destructive_hint = parsed["destructiveHint"].get<bool>();
+            }
+        }
+    } catch (const std::exception& e) {
+        self->log_output("[plugin] invalid tool annotations for " + safe_string(name) + ": " + e.what() + "\n");
+    }
     self->add_tool(safe_string(plugin_id),
                    safe_string(name),
                    safe_string(description),
                    std::move(schema),
+                   std::move(annotations),
                    safe_string(handler_key));
 }
 
@@ -316,8 +338,7 @@ void PluginManager::register_tools(mcp::server& srv) {
         tool.parameters_schema = plugin_tool.schema.is_object()
             ? plugin_tool.schema
             : mcp::json::object({{"type", "object"}});
-        tool.annotations.read_only_hint = false;
-        tool.annotations.open_world_hint = true;
+        tool.annotations = plugin_tool.annotations;
 
         srv.register_tool(tool, [this, i](const mcp::json& params, const std::string&) -> mcp::json {
             return invoke_tool(i, params);
@@ -425,6 +446,7 @@ void PluginManager::add_tool(std::string plugin_id,
                              std::string name,
                              std::string description,
                              mcp::json schema,
+                             mcp::tool_annotations annotations,
                              std::string handler_key) {
     if (plugin_id.empty() || name.empty() || handler_key.empty()) return;
     PluginTool tool;
@@ -433,6 +455,7 @@ void PluginManager::add_tool(std::string plugin_id,
     tool.public_name = tool.local_name;
     tool.description = std::move(description);
     tool.schema = std::move(schema);
+    tool.annotations = std::move(annotations);
     tool.handler_key = std::move(handler_key);
     tools_.push_back(std::move(tool));
 }
