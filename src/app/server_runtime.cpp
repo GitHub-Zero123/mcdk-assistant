@@ -4,6 +4,9 @@
 #include "search/search_service.hpp"
 #include "tools/register_minecraft_docs.hpp"
 #include "tools/register_minecraft_sapi.hpp"
+#ifdef MCDK_WITH_PLUGINS
+#include "plugins/plugin_manager.h"
+#endif
 // register_netease.hpp / register_search.hpp 经 register_minecraft_docs.hpp 间接包含
 // （其 handler 已合并进 minecraft_docs 单工具）。
 
@@ -74,6 +77,9 @@ void register_tools(mcp::server& srv,
                     const std::filesystem::path& knowledge_dir,
                     bool cache_only_mode,
                     std::shared_ptr<sapi::SapiIndex> sapi_index
+#ifdef MCDK_WITH_PLUGINS
+                    , std::shared_ptr<plugins::PluginManager> plugins
+#endif
 #ifdef MCDK_WITH_SOLUTIONS
                     , std::shared_ptr<solutions::SolutionIndex> solutions
 #endif
@@ -88,6 +94,9 @@ void register_tools(mcp::server& srv,
     //   mcdk::register_search_tools(srv, search_svc, effective_knowledge_dir);
     //   mcdk::register_netease_tools(srv);
     mcdk::register_minecraft_docs_tools(srv, search_svc, effective_knowledge_dir
+#ifdef MCDK_WITH_PLUGINS
+        , plugins
+#endif
 #ifdef MCDK_WITH_SOLUTIONS
         , solutions
 #endif
@@ -105,6 +114,11 @@ void register_tools(mcp::server& srv,
     mcdk::register_minecraft_model_tools(srv);
     mcdk::register_minecraft_animation_tools(srv);
     mcdk::register_minecraft_nbt_tools(srv);
+#endif
+#ifdef MCDK_WITH_PLUGINS
+    if (plugins) {
+        plugins->register_tools(srv);
+    }
 #endif
 }
 

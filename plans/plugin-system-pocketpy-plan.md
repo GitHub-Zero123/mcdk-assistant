@@ -20,7 +20,7 @@
 ```text
 plugins/
   hello/
-    plugin.json
+    manifest.json
     main.py
 ```
 

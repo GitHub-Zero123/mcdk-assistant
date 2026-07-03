@@ -3,6 +3,9 @@
 #include "common/path_utils.hpp"
 #include "sapi/sapi_index.hpp"
 #include "search/search_service.hpp"
+#ifdef MCDK_WITH_PLUGINS
+#include "plugins/plugin_manager.h"
+#endif
 #ifdef MCDK_WITH_SOLUTIONS
 #include <mcdk_solutions/solution_index.hpp>
 #endif
@@ -18,10 +21,10 @@
 int main(int argc, char* argv[]) {
     mcdk::app::init_console_encoding();
 
+    bool use_stdio = false;
 #ifndef MCDK_SERVER
     // 检测 --stdio 参数：使用 stdio 传输模式（兼容 VSCode / Copilot 原生 stdio MCP 接入）
     // 必须在任何 stdout 输出之前完成，避免污染协议流。
-    bool use_stdio = false;
     for (int i = 1; i < argc; ++i) {
         if (std::string(argv[i]) == "--stdio") {
             use_stdio = true;
@@ -110,12 +113,20 @@ int main(int argc, char* argv[]) {
     }
 #endif
 
+#ifdef MCDK_WITH_PLUGINS
+    auto plugin_manager = std::make_shared<mcdk::plugins::PluginManager>(exe_dir / "plugins", dicts_dir, use_stdio);
+    plugin_manager->load_all();
+#endif
+
     mcp::server::configuration conf = mcdk::app::make_server_config();
 
     mcp::server srv(conf);
 
     mcdk::app::register_server_endpoints(srv, exe_dir, conf.port);
     mcdk::app::register_tools(srv, *search_svc, knowledge_dir, cache_only_mode, sapi_index
+#ifdef MCDK_WITH_PLUGINS
+        , plugin_manager
+#endif
 #ifdef MCDK_WITH_SOLUTIONS
         , solutions_index
 #endif

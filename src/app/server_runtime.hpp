@@ -8,6 +8,9 @@
 
 namespace mcdk { class SearchService; }
 namespace mcdk::sapi { struct SapiIndex; }
+#ifdef MCDK_WITH_PLUGINS
+namespace mcdk::plugins { class PluginManager; }
+#endif
 #ifdef MCDK_WITH_SOLUTIONS
 namespace mcdk::solutions { struct SolutionIndex; }
 #endif
@@ -21,6 +24,9 @@ void register_tools(mcp::server& srv,
                     const std::filesystem::path& knowledge_dir,
                     bool cache_only_mode,
                     std::shared_ptr<sapi::SapiIndex> sapi_index = {}
+#ifdef MCDK_WITH_PLUGINS
+                    , std::shared_ptr<plugins::PluginManager> plugins = {}
+#endif
 #ifdef MCDK_WITH_SOLUTIONS
                     , std::shared_ptr<solutions::SolutionIndex> solutions = {}
 #endif

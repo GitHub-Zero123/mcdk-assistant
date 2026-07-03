@@ -10,12 +10,16 @@
 #include "tools/register_search.hpp"
 #include "tools/register_netease.hpp"
 #include "tools/register_solution.hpp"  // 空实现除非编译期启用 MCDK_WITH_SOLUTIONS
+#ifdef MCDK_WITH_PLUGINS
+#include "plugins/plugin_manager.h"
+#endif
 #include <mcp_message.h>
 #include <mcp_server.h>
 #include <mcp_tool.h>
 
 #include <climits>
 #include <filesystem>
+#include <memory>
 #include <string>
 #include <unordered_map>
 #include <utility>
@@ -55,6 +59,22 @@ inline std::string lower_ascii(std::string value) {
 
 inline mcp::json text_result(const std::string& text) {
     return {{"content", mcp::json::array({{{"type","text"},{"text", text}}})}};
+}
+
+inline std::string result_text(const mcp::json& result) {
+    if (!result.is_object() || !result.contains("content") || !result["content"].is_array()) return {};
+    std::string text;
+    for (const auto& item : result["content"]) {
+        if (!item.is_object() || item.value("type", "") != "text") continue;
+        if (!text.empty()) text += "\n\n";
+        text += item.value("text", "");
+    }
+    return text;
+}
+
+inline mcp::json replace_result_text(mcp::json result, const std::string& text) {
+    result["content"] = mcp::json::array({{{"type", "text"}, {"text", text}}});
+    return result;
 }
 
 inline const char* modsdk_arch_text() {
@@ -300,20 +320,69 @@ inline mcp::json dispatch_assets_search(SearchService& svc, const ParsedCommand&
 
 inline mcp::json dispatch_scoped_search(SearchService& svc,
                                         const ParsedCommand& pc,
-                                        const std::string& requested_scope) {
+                                        const std::string& requested_scope,
+                                        const std::string& raw_command
+#ifdef MCDK_WITH_PLUGINS
+                                        , const std::shared_ptr<plugins::PluginManager>& plugins = nullptr
+#endif
+                                        ) {
     if (pc.positional.empty())
         return error_with_help("缺少搜索关键词。");
 
     std::string scope = canonical_scope(requested_scope);
+    std::string keyword = pc.positional;
+    int top_k = flag_int(pc, "top", 6);
+
+#ifdef MCDK_WITH_PLUGINS
+    if (plugins) {
+        auto before = plugins->run_hook("minecraft_docs.search.before", {
+            {"scope", scope},
+            {"keyword", keyword},
+            {"top_k", top_k},
+            {"command", raw_command},
+        });
+        if (before.is_object()) {
+            scope = canonical_scope(before.value("scope", scope));
+            keyword = before.value("keyword", keyword);
+            top_k = before.value("top_k", top_k);
+        }
+    }
+#else
+    (void)raw_command;
+#endif
+
     SearchFn fn = search_fn_for_scope(scope);
     if (!fn)
         return error_with_help("未知搜索分区: '" + requested_scope + "'。");
 
     mcp::json params = {
-        {"keyword", pc.positional},
-        {"top_k",   flag_int(pc, "top", 6)},
+        {"keyword", keyword},
+        {"top_k",   top_k},
     };
-    return handle_search(svc, fn, params);
+    auto result = handle_search(svc, fn, params);
+
+#ifdef MCDK_WITH_PLUGINS
+    if (plugins) {
+        auto after = plugins->run_hook("minecraft_docs.search.after_render", {
+            {"scope", scope},
+            {"keyword", keyword},
+            {"top_k", top_k},
+            {"command", raw_command},
+            {"text", result_text(result)},
+            {"result", result},
+        });
+        if (after.is_object()) {
+            if (after.contains("result") && after["result"].is_object()) {
+                result = after["result"];
+            } else if (after.contains("text") && after["text"].is_string()) {
+                result = replace_result_text(std::move(result), after["text"].get<std::string>());
+            }
+        } else if (after.is_string()) {
+            result = replace_result_text(std::move(result), after.get<std::string>());
+        }
+    }
+#endif
+    return result;
 }
 
 inline mcp::json dispatch_read(const std::filesystem::path& knowledge_root,
@@ -352,6 +421,9 @@ inline bool wants_no_solution(const ParsedCommand& pc) {
 inline mcp::json dispatch_minecraft_docs(const std::filesystem::path& knowledge_root,
                                          SearchService& svc,
                                          const std::string& command
+#ifdef MCDK_WITH_PLUGINS
+                                         , const std::shared_ptr<plugins::PluginManager>& plugins
+#endif
 #ifdef MCDK_WITH_SOLUTIONS
                                          , const mcdk::solutions::SolutionIndex* solutions
 #endif
@@ -402,11 +474,19 @@ inline mcp::json dispatch_minecraft_docs(const std::filesystem::path& knowledge_
         std::string topic = lower_ascii(pc.positional);
         if (topic.empty() || topic == "diff" || topic == "jsonui" || has_flag(pc, "type"))
             return dispatch_netease(pc);
-        return maybe_append_solutions(dispatch_scoped_search(svc, pc, sub), "netease");
+        return maybe_append_solutions(dispatch_scoped_search(svc, pc, sub, command
+#ifdef MCDK_WITH_PLUGINS
+            , plugins
+#endif
+        ), "netease");
     }
 
     if (search_fn_for_scope(sub))
-        return maybe_append_solutions(dispatch_scoped_search(svc, pc, sub), canonical_scope(sub));
+        return maybe_append_solutions(dispatch_scoped_search(svc, pc, sub, command
+#ifdef MCDK_WITH_PLUGINS
+            , plugins
+#endif
+        ), canonical_scope(sub));
 
     return error_with_help("未知子命令: '" + pc.sub + "'。", with_solutions);
 }
@@ -415,6 +495,9 @@ inline mcp::json dispatch_minecraft_docs(const std::filesystem::path& knowledge_
 
 inline void register_minecraft_docs_tools(mcp::server& srv, SearchService& search_svc,
                                           const std::filesystem::path& knowledge_dir = {}
+#ifdef MCDK_WITH_PLUGINS
+                                          , std::shared_ptr<plugins::PluginManager> plugins = nullptr
+#endif
 #ifdef MCDK_WITH_SOLUTIONS
                                           , std::shared_ptr<solutions::SolutionIndex> solutions = nullptr
 #endif
@@ -441,12 +524,18 @@ inline void register_minecraft_docs_tools(mcp::server& srv, SearchService& searc
 
     srv.register_tool(tool,
         [knowledge_root, &search_svc
+#ifdef MCDK_WITH_PLUGINS
+         , plugins
+#endif
 #ifdef MCDK_WITH_SOLUTIONS
          , solutions
 #endif
         ](const mcp::json& params, const std::string&) -> mcp::json {
             std::string command = params.value("command", "");
             return minecraft_docs_detail::dispatch_minecraft_docs(knowledge_root, search_svc, command
+#ifdef MCDK_WITH_PLUGINS
+                , plugins
+#endif
 #ifdef MCDK_WITH_SOLUTIONS
                 , solutions.get()
 #endif

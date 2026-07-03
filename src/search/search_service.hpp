@@ -3,6 +3,7 @@
 #include "common/path_utils.hpp"
 #include "search/bm25.hpp"
 #include "search/index_cache.hpp"
+#include "search/search_text.hpp"
 #include <cppjieba/Jieba.hpp>
 #include <string>
 #include <vector>
@@ -36,19 +37,13 @@ public:
                   const std::filesystem::path& knowledge_dir,
                   const std::filesystem::path& cache_path = {},
                   bool force_rebuild_cache = false)
-        : jieba_(std::make_unique<cppjieba::Jieba>(
-            fs_to_ansi(dicts_dir / "jieba.dict.utf8"),
-            fs_to_ansi(dicts_dir / "hmm_model.utf8"),
-            fs_to_ansi(dicts_dir / "user.dict.utf8"),
-            fs_to_ansi(dicts_dir / "idf.utf8"),
-            fs_to_ansi(dicts_dir / "stop_words.utf8")
-          ))
+        : jieba_(search_text::make_jieba(dicts_dir))
         , knowledge_dir_(knowledge_dir)
         , cache_path_(cache_path)
         , force_rebuild_cache_(force_rebuild_cache)
         , cache_only_mode_(false)
     {
-        this->load_stop_words(dicts_dir / "stop_words.utf8");
+        stop_words_ = search_text::load_stop_words(dicts_dir / "stop_words.utf8");
         init_indices();
     }
 
@@ -56,18 +51,12 @@ public:
     SearchService(const std::filesystem::path& dicts_dir,
                   const std::filesystem::path& cache_path,
                   bool cache_only)
-        : jieba_(std::make_unique<cppjieba::Jieba>(
-            fs_to_ansi(dicts_dir / "jieba.dict.utf8"),
-            fs_to_ansi(dicts_dir / "hmm_model.utf8"),
-            fs_to_ansi(dicts_dir / "user.dict.utf8"),
-            fs_to_ansi(dicts_dir / "idf.utf8"),
-            fs_to_ansi(dicts_dir / "stop_words.utf8")
-          ))
+        : jieba_(search_text::make_jieba(dicts_dir))
         , cache_path_(cache_path)
         , force_rebuild_cache_(false)
         , cache_only_mode_(cache_only)
     {
-        this->load_stop_words(dicts_dir / "stop_words.utf8");
+        stop_words_ = search_text::load_stop_words(dicts_dir / "stop_words.utf8");
         init_indices();
     }
 
@@ -776,16 +765,7 @@ private:
     }
 
     static bool looks_english_query(const std::string& text) {
-        bool has_ascii_alnum = false;
-        bool has_non_ascii = false;
-        for (unsigned char c : text) {
-            if (c >= 128) {
-                has_non_ascii = true;
-                continue;
-            }
-            if (std::isalnum(c) || c == '_') has_ascii_alnum = true;
-        }
-        return has_ascii_alnum && !has_non_ascii;
+        return search_text::looks_english_query(text);
     }
 
     static bool is_precise_identifier_query(const std::string& text) {
@@ -908,22 +888,7 @@ private:
     }
 
     static void normalize_tokens(std::vector<std::string>& tokens) {
-        std::vector<std::string> normalized;
-        normalized.reserve(tokens.size());
-        std::unordered_set<std::string> seen;
-        for (auto& token : tokens) {
-            if (token.empty()) continue;
-            std::string lowered;
-            lowered.reserve(token.size());
-            for (unsigned char c : token) {
-                if (c < 128) lowered.push_back(static_cast<char>(std::tolower(c)));
-                else lowered.push_back(static_cast<char>(c));
-            }
-            if (seen.insert(lowered).second) {
-                normalized.push_back(std::move(lowered));
-            }
-        }
-        tokens.swap(normalized);
+        search_text::normalize_tokens(tokens);
     }
 
     static std::string make_asset_path_snippet(const std::string& rel_path) {
@@ -966,38 +931,15 @@ private:
 
     // ── 分词 ──
     void load_stop_words(const std::filesystem::path& path) {
-        std::ifstream ifs(path);
-        if (!ifs.is_open()) return;
-        std::string line;
-        while (std::getline(ifs, line)) {
-            if (!line.empty() && line.back() == '\r') line.pop_back();
-            if (!line.empty()) stop_words_.insert(line);
-        }
+        stop_words_ = search_text::load_stop_words(path);
     }
 
     void tokenize(const std::string& text, std::vector<std::string>& tokens) const {
-        std::vector<std::string> raw;
-        jieba_->CutForSearch(text, raw);
-        tokens.clear();
-        for (auto& w : raw) {
-            if (w.empty() || w == " " || w == "\t" || w == "\n") continue;
-            if (stop_words_.count(w)) continue;
-            tokens.push_back(std::move(w));
-        }
+        search_text::tokenize_zh(*jieba_, stop_words_, text, tokens);
     }
 
     static void tokenize_en(const std::string& text, std::vector<std::string>& tokens) {
-        tokens.clear();
-        std::string word;
-        for (char c : text) {
-            if (std::isalnum(static_cast<unsigned char>(c)) || c == '_') {
-                word += static_cast<char>(std::tolower(static_cast<unsigned char>(c)));
-            } else if (!word.empty()) {
-                tokens.push_back(std::move(word));
-                word.clear();
-            }
-        }
-        if (!word.empty()) tokens.push_back(std::move(word));
+        search_text::tokenize_en(text, tokens);
     }
 
     void load_knowledge_parallel() {

@@ -41,6 +41,31 @@ target_include_directories(stb INTERFACE
     ${CMAKE_CURRENT_SOURCE_DIR}/libs/stb
 )
 
+set(MCDK_WITH_PLUGINS OFF)
+if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/libs/pocketPy/pocketpy.c"
+   AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/libs/pocketPy/pocketpy.h")
+    set(MCDK_WITH_PLUGINS ON)
+    add_library(pocketpy STATIC libs/pocketPy/pocketpy.c)
+    target_include_directories(pocketpy PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}/libs/pocketPy
+    )
+    set_target_properties(pocketpy PROPERTIES
+        C_STANDARD 11
+        C_STANDARD_REQUIRED ON
+    )
+
+    add_library(mcdk_pocketpy_bridge STATIC src/plugins/pocketpy_bridge.c)
+    target_include_directories(mcdk_pocketpy_bridge PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}/src
+        ${CMAKE_CURRENT_SOURCE_DIR}/libs/pocketPy
+    )
+    set_target_properties(mcdk_pocketpy_bridge PROPERTIES
+        C_STANDARD 11
+        C_STANDARD_REQUIRED ON
+    )
+    target_link_libraries(mcdk_pocketpy_bridge PUBLIC pocketpy)
+endif()
+
 file(GLOB_RECURSE MCDK_SOURCES
     src/*.cpp
 )
@@ -52,6 +77,13 @@ set(MCDK_LITE_SOURCES
     src/project_analysis/project_analyzer.cpp
     src/sapi/sapi_index.cpp
 )
+
+if(MCDK_WITH_PLUGINS)
+    list(APPEND MCDK_LITE_SOURCES
+        src/plugins/plugin_manager.cpp
+        src/search/memory_search_index.cpp
+    )
+endif()
 
 # 平台处理函数封装
 function(mcdk_apply_platform_options target_name)
@@ -96,6 +128,11 @@ function(mcdk_add_target target_name)
 
     if(MCDK_TARGET_WITH_STB)
         target_link_libraries(${target_name} PRIVATE stb)
+    endif()
+
+    if(MCDK_WITH_PLUGINS)
+        target_link_libraries(${target_name} PRIVATE mcdk_pocketpy_bridge)
+        target_compile_definitions(${target_name} PRIVATE MCDK_WITH_PLUGINS)
     endif()
 
     if(MCDK_TARGET_DEFINITIONS)
@@ -156,6 +193,7 @@ if(NOT ANDROID)
     list(APPEND MCDK_INSTALL_RUNTIME_TARGETS mcdk-asst-server)
 endif()
 install(TARGETS ${MCDK_INSTALL_RUNTIME_TARGETS} RUNTIME DESTINATION .)
+install(DIRECTORY plugin/ DESTINATION plugin)
 
 # Install is intentionally a packaging step only.
 # Recommended flow:
