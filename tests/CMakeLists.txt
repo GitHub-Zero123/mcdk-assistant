@@ -75,3 +75,18 @@ target_link_libraries(nbt_test PRIVATE nlohmann_json::nlohmann_json)
 target_compile_definitions(nbt_test PRIVATE
     MCDK_KNOWLEDGE_DIR="${CMAKE_CURRENT_SOURCE_DIR}/../knowledge"
 )
+
+if(TARGET mcdk_pocketpy_bridge)
+    add_executable(plugin_fs_smoke_test plugin_fs_smoke_test.cpp)
+    target_include_directories(plugin_fs_smoke_test PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/../src
+    )
+    target_compile_features(plugin_fs_smoke_test PRIVATE cxx_std_20)
+    if(MSVC)
+        target_compile_options(plugin_fs_smoke_test PRIVATE /utf-8 /EHsc)
+    endif()
+    target_link_libraries(plugin_fs_smoke_test PRIVATE mcdk_pocketpy_bridge)
+    if(WIN32)
+        target_link_libraries(plugin_fs_smoke_test PRIVATE ws2_32)
+    endif()
+endif()
