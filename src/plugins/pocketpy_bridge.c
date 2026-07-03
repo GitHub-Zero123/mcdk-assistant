@@ -10,6 +10,8 @@ static mcdk_py_config g_cfg;
 static char g_current_plugin_id[128];
 static char g_current_plugin_dir[1024];
 static int g_next_handler_id = 1;
+static bool g_initialized = false;
+static bool g_finalized = false;
 
 static char* mcdk_strdup(const char* s) {
     if(!s) s = "";
@@ -404,8 +406,11 @@ static const char* BOOTSTRAP_SOURCE =
     "search = _Search()\n";
 
 bool mcdk_py_initialize(const mcdk_py_config* config, char** error) {
+    if(g_finalized) return set_error(error, "pocketPy VM was already finalized");
+    if(g_initialized) return true;
     if(config) g_cfg = *config;
     py_initialize();
+    g_initialized = true;
     py_callbacks()->print = bridge_print;
     py_callbacks()->flush = bridge_flush;
 
@@ -421,13 +426,18 @@ bool mcdk_py_initialize(const mcdk_py_config* config, char** error) {
     py_bindfunc(mod, "_native_memory_index_search", native_memory_index_search);
 
     if(!py_exec(BOOTSTRAP_SOURCE, "<mcdk_assistant>", EXEC_MODE, mod)) {
-        return set_py_error(error);
+        bool ret = set_py_error(error);
+        mcdk_py_finalize();
+        return ret;
     }
     return true;
 }
 
 void mcdk_py_finalize(void) {
+    if(!g_initialized || g_finalized) return;
     py_finalize();
+    g_initialized = false;
+    g_finalized = true;
     memset(&g_cfg, 0, sizeof(g_cfg));
 }
 

@@ -196,7 +196,6 @@ bool PluginManager::load_all() {
     namespace fs = std::filesystem;
     std::lock_guard<std::mutex> lock(vm_mutex_);
     if (!fs::exists(plugins_dir_) || !fs::is_directory(plugins_dir_)) return false;
-    if (!ensure_vm()) return false;
 
     std::vector<fs::path> dirs;
     for (const auto& entry : fs::directory_iterator(plugins_dir_)) {
@@ -218,6 +217,7 @@ void PluginManager::load_plugin_dir(const std::filesystem::path& dir) {
         log_output("[plugin] skip " + mcdk::path::to_utf8(dir) + ": " + error + "\n");
         return;
     }
+    if (!ensure_vm()) return;
 
     auto runtime = std::make_unique<Runtime>();
     runtime->manifest = std::move(manifest);
