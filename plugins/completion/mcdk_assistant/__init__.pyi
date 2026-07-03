@@ -6,7 +6,7 @@
 插件发布时不需要把本目录复制进插件包。
 """
 
-from typing import Callable, Dict, Final, List, Mapping, Optional, Sequence, TypeVar, Union, overload
+from typing import Any, Callable, Dict, Final, List, Mapping, Optional, Sequence, TypeVar, Union, overload
 
 Json = Union[None, bool, int, float, str, List["Json"], Dict[str, "Json"]]
 """可被 JSON 序列化的基础值类型。插件 tool/hook 参数和返回值都按 JSON 传递。"""
@@ -14,10 +14,13 @@ Json = Union[None, bool, int, float, str, List["Json"], Dict[str, "Json"]]
 JsonObject = Dict[str, Json]
 """JSON 对象类型。"""
 
-ToolHandler = Callable[[JsonObject, JsonObject], Json]
+ToolHandler = Callable[[JsonObject, "ToolContext"], Json]
 """工具处理函数签名：`handler(args, ctx) -> result`。"""
 
-HookHandler = Callable[[JsonObject, JsonObject], Optional[Json]]
+ToolSchema = Union[Mapping[str, Json], "SchemaNode"]
+"""tool inputSchema。可传原始 JSON Schema，也可传 `mcdk.schema` 构建出的对象。"""
+
+HookHandler = Callable[[JsonObject, "HookContext"], Optional[Json]]
 """Hook 处理函数签名：返回 `None` 表示不修改数据，返回 JSON 表示替换当前 payload。"""
 
 _ToolFunc = TypeVar("_ToolFunc", bound=ToolHandler)
@@ -35,6 +38,143 @@ class Hooks:
 
     MINECRAFT_DOCS_SEARCH_AFTER_RENDER: Final[str]
     """Minecraft 文档搜索渲染后事件，可改写最终 `text` 或 `result`。"""
+
+class Context:
+    """插件 handler 的上下文对象基类。
+
+    上下文优先使用属性访问，例如 `ctx.plugin_id`、`ctx.plugin_dir`。
+    为兼容旧写法，也保留 `ctx.get(...)` 和 `ctx["..."]`。
+    """
+
+    plugin_id: str
+    """当前插件 id。"""
+
+    plugin_dir: str
+    """当前插件目录绝对路径。"""
+
+    log: "Log"
+    """插件日志接口。"""
+
+    search: "Search"
+    """搜索能力命名空间。"""
+
+    def get(self, key: str, default: Any = None) -> Any:
+        """按字典风格读取上下文字段；建议新代码优先使用属性访问。"""
+        ...
+
+    def __getitem__(self, key: str) -> Any:
+        ...
+
+    def __contains__(self, key: str) -> bool:
+        ...
+
+    def to_json(self) -> JsonObject:
+        """返回上下文原始 JSON 对象副本。"""
+        ...
+
+class ToolContext(Context):
+    """tool handler 上下文。"""
+
+    tool: str
+    """当前 tool 的本地名称。"""
+
+class HookContext(Context):
+    """hook handler 上下文。"""
+
+    event: str
+    """当前 Hook 事件名。"""
+
+    priority: int
+    """当前 Hook 监听器优先级。"""
+
+class SchemaNode:
+    """JSON Schema 构建节点。
+
+    插件作者一般不直接实例化该类，而是使用 `mcdk.schema.String(...)`、
+    `mcdk.schema.Integer(...)`、`mcdk.schema.Object().field(...)` 等工厂方法。
+    """
+
+    def to_json(self) -> JsonObject:
+        """转换为引擎注册 tool 时使用的 JSON Schema 对象。"""
+        ...
+
+class ObjectSchema(SchemaNode):
+    """对象 schema，支持链式追加字段。"""
+
+    def field(self, name: str, schema: SchemaNode, required: Optional[bool] = None) -> "ObjectSchema":
+        """追加一个属性字段；`required=None` 时会读取字段自身的 required 标记。"""
+        ...
+
+    def require(self, *names: str) -> "ObjectSchema":
+        """把已有字段标记为必填。"""
+        ...
+
+class Schema:
+    """面向对象的 tool inputSchema 构建器。
+
+    示例：
+        `mcdk.schema.Object().field("keyword", mcdk.schema.String("关键词", required=True))`
+    """
+
+    def String(
+        self,
+        description: str = "",
+        required: bool = False,
+        default: Optional[str] = None,
+        enum: Optional[Sequence[str]] = None,
+    ) -> SchemaNode:
+        """字符串字段。"""
+        ...
+
+    def Integer(
+        self,
+        description: str = "",
+        required: bool = False,
+        default: Optional[int] = None,
+        enum: Optional[Sequence[int]] = None,
+        minimum: Optional[int] = None,
+        maximum: Optional[int] = None,
+    ) -> SchemaNode:
+        """整数字段。"""
+        ...
+
+    def Number(
+        self,
+        description: str = "",
+        required: bool = False,
+        default: Optional[float] = None,
+        enum: Optional[Sequence[float]] = None,
+        minimum: Optional[float] = None,
+        maximum: Optional[float] = None,
+    ) -> SchemaNode:
+        """数字字段。"""
+        ...
+
+    def Boolean(
+        self,
+        description: str = "",
+        required: bool = False,
+        default: Optional[bool] = None,
+    ) -> SchemaNode:
+        """布尔字段。"""
+        ...
+
+    def Array(
+        self,
+        items: Optional[SchemaNode] = None,
+        description: str = "",
+        required: bool = False,
+    ) -> SchemaNode:
+        """数组字段。"""
+        ...
+
+    def Object(
+        self,
+        properties: Optional[Mapping[str, SchemaNode]] = None,
+        description: str = "",
+    ) -> ObjectSchema:
+        """对象字段或 tool 顶层 inputSchema。"""
+        ...
 
 class Log:
     """插件日志接口。
@@ -177,6 +317,9 @@ log: Log
 hooks: Hooks
 """内置 Hook 事件名常量命名空间。"""
 
+schema: Schema
+"""tool inputSchema 构建器，避免手写 JSON Schema 字典。"""
+
 search: Search
 """搜索能力命名空间，包含内存索引构建 API。"""
 
@@ -184,7 +327,7 @@ search: Search
 def register_tool(
     name: str,
     description: str = "",
-    schema: Optional[Mapping[str, Json]] = None,
+    schema: Optional[ToolSchema] = None,
     handler: None = None,
 ) -> Callable[[_ToolFunc], _ToolFunc]: ...
 
@@ -192,14 +335,14 @@ def register_tool(
 def register_tool(
     name: str,
     description: str = "",
-    schema: Optional[Mapping[str, Json]] = None,
+    schema: Optional[ToolSchema] = None,
     handler: _ToolFunc = ...,
 ) -> _ToolFunc: ...
 
 def register_tool(
     name: str,
     description: str = "",
-    schema: Optional[Mapping[str, Json]] = None,
+    schema: Optional[ToolSchema] = None,
     handler: Optional[_ToolFunc] = None,
 ) -> Union[Callable[[_ToolFunc], _ToolFunc], _ToolFunc]:
     """注册一个 MCP tool。
@@ -221,7 +364,7 @@ def register_tool(
 def tool(
     name: str,
     description: str = "",
-    schema: Optional[Mapping[str, Json]] = None,
+    schema: Optional[ToolSchema] = None,
 ) -> Callable[[_ToolFunc], _ToolFunc]:
     """`register_tool(...)` 的装饰器简写。"""
     ...

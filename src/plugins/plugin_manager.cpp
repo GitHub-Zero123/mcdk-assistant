@@ -330,8 +330,13 @@ mcp::json PluginManager::invoke_tool(size_t tool_index, const mcp::json& params)
         throw mcp::mcp_exception(mcp::error_code::invalid_params, "plugin tool not found");
     }
     const auto& tool = tools_[tool_index];
+    std::string plugin_dir;
+    if (auto it = runtime_by_plugin_id_.find(tool.plugin_id); it != runtime_by_plugin_id_.end() && it->second < runtimes_.size()) {
+        plugin_dir = mcdk::path::to_utf8(runtimes_[it->second]->manifest.dir);
+    }
     mcp::json ctx = {
         {"plugin_id", tool.plugin_id},
+        {"plugin_dir", plugin_dir},
         {"tool", tool.local_name},
     };
 
@@ -373,8 +378,13 @@ mcp::json PluginManager::run_hook(const std::string& event, const mcp::json& pay
 
 mcp::json PluginManager::call_hook(const PluginHook& hook, const mcp::json& payload, bool& modified) {
     modified = false;
+    std::string plugin_dir;
+    if (auto it = runtime_by_plugin_id_.find(hook.plugin_id); it != runtime_by_plugin_id_.end() && it->second < runtimes_.size()) {
+        plugin_dir = mcdk::path::to_utf8(runtimes_[it->second]->manifest.dir);
+    }
     mcp::json ctx = {
         {"plugin_id", hook.plugin_id},
+        {"plugin_dir", plugin_dir},
         {"event", hook.event},
         {"priority", hook.priority},
     };
