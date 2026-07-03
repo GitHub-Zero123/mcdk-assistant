@@ -120,7 +120,7 @@ hook 也使用 decorator：
 ```python
 import mcdk_assistant as mcdk
 
-@mcdk.hook("docs.search.after_render")
+@mcdk.hook(mcdk.hooks.MINECRAFT_DOCS_SEARCH_AFTER_RENDER)
 def append_note(args, ctx):
     text = args["text"]
     args["text"] = text + "\n\n[plugin note] custom reminder"
@@ -130,7 +130,7 @@ def append_note(args, ctx):
 如果不修改数据，返回 `None`：
 
 ```python
-@mcdk.hook("docs.search.after_render")
+@mcdk.hook(mcdk.hooks.MINECRAFT_DOCS_SEARCH_AFTER_RENDER)
 def observe(args, ctx):
     print("scope =", args.get("scope"))
     return None
@@ -145,7 +145,7 @@ hook 语义：
 可选支持优先级：
 
 ```python
-@mcdk.hook("docs.search.after_render", priority=100)
+@mcdk.hook(mcdk.hooks.MINECRAFT_DOCS_SEARCH_AFTER_RENDER, priority=100)
 def rewrite(args, ctx):
     return args
 ```
@@ -160,11 +160,11 @@ def rewrite(args, ctx):
 示例：
 
 ```python
-@mcdk.hook("docs.search.before_query", priority=0)
+@mcdk.hook(mcdk.hooks.MINECRAFT_DOCS_SEARCH_BEFORE, priority=0)
 def earliest(args, ctx):
     return args
 
-@mcdk.hook("docs.search.before_query")
+@mcdk.hook(mcdk.hooks.MINECRAFT_DOCS_SEARCH_BEFORE)
 def normal(args, ctx):
     return None
 ```
@@ -254,7 +254,7 @@ parse command
 插件可以返回修改后的 dict：
 
 ```python
-@mcdk.hook("docs.search.before_query")
+@mcdk.hook(mcdk.hooks.MINECRAFT_DOCS_SEARCH_BEFORE)
 def expand_query(args, ctx):
     if args["keyword"] == "food":
         args["keyword"] = "custom food item"
@@ -307,7 +307,7 @@ def expand_query(args, ctx):
 插件可改写最终文本：
 
 ```python
-@mcdk.hook("docs.search.after_render")
+@mcdk.hook(mcdk.hooks.MINECRAFT_DOCS_SEARCH_AFTER_RENDER)
 def append_team_rule(args, ctx):
     if args.get("scope") == "netease":
         args["text"] += "\n\n团队规范：示例代码优先使用项目已有封装。"

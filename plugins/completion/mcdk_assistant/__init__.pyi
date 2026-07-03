@@ -6,7 +6,7 @@
 插件发布时不需要把本目录复制进插件包。
 """
 
-from typing import Callable, Dict, List, Mapping, Optional, Sequence, TypeVar, Union, overload
+from typing import Callable, Dict, Final, List, Mapping, Optional, Sequence, TypeVar, Union, overload
 
 Json = Union[None, bool, int, float, str, List["Json"], Dict[str, "Json"]]
 """可被 JSON 序列化的基础值类型。插件 tool/hook 参数和返回值都按 JSON 传递。"""
@@ -22,6 +22,19 @@ HookHandler = Callable[[JsonObject, JsonObject], Optional[Json]]
 
 _ToolFunc = TypeVar("_ToolFunc", bound=ToolHandler)
 _HookFunc = TypeVar("_HookFunc", bound=HookHandler)
+
+class Hooks:
+    """内置 Hook 事件名常量。
+
+    插件代码应优先引用这里的常量，不要手写事件字符串，避免拼写错误或事件名调整
+    时漏改。
+    """
+
+    MINECRAFT_DOCS_SEARCH_BEFORE: Final[str]
+    """Minecraft 文档搜索前事件，可改写 `scope`、`keyword`、`top_k`。"""
+
+    MINECRAFT_DOCS_SEARCH_AFTER_RENDER: Final[str]
+    """Minecraft 文档搜索渲染后事件，可改写最终 `text` 或 `result`。"""
 
 class Log:
     """插件日志接口。
@@ -161,6 +174,9 @@ class Search:
 log: Log
 """插件日志对象。"""
 
+hooks: Hooks
+"""内置 Hook 事件名常量命名空间。"""
+
 search: Search
 """搜索能力命名空间，包含内存索引构建 API。"""
 
@@ -232,8 +248,8 @@ def register_hook(
     """注册一个 Hook 监听器。
 
     Args:
-        event: Hook 事件名，例如 `"minecraft_docs.search.before"` 或
-            `"minecraft_docs.search.after_render"`。
+        event: Hook 事件名，优先使用 `mcdk.hooks.MINECRAFT_DOCS_SEARCH_BEFORE`
+            或 `mcdk.hooks.MINECRAFT_DOCS_SEARCH_AFTER_RENDER` 等常量。
         handler: 可选处理函数；省略时返回装饰器。
         priority: 执行优先级，默认 `10`；越小越先执行，最低建议为 `0`。
 

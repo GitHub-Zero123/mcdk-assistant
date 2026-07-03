@@ -53,6 +53,9 @@ if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/libs/pocketPy/pocketpy.c"
         C_STANDARD 11
         C_STANDARD_REQUIRED ON
     )
+    target_compile_options(pocketpy PRIVATE
+        $<$<C_COMPILER_ID:MSVC>:/experimental:c11atomics>
+    )
 
     add_library(mcdk_pocketpy_bridge STATIC src/plugins/pocketpy_bridge.c)
     target_include_directories(mcdk_pocketpy_bridge PUBLIC
@@ -193,7 +196,9 @@ if(NOT ANDROID)
     list(APPEND MCDK_INSTALL_RUNTIME_TARGETS mcdk-asst-server)
 endif()
 install(TARGETS ${MCDK_INSTALL_RUNTIME_TARGETS} RUNTIME DESTINATION .)
-install(DIRECTORY plugin/ DESTINATION plugin)
+install(DIRECTORY plugins/completion DESTINATION plugins-dev)
+install(DIRECTORY plugins/docs plugins/templates DESTINATION plugins-dev)
+install(FILES plugins/docs/plugins-directory.md DESTINATION plugins RENAME README.md)
 
 # Install is intentionally a packaging step only.
 # Recommended flow:

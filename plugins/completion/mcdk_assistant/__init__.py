@@ -24,6 +24,11 @@ class _Log:
         print(f"[plugin][error] {text}")
 
 
+class _Hooks:
+    MINECRAFT_DOCS_SEARCH_BEFORE = "minecraft_docs.search.before"
+    MINECRAFT_DOCS_SEARCH_AFTER_RENDER = "minecraft_docs.search.after_render"
+
+
 def register_tool(name: str, description: str = "", schema: dict[str, Any] | None = None, handler: Callable[..., Any] | None = None):
     def deco(func: Callable[..., Any]) -> Callable[..., Any]:
         return func
@@ -89,4 +94,5 @@ class _Search:
 
 
 log = _Log()
+hooks = _Hooks()
 search = _Search()
