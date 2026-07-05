@@ -364,6 +364,14 @@ class Fs:
     `os.path.exists`、`os.path.isfile` 和 `os.path.isdir`。
     """
 
+    def read_text(self, path: object) -> str:
+        """按 UTF-8 文本读取文件内容。运行时由宿主侧文件系统实现处理中文路径。"""
+        ...
+
+    def write_text(self, path: object, text: object, append: bool = False) -> None:
+        """按 UTF-8 文本写入文件；`append=True` 时追加到文件末尾。"""
+        ...
+
     def scandir(self, path: object) -> List[FsEntry]:
         """列出目录项，一次性返回名称、完整路径、文件/目录类型。"""
         ...
@@ -407,7 +415,7 @@ search: Search
 """搜索能力命名空间，包含内存索引构建 API。"""
 
 fs: Fs
-"""文件系统能力命名空间，提供 listdir/scandir/walk/exists/isfile/isdir。"""
+"""文件系统能力命名空间，提供 read_text/write_text/listdir/scandir/walk/exists/isfile/isdir。"""
 
 @overload
 def register_tool(

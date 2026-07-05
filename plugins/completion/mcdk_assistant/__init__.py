@@ -301,6 +301,15 @@ class _Search:
 
 
 class _Fs:
+    def read_text(self, path: object) -> str:
+        with open(str(path), "r", encoding="utf-8") as f:
+            return f.read()
+
+    def write_text(self, path: object, text: object, append: bool = False) -> None:
+        mode = "a" if append else "w"
+        with open(str(path), mode, encoding="utf-8") as f:
+            f.write(str(text))
+
     def scandir(self, path: object) -> list[dict[str, Any]]:
         entries: list[dict[str, Any]] = []
         with _os.scandir(str(path)) as it:

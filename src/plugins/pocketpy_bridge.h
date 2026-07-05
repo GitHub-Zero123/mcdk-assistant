@@ -38,6 +38,10 @@ typedef char* (*mcdk_py_memory_index_search_fn)(int handle,
                                                 const char* keyword,
                                                 int top_k,
                                                 void* userdata);
+typedef char* (*mcdk_py_read_text_file_fn)(const char* path, void* userdata);
+typedef bool (*mcdk_py_write_text_file_fn)(const char* path, const char* text, bool append, void* userdata);
+typedef char* (*mcdk_py_fs_scandir_fn)(const char* path, void* userdata);
+typedef bool (*mcdk_py_fs_path_test_fn)(const char* path, void* userdata);
 
 typedef struct mcdk_py_config {
     bool stdio_mode;
@@ -51,6 +55,12 @@ typedef struct mcdk_py_config {
     mcdk_py_memory_index_build_fn memory_index_build;
     mcdk_py_memory_index_invalidate_fn memory_index_invalidate;
     mcdk_py_memory_index_search_fn memory_index_search;
+    mcdk_py_read_text_file_fn read_text_file;
+    mcdk_py_write_text_file_fn write_text_file;
+    mcdk_py_fs_scandir_fn fs_scandir;
+    mcdk_py_fs_path_test_fn fs_exists;
+    mcdk_py_fs_path_test_fn fs_is_file;
+    mcdk_py_fs_path_test_fn fs_is_dir;
 } mcdk_py_config;
 
 bool mcdk_py_initialize(const mcdk_py_config* config, char** error);

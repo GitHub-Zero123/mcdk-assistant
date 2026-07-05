@@ -5,22 +5,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <wchar.h>
-
-#ifdef _WIN32
-#ifndef WIN32_LEAN_AND_MEAN
-#define WIN32_LEAN_AND_MEAN
-#endif
-#include <windows.h>
-#else
-#include <dirent.h>
-#include <sys/stat.h>
-#include <unistd.h>
-#endif
 
 static mcdk_py_config g_cfg;
-static char g_current_plugin_id[128];
-static char g_current_plugin_dir[1024];
+static char* g_current_plugin_id = NULL;
+static char* g_current_plugin_dir = NULL;
 static int g_next_handler_id = 1;
 static bool g_initialized = false;
 static bool g_finalized = false;
@@ -34,258 +22,48 @@ static char* mcdk_strdup(const char* s) {
     return out;
 }
 
-typedef struct mcdk_buf {
-    char* data;
-    size_t len;
-    size_t cap;
-} mcdk_buf;
-
-static bool buf_reserve(mcdk_buf* b, size_t extra) {
-    size_t need = b->len + extra + 1;
-    if(need <= b->cap) return true;
-    size_t cap = b->cap ? b->cap : 256;
-    while(cap < need) cap *= 2;
-    char* next = (char*)realloc(b->data, cap);
-    if(!next) return false;
-    b->data = next;
-    b->cap = cap;
-    return true;
+void mcdk_py_free(char* ptr) {
+    free(ptr);
 }
 
-static bool buf_append_n(mcdk_buf* b, const char* s, size_t n) {
-    if(!buf_reserve(b, n)) return false;
-    memcpy(b->data + b->len, s, n);
-    b->len += n;
-    b->data[b->len] = '\0';
-    return true;
+static void set_current_plugin(const char* plugin_id, const char* plugin_dir) {
+    free(g_current_plugin_id);
+    free(g_current_plugin_dir);
+    g_current_plugin_id = mcdk_strdup(plugin_id ? plugin_id : "");
+    g_current_plugin_dir = mcdk_strdup(plugin_dir ? plugin_dir : "");
 }
 
-static bool buf_append(mcdk_buf* b, const char* s) {
-    return buf_append_n(b, s ? s : "", strlen(s ? s : ""));
+static const char* current_plugin_id(void) {
+    return g_current_plugin_id ? g_current_plugin_id : "";
 }
 
-static bool buf_append_char(mcdk_buf* b, char c) {
-    if(!buf_reserve(b, 1)) return false;
-    b->data[b->len++] = c;
-    b->data[b->len] = '\0';
-    return true;
+static const char* current_plugin_dir(void) {
+    return g_current_plugin_dir ? g_current_plugin_dir : "";
 }
 
-static char* buf_detach(mcdk_buf* b) {
-    if(!b->data) return mcdk_strdup("");
-    char* out = b->data;
-    b->data = NULL;
-    b->len = 0;
-    b->cap = 0;
-    return out;
+static bool is_absolute_path_text(const char* path) {
+    if(!path || !*path) return false;
+    if(path[0] == '/' || path[0] == '\\') return true;
+    return strlen(path) >= 3 && path[1] == ':' && (path[2] == '/' || path[2] == '\\');
 }
 
-static bool json_escape_append(mcdk_buf* b, const char* s) {
-    if(!buf_append_char(b, '"')) return false;
-    if(!s) s = "";
-    for(const unsigned char* p = (const unsigned char*)s; *p; ++p) {
-        char tmp[8];
-        switch(*p) {
-        case '\\': if(!buf_append(b, "\\\\")) return false; break;
-        case '"':  if(!buf_append(b, "\\\"")) return false; break;
-        case '\b': if(!buf_append(b, "\\b")) return false; break;
-        case '\f': if(!buf_append(b, "\\f")) return false; break;
-        case '\n': if(!buf_append(b, "\\n")) return false; break;
-        case '\r': if(!buf_append(b, "\\r")) return false; break;
-        case '\t': if(!buf_append(b, "\\t")) return false; break;
-        default:
-            if(*p < 0x20) {
-                snprintf(tmp, sizeof(tmp), "\\u%04x", (unsigned int)*p);
-                if(!buf_append(b, tmp)) return false;
-            } else {
-                if(!buf_append_char(b, (char)*p)) return false;
-            }
-            break;
-        }
-    }
-    return buf_append_char(b, '"');
-}
+static char* join_plugin_path(const char* path) {
+    if(!path) path = "";
+    if(is_absolute_path_text(path)) return mcdk_strdup(path);
 
-static char* join_path_utf8(const char* root, const char* name) {
-    if(!root) root = "";
-    if(!name) name = "";
+    const char* root = current_plugin_dir();
+    if(!root || !*root) return mcdk_strdup(path);
+
     size_t root_len = strlen(root);
-    size_t name_len = strlen(name);
-    bool has_sep = root_len > 0 && (root[root_len - 1] == '/' || root[root_len - 1] == '\\');
-    char* out = (char*)malloc(root_len + (has_sep ? 0 : 1) + name_len + 1);
+    size_t path_len = strlen(path);
+    bool need_sep = root_len > 0 && root[root_len - 1] != '/' && root[root_len - 1] != '\\';
+    char* out = (char*)malloc(root_len + (need_sep ? 1 : 0) + path_len + 1);
     if(!out) return NULL;
     memcpy(out, root, root_len);
     size_t pos = root_len;
-    if(!has_sep) out[pos++] = '/';
-    memcpy(out + pos, name, name_len);
-    out[pos + name_len] = '\0';
+    if(need_sep) out[pos++] = '/';
+    memcpy(out + pos, path, path_len + 1);
     return out;
-}
-
-#ifdef _WIN32
-static wchar_t* utf8_to_wide(const char* s) {
-    if(!s) s = "";
-    int n = MultiByteToWideChar(CP_UTF8, MB_ERR_INVALID_CHARS, s, -1, NULL, 0);
-    if(n <= 0) return NULL;
-    wchar_t* out = (wchar_t*)malloc((size_t)n * sizeof(wchar_t));
-    if(!out) return NULL;
-    if(MultiByteToWideChar(CP_UTF8, MB_ERR_INVALID_CHARS, s, -1, out, n) <= 0) {
-        free(out);
-        return NULL;
-    }
-    return out;
-}
-
-static char* wide_to_utf8(const wchar_t* s) {
-    if(!s) return mcdk_strdup("");
-    int n = WideCharToMultiByte(CP_UTF8, 0, s, -1, NULL, 0, NULL, NULL);
-    if(n <= 0) return NULL;
-    char* out = (char*)malloc((size_t)n);
-    if(!out) return NULL;
-    if(WideCharToMultiByte(CP_UTF8, 0, s, -1, out, n, NULL, NULL) <= 0) {
-        free(out);
-        return NULL;
-    }
-    return out;
-}
-
-static DWORD fs_attrs_utf8(const char* path) {
-    wchar_t* w = utf8_to_wide(path);
-    if(!w) return INVALID_FILE_ATTRIBUTES;
-    DWORD attrs = GetFileAttributesW(w);
-    free(w);
-    return attrs;
-}
-
-static bool fs_exists_utf8(const char* path) {
-    return fs_attrs_utf8(path) != INVALID_FILE_ATTRIBUTES;
-}
-
-static bool fs_is_dir_utf8(const char* path) {
-    DWORD attrs = fs_attrs_utf8(path);
-    return attrs != INVALID_FILE_ATTRIBUTES && (attrs & FILE_ATTRIBUTE_DIRECTORY) != 0;
-}
-
-static bool fs_is_file_utf8(const char* path) {
-    DWORD attrs = fs_attrs_utf8(path);
-    return attrs != INVALID_FILE_ATTRIBUTES && (attrs & FILE_ATTRIBUTE_DIRECTORY) == 0;
-}
-
-static wchar_t* make_find_pattern(const wchar_t* root) {
-    size_t len = wcslen(root);
-    bool has_sep = len > 0 && (root[len - 1] == L'/' || root[len - 1] == L'\\');
-    wchar_t* out = (wchar_t*)malloc((len + (has_sep ? 1 : 2) + 1) * sizeof(wchar_t));
-    if(!out) return NULL;
-    wcscpy(out, root);
-    if(!has_sep) wcscat(out, L"\\");
-    wcscat(out, L"*");
-    return out;
-}
-#else
-static bool fs_stat_utf8(const char* path, struct stat* st) {
-    return path && stat(path, st) == 0;
-}
-
-static bool fs_exists_utf8(const char* path) {
-    struct stat st;
-    return fs_stat_utf8(path, &st);
-}
-
-static bool fs_is_dir_utf8(const char* path) {
-    struct stat st;
-    return fs_stat_utf8(path, &st) && S_ISDIR(st.st_mode);
-}
-
-static bool fs_is_file_utf8(const char* path) {
-    struct stat st;
-    return fs_stat_utf8(path, &st) && S_ISREG(st.st_mode);
-}
-#endif
-
-static char* fs_scandir_json(const char* root) {
-    const char* scan_root = (root && *root) ? root : ".";
-    mcdk_buf b = {0};
-    if(!buf_append_char(&b, '[')) return mcdk_strdup("[]");
-    bool first = true;
-
-#ifdef _WIN32
-    wchar_t* wroot = utf8_to_wide(scan_root);
-    if(!wroot) {
-        free(b.data);
-        return mcdk_strdup("[]");
-    }
-    wchar_t* pattern = make_find_pattern(wroot);
-    free(wroot);
-    if(!pattern) {
-        free(b.data);
-        return mcdk_strdup("[]");
-    }
-
-    WIN32_FIND_DATAW data;
-    HANDLE h = FindFirstFileW(pattern, &data);
-    free(pattern);
-    if(h != INVALID_HANDLE_VALUE) {
-        do {
-            if(wcscmp(data.cFileName, L".") == 0 || wcscmp(data.cFileName, L"..") == 0) continue;
-            char* name = wide_to_utf8(data.cFileName);
-            if(!name) continue;
-            char* path = join_path_utf8(scan_root, name);
-            bool is_dir = (data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) != 0;
-            bool is_file = !is_dir;
-
-            if(!first) buf_append_char(&b, ',');
-            first = false;
-            buf_append(&b, "{\"name\":");
-            json_escape_append(&b, name);
-            buf_append(&b, ",\"path\":");
-            json_escape_append(&b, path ? path : "");
-            buf_append(&b, ",\"is_file\":");
-            buf_append(&b, is_file ? "true" : "false");
-            buf_append(&b, ",\"is_dir\":");
-            buf_append(&b, is_dir ? "true" : "false");
-            buf_append_char(&b, '}');
-
-            free(path);
-            free(name);
-        } while(FindNextFileW(h, &data));
-        FindClose(h);
-    }
-#else
-    DIR* dir = opendir(scan_root);
-    if(dir) {
-        struct dirent* ent;
-        while((ent = readdir(dir)) != NULL) {
-            if(strcmp(ent->d_name, ".") == 0 || strcmp(ent->d_name, "..") == 0) continue;
-            char* path = join_path_utf8(scan_root, ent->d_name);
-            struct stat st;
-            bool ok = path && stat(path, &st) == 0;
-            bool is_dir = ok && S_ISDIR(st.st_mode);
-            bool is_file = ok && S_ISREG(st.st_mode);
-
-            if(!first) buf_append_char(&b, ',');
-            first = false;
-            buf_append(&b, "{\"name\":");
-            json_escape_append(&b, ent->d_name);
-            buf_append(&b, ",\"path\":");
-            json_escape_append(&b, path ? path : "");
-            buf_append(&b, ",\"is_file\":");
-            buf_append(&b, is_file ? "true" : "false");
-            buf_append(&b, ",\"is_dir\":");
-            buf_append(&b, is_dir ? "true" : "false");
-            buf_append_char(&b, '}');
-
-            free(path);
-        }
-        closedir(dir);
-    }
-#endif
-
-    buf_append_char(&b, ']');
-    return buf_detach(&b);
-}
-
-void mcdk_py_free(char* ptr) {
-    free(ptr);
 }
 
 static void emit_output(const char* text) {
@@ -344,7 +122,7 @@ static bool native_write_output(int argc, py_StackRef argv) {
 }
 
 static bool store_handler(py_Ref func, char* key, size_t key_size) {
-    snprintf(key, key_size, "%s_%d", g_current_plugin_id, g_next_handler_id++);
+    snprintf(key, key_size, "%s_%d", current_plugin_id(), g_next_handler_id++);
     py_Ref handlers = handlers_dict();
     py_newstr(py_r0(), key);
     return py_dict_setitem(handlers, py_r0(), func);
@@ -364,7 +142,7 @@ static bool native_register_tool(int argc, py_StackRef argv) {
     if(!store_handler(py_arg(4), key, sizeof(key))) return false;
 
     if(g_cfg.register_tool) {
-        g_cfg.register_tool(g_current_plugin_id,
+        g_cfg.register_tool(current_plugin_id(),
                             py_tostr(py_arg(0)),
                             py_tostr(py_arg(1)),
                             py_tostr(py_arg(2)),
@@ -388,7 +166,7 @@ static bool native_register_hook(int argc, py_StackRef argv) {
     if(!store_handler(py_arg(2), key, sizeof(key))) return false;
 
     if(g_cfg.register_hook) {
-        g_cfg.register_hook(g_current_plugin_id,
+        g_cfg.register_hook(current_plugin_id(),
                             py_tostr(py_arg(0)),
                             (int)py_toint(py_arg(1)),
                             key,
@@ -486,7 +264,10 @@ static bool native_memory_index_search(int argc, py_StackRef argv) {
 static bool native_fs_scandir(int argc, py_StackRef argv) {
     PY_CHECK_ARGC(1);
     if(!py_checkstr(py_arg(0))) return false;
-    char* json = fs_scandir_json(py_tostr(py_arg(0)));
+    char* json = NULL;
+    if(g_cfg.fs_scandir) {
+        json = g_cfg.fs_scandir(py_tostr(py_arg(0)), g_cfg.userdata);
+    }
     if(!json) json = mcdk_strdup("[]");
     py_newstr(py_retval(), json);
     free(json);
@@ -496,27 +277,77 @@ static bool native_fs_scandir(int argc, py_StackRef argv) {
 static bool native_fs_exists(int argc, py_StackRef argv) {
     PY_CHECK_ARGC(1);
     if(!py_checkstr(py_arg(0))) return false;
-    py_newbool(py_retval(), fs_exists_utf8(py_tostr(py_arg(0))));
+    py_newbool(py_retval(), g_cfg.fs_exists ? g_cfg.fs_exists(py_tostr(py_arg(0)), g_cfg.userdata) : false);
     return true;
 }
 
 static bool native_fs_isfile(int argc, py_StackRef argv) {
     PY_CHECK_ARGC(1);
     if(!py_checkstr(py_arg(0))) return false;
-    py_newbool(py_retval(), fs_is_file_utf8(py_tostr(py_arg(0))));
+    py_newbool(py_retval(), g_cfg.fs_is_file ? g_cfg.fs_is_file(py_tostr(py_arg(0)), g_cfg.userdata) : false);
     return true;
 }
 
 static bool native_fs_isdir(int argc, py_StackRef argv) {
     PY_CHECK_ARGC(1);
     if(!py_checkstr(py_arg(0))) return false;
-    py_newbool(py_retval(), fs_is_dir_utf8(py_tostr(py_arg(0))));
+    py_newbool(py_retval(), g_cfg.fs_is_dir ? g_cfg.fs_is_dir(py_tostr(py_arg(0)), g_cfg.userdata) : false);
     return true;
+}
+
+static bool native_read_text_file(int argc, py_StackRef argv) {
+    PY_CHECK_ARGC(1);
+    if(!py_checkstr(py_arg(0))) return false;
+    if(!g_cfg.read_text_file) return OSError("host read_text_file callback is not configured");
+    char* text = g_cfg.read_text_file(py_tostr(py_arg(0)), g_cfg.userdata);
+    if(!text) return OSError("cannot read file: '%s'", py_tostr(py_arg(0)));
+    py_newstr(py_retval(), text);
+    free(text);
+    return true;
+}
+
+static bool native_write_text_file(int argc, py_StackRef argv) {
+    PY_CHECK_ARGC(3);
+    if(!py_checkstr(py_arg(0))) return false;
+    if(!py_checkstr(py_arg(1))) return false;
+    if(!py_checktype(py_arg(2), tp_bool)) return false;
+    if(!g_cfg.write_text_file) return OSError("host write_text_file callback is not configured");
+    bool ok = g_cfg.write_text_file(py_tostr(py_arg(0)),
+                                    py_tostr(py_arg(1)),
+                                    py_tobool(py_arg(2)),
+                                    g_cfg.userdata);
+    if(!ok) return OSError("cannot write file: '%s'", py_tostr(py_arg(0)));
+    py_newnone(py_retval());
+    return true;
+}
+
+static char* bridge_importfile(const char* path, int* data_size) {
+    if(!g_cfg.read_text_file) return NULL;
+    char* full_path = join_plugin_path(path);
+    if(!full_path) return NULL;
+    char* text = g_cfg.read_text_file(full_path, g_cfg.userdata);
+    free(full_path);
+    if(!text) return NULL;
+
+    size_t n = strlen(text);
+    char* out = (char*)PK_MALLOC(n + 1);
+    if(!out) {
+        free(text);
+        return NULL;
+    }
+    memcpy(out, text, n + 1);
+    free(text);
+    if(data_size) *data_size = (int)n;
+    return out;
 }
 
 static const char* BOOTSTRAP_SOURCE =
     "import json\n"
     "import sys\n"
+    "try:\n"
+    "    import builtins as _builtins\n"
+    "except Exception:\n"
+    "    _builtins = None\n"
     "try:\n"
     "    import os as _os\n"
     "except Exception:\n"
@@ -715,6 +546,86 @@ static const char* BOOTSTRAP_SOURCE =
     "    def warn(self, text): _native_write_output('[plugin][warn] ' + str(text) + '\\n')\n"
     "    def error(self, text): _native_write_output('[plugin][error] ' + str(text) + '\\n')\n"
     "log = _Log()\n"
+    "class _Utf8TextFile:\n"
+    "    def __init__(self, path, mode='r', encoding='utf-8'):\n"
+    "        self.path = str(path)\n"
+    "        self.mode = str(mode or 'r')\n"
+    "        self.encoding = encoding\n"
+    "        self.closed = False\n"
+    "        if 'b' in self.mode:\n"
+    "            raise ValueError('binary mode is not supported by mcdk plugin open')\n"
+    "        if '+' in self.mode:\n"
+    "            raise ValueError('update mode is not supported by mcdk plugin open')\n"
+    "        self._readable = 'r' in self.mode or not ('w' in self.mode or 'a' in self.mode)\n"
+    "        self._writable = 'w' in self.mode or 'a' in self.mode\n"
+    "        self._append = 'a' in self.mode\n"
+    "        self._pos = 0\n"
+    "        self._buffer = ''\n"
+    "        self._flushed = 0\n"
+    "        if self._readable:\n"
+    "            self._data = _native_read_text_file(self.path)\n"
+    "        else:\n"
+    "            self._data = ''\n"
+    "    def _check_open(self):\n"
+    "        if self.closed:\n"
+    "            raise ValueError('I/O operation on closed file')\n"
+    "    def read(self, size=-1):\n"
+    "        self._check_open()\n"
+    "        if not self._readable:\n"
+    "            raise ValueError('file is not readable')\n"
+    "        size = int(size)\n"
+    "        if size < 0:\n"
+    "            out = self._data[self._pos:]\n"
+    "            self._pos = len(self._data)\n"
+    "            return out\n"
+    "        out = self._data[self._pos:self._pos + size]\n"
+    "        self._pos += len(out)\n"
+    "        return out\n"
+    "    def readline(self, size=-1):\n"
+    "        self._check_open()\n"
+    "        if not self._readable:\n"
+    "            raise ValueError('file is not readable')\n"
+    "        end = self._data.find('\\n', self._pos)\n"
+    "        if end < 0:\n"
+    "            end = len(self._data)\n"
+    "        else:\n"
+    "            end += 1\n"
+    "        size = int(size)\n"
+    "        if size >= 0 and self._pos + size < end:\n"
+    "            end = self._pos + size\n"
+    "        out = self._data[self._pos:end]\n"
+    "        self._pos = end\n"
+    "        return out\n"
+    "    def write(self, text):\n"
+    "        self._check_open()\n"
+    "        if not self._writable:\n"
+    "            raise ValueError('file is not writable')\n"
+    "        s = str(text)\n"
+    "        self._buffer += s\n"
+    "        return len(s)\n"
+    "    def flush(self):\n"
+    "        self._check_open()\n"
+    "        if self._writable:\n"
+    "            chunk = self._buffer[self._flushed:]\n"
+    "            append = self._append or self._flushed > 0\n"
+    "            _native_write_text_file(self.path, chunk, append)\n"
+    "            self._flushed = len(self._buffer)\n"
+    "        return None\n"
+    "    def close(self):\n"
+    "        if not self.closed:\n"
+    "            self.flush()\n"
+    "            self.closed = True\n"
+    "        return None\n"
+    "    def __enter__(self):\n"
+    "        self._check_open()\n"
+    "        return self\n"
+    "    def __exit__(self):\n"
+    "        self.close()\n"
+    "        return False\n"
+    "def _utf8_open(file, mode='r', buffering=-1, encoding='utf-8', errors=None, newline=None):\n"
+    "    return _Utf8TextFile(file, mode, encoding)\n"
+    "if _builtins is not None:\n"
+    "    _builtins.open = _utf8_open\n"
     "def _join_path(root, name):\n"
     "    root = str(root)\n"
     "    name = str(name)\n"
@@ -724,6 +635,11 @@ static const char* BOOTSTRAP_SOURCE =
     "        return root + name\n"
     "    return root + '/' + name\n"
     "class _Fs:\n"
+    "    def read_text(self, path):\n"
+    "        return _native_read_text_file(str(path))\n"
+    "    def write_text(self, path, text, append=False):\n"
+    "        _native_write_text_file(str(path), str(text), bool(append))\n"
+    "        return None\n"
     "    def scandir(self, path):\n"
     "        return json.loads(_native_fs_scandir(str(path)))\n"
     "    def listdir(self, path):\n"
@@ -800,6 +716,7 @@ bool mcdk_py_initialize(const mcdk_py_config* config, char** error) {
     g_initialized = true;
     py_callbacks()->print = bridge_print;
     py_callbacks()->flush = bridge_flush;
+    py_callbacks()->importfile = bridge_importfile;
 
     py_Ref mod = assistant_module();
     py_bindfunc(mod, "_native_write_output", native_write_output);
@@ -815,6 +732,8 @@ bool mcdk_py_initialize(const mcdk_py_config* config, char** error) {
     py_bindfunc(mod, "_native_fs_exists", native_fs_exists);
     py_bindfunc(mod, "_native_fs_isfile", native_fs_isfile);
     py_bindfunc(mod, "_native_fs_isdir", native_fs_isdir);
+    py_bindfunc(mod, "_native_read_text_file", native_read_text_file);
+    py_bindfunc(mod, "_native_write_text_file", native_write_text_file);
 
     if(!py_exec(BOOTSTRAP_SOURCE, "<mcdk_assistant>", EXEC_MODE, mod)) {
         bool ret = set_py_error(error);
@@ -830,46 +749,35 @@ void mcdk_py_finalize(void) {
     g_initialized = false;
     g_finalized = true;
     memset(&g_cfg, 0, sizeof(g_cfg));
+    free(g_current_plugin_id);
+    free(g_current_plugin_dir);
+    g_current_plugin_id = NULL;
+    g_current_plugin_dir = NULL;
 }
 
 bool mcdk_py_load_plugin(const char* plugin_id,
                          const char* plugin_dir,
                          const char* entry_path,
                          char** error) {
-    snprintf(g_current_plugin_id, sizeof(g_current_plugin_id), "%s", plugin_id ? plugin_id : "");
-    snprintf(g_current_plugin_dir, sizeof(g_current_plugin_dir), "%s", plugin_dir ? plugin_dir : "");
+    set_current_plugin(plugin_id, plugin_dir);
+    if(!g_cfg.read_text_file) return set_error(error, "host read_text_file callback is not configured");
 
-    FILE* fp = fopen(entry_path, "rb");
-    if(!fp) return set_error(error, "cannot open plugin entry");
-    fseek(fp, 0, SEEK_END);
-    long size = ftell(fp);
-    fseek(fp, 0, SEEK_SET);
-    if(size < 0) {
-        fclose(fp);
-        return set_error(error, "cannot read plugin entry");
-    }
-    char* source = (char*)malloc((size_t)size + 1);
-    if(!source) {
-        fclose(fp);
-        return set_error(error, "out of memory");
-    }
-    size_t read = fread(source, 1, (size_t)size, fp);
-    fclose(fp);
-    source[read] = '\0';
+    char* source = g_cfg.read_text_file(entry_path ? entry_path : "", g_cfg.userdata);
+    if(!source) return set_error(error, "cannot read plugin entry");
 
     py_Ref main_mod = py_getmodule("__main__");
     if(!main_mod) main_mod = py_newmodule("__main__");
     py_newstr(py_r0(), entry_path ? entry_path : "");
     py_setdict(main_mod, py_name("__file__"), py_r0());
-    py_newstr(py_r0(), g_current_plugin_dir);
+    py_newstr(py_r0(), current_plugin_dir());
     py_setdict(main_mod, py_name("__plugin_dir__"), py_r0());
-    py_newstr(py_r0(), g_current_plugin_id);
+    py_newstr(py_r0(), current_plugin_id());
     py_setdict(main_mod, py_name("__plugin_id__"), py_r0());
     py_Ref sys_mod = py_getmodule("sys");
     if(sys_mod) {
         py_ItemRef sys_path = py_getdict(sys_mod, py_name("path"));
         if(sys_path && py_islist(sys_path)) {
-            py_newstr(py_r0(), g_current_plugin_dir);
+            py_newstr(py_r0(), current_plugin_dir());
             py_list_insert(sys_path, 0, py_r0());
         }
     }

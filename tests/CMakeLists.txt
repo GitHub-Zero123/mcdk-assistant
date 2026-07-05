@@ -85,7 +85,10 @@ if(TARGET mcdk_pocketpy_bridge)
     if(MSVC)
         target_compile_options(plugin_fs_smoke_test PRIVATE /utf-8 /EHsc)
     endif()
-    target_link_libraries(plugin_fs_smoke_test PRIVATE mcdk_pocketpy_bridge)
+    target_link_libraries(plugin_fs_smoke_test PRIVATE
+        mcdk_pocketpy_bridge
+        nlohmann_json::nlohmann_json
+    )
     if(WIN32)
         target_link_libraries(plugin_fs_smoke_test PRIVATE ws2_32)
     endif()

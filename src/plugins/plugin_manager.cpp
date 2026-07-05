@@ -12,6 +12,7 @@
 #include <fstream>
 #include <iostream>
 #include <stdexcept>
+#include <system_error>
 #include <unordered_map>
 #include <unordered_set>
 
@@ -167,6 +168,66 @@ char* bridge_memory_index_search(int handle, const char* keyword, int top_k, voi
     return dup_for_c(self->memory_index_search(handle, safe_string(keyword), top_k).dump());
 }
 
+char* bridge_read_text_file(const char* path_text, void*) {
+    std::ifstream in(mcdk::path::from_utf8(safe_string(path_text)), std::ios::binary);
+    if (!in.is_open()) return nullptr;
+    std::string text((std::istreambuf_iterator<char>(in)), std::istreambuf_iterator<char>());
+    if (in.bad()) return nullptr;
+    return dup_for_c(text);
+}
+
+bool bridge_write_text_file(const char* path_text, const char* text, bool append, void*) {
+    auto mode = std::ios::binary | std::ios::out;
+    mode |= append ? std::ios::app : std::ios::trunc;
+    std::ofstream out(mcdk::path::from_utf8(safe_string(path_text)), mode);
+    if (!out.is_open()) return false;
+    const auto data = safe_string(text);
+    out.write(data.data(), static_cast<std::streamsize>(data.size()));
+    return out.good();
+}
+
+char* bridge_fs_scandir(const char* path_text, void*) {
+    namespace fs = std::filesystem;
+    std::error_code ec;
+    fs::path root = mcdk::path::from_utf8(safe_string(path_text));
+    if (root.empty()) root = ".";
+    if (!fs::is_directory(root, ec) || ec) return dup_for_c("[]");
+
+    mcp::json entries = mcp::json::array();
+    for (const auto& entry : fs::directory_iterator(root, ec)) {
+        if (ec) break;
+        std::error_code item_ec;
+        const bool is_file = entry.is_regular_file(item_ec) && !item_ec;
+        item_ec.clear();
+        const bool is_dir = entry.is_directory(item_ec) && !item_ec;
+        entries.push_back({
+            {"name", mcdk::path::filename_to_utf8(entry.path())},
+            {"path", mcdk::path::to_utf8(entry.path())},
+            {"is_file", is_file},
+            {"is_dir", is_dir},
+        });
+    }
+    std::sort(entries.begin(), entries.end(), [](const mcp::json& a, const mcp::json& b) {
+        return a.value("name", std::string()) < b.value("name", std::string());
+    });
+    return dup_for_c(entries.dump());
+}
+
+bool bridge_fs_exists(const char* path_text, void*) {
+    std::error_code ec;
+    return std::filesystem::exists(mcdk::path::from_utf8(safe_string(path_text)), ec) && !ec;
+}
+
+bool bridge_fs_is_file(const char* path_text, void*) {
+    std::error_code ec;
+    return std::filesystem::is_regular_file(mcdk::path::from_utf8(safe_string(path_text)), ec) && !ec;
+}
+
+bool bridge_fs_is_dir(const char* path_text, void*) {
+    std::error_code ec;
+    return std::filesystem::is_directory(mcdk::path::from_utf8(safe_string(path_text)), ec) && !ec;
+}
+
 } // namespace
 
 struct PluginManager::Runtime {
@@ -203,6 +264,12 @@ bool PluginManager::ensure_vm() {
     cfg.memory_index_build = bridge_memory_index_build;
     cfg.memory_index_invalidate = bridge_memory_index_invalidate;
     cfg.memory_index_search = bridge_memory_index_search;
+    cfg.read_text_file = bridge_read_text_file;
+    cfg.write_text_file = bridge_write_text_file;
+    cfg.fs_scandir = bridge_fs_scandir;
+    cfg.fs_exists = bridge_fs_exists;
+    cfg.fs_is_file = bridge_fs_is_file;
+    cfg.fs_is_dir = bridge_fs_is_dir;
 
     char* error = nullptr;
     if (!mcdk_py_initialize(&cfg, &error)) {
