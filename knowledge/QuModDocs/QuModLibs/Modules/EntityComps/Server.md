@@ -1,6 +1,10 @@
 # 服务端组件类扩展 <Badge type="tip" text="^1.3.0" />
 适用于服务端组件类的扩展功能。
 
+::: tip 更新入口建议
+服务端组件推荐优先使用 `onGameTick()` 编写稳定业务逻辑。`update()` 会经过 `getNeedUpdate()` 判定，当前实现会参考 `GetServerTickTime()` 去重，实际频率受网易 ModSDK / 底层 API 行为影响，不建议把它假定为固定逻辑帧。
+:::
+
 ## QEntityAttrData 实体数据类
 为了解决生物内存周期下持久的储存数据片段，引入了该管理类。
 ```python
@@ -29,8 +33,8 @@ class TestComp(QBaseEntityComp):
         # 创建私有数据(当前类型组件独占)
         self.data2 = self.createPrivateAttr(attrName="default2", defaultValue=None, needRestore=False)
     
-    def update(self):
-        QBaseEntityComp.update(self)
+    def onGameTick(self):
+        QBaseEntityComp.onGameTick(self)
         # 记录Tick
         self.data1.setValue(self.data1.getValue(False) + 1)
         self.data2.setValue(self.data2.getValue() + 1)

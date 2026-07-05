@@ -76,7 +76,7 @@ def box3DEntityMatch(playerId, boxData=QBox3D.createNullBox3D(), useBodyRot=True
         boxData.setRot(pObj.Rot[1], Vec3(0, 1, 0))
     if useBodyPos:
         boxData.setCenterPos(pObj.Vec3Pos)
-    for entityId in serverApi.GetEngineCompFactory().CreateGame(playerId).GetEntitiesAround(playerId, int(round(boxData.xyzMaxLength(), 2)), {}):
+    for entityId in compFactory.CreateGame(playerId).GetEntitiesAround(playerId, int(round(boxData.xyzMaxLength(), 2)), {}):
         if entityId == playerId:
             continue
         if boxData.overlapsSAT(Entity(entityId).getBox3D()):
@@ -194,12 +194,12 @@ def ADD_TIMER(delay=0.5, func=lambda: None):
     if threadType == 0:
         # 当处于服务端时
         import QuModLibs.Server as sAPI
-        comp = sAPI.serverApi.GetEngineCompFactory().CreateGame(sAPI.levelId)
+        comp = sAPI.compFactory.CreateGame(sAPI.levelId)
         return comp.AddTimer(delay, func)
     elif threadType == 1:
         # 当处于客户端时
         import QuModLibs.Client as cAPI
-        comp = cAPI.clientApi.GetEngineCompFactory().CreateGame(cAPI.levelId)
+        comp = cAPI.compFactory.CreateGame(cAPI.levelId)
         return comp.AddTimer(delay, func)
     return None
 ```

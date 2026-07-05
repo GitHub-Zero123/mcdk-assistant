@@ -1,18 +1,41 @@
 # 通用服务功能
-提供一种面向对象的服务管理开发方式，类似于原生的SystemCls但更为轻量级。
+
+Service 提供一种面向对象的服务管理方式，类似于原生 `SystemCls`，但更轻量。它是可选的管理层抽象，不是 QuMod 业务开发的默认组织方式。
+
+::: warning 默认从模块级组织开始
+大多数业务直接依赖 Python 模块即可：模块天然单例，配合静态 `@Listen("EventName")`、`@AllowCall`、普通函数和模块级状态，通常已经足够清晰。即便需要 class，也往往只是普通业务类、数据类或小型管理类，不一定需要 `BaseService`。
+:::
+
+默认写法可以保持为模块级监听与模块级状态：
+
 ```python
-from .QuModLibs.Modules.Service.Server import BaseService
-# from .QuModLibs.Modules.Service.Client import BaseService
+# -*- coding: utf-8 -*-
+from .QuModLibs.Server import *
+
+_playerCache = {}
+
+@Listen("AddServerPlayerEvent")
+def onAddPlayer(args={}):
+    playerId = args["id"]
+    _playerCache[playerId] = {}
+
+@Listen("DelServerPlayerEvent")
+def onDelPlayer(args={}):
+    playerId = args["id"]
+    _playerCache.pop(playerId, None)
 ```
 
+::: tip 启发提示
+当逻辑只是“监听事件后执行一段业务”，优先写成模块级函数。只有当您已经明确需要可启动/停止的长期管理对象、统一回收注解/定时器，或需要服务内的本地事件广播时，再回来看 `BaseService`。
+:::
+
 ## BaseService 服务类
-基于`BaseService`创建您的服务：
+如果普通模块或普通 class 已不足以表达管理关系，可以基于 `BaseService` 创建服务：
 ```python
 # -*- coding: utf-8 -*-
 from .QuModLibs.Server import *
 from .QuModLibs.Modules.Services.Server import BaseService
 
-# 不建议过渡抽象，非必要不要使用服务类，优选模块（天然单例+懒加载）
 @BaseService.Init
 class MyService(BaseService):
     def __init__(self):
@@ -30,14 +53,14 @@ class MyService(BaseService):
         print("服务停用触发")
 
     def onServiceUpdate(self):
-        # Update触发逻辑 默认每秒30次
+        # 随服务管理器 Tick 回调触发，具体节奏取决于端侧 OnScriptTick 事件
         BaseService.onServiceUpdate(self)
     
     def call(self):
         print("执行逻辑")
         
 	# 使用默认提供的注解注册游戏监听 您也可以自定义注解
-    @BaseService.Listen(Events.ServerItemTryUseEvent)
+    @BaseService.Listen("ServerItemTryUseEvent")
     def tryUseItem(self, args={}):
         # 服务类继承了定时器加载器 因此此处可以使用内部定时器(在服务关闭时将会跟随销毁)
         self.addTimer(BaseService.Timer(self.call, time=2.0))
@@ -63,8 +86,6 @@ class MyService(BaseService):
 from .QuModLibs.Server import *
 from .QuModLibs.Modules.Services.Server import AutoStopService
 
-
-# 不建议过渡抽象，非必要不要使用服务类，优选模块（天然单例+懒加载）
 class TEST_SERVICE(AutoStopService):
     def __init__(self):
         AutoStopService.__init__(self)
@@ -84,14 +105,14 @@ class TEST_SERVICE(AutoStopService):
         print("服务因长时间无访问自动关闭触发 随后触发onServiceStop")
 
     def onServiceUpdate(self):
-        # Update触发逻辑 默认每秒30次
+        # 随服务管理器 Tick 回调触发，具体节奏取决于端侧 OnScriptTick 事件
         AutoStopService.onServiceUpdate(self)
     
     def doSomeThing(self):
         """ 实现一些功能 利用定时关闭特性可以对内缓存数据 """
         pass
 
-@Listen(Events.xxxx)
+@Listen("xxxx")
 def TEST_FUN(_={}):
     # 在一定条件下使用服务业务功能
     TEST_SERVICE.access().doSomeThing()		# access类方法 未启用服务时将会启用服务并返回实例
@@ -117,7 +138,7 @@ class MyService(BaseService):
     def __init__(self):
         BaseService.__init__(self)
         
-    @BaseService.Listen(Events.ServerItemTryUseEvent)
+    @BaseService.Listen("ServerItemTryUseEvent")
     def ServerItemTryUseEvent(self, args={}):
 		playerId = args["playerId"]
         eventData = C_T_RAP_AND_BASKETBALL(playerId)	# 创建事件对象
@@ -151,7 +172,7 @@ class Service2(BaseService):
 :::
 
 ## BaseBusiness 子业务类
-**BaseBusiness** 提供了服务内多个运行时实例的解决方案。
+`BaseBusiness` 提供服务内多个运行时实例的解决方案。它适合“一个服务管理多个玩家/实体/任务对象”的场景；如果业务对象不需要跟随服务生命周期统一启动和停止，普通 class 往往更简单。
 
 ```python
 # -*- coding: utf-8 -*-
@@ -181,7 +202,7 @@ class PlayerRuntimerBusiness(BaseBusiness):
         BaseBusiness.onTick(self)
         print("玩家ID: {}".format(self.playerId))
 
-	@BaseBusiness.Listen(Events.__ANY_EVENT__)
+	@BaseBusiness.Listen("__ANY_EVENT__")
     def AnyEvent(self, args={}):
         """ 同服务一样 子业务也能使用注解管理资源 并跟随生命周期一同释放 """
         pass
@@ -205,7 +226,7 @@ class MyService(BaseService):
     def onServiceUpdate(self):
         BaseService.onServiceUpdate(self)
     
-    @BaseService.Listen(Events.AddServerPlayerEvent)
+    @BaseService.Listen("AddServerPlayerEvent")
     def AddServerPlayerEvent(self, args={}):
         """ 系统级 玩家加入游戏事件 """
         playerId = args["id"]
@@ -214,7 +235,7 @@ class MyService(BaseService):
         self.addBusiness(businessObj)
         self.playerBusinessMap[playerId] = businessObj
         
-	@BaseService.Listen(Events.DelServerPlayerEvent)
+	@BaseService.Listen("DelServerPlayerEvent")
 	def DelServerPlayerEvent(self, args={}):
         """ 系统级 玩家离开游戏事件 """
         playerId = args["id"]

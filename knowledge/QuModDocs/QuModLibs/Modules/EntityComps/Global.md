@@ -33,19 +33,19 @@ class MyComp(QBaseEntityComp):
         print("组件解除绑定")
     
     def onGameTick(self):
-        """ 网易Tick更新 """
+        """ 推荐：稳定逻辑更新入口 """
         QBaseEntityComp.onGameTick(self)
-        # 此处GAME TICK对应网易Tick 即30/s
+        # 建议将组件的主要逻辑写在 onGameTick 中。
         pass
 
     def update(self):
-        """ 微软Tick更新 """
+        """ 兼容入口：不建议作为主要逻辑帧 """
         QBaseEntityComp.update(self)
-        # update对应微软TICK 即20/s
+        # update 会受到底层 API / getNeedUpdate 判定影响，不保证在所有场景下都是固定逻辑帧频率。
         pass
 
 # 在玩家攻击生物时施加组件
-@Listen(Events.PlayerAttackEntityEvent)
+@Listen("PlayerAttackEntityEvent")
 def PlayerAttackEntityEvent(args={}):
     comp = MyComp(3.0)  # 组件在不绑定生物时 什么功能都不会有 就像一个常规对象
     comp.bind(args["victimId"]) # 绑定成功后 组件进入管理模式 持续进行tick更新
@@ -57,7 +57,7 @@ def PlayerAttackEntityEvent(args={}):
 组件无绑定: 跟随Python垃圾回收器释放 (不作讨论)；
 组件有绑定: 跟随生物内存状态更新。
 
-update/onGameTick: 生物处于当前渲染区块内时更新(通过JSON组件设置持久化更新同样生效)。
+onGameTick/update: 生物处于当前渲染区块内时更新(通过JSON组件设置持久化更新同样生效)。
 onUnBind: 生物被系统回收(不在内存状态中,但不一定被杀死)/脚本主动解绑/游戏关闭。
 (onUnBind中可以通过方法getUnBindINFO拿到解绑原因)
 
@@ -209,3 +209,7 @@ class 石猴(通用变身):
         # 实现普通攻击
         pass
 ```
+
+::: tip 更新入口建议
+组件内部每轮更新会先触发 `onGameTick()`，随后才根据 `getNeedUpdate()` 判断是否触发 `update()`。因此推荐把稳定业务逻辑写在 `onGameTick()` 中；`update()` 更适合兼容旧代码或确实需要跟随底层引擎去重策略的场景。
+:::

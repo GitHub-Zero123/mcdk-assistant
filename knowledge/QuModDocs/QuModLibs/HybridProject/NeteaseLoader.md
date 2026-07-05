@@ -49,7 +49,7 @@ class TEST_COMP(QBaseEntityComp):
     def update(self):
         QBaseEntityComp.update(self)
         # 持续造成伤害
-        comp = serverApi.GetEngineCompFactory().CreateHurt(self.entityId)
+        comp = compFactory.CreateHurt(self.entityId)
         comp.Hurt(1, serverApi.GetMinecraftEnum().ActorDamageCause.EntityAttack, None, None, False)
 ```
 ### QuMod调用NeServer
@@ -94,7 +94,7 @@ class TEST_COMP(QBaseEntityComp):
     def update(self):
         QBaseEntityComp.update(self)
         # 持续造成伤害
-        comp = serverApi.GetEngineCompFactory().CreateHurt(self.entityId)
+        comp = compFactory.CreateHurt(self.entityId)
         comp.Hurt(1, serverApi.GetMinecraftEnum().ActorDamageCause.EntityAttack, None, None, False)
 ```
 ::: tip 总结

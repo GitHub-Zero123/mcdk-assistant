@@ -1,26 +1,44 @@
-# UI基本功能扩展
-UI功能扩展，实现对象化管理界面控件/分页。
+# UI 基本功能扩展
+
+UI 功能扩展模块用于对象化管理界面控件、动态绘制、网格渲染与分页等场景。
+
+::: tip 推荐路径
+在支持 RAII 的界面类（如 `ScreenNodeWrapper` / `QEScreenNode`）中，现代化网格渲染推荐使用 `QGridBinder` + `QGridData`。旧式手动监听、`QUIAutoCanvas` 与 `QUIAutoControlFuntion` 的 Tick 检测策略仅建议用于兼容旧项目。
+:::
 
 ## QGridData
 
 ### 网格对象参数
-通过网格对象可以快速的构建一个网格控件的资源管理，搭配相关更新事件完成异步刷新响应。
+
+`QGridData` 保存网格渲染所需的路径、回调与索引解析配置。它本身不负责监听生命周期，通常搭配 `QGridBinder`、`QUICanvas.listenQGridRender` 或旧式 `QGridAdapter` 使用。
 
 ```python
 # -*- coding: utf-8 -*-
 from .QuModLibs.Modules.UI.Client import QGridData
 
-gridDataObj = QGridData("/panel/grid", isScrollGrid = False, bindFunc = lambda *_: None, bindUpdateFinishFunc = lambda *_: None, bindGridConName = "")	# 网格对象参数
-
-# isScrollGrid - 声明为滚动网格 (列表直接嵌套网格)
-# bindFunc - 绑定一个回调函数类型为 (str, int) -> None 当发起更新时将会计算所有渲染下的控件并调用
-# bindUpdateFinishFunc - 绑定一个更新结束回调函数 () -> None 当每轮更新结束(即bindFunc循环执行完毕)后置执行 可用于实现延迟刷新
-# bindGridConName - 绑定网格控件名称 (涉及网格渲染控件pos分析) 绝大多数情况下可以不绑定 将使用后置数字分析方案完成
+gridDataObj = QGridData(
+    "/panel/grid",
+    isScrollGrid=False,
+    bindFunc=lambda viewPath, index: None,
+    incrementalCallback=lambda viewPath, index: None,
+    bindUpdateBeforeFunc=lambda: None,
+    bindUpdateFinishFunc=lambda: None,
+    bindGridConName="",
+)
 
 ```
 
+- `path`：Grid 路径；`isScrollGrid=True` 时通常填写 ScrollView 路径。
+- `isScrollGrid`：声明为滚动网格，内部会通过 ScrollView 获取实际内容路径。
+- `bindFunc`：渲染回调，类型为 `(viewPath: str, index: int) -> None`。发起更新时会遍历当前已渲染控件并调用。
+- `incrementalCallback`：增量渲染回调，参数同 `bindFunc`，只在某个格子首次进入当前渲染集合时触发。
+- `bindUpdateBeforeFunc`：一轮更新前触发。
+- `bindUpdateFinishFunc`：一轮更新结束后触发，可用于延迟刷新或批量收尾。
+- `bindGridConName`：格子控件名。涉及路径末尾数字解析，控件名本身带数字结尾时建议显式设置。
+
 ### 手动实现网格管理
-基于原版游戏事件 **GridComponentSizeChangedClientEvent** 手动完成对接。
+
+基于原版游戏事件 `GridComponentSizeChangedClientEvent` 可以手动完成对接。大多数业务不需要这样做；该方式适合自定义生命周期、非标准 UI 节点或调试底层网格事件时使用。
 
 ```python
 # -*- coding: utf-8 -*-
@@ -30,7 +48,7 @@ from .QuModLibs.Modules.UI.Client import QGridData
 gridDataObj = QGridData("/panel/grid", ...)	# 网格对象参数
 
 # 监听网格变化事件
-@Listen(Events.GridComponentSizeChangedClientEvent)
+@Listen("GridComponentSizeChangedClientEvent")
 def GridComponentSizeChangedClientEvent(args={}):
     path = str(args["path"])
     uiNode = ...	# 提供一个uiNode作上下文 通过getRealComponentPath方法计算刷新判定
@@ -41,8 +59,7 @@ def GridComponentSizeChangedClientEvent(args={}):
 
 ```
 
-大多数情况下不需要您手动实现网格管理，例如UI类中内置了这一机制`QUICanvas`类中也提供了相关方法，
-该业务逻辑被单独抽离出来以便一些更为复杂的需求定制。
+`QUICanvas` 已提供 `listenQGridRender` / `unListenQGridRender`，`QGridBinder` 又在此基础上接入了 RAII 生命周期。除非确实要控制底层监听，否则优先使用封装后的绑定器。
 
 ## QUICanvas
 QUI画布绘制类，提供控件逻辑的封装复用功能，同时充当一个协议。
@@ -150,3 +167,125 @@ class MyControlFuntion(QUIControlFuntion):
         # 为parentPath编写业务
         ...
 ```
+
+## [智能对象] QUIAutoCanvas <Badge type="danger" text="已过时" />
+
+`QUIAutoCanvas` 是 `QUICanvas` 的派生类，提供基于 Tick 的存活检测与自动回收机制。该策略属于旧式 Auto Tick 管理方式，现代项目不再推荐使用。
+
+::: danger 过时说明
+Auto 系列对象通过 Tick 检测 UI 节点是否仍存活，因此释放时机可能滞后一帧或多帧，并会引入额外的 Tick 管理成本。新项目请优先使用 RAII 策略；网格场景推荐 `QGridBinder`，动态画布场景推荐 `QRAIICanvas` / `QECanvas`。
+:::
+
+### 基本了解
+```python
+# -*- coding: utf-8 -*-
+from .QuModLibs.Modules.UI.Client import QUIAutoCanvas
+class MyCanvas(QUIAutoCanvas):
+    def __init__(self, uiNode, parentPath):
+        QUIAutoCanvas.__init__(self, uiNode, parentPath)
+        self.drawDefName = "namespace.controlName"
+        self._QGridData = None	# type: QGridData | None
+        self.dataList = []		# 绑定数据列表
+
+    def renderUpdate(self, viewPath, i):
+        # type: (str, int) -> None
+        # 异步渲染加载触发 其中i代表下标 viewPath返回控件路径
+        data = self.dataList[i]
+        
+    def onCreate(self):
+        self.clearParent()
+        QUIAutoCanvas.onCreate(self)
+        uiNode = self.getUiNode()
+        self._QGridData = QGridData(self._conPath, True, bindFunc=self.renderUpdate)
+        uiNode.GetBaseUIControl(
+            self._QGridData.getRealPath(uiNode)
+        ).asGrid().SetGridDimension((1, len(self.dataList)))
+        
+        # 使用内置的实现方法监听网格渲染
+        self.listenQGridRender(self._QGridData)
+
+    def onDestroy(self):
+        QUIAutoCanvas.onDestroy(self)
+        self.unListenQGridRender(self._QGridData)
+
+# 旧式 Auto Tick 示例：仅建议维护旧项目时参考。
+```
+
+## [智能对象] QUIAutoControlFuntion <Badge type="danger" text="已过时" />
+
+`QUIAutoControlFuntion` 是 `QUIControlFuntion` 的派生类，提供基于 Tick 的存活检测与自动回收机制。该类属于旧式 Auto Tick 管理方式，现代项目不再推荐使用。
+
+### 基本了解
+
+```python
+# -*- coding: utf-8 -*-
+from .QuModLibs.UI import ScreenNodeWrapper
+from .QuModLibs.Modules.UI.Client import QUIAutoControlFuntion
+
+class TextTimer(QUIAutoControlFuntion):
+    """ 文本记时器 """	# 旧式 Auto Tick 示例：仅建议维护旧项目时参考。
+    def __init__(self, uiNode, parentPath):
+        QUIAutoControlFuntion.__init__(self, uiNode, parentPath)
+        self._tick = 0
+    
+    def onTick(self):
+        QUIAutoControlFuntion.onTick(self)
+        self._tick += 1
+        self.getBaseUIControl().asLabel().SetText(str(round(self._tick / 30.0, 1)))
+
+@ScreenNodeWrapper.autoRegister("testUI3.main")
+class TEST_UI3(ScreenNodeWrapper):
+    def __init__(self, *args):
+        ScreenNodeWrapper.__init__(self, *args)
+        # 使用此功能 为特定文本控件赋予计时器机制
+        self.textTimer = TextTimer(self, "/panel/image/text")
+    
+    def Create(self):
+        ScreenNodeWrapper.Create(self)
+        self.textTimer.createControl()
+```
+
+::: danger 过时说明
+智能对象基于 Tick 检测 UI 节点存活性，因此释放并不一定及时。新项目请优先使用 RAII 策略；网格场景推荐 `QGridBinder`，普通控件托管推荐 `QRAIIControlFuntion` / `QEControlFuntion`。
+:::
+
+## [RAII] QGridBinder <Badge type="tip" text="现代推荐" />
+
+网格数据绑定器，用于自动管理 Grid / ScrollView + Grid 的渲染监听。它是当前现代化推荐的网格管理入口，适合替代旧式 `QGridAdapter`、手动事件监听与 Auto Tick 网格管理方案。
+
+### 代码演示
+
+```python
+from .QuModLibs.UI import ScreenNodeWrapper
+from .QuModLibs.Modules.UI.Client import QGridBinder, QGridData
+
+@ScreenNodeWrapper.autoRegister("testUI3.main")
+class TEST_UI4(ScreenNodeWrapper):
+    def __init__(self, *args):
+        ScreenNodeWrapper.__init__(self, *args)
+        self.dataList = []
+        # ScreenNodeWrapper 支持 RAII，上下文创建和销毁时会自动启停绑定器。
+        self.gridBinder = QGridBinder(
+            self,
+            QGridData("/panel/scroll_view", True, bindFunc=self.renderView),
+        )
+
+    def Create(self):
+        ScreenNodeWrapper.Create(self)
+        self.gridBinder.setGridDimension((1, len(self.dataList)))
+
+    def renderView(self, viewPath="", index=0):
+        if index >= len(self.dataList):
+            return
+        data = self.dataList[index]
+        ...
+```
+
+### 常用方法
+
+- `setGridData(gridData)`：绑定 `QGridData`，返回自身。
+- `setGridDimension(size)`：调整 Grid 元素数量，内部调用原生 `SetGridDimension`。
+- `updateRender()`：主动刷新当前已渲染控件，并触发 `bindFunc`。
+- `updateOnceRender(viewPath, index=None)`：只刷新单个控件路径。
+- `clearIncrementalCache()`：清理增量渲染缓存。
+- `start()` / `stop()`：在不支持 RAII 的 UI 节点中手动启停绑定器。

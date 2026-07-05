@@ -21,7 +21,7 @@ def sleepAsync(duration):
     # [后续讲解非阻塞的Promise] 会使用到then和catch
     def executor(resolve, reject):
         # 这个执行器会构造一个计时器, 计时器使用sleep的duration参数计时
-        comp = serverApi.GetEngineCompFactory().CreateGame(levelId)
+        comp = compFactory.CreateGame(levelId)
         # 计时结束调用Promise的resolve, Promise成功
         # 计时是个简单操作不会有失败的情况, 也不需要Promise返回参数, 直接调用即可
         comp.AddTimer(duration, resolve)

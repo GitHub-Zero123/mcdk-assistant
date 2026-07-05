@@ -41,11 +41,10 @@ GLR允许您在运行时动态设置不存在的节点(将会自动注册)。
 from .QuModLibs.Server import *
 from .QuModLibs.Include.GL_Render.Server import GL_Service
 
-@Listen(Events.ServerItemTryUseEvent)
+@Listen("ServerItemTryUseEvent")
 def ServerItemTryUseEvent(args={}):
     """ 尝试使用物品事件 """
-    data = Events.ServerItemTryUseEvent(args)
-    playerId = data.playerId
+    playerId = args["playerId"]
     # 通过玩家ID拿到资源操作对象
     playerRes = GL_Service.getPlayerRes(playerId)
     # 当节点不存在时将会自动注册节点

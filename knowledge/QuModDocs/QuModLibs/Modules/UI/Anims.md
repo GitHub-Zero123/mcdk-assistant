@@ -1,223 +1,153 @@
-# UI动画系统模块
-Anims模块基于Modules.UI中的`QUIAutoControlFuntion`复合实现，在`1.4.0+`版本中支持`QRAIIDelayed`协议。
+# UI 动画系统模块
 
-## class QAnimsControl
-### 动画控件功能
-基于 `QUIAutoControlFuntion` 实现的动画托管对象，允许您为指定的控件添加多种动画变换效果。
+`QuModLibs.Modules.UI.Anims` 提供 UI 控件动画托管能力。现代项目推荐使用 `QAnimManager.bindRAIINode(...)` 接入 `ScreenNodeWrapper` / `QEScreenNode` 的 RAII 生命周期，旧式手动 Tick 管理放在本文末尾，仅供维护历史项目参考。
+
+::: tip 现代推荐
+优先使用 `QAnimManager.bindRAIINode(uiNode)`。它会在 UI 创建时自动监听帧事件，并在 UI 销毁时自动释放监听和动画对象。
+:::
+
+## QAnimManager <Badge type="tip" text="现代推荐" />
+
+动画管理器用于统一托管多个控件的动画对象。通过 `getControlAnimObj(path)` 获取指定控件的 `QAnimsControl` 后，即可添加位置、大小、不透明度、打字机等动画变换。
+
+```python
+# -*- coding: utf-8 -*-
+from .QuModLibs.Client import *
+from .QuModLibs.Modules.UI.EnhancedUI import QEScreenNode
+from .QuModLibs.Modules.UI.Anims import QAnimManager, QPosTransform, QSizeTransform
+
+@QEScreenNode.autoRegister("test_ui.main")
+class TestUI(QEScreenNode):
+    def __init__(self, *args):
+        QEScreenNode.__init__(self, *args)
+        self.imgPath = "/panel/image"
+        self.animSystem = QAnimManager.bindRAIINode(self)
+
+    @QEScreenNode.OnClick("/panel/move")
+    def onMove(self):
+        animObj = self.animSystem.getControlAnimObj(self.imgPath)
+        animObj.changeTransformAnim(
+            QPosTransform(animObj.getPos(), (400, 100), useTime=0.8)
+        )
+        animObj.changeTransformAnim(
+            QSizeTransform(animObj.getScale(), animObj.controlInfo._baseScale, useTime=0.8, resizeChildren=True)
+        )
+```
+
+::: warning 使用条件
+`bindRAIINode` 只能绑定到继承 `QDRAIIEnv` 的 UI 节点，例如 `ScreenNodeWrapper` / `QEScreenNode`。非 RAII 界面只能使用本文末尾的旧式绑定方式。
+:::
+
+## QAnimsControl
+
+`QAnimsControl` 是单个控件的动画对象，通常不需要手动创建，而是通过 `QAnimManager.getControlAnimObj(path)` 获取。
+
+### 常用方法
+
+```python
+animObj = self.animSystem.getControlAnimObj("/panel/image")
+
+animObj.addTransformAnim(QPosTransform(...))
+animObj.changeTransformAnim(QSizeTransform(...))
+animObj.removeTransformAnim(transformObj)
+animObj.matchTransformWithClass(QPosTransform)
+animObj.update(0.033, forceUpdate=True)
+```
+
+- `addTransformAnim(transformObj)`：添加动画变换对象。
+- `changeTransformAnim(transformObj)`：添加动画，并覆盖同类型旧动画，通常比直接 `addTransformAnim` 更安全。
+- `removeTransformAnim(transformObj)`：移除指定动画对象。
+- `matchTransformWithClass(cls)`：查找当前控件上指定类型的动画对象，不存在时返回 `None`。
+- `update(delayTime, forceUpdate=True)`：推进动画计算。使用 `QAnimManager` 时通常不需要手动调用。
+
+::: tip 注意事项
+单个 `QTransform` 对象只能同时绑定到一个控件。需要复用动画配置时，请创建新的变换对象。
+:::
+
+## QTransform
+
+`QTransform` 是动画变换基类。内置动画均继承自它，并支持链式设置缓动与完成回调。
+
+### 完成回调
+
+```python
+QPosTransform((0, 0), (100, 100), 0.8).setFinishAnimBackCall(
+    lambda: print("动画完成")
+)
+```
+
+### 缓动模式
+
+```python
+from .QuModLibs.Modules.UI.Anims import QPosTransform, QTransform
+
+QPosTransform((0, 0), (100, 100), 0.8).setEasingMode(
+    QTransform.EasingMode.EaseOutQuad
+)
+
+# 也可以修改全局默认缓动类型。
+QTransform.EasingMode.Default = QTransform.EasingMode.EaseOutQuad
+```
+
+当前内置缓动：
+
+- `QTransform.EasingMode.Linear`：线性。
+- `QTransform.EasingMode.EaseInSide`：渐入。
+- `QTransform.EasingMode.EaseOutQuad`：渐出。
+
+## 内置动画类型
+
+```python
+from .QuModLibs.Modules.UI.Anims import QPosTransform, QSizeTransform, QAlphaTransform, QuTypeWriter
+
+QPosTransform((0, 0), (100, 100), 0.8)
+QSizeTransform((10, 10), (100, 100), 0.8, resizeChildren=False)
+QAlphaTransform(0.0, 1.0, 0.8)
+QuTypeWriter("你好, 世界", 1.2, childPath="", syncSize=False)
+```
+
+- `QPosTransform`：坐标动画。
+- `QSizeTransform`：大小动画，可选择是否重算子节点。
+- `QAlphaTransform`：透明度动画，仅支持图片/文字控件。
+- `QuTypeWriter`：打字机动画，仅支持文字控件。
+
+## 旧式手动管理 <Badge type="danger" text="已过时" />
+
+早期写法直接创建 `QAnimsControl`，并在 Tick / 帧事件中手动调用 `update()`。该方式需要自行管理监听和释放，新项目不推荐使用。
 
 ```python
 # -*- coding: utf-8 -*-
 from .QuModLibs.Client import *
 from .QuModLibs.UI import EasyScreenNodeCls
-from .QuModLibs.Modules.UI.Anims import QAnimsControl, QPosTransform, QSizeTransform
+from .QuModLibs.Modules.UI.Anims import QAnimsControl, QPosTransform
 
-# 此处为旧版UI类的手动管理策略，仅参考组合类使用，不建议再引用老版本界面类本身，自动管理另见下文。
-@EasyScreenNodeCls.Binding("testUI3.main")
-class TEST_UI3(EasyScreenNodeCls):
+@EasyScreenNodeCls.Binding("test_ui.main")
+class TestUI(EasyScreenNodeCls):
     def __init__(self):
         self.imgPath = "/panel/image"
-        self.imgAnimObj = QAnimsControl.bindControl(self, self.imgPath)	# 绑定控件关联
+        self.imgAnimObj = QAnimsControl.bindControl(self, self.imgPath)
 
-	@EasyScreenNodeCls.Listen(Events.OnScriptTickClient)
+    @EasyScreenNodeCls.Listen("OnScriptTickClient")
     def onTick(self, _={}):
-        self.imgAnimObj.update()	# 更新动画运算
+        self.imgAnimObj.update()
 
     @EasyScreenNodeCls.OnClick("/panel/move")
     def onMove(self):
-        # 播放移动动画与大小变换动画
-        self.imgAnimObj.changeTransformAnim(QPosTransform(self.imgAnimObj.getPos(), (400, 100), useTime=0.8))
-        self.imgAnimObj.changeTransformAnim(QSizeTransform(self.imgAnimObj.getScale(), self.imgAnimObj.controlInfo._baseScale, useTime=0.8, resizeChildren=True))
-
-```
-```text
-Q: update方法是干什么的?
-答: update方法用于管理内部的时间推进，通常放置在tick/帧事件中更新绘制。
-
-Q: 手动调用更新是不是有点太麻烦了?
-答: 是的，所以在下文我们提供了一个封装好的管理器。
+        self.imgAnimObj.changeTransformAnim(
+            QPosTransform(self.imgAnimObj.getPos(), (400, 100), useTime=0.8)
+        )
 ```
 
-### addTransformAnim
+## 旧式 bindNode <Badge type="danger" text="已过时" />
 
-添加变换动画对象到当前控件
+`QAnimManager.bindNode(uiNode)` 通过旧式 Auto Tick 生命周期管理动画，主要用于非 QuModLibs UI 或历史项目维护。新项目请使用 `bindRAIINode`。
 
 ```python
-# -*- coding: utf-8 -*-
-#.... 篇幅问题省略UI的完整代码
-self.imgAnimObj.addTransformAnim(
-    QPosTransform(...)	# 任意一种变换对象
-)
-# 此操作不会计算重复类型动画覆盖 因此大多数情况下建议使用另外一种 changeTransformAnim
-
-```
-::: tip 注意事项
-单个变换对象只能同时应用在一个控件上 若有复用需求请使用copy方法克隆
-:::
-
-### changeTransformAnim
-
-添加变换动画对象到当前控件并覆盖同类型动画
-
-```python
-# -*- coding: utf-8 -*-
-
-self.imgAnimObj.changeTransformAnim(
-    QPosTransform(...)	# 使用该方法可以很好的避免同类型动画叠加进行导致的异常
-)
-
-```
-
-
-
-### removeTransformAnim
-
-移除指定的动画变换对象
-
-```python
-# -*- coding: utf-8 -*-
-
-anim = QPosTransform(...)
-self.imgAnimObj.removeTransformAnim(anim)	# 如果正在播放的动画集合中存在则会移除
-
-```
-
-
-
-### matchTransformWithClass
-
-基于class匹配已存在的动画对象
-
-```python
-# -*- coding: utf-8 -*-
-
-self.imgAnimObj.matchTransformWithClass(
-    QPosTransform
-) # 匹配 QPosTransform类型(或子类)的实例 不存在则返回None
-
-```
-
-
-
-### update
-
-更新内部运算逻辑
-
-```python
-# -*- coding: utf-8 -*-
-
-self.imgAnimObj.update(0.033, forceUpdate = True)	# 注意forceUpdate仅作为可见参数下传到所有播放的动画变换对象 如果相关动画对象并没有涉及forceUpdate的实现 该参数则是无效的 (目前为止内置的动画受API限制是不具有forceUpdate功能的)
-
-```
-
-
-
-### (属性) controlInfo
-
-控件信息对象 包含了第一次构造的信息记忆
-
-```python
-# -*- coding: utf-8 -*-
-
-pos = self.imgAnimObj.controlInfo._basePos		# 初始位置
-scale = self.imgAnimObj.controlInfo._baseScale	# 初始大小
-
-```
-
-
-
-## class QTransform
-
-动画变换基类 所有的动画类型实现均继承自QTransform (篇幅问题仅介绍个别常用方法)
-
-### setFinishAnimBackCall
-
-[链式方法] 设置动画完整播放完毕后的回调
-
-```python
-# -*- coding: utf-8 -*-
-
-# 设置回调可以实现动画循环/多段轨迹
-QPosTransform(...).setFinishAnimBackCall(
-	lambda: xxx
-)
-
-```
-
-
-
-### setEasingMode
-
-[链式方法] 设置动画缓动类型
-
-```python
-# -*- coding: utf-8 -*-
-from .QuModLibs.Modules.UI.Anims import QPosTransform, QTransform
-
-QPosTransform(...).setEasingMode(
-	QTransform.EasingMode.EaseInSide	# 使用EaseInSide缓动函数 默认为线性
-).setFinishAnimBackCall(...)
-
-# 您也可以直接修改全局默认缓动类型 如下:
-# QTransform.EasingMode.Default = QTransform.EasingMode.EaseInSide
-
-"""
-    现阶段一共提供了3种缓动机制 可根据需求使用
-    QTransform.EasingMode.Linear (默认)
-    QTransform.EasingMode.EaseInSide
-    QTransform.EasingMode.EaseOutQuad
-"""
-
-```
-
-
-
-### 内置动画类型
-若有需要 也可以自定义动画类型 继承自 QTransform 实现 详细可参考源代码
-
-```python
-# -*- coding: utf-8 -*-
-from .QuModLibs.Modules.UI.Anims import QTransform, QPosTransform, QSizeTransform, QAlphaTransform, QuTypeWriter
-
-QTransform.EasingMode.Default = QTransform.EasingMode.EaseOutQuad	# 设置全局缓动类型
-
-# =============== 内置动画示例 ===============
-QPosTransform((0,0), (100, 100), 3.0)	# 坐标动画 从 0,0 到 100,100 用时3s
-
-QSizeTransform(
-    (10,10), (100, 100), 3.0, resizeChildren=False
-)										# 大小动画同上 resizeChildren是否重新计算子节点
-
-QAlphaTransform(0.0, 1.0, 3.0)			# 不透明度动画 从0.0到1.0用时3s (仅支持图片/文字)
-
-QuTypeWriter("你好, 世界", 2.0, childPath="", syncSize=False)	# 打字机动画 2s内逐一呈现文字(仅支持文字控件)
-
-```
-
-
-
-## class QAnimManager
-动画管理器，基于`QUIAutoControlFuntion` + `QRAIIDelayed`实现自动释放。
-
-### 新式界面/符合RAII协议的界面
-基于QRAIIDelayed的自动管理释放。
-```python
-# -*- coding: utf-8 -*-
-from .QuModLibs.Client import *
-from .QuModLibs.UI import ScreenNodeWrapper # 新式UI基类，支持RAII
-from .QuModLibs.Modules.UI.Anims import QAnimsControl, QPosTransform, QSizeTransform, QAnimManager
-
-@ScreenNodeWrapper.autoRegister("testUINew.main") # 新式UI注册
-class NEW_TEST_UI(ScreenNodeWrapper):
-    def __init__(self, *args):
-        ScreenNodeWrapper.__init__(self, *args)
-        self.imgPath = "/panel/image"
-        # RAIIDelayed协议会确保延后到Create再自动调用 因此可以直接在init下绑定
-        self.animSystem = QAnimManager.bindRAIINode(self)	# 使用bindRAIINode方法绑定(1.4.0+)
-
-    @ScreenNodeWrapper.OnClick("/panel/move")
-    def onMove(self):
-        # 播放移动动画与大小变换动画
-        animObj = self.animSystem.getControlAnimObj(self.imgPath)	# 通过管理器拿到特定控件的动画功能对象
-        animObj.changeTransformAnim(QPosTransform(animObj.getPos(), (400, 100), useTime=0.8))
-        sanimObj.changeTransformAnim(QSizeTransform(animObj.getScale(), animObj.controlInfo._baseScale, useTime=0.8, resizeChildren=True))
+from .QuModLibs.UI import EasyScreenNodeCls
+from .QuModLibs.Modules.UI.Anims import QAnimManager
+
+@EasyScreenNodeCls.Binding("test_ui.main")
+class TestUI(EasyScreenNodeCls):
+    def __init__(self):
+        self.animSystem = QAnimManager.bindNode(self)
 ```

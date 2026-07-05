@@ -39,7 +39,7 @@ class MyManager(QuickLobbyManager):
     ...
 
     # 当玩家攻击实体时 获得1货币
-    @QuickLobbyManager.Listen(Events.PlayerAttackEntityEvent)
+    @QuickLobbyManager.Listen("PlayerAttackEntityEvent")
     def PlayerAttackEntityEvent(self, args={}):
         playerId = args["playerId"]
         # Quick管理器会将后台数据分配在服务端内存空间上映射操作 并由内部周期性同步确保性能优化
