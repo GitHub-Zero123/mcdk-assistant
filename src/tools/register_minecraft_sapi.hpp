@@ -133,8 +133,7 @@ JS / TS 关系：
 Py/JS 通信经验：
   - Py ModSDK 可执行 scriptevent 命令，JS 侧监听 ScriptEvent 可实现 Py -> JS 实时同步。
   - scriptevent 事件名建议带项目名/命名空间隔离，避免跨 Mod 冲突。
-  - 截至目前，JS 反向用该方案通信会导致游戏进程崩溃；不要尝试 JS -> Py 反向 scriptevent（除非官方已修复）。
-  - 如需 JS -> Py 通信，先评估其他方案，不要套用上述单向通道。
+  - 对于 JS -> Py 通信，上述方案同理可用。
 
 新手任务检索提示：
   生成实体：search "spawn entity"
