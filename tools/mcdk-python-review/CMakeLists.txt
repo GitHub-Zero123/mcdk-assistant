@@ -1,6 +1,7 @@
 add_executable(mcdk-python-review
     main.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/../../src/python_review/review_analyzer.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../src/python_review/review_config.cpp
 )
 
 target_include_directories(mcdk-python-review PRIVATE
@@ -17,6 +18,7 @@ target_link_libraries(mcdk-python-review PRIVATE
     tree-sitter
     tree-sitter-python
     nlohmann_json::nlohmann_json
+    tomlplusplus
 )
 
 if(WIN32)

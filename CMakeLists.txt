@@ -41,6 +41,12 @@ target_include_directories(stb INTERFACE
     ${CMAKE_CURRENT_SOURCE_DIR}/libs/stb
 )
 
+# toml++（header-only）：python_review 的可调配置文件解析。
+add_library(tomlplusplus INTERFACE)
+target_include_directories(tomlplusplus INTERFACE
+    ${CMAKE_CURRENT_SOURCE_DIR}/libs/tomlplusplus/include
+)
+
 option(MCDK_ENABLE_PLUGINS "Enable pocketPy plugin support when pocketPy is available" ON)
 
 set(MCDK_WITH_PLUGINS OFF)
@@ -82,6 +88,7 @@ set(MCDK_LITE_SOURCES
     src/app/server_runtime.cpp
     src/project_analysis/project_analyzer.cpp
     src/python_review/review_analyzer.cpp
+    src/python_review/review_config.cpp
     src/sapi/sapi_index.cpp
 )
 
@@ -130,6 +137,7 @@ function(mcdk_add_target target_name)
         tree-sitter-python
         tree-sitter-typescript
         nlohmann_json::nlohmann_json
+        tomlplusplus
         Threads::Threads
     )
 

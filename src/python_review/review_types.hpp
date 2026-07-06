@@ -76,6 +76,7 @@ struct PackageReport {
 struct ReviewReport {
     std::string                behavior_pack_root; // UTF-8
     std::string                discovery_mode;     // "modMain" | "fallback-directory"
+    std::string                config_source;      // 配置来源描述（默认值/文件名/显式路径）
     std::vector<PackageReport> packages;
     std::vector<Finding>       findings;
     std::vector<std::string>   ignored_dirs;       // 被跳过的三方/缓存目录（UTF-8）
@@ -84,6 +85,7 @@ struct ReviewReport {
     int                        parse_ok = 0;
     int                        parse_recovered = 0;
     int                        parse_failed = 0;
+    int                        max_findings_per_rule = 0; // 渲染时每规则展示上限（0=不限）
 };
 
 } // namespace mcdk::python_review

@@ -6,8 +6,10 @@
 //
 // 行为包路径为完整 UTF-8 路径；Windows 下用宽字符命令行还原，避免中文路径按 GBK 乱码。
 #include "python_review/review_analyzer.hpp"
+#include "python_review/review_config.hpp"
 #include "common/path_utils.hpp"
 
+#include <cstdlib>
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -41,12 +43,16 @@ void print_help() {
     std::cout <<
         "mcdk-python-review — Python AI 代码审查（行为包）\n"
         "用法: mcdk-python-review <behavior_pack_path> [选项]\n"
-        "  <behavior_pack_path>       必填，行为包根目录完整 UTF-8 路径\n"
-        "  --scope <a,b/c>            选填，缩小到指定包/模块；不填=全部\n"
-        "  --format <markdown|json>   输出格式，默认 markdown（json 为闭环主格式）\n"
-        "  --include-third-party      连 QuModLibs 等三方库一并审查（默认排除）\n"
-        "  --output <file>            写报告到文件（UTF-8）；不传则打印到 stdout\n"
-        "  --help                     显示本帮助\n";
+        "  <behavior_pack_path>          必填，行为包根目录完整 UTF-8 路径\n"
+        "  --scope <a,b/c>               选填，缩小到指定包/模块；不填=全部\n"
+        "  --format <summary|markdown|json>  输出格式，默认 markdown\n"
+        "                                summary=极简概览(最省上下文) json=闭环机读(按规则分组)\n"
+        "  --include-third-party         连 QuModLibs 等三方库一并审查（默认排除）\n"
+        "  --config <toml>              显式配置文件；不填则自动发现行为包根下 mcdk-review.toml\n"
+        "  --max-per-rule <n>           每规则最多列 N 处（0=不限），控输出体积、避免撑爆上下文\n"
+        "  --dump-config                打印默认配置模板（TOML，兼作阈值/开关说明）到 stdout 后退出\n"
+        "  --output <file>              写报告到文件（UTF-8）；不传则打印到 stdout\n"
+        "  --help                       显示本帮助\n";
 }
 
 #ifdef _WIN32
@@ -88,9 +94,12 @@ int main(int argc, char** argv) {
             return "";
         };
         if (a == "--help" || a == "-h") { print_help(); return 0; }
+        else if (a == "--dump-config") { std::cout << mcdk::python_review::default_toml_template(); return 0; }
         else if (a == "--scope" || a == "-s") options.scope = split_csv(next("--scope"));
         else if (a == "--format" || a == "-f") options.format = next("--format");
         else if (a == "--include-third-party") options.include_third_party = true;
+        else if (a == "--config" || a == "-c") options.config_path = next("--config");
+        else if (a == "--max-per-rule") options.max_findings_per_rule = std::atoi(next("--max-per-rule").c_str());
         else if (a == "--output" || a == "-o") output_file = next("--output");
         else if (!a.empty() && a[0] == '-') { std::cerr << "未知选项: " << a << "\n"; }
         else if (path_text.empty()) path_text = a;
@@ -101,8 +110,8 @@ int main(int argc, char** argv) {
         print_help();
         return 2;
     }
-    if (options.format != "markdown" && options.format != "json") {
-        std::cerr << "未知 --format: " << options.format << "（应为 markdown|json）\n";
+    if (options.format != "markdown" && options.format != "json" && options.format != "summary") {
+        std::cerr << "未知 --format: " << options.format << "（应为 summary|markdown|json）\n";
         return 2;
     }
 

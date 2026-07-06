@@ -1,4 +1,5 @@
 #include "python_review/review_analyzer.hpp"
+#include "python_review/review_config.hpp"
 
 #include "common/path_utils.hpp"
 
@@ -219,6 +220,7 @@ struct FileContext {
     std::string        rel_path; // UTF-8，相对行为包根
     std::vector<Finding>* out;
     std::vector<FuncSig>* sigs = nullptr; // 跨文件累积（可空）
+    const ReviewConfig* cfg = nullptr;    // 可调阈值/开关（analyze_file 注入）
 };
 
 // 递归构建结构指纹：只 append 控制流关键字与调用方法名，忽略变量名/字面量，
@@ -347,12 +349,12 @@ void make_finding(const FileContext& ctx, const std::string& rule_id, Severity s
     ctx.out->push_back(std::move(f));
 }
 
-// try 体规模阈值：小 try 多为窄防御（低风险），大 try 吞掉大量业务失败（高风险）。
-constexpr int kTrySmall = 5;
-constexpr int kTryLarge = 20;
-
+// try 体规模阈值来自配置（try_small / try_large）：小 try 多为窄防御（低风险），
+// 大 try 吞掉大量业务失败（高风险）。
 void check_try_masking(TSNode try_stmt, const FileContext& ctx, const std::string& symbol) {
     const std::string& source = *ctx.source;
+    const int kTrySmall = ctx.cfg->try_small;
+    const int kTryLarge = ctx.cfg->try_large;
     int try_loc = block_loc(try_body_block(try_stmt));
 
     uint32_t n = ts_node_named_child_count(try_stmt);
@@ -495,7 +497,11 @@ void check_mutable_defaults(TSNode fn, const FileContext& ctx, const std::string
         }
         if (!mutable_lit && !mutable_call) continue;
         std::string pname = node_text(ts_node_child_by_field_name(p, "name", 4), source);
-        if (is_caller_supplied_param(pname)) continue;         // 引擎/调用方提供，默认值不共享
+        bool caller_supplied = is_caller_supplied_param(pname);
+        if (!caller_supplied && ctx.cfg) // 项目自定义的调用方参数名（配置追加）
+            for (const auto& extra : ctx.cfg->extra_caller_supplied_params)
+                if (extra == pname) { caller_supplied = true; break; }
+        if (caller_supplied) continue;                         // 引擎/调用方提供，默认值不共享
         if (!param_mutated(body, pname, source, true)) continue; // 只读默认值不报
 
         // 定位 risk + advisory-verify：即便被累积型修改，若默认值实际总被入参覆盖也无害，
@@ -618,21 +624,149 @@ void check_stub(TSNode fn, const FileContext& ctx, const std::string& symbol) {
                          "补全实现；若为类型存根/接口占位可忽略。",
                          1, Actionability::AdvisoryVerify);
         }
-    } else if (t == "return_statement") {
-        // 假实现：接了非 self 参数，函数体却只有 return <常量字面量>，完全不用参数。
-        // AI 偷懒头号特征（如 def validate(self, data): return True）。
-        TSNode val = ts_node_named_child(only, 0);
-        if (!ts_node_is_null(val) && is_constant_return(val) &&
-            non_self_param_count(fn, source) >= 1 && !is_dunder(symbol_leaf(symbol))) {
-            std::string rv = node_text(val, source);
-            if (rv.size() > 40) rv = rv.substr(0, 40) + "…";
-            make_finding(ctx, "stub.shallow-impl", Severity::Risk, 0.55, node_start_row(fn), symbol,
-                         "疑似空/假实现：接了参数却直接返回常量",
-                         {"函数带参数，但体内只有 return " + rv + "，未使用任何参数"},
-                         "确认是否为真实现：若应据参数计算，请补全逻辑；若为占位/默认返回可忽略。",
-                         2, Actionability::AdvisoryVerify);
+    }
+    // 注意：单条 `return <固定值>` 不再作为 shallow-impl 上报——py2 无 .pyi，开发者常裸写
+    // 补全库（def f(self,x): return True 触发类型推导），1 行固定返回过于普遍。真正的假实现
+    // 判定移交 check_shallow_impl：要求「体内≥N行业务 + 完全不用参数 + 只返回固定值」。
+}
+
+// ── 规则：假实现 stub.shallow-impl（抓 AI 偷懒，plan §6.9 延伸）──────────────
+// 场景判定（用户反馈）：前提是函数体已有 ≥shallow_min_body 条业务语句（排除 py2 裸写补全
+// 库的 1 行 return 固定值），却完全不引用任何入参、且所有 return 都是固定值——写了一堆
+// "门面"逻辑但与参数无关，是 AI 假实现的典型形态。仍为 advisory-verify（纯 AST 无法确证
+// 语义，只能提示核实；语义偷懒的根本天花板需跑测试/LLM）。
+
+// 全下划线名（_ / __）是 Python 约定的"故意忽略"参数，不能算作"接了参数却不用"。
+bool is_ignored_param_name(const std::string& n) {
+    return !n.empty() && n.find_first_not_of('_') == std::string::npos;
+}
+
+// 收集函数「有意义的」参数名（排除 self/cls 与全下划线占位）。
+void collect_param_names(TSNode fn, const std::string& source, std::unordered_set<std::string>& out) {
+    TSNode params = ts_node_child_by_field_name(fn, "parameters", 10);
+    if (ts_node_is_null(params)) return;
+    uint32_t n = ts_node_named_child_count(params);
+    for (uint32_t i = 0; i < n; ++i) {
+        TSNode p = ts_node_named_child(params, i);
+        std::string_view pt = nt(p);
+        std::string name;
+        if (pt == "identifier") name = node_text(p, source);
+        else if (pt == "default_parameter" || pt == "typed_parameter" || pt == "typed_default_parameter")
+            name = node_text(ts_node_child_by_field_name(p, "name", 4), source);
+        else continue; // *args/**kwargs 等
+        if (!name.empty() && name != "self" && name != "cls" && !is_ignored_param_name(name))
+            out.insert(name);
+    }
+}
+
+// body 直接/嵌套的"业务语句"计数（跳过 docstring/注释/pass；不进嵌套函数/类作用域）。
+int count_logic_stmts(TSNode node, bool top) {
+    std::string_view t = nt(node);
+    if (!top && (t == "function_definition" || t == "class_definition")) return 0;
+    int c = 0;
+    if (t == "block") {
+        uint32_t n = ts_node_named_child_count(node);
+        for (uint32_t i = 0; i < n; ++i) {
+            TSNode s = ts_node_named_child(node, i);
+            std::string_view st = nt(s);
+            if (st == "comment" || st == "pass_statement") continue;
+            if (st == "expression_statement") {
+                TSNode inner = ts_node_named_child(s, 0);
+                if (!ts_node_is_null(inner) && nt(inner) == "string") continue; // docstring
+            }
+            ++c;
         }
     }
+    uint32_t n = ts_node_child_count(node);
+    for (uint32_t i = 0; i < n; ++i) c += count_logic_stmts(ts_node_child(node, i), false);
+    return c;
+}
+
+// body 是否引用了任一参数（作为值读取）。obj.attr 只看 obj，foo(name=v) 只看 v，
+// 避免把属性名/关键字实参名误判为"用了参数"。不进嵌套作用域。
+bool body_uses_any_param(TSNode node, const std::string& source,
+                         const std::unordered_set<std::string>& params, bool top) {
+    std::string_view t = nt(node);
+    if (!top && (t == "function_definition" || t == "class_definition")) return false;
+    if (t == "identifier") return params.count(node_text(node, source)) > 0;
+    if (t == "attribute") {
+        TSNode obj = ts_node_child_by_field_name(node, "object", 6);
+        return !ts_node_is_null(obj) && body_uses_any_param(obj, source, params, false);
+    }
+    if (t == "keyword_argument") {
+        TSNode val = ts_node_child_by_field_name(node, "value", 5);
+        return !ts_node_is_null(val) && body_uses_any_param(val, source, params, false);
+    }
+    uint32_t n = ts_node_named_child_count(node);
+    for (uint32_t i = 0; i < n; ++i)
+        if (body_uses_any_param(ts_node_named_child(node, i), source, params, false)) return true;
+    return false;
+}
+
+// 收集本函数作用域（不含嵌套函数）里的所有 return 语句。
+void collect_returns(TSNode node, std::vector<TSNode>& out, bool top) {
+    std::string_view t = nt(node);
+    if (!top && (t == "function_definition" || t == "class_definition")) return;
+    if (t == "return_statement") out.push_back(node);
+    uint32_t n = ts_node_child_count(node);
+    for (uint32_t i = 0; i < n; ++i) collect_returns(ts_node_child(node, i), out, false);
+}
+
+void check_shallow_impl(TSNode fn, const FileContext& ctx, const std::string& symbol) {
+    const std::string& source = *ctx.source;
+    if (decorators_have_abstract(fn, source)) return;
+    if (looks_like_interface(enclosing_class(symbol))) return;
+    if (is_dunder(symbol_leaf(symbol))) return;
+    TSNode body = ts_node_child_by_field_name(fn, "body", 4);
+    if (ts_node_is_null(body)) return;
+
+    std::unordered_set<std::string> params;
+    collect_param_names(fn, source, params);
+    if (params.empty()) return; // 没接参数，无从谈"接了不用"
+
+    // 前提：函数体已有足够业务语句（排除 1 行 return 固定值的补全库桩）。
+    if (count_logic_stmts(body, true) < ctx.cfg->shallow_min_body) return;
+
+    // 所有 return 都是固定值，且至少有一个显式 return（无 return→隐式 None，不属"返回固定值"）。
+    std::vector<TSNode> rets;
+    collect_returns(body, rets, true);
+    if (rets.empty()) return;
+    std::string rv;
+    for (size_t i = 0; i < rets.size(); ++i) {
+        TSNode val = ts_node_named_child(rets[i], 0);
+        if (ts_node_is_null(val) || !is_constant_return(val)) return; // 有非常量返回→非假实现
+        if (i == 0) rv = node_text(val, source);
+    }
+
+    // 核心信号：完全不引用任何参数。
+    if (body_uses_any_param(body, source, params, true)) return;
+
+    if (rv.size() > 40) rv = rv.substr(0, 40) + "…";
+    make_finding(ctx, "stub.shallow-impl", Severity::Risk, 0.6, node_start_row(fn), symbol,
+                 "疑似假实现：有多行逻辑却不用任何参数、只返回固定值",
+                 {"函数体有 ≥" + std::to_string(ctx.cfg->shallow_min_body) + " 条业务语句，但未引用任何参数",
+                  "所有 return 都是固定值（如 return " + rv + "），与入参无关"},
+                 "确认是否为真实现：若应据参数计算，请补全逻辑；若为类型补全/占位可忽略。",
+                 2, Actionability::AdvisoryVerify);
+}
+
+// ── 规则：参数过多 signature.too-many-params（硬堆参数、未封装）─────────────
+// 非 self/cls 参数超过 max_params（默认 5）多半是偷懒硬加参数、职责过载。
+// __init__/__new__ 天然聚合状态，豁免；引擎要求的固定回调签名可整族关掉或调阈值。
+void check_too_many_params(TSNode fn, const FileContext& ctx, const std::string& symbol) {
+    std::string leaf = symbol_leaf(symbol);
+    if (leaf == "__init__" || leaf == "__new__") return;
+    const std::string& source = *ctx.source;
+    int cnt = non_self_param_count(fn, source);
+    int limit = ctx.cfg->max_params;
+    if (cnt <= limit) return;
+    Severity sev = cnt >= limit + 3 ? Severity::Warning : Severity::Hint;
+    make_finding(ctx, "signature.too-many-params", sev, 0.6, node_start_row(fn), symbol,
+                 "函数参数过多（疑似硬堆参数、未封装）",
+                 {"非 self 参数 " + std::to_string(cnt) + " 个 > " + std::to_string(limit),
+                  "参数过多通常意味着职责过载，或本应聚合为配置对象/数据类"},
+                 "把相关参数聚合为一个对象/字典，或按职责拆分函数；引擎要求的固定签名可忽略或调 max_params。",
+                 2, Actionability::AdvisoryVerify);
 }
 
 // ── 规则：global 重绑定模块状态（plan §6.5，Tier 1）───────────────────────
@@ -704,10 +838,7 @@ void check_todo(TSNode node, const FileContext& ctx, const std::string& symbol) 
 // ── 规则：单文件逻辑堆积 / 屎山（plan §6.3，Tier 2）───────────────────────
 // 核心目的：拦住 AI 把大量逻辑堆进一个巨型文件。多重判定——必须同时「行数大」且
 // 「def/class 多」——纯数据/配置文件（如 StaticDefine.py 1938 行但 u=1）天然大体量、
-// 极少定义，不会命中。阈值按真实 mod 标定：数据文件 u≤19，逻辑文件 u≥36，取 25 分界。
-constexpr int kFileCodeLines = 800; // 代码行（非空非纯注释）
-constexpr int kFileUnits = 25;      // def + class 总数
-
+// 极少定义，不会命中。阈值 file_code_lines / file_units 可配（默认标定 800 / 25）。
 struct FileMetrics {
     int def_count = 0;
     int class_count = 0;
@@ -728,11 +859,10 @@ int count_code_lines(const std::string& src) {
 
 // ── 规则：单函数过长（plan §6.3，Tier 2）─────────────────────────────────
 // 「代码内容过多」的函数级版本。行跨度分级：偏长→risk，过长→warning。advisory-verify
-//（有些事件分发/UI 回调天然长，不强制拆）。阈值按真实 mod 标定（3387 函数中仅 19 个 ≥50）。
-constexpr int kFuncLoc = 50;      // 偏长起报
-constexpr int kFuncLocHigh = 100; // 过长
-
+//（有些事件分发/UI 回调天然长，不强制拆）。阈值 func_loc / func_loc_high 可配。
 void check_large_function(TSNode fn, const FileContext& ctx, const std::string& symbol) {
+    const int kFuncLoc = ctx.cfg->func_loc;
+    const int kFuncLocHigh = ctx.cfg->func_loc_high;
     int start = static_cast<int>(ts_node_start_point(fn).row);
     int end = static_cast<int>(ts_node_end_point(fn).row);
     int loc = end - start + 1;
@@ -747,6 +877,8 @@ void check_large_function(TSNode fn, const FileContext& ctx, const std::string& 
 }
 
 void check_large_file(const FileContext& ctx, int code_lines, const FileMetrics& fm) {
+    const int kFileCodeLines = ctx.cfg->file_code_lines;
+    const int kFileUnits = ctx.cfg->file_units;
     int units = fm.def_count + fm.class_count;
     if (code_lines < kFileCodeLines || units < kFileUnits) return;
     make_finding(ctx, "logic-blob.large-file", Severity::Warning, 0.82, 1, /*symbol=*/"",
@@ -774,11 +906,14 @@ void walk(TSNode node, const FileContext& ctx, std::vector<std::string>& scope_s
         if (type == "function_definition") {
             fm.def_count++;
             std::string qual = join_scope(scope_stack);
-            check_mutable_defaults(node, ctx, qual);
-            check_stub(node, ctx, qual);
-            check_global_write(node, ctx, qual);
-            check_large_function(node, ctx, qual);
-            if (ctx.sigs && !is_dunder(sym)) { // 跳过 __init__ 等样板 dunder
+            const ReviewConfig& c = *ctx.cfg;
+            if (c.rule_mutable_default)  check_mutable_defaults(node, ctx, qual);
+            if (c.rule_stub_placeholder) check_stub(node, ctx, qual);
+            if (c.rule_shallow_impl)     check_shallow_impl(node, ctx, qual);
+            if (c.rule_global_write)     check_global_write(node, ctx, qual);
+            if (c.rule_large_function)   check_large_function(node, ctx, qual);
+            if (c.rule_too_many_params)  check_too_many_params(node, ctx, qual);
+            if (c.rule_duplicate_function && ctx.sigs && !is_dunder(sym)) { // 跳过 __init__ 等样板 dunder
                 TSNode body = ts_node_child_by_field_name(node, "body", 4);
                 std::string fp;
                 fingerprint_walk(body, source, fp);
@@ -792,9 +927,9 @@ void walk(TSNode node, const FileContext& ctx, std::vector<std::string>& scope_s
             fm.class_count++;
         }
     } else if (type == "try_statement") {
-        check_try_masking(node, ctx, join_scope(scope_stack));
+        if (ctx.cfg->rule_try_masking) check_try_masking(node, ctx, join_scope(scope_stack));
     } else if (type == "comment") {
-        check_todo(node, ctx, join_scope(scope_stack));
+        if (ctx.cfg->rule_unowned_todo) check_todo(node, ctx, join_scope(scope_stack));
     }
 
     uint32_t n = ts_node_child_count(node);
@@ -810,7 +945,8 @@ inline double ms_since(std::chrono::steady_clock::time_point a) {
 
 // 单文件解析 + 运行规则，返回 parse health。parser 复用；无共享可变状态，可并行调用。
 ParseHealth analyze_file(const fs::path& file, const fs::path& bp_root,
-                         std::vector<Finding>& out, std::vector<FuncSig>& sigs, TSParser* parser) {
+                         std::vector<Finding>& out, std::vector<FuncSig>& sigs,
+                         TSParser* parser, const ReviewConfig& cfg) {
     std::string source = read_text_file(file);
     if (source.empty()) {
         // 空文件（如空 __init__.py）是合法空模块，不算解析失败；仅文件非空却读不出才 fallback。
@@ -829,22 +965,25 @@ ParseHealth analyze_file(const fs::path& file, const fs::path& bp_root,
     ctx.rel_path = rel_utf8(file, bp_root);
     ctx.out = &out;
     ctx.sigs = &sigs;
+    ctx.cfg = &cfg;
 
     // 有 ERROR 节点时 tree-sitter 仍可局部遍历：recovered，规则照跑。
     std::vector<std::string> scope_stack;
     FileMetrics fm;
     walk(root, ctx, scope_stack, fm);
-    check_large_file(ctx, count_code_lines(source), fm);
+    if (cfg.rule_large_file) check_large_file(ctx, count_code_lines(source), fm);
 
     ts_tree_delete(tree);
     return has_error ? ParseHealth::Recovered : ParseHealth::Ok;
 }
 
-// 跨模块重复函数聚类（plan §6.2，Tier 3）：相同结构指纹、非 trivial、跨 ≥2 文件、≥3 处。
-void cluster_duplicate_functions(const std::vector<FuncSig>& sigs, std::vector<Finding>& out) {
-    constexpr int kMinStmts = 5;      // 过滤 trivial（getter/空壳）
-    constexpr size_t kMinFpLen = 10;  // 指纹过短说明结构太简单，易巧合
-    constexpr int kMinCount = 2;      // 跨模块重复多为「一份逻辑抄了 2 处」，故 2 起报
+// 跨模块重复函数聚类（plan §6.2，Tier 3）：相同结构指纹、非 trivial、跨 ≥2 文件、≥N 处。
+// 阈值 dup_min_stmts / dup_min_fp_len / dup_min_count 可配。
+void cluster_duplicate_functions(const std::vector<FuncSig>& sigs, std::vector<Finding>& out,
+                                 const ReviewConfig& cfg) {
+    const int kMinStmts = cfg.dup_min_stmts;             // 过滤 trivial（getter/空壳）
+    const size_t kMinFpLen = static_cast<size_t>(cfg.dup_min_fp_len); // 指纹过短易巧合
+    const int kMinCount = cfg.dup_min_count;             // 最少重复处数
 
     std::unordered_map<std::string, std::vector<const FuncSig*>> clusters;
     for (const auto& s : sigs) {
@@ -903,6 +1042,13 @@ ReviewReport ReviewAnalyzer::review(const fs::path& behavior_pack_root,
         return report;
     }
 
+    // 解析可调配置（显式路径 > 行为包根自动发现 > 默认值）。
+    ReviewConfig cfg = resolve_config(behavior_pack_root, options.config_path,
+                                      report.config_warnings, report.config_source);
+    if (options.max_findings_per_rule >= 0) // --max-per-rule 快捷覆盖
+        cfg.max_findings_per_rule = options.max_findings_per_rule;
+    report.max_findings_per_rule = cfg.max_findings_per_rule;
+
     auto pkgs = discover_packages(behavior_pack_root, options.include_third_party,
                                   report.discovery_mode, report.ignored_dirs);
 
@@ -941,7 +1087,7 @@ ReviewReport ReviewAnalyzer::review(const fs::path& behavior_pack_root,
         ts_parser_set_language(parser, tree_sitter_python());
         for (size_t i = next.fetch_add(1); i < items.size(); i = next.fetch_add(1)) {
             results[i].health = analyze_file(items[i].file, behavior_pack_root,
-                                             results[i].findings, results[i].sigs, parser);
+                                             results[i].findings, results[i].sigs, parser, cfg);
         }
         ts_parser_delete(parser);
     };
@@ -971,7 +1117,7 @@ ReviewReport ReviewAnalyzer::review(const fs::path& behavior_pack_root,
     double scan_ms = ms_since(t_scan);
 
     // 全局跨模块重复函数检测（需所有函数指纹到齐后再聚类）。
-    cluster_duplicate_functions(all_sigs, report.findings);
+    if (cfg.rule_duplicate_function) cluster_duplicate_functions(all_sigs, report.findings, cfg);
 
     if (std::getenv("MCDK_REVIEW_TIMING")) {
         std::cerr << "[timing] files=" << report.files_scanned << " threads=" << nthreads
@@ -991,7 +1137,9 @@ ReviewReport ReviewAnalyzer::review(const fs::path& behavior_pack_root,
 std::string ReviewAnalyzer::review_formatted(const fs::path& behavior_pack_root,
                                              const ReviewOptions& options) const {
     ReviewReport report = review(behavior_pack_root, options);
-    return options.format == "json" ? render_json(report) : render_markdown(report);
+    if (options.format == "json") return render_json(report);
+    if (options.format == "summary") return render_summary(report);
+    return render_markdown(report);
 }
 
 // ── 渲染 ──────────────────────────────────────────────────────────────────
@@ -1003,22 +1151,77 @@ std::string highest_severity(const std::vector<Finding>& fs) {
     for (const auto& f : fs) { if (!any || static_cast<int>(f.severity) > static_cast<int>(hi)) { hi = f.severity; any = true; } }
     return any ? to_string(hi) : "none";
 }
+
+struct SevCounts { int hint = 0, risk = 0, warning = 0, error = 0; };
+SevCounts count_severities(const std::vector<Finding>& fs) {
+    SevCounts c;
+    for (const auto& f : fs) switch (f.severity) {
+        case Severity::Hint:    c.hint++; break;
+        case Severity::Risk:    c.risk++; break;
+        case Severity::Warning: c.warning++; break;
+        case Severity::Error:   c.error++; break;
+    }
+    return c;
+}
+
+// 按 (rule_id, severity) 分组：同规则同级别的 findings 共享 title/tier/actionability/suggestion，
+// 只输出一次（去重降密度）。按 severity 分是因为同一规则可含不同级别（如 too-many-params 6~7
+// 为 hint、≥8 为 warning；try.* 由 try 体大小分级），若只按 rule_id 分组头部级别会失真。
+// 组按 severity 降序、rule_id 升序；组内保持 findings 的 file/line 有序（report.findings 已排序）。
+struct RuleGroup {
+    std::string                 rule_id;
+    Severity                    severity;
+    int                         tier;
+    Actionability               act;
+    std::string                 title;
+    std::string                 suggestion;
+    std::vector<const Finding*> items;
+};
+std::vector<RuleGroup> group_by_rule(const std::vector<Finding>& fs) {
+    std::unordered_map<std::string, size_t> idx;
+    std::vector<RuleGroup> groups;
+    for (const auto& f : fs) {
+        std::string key = f.rule_id + "\x01" + std::to_string(static_cast<int>(f.severity));
+        auto it = idx.find(key);
+        if (it == idx.end()) {
+            idx.emplace(key, groups.size());
+            groups.push_back({f.rule_id, f.severity, f.tier, f.actionability, f.title, f.suggestion, {}});
+        }
+        groups[idx[key]].items.push_back(&f);
+    }
+    std::sort(groups.begin(), groups.end(), [](const RuleGroup& a, const RuleGroup& b) {
+        if (a.severity != b.severity) return static_cast<int>(a.severity) > static_cast<int>(b.severity);
+        return a.rule_id < b.rule_id;
+    });
+    return groups;
+}
+
+// 压平换行并截断，保证"每处一行"的密度。
+std::string oneline(std::string s, size_t max_len) {
+    for (auto& ch : s) if (ch == '\n' || ch == '\r' || ch == '\t') ch = ' ';
+    if (s.size() > max_len) s = s.substr(0, max_len) + "…";
+    return s;
+}
 } // namespace
 
 std::string render_markdown(const ReviewReport& report) {
     std::ostringstream o;
+    SevCounts sc = count_severities(report.findings);
     o << "# Python AI Code Review\n\n";
-    o << "## Summary\n";
-    o << "- behavior_pack: " << report.behavior_pack_root << "\n";
-    o << "- packages_scanned: " << report.packages.size() << "\n";
-    o << "- package_discovery: " << report.discovery_mode << "\n";
-    o << "- files_scanned: " << report.files_scanned << "\n";
-    o << "- parse_health: " << report.parse_ok << " ok, " << report.parse_recovered
-      << " recovered, " << report.parse_failed << " failed\n";
-    o << "- findings: " << report.findings.size() << "\n";
-    o << "- highest_severity: " << highest_severity(report.findings) << "\n";
+    o << "behavior_pack: " << report.behavior_pack_root << "\n";
+    o << "packages=" << report.packages.size() << " · files=" << report.files_scanned
+      << " · parse " << report.parse_ok << " ok/" << report.parse_recovered << " rec/"
+      << report.parse_failed << " fail\n";
+    o << "findings=" << report.findings.size() << "  (warning=" << sc.warning
+      << " risk=" << sc.risk << " hint=" << sc.hint;
+    if (sc.error) o << " error=" << sc.error;
+    o << ")  highest=" << highest_severity(report.findings) << "\n";
+    o << "config: " << report.config_source << "\n";
+    if (report.max_findings_per_rule > 0)
+        o << "note: 每规则最多列 " << report.max_findings_per_rule
+          << " 处（超出仅计数；改 output.max_findings_per_rule 或用 --format json 看全部）\n";
     if (!report.ignored_dirs.empty())
-        o << "- ignored_third_party: " << report.ignored_dirs.size() << " dir(s)\n";
+        o << "ignored_third_party: " << report.ignored_dirs.size() << " dir(s)\n";
     o << "\n";
 
     if (!report.config_warnings.empty()) {
@@ -1027,24 +1230,69 @@ std::string render_markdown(const ReviewReport& report) {
         o << "\n";
     }
 
-    o << "## Findings\n";
     if (report.findings.empty()) {
-        o << "_(no findings)_\n";
+        o << "## Findings\n_(no findings)_\n";
         return o.str();
     }
-    for (const auto& f : report.findings) {
-        o << "### [" << to_string(f.severity) << "] " << f.rule_id
-          << "  (" << to_string(f.actionability) << ", tier " << f.tier << ")\n";
-        o << f.file << ":" << f.line;
-        if (!f.symbol.empty()) o << "  " << f.symbol;
-        o << "\n" << f.title << "\n";
-        if (!f.evidence.empty()) {
-            o << "Evidence:\n";
-            for (const auto& e : f.evidence) o << "- " << e << "\n";
+
+    // 按规则分组：title/建议每组只印一次，每处定位压成单行，超出上限只计数——控 MCP 召回体积。
+    o << "## Findings（按规则分组）\n\n";
+    const int cap = report.max_findings_per_rule; // 0 = 不限
+    for (const auto& g : group_by_rule(report.findings)) {
+        o << "### [" << to_string(g.severity) << "] " << g.rule_id << "  ×" << g.items.size()
+          << "  (tier " << g.tier << " · " << to_string(g.act) << ")\n";
+        o << g.title << "\n";
+        int shown = 0;
+        for (const auto* f : g.items) {
+            if (cap > 0 && shown >= cap) break;
+            o << "- " << f->file << ":" << f->line;
+            if (!f->symbol.empty()) o << "  " << f->symbol;
+            if (!f->evidence.empty()) o << "  · " << oneline(f->evidence.front(), 90);
+            o << "\n";
+            ++shown;
         }
-        if (!f.suggestion.empty()) o << "Suggestion:\n" << f.suggestion << "\n";
+        if (cap > 0 && static_cast<int>(g.items.size()) > cap)
+            o << "- …其余 " << (static_cast<int>(g.items.size()) - cap) << " 处（同规则，--format json 看全部）\n";
+        if (!g.suggestion.empty()) o << "→ " << g.suggestion << "\n";
         o << "\n";
     }
+    return o.str();
+}
+
+std::string render_summary(const ReviewReport& report) {
+    std::ostringstream o;
+    SevCounts sc = count_severities(report.findings);
+    o << "# Python AI Code Review — Summary\n";
+    o << "behavior_pack: " << report.behavior_pack_root << "\n";
+    o << "files=" << report.files_scanned << " · parse " << report.parse_ok << " ok/"
+      << report.parse_recovered << " rec/" << report.parse_failed << " fail · config: "
+      << report.config_source << "\n";
+    o << "findings=" << report.findings.size() << " · highest=" << highest_severity(report.findings) << "\n";
+    o << "severity: warning=" << sc.warning << " risk=" << sc.risk << " hint=" << sc.hint;
+    if (sc.error) o << " error=" << sc.error;
+    o << "\n";
+    if (!report.config_warnings.empty()) {
+        o << "config_warnings:\n";
+        for (const auto& w : report.config_warnings) o << "  - " << w << "\n";
+    }
+    if (report.findings.empty()) { o << "\n(no findings)\n"; return o.str(); }
+
+    o << "\nby rule (severity desc):\n";
+    for (const auto& g : group_by_rule(report.findings))
+        o << "  [" << to_string(g.severity) << "] " << g.rule_id << "  ×" << g.items.size() << "\n";
+
+    std::unordered_map<std::string, int> fc;
+    for (const auto& f : report.findings) fc[f.file]++;
+    std::vector<std::pair<std::string, int>> files(fc.begin(), fc.end());
+    std::sort(files.begin(), files.end(), [](const auto& a, const auto& b) {
+        if (a.second != b.second) return a.second > b.second;
+        return a.first < b.first;
+    });
+    o << "\ntop files:\n";
+    size_t n = std::min<size_t>(files.size(), 8);
+    for (size_t i = 0; i < n; ++i) o << "  " << files[i].second << "  " << files[i].first << "\n";
+    if (files.size() > n) o << "  …其余 " << (files.size() - n) << " 文件\n";
+    o << "\n(用 --format markdown 看定位与建议；--format json 取机读全量)\n";
     return o.str();
 }
 
@@ -1053,13 +1301,19 @@ std::string render_json(const ReviewReport& report) {
     json j;
     j["behavior_pack_root"] = report.behavior_pack_root;
     j["package_discovery"] = report.discovery_mode;
+    j["config_source"] = report.config_source;
     j["files_scanned"] = report.files_scanned;
     j["parse_health"] = {
         {"ok", report.parse_ok},
         {"recovered", report.parse_recovered},
         {"failed", report.parse_failed},
     };
+    SevCounts sc = count_severities(report.findings);
+    j["severity_counts"] = {{"warning", sc.warning}, {"risk", sc.risk},
+                            {"hint", sc.hint}, {"error", sc.error}};
+    j["findings_total"] = static_cast<int>(report.findings.size());
     j["highest_severity"] = highest_severity(report.findings);
+    j["max_findings_per_rule"] = report.max_findings_per_rule;
 
     j["packages"] = json::array();
     for (const auto& p : report.packages) {
@@ -1073,22 +1327,38 @@ std::string render_json(const ReviewReport& report) {
         });
     }
 
-    j["findings"] = json::array();
-    for (const auto& f : report.findings) {
-        j["findings"].push_back({
-            {"finding_key", f.finding_key},
-            {"rule_id", f.rule_id},
-            {"severity", to_string(f.severity)},
-            {"tier", f.tier},
-            {"actionability", to_string(f.actionability)},
-            {"confidence", f.confidence},
-            {"file", f.file},
-            {"line", f.line},
-            {"symbol", f.symbol},
-            {"title", f.title},
-            {"evidence", f.evidence},
-            {"suggestion", f.suggestion},
-        });
+    // 按规则分组：rule_id/severity/tier/actionability/title/suggestion 每组一份（去重降体积），
+    // 每处 finding 只留定位 + 证据；超出 max_findings_per_rule 只计 truncated（非静默）。
+    const int cap = report.max_findings_per_rule; // 0 = 不限
+    j["rules"] = json::array();
+    for (const auto& g : group_by_rule(report.findings)) {
+        json rj;
+        rj["rule_id"] = g.rule_id;
+        rj["severity"] = to_string(g.severity);
+        rj["tier"] = g.tier;
+        rj["actionability"] = to_string(g.act);
+        rj["title"] = g.title;
+        rj["suggestion"] = g.suggestion;
+        rj["count"] = static_cast<int>(g.items.size());
+        json arr = json::array();
+        int shown = 0;
+        for (const auto* f : g.items) {
+            if (cap > 0 && shown >= cap) break;
+            arr.push_back({
+                {"finding_key", f->finding_key},
+                {"file", f->file},
+                {"line", f->line},
+                {"symbol", f->symbol},
+                {"confidence", f->confidence},
+                {"evidence", f->evidence},
+            });
+            ++shown;
+        }
+        rj["shown"] = shown;
+        if (cap > 0 && static_cast<int>(g.items.size()) > cap)
+            rj["truncated"] = static_cast<int>(g.items.size()) - cap;
+        rj["findings"] = std::move(arr);
+        j["rules"].push_back(std::move(rj));
     }
 
     j["ignored_third_party"] = report.ignored_dirs;
