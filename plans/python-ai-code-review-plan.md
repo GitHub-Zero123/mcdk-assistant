@@ -45,7 +45,7 @@ src/python_review/
   naming_index.hpp/.cpp           # 标识符拆词、缩写、命名语义候选
   review_rule.hpp                 # 统一 Rule / Finding 接口
   rule_registry.hpp/.cpp          # 内置规则注册、启停、参数合并
-  custom_rule_loader.hpp/.cpp     # 外部 JSON 规则文件加载与校验
+  custom_rule_loader.hpp/.cpp     # 外部 TOML/JSON 规则文件加载与校验
   rules/
     existing_code_rule.cpp        # 忘记已有代码
     duplicate_wheel_rule.cpp      # 重复发明轮子
@@ -113,49 +113,57 @@ MCP 工具必须提供帮助命令：
 - 行为包内可以同时存在多个 Python 包，报告需要按包分组，并在 Summary 中列出包数量、入口文件和解析健康度。
 - 若没有发现 `modMain.py`，退化为普通 Python 目录扫描，但报告中标记 `package_discovery=fallback-directory`。
 
-建议支持配置文件：
+建议支持项目配置文件，推荐 `.mcdk-python-review.toml`：
 
-```json
-{
-  "rules": {
-    "enable_builtin": true,
-    "disabled": ["comment-doc.too-dense"],
-    "severity_overrides": {
-      "naming.semantic.too-short": "warning"
-    }
-  },
-  "layers": [
-    {"name": "domain", "patterns": ["src/domain/**"]},
-    {"name": "service", "patterns": ["src/service/**"]},
-    {"name": "infra", "patterns": ["src/infra/**"]}
-  ],
-  "allowed_dependencies": [
-    ["service", "domain"],
-    ["infra", "domain"]
-  ],
-  "ignore_paths": ["**/__pycache__/**", "**/.venv/**", "**/site-packages/**"],
-  "thresholds": {
-    "function_loc": 80,
-    "nesting_depth": 4,
-    "branch_count": 12,
-    "try_body_loc": 40,
-    "similarity": 0.72,
-    "comment_min_density": 0.04,
-    "comment_max_density": 0.38,
-    "short_name_max_len": 2
-  },
-  "naming": {
-    "allowed_short_names": ["i", "j", "k", "x", "y", "z", "id", "db", "ui"],
-    "banned_names": ["data", "obj", "tmp", "ret", "res"],
-    "semantic_expectations": [
-      {
-        "call": "clientApi.GetEngineCompFactory",
-        "preferred_names": ["compFactory", "engineCompFactory"],
-        "bad_names": ["CF", "cf", "factory"]
-      }
-    ]
-  }
-}
+```toml
+allowed_dependencies = [
+  ["service", "domain"],
+  ["infra", "domain"],
+]
+
+ignore_paths = [
+  "**/__pycache__/**",
+  "**/.venv/**",
+  "**/site-packages/**",
+]
+
+[rules]
+enable_builtin = true
+disabled = ["comment-doc.too-dense"]
+
+[rules.severity_overrides]
+"naming.semantic.too-short" = "warning"
+
+[[layers]]
+name = "domain"
+patterns = ["src/domain/**"]
+
+[[layers]]
+name = "service"
+patterns = ["src/service/**"]
+
+[[layers]]
+name = "infra"
+patterns = ["src/infra/**"]
+
+[thresholds]
+function_loc = 80
+nesting_depth = 4
+branch_count = 12
+try_body_loc = 40
+similarity = 0.72
+comment_min_density = 0.04
+comment_max_density = 0.38
+short_name_max_len = 2
+
+[naming]
+allowed_short_names = ["i", "j", "k", "x", "y", "z", "id", "db", "ui"]
+banned_names = ["data", "obj", "tmp", "ret", "res"]
+
+[[naming.semantic_expectations]]
+call = "clientApi.GetEngineCompFactory"
+preferred_names = ["compFactory", "engineCompFactory"]
+bad_names = ["CF", "cf", "factory"]
 ```
 
 配置文件用于项目级审查策略；`--rules <path>` 用于临时追加规则，例如某次 review 只想检查团队刚发现的一类坏味道。
@@ -172,7 +180,7 @@ mcdk-python-review
 
 ```text
 mcdk-python-review <behavior_pack_path>
-mcdk-python-review <behavior_pack_path> --rules review-rules.json
+mcdk-python-review <behavior_pack_path> --rules review-rules.toml
 mcdk-python-review <behavior_pack_path> --format json --output report.json
 mcdk-python-review <behavior_pack_path> --changed my_mod/modMain.py,my_mod/client
 mcdk-python-review --list-rules
@@ -214,7 +222,7 @@ MCP 和 CLI 必须共享同一份默认值定义，并在 `help` / `help-rules` 
 ```text
 behavior_pack_path            required
 changed                       ""
-config                        "<behavior_pack_path>/.mcdk-python-review.json" if exists, otherwise none
+config                        auto-detect .mcdk-python-review.toml/.json
 rules                         none
 format                        markdown
 output                        stdout
@@ -252,16 +260,27 @@ generic_name_min_scope_loc    20
 max_relative_import_level     2
 ```
 
-### 4.4 自定义规则文件
+### 4.4 自定义规则文件格式
 
 规则系统必须有一套内置规则，同时允许通过参数传入规则文件路径：
 
 ```text
-python_review(command="review D:/behavior_pack --rules D:/behavior_pack/review-rules.json")
-mcdk-python-review D:/behavior_pack --rules D:/behavior_pack/review-rules.json
+python_review(command="review D:/behavior_pack --rules D:/behavior_pack/review-rules.toml")
+mcdk-python-review D:/behavior_pack --rules D:/behavior_pack/review-rules.toml
 ```
 
-外部规则文件采用 JSON，第一阶段不执行脚本，避免把审查工具变成任意代码执行入口。它必须支持深度自定义：
+JSON 不建议作为主规则编写格式。它适合机器输出、测试断言和 schema 交换，但不适合长期人工维护规则：不能写注释，长 message/suggestion 难读，深层嵌套会产生大量引号和逗号，规则 diff 噪声也更大。
+
+YAML 也不建议作为默认主格式。它很适合表达嵌套结构，但对审查规则而言有几个明显缺点：缩进错误不容易在 diff 中察觉，YAML 1.1/1.2 的隐式类型差异容易制造歧义，anchors/aliases/merge keys 会让规则来源变得不直观。即使采用受限 YAML，也需要额外解释和防御。
+
+推荐格式：
+
+- 规则文件主格式：TOML 1.0，扩展名 `.toml`。
+- JSON 只作为兼容输入和机器输出格式，扩展名 `.json`。
+- YAML 可作为未来可选导入格式，但不是默认推荐格式。
+- 如果实现阶段不想立刻引入 TOML 解析依赖，可以先支持 JSONC 作为过渡格式，但计划目标应是 TOML 规则文件，而不是裸 JSON。
+
+TOML 规则文件第一阶段不执行脚本，避免把审查工具变成任意代码执行入口。它必须支持深度自定义：
 
 - `disable_builtin`：禁用指定内置规则。
 - `override`：覆盖内置规则阈值、严重级别、置信度、说明文案、适用路径。
@@ -275,78 +294,85 @@ mcdk-python-review D:/behavior_pack --rules D:/behavior_pack/review-rules.json
 - `message_templates`：自定义报告文案和修复建议。
 - `tags`：为规则打标签，例如 `ai-generated`、`architecture`、`naming`、`ci-blocker`。
 
-示例：
+TOML 示例：
 
-```json
-{
-  "version": 1,
-  "profile": "strict",
-  "disable_builtin": ["comment-doc.too-dense"],
-  "rule_defaults": {
-    "min_confidence": 0.55,
-    "severity": "risk",
-    "enabled": true
-  },
-  "override": {
-    "logic-blob.large-function": {
-      "severity": "warning",
-      "thresholds": {"function_loc": 100},
-      "include_paths": ["my_mod/**/*.py"],
-      "exclude_paths": ["my_mod/generated/**"]
-    }
-  },
-  "path_overrides": [
-    {
-      "paths": ["tests/**", "**/*_test.py"],
-      "override": {
-        "comment-doc.missing-purpose": {"severity": "hint"},
-        "naming.semantic.generic-name": {"enabled": false}
-      }
-    }
-  ],
-  "naming": {
-    "allowed_short_names": ["i", "j", "k", "x", "y", "z", "id", "db", "ui"],
-    "banned_names": ["data", "obj", "tmp", "ret", "res"],
-    "semantic_expectations": [
-      {
-        "id": "netease.comp-factory-name",
-        "when_assigned_from_call": "clientApi.GetEngineCompFactory",
-        "preferred_names": ["compFactory", "engineCompFactory"],
-        "reject_names": ["CF", "cf", "factory"],
-        "severity": "warning",
-        "message": "GetEngineCompFactory() 的返回值应保留 compFactory 语义，CF 会严重破坏可读性。"
-      }
-    ]
-  },
-  "ast_patterns": [
-    {
-      "id": "project.no-silent-create-component",
-      "severity": "risk",
-      "confidence": 0.80,
-      "tags": ["try", "component"],
-      "match": {
-        "node": "call",
-        "callee": "*.CreateComponent",
-        "inside_try_without_raise": true
-      },
-      "message": "组件创建失败不应被 try 静默吞掉。"
-    }
-  ],
-  "comments": {
-    "min_density": 0.04,
-    "max_density": 0.38,
-    "complexity_requires_doc": 8,
-    "allow_header_blocks": true
-  }
-}
+```toml
+version = 1
+profile = "strict"
+
+# 可以禁用过吵的内置规则。
+disable_builtin = ["comment-doc.too-dense"]
+
+[rule_defaults]
+min_confidence = 0.55
+severity = "risk"
+enabled = true
+
+[override."logic-blob.large-function"]
+severity = "warning"
+include_paths = ["my_mod/**/*.py"]
+exclude_paths = ["my_mod/generated/**"]
+
+[override."logic-blob.large-function".thresholds]
+function_loc = 100
+
+[[path_overrides]]
+paths = ["tests/**", "**/*_test.py"]
+
+[path_overrides.override."comment-doc.missing-purpose"]
+severity = "hint"
+
+[path_overrides.override."naming.semantic.generic-name"]
+enabled = false
+
+[naming]
+allowed_short_names = ["i", "j", "k", "x", "y", "z", "id", "db", "ui"]
+banned_names = ["data", "obj", "tmp", "ret", "res"]
+
+[[naming.semantic_expectations]]
+id = "netease.comp-factory-name"
+when_assigned_from_call = "clientApi.GetEngineCompFactory"
+preferred_names = ["compFactory", "engineCompFactory"]
+reject_names = ["CF", "cf", "factory"]
+severity = "warning"
+message = """
+GetEngineCompFactory() 的返回值应保留 compFactory 语义，
+CF 会严重破坏可读性。
+"""
+
+[[ast_patterns]]
+id = "project.no-silent-create-component"
+severity = "risk"
+confidence = 0.80
+tags = ["try", "component"]
+message = "组件创建失败不应被 try 静默吞掉。"
+
+[ast_patterns.match]
+node = "call"
+callee = "*.CreateComponent"
+inside_try_without_raise = true
+
+[comments]
+min_density = 0.04
+max_density = 0.38
+complexity_requires_doc = 8
+allow_header_blocks = true
 ```
+
+TOML 解析策略：
+
+- 采用 TOML 1.0 语义。
+- rule id 这类含点号的 key 必须使用 quoted key，例如 `[override."logic-blob.large-function"]`。
+- 长说明使用 TOML multiline basic string。
+- 所有字段必须经过 schema 校验，未知字段输出 config warning。
+- 内部归一化成统一 `RuleConfig` DTO，后续规则引擎不关心来源是 TOML 还是 JSON。
 
 第一阶段的自定义规则只做声明式匹配，不支持用户传入 Python/Lua/JS 脚本。若未来需要脚本规则，应单独设计沙箱、超时、只读文件访问和禁用网络的执行模型。
 
 规则文件加载顺序：
 
 1. 加载内置默认值。
-2. 加载 `.mcdk-python-review.json` 项目配置。
+2. 加载 `.mcdk-python-review.toml` / `.json` 项目配置。
 3. 加载 `--rules <path>` 外部规则文件。
 4. 应用命令行参数覆盖。
 5. 生成有效规则表，供 `list-rules` / `help-rules` 展示。
@@ -367,7 +393,7 @@ mcdk-python-review D:/behavior_pack --rules D:/behavior_pack/review-rules.json
 
 ## Rule File Loading
 - builtin defaults
-- .mcdk-python-review.json
+- .mcdk-python-review.toml / .json
 - --rules <path>
 - command-line overrides
 
@@ -798,7 +824,7 @@ JSON 输出用于测试断言，字段稳定，不直接依赖中文文案。
 
 - 定义 `ReviewRule` 接口。
 - 定义 `RuleRegistry`，统一注册内置规则和外部声明式规则。
-- 定义 `CustomRuleLoader`，加载 `--rules` 指向的 JSON 规则文件。
+- 定义 `CustomRuleLoader`，加载 `--rules` 指向的 TOML/JSON 规则文件。
 - 定义 `RuleHelpFormatter`，输出规则帮助、参数默认值、规则 schema。
 - 实现 finding 合并、排序、置信度。
 - 实现 8 类核心规则。
@@ -847,7 +873,7 @@ JSON 输出用于测试断言，字段稳定，不直接依赖中文文案。
 
 ### Phase 5：项目结构配置
 
-- 支持 `.mcdk-python-review.json`。
+- 支持 `.mcdk-python-review.toml` / `.json`。
 - 支持 layer/pattern/allowed_dependencies。
 - 支持 threshold 覆盖。
 - 支持 naming/comment 规则阈值和白名单。
@@ -902,7 +928,7 @@ tests/fixtures/python_review/
     mod_b/modMain.py
     mod_b/server.py
   custom_rules/
-    review-rules.json
+    review-rules.toml
     my_mod/modMain.py
 ```
 
