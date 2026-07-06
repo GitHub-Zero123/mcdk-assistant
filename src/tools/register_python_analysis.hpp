@@ -3,6 +3,7 @@
 #include "common/path_utils.hpp"
 #include "project_analysis/project_analyzer.hpp"
 #include "tools/command_parser.hpp"
+#include "tools/register_python_review.hpp" // review 子命令（合并进 minecraft_py 单工具）
 
 #include <mcp_message.h>
 #include <mcp_server.h>
@@ -62,18 +63,20 @@ inline std::string py_help_text() {
       对具体 Python 文件或目录做引用链分析。
       可用于定位注册点、入口点、某个功能为什么会生效，以及目录职责。
 
+)" + python_review_cmd::review_help_text() + R"(
+
 【使用边界】
   - 这是低优先级的项目结构辅助工具，不是通用 Python 代码阅读或符号搜索入口。
-  - 不要仅因任务涉及 .py 文件就调用；已知具体文件、函数或报错位置时，优先直接读取/搜索相关源码。
-  - 只有在需要跨文件追踪注册点、入口链、目录职责或未知行为包整体结构时，再按需调用。
+  - arch/imports：不要仅因任务涉及 .py 文件就调用；已知具体文件、函数或报错位置时，优先直接读取/搜索相关源码。
+  - 只有在需要跨文件追踪注册点、入口链、目录职责或未知行为包整体结构时，再按需调用 arch/imports。
   - 不要默认全局扫描；整体结构不明时才用 arch，且优先控制 depth，必要时可加 --include-symbols false 降低噪音。
-  - 已经知道要查的文件或目录时，可直接用 imports，避免先跑 arch。
+  - review：AI 写完/改完一段 Python MOD 代码后自查用；配合 --scope 只审查刚改动的包/模块，按报告回改。
   - 分析业务逻辑时，ignore-third-party 默认开启，用于减少 QuModLibs 等框架噪音。
 
 示例:
   arch "D:/mc/addons/MyAddon/behavior_pack" --depth 3
   imports "D:/mc/addons/MyAddon/behavior_pack/my_mod/client" --depth 2
-  imports "D:/mc/addons/MyAddon/behavior_pack/my_mod/modMain.py" --include-call-hints true)";
+  review "D:/mc/addons/MyAddon/behavior_pack" --scope my_mod/client --format json)";
 }
 
 inline mcp::json help_result() {
@@ -187,6 +190,10 @@ inline mcp::json dispatch_minecraft_py(project_analysis::ProjectAnalyzer& analyz
         return dispatch_architecture(analyzer, pc);
     if (sub == "imports" || sub == "import" || sub == "import-chain" || sub == "refs" || sub == "references")
         return dispatch_imports(analyzer, pc);
+    if (sub == "review" || sub == "check" || sub == "audit") {
+        bool ok = false;
+        return text_result(python_review_cmd::run_review(pc, ok));
+    }
 
     return error_with_help("未知子命令: '" + pc.sub + "'。");
 }
@@ -198,13 +205,18 @@ inline void register_python_analysis_tools(mcp::server& srv) {
 
     auto tool = mcp::tool_builder(minecraft_py_detail::kToolName)
         .with_description(
-            "Python辅助工具：仅当需要理解 Minecraft Python2 Addon/MOD 的"
-            "跨文件入口、注册链、目录职责或未知行为包结构时使用。不要因为任务"
-            "涉及 .py 文件、符号名或普通代码修改就自动调用；已知目标位置时优先"
-            "直接读取/搜索源码。采用命令式用法，可传 command=\"help\" 查看边界和子命令。")
+            "Python MOD 辅助工具（命令式，单工具多子命令）：\n"
+            "1) 理解 Minecraft Python2 Addon/MOD 的跨文件入口、注册链、目录职责或未知行为包结构"
+            "（arch、imports）；\n"
+            "2) 对 Python MOD 代码做结构性审查，供 AI 写完/改完代码后自查、按报告回改"
+            "（review：掩盖异常的 try、被改并累积的可变默认参数、global 重绑定、未实现桩等；"
+            "QuModLibs 与游戏 API 不误报）。\n"
+            "不要仅因涉及 .py 文件就调用 arch/imports；已知目标位置时优先直接读取/搜索源码。"
+            "可传 command=\"help\" 查看全部子命令与边界。")
         .with_string_param("command",
-            "命令语句，如 'arch <behavior_pack_path>' 或 'imports <target_path> --depth 2'；"
-            "按需使用，避免默认全局扫描；路径含空格时需要用引号包裹；"
+            "命令语句，如 'arch <behavior_pack_path>'、'imports <target_path> --depth 2'、"
+            "或 'review <behavior_pack_path> --scope pkg/module --format json'；"
+            "按需使用，避免默认全局扫描；路径含空格时用引号包裹；"
             "Windows 路径建议使用 /，不要直接写反斜杠。", true)
         .with_read_only_hint(true)
         .with_idempotent_hint(true)

@@ -81,6 +81,7 @@ set(MCDK_LITE_SOURCES
     src/app/runtime_paths.cpp
     src/app/server_runtime.cpp
     src/project_analysis/project_analyzer.cpp
+    src/python_review/review_analyzer.cpp
     src/sapi/sapi_index.cpp
 )
 
