@@ -1,4 +1,4 @@
-name: Build Test
+name: Build Package
 
 on:
   workflow_dispatch:
@@ -24,17 +24,14 @@ jobs:
             os: windows-latest
             build_type: Release
             artifact: mcdk-assistant-windows-x64
-            archive_ext: zip
           - name: Ubuntu GCC
             os: ubuntu-latest
             build_type: Release
             artifact: mcdk-assistant-linux-x64
-            archive_ext: tar.gz
           - name: macOS Clang
             os: macos-latest
             build_type: Release
             artifact: mcdk-assistant-macos-arm64
-            archive_ext: tar.gz
 
     steps:
       - name: Checkout
@@ -66,6 +63,8 @@ jobs:
             throw "vcvars64.bat was not found: $vcvars"
           }
 
+          $originalPaths = $env:PATH -split ";" | Where-Object { $_ }
+
           $envDump = cmd /c "`"$vcvars`" && set"
           foreach ($line in $envDump) {
             if ($line -match "^(.*?)=(.*)$") {
@@ -73,7 +72,7 @@ jobs:
               $value = $matches[2]
 
               if ($name -eq "Path") {
-                $value -split ";" | Where-Object { $_ } | Add-Content -Path $env:GITHUB_PATH
+                $value -split ";" | Where-Object { $_ -and ($originalPaths -notcontains $_) } | Add-Content -Path $env:GITHUB_PATH
               } elseif ($name -match "^(INCLUDE|LIB|LIBPATH|VSCMD_ARG_TGT_ARCH|VSCMD_VER|VCINSTALLDIR|VSINSTALLDIR|WindowsSdkDir|WindowsSDKVersion|UCRTVersion|UniversalCRTSdkDir)$") {
                 "$name=$value" | Add-Content -Path $env:GITHUB_ENV
               }
@@ -128,22 +127,8 @@ jobs:
             test ! -f package/mcdk_solutions_cache.bin
           fi
 
-      - name: Package Unix
-        if: runner.os != 'Windows'
-        shell: bash
-        run: |
-          mkdir -p dist
-          tar -czf "dist/${{ matrix.artifact }}.tar.gz" -C package .
-
-      - name: Package Windows
-        if: runner.os == 'Windows'
-        shell: pwsh
-        run: |
-          New-Item -ItemType Directory -Force -Path dist | Out-Null
-          Compress-Archive -Path package\* -DestinationPath "dist\${{ matrix.artifact }}.zip" -Force
-
       - name: Upload artifact
         uses: actions/upload-artifact@v7
         with:
           name: ${{ matrix.artifact }}
-          path: dist/*.${{ matrix.archive_ext }}
+          path: package/
