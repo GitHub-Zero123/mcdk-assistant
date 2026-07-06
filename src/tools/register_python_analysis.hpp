@@ -62,9 +62,12 @@ inline std::string py_help_text() {
       对具体 Python 文件或目录做引用链分析。
       可用于定位注册点、入口点、某个功能为什么会生效，以及目录职责。
 
-【使用建议】
-  - 需要理解未知项目整体结构时，可先用 arch。
-  - 已经知道要查的文件或目录时，可直接用 imports。
+【使用边界】
+  - 这是低优先级的项目结构辅助工具，不是通用 Python 代码阅读或符号搜索入口。
+  - 不要仅因任务涉及 .py 文件就调用；已知具体文件、函数或报错位置时，优先直接读取/搜索相关源码。
+  - 只有在需要跨文件追踪注册点、入口链、目录职责或未知行为包整体结构时，再按需调用。
+  - 不要默认全局扫描；整体结构不明时才用 arch，且优先控制 depth，必要时可加 --include-symbols false 降低噪音。
+  - 已经知道要查的文件或目录时，可直接用 imports，避免先跑 arch。
   - 分析业务逻辑时，ignore-third-party 默认开启，用于减少 QuModLibs 等框架噪音。
 
 示例:
@@ -195,12 +198,14 @@ inline void register_python_analysis_tools(mcp::server& srv) {
 
     auto tool = mcp::tool_builder(minecraft_py_detail::kToolName)
         .with_description(
-            "Minecraft Python2 Addon/MOD 项目分析统一入口：全局架构总览、"
-            "文件/目录引用链分析、入口点和依赖关系定位。采用命令式用法，"
-            "首次使用可传 command=\"help\" 查看子命令。")
+            "Python辅助工具：仅当需要理解 Minecraft Python2 Addon/MOD 的"
+            "跨文件入口、注册链、目录职责或未知行为包结构时使用。不要因为任务"
+            "涉及 .py 文件、符号名或普通代码修改就自动调用；已知目标位置时优先"
+            "直接读取/搜索源码。采用命令式用法，可传 command=\"help\" 查看边界和子命令。")
         .with_string_param("command",
             "命令语句，如 'arch <behavior_pack_path>' 或 'imports <target_path> --depth 2'；"
-            "路径含空格时需要用引号包裹；Windows 路径建议使用 /，不要直接写反斜杠。", true)
+            "按需使用，避免默认全局扫描；路径含空格时需要用引号包裹；"
+            "Windows 路径建议使用 /，不要直接写反斜杠。", true)
         .with_read_only_hint(true)
         .with_idempotent_hint(true)
         .with_open_world_hint(true)
