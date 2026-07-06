@@ -838,7 +838,7 @@ void check_todo(TSNode node, const FileContext& ctx, const std::string& symbol) 
 // ── 规则：单文件逻辑堆积 / 屎山（plan §6.3，Tier 2）───────────────────────
 // 核心目的：拦住 AI 把大量逻辑堆进一个巨型文件。多重判定——必须同时「行数大」且
 // 「def/class 多」——纯数据/配置文件（如 StaticDefine.py 1938 行但 u=1）天然大体量、
-// 极少定义，不会命中。阈值 file_code_lines / file_units 可配（默认标定 800 / 25）。
+// 极少定义，不会命中。阈值 file_code_lines / file_units 可配（默认 1000 / 25）。
 struct FileMetrics {
     int def_count = 0;
     int class_count = 0;

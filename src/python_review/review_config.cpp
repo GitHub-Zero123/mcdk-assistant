@@ -152,7 +152,7 @@ std::string default_toml_template() {
 # 或用 review --config <path> 显式指定。所有键都可省略，省略即用内置默认值。
 
 [thresholds]
-file_code_lines  = 800   # 单文件"代码行"屎山阈值（需与 file_units 同时满足才报）
+file_code_lines  = 1000  # 单文件"代码行"屎山阈值（需与 file_units 同时满足才报）
 file_units       = 25    # 单文件 def+class 总数阈值（多重判定，避免误伤纯数据/配置文件）
 func_loc         = 50    # 单函数行跨度：偏长起报（risk）
 func_loc_high    = 100   # 单函数行跨度：过长（warning）
