@@ -30,6 +30,7 @@
 - `libs/tree-sitter-python`
 - `src/tools/register_python_analysis.hpp`
 - `minecraft_py` 的 `arch` / `imports` 子命令
+- `src/common/path_utils.hpp`：UTF-8 ↔ `std::filesystem::path` 的统一封装（`mcdk::path::from_utf8` / `to_utf8` / `filename_to_utf8`），全库通用，`register_python_analysis.hpp` 已在用
 
 新功能建议作为“审查层”增量实现，而不是塞进现有 Python2/Minecraft 项目分析器：
 
@@ -80,8 +81,8 @@ tests/python_review_test.cpp
 新增 MCP 工具建议命名为 `python_review`，采用命令式入口，风格对齐当前 `minecraft_py`。默认输入是行为包路径，而不是单个 Python 文件：
 
 ```text
-python_review(command="review <behavior_pack_path> [--changed <path1,path2>] [--rules <rule_file>] [--format markdown|json]")
-python_review(command="index <behavior_pack_path> [--rules <rule_file>]")
+python_review(command="review <behavior_pack_path> [--scope <pkg-or-module-list>] [--changed <path1,path2>] [--rules <rule_file>] [--format markdown|json]")
+python_review(command="index <behavior_pack_path> [--scope <pkg-or-module-list>] [--rules <rule_file>]")
 python_review(command="list-rules [--rules <rule_file>]")
 python_review(command="explain-rule <rule-id>")
 python_review(command="help")
@@ -90,8 +91,9 @@ python_review(command="help-rules [--rules <rule_file>] [--rule <rule-id>] [--fo
 
 参数语义：
 
-- `behavior_pack_path`：行为包根目录；工具会自动递归发现其下所有 Python 包。
-- `changed`：可选，逗号分隔的新增/修改文件或目录；为空时审查整个项目。
+- `behavior_pack_path`：**必填**，行为包根目录的**完整 UTF-8 路径**。构造 `std::filesystem::path` 必须走现有封装 `mcdk::path::from_utf8`（`src/common/path_utils.hpp`），**禁止直接用 `std::filesystem::u8path` 或 Win32 API**——否则 Windows 中文路径会按本地代码页（GBK）解析而乱码/找不到。遵循该文件既定约定：模块内部一律传 `path`，只有日志/协议边界才用 `to_utf8` 转回字符串。工具在此路径下自动递归发现所有 Python 包。
+- `scope`：**选填**，具体包/模块清单（逗号分隔），用于**可控缩小范围**。不填时**自动视为全部**——递归审查该行为包下所有 Python 包。可写包名（`mod_a`）或包内模块（`mod_a/client`、`mod_a.client`）。这是**粗粒度**范围过滤（选哪些包/模块进入分析），与 `changed` 的细粒度文件 diff 互补。
+- `changed`：可选，逗号分隔的新增/修改文件或目录，用于只审查本次改动（闭环里常传 AI 刚写的文件）；为空时审查 `scope` 圈定的全部范围。
 - `baseline`：可选，用于传入一份旧索引 JSON；没有 baseline 时使用当前项目全量索引做“已有代码”对照。
 - `config`：可选，规则阈值与项目分层配置文件。
 - `rules`：可选，外部规则文件路径；在内置规则基础上追加、覆盖或禁用规则。
@@ -180,6 +182,7 @@ mcdk-python-review
 
 ```text
 mcdk-python-review <behavior_pack_path>
+mcdk-python-review <behavior_pack_path> --scope mod_a,mod_b/client
 mcdk-python-review <behavior_pack_path> --rules review-rules.toml
 mcdk-python-review <behavior_pack_path> --format json --output report.json
 mcdk-python-review <behavior_pack_path> --changed my_mod/modMain.py,my_mod/client
@@ -192,11 +195,12 @@ mcdk-python-review --help-rules --rule naming.semantic.bad-call-result-name
 
 CLI 行为要求：
 
-- 第一个位置参数是行为包路径。
-- 默认自动分析行为包下所有 Python 包，不要求用户逐个传 `modMain.py`。
+- 第一个位置参数是行为包完整 UTF-8 路径（必填）。
+- `--scope <pkg-or-module-list>` 选填，缩小到指定包/模块；不传时自动分析行为包下所有 Python 包，不要求用户逐个传 `modMain.py`。
 - 默认输出 Markdown 到 stdout。
 - `--output <path>` 写报告文件；不传则只打印。
 - `--format markdown|json` 与 MCP 输出字段保持一致。
+- `--scope <pkg-or-module-list>` 缩小到指定包/模块；不传视为全部。
 - `--rules <path>` 支持加载外部规则文件。
 - `--config <path>` 支持加载项目结构和阈值配置。
 - `--fail-on warning|error` 可用于 CI；存在达到阈值的 finding 时返回非零退出码。
@@ -220,7 +224,8 @@ tools/mcdk-python-review/main.cpp
 MCP 和 CLI 必须共享同一份默认值定义，并在 `help` / `help-rules` 输出中展示。建议默认值：
 
 ```text
-behavior_pack_path            required
+behavior_pack_path            required (完整 UTF-8 路径)
+scope                         "" (空 = 全部包/模块)
 changed                       ""
 config                        auto-detect .mcdk-python-review.toml/.json
 rules                         none
@@ -485,8 +490,11 @@ JSON 输出必须包含稳定字段：
 
 ```json
 {
+  "finding_key": "try.masking.broad-except-pass@src/foo.py::Foo.load",
   "rule_id": "try.masking.broad-except-pass",
   "severity": "warning",
+  "tier": 1,
+  "actionability": "should-fix",
   "confidence": 0.91,
   "file": "src/foo.py",
   "line": 42,
@@ -500,6 +508,28 @@ JSON 输出必须包含稳定字段：
 }
 ```
 
+字段约束（面向 AI 闭环，见 §8.1）：
+
+- `finding_key`：`rule_id + 规范化位置 + 符号`，稳定且去重，保证同一份代码多次 review 输出一致，AI 不因报告抖动反复改。
+- `tier`：规则精度层（见 §6.0）。
+- `actionability`：`must-fix` / `should-fix`（Tier 1/2，AI 可直接据此修改）/ `advisory-verify`（Tier 3，**仅提示核实，禁止盲改**）。
+
+### 5.5 引用解析状态与开放世界假设
+
+审查器对项目外符号采用**开放世界假设**：解析不到不代表代码有错，只代表在工具视野之外（标准库、游戏内部库、netease/Minecraft ModSDK、第三方包、运行时注入）。每个被引用符号标注解析状态：
+
+- `local`：本文件内定义。
+- `project`：命中项目符号 / import 索引。
+- `external-known`：标准库，或游戏 API 白名单（`clientApi` / `serverApi` / 组件工厂 / ModSDK 接口等）。
+- `unresolved`：无法解析（第三方包、动态属性、game 内部库、反射注入）。
+
+硬规则：
+
+- **`external-known` 与 `unresolved` 引用绝不产生「未定义 / 缺失导入 / 未知符号」类 finding，不抛异常、不告警。** 解析失败只是**静默降低覆盖**，永不制造噪声。
+- **需要解析**的规则（§6.1 忘记已有代码、§6.2 的项目候选替换、§6.6 依赖结构）对 `unresolved` 引用**跳过**，不当违规；项目外依赖不计入循环 / 分层判定。
+- **不需要解析**的规则照常作用于「对外部符号的调用」：§6.4 `try` 滥用、§6.7 命名、§6.8 注释、§6.3 复杂度、§6.5 隐式全局。例如 `CF = clientApi.GetEngineCompFactory()` 的命名、`try` 罩住 game API 调用后的静默吞异常——都与 callee 能否解析无关，照查。
+- 游戏 API 白名单（`external-known`）可选、可增量维护；有它能让命名 / 用法规则对 netease API 更聪明，但**没有它也不得退化为报错**，只是这些外部调用少一层用法检查而已。
+
 ## 6. 检查规则设计
 
 ### 6.0 规则精度分层与严重级别映射
@@ -508,7 +538,7 @@ JSON 输出必须包含稳定字段：
 
 | 层级 | 判定性质 | 代表规则 | 默认 severity | 可否 CI 阻断 |
 |------|----------|----------|:---:|:---:|
-| Tier 1 | 确定性语法铁证，AST 可直接判定，误报极低 | `try.masking.*`、`implicit-global.mutable-default`、`implicit-global.global-write`、`dead-code.unused-*`、`stub.placeholder`、`comment-doc.noisy-restatement` | warning（部分 error） | ✅ 允许 |
+| Tier 1 | 确定性语法铁证，AST 可直接判定，误报极低 | `try.masking.*`、`implicit-global.mutable-default`、`implicit-global.global-write`、`stub.placeholder`、`comment-doc.noisy-restatement` | warning（部分 error） | ✅ 允许 |
 | Tier 2 | 度量/结构类，客观可算但有阈值悬崖与风格差异 | `logic-blob.*`、`dependency.cycle`、`dependency.layer-violation`、`comment-doc.missing-purpose`、`clone.intra-file` | warning | ⚠️ 默认否，可显式开启 |
 | Tier 3 | 启发式/相似度/主观语义，token 级近似，能力天花板有限 | `existing-code.*`、`duplicate-wheel.*`、`naming.semantic.*` | risk / hint | ❌ 永不阻断 |
 
@@ -522,6 +552,18 @@ JSON 输出必须包含稳定字段：
 - **孤证抑制**：Tier 3 的单条弱信号若在同一符号上无任何其他信号佐证，默认压到 `hint` 或直接抑制，避免相似度/命名规则单独刷屏。
 
 `confidence` 是启发式估计而非统计概率，`help-rules` 必须明确标注，避免用户把 `0.80` 误读为「80% 正确」。
+
+**游戏业务适配**：多数通用 Python linter 规则带有企业/PEP8 惯例假设，直接套进 Minecraft mod 业务会大量误报。每条规则都要区分「域安全内核」（不吃 mod 惯例，保持既定 Tier）与「企业惯例外壳」（在 mod 语境下降级或豁免）。下表为默认适配，可被 `--rules` 覆盖：
+
+| 规则 | 域安全内核（保留 Tier） | 企业外壳（mod 语境降级/豁免） |
+|------|------|------|
+| §6.4 try 掩盖 | `except: pass` 真静默吞异常 → warning | 已 `logging` 记录并继续，在 mod 里常是有意容错（避免单系统崩溃拖垮客户端）→ 降 risk/hint |
+| §6.5 隐式全局 | 可变默认参数、`global` 写模块变量 → Tier 1 | 模块级单例 / `registry` / `manager` / `clientApi` 缓存是 netease 建模惯用法 → 默认不报或 hint |
+| §6.3 逻辑堆积 | 明显超阈值的巨型函数 | 事件分发 / UI 按钮路由天然长且多分支（`if event_id == ...` 链）→ handler/dispatch 模式函数用更高阈值，纯分发链不计入复杂度 |
+| §6.7 命名 | `semantic_expectations` 驱动的语义丢失（如 `CF = GetEngineCompFactory()`） | camel/snake 风格一致性、布尔谓词前缀 → netease API 强制 camelCase/PascalCase，风格混用被 API 逼迫，风格类子规则默认 off、API 派生名豁免 |
+| §6.8 注释 | `comment-doc.noisy-restatement`（注释复述相邻代码，纯 AI tell）→ Tier 1 | 注释密度下限、public 函数强制 docstring → 小体量游戏脚本天然少注释、`OnXxxEvent` 回调名自解释，默认 off/hint，生命周期回调豁免 |
+
+底线（正向守住）：`try: pass` 真静默、可变默认参数、`global` 写、语义命名丢失、注释复述这五类**不吃「预留/惯例」借口**，是本工具对 mod 代码的核心价值，不因「游戏代码」而废——适配只收企业外壳，不砍域安全内核。
 
 ### 6.1 AI 忘记已有代码
 
@@ -756,44 +798,24 @@ CF = clientApi.GetEngineCompFactory()
 
 注释规则要关注“解释为什么”，而不是鼓励机械注释。报告建议应优先提示补充用途、约束、边界条件、异常策略，而不是要求给每行代码加注释。
 
-### 6.9 死代码与未使用符号
+### 6.9 桩实现与占位残留
 
-目的：发现 AI 生成但从未接入的代码——精度最高、最典型的「AI 没注意到」信号，价值高于命名/相似度类。
-
-信号：
-
-- 定义了但项目内从未被调用的函数/方法（排除入口、注册回调、`__all__` 导出、dunder）。
-- import 了但文件内从未引用的模块/符号。
-- 赋值后从未被读取的局部变量。
-- 定义了但从未实例化/引用的类。
-- `return` / `raise` / `continue` / `break` 之后的不可达语句。
-
-实现方式：
-
-- 基于符号索引 + 文件内引用扫描，判定「定义 vs 使用」。
-- 未调用函数需结合动态入口白名单降噪：`modMain`、注册回调、装饰器注册、字符串反射调用命中时不报或降级为 `risk`。
-- 局部未读变量在函数作用域内用赋值/读取节点集合判定，`_` 占位名豁免。
-
-定位（Tier 1）：未使用 import、不可达语句默认 `warning`；未调用函数因存在反射/注册漏判风险，默认 `risk`。
-
-### 6.10 桩实现与占位残留
-
-目的：发现 AI 留下的半成品——几乎零误报的高价值信号。
+目的：发现 AI 留下的半成品。注意游戏业务里「空实现是有意预留」非常常见（空的事件/生命周期回调重写、按字符串反射注册的接口、随时可能接上的钩子），因此本规则只盯**明确表达“还没写完”**的信号，绝不盯“暂时没用到 / 未被调用”——后者是 PyCharm 式企业规则，不适用于 mod 业务，已从本计划移除。
 
 信号：
 
-- `raise NotImplementedError`，或非抽象函数 body 仅 `pass`。
-- 函数体只有 `return None` / `return` / `...`（Ellipsis），却被正常调用。
+- `raise NotImplementedError`。
 - `# TODO: implement`、`# FIXME`、`# placeholder`、`# stub` 且无 owner/原因。
-- 被 `try` 静默兜住的空 fallback（与 §6.4 联动增信）。
+- 函数体只有 `...`（Ellipsis）却被正常调用。
 
 实现方式：
 
-- 检测 `function_definition` 是否为「无信息 body」：单 `pass` / 单 `return None` / 单 `Ellipsis` / 单 `raise NotImplementedError`。
-- 抽象方法（`@abstractmethod`、`Protocol`、`ABC` 子类）豁免。
-- 与 §6.9 死代码、§6.8 `unowned-todo` 共享 TODO/占位识别逻辑，避免重复实现。
+- 检测 `function_definition` 是否处于**明确未完成态**：单 `raise NotImplementedError` / 单 `Ellipsis`。
+- **空 `pass` body、只 `return None` 不单独报**——它们在 mod 里大量是有意预留的空回调重写（如空的 `OnDestroy`），仅当同时带 TODO/FIXME 注释时才升级。
+- 抽象方法（`@abstractmethod`、`Protocol`、`ABC` 子类）、重写基类/注册回调的空实现一律豁免。
+- 与 §6.8 `unowned-todo` 共享 TODO/占位识别逻辑，避免重复实现。
 
-定位（Tier 1）：`raise NotImplementedError`、空桩被调用默认 `warning`；裸 TODO 默认 `hint`。
+定位（Tier 1）：`raise NotImplementedError` 默认 `warning`；裸 TODO 默认 `hint`。
 
 ## 7. Tree-sitter 查询策略
 
@@ -868,11 +890,31 @@ Catch a narrower exception or re-raise with context.
 
 JSON 输出用于测试断言，字段稳定，不直接依赖中文文案。
 
+### 8.1 面向 AI 闭环的消费契约
+
+本诊断的**主要消费者是写完代码的 AI**，而非人类 reviewer：报告打回后由 AI 据此调整，形成 review → fix → re-review 闭环。这个定位改变几条核心约束：
+
+1. **误报的代价被放大为“破坏”。** 人看到坏 finding 一眼略过；AI 被告知「修这个」往往会照做——为不存在的问题改代码、制造 churn，甚至按报告删掉「预留回调」。因此 §6.0 的游戏业务适配与降噪不是可选优化，而是**防止 AI 主动破坏正确代码**的必需项。原则：宁可漏报，不可让 AI 照着假阳性改。
+
+2. **Finding 必须区分「可执行」与「仅供核实」**（见 §5.4 `actionability`）：
+   - `must-fix` / `should-fix`（Tier 1/2 确定性问题）：AI 可直接据此修改。
+   - `advisory-verify`（Tier 3 启发式/相似度/命名）：**只提示核实，禁止盲改**。措辞用「疑似…，请确认；确为重复则复用 X，若为有意保留则忽略」，而非「删除」「重命名」。AI 面对相似度/死代码类命令式指令会把工作代码改坏（Goodhart：为过检把 `CF`→`cf2`、为降 LOC 无意义拆函数、把 `except: pass` 换成 `except: log` 却仍不真处理）。
+
+3. **闭环必须收敛。** 报告携带机器可读门控：
+   - 驱动方只对 `must-fix`/`should-fix` 迭代；`advisory-verify` 不触发自动修复，仅供 AI 确认。
+   - 终止条件：无 must/should-fix 剩余，**或**连续两轮 `finding_key` 集合不变——防止「修 A 引入 B」的震荡。
+   - 稳定 `finding_key` + 确定排序 + 去重，保证同代码多次 review 输出一致。
+
+4. **抑制机制防止反复打回有意模式。** 支持行内 `# mcdk-review: ignore <rule-id> [原因]` 与配置级抑制。被抑制 finding 不上报但计入 summary。没有它，闭环会对「有意预留的空回调」「被 API 逼的 camelCase」反复报、AI 反复「修」，永不收敛。
+
+5. **JSON 是闭环主格式**：打回给 AI 用紧凑、确定性、字段稳定的 JSON（省 token、可 diff）；Markdown 仅供人阅读。
+
 ## 9. 实现阶段
 
 ### Phase 1：解析与索引
 
 - 新增 `python_review` 目录。
+- 所有路径构造走 `mcdk::path::from_utf8`（复用 `src/common/path_utils.hpp`），禁止裸 `u8path`/系统 API；内部传 `path`，边界用 `to_utf8`。
 - 封装 tree-sitter parser。
 - 输入行为包路径，自动发现所有 `modMain.py` 对应的 Python 包。
 - 扫描每个 Python 包内 `.py` 文件，支持 ignore paths。
@@ -902,6 +944,8 @@ JSON 输出用于测试断言，字段稳定，不直接依赖中文文案。
 - 每类核心问题至少一个正例和一个反例。
 - 同一问题不会重复刷屏，能合并相邻证据；同一符号多信号命中时聚合为 high-risk 条目并提级。
 - Tier 3 孤立弱信号被抑制或降级为 hint。
+- 对项目外 / 不可解析引用不产生任何「未定义 / 缺导入」类 finding（开放世界假设，§5.5）。
+- 在至少一个真实 netease mod 上标定：`must-fix`/`should-fix` 的误报率低于约定阈值，否则该规则默认降级或保持 `advisory-verify`，不得直接进入闭环自动修复。
 - 外部规则文件可以禁用内置规则、覆盖阈值、追加命名语义规则。
 - `help-rules` 能输出所有内置规则参数、默认值、可覆盖字段和规则文件 schema。
 - 配置文件未知字段会产生 config warning，而不是静默忽略。
@@ -928,7 +972,7 @@ JSON 输出用于测试断言，字段稳定，不直接依赖中文文案。
 - 新增 `tools/mcdk-python-review/main.cpp`。
 - 新增 CMake target `mcdk-python-review`。
 - CLI 直接调用 `src/python_review/` 核心库，不依赖 MCP。
-- 支持行为包路径、`--rules`、`--config`、`--format`、`--output`、`--fail-on`、`--help`、`--help-rules`、`--list-rules`、`--explain-rule`。
+- 支持行为包路径、`--scope`、`--rules`、`--config`、`--format`、`--output`、`--fail-on`、`--help`、`--help-rules`、`--list-rules`、`--explain-rule`。
 
 验收：
 
@@ -980,8 +1024,6 @@ tests/fixtures/python_review/
     src/loader.py
   implicit_global/
     src/state.py
-  dead_code/
-    src/unused.py
   stub_placeholder/
     src/half_done.py
   dependency/
@@ -1008,8 +1050,7 @@ tests/fixtures/python_review/
 
 - `try_masking` 能抓到裸 `except`、`except Exception`、handler `pass`。
 - `implicit_global` 能抓到模块级 mutable、`global`、默认可变参数。
-- `dead_code` 能抓到未使用 import、未调用函数、赋值后未读局部变量、不可达语句。
-- `stub_placeholder` 能抓到 `raise NotImplementedError`、空 `pass` body、只 `return None` 的桩函数。
+- `stub_placeholder` 能抓到 `raise NotImplementedError`、带 TODO 的未完成函数；且**不**误报有意预留的空 `pass` 回调重写。
 - `logic_blob` 能抓到 LOC、嵌套、分支超阈值。
 - `dependency` 能抓到循环和配置层级违规。
 - `existing_code` 和 `duplicate_wheel` 输出候选已有符号，而不是只输出泛泛建议。
@@ -1025,6 +1066,8 @@ tests/fixtures/python_review/
 - Python 动态 import、猴子补丁、运行时注册只能做风险提示。
 - 如果项目大量生成代码，需要 ignore 配置，否则相似度和复杂度规则会产生噪声。
 - 对 Python2 代码，tree-sitter-python 当前可解析部分旧语法，但审查规则应避免依赖 Python3-only 节点。
+- 项目外引用（标准库、游戏内部库、ModSDK、第三方包）采用开放世界假设（§5.5）：解析不到不报错、不告警，只做不依赖解析的风格 / 用法 / `try` 滥用检查。资源解析能力越弱，越要保证「静默降覆盖」而非「误报刷屏」。
+- 误报率是闭环生死线：合成 fixture 不足以证明可用，必须在真实 netease mod 上标定 FP 率，达标后才允许把规则升到 `must-fix`（见 Phase 2 验收）。
 
 ## 12. 最小可交付版本
 
@@ -1035,9 +1078,9 @@ MVP 只做以下内容即可进入可用状态：
 3. CLI 支持 `mcdk-python-review <behavior_pack_path>`，自动分析所有 Python 包。
 4. 支持 `--rules <rule_file>` 加载外部声明式规则。
 5. 支持 `help` / `help-rules` / `list-rules` / `explain-rule` 输出参数、默认值、规则 schema。
-6. 输出 Markdown。
+6. 输出确定性 JSON（闭环主格式，含 `finding_key` / `tier` / `actionability`）+ Markdown（供人阅读）；支持行内 `# mcdk-review: ignore` 抑制（见 §8.1）。
 7. 实现高价值规则，Tier 1 铁证优先（见 §6.0）：
-   - Tier 1：`try.masking.*`、`implicit-global.*`、`dead-code.unused-*`、`stub.placeholder`
+   - Tier 1：`try.masking.*`、`implicit-global.*`、`stub.placeholder`
    - Tier 2：`logic-blob.*`、`comment-doc.*`
    - Tier 3：`naming.semantic.*`（默认 hint）
 8. 对“已有代码/重复轮子/依赖破坏”先输出基础启发式（Tier 3，永不阻断）：
