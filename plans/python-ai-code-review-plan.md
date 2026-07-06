@@ -502,6 +502,27 @@ JSON 输出必须包含稳定字段：
 
 ## 6. 检查规则设计
 
+### 6.0 规则精度分层与严重级别映射
+
+这些规则的误报率不在一个数量级上，因此必须先确立统领原则：**精度决定默认 severity，severity 决定能否进入 `--fail-on`。** 不允许「高噪声启发式」与「确定性语法铁证」在报告里同权呈现——否则用户被 Tier 3 噪声淹没后会连 Tier 1 一起关掉。
+
+| 层级 | 判定性质 | 代表规则 | 默认 severity | 可否 CI 阻断 |
+|------|----------|----------|:---:|:---:|
+| Tier 1 | 确定性语法铁证，AST 可直接判定，误报极低 | `try.masking.*`、`implicit-global.mutable-default`、`implicit-global.global-write`、`dead-code.unused-*`、`stub.placeholder`、`comment-doc.noisy-restatement` | warning（部分 error） | ✅ 允许 |
+| Tier 2 | 度量/结构类，客观可算但有阈值悬崖与风格差异 | `logic-blob.*`、`dependency.cycle`、`dependency.layer-violation`、`comment-doc.missing-purpose`、`clone.intra-file` | warning | ⚠️ 默认否，可显式开启 |
+| Tier 3 | 启发式/相似度/主观语义，token 级近似，能力天花板有限 | `existing-code.*`、`duplicate-wheel.*`、`naming.semantic.*` | risk / hint | ❌ 永不阻断 |
+
+规则实现时，`severity` 默认值必须与其所在 Tier 一致；`--rules` 覆盖可调整单条 severity，但 Tier 3 规则被提升到 warning 时，`help-rules` 输出应标注「用户强制提级，精度自负」。
+
+**度量类避免阈值悬崖**：Tier 2 的 `logic-blob` 等不应「79 行静默、81 行 warning」。建议分级映射，例如 `function_loc` 80→hint、150→warning、300→risk，让 severity 随程度连续变化，而不是单点跳变。
+
+**信号收敛（compound scoring）**：代码质量本质是多信号共振，规则不应完全孤立判定。规则引擎合并 finding 时（见 §5.4、Phase 2）执行两条调整：
+
+- **叠加增信**：同一符号命中多条规则时提升整体 confidence，并聚合为一个「high-risk symbol」条目上报，而非刷屏多条。例如某函数同时命中 `logic-blob.large-function` + `try.masking.broad-except` + `comment-doc.missing-purpose`，几乎必然有问题，应合并并提级展示。
+- **孤证抑制**：Tier 3 的单条弱信号若在同一符号上无任何其他信号佐证，默认压到 `hint` 或直接抑制，避免相似度/命名规则单独刷屏。
+
+`confidence` 是启发式估计而非统计概率，`help-rules` 必须明确标注，避免用户把 `0.80` 误读为「80% 正确」。
+
 ### 6.1 AI 忘记已有代码
 
 目的：发现新代码绕过项目内已有封装、工具函数或服务入口。
@@ -524,7 +545,11 @@ JSON 输出必须包含稳定字段：
   - 参数名 overlap。
 - 命中后报告“可能已有实现”，列出候选符号与证据。
 
-注意：此规则默认输出 `risk`，除非相似度极高且候选位于明确工具模块，才提升为 `warning`。
+定位（Tier 3，baseline 驱动）：
+
+- 本规则真正要回答的是「本次**新增/修改**的代码，是否重复了改动**之前**就已存在的封装」。因此应以 `baseline`（见 §95）为对照基准：只把 changed scope 内的新符号，与 baseline 索引里的既有符号比对。
+- 没有 baseline 时，无法区分两个相似符号里谁是「原有」、谁是「新造重复」，能力显著受限：此时仅在 changed 文件内对项目其余符号做**高阈值**比对（`high_similarity` 起报），每条最多列 top-3 候选。
+- 默认输出 `risk`，**永不进入 `--fail-on`**；仅当相似度极高且候选位于明确工具模块时才提升为 `warning`。
 
 ### 6.2 AI 重复发明轮子
 
@@ -545,6 +570,8 @@ JSON 输出必须包含稳定字段：
   - `os.walk` 大段逻辑 -> 文件扫描工具候选。
 - 结合项目符号索引找可替代函数。
 - 报告要包含“已有候选 API”，而不是只说重复。
+
+文件内克隆单列：AI 复制粘贴产生的近似兄弟函数/分支，用同一份规范化指纹在**单文件/单包内**即可检出，精度远高于跨项目相似度，应拆为独立规则 `clone.intra-file`（Tier 2），不要混进跨项目「重复轮子」的 Tier 3。跨项目相似度（本节主体）保持 Tier 3。
 
 ### 6.3 AI 把逻辑堆到一起
 
@@ -729,6 +756,45 @@ CF = clientApi.GetEngineCompFactory()
 
 注释规则要关注“解释为什么”，而不是鼓励机械注释。报告建议应优先提示补充用途、约束、边界条件、异常策略，而不是要求给每行代码加注释。
 
+### 6.9 死代码与未使用符号
+
+目的：发现 AI 生成但从未接入的代码——精度最高、最典型的「AI 没注意到」信号，价值高于命名/相似度类。
+
+信号：
+
+- 定义了但项目内从未被调用的函数/方法（排除入口、注册回调、`__all__` 导出、dunder）。
+- import 了但文件内从未引用的模块/符号。
+- 赋值后从未被读取的局部变量。
+- 定义了但从未实例化/引用的类。
+- `return` / `raise` / `continue` / `break` 之后的不可达语句。
+
+实现方式：
+
+- 基于符号索引 + 文件内引用扫描，判定「定义 vs 使用」。
+- 未调用函数需结合动态入口白名单降噪：`modMain`、注册回调、装饰器注册、字符串反射调用命中时不报或降级为 `risk`。
+- 局部未读变量在函数作用域内用赋值/读取节点集合判定，`_` 占位名豁免。
+
+定位（Tier 1）：未使用 import、不可达语句默认 `warning`；未调用函数因存在反射/注册漏判风险，默认 `risk`。
+
+### 6.10 桩实现与占位残留
+
+目的：发现 AI 留下的半成品——几乎零误报的高价值信号。
+
+信号：
+
+- `raise NotImplementedError`，或非抽象函数 body 仅 `pass`。
+- 函数体只有 `return None` / `return` / `...`（Ellipsis），却被正常调用。
+- `# TODO: implement`、`# FIXME`、`# placeholder`、`# stub` 且无 owner/原因。
+- 被 `try` 静默兜住的空 fallback（与 §6.4 联动增信）。
+
+实现方式：
+
+- 检测 `function_definition` 是否为「无信息 body」：单 `pass` / 单 `return None` / 单 `Ellipsis` / 单 `raise NotImplementedError`。
+- 抽象方法（`@abstractmethod`、`Protocol`、`ABC` 子类）豁免。
+- 与 §6.9 死代码、§6.8 `unowned-todo` 共享 TODO/占位识别逻辑，避免重复实现。
+
+定位（Tier 1）：`raise NotImplementedError`、空桩被调用默认 `warning`；裸 TODO 默认 `hint`。
+
 ## 7. Tree-sitter 查询策略
 
 优先使用 C API 手写遍历，避免一开始引入 query 文件管理复杂度。需要稳定后，可把常见规则迁移到 `.scm`：
@@ -826,14 +892,16 @@ JSON 输出用于测试断言，字段稳定，不直接依赖中文文案。
 - 定义 `RuleRegistry`，统一注册内置规则和外部声明式规则。
 - 定义 `CustomRuleLoader`，加载 `--rules` 指向的 TOML/JSON 规则文件。
 - 定义 `RuleHelpFormatter`，输出规则帮助、参数默认值、规则 schema。
-- 实现 finding 合并、排序、置信度。
-- 实现 8 类核心规则。
+- 实现 finding 合并、排序、置信度，含 §6.0 的信号收敛（叠加增信 + 孤证抑制）。
+- 按 §6.0 精度分层实现核心规则，Tier 1 铁证优先。
+- 每条规则的默认 severity 必须与其 Tier 一致，Tier 3 永不进入 `--fail-on`。
 - 增加每类规则的 fixture。
 
 验收：
 
 - 每类核心问题至少一个正例和一个反例。
-- 同一问题不会重复刷屏，能合并相邻证据。
+- 同一问题不会重复刷屏，能合并相邻证据；同一符号多信号命中时聚合为 high-risk 条目并提级。
+- Tier 3 孤立弱信号被抑制或降级为 hint。
 - 外部规则文件可以禁用内置规则、覆盖阈值、追加命名语义规则。
 - `help-rules` 能输出所有内置规则参数、默认值、可覆盖字段和规则文件 schema。
 - 配置文件未知字段会产生 config warning，而不是静默忽略。
@@ -912,6 +980,10 @@ tests/fixtures/python_review/
     src/loader.py
   implicit_global/
     src/state.py
+  dead_code/
+    src/unused.py
+  stub_placeholder/
+    src/half_done.py
   dependency/
     src/domain/model.py
     src/service/order.py
@@ -936,6 +1008,8 @@ tests/fixtures/python_review/
 
 - `try_masking` 能抓到裸 `except`、`except Exception`、handler `pass`。
 - `implicit_global` 能抓到模块级 mutable、`global`、默认可变参数。
+- `dead_code` 能抓到未使用 import、未调用函数、赋值后未读局部变量、不可达语句。
+- `stub_placeholder` 能抓到 `raise NotImplementedError`、空 `pass` body、只 `return None` 的桩函数。
 - `logic_blob` 能抓到 LOC、嵌套、分支超阈值。
 - `dependency` 能抓到循环和配置层级违规。
 - `existing_code` 和 `duplicate_wheel` 输出候选已有符号，而不是只输出泛泛建议。
@@ -962,14 +1036,12 @@ MVP 只做以下内容即可进入可用状态：
 4. 支持 `--rules <rule_file>` 加载外部声明式规则。
 5. 支持 `help` / `help-rules` / `list-rules` / `explain-rule` 输出参数、默认值、规则 schema。
 6. 输出 Markdown。
-7. 实现五类高价值规则：
-   - `try.masking.*`
-   - `implicit-global.*`
-   - `logic-blob.*`
-   - `naming.semantic.*`
-   - `comment-doc.*`
-8. 对“已有代码/重复轮子/依赖破坏”先输出基础启发式：
-   - 名称相似候选。
+7. 实现高价值规则，Tier 1 铁证优先（见 §6.0）：
+   - Tier 1：`try.masking.*`、`implicit-global.*`、`dead-code.unused-*`、`stub.placeholder`
+   - Tier 2：`logic-blob.*`、`comment-doc.*`
+   - Tier 3：`naming.semantic.*`（默认 hint）
+8. 对“已有代码/重复轮子/依赖破坏”先输出基础启发式（Tier 3，永不阻断）：
+   - 名称相似候选（有 baseline 时对照 baseline，无则 changed 文件内高阈值）。
    - 调用序列相似候选。
    - import cycle。
 
