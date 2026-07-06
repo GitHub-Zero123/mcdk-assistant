@@ -812,10 +812,16 @@ void check_global_write(TSNode fn, const FileContext& ctx, const std::string& sy
     written.erase(std::unique(written.begin(), written.end()), written.end());
     std::string names;
     for (size_t i = 0; i < written.size(); ++i) { if (i) names += ", "; names += written[i]; }
-    make_finding(ctx, "implicit-global.global-write", Severity::Warning, 0.85,
-                 node_start_row(fn), symbol, "函数通过 global 重绑定模块级状态",
-                 {"global 声明并写入: " + names, "隐式全局状态难测试、难复用"},
-                 "把状态作为参数/返回值传递或封装到对象，避免函数直接重绑定模块级变量。");
+    // 降级为 risk · advisory-verify：模块级可变状态（缓存/单例/惰性初始化/计数器）是 Python
+    // 模块化设计允许的合法惯用法（用户反馈），不该按企业"禁用全局"规则强制改。仍上报——它确实
+    // 影响可测试性，也可能是 AI 图省事把状态塞进模块全局而非封装——但只提示核实，禁止盲改。
+    make_finding(ctx, "implicit-global.global-write", Severity::Risk, 0.55,
+                 node_start_row(fn), symbol, "函数通过 global 重绑定模块级状态（确认是否有意）",
+                 {"global 声明并写入: " + names,
+                  "模块级缓存/单例/计数器是合法惯用法；仅当多处重绑定造成隐式耦合、难测试时才需处理"},
+                 "确认是否为有意的模块状态（缓存/单例/惰性初始化）：若是可忽略；"
+                 "若为本应传递的业务状态，再考虑封装到对象或用参数/返回值传递。",
+                 1, Actionability::AdvisoryVerify);
 }
 
 // ── 规则：无 owner 的 TODO/FIXME（plan §6.8/§6.9，hint）───────────────────
