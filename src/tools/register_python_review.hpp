@@ -17,6 +17,7 @@ inline std::string review_help_text() {
     return R"(review <behavior_pack_path> [--scope <a,b/c>] [--format summary|markdown|json]
        [--include-third-party] [--config <toml>] [--max-per-rule <n>]
 review --dump-config    打印可编辑的默认配置模板（TOML，兼作阈值/开关说明文档）
+    <behavior_pack_path>: 必填，行为包根目录的**完整绝对路径**（UTF-8，支持中文）；不支持相对路径。
     对 Python MOD 行为包做结构性代码审查（面向 AI 写完/改完代码后自查、按报告回改）。
     规则：掩盖异常的 try、可变默认参数被累积、global 重绑定、未实现桩、假实现（有多行逻辑却
     不用任何参数、只返回固定值）、单函数过长、单文件屎山、跨模块重复函数、参数过多、无 owner TODO。

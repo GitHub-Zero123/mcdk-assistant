@@ -44,6 +44,7 @@ inline std::string py_help_text() {
     return R"(minecraft_py — Python2 Addon/MOD 项目分析工具统一入口（命令式用法）
 用法: minecraft_py(command="<子命令> [路径] [--选项 值]")
 命令名前可加 '/'，例如 /help、/arch，与 help/arch 等价。
+重要: 所有路径均须为完整绝对路径（UTF-8，支持中文）；不支持相对路径/工作目录推断。
 重要: 路径或参数含空格时，必须用 "..." 或 '...' 包裹成整体。
 重要: Windows 路径建议写成 D:/path/to/file；反斜杠 \ 会按命令行转义处理。
 
@@ -217,8 +218,8 @@ inline void register_python_analysis_tools(mcp::server& srv) {
         .with_string_param("command",
             "命令语句，如 'arch <behavior_pack_path>'、'imports <target_path> --depth 2'、"
             "或 'review <behavior_pack_path> --scope pkg/module --format json'；"
-            "按需使用，避免默认全局扫描；路径含空格时用引号包裹；"
-            "Windows 路径建议使用 /，不要直接写反斜杠。", true)
+            "按需使用，避免默认全局扫描；路径须为完整绝对路径（UTF-8，支持中文），不支持相对路径；"
+            "路径含空格时用引号包裹；Windows 路径建议使用 /，不要直接写反斜杠。", true)
         .with_read_only_hint(true)
         .with_idempotent_hint(true)
         .with_open_world_hint(true)
