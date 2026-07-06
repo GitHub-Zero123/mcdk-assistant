@@ -810,16 +810,24 @@ void check_global_write(TSNode fn, const FileContext& ctx, const std::string& sy
     if (written.empty()) return;
     std::sort(written.begin(), written.end());
     written.erase(std::unique(written.begin(), written.end()), written.end());
+
+    // 下划线开头 = Python 约定的「模块私有」状态：只在本模块自用消费（缓存/单例/惰性初始化/
+    // 计数器），是合法的模块封装，**直接不报**（用户反馈：这种应消除而非降权）。仅当重绑定的是
+    // 「公开」模块全局（无下划线前缀、可被其他模块 import 读到）时才提示——它才可能成为隐式
+    // 跨模块状态通道，值得核实。用命名约定作代理，避免昂贵/不可靠的全项目跨模块可达性分析。
+    std::vector<std::string> public_written;
+    for (const auto& g : written)
+        if (!g.empty() && g[0] != '_') public_written.push_back(g);
+    if (public_written.empty()) return; // 全是模块私有 → 合法自用，消除
+
     std::string names;
-    for (size_t i = 0; i < written.size(); ++i) { if (i) names += ", "; names += written[i]; }
-    // 降级为 risk · advisory-verify：模块级可变状态（缓存/单例/惰性初始化/计数器）是 Python
-    // 模块化设计允许的合法惯用法（用户反馈），不该按企业"禁用全局"规则强制改。仍上报——它确实
-    // 影响可测试性，也可能是 AI 图省事把状态塞进模块全局而非封装——但只提示核实，禁止盲改。
+    for (size_t i = 0; i < public_written.size(); ++i) { if (i) names += ", "; names += public_written[i]; }
     make_finding(ctx, "implicit-global.global-write", Severity::Risk, 0.55,
-                 node_start_row(fn), symbol, "函数通过 global 重绑定模块级状态（确认是否有意）",
-                 {"global 声明并写入: " + names,
-                  "模块级缓存/单例/计数器是合法惯用法；仅当多处重绑定造成隐式耦合、难测试时才需处理"},
-                 "确认是否为有意的模块状态（缓存/单例/惰性初始化）：若是可忽略；"
+                 node_start_row(fn), symbol, "函数通过 global 重绑定公开模块级状态（确认是否有意）",
+                 {"global 声明并写入公开名: " + names,
+                  "下划线开头的模块私有全局（缓存/单例/计数器）已豁免；公开名可被其他模块 import，"
+                  "重绑定可能成为隐式跨模块状态通道"},
+                 "确认该状态是否需跨模块共享：若仅本模块自用，加下划线前缀标为模块私有即可；"
                  "若为本应传递的业务状态，再考虑封装到对象或用参数/返回值传递。",
                  1, Actionability::AdvisoryVerify);
 }
