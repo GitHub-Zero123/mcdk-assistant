@@ -8,13 +8,19 @@
 #include <nlohmann/json.hpp>
 
 #include <algorithm>
+#include <atomic>
 #include <cctype>
+#include <chrono>
 #include <cstdint>
+#include <cstdlib>
 #include <fstream>
+#include <iostream>
+#include <thread>
 #include <iterator>
 #include <sstream>
 #include <string>
 #include <string_view>
+#include <unordered_map>
 #include <unordered_set>
 #include <vector>
 
@@ -39,11 +45,16 @@ bool should_skip_dir(const fs::path& dir, bool include_third_party) {
            name == ".idea" || name == ".vs";
 }
 
-// 读文件并去除 UTF-8 BOM。
+// 读文件并去除 UTF-8 BOM。整块读取（避免 istreambuf_iterator 逐字符的性能陷阱）。
 std::string read_text_file(const fs::path& file_path) {
-    std::ifstream ifs(file_path, std::ios::binary);
+    std::ifstream ifs(file_path, std::ios::binary | std::ios::ate);
     if (!ifs.is_open()) return {};
-    std::string text((std::istreambuf_iterator<char>(ifs)), std::istreambuf_iterator<char>());
+    std::streamoff size = ifs.tellg();
+    if (size <= 0) return {};
+    std::string text(static_cast<size_t>(size), '\0');
+    ifs.seekg(0);
+    ifs.read(text.data(), size);
+    text.resize(static_cast<size_t>(ifs.gcount()));
     if (text.size() >= 3 && static_cast<unsigned char>(text[0]) == 0xEF &&
         static_cast<unsigned char>(text[1]) == 0xBB && static_cast<unsigned char>(text[2]) == 0xBF) {
         text.erase(0, 3);
@@ -69,6 +80,9 @@ std::string node_text(TSNode node, const std::string& source) {
     if (start > source.size() || end > source.size() || start > end) return {};
     return source.substr(start, end - start);
 }
+
+// 节点类型的零分配视图（ts_node_type 返回静态 const char*，包裹为 string_view 免堆分配）。
+inline std::string_view nt(TSNode node) { return ts_node_type(node); }
 
 int node_start_row(TSNode node) {
     return static_cast<int>(ts_node_start_point(node).row) + 1; // 1-based
@@ -191,11 +205,59 @@ bool file_in_scope(const std::string& rel_from_pkg, const std::string& pkg_name,
 
 // ── 规则：try 掩盖（plan §6.4，Tier 1 旗舰）────────────────────────────────
 
+// 函数结构指纹（用于跨模块重复检测）：归一化掉标识符/字面量，只留控制流 + 调用名。
+struct FuncSig {
+    std::string fingerprint;
+    std::string file;   // UTF-8 相对路径
+    std::string symbol; // 限定名
+    int         line = 0;
+    int         stmts = 0; // body 直接语句数，用于过滤 trivial
+};
+
 struct FileContext {
     const std::string* source;
     std::string        rel_path; // UTF-8，相对行为包根
     std::vector<Finding>* out;
+    std::vector<FuncSig>* sigs = nullptr; // 跨文件累积（可空）
 };
+
+// 递归构建结构指纹：只 append 控制流关键字与调用方法名，忽略变量名/字面量，
+// 使复制粘贴（改了变量名）的函数得到相同指纹。
+void fingerprint_walk(TSNode node, const std::string& source, std::string& fp) {
+    std::string_view t = ts_node_type(node);
+    // 不下钻嵌套函数：它们各自单独取指纹，否则父函数会重复遍历嵌套体（O(节点×嵌套深度)）。
+    if (t == "function_definition") return;
+    if (t == "if_statement") fp += "I";
+    else if (t == "for_statement") fp += "F";
+    else if (t == "while_statement") fp += "W";
+    else if (t == "try_statement") fp += "T";
+    else if (t == "with_statement") fp += "H";
+    else if (t == "return_statement") fp += "R";
+    else if (t == "raise_statement") fp += "X";
+    else if (t == "assignment") fp += "=";
+    else if (t == "augmented_assignment") fp += "+";
+    else if (t == "call") {
+        std::string callee = node_text(ts_node_child_by_field_name(node, "function", 8), source);
+        auto pos = callee.rfind('.');
+        fp += "c(" + (pos == std::string::npos ? callee : callee.substr(pos + 1)) + ")";
+    }
+    uint32_t n = ts_node_child_count(node);
+    for (uint32_t i = 0; i < n; ++i) fingerprint_walk(ts_node_child(node, i), source, fp);
+}
+
+// 指纹是否含「真实逻辑」：有控制流或 ≥2 次调用。纯赋值序列（构造器/数据holder）不算，
+// 避免把结构雷同但语义无关的样板函数（如一堆 self.x=... 的 __init__）聚成假重复。
+bool fp_has_logic(const std::string& fp) {
+    if (fp.find_first_of("IFWTH") != std::string::npos) return true;
+    size_t calls = 0, pos = 0;
+    while ((pos = fp.find("c(", pos)) != std::string::npos) { ++calls; pos += 2; }
+    return calls >= 2;
+}
+
+bool is_dunder(const std::string& name) {
+    return name.size() >= 4 && name.rfind("__", 0) == 0 &&
+           name.compare(name.size() - 2, 2, "__") == 0;
+}
 
 // 分类 except handler body：是否 re-raise、是否只有日志/低信息、是否有实质处理。
 struct HandlerClass {
@@ -213,7 +275,7 @@ HandlerClass classify_handler(TSNode body, const std::string& source) {
     uint32_t n = ts_node_named_child_count(body);
     for (uint32_t i = 0; i < n; ++i) {
         TSNode st = ts_node_named_child(body, i);
-        std::string t = ts_node_type(st);
+        std::string_view t = ts_node_type(st);
         if (t == "comment") continue;
         hc.stmt_count++;
 
@@ -224,7 +286,7 @@ HandlerClass classify_handler(TSNode body, const std::string& source) {
         if (t == "raise_statement") continue; // 已计入 has_raise
         if (t == "expression_statement") {
             TSNode inner = ts_node_named_child(st, 0);
-            std::string it = ts_node_is_null(inner) ? "" : ts_node_type(inner);
+            std::string_view it = ts_node_is_null(inner) ? std::string_view{} : nt(inner);
             if (it == "string") continue; // 文档串
             if (it == "call") {
                 TSNode fn = ts_node_child_by_field_name(inner, "function", 8);
@@ -285,6 +347,10 @@ void make_finding(const FileContext& ctx, const std::string& rule_id, Severity s
     ctx.out->push_back(std::move(f));
 }
 
+// try 体规模阈值：小 try 多为窄防御（低风险），大 try 吞掉大量业务失败（高风险）。
+constexpr int kTrySmall = 5;
+constexpr int kTryLarge = 20;
+
 void check_try_masking(TSNode try_stmt, const FileContext& ctx, const std::string& symbol) {
     const std::string& source = *ctx.source;
     int try_loc = block_loc(try_body_block(try_stmt));
@@ -314,7 +380,6 @@ void check_try_masking(TSNode try_stmt, const FileContext& ctx, const std::strin
         if (hc.has_raise) continue; // 捕获后重新抛出，非掩盖。
 
         int line = node_start_row(ec);
-        std::string loc_ev = "try 体约 " + std::to_string(try_loc) + " 行";
 
         // handler 性质：silent（纯 pass/return，真吞）/ logged（仅日志）/ fallback（回退值等兜底逻辑）。
         enum HandlerKind { Silent, Logged, Fallback };
@@ -323,28 +388,37 @@ void check_try_masking(TSNode try_stmt, const FileContext& ctx, const std::strin
             kind == Silent   ? "handler 只有 pass/return，静默吞掉异常"
           : kind == Logged   ? "handler 仅记录日志后继续，未重新抛出"
                              : "handler 用回退值/其他逻辑兜底，但捕获过宽";
+
+        // 严重级别由 try 体规模驱动（用户反馈）：小 try（<=5 行）多为窄防御（如 PC/服务器 API
+        // 差异），低级；大 try（>=20 行）往往是为解决一个问题吞掉了大量业务逻辑的失败，高级。
+        // 一律 advisory-verify —— 未必是错误（可能是有意的环境/兼容防御），禁止 AI 盲目收窄/重抛。
+        Severity sev = try_loc <= kTrySmall ? Severity::Hint
+                     : try_loc >= kTryLarge ? Severity::Warning
+                                            : Severity::Risk;
+        double conf = try_loc >= kTryLarge ? 0.80 : (try_loc <= kTrySmall ? 0.55 : 0.65);
+        std::string size_ev =
+            try_loc <= kTrySmall ? "try 体仅 " + std::to_string(try_loc) + " 行（窄防御，低风险）"
+          : try_loc >= kTryLarge ? "try 体达 " + std::to_string(try_loc) + " 行（疑似吞掉大量业务失败，高风险）"
+                                 : "try 体 " + std::to_string(try_loc) + " 行";
         const std::string suggestion =
-            "捕获更窄的异常类型；显式处理错误路径，或补充上下文后重新 raise。";
+            "确认是否为有意的环境/兼容防御（如 PC 独占 API 在服务器不存在）：若是则忽略；"
+            "try 体越大越可能吞掉真实业务错误，此时应收窄异常类型或补上下文后重抛。";
 
         if (!typed) {
-            // 裸 except 分类过宽（会吞 KeyboardInterrupt/SystemExit），即便有兜底也报。
-            // silent → warning；logged/fallback → risk（mod 容错/防御惯例，plan §6.0 适配）。
-            Severity sev = (kind == Silent) ? Severity::Warning : Severity::Risk;
-            double conf = (kind == Silent) ? 0.92 : (kind == Logged ? 0.80 : 0.72);
             make_finding(ctx, "try.masking.bare-except", sev, conf, line, symbol,
-                         "裸 except 吞掉了失败",
-                         {"裸 except，未指定异常类型", loc_ev, handler_ev}, suggestion);
+                         "裸 except 吞掉异常（确认是否有意防御）",
+                         {"裸 except，未指定异常类型", size_ev, handler_ev}, suggestion,
+                         1, Actionability::AdvisoryVerify);
             continue;
         }
 
         // 过宽捕获：except Exception / BaseException 且吞掉（无实质兜底）。有真实兜底则不报。
         bool broad = contains_ci(type_text, "BaseException") || contains_ci(type_text, "Exception");
         if (broad && kind != Fallback) {
-            Severity sev = (kind == Logged) ? Severity::Risk : Severity::Warning;
-            double conf = (kind == Logged) ? 0.78 : 0.88;
             make_finding(ctx, "try.masking.broad-except-swallow", sev, conf, line, symbol,
-                         "过宽的 except 吞掉了失败",
-                         {"except " + type_text + " 捕获过宽", loc_ev, handler_ev}, suggestion);
+                         "过宽 except 吞掉异常（确认是否有意防御）",
+                         {"except " + type_text + " 捕获过宽", size_ev, handler_ev}, suggestion,
+                         1, Actionability::AdvisoryVerify);
         }
     }
 }
@@ -369,19 +443,19 @@ bool is_mutating_method(const std::string& m) {
 // 不认 pname[k]=v / pname.attr=v —— 那是往（通常由调用方/引擎提供的）dict/对象里塞字段，
 // 是 mod 事件回调惯用法（如 onHurt(args={}): args["damage"]=0），并非默认对象跨调用累积的 bug。
 bool param_mutated(TSNode node, const std::string& pname, const std::string& source, bool top) {
-    std::string t = ts_node_type(node);
+    std::string_view t = ts_node_type(node);
     if (!top && t == "function_definition") return false; // 嵌套函数会遮蔽同名参数，不下钻
     if (t == "augmented_assignment") { // pname += ...
         TSNode left = ts_node_child_by_field_name(node, "left", 4);
-        if (!ts_node_is_null(left) && std::string(ts_node_type(left)) == "identifier" &&
+        if (!ts_node_is_null(left) && nt(left) == "identifier" &&
             node_text(left, source) == pname)
             return true;
     } else if (t == "call") { // pname.append(...) 等增长型方法
         TSNode fn = ts_node_child_by_field_name(node, "function", 8);
-        if (!ts_node_is_null(fn) && std::string(ts_node_type(fn)) == "attribute") {
+        if (!ts_node_is_null(fn) && nt(fn) == "attribute") {
             TSNode obj = ts_node_child_by_field_name(fn, "object", 6);
             TSNode attr = ts_node_child_by_field_name(fn, "attribute", 9);
-            if (!ts_node_is_null(obj) && std::string(ts_node_type(obj)) == "identifier" &&
+            if (!ts_node_is_null(obj) && nt(obj) == "identifier" &&
                 node_text(obj, source) == pname && is_mutating_method(node_text(attr, source)))
                 return true;
         }
@@ -471,6 +545,44 @@ std::string enclosing_class(const std::string& symbol) {
     return p2 == std::string::npos ? before : before.substr(p2 + 1);
 }
 
+// 限定名的末段（函数自身名）："A.B.foo" -> "foo"。
+std::string symbol_leaf(const std::string& symbol) {
+    auto pos = symbol.rfind('.');
+    return pos == std::string::npos ? symbol : symbol.substr(pos + 1);
+}
+
+// 返回值是否为「平凡固定值」：标量字面量，或**空**集合。非空集合（如 [Obj(), ...]、
+// (0,-0.2,0)）是在返回真实数据，不算 stub，排除以降误报。
+bool is_constant_return(TSNode val) {
+    std::string_view t = nt(val);
+    // 注意：不含 none —— `return None`（含隐式）多为 mod 里合法的空回调重写（同 §6.9 决策）。
+    if (t == "true" || t == "false" || t == "integer" || t == "float" ||
+        t == "string" || t == "concatenated_string")
+        return true;
+    if (t == "list" || t == "dictionary" || t == "set" || t == "tuple")
+        return ts_node_named_child_count(val) == 0; // 仅空集合算 stub
+    return false;
+}
+
+// 非 self/cls 的参数个数（用于判定「接了输入却不用」）。
+int non_self_param_count(TSNode fn, const std::string& source) {
+    TSNode params = ts_node_child_by_field_name(fn, "parameters", 10);
+    if (ts_node_is_null(params)) return 0;
+    int cnt = 0;
+    uint32_t n = ts_node_named_child_count(params);
+    for (uint32_t i = 0; i < n; ++i) {
+        TSNode p = ts_node_named_child(params, i);
+        std::string_view pt = nt(p);
+        std::string name;
+        if (pt == "identifier") name = node_text(p, source);
+        else if (pt == "default_parameter" || pt == "typed_parameter" || pt == "typed_default_parameter")
+            name = node_text(ts_node_child_by_field_name(p, "name", 4), source);
+        else continue; // *args/**kwargs 等跳过
+        if (!name.empty() && name != "self" && name != "cls") cnt++;
+    }
+    return cnt;
+}
+
 void check_stub(TSNode fn, const FileContext& ctx, const std::string& symbol) {
     const std::string& source = *ctx.source;
     if (decorators_have_abstract(fn, source)) return;              // 抽象方法豁免
@@ -506,13 +618,27 @@ void check_stub(TSNode fn, const FileContext& ctx, const std::string& symbol) {
                          "补全实现；若为类型存根/接口占位可忽略。",
                          1, Actionability::AdvisoryVerify);
         }
+    } else if (t == "return_statement") {
+        // 假实现：接了非 self 参数，函数体却只有 return <常量字面量>，完全不用参数。
+        // AI 偷懒头号特征（如 def validate(self, data): return True）。
+        TSNode val = ts_node_named_child(only, 0);
+        if (!ts_node_is_null(val) && is_constant_return(val) &&
+            non_self_param_count(fn, source) >= 1 && !is_dunder(symbol_leaf(symbol))) {
+            std::string rv = node_text(val, source);
+            if (rv.size() > 40) rv = rv.substr(0, 40) + "…";
+            make_finding(ctx, "stub.shallow-impl", Severity::Risk, 0.55, node_start_row(fn), symbol,
+                         "疑似空/假实现：接了参数却直接返回常量",
+                         {"函数带参数，但体内只有 return " + rv + "，未使用任何参数"},
+                         "确认是否为真实现：若应据参数计算，请补全逻辑；若为占位/默认返回可忽略。",
+                         2, Actionability::AdvisoryVerify);
+        }
     }
 }
 
 // ── 规则：global 重绑定模块状态（plan §6.5，Tier 1）───────────────────────
 void collect_identifiers(TSNode node, const std::string& source, std::unordered_set<std::string>& out) {
     if (ts_node_is_null(node)) return;
-    std::string t = ts_node_type(node);
+    std::string_view t = ts_node_type(node);
     if (t == "identifier") { out.insert(node_text(node, source)); return; }
     if (t == "attribute" || t == "subscript") return; // self.x / x[i] 不是对模块名的重绑定
     uint32_t n = ts_node_named_child_count(node);
@@ -522,13 +648,13 @@ void collect_identifiers(TSNode node, const std::string& source, std::unordered_
 void collect_globals_and_assigns(TSNode node, const std::string& source, bool top,
                                  std::vector<std::string>& globals,
                                  std::unordered_set<std::string>& assigns) {
-    std::string t = ts_node_type(node);
+    std::string_view t = ts_node_type(node);
     if (!top && t == "function_definition") return; // 嵌套函数有自己的作用域，不下钻
     if (t == "global_statement") {
         uint32_t n = ts_node_named_child_count(node);
         for (uint32_t i = 0; i < n; ++i) {
             TSNode c = ts_node_named_child(node, i);
-            if (std::string(ts_node_type(c)) == "identifier") globals.push_back(node_text(c, source));
+            if (nt(c) == "identifier") globals.push_back(node_text(c, source));
         }
     } else if (t == "assignment" || t == "augmented_assignment") {
         collect_identifiers(ts_node_child_by_field_name(node, "left", 4), source, assigns);
@@ -575,11 +701,70 @@ void check_todo(TSNode node, const FileContext& ctx, const std::string& symbol) 
                  2, Actionability::AdvisoryVerify);
 }
 
+// ── 规则：单文件逻辑堆积 / 屎山（plan §6.3，Tier 2）───────────────────────
+// 核心目的：拦住 AI 把大量逻辑堆进一个巨型文件。多重判定——必须同时「行数大」且
+// 「def/class 多」——纯数据/配置文件（如 StaticDefine.py 1938 行但 u=1）天然大体量、
+// 极少定义，不会命中。阈值按真实 mod 标定：数据文件 u≤19，逻辑文件 u≥36，取 25 分界。
+constexpr int kFileCodeLines = 800; // 代码行（非空非纯注释）
+constexpr int kFileUnits = 25;      // def + class 总数
+
+struct FileMetrics {
+    int def_count = 0;
+    int class_count = 0;
+};
+
+int count_code_lines(const std::string& src) {
+    int n = 0;
+    std::istringstream iss(src);
+    std::string line;
+    while (std::getline(iss, line)) {
+        size_t a = line.find_first_not_of(" \t\r");
+        if (a == std::string::npos) continue; // 空行
+        if (line[a] == '#') continue;         // 纯注释行
+        ++n;
+    }
+    return n;
+}
+
+// ── 规则：单函数过长（plan §6.3，Tier 2）─────────────────────────────────
+// 「代码内容过多」的函数级版本。行跨度分级：偏长→risk，过长→warning。advisory-verify
+//（有些事件分发/UI 回调天然长，不强制拆）。阈值按真实 mod 标定（3387 函数中仅 19 个 ≥50）。
+constexpr int kFuncLoc = 50;      // 偏长起报
+constexpr int kFuncLocHigh = 100; // 过长
+
+void check_large_function(TSNode fn, const FileContext& ctx, const std::string& symbol) {
+    int start = static_cast<int>(ts_node_start_point(fn).row);
+    int end = static_cast<int>(ts_node_end_point(fn).row);
+    int loc = end - start + 1;
+    if (loc < kFuncLoc) return;
+    Severity sev = loc >= kFuncLocHigh ? Severity::Warning : Severity::Risk;
+    make_finding(ctx, "logic-blob.large-function", sev, loc >= kFuncLocHigh ? 0.80 : 0.66,
+                 node_start_row(fn), symbol, "单函数过长（逻辑堆积）",
+                 {"函数约 " + std::to_string(loc) + " 行 ≥ " + std::to_string(kFuncLoc),
+                  loc >= kFuncLocHigh ? "远超阈值，强烈建议拆分" : "偏长，建议按步骤/职责拆分"},
+                 "把独立的步骤/职责抽成子函数，降低单函数认知复杂度；事件分发类长函数可酌情忽略。",
+                 2, Actionability::AdvisoryVerify);
+}
+
+void check_large_file(const FileContext& ctx, int code_lines, const FileMetrics& fm) {
+    int units = fm.def_count + fm.class_count;
+    if (code_lines < kFileCodeLines || units < kFileUnits) return;
+    make_finding(ctx, "logic-blob.large-file", Severity::Warning, 0.82, 1, /*symbol=*/"",
+                 "单文件过大且逻辑单元过多（职责堆积，疑似屎山）",
+                 {"代码行 " + std::to_string(code_lines) + " ≥ " + std::to_string(kFileCodeLines),
+                  "def+class 共 " + std::to_string(units) + " 个 ≥ " + std::to_string(kFileUnits),
+                  "多重判定：纯数据/配置文件（大体量但极少 def/class）不会命中"},
+                 "按职责把不相关的类/函数群拆分到独立模块，降低单文件认知负担；"
+                 "若确为数据/生成文件可忽略。",
+                 2, Actionability::AdvisoryVerify);
+}
+
 // ── AST 遍历：维护 def/class 限定名上下文 ─────────────────────────────────
 
-void walk(TSNode node, const FileContext& ctx, std::vector<std::string>& scope_stack) {
+void walk(TSNode node, const FileContext& ctx, std::vector<std::string>& scope_stack,
+          FileMetrics& fm) {
     const std::string& source = *ctx.source;
-    std::string type = ts_node_type(node);
+    std::string_view type = ts_node_type(node);
 
     bool pushed = false;
     if (type == "function_definition" || type == "class_definition") {
@@ -587,10 +772,24 @@ void walk(TSNode node, const FileContext& ctx, std::vector<std::string>& scope_s
         std::string sym = node_text(name, source);
         if (!sym.empty()) { scope_stack.push_back(sym); pushed = true; }
         if (type == "function_definition") {
+            fm.def_count++;
             std::string qual = join_scope(scope_stack);
             check_mutable_defaults(node, ctx, qual);
             check_stub(node, ctx, qual);
             check_global_write(node, ctx, qual);
+            check_large_function(node, ctx, qual);
+            if (ctx.sigs && !is_dunder(sym)) { // 跳过 __init__ 等样板 dunder
+                TSNode body = ts_node_child_by_field_name(node, "body", 4);
+                std::string fp;
+                fingerprint_walk(body, source, fp);
+                if (fp_has_logic(fp)) { // 只收含真实逻辑的函数
+                    ctx.sigs->push_back({fp, ctx.rel_path, qual, node_start_row(node),
+                                         ts_node_is_null(body) ? 0
+                                             : static_cast<int>(ts_node_named_child_count(body))});
+                }
+            }
+        } else {
+            fm.class_count++;
         }
     } else if (type == "try_statement") {
         check_try_masking(node, ctx, join_scope(scope_stack));
@@ -600,14 +799,18 @@ void walk(TSNode node, const FileContext& ctx, std::vector<std::string>& scope_s
 
     uint32_t n = ts_node_child_count(node);
     for (uint32_t i = 0; i < n; ++i) {
-        walk(ts_node_child(node, i), ctx, scope_stack);
+        walk(ts_node_child(node, i), ctx, scope_stack, fm);
     }
     if (pushed) scope_stack.pop_back();
 }
 
-// 单文件解析 + 运行规则，返回 parse health。
+inline double ms_since(std::chrono::steady_clock::time_point a) {
+    return std::chrono::duration<double, std::milli>(std::chrono::steady_clock::now() - a).count();
+}
+
+// 单文件解析 + 运行规则，返回 parse health。parser 复用；无共享可变状态，可并行调用。
 ParseHealth analyze_file(const fs::path& file, const fs::path& bp_root,
-                         std::vector<Finding>& out) {
+                         std::vector<Finding>& out, std::vector<FuncSig>& sigs, TSParser* parser) {
     std::string source = read_text_file(file);
     if (source.empty()) {
         // 空文件（如空 __init__.py）是合法空模块，不算解析失败；仅文件非空却读不出才 fallback。
@@ -616,35 +819,72 @@ ParseHealth analyze_file(const fs::path& file, const fs::path& bp_root,
         return (!ec && sz == 0) ? ParseHealth::Ok : ParseHealth::Fallback;
     }
 
-    TSParser* parser = ts_parser_new();
-    ts_parser_set_language(parser, tree_sitter_python());
     TSTree* tree = ts_parser_parse_string(parser, nullptr, source.c_str(),
                                           static_cast<uint32_t>(source.size()));
     TSNode root = ts_tree_root_node(tree);
-
     bool has_error = ts_node_has_error(root);
 
     FileContext ctx;
     ctx.source = &source;
     ctx.rel_path = rel_utf8(file, bp_root);
     ctx.out = &out;
+    ctx.sigs = &sigs;
 
-    // 语法完全崩坏（fallback）时，跳过依赖 AST 的规则，避免在半解析树上误报（plan §7 门槛）。
-    ParseHealth health = ParseHealth::Ok;
-    if (!has_error) {
-        std::vector<std::string> scope_stack;
-        walk(root, ctx, scope_stack);
-        health = ParseHealth::Ok;
-    } else {
-        // 有 ERROR 节点但仍可局部遍历：recovered，规则照跑（tree-sitter 局部恢复）。
-        std::vector<std::string> scope_stack;
-        walk(root, ctx, scope_stack);
-        health = ParseHealth::Recovered;
-    }
+    // 有 ERROR 节点时 tree-sitter 仍可局部遍历：recovered，规则照跑。
+    std::vector<std::string> scope_stack;
+    FileMetrics fm;
+    walk(root, ctx, scope_stack, fm);
+    check_large_file(ctx, count_code_lines(source), fm);
 
     ts_tree_delete(tree);
-    ts_parser_delete(parser);
-    return health;
+    return has_error ? ParseHealth::Recovered : ParseHealth::Ok;
+}
+
+// 跨模块重复函数聚类（plan §6.2，Tier 3）：相同结构指纹、非 trivial、跨 ≥2 文件、≥3 处。
+void cluster_duplicate_functions(const std::vector<FuncSig>& sigs, std::vector<Finding>& out) {
+    constexpr int kMinStmts = 5;      // 过滤 trivial（getter/空壳）
+    constexpr size_t kMinFpLen = 10;  // 指纹过短说明结构太简单，易巧合
+    constexpr int kMinCount = 2;      // 跨模块重复多为「一份逻辑抄了 2 处」，故 2 起报
+
+    std::unordered_map<std::string, std::vector<const FuncSig*>> clusters;
+    for (const auto& s : sigs) {
+        if (s.stmts < kMinStmts || s.fingerprint.size() < kMinFpLen) continue;
+        clusters[s.fingerprint].push_back(&s);
+    }
+    for (auto& kv : clusters) {
+        auto& members = kv.second;
+        if (static_cast<int>(members.size()) < kMinCount) continue;
+        std::unordered_set<std::string> files;
+        for (auto* m : members) files.insert(m->file);
+        if (files.size() < 2) continue; // 必须散落在不同模块/文件
+
+        std::sort(members.begin(), members.end(), [](const FuncSig* a, const FuncSig* b) {
+            if (a->file != b->file) return a->file < b->file;
+            return a->line < b->line;
+        });
+        const FuncSig* first = members.front();
+        Finding f;
+        f.rule_id = "duplicate-function.cross-module";
+        f.severity = Severity::Warning;
+        f.tier = 3;
+        f.actionability = Actionability::AdvisoryVerify;
+        f.confidence = 0.60;
+        f.file = first->file;
+        f.line = first->line;
+        f.symbol = first->symbol;
+        f.title = "多个结构相同的函数散落在不同模块（疑似重复造轮子）";
+        f.evidence.push_back("相同结构指纹出现 " + std::to_string(members.size()) +
+                             " 处，跨 " + std::to_string(files.size()) + " 个文件");
+        size_t shown = 0;
+        for (auto* m : members) {
+            if (shown++ >= 8) { f.evidence.push_back("…其余略"); break; }
+            f.evidence.push_back(m->file + ":" + std::to_string(m->line) + "  " + m->symbol);
+        }
+        f.suggestion = "确认是否为同类逻辑重复：若是，抽取为共享工具函数/基类方法，消除散落副本。";
+        f.finding_key = "duplicate-function.cross-module@" + first->file + ":" +
+                        std::to_string(first->line);
+        out.push_back(std::move(f));
+    }
 }
 
 } // namespace
@@ -666,31 +906,76 @@ ReviewReport ReviewAnalyzer::review(const fs::path& behavior_pack_root,
     auto pkgs = discover_packages(behavior_pack_root, options.include_third_party,
                                   report.discovery_mode, report.ignored_dirs);
 
+    // ① 顺序阶段（廉价）：建包报告 + 收集待扫描文件（in-scope），保留确定性顺序。
+    struct ScanItem { size_t pkg_idx; fs::path file; };
+    std::vector<ScanItem> items;
     for (const auto& pkg : pkgs) {
         if (!package_in_scope(pkg.name, options.scope)) continue;
-
         PackageReport pr;
         pr.name = pkg.name;
         pr.entry_file = pkg.entry_file.empty() ? "" : to_utf8(pkg.entry_file);
         pr.root_dir = to_utf8(pkg.root_dir);
-
-        for (const auto& file : pkg.files) {
-            std::string rel_from_pkg = rel_utf8(file, pkg.root_dir);
-            if (!file_in_scope(rel_from_pkg, pkg.name, options.scope)) continue;
-
-            std::vector<Finding> file_findings;
-            ParseHealth h = analyze_file(file, behavior_pack_root, file_findings);
-
-            pr.files_scanned++;
-            report.files_scanned++;
-            switch (h) {
-                case ParseHealth::Ok:        pr.parse_ok++; report.parse_ok++; break;
-                case ParseHealth::Recovered: pr.parse_recovered++; report.parse_recovered++; break;
-                case ParseHealth::Fallback:  pr.parse_failed++; report.parse_failed++; break;
-            }
-            for (auto& f : file_findings) report.findings.push_back(std::move(f));
-        }
+        size_t idx = report.packages.size();
         report.packages.push_back(std::move(pr));
+        for (const auto& file : pkg.files) {
+            if (!file_in_scope(rel_utf8(file, pkg.root_dir), pkg.name, options.scope)) continue;
+            items.push_back({idx, file});
+        }
+    }
+
+    // ② 并行阶段：每文件独立解析+跑规则，结果按 index 落位（无共享写，确定性）。
+    struct ScanResult {
+        std::vector<Finding> findings;
+        std::vector<FuncSig> sigs;
+        ParseHealth          health = ParseHealth::Ok;
+    };
+    std::vector<ScanResult> results(items.size());
+    auto t_scan = std::chrono::steady_clock::now();
+
+    unsigned hw = std::thread::hardware_concurrency();
+    unsigned nthreads = std::min<unsigned>(std::max(1u, hw), 8u);
+    if (items.size() < 4) nthreads = 1; // 小任务不值得开线程
+    std::atomic<size_t> next{0};
+    auto worker = [&]() {
+        TSParser* parser = ts_parser_new(); // 每线程独立 parser（parser 非线程安全）
+        ts_parser_set_language(parser, tree_sitter_python());
+        for (size_t i = next.fetch_add(1); i < items.size(); i = next.fetch_add(1)) {
+            results[i].health = analyze_file(items[i].file, behavior_pack_root,
+                                             results[i].findings, results[i].sigs, parser);
+        }
+        ts_parser_delete(parser);
+    };
+    if (nthreads <= 1) {
+        worker();
+    } else {
+        std::vector<std::thread> pool;
+        for (unsigned t = 0; t < nthreads; ++t) pool.emplace_back(worker);
+        for (auto& th : pool) th.join();
+    }
+
+    // ③ 顺序合并（按 index，确定性）。
+    std::vector<FuncSig> all_sigs;
+    for (size_t i = 0; i < items.size(); ++i) {
+        auto& r = results[i];
+        PackageReport& pr = report.packages[items[i].pkg_idx];
+        pr.files_scanned++;
+        report.files_scanned++;
+        switch (r.health) {
+            case ParseHealth::Ok:        pr.parse_ok++; report.parse_ok++; break;
+            case ParseHealth::Recovered: pr.parse_recovered++; report.parse_recovered++; break;
+            case ParseHealth::Fallback:  pr.parse_failed++; report.parse_failed++; break;
+        }
+        for (auto& f : r.findings) report.findings.push_back(std::move(f));
+        for (auto& s : r.sigs) all_sigs.push_back(std::move(s));
+    }
+    double scan_ms = ms_since(t_scan);
+
+    // 全局跨模块重复函数检测（需所有函数指纹到齐后再聚类）。
+    cluster_duplicate_functions(all_sigs, report.findings);
+
+    if (std::getenv("MCDK_REVIEW_TIMING")) {
+        std::cerr << "[timing] files=" << report.files_scanned << " threads=" << nthreads
+                  << " scan=" << (long)scan_ms << "ms sigs=" << all_sigs.size() << "\n";
     }
 
     // 确定性排序（plan §8.1：稳定 finding_key + 确定排序）。
