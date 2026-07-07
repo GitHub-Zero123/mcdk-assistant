@@ -52,38 +52,19 @@ MCP Tool 暴露面采用分层式设计：顶层只保留少量能力族入口�
 `minecraft_py` 除了 `arch` / `imports` 项目分析外，还提供 `review` 子命令，用于让 AI 在写完或改完 Python2 MOD 代码后自查，再按报告回改。
 它适合作为 Agent 修改代码后的自检步骤：优先审查刚改动的包或模块，输出按规则分组的结构性问题与可执行建议。
 
-<details>
-<summary><strong>诊断范围：十二条规则</strong></summary>
+#### 诊断范围
 
-审查规则以低误报、可复核和可执行为目标，优先覆盖 Python2 Addon 中容易导致运行失败、维护成本上升或 AI 生成代码退化的结构性问题。
+审查规则以低误报、可复核和可执行为目标，覆盖 Python2 Addon 中容易导致运行失败、维护成本上升或 AI 生成代码退化的结构性问题。
 
-| rule_id | 级别 | 可执行性 | tier | 触发条件(默认) | 分寸 / 豁免 |
-|---|---|---|---|---|---|
-| `encoding.missing-utf8-declaration` | warning | **must-fix** | 1 | 文件带非 ASCII 字节,首两行却无 PEP263 编码声明,也无 UTF-8 BOM —— Py2 一 import 就 `SyntaxError` | **唯有含非 ASCII 才查**;空文件 / 纯空白 / 纯 ASCII 天然免检;BOM 即声明;识得 `# -*- coding: utf-8 -*-`、`# coding=utf-8`、shebang 后第二行、`# vim: set fileencoding=utf-8 :` 等多种版式 |
-| `try.masking.bare-except` | hint\|risk\|warning | advisory-verify | 1 | 裸 `except:` 未 re-raise;轻重看 try 体大小:≤5 行→hint、≥20 行→warning、居中→risk | 未必是错——可能是 PC / 服务器环境差异下的有意防御,只请核实 |
-| `try.masking.broad-except-swallow` | hint\|risk\|warning | advisory-verify | 1 | `except Exception/BaseException` 且吞掉(无实质兜底),分级同上 | 若有真实回退兜底,则不问 |
-| `implicit-global.mutable-default` | risk | advisory-verify | 1 | 可变默认参数(`list`/`dict`/`set`)在体内被**累积式**修改(`append`/`+=`) | 不认 `x[k]=v`/`x.attr=v`(往引擎 / 调用方 dict 塞字段是惯用法);豁免约定名 `args`/`data`/`event`/`kwargs`… 及配置追加项 |
-| `implicit-global.global-write` | risk | advisory-verify | 1 | 函数 `global x` 且写 `x`,且 `x` 为**公开名**(无下划线前缀) | **下划线私有全局径直放行**——缓存 / 单例 / 计数器是模块封装的正道;并顺手建议"若仅本模块自用,加个下划线即可" |
-| `stub.placeholder` | warning / hint | should-fix / advisory | 1 | 函数体仅 `raise NotImplementedError`(warning)或 `...`(hint) | 接口 / 抽象命名类(`^I[A-Z]`、`Base*`/`Abstract*`、`*Interface`/`*ABC`)与 `@abstractmethod` 豁免;空 `pass`/`return None` 不问 |
-| `stub.shallow-impl` | risk | advisory-verify | 2 | 函数体 ≥3 条业务语句,**却所有 `return` 皆固定值、且完全不碰任何参数** —— 疑似假实现 | 放过 1 行 `return 固定值`(Py2 无 .pyi,裸写补全库触发类型推导);排除 `return None`/非空集合;`_`/`__` 占位参、dunder、接口类豁免 |
-| `signature.too-many-params` | hint / warning | advisory-verify | 2 | 非 `self`/`cls` 参数 > 5;6~7 个→hint、≥8 个→warning | `__init__`/`__new__` 豁免(构造器天然聚合);`*args`/`**kwargs` 不计;引擎固定签名可调阈值或整族关闭 |
-| `logic-blob.large-function` | risk / warning | advisory-verify | 2 | 单函数行跨度 ≥50→risk、≥100→warning | 事件分发 / UI 回调类的长函数,可酌情放过 |
-| `logic-blob.large-file` | warning | advisory-verify | 2 | 单文件代码行 ≥1000 **且** `def+class` ≥25(双重判定) | 纯数据 / 配置文件(体量大却极少定义)自然不触发 |
-| `duplicate-function.cross-module` | warning | advisory-verify | 3 | 相同结构指纹(抹去标识符 / 字面量,只留控制流 + 调用名)、≥5 语句、指纹长 ≥10、散落 ≥2 文件、≥2 处 | 跳过 dunder;要求确有逻辑(控制流或 ≥2 次调用),免得把样板 `__init__` 错聚成"重复" |
-| `comment-doc.unowned-todo` | hint | advisory-verify | 2 | 无主的 `TODO`/`FIXME`/`HACK`/`XXX` | 带括号者(疑似署名,如 `TODO(alice)`)不问 |
+类别 | 覆盖规则 | 检查重点
+--- | --- | ---
+运行硬错误 | `encoding.missing-utf8-declaration` | 非 ASCII Python2 文件缺少 PEP263 编码声明
+异常与状态 | `try.masking.*`、`implicit-global.*` | 吞异常、可变默认参数累积修改、公开全局重绑定
+占位与假实现 | `stub.placeholder`、`stub.shallow-impl` | 未实现桩、多行逻辑却只返回固定值的疑似假实现
+复杂度与重复 | `signature.too-many-params`、`logic-blob.*`、`duplicate-function.cross-module` | 参数过多、函数/文件过大、跨模块重复函数
+维护信号 | `comment-doc.unowned-todo` | 无 owner 的 TODO / FIXME / HACK / XXX
 
-> **tier** 是精度分层:**1** 确定性词法 / 句法 · **2** 度量阈值 · **3** 启发式 / 相似度。级别越低,越是"证据确凿"。
-
-### 降噪的底线:开放世界
-
-这套规则刻意不做企业 linter 那一套"事无巨细的挑刺",而是守住几条底线,让报告只说要紧话:
-
-- **QuModLibs** 等静态三方库默认不看(`--include-third-party` 可开)。
-- **项目外与游戏引擎的 API,不解析、不报错**——只查结构与用法,绝不因"找不到定义"就发难。
-- 空 `__init__.py`、空文件,不算解析失败。
-- 输出**确定性排序** + `finding_key` 稳定去重——同一份代码反复审,结果始终如一,闭环方能收敛。
-
-</details>
+报告按严重级别、可执行性和规则 tier 标注结果；默认跳过 QuModLibs 等三方库，不因项目外或游戏引擎 API 无法解析而报错，并使用稳定 `finding_key` 支持反复审查与闭环回改。
 
 ## 🎯 适用场景
 
