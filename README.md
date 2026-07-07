@@ -6,13 +6,13 @@
 
 面向 NetEase Minecraft / Bedrock 开发场景的通用 MCP Server。
 
-聚合文档检索、原版资源搜索、参考速查与扩展分析能力，使 AI 能以更工程化的方式参与 Minecraft 开发流程。
+聚合文档检索、原版资源搜索、参考速查、项目分析与代码审查能力，使 AI 能以更工程化的方式参与 Minecraft 开发流程。
 
 <p align="center">
   <img src="docs/agent-mcp-workflow.svg" alt="MCDK Assistant MCP 与 LLM Agent 的工程协作关系" width="100%">
 </p>
 
-MCDK-ASSISTANT 不直接替代编辑器或 AI Agent，而是作为一个面向 Minecraft 工程语境的能力层：把知识库、原版资产、JSON UI、NBT、模型、动画和 Python2 Addon 分析能力整理成稳定的 MCP 工具，让 Agent 在“查资料、理解结构、定位文件、生成修改、回读验证”的闭环里少猜测、多验证。
+MCDK-ASSISTANT 不直接替代编辑器或 AI Agent，而是作为一个面向 Minecraft 工程语境的能力层：把知识库、原版资产、JSON UI、NBT、模型、动画、Python2 Addon 项目分析与代码审查能力整理成稳定的 MCP 工具，让 Agent 在“查资料、理解结构、定位文件、生成修改、审查回改、回读验证”的闭环里少猜测、多验证。
 
 <p align="center">
   <img src="docs/tool-layering.svg" alt="MCDK Assistant MCP Tool 分层设计" width="100%">
@@ -41,15 +41,56 @@ MCP Tool 暴露面采用分层式设计：顶层只保留少量能力族入口�
 🔎 智能文档检索 | 支持知识库、网易教程、ModAPI、QuMod、Bedrock Wiki、BedrockDev 等资料搜索
 🧭 原版资源搜索 | 模糊搜索行为包 / 资源包原版资产，支持按文件名和内容定位
 📘 参考速查 | 快速获取网易版差异、JSON UI / 动画 / 模型参考资料
+🐍 Python MOD 分析与审查 | `minecraft_py` 支持行为包架构分析、引用链追踪和 Python2 Addon 结构性代码审查
 🧩 JSON UI 分析 | 支持控件结构查询、属性搜索与问题诊断；涉及资源修改的能力仅在完整版提供
 🧠 解决方案层 | 检索时自动浮现「可运行组合范式 + 踩坑」，让 AI 照着写而非盲猜（默认开，`--no-solution` 可关；需预编译 bin）
 
-> 默认分发以 `LITE` 为主，聚焦检索、搜索、参考与分析能力。
+> 默认分发以 `LITE` 为主，聚焦检索、搜索、参考、项目分析与代码审查能力。
+
+### 🐍 Python AI 代码审查
+
+`minecraft_py` 除了 `arch` / `imports` 项目分析外，还提供 `review` 子命令，用于让 AI 在写完或改完 Python2 MOD 代码后自查，再按报告回改。
+它适合作为 Agent 修改代码后的自检步骤：优先审查刚改动的包或模块，输出按规则分组的结构性问题与可执行建议。
+
+<details>
+<summary><strong>诊断范围：十二条规则</strong></summary>
+
+审查规则以低误报、可复核和可执行为目标，优先覆盖 Python2 Addon 中容易导致运行失败、维护成本上升或 AI 生成代码退化的结构性问题。
+
+| rule_id | 级别 | 可执行性 | tier | 触发条件(默认) | 分寸 / 豁免 |
+|---|---|---|---|---|---|
+| `encoding.missing-utf8-declaration` | warning | **must-fix** | 1 | 文件带非 ASCII 字节,首两行却无 PEP263 编码声明,也无 UTF-8 BOM —— Py2 一 import 就 `SyntaxError` | **唯有含非 ASCII 才查**;空文件 / 纯空白 / 纯 ASCII 天然免检;BOM 即声明;识得 `# -*- coding: utf-8 -*-`、`# coding=utf-8`、shebang 后第二行、`# vim: set fileencoding=utf-8 :` 等多种版式 |
+| `try.masking.bare-except` | hint\|risk\|warning | advisory-verify | 1 | 裸 `except:` 未 re-raise;轻重看 try 体大小:≤5 行→hint、≥20 行→warning、居中→risk | 未必是错——可能是 PC / 服务器环境差异下的有意防御,只请核实 |
+| `try.masking.broad-except-swallow` | hint\|risk\|warning | advisory-verify | 1 | `except Exception/BaseException` 且吞掉(无实质兜底),分级同上 | 若有真实回退兜底,则不问 |
+| `implicit-global.mutable-default` | risk | advisory-verify | 1 | 可变默认参数(`list`/`dict`/`set`)在体内被**累积式**修改(`append`/`+=`) | 不认 `x[k]=v`/`x.attr=v`(往引擎 / 调用方 dict 塞字段是惯用法);豁免约定名 `args`/`data`/`event`/`kwargs`… 及配置追加项 |
+| `implicit-global.global-write` | risk | advisory-verify | 1 | 函数 `global x` 且写 `x`,且 `x` 为**公开名**(无下划线前缀) | **下划线私有全局径直放行**——缓存 / 单例 / 计数器是模块封装的正道;并顺手建议"若仅本模块自用,加个下划线即可" |
+| `stub.placeholder` | warning / hint | should-fix / advisory | 1 | 函数体仅 `raise NotImplementedError`(warning)或 `...`(hint) | 接口 / 抽象命名类(`^I[A-Z]`、`Base*`/`Abstract*`、`*Interface`/`*ABC`)与 `@abstractmethod` 豁免;空 `pass`/`return None` 不问 |
+| `stub.shallow-impl` | risk | advisory-verify | 2 | 函数体 ≥3 条业务语句,**却所有 `return` 皆固定值、且完全不碰任何参数** —— 疑似假实现 | 放过 1 行 `return 固定值`(Py2 无 .pyi,裸写补全库触发类型推导);排除 `return None`/非空集合;`_`/`__` 占位参、dunder、接口类豁免 |
+| `signature.too-many-params` | hint / warning | advisory-verify | 2 | 非 `self`/`cls` 参数 > 5;6~7 个→hint、≥8 个→warning | `__init__`/`__new__` 豁免(构造器天然聚合);`*args`/`**kwargs` 不计;引擎固定签名可调阈值或整族关闭 |
+| `logic-blob.large-function` | risk / warning | advisory-verify | 2 | 单函数行跨度 ≥50→risk、≥100→warning | 事件分发 / UI 回调类的长函数,可酌情放过 |
+| `logic-blob.large-file` | warning | advisory-verify | 2 | 单文件代码行 ≥1000 **且** `def+class` ≥25(双重判定) | 纯数据 / 配置文件(体量大却极少定义)自然不触发 |
+| `duplicate-function.cross-module` | warning | advisory-verify | 3 | 相同结构指纹(抹去标识符 / 字面量,只留控制流 + 调用名)、≥5 语句、指纹长 ≥10、散落 ≥2 文件、≥2 处 | 跳过 dunder;要求确有逻辑(控制流或 ≥2 次调用),免得把样板 `__init__` 错聚成"重复" |
+| `comment-doc.unowned-todo` | hint | advisory-verify | 2 | 无主的 `TODO`/`FIXME`/`HACK`/`XXX` | 带括号者(疑似署名,如 `TODO(alice)`)不问 |
+
+> **tier** 是精度分层:**1** 确定性词法 / 句法 · **2** 度量阈值 · **3** 启发式 / 相似度。级别越低,越是"证据确凿"。
+
+### 降噪的底线:开放世界
+
+这套规则刻意不做企业 linter 那一套"事无巨细的挑刺",而是守住几条底线,让报告只说要紧话:
+
+- **QuModLibs** 等静态三方库默认不看(`--include-third-party` 可开)。
+- **项目外与游戏引擎的 API,不解析、不报错**——只查结构与用法,绝不因"找不到定义"就发难。
+- 空 `__init__.py`、空文件,不算解析失败。
+- 输出**确定性排序** + `finding_key` 稳定去重——同一份代码反复审,结果始终如一,闭环方能收敛。
+
+</details>
 
 ## 🎯 适用场景
 
 - 查询网易版独占资料、原版资源、组件和接口参考
 - 让 AI 辅助分析 JSON UI 结构与常见问题
+- 让 AI 在修改 Python2 Addon 后运行结构性代码审查，按明确报告闭环回改
+- 分析行为包入口、注册链、引用关系和目录职责
 - 获取模型、动画与 JSON UI 的参考信息
 - 快速说明网易版与国际版差异
 
@@ -59,7 +100,7 @@ MCP Tool 暴露面采用分层式设计：顶层只保留少量能力族入口�
 
 能力版本 | 可执行文件 | 说明
 --- | --- | ---
-LITE 版 | `mcdk-asst-lite` | 默认发布版本，聚焦资料检索、原版资源搜索和参考说明，不包含本地文件修改能力
+LITE 版 | `mcdk-asst-lite` | 默认发布版本，聚焦资料检索、原版资源搜索、参考说明、Python 项目分析与代码审查，不包含本地文件修改能力
 完整版 | `mcdk-assistant` | 提供 JSON UI、NBT、模型、动画、像素画等本地资源读写与编辑能力；相关能力涉及敏感操作，但会占用更多初始上下文，建议仅在确认需要的情况下使用。
 Server 版 | `mcdk-asst-server` | 在 LITE 能力基础上扩展后台请求记录与统计接口，适合服务化部署
 
@@ -197,6 +238,8 @@ tool_timeout_sec = 120
 - 搜索 `minecraft:food` 组件用法
 - 搜索网易版和国际版 JSON UI 的主要差异
 - 查找某个原版资源文件或动画资源
+- 分析 Python 行为包结构：`minecraft_py(command="arch D:/mc/addons/MyAddon/behavior_pack --depth 2")`
+- 审查刚修改的 Python 模块：`minecraft_py(command="review D:/mc/addons/MyAddon/behavior_pack --scope my_mod/client --format summary")`
 
 如果能返回对应资料或搜索结果，说明 MCP Server 已连接成功。
 
@@ -232,7 +275,8 @@ tool_timeout_sec = 120
   TypeScript 的 Tree-sitter 语法定义，用于解析 SAPI `.d.ts` 声明文件并构建符号索引
 - `pocketPy`
   Python脚本引擎使用的三方解释器，服务于轻量级插件系统
-
+- `tomlplusplus`
+  Toml配置文件解析使用。
 ### 🛠️ 关于 `cpp-mcp`
 
 这里使用的不是纯上游原版，而是项目内维护的定制版本。

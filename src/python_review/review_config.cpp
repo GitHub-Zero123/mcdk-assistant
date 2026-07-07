@@ -182,8 +182,9 @@ encoding_declaration = true
 max_findings_per_rule = 20  # 每条规则最多展示 N 处定位，超出仅计数；0 = 不限（控制 MCP 召回体积、避免撑爆上下文）
 
 [advanced]
-# 追加"调用方/引擎提供"参数名：这些可变默认参数（def f(x={})）不视为跨调用共享 bug。
-# 内置已含 args/data/event/kwargs/params/context 等，此处仅追加项目自定义名。
+# "总由调用方填充"的参数名白名单：这些可变默认参数（def f(x={})）即便逃逸也不报。
+# 可变默认参数规则以"是否逃逸出函数（被 return / 写入外部）"判定，一般无需配置；
+# 此处仅作个别参数的显式豁免（如某回调参数确定总被引擎填充却又写入了 self）。
 extra_caller_supplied_params = []
 )";
 }

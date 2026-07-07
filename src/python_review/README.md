@@ -73,7 +73,7 @@ mcdk-python-review --dump-config
 | `encoding.missing-utf8-declaration` | warning | **must-fix** | 1 | 文件带非 ASCII 字节,首两行却无 PEP263 编码声明,也无 UTF-8 BOM —— Py2 一 import 就 `SyntaxError` | **唯有含非 ASCII 才查**;空文件 / 纯空白 / 纯 ASCII 天然免检;BOM 即声明;识得 `# -*- coding: utf-8 -*-`、`# coding=utf-8`、shebang 后第二行、`# vim: set fileencoding=utf-8 :` 等多种版式 |
 | `try.masking.bare-except` | hint\|risk\|warning | advisory-verify | 1 | 裸 `except:` 未 re-raise;轻重看 try 体大小:≤5 行→hint、≥20 行→warning、居中→risk | 未必是错——可能是 PC / 服务器环境差异下的有意防御,只请核实 |
 | `try.masking.broad-except-swallow` | hint\|risk\|warning | advisory-verify | 1 | `except Exception/BaseException` 且吞掉(无实质兜底),分级同上 | 若有真实回退兜底,则不问 |
-| `implicit-global.mutable-default` | risk | advisory-verify | 1 | 可变默认参数(`list`/`dict`/`set`)在体内被**累积式**修改(`append`/`+=`) | 不认 `x[k]=v`/`x.attr=v`(往引擎 / 调用方 dict 塞字段是惯用法);豁免约定名 `args`/`data`/`event`/`kwargs`… 及配置追加项 |
+| `implicit-global.mutable-default` | risk | advisory-verify | 1 | 可变默认对象(`list`/`dict`/`set`)**「边攒边漏」两条件同时成立**:①函数内**就地修改**它(`append`/`+=`/`x[k]=v`/`x.attr=v`) 且 ②它**逃逸出函数**(被 `return`,或写入 `self`/对象属性/外部容器) | **纯结构信号,不枚举回调名**:只存不改(构造器 `self.x=x`)、只传不改(工厂 `return Cls(x=x)`)、回调填充(`args[k]=v` 不逃逸)、`args.append()`(只改自身不逃逸)全部不报;`x.attr`/`x[i]` 读成员不算暴露。仅配置 `extra_caller_supplied_params` 可显式豁免 |
 | `implicit-global.global-write` | risk | advisory-verify | 1 | 函数 `global x` 且写 `x`,且 `x` 为**公开名**(无下划线前缀) | **下划线私有全局径直放行**——缓存 / 单例 / 计数器是模块封装的正道;并顺手建议"若仅本模块自用,加个下划线即可" |
 | `stub.placeholder` | warning / hint | should-fix / advisory | 1 | 函数体仅 `raise NotImplementedError`(warning)或 `...`(hint) | 接口 / 抽象命名类(`^I[A-Z]`、`Base*`/`Abstract*`、`*Interface`/`*ABC`)与 `@abstractmethod` 豁免;空 `pass`/`return None` 不问 |
 | `stub.shallow-impl` | risk | advisory-verify | 2 | 函数体 ≥3 条业务语句,**却所有 `return` 皆固定值、且完全不碰任何参数** —— 疑似假实现 | 放过 1 行 `return 固定值`(Py2 无 .pyi,裸写补全库触发类型推导);排除 `return None`/非空集合;`_`/`__` 占位参、dunder、接口类豁免 |
@@ -135,8 +135,8 @@ encoding_declaration = true
 max_findings_per_rule = 20  # 每规则最多展示 N 处定位,超出仅计数;0 = 不限(控 MCP 召回体积)
 
 [advanced]
-# 追加"调用方/引擎提供"参数名:这些可变默认参数(def f(x={}))不视为跨调用共享 bug。
-# 内置已含 args/data/event/kwargs/params/context 等,此处仅追加项目自定义名。
+# "总由调用方填充"的参数名白名单:这些可变默认参数(def f(x={}))即便逃逸也不报。
+# 可变默认参数规则以"是否逃逸出函数(被 return / 写入外部)"判定,一般无需配置。
 extra_caller_supplied_params = []
 ```
 
@@ -153,7 +153,7 @@ extra_caller_supplied_params = []
 | `thresholds.max_params` | `5` | 参数过多阈值 |
 | `rules.*` | `true` | 十族规则开关(默认全开) |
 | `output.max_findings_per_rule` | `20` | 每规则展示上限(0 = 不限) |
-| `advanced.extra_caller_supplied_params` | `[]` | 追加的调用方参数名白名单 |
+| `advanced.extra_caller_supplied_params` | `[]` | "总由调用方填充"参数名:即便逃逸也豁免(一般无需配置) |
 
 ---
 

@@ -435,48 +435,113 @@ std::string join_scope(const std::vector<std::string>& s) {
 }
 
 // ── 规则：可变默认参数（plan §6.5，Tier 1）────────────────────────────────
-// 关键：只报「默认对象在体内被真正修改」的（真 bug）。游戏业务里大量 def(args={})
-// 只读默认值，无害且是惯用法——盲报会淹没真信号并让 AI 大改（plan §6.0 域适配）。
-bool is_mutating_method(const std::string& m) {
+// 判据（用户定：结构/数据流信号，不枚举回调名）：可变默认对象唯有**逃逸出函数**时才可能致
+// bug——默认对象只创建一次，只有它被 return、或被写入外部状态，跨调用共享的同一对象才可观测。
+// 纯 pname[k]=v 的事件回调填充（onHurt(args={}): args["damage"]=0）不逃逸 → 不报，无需任何
+// 回调命名白名单；pname.append() 只改自身、不外泄，同样不报。
+
+// 存入型方法：把实参存进容器（而非取出/清理）。用于识别「外部容器.append(pname)」这类外泄。
+bool is_store_method(const std::string& m) {
+    static const std::unordered_set<std::string> s = {
+        "append", "add", "extend", "insert", "update", "setdefault"};
+    return s.count(m) > 0;
+}
+
+// pname 是否以「整体值」暴露：作为值被带出。x.attr / x[i] 是读取其成员/元素，不算暴露 x 本身；
+// x.method() 不算，但 f(x) 这种把 x 当实参传出去算（被调方可能存起来）。
+bool exposes_param(TSNode node, const std::string& pname, const std::string& source) {
+    if (ts_node_is_null(node)) return false;
+    std::string_view t = nt(node);
+    if (t == "identifier") return node_text(node, source) == pname;
+    if (t == "attribute" || t == "subscript") return false; // 读成员/元素，非暴露整体
+    if (t == "call") { // 仅实参里出现才算把 pname 传出去；pname.method() 不算
+        TSNode args = ts_node_child_by_field_name(node, "arguments", 9);
+        return exposes_param(args, pname, source);
+    }
+    uint32_t n = ts_node_named_child_count(node);
+    for (uint32_t i = 0; i < n; ++i)
+        if (exposes_param(ts_node_named_child(node, i), pname, source)) return true;
+    return false;
+}
+
+// pname 是否「逃逸」出函数：① 被 return 暴露；② 作为值写入外部目标（self.x / obj.attr /
+// 容器[k] = pname，LHS 为 attribute/subscript）；③ 被存进外部容器（other.append/extend/
+// update(pname)，容器非 pname 自身）。不下钻嵌套作用域。
+bool param_escapes(TSNode node, const std::string& pname, const std::string& source, bool top) {
+    std::string_view t = nt(node);
+    if (!top && (t == "function_definition" || t == "class_definition")) return false;
+    if (t == "return_statement") {
+        if (exposes_param(node, pname, source)) return true;
+    } else if (t == "assignment") {
+        TSNode left = ts_node_child_by_field_name(node, "left", 4);
+        TSNode right = ts_node_child_by_field_name(node, "right", 5);
+        std::string_view lt = ts_node_is_null(left) ? std::string_view{} : nt(left);
+        if ((lt == "attribute" || lt == "subscript") && exposes_param(right, pname, source))
+            return true; // 把 pname 写入外部对象/容器
+    } else if (t == "call") {
+        TSNode fn = ts_node_child_by_field_name(node, "function", 8);
+        if (!ts_node_is_null(fn) && nt(fn) == "attribute") {
+            TSNode obj = ts_node_child_by_field_name(fn, "object", 6);
+            TSNode attr = ts_node_child_by_field_name(fn, "attribute", 9);
+            if (!ts_node_is_null(attr) && is_store_method(node_text(attr, source)) &&
+                node_text(obj, source) != pname) { // 存进「别的」容器才算外泄
+                TSNode args = ts_node_child_by_field_name(node, "arguments", 9);
+                if (exposes_param(args, pname, source)) return true;
+            }
+        }
+    }
+    uint32_t n = ts_node_child_count(node);
+    for (uint32_t i = 0; i < n; ++i)
+        if (param_escapes(ts_node_child(node, i), pname, source, false)) return true;
+    return false;
+}
+
+// 节点的「根对象」是否是 pname：pname / pname[k] / pname.attr / pname[i].attr … 都算。
+// 注意 tree-sitter-python 里 attribute 的基是字段 "object"，subscript 的基是字段 "value"。
+bool base_is_param(TSNode node, const std::string& pname, const std::string& source) {
+    if (ts_node_is_null(node)) return false;
+    std::string_view t = nt(node);
+    if (t == "identifier") return node_text(node, source) == pname;
+    if (t == "attribute")
+        return base_is_param(ts_node_child_by_field_name(node, "object", 6), pname, source);
+    if (t == "subscript")
+        return base_is_param(ts_node_child_by_field_name(node, "value", 5), pname, source);
+    return false;
+}
+
+// 就地修改容器内容的方法（增删改，非取值/查询）。
+bool is_inplace_mutator(const std::string& m) {
     static const std::unordered_set<std::string> s = {
         "append", "extend", "insert", "remove", "pop", "clear", "sort", "reverse",
         "update", "setdefault", "add", "discard", "popitem"};
     return s.count(m) > 0;
 }
 
-// 只认「累积型」修改：append/extend 等增长方法，或 += 累加。
-// 不认 pname[k]=v / pname.attr=v —— 那是往（通常由调用方/引擎提供的）dict/对象里塞字段，
-// 是 mod 事件回调惯用法（如 onHurt(args={}): args["damage"]=0），并非默认对象跨调用累积的 bug。
-bool param_mutated(TSNode node, const std::string& pname, const std::string& source, bool top) {
-    std::string_view t = ts_node_type(node);
-    if (!top && t == "function_definition") return false; // 嵌套函数会遮蔽同名参数，不下钻
-    if (t == "augmented_assignment") { // pname += ...
+// pname 的默认对象是否在函数内被「就地修改」（边攒）：pname += … / pname[k]=v / pname.attr=v /
+// pname.append(…) 等。纯 pname=… 是重绑定新对象，不算修改默认对象内容。不下钻嵌套作用域。
+bool param_mutates_default(TSNode node, const std::string& pname, const std::string& source, bool top) {
+    std::string_view t = nt(node);
+    if (!top && (t == "function_definition" || t == "class_definition")) return false;
+    if (t == "augmented_assignment") { // pname += … / pname[k] += … / pname.attr += …
+        if (base_is_param(ts_node_child_by_field_name(node, "left", 4), pname, source)) return true;
+    } else if (t == "assignment") {    // pname[k]=v / pname.attr=v（改内容；纯 pname=… 是重绑定，不算）
         TSNode left = ts_node_child_by_field_name(node, "left", 4);
-        if (!ts_node_is_null(left) && nt(left) == "identifier" &&
-            node_text(left, source) == pname)
+        std::string_view lt = ts_node_is_null(left) ? std::string_view{} : nt(left);
+        if ((lt == "subscript" || lt == "attribute") && base_is_param(left, pname, source))
             return true;
-    } else if (t == "call") { // pname.append(...) 等增长型方法
+    } else if (t == "call") {          // pname.append(…) 等就地修改方法
         TSNode fn = ts_node_child_by_field_name(node, "function", 8);
         if (!ts_node_is_null(fn) && nt(fn) == "attribute") {
             TSNode obj = ts_node_child_by_field_name(fn, "object", 6);
             TSNode attr = ts_node_child_by_field_name(fn, "attribute", 9);
-            if (!ts_node_is_null(obj) && nt(obj) == "identifier" &&
-                node_text(obj, source) == pname && is_mutating_method(node_text(attr, source)))
+            if (base_is_param(obj, pname, source) && is_inplace_mutator(node_text(attr, source)))
                 return true;
         }
     }
     uint32_t n = ts_node_child_count(node);
     for (uint32_t i = 0; i < n; ++i)
-        if (param_mutated(ts_node_child(node, i), pname, source, false)) return true;
+        if (param_mutates_default(ts_node_child(node, i), pname, source, false)) return true;
     return false;
-}
-
-// 约定的「调用方/引擎提供」参数名：这些默认值几乎总被真实入参覆盖，默认对象不会跨调用共享。
-bool is_caller_supplied_param(const std::string& name) {
-    static const std::unordered_set<std::string> s = {
-        "args", "data", "event", "evt", "eventData", "extraArgs", "customArgs",
-        "kwargs", "params", "payload", "context", "ctx"};
-    return s.count(name) > 0;
 }
 
 void check_mutable_defaults(TSNode fn, const FileContext& ctx, const std::string& symbol) {
@@ -500,20 +565,23 @@ void check_mutable_defaults(TSNode fn, const FileContext& ctx, const std::string
         }
         if (!mutable_lit && !mutable_call) continue;
         std::string pname = node_text(ts_node_child_by_field_name(p, "name", 4), source);
-        bool caller_supplied = is_caller_supplied_param(pname);
-        if (!caller_supplied && ctx.cfg) // 项目自定义的调用方参数名（配置追加）
+        // 使用方可在配置里声明「总由调用方填充」的参数名作为显式豁免（即便逃逸也不报）——
+        // 这是使用方的主动声明，非代码内置的名字枚举。一般无需配置，靠逃逸判定即可。
+        bool exempt = false;
+        if (ctx.cfg)
             for (const auto& extra : ctx.cfg->extra_caller_supplied_params)
-                if (extra == pname) { caller_supplied = true; break; }
-        if (caller_supplied) continue;                         // 引擎/调用方提供，默认值不共享
-        if (!param_mutated(body, pname, source, true)) continue; // 只读默认值不报
+                if (extra == pname) { exempt = true; break; }
+        if (exempt) continue;
+        // 需「边攒边漏」两条件同时成立：① 函数内就地修改默认对象；② 该对象逃逸出函数。
+        // 只存不改（构造器 self.x=x）、只传不改（工厂 return Cls(x=x)）都不是 bug，不报。
+        if (!param_mutates_default(body, pname, source, true)) continue;
+        if (!param_escapes(body, pname, source, true)) continue;
 
-        // 定位 risk + advisory-verify：即便被累积型修改，若默认值实际总被入参覆盖也无害，
-        // 故只提示核实、不列 must-fix（呼应「通常不是 bug」，plan §8.1）。
         make_finding(ctx, "implicit-global.mutable-default", Severity::Risk, 0.62,
-                     node_start_row(p), symbol, "可变默认参数被累积型修改，疑似跨调用共享状态",
+                     node_start_row(p), symbol, "可变默认对象被就地修改并逃逸出函数，疑似跨调用共享",
                      {"参数 " + pname + " 默认值为可变对象 " + node_text(val, source),
-                      "且在体内被 append/+= 等累积修改",
-                      "若该参数实际总由调用方传入则无害；仅当会以默认值反复调用时才是 bug"},
+                      "在函数内被就地修改（append/+=/下标或属性赋值），且被 return 或写入外部状态",
+                      "默认对象只创建一次；若以默认值反复调用，会共享同一对象并不断累积/暴露"},
                      "确认是否会以默认值反复调用；若是，改用 None 哨兵：def(" + pname +
                      "=None) 后 if " + pname + " is None: " + pname + " = ...",
                      1, Actionability::AdvisoryVerify);
