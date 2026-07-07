@@ -47,7 +47,9 @@ bool should_skip_dir(const fs::path& dir, bool include_third_party) {
 }
 
 // 读文件并去除 UTF-8 BOM。整块读取（避免 istreambuf_iterator 逐字符的性能陷阱）。
-std::string read_text_file(const fs::path& file_path) {
+// had_bom（可空）输出是否剥掉了 UTF-8 BOM——Py2 里 BOM 本身即 utf-8 声明。
+std::string read_text_file(const fs::path& file_path, bool* had_bom = nullptr) {
+    if (had_bom) *had_bom = false;
     std::ifstream ifs(file_path, std::ios::binary | std::ios::ate);
     if (!ifs.is_open()) return {};
     std::streamoff size = ifs.tellg();
@@ -59,6 +61,7 @@ std::string read_text_file(const fs::path& file_path) {
     if (text.size() >= 3 && static_cast<unsigned char>(text[0]) == 0xEF &&
         static_cast<unsigned char>(text[1]) == 0xBB && static_cast<unsigned char>(text[2]) == 0xBF) {
         text.erase(0, 3);
+        if (had_bom) *had_bom = true;
     }
     return text;
 }
@@ -957,11 +960,65 @@ inline double ms_since(std::chrono::steady_clock::time_point a) {
     return std::chrono::duration<double, std::milli>(std::chrono::steady_clock::now() - a).count();
 }
 
+// ── 规则：缺 PEP263 编码声明（Py2 专属，Tier 1，must-fix）────────────────────
+// Py2 源码含非 ASCII 字节时，首行（或 shebang 后第二行）必须有编码声明，否则 import 即
+// SyntaxError。UTF-8 BOM 也算声明；纯 ASCII / 空文件天然无需（不含非 ASCII 就不检查）。
+// 性能：不对全文件做"暴力匹配"——声明只在首两行，故只扫首两行找 coding[:=]；仅当无声明时
+// 才线性扫非 ASCII 字节（`c & 0x80`，首个即停）。不涉及 UTF-8 解码，纯字节判定。
+
+// 单行是否为 PEP263 编码声明行：官方语义 ^[ \t\f]*#.*coding[:=][token]。
+// 兼容多版式：`# -*- coding: utf-8 -*-`、`# coding=utf-8`、`# vim: set fileencoding=utf-8 :`。
+bool line_declares_coding(std::string_view line) {
+    if (!line.empty() && line.back() == '\r') line.remove_suffix(1);
+    size_t i = 0;
+    while (i < line.size() && (line[i] == ' ' || line[i] == '\t' || line[i] == '\f')) ++i;
+    if (i >= line.size() || line[i] != '#') return false; // 必须是注释行
+    for (size_t pos = line.find("coding", i); pos != std::string_view::npos;
+         pos = line.find("coding", pos + 1)) {
+        size_t j = pos + 6;
+        if (j < line.size() && (line[j] == ':' || line[j] == '=')) return true;
+    }
+    return false;
+}
+
+// 仅检查首两行（PEP263）。
+bool source_has_coding_declaration(const std::string& src) {
+    std::string_view sv(src);
+    size_t start = 0;
+    for (int ln = 0; ln < 2; ++ln) {
+        size_t nl = sv.find('\n', start);
+        std::string_view line = sv.substr(start, nl == std::string_view::npos ? std::string_view::npos
+                                                                              : nl - start);
+        if (line_declares_coding(line)) return true;
+        if (nl == std::string_view::npos) break;
+        start = nl + 1;
+    }
+    return false;
+}
+
+bool source_has_non_ascii(const std::string& src) {
+    for (unsigned char c : src) if (c & 0x80) return true; // 首个高位字节即停
+    return false;
+}
+
+void check_encoding_declaration(const std::string& source, bool had_bom, const FileContext& ctx) {
+    if (had_bom) return;                              // UTF-8 BOM 即声明
+    if (source_has_coding_declaration(source)) return; // 有声明——最省，先判，无需扫全文件
+    if (!source_has_non_ascii(source)) return;         // 纯 ASCII/空文件无需声明
+    make_finding(ctx, "encoding.missing-utf8-declaration", Severity::Warning, 0.9,
+                 1, /*symbol=*/"", "含非 ASCII 但缺 PEP263 编码声明（Py2 会 import 报错）",
+                 {"文件含非 ASCII 字节，但首两行无编码声明（也无 UTF-8 BOM）",
+                  "Py2 下会抛 SyntaxError: Non-ASCII character ... but no encoding declared"},
+                 "在文件第一行（有 shebang 则第二行）加：# -*- coding: utf-8 -*-（或 # coding: utf-8）。",
+                 1, Actionability::MustFix);
+}
+
 // 单文件解析 + 运行规则，返回 parse health。parser 复用；无共享可变状态，可并行调用。
 ParseHealth analyze_file(const fs::path& file, const fs::path& bp_root,
                          std::vector<Finding>& out, std::vector<FuncSig>& sigs,
                          TSParser* parser, const ReviewConfig& cfg) {
-    std::string source = read_text_file(file);
+    bool had_bom = false;
+    std::string source = read_text_file(file, &had_bom);
     if (source.empty()) {
         // 空文件（如空 __init__.py）是合法空模块，不算解析失败；仅文件非空却读不出才 fallback。
         std::error_code ec;
@@ -986,6 +1043,7 @@ ParseHealth analyze_file(const fs::path& file, const fs::path& bp_root,
     FileMetrics fm;
     walk(root, ctx, scope_stack, fm);
     if (cfg.rule_large_file) check_large_file(ctx, count_code_lines(source), fm);
+    if (cfg.rule_encoding_declaration) check_encoding_declaration(source, had_bom, ctx);
 
     ts_tree_delete(tree);
     return has_error ? ParseHealth::Recovered : ParseHealth::Ok;

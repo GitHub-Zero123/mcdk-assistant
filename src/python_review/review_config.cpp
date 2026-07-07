@@ -70,6 +70,7 @@ bool apply_toml(const std::string& content, ReviewConfig& cfg, std::string& err)
     cfg.rule_duplicate_function = getb("rules", "duplicate_function", cfg.rule_duplicate_function);
     cfg.rule_unowned_todo       = getb("rules", "unowned_todo",       cfg.rule_unowned_todo);
     cfg.rule_too_many_params    = getb("rules", "too_many_params",    cfg.rule_too_many_params);
+    cfg.rule_encoding_declaration = getb("rules", "encoding_declaration", cfg.rule_encoding_declaration);
 
     cfg.max_findings_per_rule = geti("output", "max_findings_per_rule", cfg.max_findings_per_rule);
 
@@ -175,6 +176,7 @@ large_file         = true
 duplicate_function = true
 unowned_todo       = true
 too_many_params    = true
+encoding_declaration = true
 
 [output]
 max_findings_per_rule = 20  # 每条规则最多展示 N 处定位，超出仅计数；0 = 不限（控制 MCP 召回体积、避免撑爆上下文）
