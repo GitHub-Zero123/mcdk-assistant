@@ -212,6 +212,7 @@ inline std::string minecraft_docs_help_text(bool with_solutions = false) {
 
 【开发语义提醒】
   网易 ModSDK/ModAPI 多为 C 接口封装，通常不是异常驱动设计；编写示例代码时优先按返回值、回调或文档约定判断成败，不要用 try/except 当兜底逻辑。
+  字符串编码：底层 C API 的多数接口只接受并返回 `str`；统一使用 UTF-8，通常无需主动转为 `unicode`。仅在中文切片等必须按字符处理的场景转换，并显式指定 UTF-8（如 `text.decode("utf-8")` 或 `unicode(text, "utf-8")`）。避免省略编码参数的 `unicode(str_value)`：默认编码取决于解释器底层 C 配置，Linux 与定制移动端环境可能不同，跨环境不可依赖。
   Mod 环境下客户端线程和服务端线程共享同一个 VM 上下文，并非完全隔离；跨线程行为尤其是跨线程初始化模块时，必须避免意外执行对方侧代码。
   MC Addon 的资源与定义（identifier / 贴图·音效等资源路径 / JSON UI namespace / 动画·控制器名等）是全局路由、无天然隔离；不同项目撞名会互相覆盖冲突。开发时统一按项目加命名空间前缀，并把资源放进项目独立子目录/路径，避免与原版或其他 Mod 冲突。
   架构与可维护性优先：用封装的数据类/结构体承载数据，别滥用 dict 到处传散字段；函数参数变多就聚成 class/配置对象，别让签名越拉越长；按职责拆分模块与类。单文件别堆几千行——超过约 1000 行就该警惕、1500 行以上通常已是需要拆分的信号。写"能长期维护"的代码，而非一次性堆砌。
@@ -513,7 +514,7 @@ inline void register_minecraft_docs_tools(mcp::server& srv, SearchService& searc
         "Minecraft 基岩版 Addon/Mod 资料和文档统一入口（网易版/国际版通用）："
         "文档检索（ModAPI/Wiki/QuMod/BedrockDev/网易教程）、原版资源搜索、"
         "原版 ModSDK 架构速查、网易版差异速查、知识库文件读取。采用命令式用法，"
-        "开发 Minecraft addon/mod 时请先调用 command=\"help\" 查看完整命令与子命令用法。";
+        "初次接触网易 ModSDK 项目时，建议先调用 command=\"help\"，集中了解开发规范与可用命令。";
 #ifdef MCDK_WITH_SOLUTIONS
     if (solutions)
         description += "解决方案层默认开启：检索会自动附带相关\"解决方案/踩坑\"（经维护、可运行的组合范式），"
@@ -524,7 +525,7 @@ inline void register_minecraft_docs_tools(mcp::server& srv, SearchService& searc
         .with_description(description)
         .with_string_param("command",
             "命令语句，如 'wiki minecraft:food'、'assets stair --rp'、'modsdk-help' 或 'read <path>'；"
-            "首次使用请传 'help' 查看全部命令；参与原版 ModSDK 开发框架项目时推荐先阅读 modsdk-help。", true)
+            "初次接触网易 ModSDK 项目时建议先传 'help' 了解开发规范与全部命令；确认使用原版加载器后可继续阅读 'modsdk-help'。", true)
         .with_read_only_hint(true).with_idempotent_hint(true).build();
 
     srv.register_tool(tool,
