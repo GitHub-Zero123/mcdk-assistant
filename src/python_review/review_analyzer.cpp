@@ -9,6 +9,7 @@
 #include <nlohmann/json.hpp>
 
 #include <algorithm>
+#include <array>
 #include <atomic>
 #include <cctype>
 #include <chrono>
@@ -85,12 +86,12 @@ std::string node_text(TSNode node, const std::string& source) {
     return source.substr(start, end - start);
 }
 
-bool node_text_equals(TSNode node, const std::string& source, std::string_view expected) {
-    if (ts_node_is_null(node)) return false;
+std::string_view node_text_view(TSNode node, const std::string& source) {
+    if (ts_node_is_null(node)) return {};
     const uint32_t start = ts_node_start_byte(node);
     const uint32_t end = ts_node_end_byte(node);
-    return start <= end && end <= source.size() && end - start == expected.size() &&
-           source.compare(start, expected.size(), expected) == 0;
+    if (start > end || end > source.size()) return {};
+    return std::string_view(source.data() + start, end - start);
 }
 
 // 节点类型的零分配视图（ts_node_type 返回静态 const char*，包裹为 string_view 免堆分配）。
@@ -987,15 +988,8 @@ void check_large_file(const FileContext& ctx, int code_lines, const FileMetrics&
 // ── 规则：裸 unicode 转换依赖默认编码（ModSDK 魔改 Py2，Tier 1）───────────
 // 网易 ModSDK 的定制 CPython 与原生 Linux Py2 对 unicode(str) 的默认编码行为不同。
 // 按参数数量判定：一个实参表示未指定 encoding；零参数不是转换，两个及以上视为已显式指定。
-void check_unicode_default_encoding(TSNode call, const FileContext& ctx,
-                                    const std::vector<std::string>& scope_stack) {
-    const std::string& source = *ctx.source;
-    TSNode callee = ts_node_child_by_field_name(call, "function", 8);
-    if (ts_node_is_null(callee) || nt(callee) != "identifier" ||
-        !node_text_equals(callee, source, "unicode")) {
-        return;
-    }
-
+void report_unicode_default_encoding(TSNode call, const FileContext& ctx,
+                                     const std::vector<std::string>& scope_stack) {
     TSNode args = ts_node_child_by_field_name(call, "arguments", 9);
     if (ts_node_is_null(args) || ts_node_named_child_count(args) != 1) return;
 
@@ -1007,6 +1001,112 @@ void check_unicode_default_encoding(TSNode call, const FileContext& ctx,
                   "ModSDK 魔改 CPython 默认使用 UTF-8，原生 Linux Py2 默认使用 ASCII，行为不一致"},
                  "在 ModSDK 的魔改 CPython 环境中，裸转换 unicode 的默认编码是未定义行为；"
                  "请显式指定编码，例如 unicode(value, \"utf-8\")。",
+                 1, Actionability::ShouldFix);
+}
+
+void report_dynamic_code_execution(TSNode node, const FileContext& ctx,
+                                   const std::vector<std::string>& scope_stack,
+                                   std::string_view entry) {
+    const std::string entry_text(entry);
+    make_finding(ctx, "platform.dynamic-code-execution", Severity::Warning, 0.99,
+                 node_start_row(node), join_scope(scope_stack),
+                 "使用动态代码执行能力，可能绕过平台安全审查",
+                 {"使用 " + entry_text + " 动态导入或执行 Python 代码",
+                  "动态内容可能隐藏 os 等平台受限依赖或执行未审查代码"},
+                 "线上产品应移除动态导入/执行；改为可静态审查的显式安全逻辑，"
+                 "并使用 ModSDK 提供的平台 API。",
+                 1, Actionability::ShouldFix);
+}
+
+// 每个 call 节点只读取一次 callee；未命中时不分配字符串。
+void check_sensitive_call(TSNode call, const FileContext& ctx,
+                          const std::vector<std::string>& scope_stack) {
+    const std::string& source = *ctx.source;
+    TSNode callee = ts_node_child_by_field_name(call, "function", 8);
+    if (ts_node_is_null(callee) || nt(callee) != "identifier") return;
+
+    const std::string_view name = node_text_view(callee, source);
+    if (ctx.cfg->rule_unicode_default_encoding && name == "unicode") {
+        report_unicode_default_encoding(call, ctx, scope_stack);
+    } else if (ctx.cfg->rule_dynamic_code_execution &&
+               (name == "__import__" || name == "eval" || name == "execfile")) {
+        report_dynamic_code_execution(call, ctx, scope_stack, name);
+    }
+}
+
+// ── 规则：平台受限模块导入（Tier 1）───────────────────────────────────────
+// 扩展受限模块只需在此表增加一项。匹配模块根名，因此 os.path 也归入 os；相对导入不查。
+struct RestrictedModule {
+    std::string_view name;
+    std::string_view risk;
+};
+
+constexpr RestrictedModule kRestrictedModules[] = {
+    {"os",          "访问操作系统与文件系统"},
+    {"sys",         "访问解释器运行时与导入状态"},
+    {"__builtin__", "访问 __import__、eval、execfile 等解释器内建能力"},
+    {"importlib",   "动态导入模块"},
+    {"imp",         "动态查找和加载模块（Py2 旧接口）"},
+    {"runpy",       "按模块名或路径执行 Python 代码"},
+    {"zipimport",   "从归档文件动态加载 Python 代码"},
+    {"subprocess",  "启动和控制外部进程"},
+    {"commands",    "执行系统命令（Py2 旧接口）"},
+    {"popen2",      "启动外部进程（Py2 旧接口）"},
+    {"ctypes",      "调用本机动态库和原生内存"},
+    {"socket",      "绕过 ModSDK 网络接口建立原始连接"},
+};
+
+void mark_restricted_module(TSNode module_node, const std::string& source,
+                            std::array<bool, std::size(kRestrictedModules)>& matched) {
+    if (ts_node_is_null(module_node)) return;
+    if (nt(module_node) == "aliased_import")
+        module_node = ts_node_child_by_field_name(module_node, "name", 4);
+    if (ts_node_is_null(module_node) || nt(module_node) != "dotted_name") return;
+
+    std::string_view module = node_text_view(module_node, source);
+    const size_t dot = module.find('.');
+    const std::string_view root = module.substr(0, dot);
+    for (size_t i = 0; i < std::size(kRestrictedModules); ++i)
+        if (root == kRestrictedModules[i].name) matched[i] = true;
+}
+
+void check_restricted_module_import(TSNode import_node, const FileContext& ctx,
+                                    const std::vector<std::string>& scope_stack) {
+    const std::string& source = *ctx.source;
+    std::array<bool, std::size(kRestrictedModules)> matched{};
+
+    if (nt(import_node) == "import_from_statement") {
+        TSNode module = ts_node_child_by_field_name(import_node, "module_name", 11);
+        // relative_import 表示包内相对路径，不是受限的顶级标准库模块。
+        if (!ts_node_is_null(module) && nt(module) != "relative_import")
+            mark_restricted_module(module, source, matched);
+    } else {
+        const uint32_t count = ts_node_named_child_count(import_node);
+        for (uint32_t i = 0; i < count; ++i)
+            mark_restricted_module(ts_node_named_child(import_node, i), source, matched);
+    }
+
+    std::string modules;
+    std::string risks;
+    for (size_t i = 0; i < matched.size(); ++i) {
+        if (!matched[i]) continue;
+        if (!modules.empty()) modules += ", ";
+        modules += kRestrictedModules[i].name;
+        if (!risks.empty()) risks += "；";
+        risks += kRestrictedModules[i].name;
+        risks += "：";
+        risks += kRestrictedModules[i].risk;
+    }
+    if (modules.empty()) return;
+
+    make_finding(ctx, "platform.restricted-module-import", Severity::Warning, 0.99,
+                 node_start_row(import_node), join_scope(scope_stack),
+                 "导入了违反平台安全规则的模块",
+                 {"导入受限模块: " + modules,
+                  "风险能力: " + risks,
+                  "这些模块在本机环境中存在，但不符合线上平台安全规则"},
+                 "仅可在本地自测代码中使用；线上产品应移除这些模块及其依赖，"
+                 "改用 ModSDK 提供的平台安全 API。",
                  1, Actionability::ShouldFix);
 }
 
@@ -1048,8 +1148,14 @@ void walk(TSNode node, const FileContext& ctx, std::vector<std::string>& scope_s
     } else if (type == "try_statement") {
         if (ctx.cfg->rule_try_masking) check_try_masking(node, ctx, join_scope(scope_stack));
     } else if (type == "call") {
-        if (ctx.cfg->rule_unicode_default_encoding)
-            check_unicode_default_encoding(node, ctx, scope_stack);
+        if (ctx.cfg->rule_unicode_default_encoding || ctx.cfg->rule_dynamic_code_execution)
+            check_sensitive_call(node, ctx, scope_stack);
+    } else if (type == "exec_statement") {
+        if (ctx.cfg->rule_dynamic_code_execution)
+            report_dynamic_code_execution(node, ctx, scope_stack, "exec statement");
+    } else if (type == "import_statement" || type == "import_from_statement") {
+        if (ctx.cfg->rule_restricted_module_import)
+            check_restricted_module_import(node, ctx, scope_stack);
     } else if (type == "comment") {
         if (ctx.cfg->rule_unowned_todo) check_todo(node, ctx, join_scope(scope_stack));
     }

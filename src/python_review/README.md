@@ -63,7 +63,7 @@ mcdk-python-review --dump-config
 
 ---
 
-## 诊断范围:十三条规则
+## 诊断范围:十五条规则
 
 每一条都为「抓真问题、不扰真代码」而校准过——宁可漏报几分,不肯把游戏业务里天经地义的写法
 误判成罪状。下表是它们各自的脾性:
@@ -72,6 +72,8 @@ mcdk-python-review --dump-config
 |---|---|---|---|---|---|
 | `encoding.missing-utf8-declaration` | warning | **must-fix** | 1 | 文件带非 ASCII 字节,首两行却无 PEP263 编码声明,也无 UTF-8 BOM —— Py2 一 import 就 `SyntaxError` | **唯有含非 ASCII 才查**;空文件 / 纯空白 / 纯 ASCII 天然免检;BOM 即声明;识得 `# -*- coding: utf-8 -*-`、`# coding=utf-8`、shebang 后第二行、`# vim: set fileencoding=utf-8 :` 等多种版式 |
 | `encoding.unicode-default-encoding` | warning | **should-fix** | 1 | 直接调用 `unicode(...)` 且恰好只有 1 个实参,即未显式指定编码 | 网易 ModSDK 魔改 CPython 默认使用 UTF-8,原生 Linux Py2 默认使用 ASCII,裸转换行为不可移植;改为 `unicode(value, "utf-8")`;`unicode()`、两个及以上实参、`obj.unicode(value)` 不报 |
+| `platform.restricted-module-import` | warning | **should-fix** | 1 | `import` / `from ... import ...` 导入黑名单模块根名 | 默认名单见下方;模块可能在本机存在,但违反线上平台安全规则,仅可本地自测;相对导入与 `safe.os` 等普通包路径不报 |
+| `platform.dynamic-code-execution` | warning | **should-fix** | 1 | 使用 `__import__(...)`、`eval(...)`、`execfile(...)` 或 Py2 `exec` 语句 | 动态内容可能隐藏 `os` 等平台受限依赖或执行未审查代码;线上产品应改用可静态审查的显式安全逻辑 |
 | `try.masking.bare-except` | hint\|risk\|warning | advisory-verify | 1 | 裸 `except:` 未 re-raise;轻重看 try 体大小:≤5 行→hint、≥20 行→warning、居中→risk | 未必是错——可能是 PC / 服务器环境差异下的有意防御,只请核实 |
 | `try.masking.broad-except-swallow` | hint\|risk\|warning | advisory-verify | 1 | `except Exception/BaseException` 且吞掉(无实质兜底),分级同上 | 若有真实回退兜底,则不问 |
 | `implicit-global.mutable-default` | risk | advisory-verify | 1 | 可变默认对象(`list`/`dict`/`set`)**「边攒边漏」两条件同时成立**:①函数内**就地修改**它(`append`/`+=`/`x[k]=v`/`x.attr=v`) 且 ②它**逃逸出函数**(被 `return`,或写入 `self`/对象属性/外部容器) | **纯结构信号,不枚举回调名**:只存不改(构造器 `self.x=x`)、只传不改(工厂 `return Cls(x=x)`)、回调填充(`args[k]=v` 不逃逸)、`args.append()`(只改自身不逃逸)全部不报;`x.attr`/`x[i]` 读成员不算暴露。仅配置 `extra_caller_supplied_params` 可显式豁免 |
@@ -85,6 +87,17 @@ mcdk-python-review --dump-config
 | `comment-doc.unowned-todo` | hint | advisory-verify | 2 | 无主的 `TODO`/`FIXME`/`HACK`/`XXX` | 带括号者(疑似署名,如 `TODO(alice)`)不问 |
 
 > **tier** 是精度分层:**1** 确定性词法 / 句法 · **2** 度量阈值 · **3** 启发式 / 相似度。级别越低,越是"证据确凿"。
+
+### 平台受限模块默认表
+
+| 分类 | 模块 | 风险能力 |
+|---|---|---|
+| 系统 / 运行时 | `os`、`sys`、`__builtin__` | 文件系统、解释器状态以及 `eval` / `execfile` / `__import__` 等内建能力 |
+| 动态代码加载 | `importlib`、`imp`、`runpy`、`zipimport` | 动态查找、导入或执行 Python 代码 |
+| 外部进程 | `subprocess`、`commands`、`popen2` | 启动进程或执行系统命令 |
+| 原生与网络 | `ctypes`、`socket` | 调用本机动态库 / 原生内存，或绕过 ModSDK 网络接口建立原始连接 |
+
+`pickle` / `cPickle` / `marshal` 仅在反序列化不可信数据时危险，`pkgutil` 也存在正常包发现用途，故默认不列入“导入即违规”的平台黑名单。
 
 ### 降噪的底线:开放世界
 
@@ -132,6 +145,8 @@ unowned_todo         = true
 too_many_params      = true
 encoding_declaration = true
 unicode_default_encoding = true
+restricted_module_import = true
+dynamic_code_execution = true
 
 [output]
 max_findings_per_rule = 20  # 每规则最多展示 N 处定位,超出仅计数;0 = 不限(控 MCP 召回体积)
@@ -153,7 +168,7 @@ extra_caller_supplied_params = []
 | `thresholds.dup_min_stmts` / `dup_min_fp_len` / `dup_min_count` | `5` / `10` / `2` | 重复检测的三道门槛 |
 | `thresholds.shallow_min_body` | `3` | 假实现前提:最少业务语句数 |
 | `thresholds.max_params` | `5` | 参数过多阈值 |
-| `rules.*` | `true` | 十一族规则开关(默认全开) |
+| `rules.*` | `true` | 十三族规则开关(默认全开) |
 | `output.max_findings_per_rule` | `20` | 每规则展示上限(0 = 不限) |
 | `advanced.extra_caller_supplied_params` | `[]` | "总由调用方填充"参数名:即便逃逸也豁免(一般无需配置) |
 

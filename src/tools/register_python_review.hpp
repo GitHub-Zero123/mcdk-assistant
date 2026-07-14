@@ -21,7 +21,9 @@ review --dump-config    打印可编辑的默认配置模板（TOML，兼作阈�
     对 Python MOD 行为包做结构性代码审查（面向 AI 写完/改完代码后自查、按报告回改）。
     规则：掩盖异常的 try、可变默认参数被累积、global 重绑定、未实现桩、假实现（有多行逻辑却
     不用任何参数、只返回固定值）、单函数过长、单文件屎山、跨模块重复函数、参数过多、无 owner TODO、
-    含非 ASCII 却缺 PEP263 编码声明（Py2 会 import 报错）、单参数 unicode(value) 依赖未定义的默认编码。
+    含非 ASCII 却缺 PEP263 编码声明（Py2 会 import 报错）、单参数 unicode(value) 依赖未定义的默认编码、
+    导入 os/sys/importlib/imp/subprocess/ctypes/socket 等违反线上平台安全规则的模块（仅可本地自测），
+    以及使用 __import__()/eval()/execfile()/exec 动态导入或执行代码、绕过静态审查。
     QuModLibs 与游戏 API 不误报（开放世界）。
     --scope: 缩小到指定包/模块（逗号分隔），不填=全部；如 --scope KID_ULTRA_X/Combat
     --format: summary（极简概览，最省上下文）| markdown（默认，人读，按规则分组）
