@@ -211,7 +211,8 @@ inline void register_python_analysis_tools(mcp::server& srv) {
             "（arch、imports）；\n"
             "2) 对 Python MOD 代码做结构性审查，供 AI 写完/改完代码后自查、按报告回改"
             "（review：掩盖异常的 try、被改并累积的可变默认参数、global 重绑定、未实现桩、"
-            "假实现、单函数/单文件过大、跨模块重复函数、参数过多等；QuModLibs 与游戏 API 不误报；"
+            "假实现、裸 unicode 默认编码、单函数/单文件过大、跨模块重复函数、参数过多等；"
+            "QuModLibs 与游戏 API 不误报；"
             "阈值/规则可用 mcdk-review.toml 配置；--format summary 与 --max-per-rule 控召回体积）。\n"
             "不要仅因涉及 .py 文件就调用 arch/imports；已知目标位置时优先直接读取/搜索源码。"
             "可传 command=\"help\" 查看全部子命令与边界。")

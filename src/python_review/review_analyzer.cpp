@@ -85,6 +85,14 @@ std::string node_text(TSNode node, const std::string& source) {
     return source.substr(start, end - start);
 }
 
+bool node_text_equals(TSNode node, const std::string& source, std::string_view expected) {
+    if (ts_node_is_null(node)) return false;
+    const uint32_t start = ts_node_start_byte(node);
+    const uint32_t end = ts_node_end_byte(node);
+    return start <= end && end <= source.size() && end - start == expected.size() &&
+           source.compare(start, expected.size(), expected) == 0;
+}
+
 // 节点类型的零分配视图（ts_node_type 返回静态 const char*，包裹为 string_view 免堆分配）。
 inline std::string_view nt(TSNode node) { return ts_node_type(node); }
 
@@ -976,6 +984,32 @@ void check_large_file(const FileContext& ctx, int code_lines, const FileMetrics&
                  2, Actionability::AdvisoryVerify);
 }
 
+// ── 规则：裸 unicode 转换依赖默认编码（ModSDK 魔改 Py2，Tier 1）───────────
+// 网易 ModSDK 的定制 CPython 与原生 Linux Py2 对 unicode(str) 的默认编码行为不同。
+// 按参数数量判定：一个实参表示未指定 encoding；零参数不是转换，两个及以上视为已显式指定。
+void check_unicode_default_encoding(TSNode call, const FileContext& ctx,
+                                    const std::vector<std::string>& scope_stack) {
+    const std::string& source = *ctx.source;
+    TSNode callee = ts_node_child_by_field_name(call, "function", 8);
+    if (ts_node_is_null(callee) || nt(callee) != "identifier" ||
+        !node_text_equals(callee, source, "unicode")) {
+        return;
+    }
+
+    TSNode args = ts_node_child_by_field_name(call, "arguments", 9);
+    if (ts_node_is_null(args) || ts_node_named_child_count(args) != 1) return;
+
+    const std::string symbol = join_scope(scope_stack);
+    make_finding(ctx, "encoding.unicode-default-encoding", Severity::Warning, 0.95,
+                 node_start_row(call), symbol,
+                 "裸 unicode 转换依赖未定义的默认编码",
+                 {"unicode(...) 仅传入 1 个参数，未显式指定编码",
+                  "ModSDK 魔改 CPython 默认使用 UTF-8，原生 Linux Py2 默认使用 ASCII，行为不一致"},
+                 "在 ModSDK 的魔改 CPython 环境中，裸转换 unicode 的默认编码是未定义行为；"
+                 "请显式指定编码，例如 unicode(value, \"utf-8\")。",
+                 1, Actionability::ShouldFix);
+}
+
 // ── AST 遍历：维护 def/class 限定名上下文 ─────────────────────────────────
 
 void walk(TSNode node, const FileContext& ctx, std::vector<std::string>& scope_stack,
@@ -1013,6 +1047,9 @@ void walk(TSNode node, const FileContext& ctx, std::vector<std::string>& scope_s
         }
     } else if (type == "try_statement") {
         if (ctx.cfg->rule_try_masking) check_try_masking(node, ctx, join_scope(scope_stack));
+    } else if (type == "call") {
+        if (ctx.cfg->rule_unicode_default_encoding)
+            check_unicode_default_encoding(node, ctx, scope_stack);
     } else if (type == "comment") {
         if (ctx.cfg->rule_unowned_todo) check_todo(node, ctx, join_scope(scope_stack));
     }
