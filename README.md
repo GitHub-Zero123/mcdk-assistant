@@ -1,8 +1,12 @@
 ﻿# MCDK-ASSISTANT
 
-[![C++](https://img.shields.io/badge/C++-20-blue.svg)](https://isocpp.org/)
-[![CMake](https://img.shields.io/badge/CMake-3.15+-green.svg)](https://cmake.org/)
-[![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux-lightgrey.svg)]()
+[![C++20](https://img.shields.io/badge/C%2B%2B-20-00599C?logo=cplusplus&logoColor=white)](https://en.cppreference.com/w/cpp/20)
+[![CMake](https://img.shields.io/badge/build-CMake-064F8C?logo=cmake&logoColor=white)](https://cmake.org/)
+[![Build Package](https://github.com/GitHub-Zero123/mcdk-assistant/actions/workflows/build-package.yml/badge.svg)](https://github.com/GitHub-Zero123/mcdk-assistant/actions/workflows/build-package.yml)
+[![MCP](https://img.shields.io/badge/MCP-enabled-6f42c1)](https://modelcontextprotocol.io/)
+[![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux%20%7C%20macOS-lightgrey)](README.md)
+[![Kid Studio](https://img.shields.io/badge/by-Kid%20Studio-00AEEF)](https://space.bilibili.com/396964958)
+[![License](https://img.shields.io/github/license/GitHub-Zero123/mcdk-assistant)](LICENSE)
 
 面向 NetEase Minecraft / Bedrock 开发场景的通用 MCP Server。
 
@@ -20,7 +24,10 @@ MCDK-ASSISTANT 不直接替代编辑器或 AI Agent，而是作为一个面向 M
 
 MCP Tool 暴露面采用分层式设计：顶层只保留少量能力族入口，细粒度教程、子命令和操作参数延迟到 `/help` 或具体 `command` 调用时展开，从而减少 AI 客户端在 `tools/list` 阶段被迫接收的初始上下文。
 
-### 🧠 解决方案启发
+### 🧠 解决方案启发（尚且测试实验阶段，暂未开放）
+
+> ⚠️ 该能力仍处于测试实验阶段，**暂未开放**。以下内容描述的是设计目标与预期形态，实际行为可能变动。
+
 文档检索能告诉 AI"某个接口长什么样"，却答不了"怎么把这些接口拼成一个能跑的功能"——调用顺序、参数来源、端侧边界、常见坑，资料里都没有。**解决方案层**补的正是这一层：一个**经实测、端到端、拿来即用的开发范式库**，在检索时按需浮现相关范式与踩坑，让 AI 从"查到接口却盲猜用法"变成"照着可运行范式写"；范式之间还能按依赖从接口级组装成功能级。
 
 <p align="center">

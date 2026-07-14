@@ -17,6 +17,7 @@
 #include <mcp_server.h>
 #include <mcp_tool.h>
 
+#include <algorithm>
 #include <climits>
 #include <filesystem>
 #include <memory>
@@ -302,6 +303,16 @@ inline bool is_assets_scope(const std::string& scope) {
     return scope == "assets" || scope == "asset" || scope == "ga";
 }
 
+// --top 必须夹紧后才能下传：下游把 top_k <= 0 当作「不限量」哨兵（各 search_* 默认形参就是 -1），
+// 一个 --top 0 就会让 BM25 返回全部命中并把完整正文塞进响应；而超大值会让
+// search_identifier_index 的 score_map.reserve(top_k * 4) 申请到几十 GB。
+constexpr int kMinTopK = 1;
+constexpr int kMaxTopK = 50;
+
+inline int clamped_top(const ParsedCommand& pc, int def = 6) {
+    return std::clamp(flag_int(pc, "top", def), kMinTopK, kMaxTopK);
+}
+
 inline int asset_scope_from_flags(const ParsedCommand& pc, int def = 0) {
     if (has_flag(pc, "bp") || has_flag(pc, "behavior") ||
         has_flag(pc, "behavior_pack") || has_flag(pc, "behavior-pack"))
@@ -320,7 +331,7 @@ inline mcp::json dispatch_assets_search(SearchService& svc, const ParsedCommand&
         {"keyword", pc.positional},
         {"scope",   asset_scope_from_flags(pc)},
     };
-    if (has_flag(pc, "top")) params["top_k"] = flag_int(pc, "top", 6);
+    if (has_flag(pc, "top")) params["top_k"] = clamped_top(pc);
     return handle_search_game_assets(svc, params);
 }
 
@@ -337,7 +348,7 @@ inline mcp::json dispatch_scoped_search(SearchService& svc,
 
     std::string scope = canonical_scope(requested_scope);
     std::string keyword = pc.positional;
-    int top_k = flag_int(pc, "top", 6);
+    int top_k = clamped_top(pc);
 
 #ifdef MCDK_WITH_PLUGINS
     if (plugins) {
@@ -350,7 +361,7 @@ inline mcp::json dispatch_scoped_search(SearchService& svc,
         if (before.is_object()) {
             scope = canonical_scope(before.value("scope", scope));
             keyword = before.value("keyword", keyword);
-            top_k = before.value("top_k", top_k);
+            top_k = std::clamp(before.value("top_k", top_k), kMinTopK, kMaxTopK);
         }
     }
 #else
