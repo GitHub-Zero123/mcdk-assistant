@@ -43,6 +43,7 @@ struct ReviewConfig {
     bool rule_unicode_default_encoding = true; // encoding.unicode-default-encoding（ModSDK 魔改 Py2）
     bool rule_restricted_module_import = true; // platform.restricted-module-import
     bool rule_dynamic_code_execution = true; // platform.dynamic-code-execution
+    bool rule_reflective_security_bypass = true; // platform.reflective-security-bypass
 
     // ── 输出密度（[output]）：控 MCP 召回体积，避免撑爆上下文 ───────────────
     int max_findings_per_rule = 20; // 每条规则最多展示 N 处定位，超出仅计数；0 = 不限

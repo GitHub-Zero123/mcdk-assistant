@@ -77,6 +77,8 @@ bool apply_toml(const std::string& content, ReviewConfig& cfg, std::string& err)
                                              cfg.rule_restricted_module_import);
     cfg.rule_dynamic_code_execution = getb("rules", "dynamic_code_execution",
                                             cfg.rule_dynamic_code_execution);
+    cfg.rule_reflective_security_bypass = getb("rules", "reflective_security_bypass",
+                                                cfg.rule_reflective_security_bypass);
 
     cfg.max_findings_per_rule = geti("output", "max_findings_per_rule", cfg.max_findings_per_rule);
 
@@ -186,6 +188,7 @@ encoding_declaration = true
 unicode_default_encoding = true
 restricted_module_import = true
 dynamic_code_execution = true
+reflective_security_bypass = true
 
 [output]
 max_findings_per_rule = 20  # 每条规则最多展示 N 处定位，超出仅计数；0 = 不限（控制 MCP 召回体积、避免撑爆上下文）

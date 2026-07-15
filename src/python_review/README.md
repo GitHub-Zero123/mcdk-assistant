@@ -63,7 +63,7 @@ mcdk-python-review --dump-config
 
 ---
 
-## 诊断范围:十五条规则
+## 诊断范围:十六条规则
 
 每一条都为「抓真问题、不扰真代码」而校准过——宁可漏报几分,不肯把游戏业务里天经地义的写法
 误判成罪状。下表是它们各自的脾性:
@@ -74,6 +74,7 @@ mcdk-python-review --dump-config
 | `encoding.unicode-default-encoding` | warning | **should-fix** | 1 | 直接调用 `unicode(...)` 且恰好只有 1 个实参,即未显式指定编码 | 网易 ModSDK 魔改 CPython 默认使用 UTF-8,原生 Linux Py2 默认使用 ASCII,裸转换行为不可移植;改为 `unicode(value, "utf-8")`;`unicode()`、两个及以上实参、`obj.unicode(value)` 不报 |
 | `platform.restricted-module-import` | warning | **should-fix** | 1 | `import` / `from ... import ...` 导入黑名单模块根名 | 默认名单见下方;模块可能在本机存在,但违反线上平台安全规则,仅可本地自测;相对导入与 `safe.os` 等普通包路径不报 |
 | `platform.dynamic-code-execution` | warning | **should-fix** | 1 | 使用 `__import__(...)`、`eval(...)`、`execfile(...)` 或 Py2 `exec` 语句 | 动态内容可能隐藏 `os` 等平台受限依赖或执行未审查代码;线上产品应改用可静态审查的显式安全逻辑 |
+| `platform.reflective-security-bypass` | warning | **advisory-verify** | 1 | 调用目标、赋值右值或函数/模块内跨语句变量链形成 `__globals__` / `func_globals` → `__builtins__` 反射链;可进一步识别 `__import__` / `eval` / `execfile` / `reload` | 支持多行、括号、注释、无关语句和变量别名;只识别绕过特征,不推断具体目标或自动定罪;变量重绑定会清除状态;不进入 builtins 的普通内部反射、仅字符串和不完整链不报 |
 | `try.masking.bare-except` | hint\|risk\|warning | advisory-verify | 1 | 裸 `except:` 未 re-raise;轻重看 try 体大小:≤5 行→hint、≥20 行→warning、居中→risk | 未必是错——可能是 PC / 服务器环境差异下的有意防御,只请核实 |
 | `try.masking.broad-except-swallow` | hint\|risk\|warning | advisory-verify | 1 | `except Exception/BaseException` 且吞掉(无实质兜底),分级同上 | 若有真实回退兜底,则不问 |
 | `implicit-global.mutable-default` | risk | advisory-verify | 1 | 可变默认对象(`list`/`dict`/`set`)**「边攒边漏」两条件同时成立**:①函数内**就地修改**它(`append`/`+=`/`x[k]=v`/`x.attr=v`) 且 ②它**逃逸出函数**(被 `return`,或写入 `self`/对象属性/外部容器) | **纯结构信号,不枚举回调名**:只存不改(构造器 `self.x=x`)、只传不改(工厂 `return Cls(x=x)`)、回调填充(`args[k]=v` 不逃逸)、`args.append()`(只改自身不逃逸)全部不报;`x.attr`/`x[i]` 读成员不算暴露。仅配置 `extra_caller_supplied_params` 可显式豁免 |
@@ -147,6 +148,7 @@ encoding_declaration = true
 unicode_default_encoding = true
 restricted_module_import = true
 dynamic_code_execution = true
+reflective_security_bypass = true
 
 [output]
 max_findings_per_rule = 20  # 每规则最多展示 N 处定位,超出仅计数;0 = 不限(控 MCP 召回体积)
@@ -168,7 +170,7 @@ extra_caller_supplied_params = []
 | `thresholds.dup_min_stmts` / `dup_min_fp_len` / `dup_min_count` | `5` / `10` / `2` | 重复检测的三道门槛 |
 | `thresholds.shallow_min_body` | `3` | 假实现前提:最少业务语句数 |
 | `thresholds.max_params` | `5` | 参数过多阈值 |
-| `rules.*` | `true` | 十三族规则开关(默认全开) |
+| `rules.*` | `true` | 十四族规则开关(默认全开) |
 | `output.max_findings_per_rule` | `20` | 每规则展示上限(0 = 不限) |
 | `advanced.extra_caller_supplied_params` | `[]` | "总由调用方填充"参数名:即便逃逸也豁免(一般无需配置) |
 

@@ -23,7 +23,8 @@ review --dump-config    打印可编辑的默认配置模板（TOML，兼作阈�
     不用任何参数、只返回固定值）、单函数过长、单文件屎山、跨模块重复函数、参数过多、无 owner TODO、
     含非 ASCII 却缺 PEP263 编码声明（Py2 会 import 报错）、单参数 unicode(value) 依赖未定义的默认编码、
     导入 os/sys/importlib/imp/subprocess/ctypes/socket 等违反线上平台安全规则的模块（仅可本地自测），
-    以及使用 __import__()/eval()/execfile()/exec 动态导入或执行代码、绕过静态审查。
+    使用 __import__()/eval()/execfile()/exec 动态导入或执行代码，以及通过函数 globals/builtins
+    反射链取得 __import__/eval/execfile/reload 等敏感能力（仅提示结合实际行为审查，普通内部 API 反射不报）。
     QuModLibs 与游戏 API 不误报（开放世界）。
     --scope: 缩小到指定包/模块（逗号分隔），不填=全部；如 --scope KID_ULTRA_X/Combat
     --format: summary（极简概览，最省上下文）| markdown（默认，人读，按规则分组）

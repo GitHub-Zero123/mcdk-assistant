@@ -41,7 +41,59 @@ int main() {
                           "loaded = __import__(module_name)\n"
                           "result = eval(expression)\n"
                           "execfile(path)\n"
-                          "exec code in globals_dict\n")) {
+                          "exec code in globals_dict\n"
+                          "loader = getattr(handler, '__globals__')['__builtins__']['__import__'](module_name)\n"
+                          "os_module = handler.func_globals['__builtins__']['__import__']('os')\n"
+                          "value = getattr(handler, '__globals__')['__builtins__']['eval'](expression)\n"
+                          "internal = getattr(handler, '__globals__')['internal_api']()\n"
+                          "cached_import = getattr(handler, '__globals__')['__builtins__']['__import__']\n"
+                          "reloaded = getattr(handler, '__globals__')['__builtins__']['reload'](module)\n"
+                          "markers = ('__globals__', '__builtins__', '__import__')\n"
+                          "metadata = getattr(handler, '__globals__')['__builtins__']['len']\n"
+                          "nested = getattr(getattr(handler, '__globals__')['__builtins__'], '__import__')(module_name)\n"
+                          "attribute_loader = getattr(handler, '__globals__')['__builtins__'].__import__(module_name)\n"
+                          "obfuscated = getattr(handler, '__globals__')['__builtins__']['__im' + 'port__'](module_name)\n"
+                          "missing_builtins = getattr(handler, '__globals__')['__import__'](module_name)\n"
+                          "missing_globals = __builtins__['__import__'](module_name)\n"
+                          "def split_import(module_name):\n"
+                          "    scope = getattr(handler, '__globals__')\n"
+                          "    noise = harmless_call()\n"
+                          "    builtins_map = scope['__builtins__']\n"
+                          "    alias = builtins_map\n"
+                          "    loader = alias['__import__']\n"
+                          "    return loader(module_name)\n"
+                          "def split_call(expression):\n"
+                          "    scope = handler.func_globals\n"
+                          "    if condition:\n"
+                          "        harmless_call()\n"
+                          "    builtins_map = scope['__builtins__']\n"
+                          "    return builtins_map['eval'](expression)\n"
+                          "def reset_chain(module_name):\n"
+                          "    scope = getattr(handler, '__globals__')\n"
+                          "    scope = {}\n"
+                          "    builtins_map = scope['__builtins__']\n"
+                          "    return builtins_map['__import__'](module_name)\n"
+                          "module_scope = getattr(handler, '__globals__')\n"
+                          "module_noise = 1\n"
+                          "module_builtins = module_scope['__builtins__']\n"
+                          "module_loader = module_builtins['__import__']\n"
+                          "multiline_loader = (\n"
+                          "    getattr(\n"
+                          "        handler,\n"
+                          "        '__globals__',\n"
+                          "    )\n"
+                          "    ['__builtins__']\n"
+                          "    # unrelated formatting noise\n"
+                          "    ['__import__']\n"
+                          ")(module_name)\n") ||
+        !write_file(root / "legal.py",
+                    "def QConstInit(funcObj):\n"
+                    "    \"\"\"Constant initialization; automatically checks reload.\"\"\"\n"
+                    "    funcName = getObjectPathName(funcObj)\n"
+                    "    if not funcName in _QConstStatic.initFuncSet:\n"
+                    "        _QConstStatic.initFuncSet.add(funcName)\n"
+                    "        TRY_EXEC_FUN(funcObj)\n"
+                    "    return funcObj\n")) {
         std::cerr << "failed to create test fixture\n";
         return 1;
     }
@@ -53,6 +105,7 @@ int main() {
     int unicode_findings = 0;
     int restricted_import_findings = 0;
     int dynamic_code_findings = 0;
+    int reflective_bypass_findings = 0;
     for (const auto& finding : report.findings) {
         if (finding.rule_id == "encoding.unicode-default-encoding") {
             ++unicode_findings;
@@ -78,6 +131,32 @@ int main() {
                 fs::remove_all(root, ec);
                 return 1;
             }
+        } else if (finding.rule_id == "platform.reflective-security-bypass") {
+            if (finding.file == "legal.py") {
+                std::cerr << "legal QConstInit wrapper was incorrectly flagged\n";
+                fs::remove_all(root, ec);
+                return 1;
+            }
+            ++reflective_bypass_findings;
+            const bool expected = ((finding.line >= 19 && finding.line <= 21) ||
+                                   (finding.line >= 23 && finding.line <= 29 &&
+                                    finding.line != 25) || finding.line == 37 ||
+                                   finding.line == 44 || finding.line == 53 ||
+                                   finding.line == 54) &&
+                finding.severity == mcdk::python_review::Severity::Warning &&
+                finding.actionability == mcdk::python_review::Actionability::AdvisoryVerify;
+            if (!expected) {
+                std::cerr << "reflective bypass finding has unexpected classification\n";
+                fs::remove_all(root, ec);
+                return 1;
+            }
+            if ((finding.line == 37 || finding.line == 44 || finding.line == 53) &&
+                (finding.evidence.empty() ||
+                 finding.evidence.front().find("跨语句变量链") == std::string::npos)) {
+                std::cerr << "split reflective chain lacks dataflow evidence\n";
+                fs::remove_all(root, ec);
+                return 1;
+            }
         }
     }
 
@@ -95,6 +174,11 @@ int main() {
     if (dynamic_code_findings != 4) {
         std::cerr << "expected four dynamic code findings, got "
                   << dynamic_code_findings << "\n";
+        return 1;
+    }
+    if (reflective_bypass_findings != 13) {
+        std::cerr << "expected thirteen reflective bypass findings, got "
+                  << reflective_bypass_findings << "\n";
         return 1;
     }
     return 0;

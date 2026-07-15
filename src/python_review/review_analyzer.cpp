@@ -233,6 +233,7 @@ struct FileContext {
     std::vector<Finding>* out;
     std::vector<FuncSig>* sigs = nullptr; // 跨文件累积（可空）
     const ReviewConfig* cfg = nullptr;    // 可调阈值/开关（analyze_file 注入）
+    bool may_have_reflective_bypass = false; // 文件级字节预筛选，避免普通文件进入反射指纹匹配
 };
 
 // 递归构建结构指纹：只 append 控制流关键字与调用方法名，忽略变量名/字面量，
@@ -1056,6 +1057,14 @@ constexpr RestrictedModule kRestrictedModules[] = {
     {"socket",      "绕过 ModSDK 网络接口建立原始连接"},
 };
 
+const RestrictedModule* find_restricted_module(std::string_view module) {
+    const size_t dot = module.find('.');
+    const std::string_view root = module.substr(0, dot);
+    for (const auto& policy : kRestrictedModules)
+        if (root == policy.name) return &policy;
+    return nullptr;
+}
+
 void mark_restricted_module(TSNode module_node, const std::string& source,
                             std::array<bool, std::size(kRestrictedModules)>& matched) {
     if (ts_node_is_null(module_node)) return;
@@ -1063,11 +1072,8 @@ void mark_restricted_module(TSNode module_node, const std::string& source,
         module_node = ts_node_child_by_field_name(module_node, "name", 4);
     if (ts_node_is_null(module_node) || nt(module_node) != "dotted_name") return;
 
-    std::string_view module = node_text_view(module_node, source);
-    const size_t dot = module.find('.');
-    const std::string_view root = module.substr(0, dot);
-    for (size_t i = 0; i < std::size(kRestrictedModules); ++i)
-        if (root == kRestrictedModules[i].name) matched[i] = true;
+    const RestrictedModule* policy = find_restricted_module(node_text_view(module_node, source));
+    if (policy) matched[static_cast<size_t>(policy - kRestrictedModules)] = true;
 }
 
 void check_restricted_module_import(TSNode import_node, const FileContext& ctx,
@@ -1110,6 +1116,216 @@ void check_restricted_module_import(TSNode import_node, const FileContext& ctx,
                  1, Actionability::ShouldFix);
 }
 
+enum class ReflectiveAction { None, Import, Eval, ExecFile, Reload };
+
+struct ReflectionSignals {
+    bool has_globals = false;
+    bool has_builtins = false;
+    ReflectiveAction action = ReflectiveAction::None;
+};
+
+// 只在调用目标表达式内收集精确魔术名；源码中单独出现字符串不会触发。
+void collect_reflection_signals(TSNode node, const std::string& source,
+                                ReflectionSignals& signals) {
+    const std::string_view type = nt(node);
+    if (type == "identifier" || type == "string_content") {
+        const std::string_view token = node_text_view(node, source);
+        if (token == "__globals__" || token == "func_globals") signals.has_globals = true;
+        else if (token == "__builtins__") signals.has_builtins = true;
+        else if (token == "eval") signals.action = ReflectiveAction::Eval;
+        else if (token == "execfile") signals.action = ReflectiveAction::ExecFile;
+        else if (token == "reload") signals.action = ReflectiveAction::Reload;
+        else if (token == "__import__" && signals.action == ReflectiveAction::None)
+            signals.action = ReflectiveAction::Import;
+    }
+
+    const uint32_t count = ts_node_named_child_count(node);
+    for (uint32_t i = 0; i < count; ++i)
+        collect_reflection_signals(ts_node_named_child(node, i), source, signals);
+}
+
+const char* reflective_action_name(ReflectiveAction action) {
+    switch (action) {
+        case ReflectiveAction::Import:   return "__import__";
+        case ReflectiveAction::Eval:     return "eval";
+        case ReflectiveAction::ExecFile: return "execfile";
+        case ReflectiveAction::Reload:   return "reload";
+        case ReflectiveAction::None:     return "未静态识别的 builtins 成员";
+    }
+    return "未静态识别的 builtins 成员";
+}
+
+void emit_reflective_bypass(TSNode location, const FileContext& ctx,
+                            const std::string& symbol, ReflectiveAction action,
+                            bool split_across_statements) {
+    const char* action_name = reflective_action_name(action);
+    std::vector<std::string> evidence = {
+        std::string(split_across_statements
+                        ? "跨语句变量链最终从 __globals__/func_globals -> __builtins__ 取得 "
+                        : "调用目标或赋值右值通过 __globals__/func_globals -> __builtins__ 取得 ") +
+            action_name,
+        "该结构具有绕过显式依赖与常规静态审查的特征；仅凭结构不判定最终行为"
+    };
+
+    make_finding(ctx, "platform.reflective-security-bypass", Severity::Warning, 0.95,
+                 node_start_row(location), symbol,
+                 "检测到反射绕过静态审查的特征（需结合行为判断）",
+                 std::move(evidence),
+                 "结合实际行为审查：若仅为访问内部 API、减少抽象层且不触及系统或外部数据，"
+                 "可记录理由后保留；若用于动态加载受限模块、执行代码或访问计算机数据，"
+                 "应移除并改用平台安全 API。",
+                 1, Actionability::AdvisoryVerify);
+}
+
+void check_reflective_security_bypass(TSNode expression, TSNode location,
+                                      const FileContext& ctx,
+                                      const std::vector<std::string>& scope_stack) {
+    const std::string& source = *ctx.source;
+    if (ts_node_is_null(expression) || nt(expression) == "identifier") return;
+
+    ReflectionSignals signals;
+    collect_reflection_signals(expression, source, signals);
+    if (!signals.has_globals || !signals.has_builtins) return;
+
+    emit_reflective_bypass(location, ctx, join_scope(scope_stack), signals.action, false);
+}
+
+enum class ReflectionValueKind { None, Globals, Builtins, Sensitive };
+
+struct ReflectionValue {
+    ReflectionValueKind kind = ReflectionValueKind::None;
+    ReflectiveAction action = ReflectiveAction::None;
+    bool crossed_assignment = false;
+    bool reported = false;
+};
+
+using ReflectionEnv = std::unordered_map<std::string, ReflectionValue>;
+
+ReflectionSignals reflection_signals(TSNode node, const std::string& source) {
+    ReflectionSignals signals;
+    if (!ts_node_is_null(node)) collect_reflection_signals(node, source, signals);
+    return signals;
+}
+
+ReflectionValue evaluate_reflection_value(TSNode node, const std::string& source,
+                                          const ReflectionEnv& env) {
+    if (ts_node_is_null(node)) return {};
+    const std::string_view type = nt(node);
+
+    if (type == "identifier") {
+        auto it = env.find(std::string(node_text_view(node, source)));
+        if (it == env.end()) return {};
+        ReflectionValue value = it->second;
+        value.crossed_assignment = true;
+        return value;
+    }
+
+    if (type == "parenthesized_expression") {
+        const uint32_t count = ts_node_named_child_count(node);
+        return count == 1
+            ? evaluate_reflection_value(ts_node_named_child(node, 0), source, env)
+            : ReflectionValue{};
+    }
+
+    if (type == "attribute") {
+        TSNode object = ts_node_child_by_field_name(node, "object", 6);
+        TSNode attribute = ts_node_child_by_field_name(node, "attribute", 9);
+        ReflectionValue base = evaluate_reflection_value(object, source, env);
+        ReflectionSignals key = reflection_signals(attribute, source);
+        if (key.has_globals) return {ReflectionValueKind::Globals, ReflectiveAction::None,
+                                     base.crossed_assignment, false};
+        if (base.kind == ReflectionValueKind::Globals && key.has_builtins)
+            return {ReflectionValueKind::Builtins, ReflectiveAction::None,
+                    base.crossed_assignment, base.reported};
+        if (base.kind == ReflectionValueKind::Builtins)
+            return {ReflectionValueKind::Sensitive, key.action,
+                    base.crossed_assignment, base.reported};
+        return {};
+    }
+
+    if (type == "subscript") {
+        TSNode object = ts_node_child_by_field_name(node, "value", 5);
+        TSNode key_node = ts_node_child_by_field_name(node, "subscript", 9);
+        ReflectionValue base = evaluate_reflection_value(object, source, env);
+        ReflectionSignals key = reflection_signals(key_node, source);
+        if (base.kind == ReflectionValueKind::Globals && key.has_builtins)
+            return {ReflectionValueKind::Builtins, ReflectiveAction::None,
+                    base.crossed_assignment, base.reported};
+        if (base.kind == ReflectionValueKind::Builtins)
+            return {ReflectionValueKind::Sensitive, key.action,
+                    base.crossed_assignment, base.reported};
+        return {};
+    }
+
+    if (type == "call") {
+        TSNode callee = ts_node_child_by_field_name(node, "function", 8);
+        if (ts_node_is_null(callee) || nt(callee) != "identifier" ||
+            node_text_view(callee, source) != "getattr") {
+            return {};
+        }
+        TSNode args = ts_node_child_by_field_name(node, "arguments", 9);
+        if (ts_node_is_null(args) || ts_node_named_child_count(args) < 2) return {};
+        TSNode object = ts_node_named_child(args, 0);
+        TSNode key_node = ts_node_named_child(args, 1);
+        ReflectionValue base = evaluate_reflection_value(object, source, env);
+        ReflectionSignals key = reflection_signals(key_node, source);
+        if (key.has_globals)
+            return {ReflectionValueKind::Globals, ReflectiveAction::None,
+                    base.crossed_assignment, false};
+        if (base.kind == ReflectionValueKind::Globals && key.has_builtins)
+            return {ReflectionValueKind::Builtins, ReflectiveAction::None,
+                    base.crossed_assignment, base.reported};
+        if (base.kind == ReflectionValueKind::Builtins)
+            return {ReflectionValueKind::Sensitive, key.action,
+                    base.crossed_assignment, base.reported};
+    }
+    return {};
+}
+
+void reflective_dataflow_walk(TSNode node, const FileContext& ctx,
+                              const std::string& symbol, ReflectionEnv& env) {
+    const std::string_view type = nt(node);
+    if (type == "function_definition" || type == "class_definition" || type == "lambda") return;
+
+    if (type == "assignment") {
+        TSNode left = ts_node_child_by_field_name(node, "left", 4);
+        TSNode right = ts_node_child_by_field_name(node, "right", 5);
+        ReflectionValue value = evaluate_reflection_value(right, *ctx.source, env);
+        if (!ts_node_is_null(left) && nt(left) == "identifier") {
+            const std::string name = node_text(left, *ctx.source);
+            if (value.kind == ReflectionValueKind::Sensitive &&
+                value.crossed_assignment && !value.reported) {
+                emit_reflective_bypass(node, ctx, symbol, value.action, true);
+                value.reported = true;
+            } else if (value.kind == ReflectionValueKind::Sensitive &&
+                       !value.crossed_assignment) {
+                // 同一赋值右值会由结构指纹报告；保留污点供后续传播，但不重复定位调用点。
+                value.reported = true;
+            }
+            if (value.kind == ReflectionValueKind::None) env.erase(name);
+            else env[name] = value;
+        }
+    } else if (type == "call") {
+        TSNode callee = ts_node_child_by_field_name(node, "function", 8);
+        ReflectionValue value = evaluate_reflection_value(callee, *ctx.source, env);
+        if (value.kind == ReflectionValueKind::Sensitive &&
+            value.crossed_assignment && !value.reported) {
+            emit_reflective_bypass(node, ctx, symbol, value.action, true);
+        }
+    }
+
+    const uint32_t count = ts_node_named_child_count(node);
+    for (uint32_t i = 0; i < count; ++i)
+        reflective_dataflow_walk(ts_node_named_child(node, i), ctx, symbol, env);
+}
+
+void check_reflective_dataflow(TSNode body, const FileContext& ctx,
+                               const std::string& symbol) {
+    if (!ctx.may_have_reflective_bypass || ts_node_is_null(body)) return;
+    ReflectionEnv env;
+    reflective_dataflow_walk(body, ctx, symbol, env);
+}
+
 // ── AST 遍历：维护 def/class 限定名上下文 ─────────────────────────────────
 
 void walk(TSNode node, const FileContext& ctx, std::vector<std::string>& scope_stack,
@@ -1145,11 +1361,28 @@ void walk(TSNode node, const FileContext& ctx, std::vector<std::string>& scope_s
         } else {
             fm.class_count++;
         }
+        if (ctx.may_have_reflective_bypass) {
+            TSNode body = ts_node_child_by_field_name(node, "body", 4);
+            check_reflective_dataflow(body, ctx, join_scope(scope_stack));
+        }
     } else if (type == "try_statement") {
         if (ctx.cfg->rule_try_masking) check_try_masking(node, ctx, join_scope(scope_stack));
     } else if (type == "call") {
         if (ctx.cfg->rule_unicode_default_encoding || ctx.cfg->rule_dynamic_code_execution)
             check_sensitive_call(node, ctx, scope_stack);
+        if (ctx.may_have_reflective_bypass) {
+            TSNode callee = ts_node_child_by_field_name(node, "function", 8);
+            check_reflective_security_bypass(callee, node, ctx, scope_stack);
+        }
+    } else if (type == "assignment") {
+        if (ctx.may_have_reflective_bypass) {
+            TSNode value = ts_node_child_by_field_name(node, "right", 5);
+            const std::string_view value_type = ts_node_is_null(value) ? std::string_view{} : nt(value);
+            if (value_type == "subscript" || value_type == "attribute" ||
+                value_type == "parenthesized_expression") {
+                check_reflective_security_bypass(value, node, ctx, scope_stack);
+            }
+        }
     } else if (type == "exec_statement") {
         if (ctx.cfg->rule_dynamic_code_execution)
             report_dynamic_code_execution(node, ctx, scope_stack, "exec statement");
@@ -1248,11 +1481,16 @@ ParseHealth analyze_file(const fs::path& file, const fs::path& bp_root,
     ctx.out = &out;
     ctx.sigs = &sigs;
     ctx.cfg = &cfg;
+    ctx.may_have_reflective_bypass = cfg.rule_reflective_security_bypass &&
+        source.find("__builtins__") != std::string::npos &&
+        (source.find("__globals__") != std::string::npos ||
+         source.find("func_globals") != std::string::npos);
 
     // 有 ERROR 节点时 tree-sitter 仍可局部遍历：recovered，规则照跑。
     std::vector<std::string> scope_stack;
     FileMetrics fm;
     walk(root, ctx, scope_stack, fm);
+    check_reflective_dataflow(root, ctx, /*symbol=*/"");
     if (cfg.rule_large_file) check_large_file(ctx, count_code_lines(source), fm);
     if (cfg.rule_encoding_declaration) check_encoding_declaration(source, had_bom, ctx);
 
