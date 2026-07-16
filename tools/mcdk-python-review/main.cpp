@@ -46,7 +46,7 @@ void print_help() {
         "  <behavior_pack_path>          必填，行为包根目录完整 UTF-8 路径\n"
         "  --scope <a,b/c>               选填，缩小到指定包/模块；不填=全部\n"
         "  --format <summary|markdown|json>  输出格式，默认 markdown\n"
-        "                                summary=极简概览(最省上下文) json=闭环机读(按规则分组)\n"
+        "                                markdown=人工审阅报告 summary=终端概览 json=机读全量\n"
         "  --include-third-party         连 QuModLibs 等三方库一并审查（默认排除）\n"
         "  --config <toml>              显式配置文件；不填则自动发现行为包根下 mcdk-review.toml\n"
         "  --max-per-rule <n>           每规则最多列 N 处（0=不限），控输出体积、避免撑爆上下文\n"
@@ -122,7 +122,13 @@ int main(int argc, char** argv) {
     }
 
     mcdk::python_review::ReviewAnalyzer analyzer;
-    std::string out = analyzer.review_formatted(mcdk::path::from_utf8(path_text), options);
+    std::string out;
+    if (options.format == "markdown") {
+        auto report = analyzer.review(mcdk::path::from_utf8(path_text), options);
+        out = mcdk::python_review::render_human_markdown(report);
+    } else {
+        out = analyzer.review_formatted(mcdk::path::from_utf8(path_text), options);
+    }
 
     if (output_file.empty()) {
         std::cout << out << std::endl;

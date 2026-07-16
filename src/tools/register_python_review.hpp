@@ -27,7 +27,7 @@ review --dump-config    打印可编辑的默认配置模板（TOML，兼作阈�
     反射链取得 __import__/eval/execfile/reload 等敏感能力（仅提示结合实际行为审查，普通内部 API 反射不报）。
     QuModLibs 与游戏 API 不误报（开放世界）。
     --scope: 缩小到指定包/模块（逗号分隔），不填=全部；如 --scope KID_ULTRA_X/Combat
-    --format: summary（极简概览，最省上下文）| markdown（默认，人读，按规则分组）
+    --format: summary（极简概览，最省上下文）| markdown（默认，MCP 紧凑格式，按规则分组）
              | json（闭环机读，按规则分组去重）
     --include-third-party: 连 QuModLibs 等三方库一并审查（默认排除）
     --config: 显式 TOML 配置；不填则自动发现行为包根下 mcdk-review.toml（可调所有阈值/规则开关）

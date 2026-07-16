@@ -22,7 +22,7 @@ struct ReviewOptions {
     // QuModLibs 等静态三方库默认排除（plan §5.5 开放世界；与 minecraft_py 一致）。
     bool include_third_party = false;
 
-    // 输出格式："summary"（极简概览）| "markdown"（默认，人读）| "json"（闭环主格式，plan §8.1）。
+    // 输出格式："summary"（极简概览）| "markdown"（默认，MCP 紧凑格式）| "json"（闭环主格式，plan §8.1）。
     std::string format = "markdown";
 
     // 选填：显式配置文件路径（UTF-8）。空则在行为包根自动发现 mcdk-review.toml。
@@ -43,8 +43,9 @@ public:
                                  const ReviewOptions& options) const;
 };
 
-std::string render_markdown(const ReviewReport& report); // 按规则分组、每规则截断（省上下文）
-std::string render_summary(const ReviewReport& report);  // 极简概览：仅计数/分布/热点文件
-std::string render_json(const ReviewReport& report);     // 机读；按规则分组去重 title/建议
+std::string render_markdown(const ReviewReport& report);       // MCP 紧凑格式：按规则分组、每规则截断
+std::string render_human_markdown(const ReviewReport& report); // CLI 人工报告：概览、优先级、位置表格
+std::string render_summary(const ReviewReport& report);        // 极简概览：仅计数/分布/热点文件
+std::string render_json(const ReviewReport& report);           // 机读；按规则分组去重 title/建议
 
 } // namespace mcdk::python_review

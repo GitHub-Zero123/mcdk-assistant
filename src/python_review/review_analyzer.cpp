@@ -169,7 +169,7 @@ std::vector<DiscoveredPackage> discover_packages(const fs::path& root, bool incl
             DiscoveredPackage pkg;
             pkg.entry_file = mm;
             pkg.root_dir = mm.parent_path();
-            pkg.name = pkg.root_dir.filename().string();
+            pkg.name = to_utf8(pkg.root_dir.filename());
             pkg.files = collect_files(pkg.root_dir);
             pkgs.push_back(std::move(pkg));
         }
@@ -178,7 +178,7 @@ std::vector<DiscoveredPackage> discover_packages(const fs::path& root, bool incl
         discovery_mode = "fallback-directory";
         DiscoveredPackage pkg;
         pkg.root_dir = root;
-        pkg.name = root.filename().string();
+        pkg.name = to_utf8(root.filename());
         pkg.files = collect_files(root);
         if (!pkg.files.empty()) pkgs.push_back(std::move(pkg));
     }
@@ -1717,11 +1717,116 @@ std::vector<RuleGroup> group_by_rule(const std::vector<Finding>& fs) {
     return groups;
 }
 
+struct HumanRuleGroup {
+    std::string                 rule_id;
+    Actionability               act;
+    std::string                 title;
+    std::string                 suggestion;
+    std::vector<const Finding*> items;
+};
+
+Severity highest_group_severity(const HumanRuleGroup& group) {
+    Severity highest = Severity::Hint;
+    for (const Finding* finding : group.items) {
+        if (static_cast<int>(finding->severity) > static_cast<int>(highest))
+            highest = finding->severity;
+    }
+    return highest;
+}
+
+std::vector<HumanRuleGroup> group_by_human_rule(const std::vector<Finding>& findings) {
+    std::unordered_map<std::string, size_t> indices;
+    std::vector<HumanRuleGroup> groups;
+    for (const auto& finding : findings) {
+        const std::string key = finding.rule_id + "\x01" +
+            std::to_string(static_cast<int>(finding.actionability));
+        auto it = indices.find(key);
+        if (it == indices.end()) {
+            indices.emplace(key, groups.size());
+            groups.push_back({finding.rule_id, finding.actionability, finding.title,
+                              finding.suggestion, {}});
+        }
+        groups[indices[key]].items.push_back(&finding);
+    }
+    std::sort(groups.begin(), groups.end(), [](const HumanRuleGroup& lhs, const HumanRuleGroup& rhs) {
+        const Severity lhs_severity = highest_group_severity(lhs);
+        const Severity rhs_severity = highest_group_severity(rhs);
+        if (lhs_severity != rhs_severity)
+            return static_cast<int>(lhs_severity) > static_cast<int>(rhs_severity);
+        return lhs.rule_id < rhs.rule_id;
+    });
+    return groups;
+}
+
 // 压平换行并截断，保证"每处一行"的密度。
 std::string oneline(std::string s, size_t max_len) {
     for (auto& ch : s) if (ch == '\n' || ch == '\r' || ch == '\t') ch = ' ';
-    if (s.size() > max_len) s = s.substr(0, max_len) + "…";
+    if (s.size() > max_len) {
+        size_t cut = max_len;
+        while (cut > 0 && (static_cast<unsigned char>(s[cut]) & 0xC0) == 0x80) --cut;
+        s.resize(cut);
+        s += "…";
+    }
     return s;
+}
+
+const char* human_severity(Severity severity) {
+    switch (severity) {
+        case Severity::Hint:    return "提示";
+        case Severity::Risk:    return "风险";
+        case Severity::Warning: return "警告";
+        case Severity::Error:   return "错误";
+    }
+    return "警告";
+}
+
+std::string replace_all(std::string value, std::string_view from, std::string_view to) {
+    size_t pos = 0;
+    while ((pos = value.find(from, pos)) != std::string::npos) {
+        value.replace(pos, from.size(), to);
+        pos += to.size();
+    }
+    return value;
+}
+
+std::string human_rule_title(std::string title) {
+    title = replace_all(std::move(title), "（职责堆积，疑似屎山）", "（可能存在职责堆积）");
+    title = replace_all(std::move(title), "（疑似硬堆参数、未封装）", "（可能存在职责过载）");
+    title = replace_all(std::move(title), "（疑似重复造轮子）", "（可能存在重复实现）");
+    return title;
+}
+
+std::string markdown_cell(std::string value, size_t max_len = 180) {
+    value = oneline(std::move(value), max_len);
+    return replace_all(std::move(value), "|", "\\|");
+}
+
+std::string path_relative_to_root(const std::string& path, const std::string& root) {
+    if (path.size() > root.size() && path.compare(0, root.size(), root) == 0 &&
+        (path[root.size()] == '/' || path[root.size()] == '\\')) {
+        return path.substr(root.size() + 1);
+    }
+    return path;
+}
+
+int count_actionability(const std::vector<Finding>& findings, Actionability action) {
+    return static_cast<int>(std::count_if(findings.begin(), findings.end(),
+        [action](const Finding& finding) { return finding.actionability == action; }));
+}
+
+std::string human_group_severities(const HumanRuleGroup& group) {
+    bool present[4] = {false, false, false, false};
+    for (const Finding* finding : group.items)
+        present[static_cast<int>(finding->severity)] = true;
+
+    std::string result;
+    for (int value = static_cast<int>(Severity::Error);
+         value >= static_cast<int>(Severity::Hint); --value) {
+        if (!present[value]) continue;
+        if (!result.empty()) result += " / ";
+        result += human_severity(static_cast<Severity>(value));
+    }
+    return result;
 }
 } // namespace
 
@@ -1777,6 +1882,157 @@ std::string render_markdown(const ReviewReport& report) {
         if (!g.suggestion.empty()) o << "→ " << g.suggestion << "\n";
         o << "\n";
     }
+    return o.str();
+}
+
+std::string render_human_markdown(const ReviewReport& report) {
+    std::ostringstream o;
+    const SevCounts sc = count_severities(report.findings);
+    const int must_fix = count_actionability(report.findings, Actionability::MustFix);
+    const int should_fix = count_actionability(report.findings, Actionability::ShouldFix);
+    const int advisory = count_actionability(report.findings, Actionability::AdvisoryVerify);
+
+    o << "# Python 代码审查报告\n\n";
+    if (report.findings.empty()) {
+        o << "> 审查完成：在当前规则和扫描范围内未发现需要报告的问题。\n\n";
+    } else if (must_fix > 0) {
+        o << "> 审查完成：发现 **" << must_fix
+          << " 项必须修复的问题**。建议先处理这些确定性问题，再评估其余诊断。\n\n";
+    } else if (should_fix > 0) {
+        o << "> 审查完成：未发现必须修复项，发现 **" << should_fix
+          << " 项建议修复的问题**，另有 " << advisory << " 项需要人工确认。\n\n";
+    } else {
+        o << "> 审查完成：共发现 **" << advisory
+          << " 项需要人工确认的风险提示**，请结合业务语境评估，不建议直接批量修改。\n\n";
+    }
+
+    if (!report.config_warnings.empty()) {
+        o << "## 配置警告\n\n";
+        for (const auto& warning : report.config_warnings) o << "- " << warning << "\n";
+        o << "\n";
+    }
+
+    o << "## 扫描概览\n\n";
+    o << "| 扫描范围 | 解析状态 | 诊断分布 | 处理优先级 |\n|---|---|---|---|\n";
+    o << "| **" << report.packages.size() << "** 包 · **" << report.files_scanned << "** 文件";
+    o << " | **" << report.parse_ok << "** 正常";
+    if (report.parse_recovered > 0) o << " · **" << report.parse_recovered << "** 恢复";
+    if (report.parse_failed > 0) o << " · **" << report.parse_failed << "** 失败";
+    o << " | **" << report.findings.size() << "** 项";
+    if (sc.error > 0) o << " · **" << sc.error << "** 错误";
+    if (sc.warning > 0) o << " · **" << sc.warning << "** 警告";
+    if (sc.risk > 0) o << " · **" << sc.risk << "** 风险";
+    if (sc.hint > 0) o << " · **" << sc.hint << "** 提示";
+    o << " | ";
+    if (report.findings.empty()) {
+        o << "无需处理";
+    } else {
+        bool wrote_action = false;
+        auto append_action = [&](int count, const char* label) {
+            if (count <= 0) return;
+            if (wrote_action) o << " · ";
+            o << "**" << count << "** " << label;
+            wrote_action = true;
+        };
+        append_action(must_fix, "必须修复");
+        append_action(should_fix, "建议修复");
+        append_action(advisory, "人工确认");
+    }
+    o << " |\n\n";
+
+    if (!report.packages.empty()) {
+        o << "## 包概览\n\n";
+        o << "| 包 | 文件 | 解析状态 | 入口模块 |\n|---|---:|---|---|\n";
+        for (const auto& package : report.packages) {
+            std::string health = std::to_string(package.parse_ok) + " 正常";
+            if (package.parse_recovered > 0)
+                health += " / " + std::to_string(package.parse_recovered) + " 恢复";
+            if (package.parse_failed > 0)
+                health += " / " + std::to_string(package.parse_failed) + " 失败";
+            const std::string entry = package.entry_file.empty()
+                ? "目录扫描"
+                : path_relative_to_root(package.entry_file, report.behavior_pack_root);
+            o << "| `" << markdown_cell(package.name) << "` | " << package.files_scanned
+              << " | " << health << " | `" << markdown_cell(entry) << "` |\n";
+        }
+        o << "\n";
+    }
+
+    const auto groups = group_by_human_rule(report.findings);
+    const int cap = report.max_findings_per_rule;
+    auto render_action_section = [&](Actionability action, const char* heading,
+                                     const char* description, bool collapse_locations) {
+        if (count_actionability(report.findings, action) == 0) return;
+        o << "## " << heading << "\n\n" << description << "\n\n";
+        for (const auto& group : groups) {
+            if (group.act != action) continue;
+            o << "### " << human_rule_title(group.title) << "\n\n";
+            o << "**规则：** `" << group.rule_id << "`  |  **级别：** "
+              << human_group_severities(group) << "  |  **数量：** " << group.items.size() << "\n\n";
+            if (!group.suggestion.empty())
+                o << "> **处理建议：** " << oneline(group.suggestion, 360) << "\n\n";
+
+            if (collapse_locations)
+                o << "<details>\n<summary>查看 " << group.items.size() << " 处位置</summary>\n\n";
+
+            o << "| # | 级别 | 位置 | 所在符号 | 判断依据 |\n|---:|---|---|---|---|\n";
+            const size_t shown = cap > 0
+                ? std::min(group.items.size(), static_cast<size_t>(cap))
+                : group.items.size();
+            for (size_t i = 0; i < shown; ++i) {
+                const Finding& finding = *group.items[i];
+                const std::string evidence = finding.evidence.empty() ? "-" : finding.evidence.front();
+                o << "| " << (i + 1) << " | " << human_severity(finding.severity)
+                  << " | `" << markdown_cell(finding.file, 220) << ":"
+                  << finding.line << "` | "
+                  << (finding.symbol.empty() ? "-" : "`" + markdown_cell(finding.symbol, 120) + "`")
+                  << " | " << markdown_cell(evidence) << " |\n";
+            }
+            if (shown < group.items.size()) {
+                o << "\n还有 **" << (group.items.size() - shown)
+                  << "** 处未展开；可使用 `--max-per-rule 0` 输出全部位置。\n";
+            }
+            if (collapse_locations) o << "\n</details>\n";
+            o << "\n";
+        }
+    };
+
+    render_action_section(Actionability::MustFix, "必须修复",
+                          "这些问题具有较高确定性，可能直接导致导入、运行或安全失败。", false);
+    render_action_section(Actionability::ShouldFix, "建议修复",
+                          "这些问题具有明确风险，建议结合当前发布计划安排修复。", false);
+    render_action_section(Actionability::AdvisoryVerify, "需要人工确认",
+                          "以下结果来自结构或规模启发式判断。它们不一定是缺陷，请核实业务意图后再修改。", true);
+
+    if (!report.findings.empty()) {
+        std::unordered_map<std::string, int> file_counts;
+        for (const auto& finding : report.findings) file_counts[finding.file]++;
+        std::vector<std::pair<std::string, int>> hot_files(file_counts.begin(), file_counts.end());
+        std::sort(hot_files.begin(), hot_files.end(), [](const auto& lhs, const auto& rhs) {
+            if (lhs.second != rhs.second) return lhs.second > rhs.second;
+            return lhs.first < rhs.first;
+        });
+
+        o << "## 诊断热点\n\n";
+        o << "| 文件 | 诊断数 |\n|---|---:|\n";
+        const size_t shown = std::min<size_t>(hot_files.size(), 10);
+        for (size_t i = 0; i < shown; ++i)
+            o << "| `" << markdown_cell(hot_files[i].first, 220) << "` | " << hot_files[i].second << " |\n";
+        o << "\n";
+    }
+
+    o << "## 技术详情\n\n";
+    o << "<details>\n<summary>查看扫描路径、发现方式、配置与忽略目录</summary>\n\n";
+    o << "- **扫描路径：** `" << report.behavior_pack_root << "`\n";
+    o << "- **包发现方式：** `" << report.discovery_mode << "`\n";
+    o << "- **配置来源：** " << report.config_source << "\n";
+    if (report.max_findings_per_rule > 0)
+        o << "- **单规则展示上限：** " << report.max_findings_per_rule << "\n";
+    if (!report.ignored_dirs.empty()) {
+        o << "- **忽略目录：**\n";
+        for (const auto& dir : report.ignored_dirs) o << "  - `" << dir << "`\n";
+    }
+    o << "\n</details>\n";
     return o.str();
 }
 

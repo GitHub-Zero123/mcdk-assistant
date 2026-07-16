@@ -102,6 +102,19 @@ int main() {
     const mcdk::python_review::ReviewOptions options;
     const auto report = analyzer.review(root, options);
 
+    const std::string compact_markdown = mcdk::python_review::render_markdown(report);
+    const std::string human_markdown = mcdk::python_review::render_human_markdown(report);
+    if (compact_markdown.find("# Python AI Code Review") != 0 ||
+        human_markdown.find("# Python 代码审查报告") != 0 ||
+        human_markdown.find("## 扫描概览") == std::string::npos ||
+        human_markdown.find("## 建议修复") == std::string::npos ||
+        human_markdown.find("## 需要人工确认") == std::string::npos ||
+        human_markdown.find("<details>") == std::string::npos) {
+        std::cerr << "markdown renderer variants have unexpected structure\n";
+        fs::remove_all(root, ec);
+        return 1;
+    }
+
     int unicode_findings = 0;
     int restricted_import_findings = 0;
     int dynamic_code_findings = 0;
