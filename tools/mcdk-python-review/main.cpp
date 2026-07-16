@@ -63,8 +63,14 @@ std::vector<std::string> get_utf8_args() {
     if (!wargv) return args;
     for (int i = 0; i < n; ++i) {
         int len = WideCharToMultiByte(CP_UTF8, 0, wargv[i], -1, nullptr, 0, nullptr, nullptr);
-        std::string s(len > 0 ? len - 1 : 0, '\0');
-        if (len > 0) WideCharToMultiByte(CP_UTF8, 0, wargv[i], -1, s.data(), len, nullptr, nullptr);
+        std::string s;
+        if (len > 0) {
+            s.resize(static_cast<size_t>(len));
+            int written = WideCharToMultiByte(
+                CP_UTF8, 0, wargv[i], -1, s.data(), len, nullptr, nullptr);
+            if (written > 0) s.resize(static_cast<size_t>(written - 1));
+            else s.clear();
+        }
         args.push_back(std::move(s));
     }
     LocalFree(wargv);
