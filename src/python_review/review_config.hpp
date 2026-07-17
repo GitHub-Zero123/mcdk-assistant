@@ -18,7 +18,7 @@ struct ReviewConfig {
     // ── 阈值（[thresholds]）───────────────────────────────────────────────
     int file_code_lines = 1200; // 单文件「代码行」屎山阈值（与 file_units 同时满足才报）
     int file_units       = 25; // 单文件 def+class 数阈值
-    int func_loc         = 60; // 单函数行跨度：偏长起报
+    int func_loc         = 55; // 单函数行跨度：偏长起报
     int func_loc_high    = 100;// 单函数行跨度：过长（warning）
     int try_small        = 5;  // try 体 <= 此值：窄防御，低级（hint）
     int try_large        = 20; // try 体 >= 此值：吞掉大量业务，高级（warning）
