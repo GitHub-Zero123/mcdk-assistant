@@ -82,8 +82,8 @@ mcdk-python-review --dump-config
 | `stub.placeholder` | warning / hint | should-fix / advisory | 1 | 函数体仅 `raise NotImplementedError`(warning)或 `...`(hint) | 接口 / 抽象命名类(`^I[A-Z]`、`Base*`/`Abstract*`、`*Interface`/`*ABC`)与 `@abstractmethod` 豁免;空 `pass`/`return None` 不问 |
 | `stub.shallow-impl` | risk | advisory-verify | 2 | 函数体 ≥3 条业务语句,**却所有 `return` 皆固定值、且完全不碰任何参数** —— 疑似假实现 | 放过 1 行 `return 固定值`(Py2 无 .pyi,裸写补全库触发类型推导);排除 `return None`/非空集合;`_`/`__` 占位参、dunder、接口类豁免 |
 | `signature.too-many-params` | hint / warning | advisory-verify | 2 | 非 `self`/`cls` 参数 > 5;6~7 个→hint、≥8 个→warning | `__init__`/`__new__` 豁免(构造器天然聚合);`*args`/`**kwargs` 不计;引擎固定签名可调阈值或整族关闭 |
-| `logic-blob.large-function` | risk / warning | advisory-verify | 2 | 单函数行跨度 ≥50→risk、≥100→warning | 事件分发 / UI 回调类的长函数,可酌情放过 |
-| `logic-blob.large-file` | warning | advisory-verify | 2 | 单文件代码行 ≥1000 **且** `def+class` ≥25(双重判定) | 纯数据 / 配置文件(体量大却极少定义)自然不触发 |
+| `logic-blob.large-function` | risk / warning | advisory-verify | 2 | 单函数行跨度 ≥60→risk、≥100→warning | 事件分发 / UI 回调类的长函数,可酌情放过 |
+| `logic-blob.large-file` | warning | advisory-verify | 2 | 单文件代码行 ≥1200 **且** `def+class` ≥25(双重判定) | 纯数据 / 配置文件(体量大却极少定义)自然不触发 |
 | `duplicate-function.cross-module` | warning | advisory-verify | 3 | 相同结构指纹(抹去标识符 / 字面量,只留控制流 + 调用名)、≥5 语句、指纹长 ≥10、散落 ≥2 文件、≥2 处 | 跳过 dunder;要求确有逻辑(控制流或 ≥2 次调用),免得把样板 `__init__` 错聚成"重复" |
 | `comment-doc.unowned-todo` | hint | advisory-verify | 2 | 无主的 `TODO`/`FIXME`/`HACK`/`XXX` | 带括号者(疑似署名,如 `TODO(alice)`)不问 |
 
@@ -121,9 +121,9 @@ mcdk-python-review --dump-config
 
 ```toml
 [thresholds]
-file_code_lines  = 1000  # 单文件"代码行"屎山阈值(需与 file_units 同时满足才报)
+file_code_lines  = 1200  # 单文件"代码行"屎山阈值(需与 file_units 同时满足才报)
 file_units       = 25    # 单文件 def+class 总数阈值(多重判定,避免误伤纯数据/配置文件)
-func_loc         = 50    # 单函数行跨度:偏长起报(risk)
+func_loc         = 60    # 单函数行跨度:偏长起报(risk)
 func_loc_high    = 100   # 单函数行跨度:过长(warning)
 try_small        = 5     # try 体 <= 此值:窄防御,低级(hint)
 try_large        = 20    # try 体 >= 此值:疑似吞掉大量业务,高级(warning)
@@ -163,9 +163,9 @@ extra_caller_supplied_params = []
 
 | 键 | 默认 | 含义 |
 |---|---|---|
-| `thresholds.file_code_lines` | `1000` | 单文件代码行屎山阈值 |
+| `thresholds.file_code_lines` | `1200` | 单文件代码行屎山阈值 |
 | `thresholds.file_units` | `25` | 单文件 def+class 数阈值 |
-| `thresholds.func_loc` / `func_loc_high` | `50` / `100` | 单函数偏长 / 过长行数 |
+| `thresholds.func_loc` / `func_loc_high` | `60` / `100` | 单函数偏长 / 过长行数 |
 | `thresholds.try_small` / `try_large` | `5` / `20` | try 体小 / 大的分级线 |
 | `thresholds.dup_min_stmts` / `dup_min_fp_len` / `dup_min_count` | `5` / `10` / `2` | 重复检测的三道门槛 |
 | `thresholds.shallow_min_body` | `3` | 假实现前提:最少业务语句数 |
