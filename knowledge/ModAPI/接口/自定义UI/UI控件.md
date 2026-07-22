@@ -1413,15 +1413,12 @@ method in mod.client.ui.controls.scrollViewUIControl.ScrollViewUIControl
 - 备注
 
   - scroll_view的路径是动态的，在触控模式和键鼠模式（按f11可切换的两种操作方式）下的路径不同，每次使用scroll_view及其子控件的路径，都应该重新调用一次本接口。
-    如果不想让路径随操作模式变化，可以指定$touch变量为true，此时路径将固定为touch_path。
-
-  ```json
-  "scroll_view0@common.scrolling_panel": {
-      // 手动指定$touch变量为true
-      "$touch": true
-      ...
-  }
-  ```
+  - 如果不想让路径随操作模式变化，可以指定$touch变量为true，此时路径将固定为touch_path。
+    "scroll_view0@common.scrolling_panel": {
+    // 手动指定$touch变量为true
+    "$touch": true
+    ...
+    }
 
 - 示例
 

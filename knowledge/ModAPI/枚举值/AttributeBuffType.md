@@ -19,5 +19,7 @@ class AttributeBuffType(object):
 	FatalPoison = 8               # 致命中毒
 	SelfHeal = 9                  # 自愈
 	SelfDestruct = 10             # 自毁
+	Unknown = 11                  # 未知类型
+	None_ = 12                    # 无明确状态类型（如触发不死图腾等未归类的属性变化）
 
 ```
