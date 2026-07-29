@@ -36,11 +36,10 @@ JSON_EXTENSIONS = {
     ".anim",      # 部分动画文件
 }
 
-# 目标目录（相对于本脚本所在位置）
-ASSETS_DIR = os.path.join(
-    os.path.dirname(os.path.abspath(__file__)),
-    "knowledge", "GameAssets"
-)
+# 目标目录（位于本脚本所在 automation 目录的上一级）
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_ROOT = os.path.dirname(SCRIPT_DIR)
+ASSETS_DIR = os.path.join(PROJECT_ROOT, "knowledge", "GameAssets")
 
 # ── 核心逻辑 ──────────────────────────────────────────────────────────────────
 
