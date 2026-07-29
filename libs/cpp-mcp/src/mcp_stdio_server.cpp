@@ -27,6 +27,7 @@ namespace mcp {
 
 stdio_server::stdio_server(mcp::server& srv)
     : srv_(srv)
+    , request_pool_(kRequestThreads)
 {}
 
 void stdio_server::stop() {
@@ -68,15 +69,21 @@ void stdio_server::run() {
                 error_code::parse_error,
                 std::string("Parse error: ") + e.what()
             ).to_json();
-            std::cout << err.dump() << '\n';
-            std::cout.flush();
+            write_line(err.dump(-1, ' ', false, json::error_handler_t::replace));
             continue;
         }
 
-        std::string reply = dispatch_one(msg);
-        if (!reply.empty()) {
-            std::cout << reply << '\n';
-            std::cout.flush();
+        const bool is_notification = !msg.contains("id") || msg["id"].is_null();
+        const bool is_initialize = msg.value("method", std::string()) == "initialize";
+
+        // Initialize and notifications are ordering-sensitive. Ordinary
+        // requests may complete out of order, as allowed by JSON-RPC.
+        if (is_notification || is_initialize) {
+            dispatch_and_write(std::move(msg));
+        } else {
+            request_pool_.enqueue([this, msg = std::move(msg)]() mutable {
+                dispatch_and_write(std::move(msg));
+            });
         }
     }
 
@@ -92,6 +99,35 @@ std::string stdio_server::dispatch_one(const json& msg) {
     }
 
     return result.dump(-1, ' ', false, json::error_handler_t::replace);
+}
+
+void stdio_server::dispatch_and_write(json msg) {
+    try {
+        std::string reply = dispatch_one(msg);
+        if (!reply.empty()) write_line(reply);
+    } catch (const std::exception& e) {
+        LOG_ERROR("MCP stdio dispatch failed: ", e.what());
+        if (msg.contains("id") && !msg["id"].is_null()) {
+            json err = response::create_error(
+                msg["id"], error_code::internal_error, "Internal stdio transport error"
+            ).to_json();
+            write_line(err.dump(-1, ' ', false, json::error_handler_t::replace));
+        }
+    } catch (...) {
+        LOG_ERROR("MCP stdio dispatch failed with an unknown exception");
+        if (msg.contains("id") && !msg["id"].is_null()) {
+            json err = response::create_error(
+                msg["id"], error_code::internal_error, "Internal stdio transport error"
+            ).to_json();
+            write_line(err.dump(-1, ' ', false, json::error_handler_t::replace));
+        }
+    }
+}
+
+void stdio_server::write_line(const std::string& line) {
+    std::lock_guard<std::mutex> lock(output_mutex_);
+    std::cout << line << '\n';
+    std::cout.flush();
 }
 
 } // namespace mcp

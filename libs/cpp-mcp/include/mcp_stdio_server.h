@@ -17,8 +17,10 @@
 
 #include "mcp_message.h"
 #include "mcp_server.h"
+#include "mcp_thread_pool.h"
 
 #include <atomic>
+#include <mutex>
 #include <string>
 
 namespace mcp {
@@ -70,12 +72,20 @@ public:
     void stop();
 
 private:
+    static constexpr unsigned int kRequestThreads = 4;
+
     mcp::server&      srv_;
+    std::mutex        output_mutex_;
     std::atomic<bool> stop_{ false };
+    // Declared last so it is destroyed first and joins workers while the
+    // output mutex and server reference are still valid.
+    thread_pool       request_pool_;
 
     // Dispatch one parsed JSON-RPC object and return the serialised response
     // string (empty string for pure notifications that need no reply).
     std::string dispatch_one(const json& msg);
+    void dispatch_and_write(json msg);
+    void write_line(const std::string& line);
 };
 
 } // namespace mcp

@@ -254,6 +254,7 @@ public:
     };
 
     static constexpr int DEFAULT_GAME_ASSET_TOP_K = 200;
+    static constexpr size_t MAX_GAME_ASSET_QUERY_TOKENS = 32;
 
     std::vector<AssetResult> search_game_assets(const std::string& keyword, int scope, int top_k = -1) const {
         const int effective_top_k = (top_k > 0) ? top_k : DEFAULT_GAME_ASSET_TOP_K;
@@ -262,15 +263,91 @@ public:
         tokenize_en(keyword, tokens);
         if (tokens.empty()) {
             tokenize(keyword, tokens);
-            normalize_tokens(tokens);
         }
+        normalize_tokens(tokens);
         if (tokens.empty()) return {};
-
-        std::string kw_lower = keyword;
-        for (auto& c : kw_lower) c = static_cast<char>(std::tolower(static_cast<unsigned char>(c)));
 
         const GameAssetIndex* idx_bp = (scope == 0 || scope == 1) ? &game_assets_bp_ : nullptr;
         const GameAssetIndex* idx_rp = (scope == 0 || scope == 2) ? &game_assets_rp_ : nullptr;
+
+        if (tokens.size() > MAX_GAME_ASSET_QUERY_TOKENS) {
+            struct RankedToken {
+                size_t index;
+                double idf;
+                size_t identifier_signal;
+            };
+
+            auto identifier_signal = [](const std::string& token) {
+                size_t signal = std::min<size_t>(token.size(), 64);
+                for (char c : token) {
+                    if (c == '_' || c == ':') signal += 16;
+                }
+                return signal;
+            };
+            auto corpus_idf = [&](const std::string& token, double& best_idf) {
+                bool found = false;
+                auto collect = [&](const GameAssetIndex* idx) {
+                    if (!idx) return;
+                    auto it = idx->engine.idf().find(token);
+                    if (it == idx->engine.idf().end()) return;
+                    best_idf = found ? std::max(best_idf, it->second) : it->second;
+                    found = true;
+                };
+                collect(idx_bp);
+                collect(idx_rp);
+                return found;
+            };
+
+            std::vector<RankedToken> indexed;
+            std::vector<RankedToken> path_fallback;
+            indexed.reserve(tokens.size());
+            path_fallback.reserve(tokens.size());
+            for (size_t i = 0; i < tokens.size(); ++i) {
+                double idf = 0.0;
+                RankedToken candidate{i, idf, identifier_signal(tokens[i])};
+                if (corpus_idf(tokens[i], candidate.idf)) indexed.push_back(candidate);
+                else path_fallback.push_back(candidate);
+            }
+
+            auto by_corpus_signal = [](const RankedToken& a, const RankedToken& b) {
+                if (a.idf != b.idf) return a.idf > b.idf;
+                if (a.identifier_signal != b.identifier_signal)
+                    return a.identifier_signal > b.identifier_signal;
+                return a.index < b.index;
+            };
+            auto by_identifier_signal = [](const RankedToken& a, const RankedToken& b) {
+                if (a.identifier_signal != b.identifier_signal)
+                    return a.identifier_signal > b.identifier_signal;
+                return a.index < b.index;
+            };
+            std::sort(indexed.begin(), indexed.end(), by_corpus_signal);
+            std::sort(path_fallback.begin(), path_fallback.end(), by_identifier_signal);
+
+            constexpr size_t PATH_FALLBACK_TOKEN_SLOTS = MAX_GAME_ASSET_QUERY_TOKENS / 4;
+            std::vector<size_t> selected;
+            selected.reserve(MAX_GAME_ASSET_QUERY_TOKENS);
+            const size_t fallback_reserve = std::min(PATH_FALLBACK_TOKEN_SLOTS, path_fallback.size());
+            for (size_t i = 0; i < fallback_reserve; ++i)
+                selected.push_back(path_fallback[i].index);
+            for (const auto& candidate : indexed) {
+                if (selected.size() == MAX_GAME_ASSET_QUERY_TOKENS) break;
+                selected.push_back(candidate.index);
+            }
+            for (size_t i = fallback_reserve;
+                 i < path_fallback.size() && selected.size() < MAX_GAME_ASSET_QUERY_TOKENS;
+                 ++i) {
+                selected.push_back(path_fallback[i].index);
+            }
+
+            std::sort(selected.begin(), selected.end());
+            std::vector<std::string> limited;
+            limited.reserve(selected.size());
+            for (size_t index : selected) limited.push_back(std::move(tokens[index]));
+            tokens.swap(limited);
+        }
+
+        std::string kw_lower = keyword;
+        for (auto& c : kw_lower) c = static_cast<char>(std::tolower(static_cast<unsigned char>(c)));
 
         std::unordered_map<std::string, double>      score_map;
         std::unordered_map<std::string, std::string> snippet_map;

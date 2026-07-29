@@ -10,6 +10,14 @@
 
 namespace mcp {
 
+namespace {
+
+std::string dump_wire_json(const json& value) {
+    return value.dump(-1, ' ', false, json::error_handler_t::replace);
+}
+
+} // namespace
+
 
     server::server(const server::configuration& conf)
     : host_(conf.host),
@@ -620,16 +628,26 @@ namespace mcp {
 
         // For requests with ID, process it asynchronously in the thread pool and return the result via SSE
         thread_pool_.enqueue([this, mcp_req, session_id, dispatcher]() {
-            // Process the request
-            json response_json = process_request(mcp_req, session_id);
+            try {
+                json response_json = process_request(mcp_req, session_id);
 
-            // Send response via SSE
-            std::stringstream ss;
-            ss << "event: message\r\ndata: " << response_json.dump() << "\r\n\r\n";
-            bool result = dispatcher->send_event(ss.str());
-
-            if (!result) {
-                LOG_ERROR("Failed to send response via SSE: session_id=", session_id);
+                std::stringstream ss;
+                ss << "event: message\r\ndata: " << dump_wire_json(response_json) << "\r\n\r\n";
+                if (!dispatcher->send_event(ss.str())) {
+                    LOG_ERROR("Failed to send response via SSE: session_id=", session_id);
+                }
+            } catch (const std::exception& e) {
+                LOG_ERROR("Failed to serialize SSE response: session_id=", session_id, ", error=", e.what());
+                json error_json = response::create_error(
+                    mcp_req.id,
+                    error_code::internal_error,
+                    "Failed to serialize MCP response"
+                ).to_json();
+                std::stringstream ss;
+                ss << "event: message\r\ndata: " << dump_wire_json(error_json) << "\r\n\r\n";
+                if (!dispatcher->send_event(ss.str())) {
+                    LOG_ERROR("Failed to send serialization error via SSE: session_id=", session_id);
+                }
             }
         });
 
@@ -796,7 +814,7 @@ namespace mcp {
 
         // Send message
         std::stringstream ss;
-        ss << "event: message\r\ndata: " << message.dump() << "\r\n\r\n";
+        ss << "event: message\r\ndata: " << dump_wire_json(message) << "\r\n\r\n";
         bool result = dispatcher->send_event(ss.str());
 
         if (!result) {
@@ -979,7 +997,7 @@ namespace mcp {
                 return;
             }
             res.status = 200;
-            res.set_content(batch_result.dump(), "application/json");
+            res.set_content(dump_wire_json(batch_result), "application/json");
             return;
         }
 
@@ -1026,7 +1044,7 @@ namespace mcp {
                 json err =
                     response::create_error(mcp_req.id, error_code::invalid_request, "Missing Mcp-Session-Id header")
                         .to_json();
-                res.set_content(err.dump(), "application/json");
+                res.set_content(dump_wire_json(err), "application/json");
                 return;
             }
 
@@ -1039,7 +1057,7 @@ namespace mcp {
                     res.status = 404;
                     json err =
                         response::create_error(mcp_req.id, error_code::invalid_request, "Session not found").to_json();
-                    res.set_content(err.dump(), "application/json");
+                    res.set_content(dump_wire_json(err), "application/json");
                     return;
                 }
                 dispatcher = it->second;
@@ -1063,7 +1081,7 @@ namespace mcp {
         }
 
         res.status = 200;
-        res.set_content(response_json.dump(), "application/json");
+        res.set_content(dump_wire_json(response_json), "application/json");
     }
 
     void server::handle_streamable_get(const httplib::Request& req, httplib::Response& res) {
