@@ -2,7 +2,7 @@
 """
 GameAssetsFormat.py
 处理 knowledge/GameAssets 路径下的所有文件：
-  1. 过滤后缀：不在后缀集合中的文件会被删除
+  1. 过滤文件：显式删除清单中的文件，以及不在后缀集合中的文件会被删除
      （若文件名在 KEEP_FILENAMES 中，则无论后缀如何都保留）
   2. 格式化所有 JSON 文件（支持自定义"视为JSON"的后缀集合）
 """
@@ -28,6 +28,11 @@ KEEP_FILENAMES = {
     "zh_CN.lang",
 }
 
+# 要无条件删除的生成型清单文件（大小写敏感）；优先级高于保留规则
+DELETE_FILENAMES = {
+    "contents.json",
+}
+
 # 视为 JSON 内容、需要格式化的后缀（小写）
 # 除了 .json 之外，Minecraft 资源包中还有很多非 .json 后缀但内容是 JSON 的文件
 JSON_EXTENSIONS = {
@@ -50,9 +55,11 @@ def iter_files(root):
             yield os.path.join(dirpath, filename)
 
 
-def filter_files(root, keep_exts, keep_names):
+def filter_files(root, keep_exts, keep_names, delete_names):
     """
     删除 root 下不满足保留条件的文件。
+    显式删除条件优先于保留条件：
+      - 文件名（basename，大小写敏感）在 delete_names 中
     保留条件（满足任意一条即保留）：
       - 文件后缀（小写）在 keep_exts 中
       - 文件名（basename，大小写敏感）在 keep_names 中
@@ -63,7 +70,7 @@ def filter_files(root, keep_exts, keep_names):
     for filepath in iter_files(root):
         basename = os.path.basename(filepath)
         ext = os.path.splitext(filepath)[1].lower()
-        if ext in keep_exts or basename in keep_names:
+        if basename not in delete_names and (ext in keep_exts or basename in keep_names):
             kept.append(filepath)
         else:
             try:
@@ -110,12 +117,18 @@ def main():
     print(u"目标目录    : {}".format(ASSETS_DIR))
     print(u"保留后缀    : {}".format(KEEP_EXTENSIONS))
     print(u"保留文件名  : {}".format(KEEP_FILENAMES))
+    print(u"删除文件名  : {}".format(DELETE_FILENAMES))
     print(u"JSON后缀    : {}".format(JSON_EXTENSIONS))
     print()
 
     # 步骤 1：过滤文件
-    print(u"--- 步骤 1：过滤非法后缀文件 ---")
-    deleted, kept = filter_files(ASSETS_DIR, KEEP_EXTENSIONS, KEEP_FILENAMES)
+    print(u"--- 步骤 1：删除指定文件并过滤非法后缀 ---")
+    deleted, kept = filter_files(
+        ASSETS_DIR,
+        KEEP_EXTENSIONS,
+        KEEP_FILENAMES,
+        DELETE_FILENAMES,
+    )
     print(u"删除 {} 个文件，保留 {} 个文件。\n".format(len(deleted), len(kept)))
 
     # 步骤 2：格式化 JSON
