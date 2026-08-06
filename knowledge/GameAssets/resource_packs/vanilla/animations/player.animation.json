@@ -469,6 +469,18 @@
                 }
             }
         },
+        "animation.player.riding.root": {
+            "loop": true,
+            "bones": {
+                "root": {
+                    "position": [
+                        0.0,
+                        "variable.riding_y_offset ?? 0.0",
+                        0.0
+                    ]
+                }
+            }
+        },
         "animation.player.riding.arms": {
             "loop": true,
             "bones": {
@@ -512,14 +524,14 @@
             "bones": {
                 "leftleg": {
                     "rotation": [
-                        "-72.0 - this",
+                        "-81.0 - this",
                         "-18.0 - this",
                         "-this"
                     ]
                 },
                 "rightleg": {
                     "rotation": [
-                        "-72.0 - this",
+                        "-81.0 - this",
                         "18.0 - this",
                         "-this"
                     ]

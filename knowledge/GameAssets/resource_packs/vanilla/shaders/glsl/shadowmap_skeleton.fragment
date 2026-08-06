@@ -1,0 +1,85 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+
+
+#include "fragmentVersionCentroidUV.h"
+#include "uniformEntityConstants.h"
+#include "uniformShaderConstants.h"
+#include "util.h"
+
+LAYOUT_BINDING(0) uniform sampler2D TEXTURE_0;
+LAYOUT_BINDING(1) uniform sampler2D TEXTURE_1;
+
+#if defined(RNGL_SHADOW)
+	#include "shadow_util.h"
+	varying POS3 worldPos;
+	varying vec3 worldNormal;
+#endif
+
+#ifdef USE_OVERLAY
+    // When drawing horses on specific android devices, overlay color ends up being garbage data.
+    // Changing overlay color to high precision appears to fix the issue on devices tested
+	varying highp vec4 overlayColor;
+#endif
+
+varying vec4 light;
+varying vec4 fogColor;
+
+#if defined(USE_BRIGHT) || defined(RNGL_SHADOW)
+uniform vec4 HIDE_COLOR_FRAGMENT;
+#endif
+
+
+void main() {
+	vec4 color = vec4(1.0);
+
+#ifdef USE_BLOOM
+	vec4 bloomMask = vec4(1.0);
+#endif
+
+#if !defined(TEXEL_AA) || !defined(TEXEL_AA_FEATURE)
+	color = texture2D( TEXTURE_0, uv );
+#if defined(USE_BLOOM) && !defined(RNGL_SHADOW)
+	bloomMask = texture2D( TEXTURE_1, uv);
+#endif
+#else
+	color = texture2D_AA(TEXTURE_0, uv);
+#if defined(USE_BLOOM) && !defined(RNGL_SHADOW)
+	bloomMask = texture2D_AA(TEXTURE_1, uv);
+#endif
+#endif // !defined(TEXEL_AA) || !defined(TEXEL_AA_FEATURE)
+
+#if defined(RNGL_SHADOW_CASTER) && defined(RNGL_SHADOW_TRANSPARENT)
+	clipShadowTransparency(color.a);
+#endif
+
+#ifdef USE_OVERLAY
+	//use either the diffuse or the OVERLAY_COLOR
+	color.rgb = mix(color, overlayColor, overlayColor.a).rgb;
+#endif
+
+#ifdef USE_BRIGHT
+	color.rgb *= HIDE_COLOR_FRAGMENT.a;
+#endif
+
+#ifdef USE_BLOOM
+	//bloom overrides emissive
+	color.rgb *= (bloomMask.r < 0.1) ? light.rgb : vec3(bloomMask.r);
+#else
+#ifdef USE_EMISSIVE
+	//make glowy stuff
+	color *= mix(vec4(1.0), light, color.a);
+#else
+#ifdef RNGL_SHADOW
+	color *= getShadowedLight(TEXTURE_1, light, HIDE_COLOR_FRAGMENT.xyz, HIDE_COLOR_FRAGMENT.a, worldPos, worldNormal);
+#else
+	color *= light;
+#endif  // RNGL_SHADOW
+#endif  // USE_EMISSIVE
+#endif  // USE_BLOOM
+
+	//apply fog
+	color.rgb = mix(color.rgb, fogColor.rgb, fogColor.a);
+
+	gl_FragColor = color;
+}

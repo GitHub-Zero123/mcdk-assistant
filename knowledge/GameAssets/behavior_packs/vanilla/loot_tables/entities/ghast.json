@@ -51,6 +51,26 @@
                     ]
                 }
             ]
+        },
+        {
+            "conditions": [
+                {
+                    "condition": "killed_by_entity",
+                    "entity_type": "minecraft:player"
+                },
+                {
+                    "condition": "damaged_by_entity",
+                    "entity_type": "minecraft:fireball"
+                }
+            ],
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "item",
+                    "name": "minecraft:music_disc_tears",
+                    "weight": 1
+                }
+            ]
         }
     ]
 }

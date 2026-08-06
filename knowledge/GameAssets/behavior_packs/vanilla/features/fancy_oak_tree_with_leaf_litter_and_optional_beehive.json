@@ -1,0 +1,14 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:aggregate_feature": {
+    "description": {
+      // This breaks the convention by not ending with _feature because that would take it over the length limit of 64 characters for the file name
+      "identifier": "minecraft:fancy_oak_tree_with_leaf_litter_and_optional_beehive"
+    },
+    "early_out": "first_failure",
+    "features": [
+      "minecraft:fancy_oak_tree_with_optional_beehive_feature",
+      "minecraft:scatter_leaf_litter_feature"
+    ]
+  }
+}

@@ -6,6 +6,9 @@
             "materials": {
                 "default": "llama"
             },
+            "geometry": {
+                "default": "geometry.llama.v1.8"
+            },
             "textures": {
                 "creamy": "textures/entity/llama/llama_creamy",
                 "white": "textures/entity/llama/llama_white",
@@ -30,14 +33,17 @@
                 "decor_black": "textures/entity/llama/decor/decor_black",
                 "decor_wandering_trader": "textures/entity/llama/decor/trader_llama_decor"
             },
-            "geometry": {
-                "default": "geometry.llama.v1.8"
-            },
             "animations": {
                 "setup": "animation.llama.setup",
                 "walk": "animation.quadruped.walk",
                 "look_at_target": "animation.common.look_at_target",
                 "baby_transform": "animation.llama.baby_transform"
+            },
+            "render_controllers": [
+                "controller.render.llama"
+            ],
+            "spawn_egg": {
+                "texture": "spawn_egg_trader_llama"
             },
             "animation_controllers": [
                 {
@@ -46,14 +52,7 @@
                 {
                     "baby": "controller.animation.llama.baby"
                 }
-            ],
-            "render_controllers": [
-                "controller.render.llama"
-            ],
-            "spawn_egg": {
-                "base_color": "#eaa430",
-                "overlay_color": "#456296"
-            }
+            ]
         }
     }
 }

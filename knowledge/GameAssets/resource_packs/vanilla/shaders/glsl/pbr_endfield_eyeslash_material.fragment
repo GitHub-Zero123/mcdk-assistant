@@ -1,0 +1,124 @@
+// __multiversion__
+// MCPE-facing translation for the Endfield eye-lash/eye-makeup mesh.
+// The captured face shader samples res48_face through _48 as an alpha overlay
+// and color-grades the result through the res46 flattened 32x32x32 LUT.
+#line 5
+precision highp float;
+
+#if __VERSION__ < 300
+  #extension GL_EXT_shader_texture_lod : enable
+#endif
+
+#include "uniformPerFrameConstants.h"
+#include "uniformExtraVectorConstants.h"
+#include "neteaseModelFragmentUtil.h"
+#include "pbr_util.h"
+
+LAYOUT_BINDING(0) uniform sampler2D TEXTURE_0; // res48_face: lash/makeup color + alpha
+LAYOUT_BINDING(1) uniform sampler2D TEXTURE_1; // res46: 32x32x32 color LUT
+
+varying highp vec4 light;
+varying highp vec4 fogColor;
+varying highp vec3 positionWS;
+varying highp vec3 normalWS;
+varying highp vec4 tangentWS;
+varying highp vec3 lightDirWS;
+varying highp float lightIntensity;
+#ifdef USE_VISIBLE_SH_MAP
+varying highp vec2 uvSH;
+#endif
+
+float saturate(float x) { return clamp(x, 0.0, 1.0); }
+vec3 saturate(vec3 x) { return clamp(x, vec3(0.0), vec3(1.0)); }
+
+// EXTRA_VECTOR1 = (diffuse scale, alpha scale, alpha power, spec scale)
+// EXTRA_VECTOR2 = (LUT strength, rim strength, ambient scale, alpha cutoff)
+vec4 getLashParams1() {
+#ifdef USE_EXTRA_VECTOR
+    vec4 v = EXTRA_VECTOR1;
+    if (v.x + v.y + v.z + v.w > 0.001) return max(v, vec4(0.0));
+#endif
+    return vec4(1.0, 1.0, 1.0, 0.12);
+}
+
+vec4 getLashParams2() {
+#ifdef USE_EXTRA_VECTOR
+    vec4 v = EXTRA_VECTOR2;
+    if (v.x + v.y + v.z + v.w > 0.001) return max(v, vec4(0.0));
+#endif
+    return vec4(0.70, 0.12, 0.58, 0.015);
+}
+
+// shader_face_endfield.txt: _49 lookup around lines 475-499.
+// res46 is a 32-slice LUT flattened horizontally: 1024x32.
+vec3 sampleFaceLut(vec3 srgbColor) {
+    vec3 c = saturate(srgbColor);
+    float z = c.b * 31.0;
+    float slice0 = floor(z);
+    float slice1 = min(slice0 + 1.0, 31.0);
+    float sliceMix = z - slice0;
+    vec2 uv0 = vec2((c.r * 31.0 + slice0 * 32.0 + 0.5) / 1024.0,
+                    (c.g * 31.0 + 0.5) / 32.0);
+    vec2 uv1 = vec2((c.r * 31.0 + slice1 * 32.0 + 0.5) / 1024.0,
+                    (c.g * 31.0 + 0.5) / 32.0);
+    return mix(texture2D(TEXTURE_1, uv0).rgb, texture2D(TEXTURE_1, uv1).rgb, sliceMix);
+}
+
+#ifdef USE_VISIBLE_SH_MAP
+mediump vec3 reconstructDiffuseIrradiance(mediump vec3 n) {
+    mediump vec3 nsq = n * n;
+    return nsq.x * (n.x >= 0.0 ? EXTRA_VECTOR3.xyz : EXTRA_VECTOR4.xyz)
+         + nsq.y * (n.y >= 0.0 ? EXTRA_VECTOR5.xyz : EXTRA_VECTOR6.xyz)
+         + nsq.z * (n.z >= 0.0 ? EXTRA_VECTOR7.xyz : EXTRA_VECTOR8.xyz);
+}
+#endif
+
+void main() {
+    vec4 lashParams1 = getLashParams1();
+    vec4 lashParams2 = getLashParams2();
+
+    vec4 baseSample = getSampledColor(TEXTURE_0, uv);
+    float alpha = pow(saturate(baseSample.a), max(lashParams1.z, 0.01)) * max(lashParams1.y, 0.0);
+    if (alpha <= max(lashParams2.w, 0.001)) discard;
+
+    vec3 gradedSRGB = sampleFaceLut(baseSample.rgb);
+    vec3 albedoSRGB = mix(baseSample.rgb, gradedSRGB, saturate(lashParams2.x));
+    vec3 albedo = sRGBToLinear(albedoSRGB);
+
+    vec3 N = normalize(normalWS);
+    vec3 V = normalize(-positionWS);
+    vec3 L = normalize(lightDirWS);
+
+    float NoL = max(dot(N, L), 0.0);
+    float halfLambert = saturate(NoL * 0.5 + 0.5);
+    vec3 lightColor = mix(vec3(0.42, 0.50, 0.68), vec3(1.0, 0.95, 0.88), lightIntensity) * lightIntensity;
+    vec3 direct = albedo * lightColor * (0.22 + 0.78 * halfLambert) * max(lashParams1.x, 0.0);
+
+#ifdef USE_VISIBLE_SH_MAP
+    vec3 diffuseEnv = reconstructDiffuseIrradiance(N);
+#else
+    vec3 diffuseEnv = vec3(0.42, 0.46, 0.54);
+#endif
+    vec3 ambient = diffuseEnv * albedo * max(lashParams2.z, 0.0);
+
+    float NoV = max(dot(N, V), MIN_NOV);
+    vec3 H = normalize(V + L);
+    float NoH = max(dot(N, H), 0.0);
+    float VoH = max(dot(V, H), 0.0);
+    float roughness = perceptualRoughnessToRoughness(0.42);
+    vec3 F = F_Schlick(VoH, vec3(0.025));
+    float D = D_GGX(NoH, roughness, N, H);
+    float G = V_SmithGGXCorrelated(NoV, max(NoL, 0.001), roughness);
+    vec3 specular = F * (D * G * NoL) * lightColor * max(lashParams1.w, 0.0);
+
+    float rim = pow(1.0 - NoV, 3.0) * max(lashParams2.y, 0.0);
+    vec3 hdrColor = direct + ambient + specular + vec3(0.45, 0.58, 0.85) * rim;
+    vec3 finalColor = tonemapACES(hdrColor);
+    finalColor = pow(max(finalColor, vec3(0.0)), vec3(1.0 / 2.2));
+
+    vec4 color = vec4(saturate(finalColor), saturate(alpha));
+    neteaseModelCommonFrag(color);
+    applyOverlayColor(color);
+    applyFog(color, fogColor);
+    gl_FragColor = color;
+}

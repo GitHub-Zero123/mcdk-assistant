@@ -4,30 +4,29 @@
         "description": {
             "identifier": "minecraft:grass_double_plant_patch_feature"
         },
-        "iterations": 64,
-        "coordinate_eval_order": "zyx",
+        "iterations": 32,
         "x": {
+            "distribution": "triangle",
             "extent": [
-                -8,
-                8
-            ],
-            "distribution": "triangle"
-        },
-        "z": {
-            "extent": [
-                -8,
-                8
-            ],
-            "distribution": "triangle"
+                -7,
+                7
+            ]
         },
         "y": {
+            "distribution": "triangle",
             "extent": [
-                -4,
-                4
-            ],
-            "distribution": "triangle"
+                -3,
+                3
+            ]
         },
-        "project_input_to_floor": false,
+        "z": {
+            "distribution": "triangle",
+            "extent": [
+                -7,
+                7
+            ]
+        },
+        "coordinate_eval_order": "zyx",
         "places_feature": "minecraft:grass_double_plant_feature"
     }
 }

@@ -13,11 +13,11 @@
 #define _centroid
 #endif
 
-_centroid out vec2 uv;
+_centroid out highp vec2 uv;
 
 #else
 
-varying vec2 uv;
+varying highp vec2 uv;
 
 #endif
 

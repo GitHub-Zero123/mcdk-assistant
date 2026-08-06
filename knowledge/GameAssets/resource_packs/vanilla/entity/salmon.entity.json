@@ -6,11 +6,21 @@
             "materials": {
                 "default": "salmon"
             },
+            "geometry": {
+                "default": "geometry.salmon"
+            },
             "textures": {
                 "default": "textures/entity/fish/salmon"
             },
-            "geometry": {
-                "default": "geometry.salmon"
+            "animations": {
+                "flop": "animation.salmon.flop",
+                "swim": "animation.salmon.swim"
+            },
+            "render_controllers": [
+                "controller.render.salmon"
+            ],
+            "spawn_egg": {
+                "texture": "spawn_egg_salmon"
             },
             "scripts": {
                 "pre_animation": [
@@ -18,22 +28,11 @@
                     "variable.AnimationAmountBlend = Math.lerp(variable.AnimationAmountPrev, variable.AnimationAmount, query.frame_alpha);"
                 ]
             },
-            "animations": {
-                "flop": "animation.salmon.flop",
-                "swim": "animation.salmon.swim"
-            },
             "animation_controllers": [
                 {
                     "general": "controller.animation.fish.general"
                 }
-            ],
-            "render_controllers": [
-                "controller.render.salmon"
-            ],
-            "spawn_egg": {
-                "texture": "spawn_egg",
-                "texture_index": 47
-            }
+            ]
         }
     }
 }

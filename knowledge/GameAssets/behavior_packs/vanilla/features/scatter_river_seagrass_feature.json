@@ -1,0 +1,26 @@
+{
+    "format_version": "1.13.0",
+    "minecraft:scatter_feature": {
+        "description": {
+            "identifier": "minecraft:scatter_river_seagrass_feature"
+        },
+        "iterations": 48,
+        "x": {
+            "distribution": "triangle",
+            "extent": [
+                -8,
+                8
+            ]
+        },
+        "y": "query.heightmap(variable.worldx, variable.worldz)",
+        "z": {
+            "distribution": "triangle",
+            "extent": [
+                -8,
+                8
+            ]
+        },
+        "coordinate_eval_order": "zxy",
+        "places_feature": "minecraft:shorter_seagrass_feature"
+    }
+}

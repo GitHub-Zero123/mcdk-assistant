@@ -9,6 +9,8 @@
   "standard_title_label": {
     "type": "label",
     "size": [ "default", 10 ],
+    "$title_max_size|default": [ "default", 10 ],
+    "max_size": "$title_max_size",
     "color": "$title_text_color",
     "text": "$text_name",
     "layer": 4,
@@ -370,12 +372,6 @@
     "layer": 2,
     "$fill_alpha|default": 0.8,
     "$dialog_background_texture|default": "textures/ui/control",
-    "variables": [
-      {
-        "requires": "$is_holographic",
-        "$fill_alpha": 1.0
-      }
-    ],
     "controls": [
       {
         "control": {
@@ -486,10 +482,6 @@
     "type": "panel",
     "$fill_alpha|default": 0.8,
     "variables": [
-      {
-        "requires": "$is_holographic",
-        "$fill_alpha": 1.0
-      },
       {
         "requires": "$is_full_screen_layout",
         "$screen_background_control|default": "common_dialogs.background_image"

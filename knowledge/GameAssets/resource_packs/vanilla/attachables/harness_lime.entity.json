@@ -1,0 +1,20 @@
+{
+    "format_version": "1.10.0",
+    "minecraft:attachable": {
+        "description": {
+            "identifier": "minecraft:lime_harness",
+            "materials": {
+                "default": "harness"
+            },
+            "textures": {
+                "default": "textures/entity/harness/harness_lime"
+            },
+            "geometry": {
+                "default": "geometry.harness"
+            },
+            "render_controllers": [
+                "controller.render.harness"
+            ]
+        }
+    }
+}

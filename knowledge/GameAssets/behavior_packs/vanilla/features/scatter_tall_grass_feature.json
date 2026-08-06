@@ -4,26 +4,26 @@
         "description": {
             "identifier": "minecraft:scatter_tall_grass_feature"
         },
-        "iterations": 90,
+        "iterations": 32,
         "x": {
             "distribution": "triangle",
             "extent": [
-                -8,
-                8
+                -7,
+                7
             ]
         },
         "y": {
             "distribution": "triangle",
             "extent": [
-                -4,
-                4
+                -3,
+                3
             ]
         },
         "z": {
             "distribution": "triangle",
             "extent": [
-                -8,
-                8
+                -7,
+                7
             ]
         },
         "coordinate_eval_order": "zyx",

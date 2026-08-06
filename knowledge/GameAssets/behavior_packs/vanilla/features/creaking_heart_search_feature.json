@@ -1,23 +1,18 @@
 {
-    "format_version": "1.13.0",
-    "minecraft:search_feature": {
-        "description": {
-            "identifier": "minecraft:creaking_heart_search_feature"
-        },
-        "places_feature": "minecraft:creaking_heart_feature",
-        "search_volume": {
-            "min": [
-                0,
-                4,
-                0
-            ],
-            "max": [
-                2,
-                9,
-                2
-            ]
-        },
-        "search_axis": "+y",
-        "required_successes": 1
-    }
+  "format_version": "1.13.0",
+  "minecraft:search_feature": {
+    "description": {
+      "identifier": "minecraft:creaking_heart_search_feature"
+    },
+    "places_feature": "minecraft:creaking_heart_feature",
+    "search_volume": {
+      // Since the Creaking Heart can be placed only if surrounded by Pale Oak Logs,
+      // there's no point in searching at positions others than the ones where branches
+      // can generate, as they are what is going to provide the necessary coverage.
+      "min": [ 0, 1, 0 ],
+      "max": [ 2, 9, 2 ]
+    },
+    "search_axis": "+y",
+    "required_successes": 1
+  }
 }

@@ -3,20 +3,19 @@
     "minecraft:feature_rules": {
         "description": {
             "identifier": "minecraft:grove_spruce_tree_feature",
-            "places_feature": "minecraft:mountain_spruce_tree_feature"
+            "places_feature": "minecraft:optional_mountain_spruce_tree_feature"
         },
         "conditions": {
             "placement_pass": "surface_pass",
             "minecraft:biome_filter": [
                 {
                     "test": "has_biome_tag",
-                    "operator": "==",
                     "value": "grove"
                 }
             ]
         },
         "distribution": {
-            "iterations": 7,
+            "iterations": "Math.Random(10, 11)",
             "x": {
                 "distribution": "uniform",
                 "extent": [

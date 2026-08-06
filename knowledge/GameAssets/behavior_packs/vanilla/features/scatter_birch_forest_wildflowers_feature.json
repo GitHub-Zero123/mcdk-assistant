@@ -1,0 +1,32 @@
+{
+    "format_version": "1.13.0",
+    "minecraft:scatter_feature": {
+        "description": {
+            "identifier": "minecraft:scatter_birch_forest_wildflowers_feature"
+        },
+        "iterations": 64,
+        "x": {
+            "distribution": "triangle",
+            "extent": [
+                -6,
+                6
+            ]
+        },
+        "y": {
+            "distribution": "triangle",
+            "extent": [
+                -2,
+                2
+            ]
+        },
+        "z": {
+            "distribution": "triangle",
+            "extent": [
+                -6,
+                6
+            ]
+        },
+        "coordinate_eval_order": "zyx",
+        "places_feature": "minecraft:wildflowers_feature"
+    }
+}

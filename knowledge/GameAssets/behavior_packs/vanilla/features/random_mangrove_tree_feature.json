@@ -1,0 +1,18 @@
+{
+    "format_version": "1.16.0",
+    "minecraft:weighted_random_feature": {
+        "description": {
+            "identifier": "minecraft:random_mangrove_tree_feature"
+        },
+        "features": [
+            [
+                "minecraft:tall_mangrove_tree_feature",
+                85
+            ],
+            [
+                "minecraft:mangrove_tree_feature",
+                15
+            ]
+        ]
+    }
+}

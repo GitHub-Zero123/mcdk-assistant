@@ -55,6 +55,27 @@
                     "weight": 1
                 }
             ]
+        },
+        {
+            "conditions": [
+                {
+                    "condition": "killed_by_player_or_pets"
+                },
+                {
+                    "condition": "passenger_of_entity",
+                    "entity_type": "minecraft:chicken"
+                },
+                {
+                    "condition": "is_baby"
+                }
+            ],
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "item",
+                    "name": "minecraft:music_disc_lava_chicken"
+                }
+            ]
         }
     ]
 }

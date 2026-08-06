@@ -7,27 +7,26 @@
                 "default": "silverfish",
                 "body_layer": "silverfish_layers"
             },
-            "textures": {
-                "default": "textures/entity/silverfish"
-            },
             "geometry": {
                 "default": "geometry.silverfish"
             },
+            "textures": {
+                "default": "textures/entity/silverfish"
+            },
             "animations": {
                 "move": "animation.silverfish.move"
+            },
+            "render_controllers": [
+                "controller.render.silverfish"
+            ],
+            "spawn_egg": {
+                "texture": "spawn_egg_silverfish"
             },
             "animation_controllers": [
                 {
                     "move": "controller.animation.silverfish.move"
                 }
-            ],
-            "render_controllers": [
-                "controller.render.silverfish"
-            ],
-            "spawn_egg": {
-                "texture": "spawn_egg",
-                "texture_index": 8
-            }
+            ]
         }
     }
 }

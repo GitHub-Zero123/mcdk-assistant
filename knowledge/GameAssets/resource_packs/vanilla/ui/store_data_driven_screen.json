@@ -241,45 +241,118 @@
 
     "$nav_button_binding_type|default": "global",
     "$nav_button_collection_name|default": "",
+    "$nav_button_label_type|default": "store_layout.default_nav_label_panel",
 
     "controls": [
       {
         "image_panel@store_layout.nav_image_panel": {}
       },
       {
-        "padding": {
+        "small_padding":
+        {
           "type": "panel",
-          "size": [ 4, "100%" ]
+          "size": [ "2px", "100%" ]
         }
       },
       {
-        "label_panel": {
-          "type": "panel",
-          "size": [ "fill", "100%" ],
-          "controls": [
+        "label_panel@$nav_button_label_type": {}
+      }
+    ]
+  },
+
+  "default_nav_label_panel": {
+    "type": "panel",
+    "size": [ "fill", "100%" ],
+    "controls": [
+      {
+        "button_text_label@common_buttons.new_ui_binding_button_label": {
+          "layer": 5,
+          "$button_text": "#nav_button_label",
+          "$button_text_size": [ "100%", "default" ],
+          "$button_text_max_size": [ "100%", 20 ],
+          "$text_alignment": "left",
+          "bindings": [
             {
-              "button_text_label@common_buttons.new_ui_binding_button_label": {
-                "layer": 5,
-                "$button_text": "#nav_button_label",
-                "$button_text_size": [ "100%", "default" ],
-                "$button_text_max_size": [ "100%", 20 ],
-                "$text_alignment": "left",
-                "bindings": [
-                  {
-                    "binding_type": "$store_factory_collection_details",
-                    "binding_collection_name": "$store_factory_collection_name",
-                    "binding_collection_prefix": "$store_factory_collection_prefix"
-                  },
-                  {
-                    "binding_type": "$nav_button_binding_type",
-                    "binding_collection_name": "$nav_button_collection_name",
-                    "binding_name": "$button_text"
-                  }
-                ]
-              }
+              "binding_type": "$store_factory_collection_details",
+              "binding_collection_name": "$store_factory_collection_name",
+              "binding_collection_prefix": "$store_factory_collection_prefix"
+            },
+            {
+              "binding_type": "$nav_button_binding_type",
+              "binding_collection_name": "$nav_button_collection_name",
+              "binding_name": "$button_text"
             }
           ]
         }
+      }
+    ]
+  },
+
+  "styled_nav_label_panel": {
+    "type": "panel",
+    "size": [ "fill", "100%" ],
+    "controls": [
+      {
+        "button_text_label@store_layout.default_styled_button_text_label": {}
+      }
+    ]
+  },
+
+  "styled_nav_label_panel_minecraftTen": {
+    "type": "panel",
+    "size": [ "fill", "100%" ],
+    "controls": [
+      {
+        "button_text_label@store_layout.default_styled_button_text_label": {
+          //For handling of MinecraftTen font for less powerful devices. see minecraftTenLabel as reference.
+          "font_type": "MinecraftTen", //directly assigned here, not more font_type binding
+          "backup_font_type": "UIFont",
+          "variables": [
+            {
+              "requires": "(not $is_low_memory_device)", // We don't load MinecraftTen in these cases so we need to revert to Mojangles.
+              "$button_font_scale_factor": 1.39,
+              "$new_ui_label_offset": [ 0, -2 ] // Because of how the font is rendered it looks like it is offset down from the center of the render area
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "default_styled_button_text_label@common_buttons.new_ui_binding_button_label": {
+    "layer": 5,
+    "$button_text": "#nav_button_label",
+    "$button_text_size": [ "100% - 8px", "default" ],
+    "$button_text_max_size": [ "100%", 20 ],
+    "bindings": [
+      {
+        "binding_type": "$store_factory_collection_details",
+        "binding_collection_name": "$store_factory_collection_name",
+        "binding_collection_prefix": "$store_factory_collection_prefix"
+      },
+      {
+        "binding_type": "$nav_button_binding_type",
+        "binding_collection_name": "$nav_button_collection_name",
+        "binding_name": "$button_text"
+      },
+      {
+        "binding_type": "$nav_button_binding_type",
+        "binding_collection_name": "$nav_button_collection_name",
+        "binding_name": "#tab_button_label_alignment",
+        "binding_name_override": "#text_alignment"
+      },
+      {
+        "binding_type": "$nav_button_binding_type",
+        "binding_collection_name": "$nav_button_collection_name",
+        "binding_name": "#tab_button_label_font_type",
+        "binding_name_override": "#font_type"
+      },
+      {
+        "ignored": "(not $default_state)",
+        "binding_type": "$nav_button_binding_type",
+        "binding_collection_name": "$nav_button_collection_name",
+        "binding_name": "#tab_button_label_text_color",
+        "binding_name_override": "#color"
       }
     ]
   },
@@ -332,6 +405,7 @@
     "size": [ "100%c", "100%" ],
     "$nav_button_image_content|default": "store_layout.nav_button_image",
     "$nav_texture_binding_name|default": "#nav_button_texture",
+    "$nav_texture_file_system_binding_name|default": "#nav_button_thumbnail_texture_file_system",
     "controls": [
       {
         "button_image@$nav_button_image_content": {
@@ -346,6 +420,12 @@
               "binding_collection_name": "$nav_button_collection_name",
               "binding_name": "$nav_texture_binding_name",
               "binding_name_override": "#texture"
+            },
+            {
+              "binding_type": "$nav_button_binding_type",
+              "binding_collection_name": "$nav_button_collection_name",
+              "binding_name": "$nav_texture_file_system_binding_name",
+              "binding_name_override": "#texture_file_system"
             },
             {
               "binding_type": "$nav_button_binding_type",
@@ -388,6 +468,24 @@
 
   "nav_button_fill@store_layout.nav_button_standard": {
     "size": [ "fill", "100%" ]
+  },
+
+  "nav_button_fill_styled@store_layout.nav_button_standard": {
+    "size": [ "fill", "100%" ],
+    "$nav_button_label_type": "store_layout.styled_nav_label_panel"
+  },
+
+  "nav_button_fill_styled_mc10@store_layout.nav_button_standard": {
+    "size": [ "fill", "100%" ],
+    "$nav_button_label_type": "store_layout.styled_nav_label_panel_minecraftTen"
+  },
+
+  "nav_button_standard_styled@store_layout.nav_button_standard": {
+    "$nav_button_label_type": "store_layout.styled_nav_label_panel"
+  },
+
+  "nav_button_standard_styled_mc10@store_layout.nav_button_standard": {
+    "$nav_button_label_type": "store_layout.styled_nav_label_panel_minecraftTen"
   },
 
   "nav_button_standard": {
@@ -439,7 +537,11 @@
             "name": "nav_button_factory",
             "control_ids": {
               "nav_button_standard": "@store_layout.nav_button_standard",
-              "nav_button_fill": "@store_layout.nav_button_fill"
+              "nav_button_fill": "@store_layout.nav_button_fill",
+              "nav_button_standard_styled": "@store_layout.nav_button_standard_styled",
+              "nav_button_standard_styled_mc10": "@store_layout.nav_button_standard_styled_mc10",
+              "nav_button_fill_styled": "@store_layout.nav_button_fill_styled",
+              "nav_button_fill_styled_mc10": "@store_layout.nav_button_fill_styled_mc10"
             },
             "factory_variables": [
               "$nav_button_collection_name",
@@ -509,8 +611,6 @@
       }
     ]
   },
-
-
 
   //--------------------------------------------------------------------------------
   // Screen
@@ -650,7 +750,7 @@
           "$child_control": "store_layout.store_screen_main_panel",
           "$button_text": "store.title",
           "$top_status_and_coins_visible_binding_type": "global",
-          "$top_status_and_coins_visible_binding": "#coin_visible"
+          "$top_status_and_coins_visible_binding": "#header_coins_visible"
         }
       },
       {
@@ -660,7 +760,7 @@
             "no_store_connection": "@common_store.popup_dialog__no_store_connection",
             "restore_popup": "@common_store.popup_dialog__restore_popup",
             "restore_failed": "@common_store.popup_dialog__restore_failed",
-            "realms_plus_extra_info": "@persona.popup_dialog__realms_plus_extra_info"
+            "realms_plus_extra_info": "@persona_popups.popup_dialog__realms_plus_extra_info"
           }
         }
       },
@@ -668,10 +768,10 @@
         "character_selector_dialog_factory": {
           "type": "factory",
           "control_ids": {
-            "difference_information": "@profile.popup_dialog__difference_information",
-            "difference_preview": "@profile.popup_dialog__preview_difference_information",
-            "delete_persona": "@profile.popup_dialog__delete_persona",
-            "create_persona": "@profile.popup_dialog__create_persona",
+            "difference_information": "@persona_popups.popup_dialog__difference_information",
+            "difference_preview": "@persona_popups.popup_dialog__preview_difference_information",
+            "delete_persona": "@persona_popups.popup_dialog__delete_persona",
+            "create_persona": "@persona_popups.popup_dialog__create_persona",
             "cast_character_select_popup": "@persona_cast_character_screen.popup_dialog__cast_character_select",
             "cast_character_preview_page_one": "@persona_cast_character_screen.cast_preview_page_one",
             "cast_character_preview_page_two": "@persona_cast_character_screen.cast_preview_page_two"
@@ -682,11 +782,11 @@
         "custom_skin_dialog_factory": {
           "type": "factory",
           "control_ids": {
-            "invalid_custom_skin": "@persona.popup_dialog__invalid_custom_skin",
-            "choose_skin_type": "@persona.popup_dialog__choose_skin_type",
-            "upsell_without_store": "@persona.popup_dialog__upsell_without_store",
-            "custom_skin_info": "@persona.popup_dialog__custom_skin_info",
-            "emote_equip_slot_editor": "@persona.popup_dialog__emote_equip_slot_editor"
+            "invalid_custom_skin": "@persona_popups.popup_dialog__invalid_custom_skin",
+            "choose_skin_type": "@persona_popups.popup_dialog__choose_skin_type",
+            "upsell_without_store": "@persona_popups.popup_dialog__upsell_without_store",
+            "custom_skin_info": "@persona_popups.popup_dialog__custom_skin_info",
+            "emote_equip_slot_editor": "@persona_popups.popup_dialog__emote_equip_slot_editor"
           }
         }
       }
@@ -703,8 +803,8 @@
 
   "character_creator_base_screen@store_layout.sdl_base_screen": {
     "$sdl_screen_content": "store_layout.character_creator_screen_layout",
+    "$extra_arrow_panel_content": "persona_sdl.open_color_picker_button",
     "$allows_sdl_section_focus_container": false,
-    "$ignore_search": "(not $is_persona_search_enabled)",
     "bindings": [
       {
         "binding_name": "#register_as_dressing_room_scene",
@@ -726,26 +826,29 @@
   "store_data_driven_screen@store_layout.sdl_base_screen": {},
 
   "character_creator_screen@store_layout.character_creator_base_screen": {
-    "$sdl_screen_content": "store_layout.character_creator_screen_layout"
+    "$sdl_screen_content": "store_layout.character_creator_screen_layout",
+    "$requires_restore_button": false
   },
 
   "dressing_room_color_picker_screen@store_layout.character_creator_screen": {
     "$persona_dialog_content": "persona_sdl.color_picker_content_panel",
-    "$character_creator_right_side_content": "persona_sdl.color_picker_right_side_stack"
+    "$character_creator_right_side_content": "persona_sdl.color_picker_right_side_stack",
+    "$requires_restore_button": false
   },
 
   "expanded_appearance_view_screen@store_layout.character_creator_base_screen": {
-    "$sdl_screen_content": "persona_sdl.expanded_appearance_view"
+    "$sdl_screen_content": "persona_sdl.expanded_appearance_view",
+    "$requires_restore_button": false
   },
 
   "non_scrollable_sdl_screen@store_layout.sdl_base_screen": {
     "$is_non_scrollable_sdl_screen": true,
-    "$ignore_search": "(not $is_persona_search_enabled)"
+    "$requires_restore_button": false
   },
 
   "skin_selector_screen@store_layout.sdl_base_screen": {
     "$sdl_screen_content": "store_layout.character_creator_screen_layout",
-    "$ignore_search": "(not $is_persona_search_enabled)",
+    "$requires_restore_button": false,
     "bindings": [
       {
         "binding_name": "#register_as_dressing_room_scene",
@@ -767,7 +870,8 @@
     "$header_bar_control": "common.empty_panel",
     "$screen_background_control": "common_store.store_background",
     "$is_full_screen_layout": false,
-    "force_render_below": true
+    "force_render_below": true,
+    "$requires_restore_button": false
   }
 
 }

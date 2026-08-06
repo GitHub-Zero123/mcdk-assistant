@@ -3,9 +3,11 @@
     "minecraft:client_entity": {
         "description": {
             "identifier": "minecraft:llama",
-            "min_engine_version": "1.8.0",
             "materials": {
                 "default": "llama"
+            },
+            "geometry": {
+                "default": "geometry.llama.v1.8"
             },
             "textures": {
                 "creamy": "textures/entity/llama/llama_creamy",
@@ -31,15 +33,19 @@
                 "decor_black": "textures/entity/llama/decor/decor_black",
                 "decor_wandering_trader": "textures/entity/llama/decor/trader_llama_decor"
             },
-            "geometry": {
-                "default": "geometry.llama.v1.8"
-            },
             "animations": {
                 "setup": "animation.llama.setup",
                 "walk": "animation.quadruped.walk",
                 "look_at_target": "animation.common.look_at_target",
                 "baby_transform": "animation.llama.baby_transform"
             },
+            "render_controllers": [
+                "controller.render.llama"
+            ],
+            "spawn_egg": {
+                "texture": "spawn_egg_llama"
+            },
+            "min_engine_version": "1.8.0",
             "animation_controllers": [
                 {
                     "move": "controller.animation.llama.move"
@@ -47,14 +53,7 @@
                 {
                     "baby": "controller.animation.llama.baby"
                 }
-            ],
-            "render_controllers": [
-                "controller.render.llama"
-            ],
-            "spawn_egg": {
-                "texture": "spawn_egg",
-                "texture_index": 38
-            }
+            ]
         }
     }
 }

@@ -28,13 +28,19 @@
         }
       },
       "roots_may_grow_through": [
-        "minecraft:mangrove_propagule",
-        "minecraft:mangrove_roots",
-        "minecraft:moss_carpet",
-        "minecraft:mud",
-        "minecraft:muddy_mangrove_roots",
+        "minecraft:air",
         "minecraft:snow_layer",
-        "minecraft:vine"
+        // Root blocks
+        "minecraft:mud",
+        "minecraft:mangrove_roots",
+        "minecraft:muddy_mangrove_roots",
+        // Water
+        "minecraft:water",
+        "minecraft:flowing_water",
+        // Blocks used to decorate the tree
+        "minecraft:vine",
+        "minecraft:moss_carpet",
+        "minecraft:mangrove_propagule"
       ]
     },
     "mangrove_trunk": {
@@ -122,7 +128,10 @@
       // Blocks used to decorate the tree
       "minecraft:vine",
       "minecraft:moss_carpet",
-      "minecraft:mangrove_propagule"
+      "minecraft:mangrove_propagule",
+      // Plants
+      "minecraft:wildflowers",
+      "minecraft:leaf_litter"
     ]
   }
 }

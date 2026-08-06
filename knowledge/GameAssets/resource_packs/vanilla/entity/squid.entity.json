@@ -6,28 +6,27 @@
             "materials": {
                 "default": "squid"
             },
-            "textures": {
-                "default": "textures/entity/squid"
-            },
             "geometry": {
                 "default": "geometry.squid"
+            },
+            "textures": {
+                "default": "textures/entity/squid"
             },
             "animations": {
                 "move": "animation.squid.move",
                 "squid_rotate": "animation.squid.rotate"
+            },
+            "render_controllers": [
+                "controller.render.squid"
+            ],
+            "spawn_egg": {
+                "texture": "spawn_egg_squid"
             },
             "scripts": {
                 "animate": [
                     "move",
                     "squid_rotate"
                 ]
-            },
-            "render_controllers": [
-                "controller.render.squid"
-            ],
-            "spawn_egg": {
-                "texture": "spawn_egg",
-                "texture_index": 15
             }
         }
     }

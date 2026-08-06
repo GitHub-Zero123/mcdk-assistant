@@ -308,12 +308,6 @@
                     "size": [
                         "100%",
                         20
-                    ],
-                    "bindings": [
-                        {
-                            "binding_name": "#realms_content_creator_button_visible",
-                            "binding_name_override": "#visible"
-                        }
                     ]
                 }
             },
@@ -487,18 +481,6 @@
                                         "binding_name": "#key_art_texture_path",
                                         "binding_name_override": "#texture"
                                     }
-                                ],
-                                "controls": [
-                                    {
-                                        "csb_chevron@csb_content.csb_content_chevron": {
-                                            "anchor_from": "bottom_left",
-                                            "anchor_to": "bottom_left",
-                                            "offset": [
-                                                0,
-                                                0.5
-                                            ]
-                                        }
-                                    }
                                 ]
                             }
                         },
@@ -566,12 +548,5 @@
                 }
             }
         ]
-    },
-    "realms_plus_content_chevron@realmsPlus.markdown_background": {
-        "size": [
-            "100%c",
-            12
-        ],
-        "layer": 1
     }
 }

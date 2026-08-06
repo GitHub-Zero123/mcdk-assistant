@@ -6,15 +6,23 @@
             "materials": {
                 "default": "goat"
             },
-            "textures": {
-                "default": "textures/entity/goat/goat"
-            },
             "geometry": {
                 "default": "geometry.goat"
             },
+            "textures": {
+                "default": "textures/entity/goat/goat"
+            },
+            "animations": {
+                "walk": "animation.goat.walk",
+                "look_at_target": "animation.goat.look_at_target",
+                "attack": "animation.goat.attack",
+                "ram_attack": "animation.goat.ram_attack"
+            },
+            "render_controllers": [
+                "controller.render.goat"
+            ],
             "spawn_egg": {
-                "base_color": "#c0ac90",
-                "overlay_color": "#857261"
+                "texture": "spawn_egg_goat"
             },
             "scripts": {
                 "pre_animation": [
@@ -31,16 +39,7 @@
                     },
                     "ram_attack"
                 ]
-            },
-            "animations": {
-                "walk": "animation.goat.walk",
-                "look_at_target": "animation.goat.look_at_target",
-                "attack": "animation.goat.attack",
-                "ram_attack": "animation.goat.ram_attack"
-            },
-            "render_controllers": [
-                "controller.render.goat"
-            ]
+            }
         }
     }
 }

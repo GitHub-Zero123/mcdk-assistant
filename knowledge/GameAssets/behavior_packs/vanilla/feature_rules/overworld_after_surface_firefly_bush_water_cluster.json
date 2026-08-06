@@ -1,0 +1,51 @@
+{
+    "format_version": "1.21.60",
+    "minecraft:feature_rules": {
+        "description": {
+            "identifier": "minecraft:overworld_after_surface_firefly_bush_water_cluster",
+            "places_feature": "minecraft:firefly_bush_water_cluster_feature"
+        },
+        "conditions": {
+            "placement_pass": "after_surface_pass",
+            "minecraft:biome_filter": [
+                {
+                    "any_of": [
+                        {
+                            "test": "has_biome_tag",
+                            "value": "overworld"
+                        },
+                        {
+                            "test": "has_biome_tag",
+                            "value": "overworld_generation"
+                        }
+                    ]
+                },
+                {
+                    "test": "has_biome_tag",
+                    "operator": "not",
+                    "value": "desert"
+                },
+                {
+                    "test": "has_biome_tag",
+                    "operator": "not",
+                    "value": "swamp"
+                },
+                {
+                    "test": "has_biome_tag",
+                    "operator": "not",
+                    "value": "mesa"
+                }
+            ]
+        },
+        "distribution": {
+            "iterations": 1,
+            "scatter_chance": {
+                "numerator": 1,
+                "denominator": 8
+            },
+            "x": 0,
+            "y": "query.heightmap(variable.worldx, variable.worldz)",
+            "z": 0
+        }
+    }
+}

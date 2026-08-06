@@ -1,0 +1,32 @@
+{
+    "format_version": "1.13.0",
+    "minecraft:scatter_feature": {
+        "description": {
+            "identifier": "minecraft:scatter_plains_flower_feature"
+        },
+        "iterations": 64,
+        "x": {
+            "distribution": "triangle",
+            "extent": [
+                -6,
+                6
+            ]
+        },
+        "y": {
+            "distribution": "triangle",
+            "extent": [
+                -2,
+                2
+            ]
+        },
+        "z": {
+            "distribution": "triangle",
+            "extent": [
+                -6,
+                6
+            ]
+        },
+        "coordinate_eval_order": "zyx",
+        "places_feature": "minecraft:legacy:plains_flower_feature"
+    }
+}

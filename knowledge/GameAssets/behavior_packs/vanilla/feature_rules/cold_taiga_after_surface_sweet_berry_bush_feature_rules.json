@@ -1,0 +1,50 @@
+{
+    "format_version": "1.13.0",
+    "minecraft:feature_rules": {
+        "description": {
+            "identifier": "minecraft:cold_taiga_after_surface_sweet_berry_bush_feature_rules",
+            "places_feature": "minecraft:scatter_sweet_berry_bush_feature"
+        },
+        "conditions": {
+            "placement_pass": "after_surface_pass",
+            "minecraft:biome_filter": [
+                {
+                    "test": "has_biome_tag",
+                    "value": "taiga"
+                },
+                {
+                    "test": "has_biome_tag",
+                    "operator": "not",
+                    "value": "mega"
+                },
+                {
+                    "test": "has_biome_tag",
+                    "value": "cold"
+                }
+            ]
+        },
+        "distribution": {
+            "iterations": 1,
+            "scatter_chance": {
+                "numerator": 1,
+                "denominator": 384
+            },
+            "coordinate_eval_order": "zxy",
+            "x": {
+                "distribution": "uniform",
+                "extent": [
+                    0,
+                    16
+                ]
+            },
+            "y": "query.heightmap(variable.worldx, variable.worldz)",
+            "z": {
+                "distribution": "uniform",
+                "extent": [
+                    0,
+                    16
+                ]
+            }
+        }
+    }
+}

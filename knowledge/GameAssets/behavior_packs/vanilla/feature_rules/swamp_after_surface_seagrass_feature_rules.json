@@ -1,0 +1,37 @@
+{
+    "format_version": "1.13.0",
+    "minecraft:feature_rules": {
+        "description": {
+            "identifier": "minecraft:swamp_after_surface_seagrass_feature_rules",
+            "places_feature": "minecraft:scatter_swamp_seagrass_feature"
+        },
+        "conditions": {
+            "placement_pass": "after_surface_pass",
+            "minecraft:biome_filter": [
+                {
+                    "test": "has_biome_tag",
+                    "value": "swamp"
+                }
+            ]
+        },
+        "distribution": {
+            "iterations": 1,
+            "coordinate_eval_order": "zxy",
+            "x": {
+                "distribution": "uniform",
+                "extent": [
+                    0,
+                    16
+                ]
+            },
+            "y": "query.heightmap(variable.worldx, variable.worldz)",
+            "z": {
+                "distribution": "uniform",
+                "extent": [
+                    0,
+                    16
+                ]
+            }
+        }
+    }
+}

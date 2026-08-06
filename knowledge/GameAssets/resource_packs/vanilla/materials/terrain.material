@@ -9,6 +9,7 @@
 
       "+defines": ["LOW_PRECISION", "TEXEL_AA", "ATLAS_TEXTURE" ],
       "+states": [ "DisableAlphaWrite" ],
+      "depthFunc": "LessEqual",
 
       "+samplerStates": [
         {
@@ -92,10 +93,10 @@
       ]
     },
 
-    "terrain_doubleside:terrain_base": { },
+    "terrain_doubleside:terrain_base": {},
     "terrain_alpha_single_side:terrain_base": {
       "+defines": [ "ALPHA_TEST" ],
-      "+states": [ "EnableAlphaToCoverage" ]
+      "+states": [ "EnableAlphaToCoverage" ]  //netease diff
     },
     "terrain_alpha_seasons:terrain_base": {
       "+defines": [ "ALPHA_TEST", "SEASONS" ],
@@ -122,8 +123,7 @@
       "slopeScaledDepthBiasOGL": 0.5
     },
     "terrain_alpha:terrain_alpha_single_side": {
-      "+states": [ "DisableCulling" ],
-
+      "+states": [ "DisableCulling"], //netease diff
       // z-fighting fix
       "depthBias": 0.0,
       "slopeScaledDepthBias": 0.1,
@@ -131,6 +131,12 @@
       "slopeScaledDepthBiasOGL": 0.5
     },
     "terrain_far:terrain_base": {
+      "+defines": [
+        "FOG",
+        "LOW_PRECISION"
+      ]
+    },
+    "terrain_far_alpha_single_side:terrain_base": {
       "+defines": [
         "FOG",
         "LOW_PRECISION"

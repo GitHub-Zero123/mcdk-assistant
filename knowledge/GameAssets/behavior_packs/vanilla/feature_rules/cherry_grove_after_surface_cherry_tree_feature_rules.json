@@ -1,0 +1,28 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:feature_rules": {
+    "description": {
+      "identifier": "minecraft:cherry_grove_after_surface_cherry_tree_feature_rules",
+      "places_feature": "minecraft:random_cherry_tree_feature"
+    },
+    "conditions": {
+      "placement_pass": "after_surface_pass",
+      "minecraft:biome_filter": [
+        { "test": "has_biome_tag", "value": "cherry_grove" }
+      ]
+    },
+    "distribution": {
+      // This value is out of parity, but the resulting behavior is.
+      "iterations": 5,
+      "x": {
+        "distribution": "uniform",
+        "extent": [ 0, 16 ]
+      },
+      "y": "query.heightmap(variable.worldx, variable.worldz)",
+      "z": {
+        "distribution": "uniform",
+        "extent": [ 0, 16 ]
+      }
+    }
+  }
+}

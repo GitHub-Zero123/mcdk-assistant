@@ -1,0 +1,211 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as appropriate.
+#line 4
+precision highp float;
+
+#if __VERSION__ < 300
+  #extension GL_EXT_shader_texture_lod : enable
+#endif
+
+#include "uniformPerFrameConstants.h"
+#include "uniformExtraVectorConstants.h"
+#include "neteaseModelFragmentUtil.h"
+#include "pbr_util.h"
+
+LAYOUT_BINDING(0) uniform sampler2D TEXTURE_0; // Endfield res47: painted eye diffuse.
+LAYOUT_BINDING(1) uniform sampler2D TEXTURE_1; // Small fallback AO/roughness map.
+LAYOUT_BINDING(2) uniform sampler2D TEXTURE_2; // Small fallback tangent normal map.
+LAYOUT_BINDING(3) uniform sampler2D TEXTURE_3; // Slot compatibility only; do not sample dynamic IBL.
+LAYOUT_BINDING(4) uniform sampler2D TEXTURE_4; // Endfield res49: hand-painted cornea env/matcap.
+
+varying highp vec4 light;
+varying highp vec4 fogColor;
+varying highp vec3 positionWS;
+varying highp vec3 normalWS;
+varying highp vec4 tangentWS;
+varying highp vec3 lightDirWS;
+varying highp float lightIntensity;
+#ifdef USE_VISIBLE_SH_MAP
+varying highp vec2 uvSH;
+#endif
+
+float saturate(float x) { return clamp(x, 0.0, 1.0); }
+vec3 saturate(vec3 x) { return clamp(x, vec3(0.0), vec3(1.0)); }
+
+// EXTRA_VECTOR1 = (parallax, cornea roughness, sphere normal scale, limbus darkening)
+// EXTRA_VECTOR2 = (direct scale, direct spec scale, matcap scale, ambient scale)
+vec4 getEyeParams1() {
+#ifdef USE_EXTRA_VECTOR
+    vec4 v = EXTRA_VECTOR1;
+    if (v.x + v.y + v.z + v.w > 0.001) return v;
+#endif
+    return vec4(0.10, 0.045, 0.90, 0.45);
+}
+
+vec4 getEyeParams2() {
+#ifdef USE_EXTRA_VECTOR
+    vec4 v = EXTRA_VECTOR2;
+    if (v.x + v.y + v.z + v.w > 0.001) return v;
+#endif
+    return vec4(1.00, 0.18, 0.55, 0.75);
+}
+
+mat3 endfieldTangentFrameView(vec3 n, vec4 tangent) {
+    float invNormalLen = 1.0 / max(length(n), 1.0e-5);
+    float handedness = tangent.w > 0.0 ? 1.0 : -1.0;
+    vec3 b = cross(n, tangent.xyz) * handedness;
+    return mat3(tangent.xyz * invNormalLen, b * invNormalLen, n * invNormalLen);
+}
+
+// Per-pixel TBN built the same way as the lysk eye shader: Gram-Schmidt
+// orthogonalise the mesh tangent against the mesh normal, then derive B.
+// In this engine "positionWS / normalWS / tangentWS" are actually
+// VIEW-SPACE; that's fine because parallax only needs the V/N relationship
+// to be self-consistent, not literally world-space.
+mat3 eyeFrameWS(vec3 n, vec4 tangent) {
+    vec3 t = normalize(tangent.xyz - n * dot(n, tangent.xyz));
+    vec3 b = normalize(cross(n, t)) * tangent.w;
+    return mat3(t, b, n);
+}
+
+vec3 endfieldViewToTangent(vec3 v, mat3 tbn) {
+    return normalize(vec3(dot(v, tbn[0]), dot(v, tbn[1]), dot(v, tbn[2])));
+}
+
+vec3 decodeNormalTS(vec4 normalSample) {
+    vec2 xy = normalSample.xy * 2.0 - 1.0;
+    float z = sqrt(saturate(1.0 - dot(xy, xy)));
+    return normalize(vec3(xy, z));
+}
+
+vec3 reconstructSphereNormalTS(vec2 eyeUV, float strength) {
+    vec2 p = eyeUV * 2.0 - 1.0;
+    float r2 = dot(p, p);
+    float outside = step(0.25, r2);
+    float z = sqrt(saturate(1.0 - r2));
+    vec3 n = vec3(p * max(strength, 0.0) * 0.125, z);
+    return normalize(mix(n, vec3(0.0, 0.0, 1.0), outside));
+}
+
+vec3 reconstructMatcapDirWS(vec2 eyeUV, mat3 tbn, float strength) {
+    vec2 p = eyeUV * 2.0 - 1.0;
+    float z = sqrt(saturate(1.0 - dot(p, p)));
+    vec3 envTS = vec3(-p * max(strength, 0.0), z);
+    return normalize(tbn * envTS);
+}
+
+float eyeDiscMask(vec2 eyeUV) {
+    float r = length(eyeUV * 2.0 - 1.0);
+    return 1.0 - smoothstep(0.98, 1.02, r);
+}
+
+float irisMask(vec2 eyeUV) {
+    float d = length(eyeUV - vec2(0.5));
+    return 1.0 - smoothstep(0.20, 0.82, d * 2.0);
+}
+
+vec2 applyEndfieldParallax(vec2 eyeUV, vec3 viewTS, float strength) {
+    vec2 centered = eyeUV - vec2(0.5);
+    float falloff = smoothstep(0.25, 0.05, dot(centered, centered));
+    vec2 offset = viewTS.xy * strength * vec2(1.0, 0.25) * falloff;
+    return eyeUV - offset;
+}
+
+vec2 matcapUVFromNormal(vec3 n, vec3 viewW) {
+    vec3 up = abs(viewW.y) > 0.98 ? vec3(0.0, 0.0, 1.0) : vec3(0.0, 1.0, 0.0);
+    vec3 right = normalize(cross(up, viewW));
+    vec3 viewUp = normalize(cross(viewW, right));
+    return clamp(vec2(dot(n, right), dot(n, viewUp)) * 0.5 + vec2(0.5), vec2(0.001), vec2(0.999));
+}
+
+vec4 sampleHandPaintedEnv(vec2 envUV, float lod) {
+    return texture2D(TEXTURE_4, envUV);
+}
+
+#ifdef USE_VISIBLE_SH_MAP
+mediump vec3 reconstructDiffuseIrradiance(mediump vec3 n) {
+    mediump vec3 nsq = n * n;
+    return nsq.x * (n.x >= 0.0 ? EXTRA_VECTOR3.xyz : EXTRA_VECTOR4.xyz)
+         + nsq.y * (n.y >= 0.0 ? EXTRA_VECTOR5.xyz : EXTRA_VECTOR6.xyz)
+         + nsq.z * (n.z >= 0.0 ? EXTRA_VECTOR7.xyz : EXTRA_VECTOR8.xyz);
+}
+#endif
+
+void main() {
+    vec4 eyeParams1 = getEyeParams1();
+    vec4 eyeParams2 = getEyeParams2();
+
+    vec3 nGeom = normalize(normalWS);
+    // Despite the name, positionWS in this engine is VIEW-SPACE (camera-origin)
+    // position. Surface->camera direction is therefore -positionWS, not
+    // VIEW_POS - positionWS. The lysk eye shader uses the same convention.
+    vec3 V = normalize(-positionWS);
+    vec3 L = normalize(lightDirWS);
+    // Mesh TBN is still needed elsewhere (sphere-normal -> "world" mapping,
+    // matcap dir) so build it from the mesh tangent the same way the lysk
+    // shader does.
+    mat3 tbn = eyeFrameWS(nGeom, tangentWS);
+    mat3 tbnView = endfieldTangentFrameView(nGeom, tangentWS);
+    vec3 viewTS = endfieldViewToTangent(V, tbnView);
+
+    vec2 parallaxUV = applyEndfieldParallax(uv, viewTS, max(eyeParams1.x, 0.0));
+    vec4 baseSample = getSampledColor(TEXTURE_0, parallaxUV);
+
+#ifdef ALPHA_TEST
+    if (baseSample.a < 0.5) discard;
+#endif
+
+    float disc = eyeDiscMask(uv);
+    float iris = irisMask(uv) * disc;
+    float limbus = smoothstep(0.54, 0.92, length(uv * 2.0 - 1.0));
+
+    vec3 normalTS = decodeNormalTS(texture2D(TEXTURE_2, parallaxUV));
+    vec3 sphereTS = reconstructSphereNormalTS(uv, eyeParams1.z);
+    vec3 localNormalTS = normalize(mix(normalTS, sphereTS, disc));
+    vec3 N = normalize(mix(nGeom, tbn * localNormalTS, disc));
+
+    vec3 albedo = baseSample.rgb;
+    albedo *= 1.0 - limbus * iris * max(eyeParams1.w, 0.0) * 0.45;
+
+    vec4 arm = texture2D(TEXTURE_1, uv);
+    float ao = mix(1.0, arm.r, step(0.001, arm.r));
+    float perceptualRoughness = clamp(mix(0.16, arm.g, step(0.001, arm.g)), MIN_PERCEPTUAL_ROUGHNESS, 1.0);
+    float roughness = perceptualRoughnessToRoughness(perceptualRoughness);
+
+    vec3 lightColor = mix(vec3(0.4, 0.5, 0.7), vec3(1.0, 0.95, 0.9), lightIntensity) * (lightIntensity * 2.0);
+    float NoL = max(dot(N, L), 0.0);
+    vec3 directDiffuse = albedo * lightColor * (0.24 + NoL * 0.76) * max(eyeParams2.x, 0.0);
+
+#ifdef USE_VISIBLE_SH_MAP
+    vec3 diffuseEnv = reconstructDiffuseIrradiance(N);
+#else
+    vec3 diffuseEnv = vec3(0.38);
+#endif
+    vec3 ambient = diffuseEnv * albedo * max(eyeParams2.w, 0.0);
+
+    vec3 corneaN = normalize(mix(nGeom, tbn * sphereTS, disc));
+    float NoV = max(dot(corneaN, V), MIN_NOV);
+    float fresnel = pow(1.0 - NoV, 5.0);
+    vec3 matcapDirWS = reconstructMatcapDirWS(uv, tbn, eyeParams1.z);
+    vec2 matcapUV = matcapUVFromNormal(matcapDirWS, V);
+    vec3 matcap = sampleHandPaintedEnv(matcapUV, 0.0).rgb;
+    float specMask = smoothstep(0.08, 0.65, iris) * smoothstep(0.0, 0.08, NoV);
+    vec3 specularEnv = matcap * (0.25 + fresnel * 0.75) * specMask * max(eyeParams2.z, 0.0);
+
+    vec3 H = normalize(V + L);
+    float NoH = max(dot(corneaN, H), 0.0);
+    float VoH = max(dot(V, H), 0.0);
+    float NoLc = max(dot(corneaN, L), 0.0);
+    vec3 F = F_Schlick(VoH, vec3(0.08));
+    float D = D_GGX(NoH, roughness, corneaN, H);
+    float G = V_SmithGGXCorrelated(NoV, max(NoLc, 0.001), roughness);
+    vec3 directSpecular = F * (D * G * NoLc) * lightColor * specMask * max(eyeParams2.y, 0.0);
+
+    vec3 colorOut = saturate((directDiffuse + ambient + directSpecular + specularEnv) * ao);
+
+    vec4 color = vec4(colorOut, baseSample.a);
+    neteaseModelCommonFrag(color);
+    applyOverlayColor(color);
+    applyFog(color, fogColor);
+    gl_FragColor = color;
+}

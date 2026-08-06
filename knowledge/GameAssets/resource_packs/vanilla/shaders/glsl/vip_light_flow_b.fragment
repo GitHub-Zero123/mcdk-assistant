@@ -1,0 +1,47 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+
+
+#include "fragmentVersionCentroidUV.h"
+#include "uniformEntityConstants.h"
+#include "uniformPerFrameConstants.h"
+#include "uniformShaderConstants.h"
+#include "util.h"
+
+LAYOUT_BINDING(0) uniform sampler2D TEXTURE_0;
+LAYOUT_BINDING(1) uniform sampler2D TEXTURE_1;
+
+#ifdef GLINT
+LAYOUT_BINDING(2) uniform sampler2D TEXTURE_2;
+
+	varying vec2 layer1UV;
+	varying vec2 layer2UV;
+	varying vec4 tileLightColor;
+	varying vec4 glintColor;
+vec4 glintBlend(vec4 dest, vec4 source) {
+	// glBlendFuncSeparate(GL_SRC_COLOR, GL_ONE, GL_ONE, GL_ZERO)
+	return vec4(source.rgb * source.rgb, abs(source.a)) + vec4(dest.rgb, 0.0);
+}
+#endif
+
+void main()
+{
+	vec4 val = texture2D( TEXTURE_0, uv );
+
+	float lum = mod(val.a + ceil(mod(TIME, 1.0) * 5.0) * 0.2, 1.0);
+
+	vec4 color = texture2D( TEXTURE_1, vec2(0.0, lum));
+
+	color = mix(val, color, abs(sign(val.a - 1.0)));
+
+#ifdef GLINT
+	// Applies color mask to glint texture instead and blends with original color
+	vec4 layer1 = texture2D(TEXTURE_2, fract(layer1UV)).rgbr * glintColor;
+	vec4 layer2 = texture2D(TEXTURE_2, fract(layer2UV)).rgbr * glintColor;
+	vec4 glint = (layer1 + layer2) * tileLightColor;
+
+	color = vec4(glintBlend(color, glint).rgb, 1);
+#endif
+
+	gl_FragColor = color;
+}

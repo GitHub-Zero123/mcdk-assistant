@@ -91,6 +91,7 @@
             },
             {
               "binding_type": "$content_toggle_label_tts_override_binding_type",
+              "binding_condition": "$content_toggle_label_binding_condition",
               "binding_collection_name": "$toggle_grid_collection_name",
               "binding_collection_prefix": "$toggle_parent_collection_details_prefix",
               "binding_name": "$content_toggle_label_tts_override"
@@ -433,6 +434,9 @@
     "$enable_focus_enabled_bind|default": false,
     "$focus_enabled_binding_name|default": "",
 
+    "$toggle_consume_hover_events|default": true,
+    "consume_hover_events": "$toggle_consume_hover_events",
+
     "$button_mappings|default": [
       {
         "from_button_id": "button.menu_select",
@@ -455,14 +459,14 @@
         "from_button_id": "button.menu_left",
         "to_button_id": "$toggle_off_button",
         "mapping_type": "pressed",
-        "input_mode_condition": "gamepad_and_not_gaze"
+        "input_mode_condition": "gamepad"
       },
       {
         "ignored": "(not $enable_directional_toggling)",
         "from_button_id": "button.menu_right",
         "to_button_id": "$toggle_on_button",
         "mapping_type": "pressed",
-        "input_mode_condition": "gamepad_and_not_gaze"
+        "input_mode_condition": "gamepad"
       },
       {
         "ignored": "(not $enable_hover_event_mapping)",

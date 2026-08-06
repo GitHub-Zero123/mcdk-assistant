@@ -10,13 +10,26 @@
             ],
             "textures": [
                 "Texture.default"
+            ],
+            "part_visibility": [
+                {
+                    "*": "!query.is_invisible"
+                }
             ]
         },
         "controller.render.creaking_eyes": {
+            "arrays": {
+                "materials": {
+                    "Array.materials": [
+                        "Material.default",
+                        "Material.eyes"
+                    ]
+                }
+            },
             "geometry": "Geometry.default",
             "materials": [
                 {
-                    "*": "Material.eyes"
+                    "*": "Array.materials[query.is_invisible ? 0 : 1]"
                 }
             ],
             "textures": [
@@ -25,7 +38,10 @@
             "ignore_lighting": true,
             "part_visibility": [
                 {
-                    "*": "variable.has_emissive_eyes"
+                    "*": false
+                },
+                {
+                    "head": "variable.has_emissive_eyes"
                 }
             ]
         }

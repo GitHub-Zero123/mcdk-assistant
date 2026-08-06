@@ -1,0 +1,13 @@
+{
+    "format_version": "1.16.0",
+    "minecraft:aggregate_feature": {
+        "description": {
+            "identifier": "minecraft:random_roofed_forest_feature_with_leaf_litter_feature"
+        },
+        "early_out": "first_failure",
+        "features": [
+            "minecraft:random_roofed_forest_feature",
+            "minecraft:scatter_leaf_litter_feature"
+        ]
+    }
+}

@@ -3,9 +3,11 @@
     "minecraft:client_entity": {
         "description": {
             "identifier": "minecraft:shulker",
-            "min_engine_version": "1.8.0",
             "materials": {
                 "default": "shulker"
+            },
+            "geometry": {
+                "default": "geometry.shulker.v1.8"
             },
             "textures": {
                 "undyed": "textures/entity/shulker/shulker_undyed",
@@ -26,13 +28,18 @@
                 "red": "textures/entity/shulker/shulker_red",
                 "black": "textures/entity/shulker/shulker_black"
             },
-            "geometry": {
-                "default": "geometry.shulker.v1.8"
+            "animations": {
+                "facing": "animation.shulker.facing",
+                "move": "animation.shulker.move",
+                "look_at_target": "animation.common.look_at_target"
             },
+            "render_controllers": [
+                "controller.render.shulker"
+            ],
             "spawn_egg": {
-                "texture": "spawn_egg",
-                "texture_index": 34
+                "texture": "spawn_egg_shulker"
             },
+            "min_engine_version": "1.8.0",
             "scripts": {
                 "pre_animation": [
                     "variable.Shulker.LidPositionFactor = 180 * (0.5 + variable.Shulker.PeekAmount);",
@@ -49,11 +56,6 @@
                     "variable.Shulker.ZOffset = variable.Shulker.NorthFacing * 7.99 - variable.Shulker.SouthFacing * 7.99;"
                 ]
             },
-            "animations": {
-                "facing": "animation.shulker.facing",
-                "move": "animation.shulker.move",
-                "look_at_target": "animation.common.look_at_target"
-            },
             "animation_controllers": [
                 {
                     "facing": "controller.animation.shulker.facing"
@@ -61,9 +63,6 @@
                 {
                     "move": "controller.animation.shulker.move"
                 }
-            ],
-            "render_controllers": [
-                "controller.render.shulker"
             ]
         }
     }

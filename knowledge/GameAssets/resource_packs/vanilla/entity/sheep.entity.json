@@ -3,16 +3,15 @@
     "minecraft:client_entity": {
         "description": {
             "identifier": "minecraft:sheep",
-            "min_engine_version": "1.8.0",
             "materials": {
                 "default": "sheep"
-            },
-            "textures": {
-                "default": "textures/entity/sheep/sheep"
             },
             "geometry": {
                 "default": "geometry.sheep.v1.8",
                 "sheared": "geometry.sheep.sheared.v1.8"
+            },
+            "textures": {
+                "default": "textures/entity/sheep/sheep"
             },
             "animations": {
                 "setup": "animation.sheep.setup",
@@ -22,6 +21,13 @@
                 "baby_transform": "animation.sheep.baby_transform",
                 "move": "controller.animation.sheep.move"
             },
+            "render_controllers": [
+                "controller.render.sheep"
+            ],
+            "spawn_egg": {
+                "texture": "spawn_egg_sheep"
+            },
+            "min_engine_version": "1.8.0",
             "scripts": {
                 "animate": [
                     "setup",
@@ -31,13 +37,6 @@
                         "baby_transform": "query.is_baby"
                     }
                 ]
-            },
-            "render_controllers": [
-                "controller.render.sheep"
-            ],
-            "spawn_egg": {
-                "texture": "spawn_egg",
-                "texture_index": 3
             }
         }
     }

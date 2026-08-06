@@ -464,6 +464,28 @@
                             }
                         ]
                     }
+                },
+                {
+                    "skinning_alphatest": {
+                        "+defines": [
+                            "USE_SKINNING",
+                            "ALPHA_TEST"
+                        ],
+                        "vertexFields": [
+                            {
+                                "field": "Position"
+                            },
+                            {
+                                "field": "BoneId0"
+                            },
+                            {
+                                "field": "Normal"
+                            },
+                            {
+                                "field": "UV0"
+                            }
+                        ]
+                    }
                 }
             ],
             "msaaSupport": "Both",

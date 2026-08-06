@@ -200,6 +200,9 @@
                         "move.legs",
                         "cape",
                         {
+                            "riding.root": "query.is_riding"
+                        },
+                        {
                             "riding.arms": "query.is_riding"
                         },
                         {

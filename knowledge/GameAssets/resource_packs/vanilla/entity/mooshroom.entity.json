@@ -3,16 +3,15 @@
     "minecraft:client_entity": {
         "description": {
             "identifier": "minecraft:mooshroom",
-            "min_engine_version": "1.8.0",
             "materials": {
                 "default": "mooshroom"
             },
-            "textures": {
-                "default": "textures/entity/cow/mooshroom",
-                "brown": "textures/entity/cow/brown_mooshroom"
-            },
             "geometry": {
-                "default": "geometry.mooshroom.v1.8"
+                "default": "geometry.mooshroom.v2"
+            },
+            "textures": {
+                "default": "textures/entity/cow/mooshroom_v2",
+                "brown": "textures/entity/cow/brown_mooshroom_v2"
             },
             "animations": {
                 "setup": "animation.mooshroom.setup",
@@ -20,6 +19,13 @@
                 "look_at_target": "animation.common.look_at_target",
                 "baby_transform": "animation.mooshroom.baby_transform"
             },
+            "render_controllers": [
+                "controller.render.mooshroom"
+            ],
+            "spawn_egg": {
+                "texture": "spawn_egg_mooshroom"
+            },
+            "min_engine_version": "1.8.0",
             "animation_controllers": [
                 {
                     "setup": "controller.animation.mooshroom.setup"
@@ -30,14 +36,7 @@
                 {
                     "baby": "controller.animation.mooshroom.baby"
                 }
-            ],
-            "render_controllers": [
-                "controller.render.mooshroom"
-            ],
-            "spawn_egg": {
-                "texture": "spawn_egg",
-                "texture_index": 5
-            }
+            ]
         }
     }
 }

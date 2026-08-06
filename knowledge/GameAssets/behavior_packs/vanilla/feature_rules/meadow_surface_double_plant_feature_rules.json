@@ -1,0 +1,16 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:feature_rules": {
+    "description": {
+      "identifier": "minecraft:meadow_surface_double_plant_feature_rules",
+      "places_feature": "minecraft:grass_double_plant_patch_feature"
+    },
+    "conditions": {
+      "placement_pass": "surface_pass",
+      "minecraft:biome_filter": [
+        // This feature has been deprecated in favor of "minecraft:meadow_after_surface_double_plant_feature_rules".
+        { "test": "has_biome_tag", "value": "deprecated" }
+      ]
+    }
+  }
+}

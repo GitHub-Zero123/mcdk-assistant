@@ -28,15 +28,9 @@
                 "controller.render.wither_boss_armor_blue"
             ],
             "spawn_egg": {
-                "base_color": "#141414",
-                "overlay_color": "#4d72a0"
+                "texture": "spawn_egg_wither"
             },
             "min_engine_version": "1.8.0",
-            "animation_controllers": [
-                {
-                    "move": "controller.animation.wither_boss.move"
-                }
-            ],
             "scripts": {
                 "pre_animation": [
                     "variable.base_scale = 2;",
@@ -53,7 +47,12 @@
                 "scalex": "variable.scale_xz * variable.base_scale",
                 "scaley": "variable.scale_y * variable.base_scale",
                 "scalez": "variable.scale_xz * variable.base_scale"
-            }
+            },
+            "animation_controllers": [
+                {
+                    "move": "controller.animation.wither_boss.move"
+                }
+            ]
         }
     }
 }

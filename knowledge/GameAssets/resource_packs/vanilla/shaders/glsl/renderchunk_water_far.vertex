@@ -1,0 +1,180 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+
+#include "vertexVersionCentroid.h"
+#if __VERSION__ >= 300
+	#ifndef BYPASS_PIXEL_SHADER
+		_centroid out vec2 uv0;
+		_centroid out vec2 uv1;
+	#endif
+#else
+	#ifndef BYPASS_PIXEL_SHADER
+		varying vec2 uv0;
+		varying vec2 uv1;
+	#endif
+#endif
+
+#ifndef BYPASS_PIXEL_SHADER
+	varying vec4 color;
+#endif
+
+#ifdef FOG
+	varying vec4 fogColor;
+#endif
+
+#include "uniformWorldConstants.h"
+#include "uniformPerFrameConstants.h"
+#include "uniformShaderConstants.h"
+#include "uniformRenderChunkConstants.h"
+
+uniform vec4 CHUNK_WORLD_POS_MOD_VALUE;
+
+attribute POS4 POSITION;
+attribute vec4 COLOR;
+attribute vec2 TEXCOORD_0;
+attribute vec2 TEXCOORD_1;
+
+varying vec3 VertexNormal;
+varying vec3 VertexWorldPos;
+
+vec3 GetWavePosDelta(POS4 worldPos, float T, float speed, vec2 moveDir){
+	float frquency = 1.0 / T;
+	float steepness = 0.16;
+	float amp = steepness / frquency;
+	float value = frquency * (worldPos.x * moveDir.x + worldPos.z * moveDir.y + TIME * speed);
+	float sinValue = sin(value);
+	float cosValue = cos(value);
+	//y sub 0.1 to avoid water pos higher than other terrain block.	
+	return vec3(moveDir.x * amp * cosValue, amp * sinValue - 0.1, moveDir.y * amp * cosValue);
+}
+
+vec3 GetWaveNormalDelta(POS4 worldPos, float T, float speed, vec2 moveDir){
+	float frquency = 1.0 / T;
+	float steepness = 0.16;
+	float amp = steepness / frquency;
+	float af = amp * frquency;
+	float value = frquency * (worldPos.x * moveDir.x + worldPos.z * moveDir.y + TIME * speed);
+	float sinValue = sin(value);
+	float cosValue = cos(value);
+
+	vec3 tangent = vec3(1.0 - moveDir.x * moveDir.x * af * sinValue, moveDir.x * af * cosValue, -moveDir.x * moveDir.y * af * sinValue);
+	vec3 binormal = vec3(-moveDir.x * moveDir.y * af * sinValue, moveDir.y * af * cosValue, 1.0 - moveDir.y * moveDir.y * af * sinValue);
+	return -normalize(cross(tangent, binormal));
+}
+
+void main()
+{
+    POS4 worldPos;
+#ifdef AS_ENTITY_RENDERER
+		POS4 pos = WORLDVIEWPROJ * POSITION;
+		worldPos = pos;
+#else
+	worldPos.xyz = POSITION.xyz * CHUNK_ORIGIN_AND_SCALE.w + CHUNK_ORIGIN_AND_SCALE.xyz; 	
+    worldPos.w = 1.0;
+
+	//In mc world, chunk world pos may be very huge, the CHUNK_WORLD_POS_MOD_VALUE is MOD it to range [-128, 0) or [0, 128) to avoid precise problem.
+	vec4 worldPosModValue = CHUNK_WORLD_POS_MOD_VALUE + POSITION;
+	worldPosModValue.w = 1.0;
+
+	//Handle the MOD value loop edge
+	float edgeWidth = 0.2;
+
+	if(CHUNK_WORLD_POS_MOD_VALUE.x >= 0.0){
+		worldPosModValue.x *= (1.0 - step(CHUNK_WORLD_POS_MOD_VALUE.w - edgeWidth, worldPosModValue.x));
+	}
+	else{
+		float stepX = step(worldPosModValue.x, -CHUNK_WORLD_POS_MOD_VALUE.w + edgeWidth);
+		worldPosModValue.x = (1.0 - stepX) * worldPosModValue.x;
+	}
+
+	if(CHUNK_WORLD_POS_MOD_VALUE.z >= 0.0){
+		worldPosModValue.z *= (1.0 - step(CHUNK_WORLD_POS_MOD_VALUE.w - edgeWidth, worldPosModValue.z));
+	}
+	else{
+		float stepZ = step(worldPosModValue.z, -CHUNK_WORLD_POS_MOD_VALUE.w + edgeWidth);
+		worldPosModValue.z = (1.0 - stepZ) * worldPosModValue.z;
+	}
+
+	//small wave1
+	vec3 pos1 = GetWavePosDelta(worldPosModValue, 1.0, 1.0, vec2(0.8, 0.2));
+	//vec3 normal1 = GetWaveNormalDelta(worldPosModValue, 0.8, 1.0, vec2(0.5, 0.0));
+
+	//big wave2
+	vec3 pos2 = GetWavePosDelta(worldPosModValue, 0.5, 0.5, vec2(0.4, 0.7));
+	//vec3 normal2 = GetWaveNormalDelta(worldPosModValue, 0.5, 0.5, vec2(0.0, 0.4));
+
+	VertexWorldPos = CHUNK_WORLD_POS_MOD_VALUE.xyz + POSITION.xyz  * CHUNK_ORIGIN_AND_SCALE.w + pos1 + pos2;	
+	//VertexNormal = normalize(normal1 * 1.0 + normal2 * 0.5);
+	VertexNormal = vec3(0.0, 1.0, 0.0);
+
+	//add two waves.
+	worldPos.xyz = worldPos.xyz + pos1 + pos2;
+
+    // Transform to view space before projection instead of all at once to avoid floating point errors
+    // Not required for entities because they are already offset by camera translation before rendering
+    // World position here is calculated above and can get huge
+    POS4 pos = WORLDVIEW * worldPos;
+    pos = PROJ * pos;
+#endif
+    gl_Position = pos;
+
+#ifndef BYPASS_PIXEL_SHADER
+    uv0 = TEXCOORD_0;
+    uv1 = TEXCOORD_1;
+	color = COLOR;
+#endif
+
+///// find distance from the camera
+
+#if defined(FOG) || defined(BLEND)
+	#ifdef FANCY
+		vec3 relPos = -worldPos.xyz;
+		float cameraDepth = length(relPos);
+	#else
+		float cameraDepth = pos.z;
+	#endif
+#endif
+
+///// apply fog
+
+#ifdef FOG
+	float len = cameraDepth / RENDER_DISTANCE;
+	#ifdef ALLOW_FADE
+		len += RENDER_CHUNK_FOG_ALPHA;
+	#endif
+
+    fogColor.rgb = FOG_COLOR.rgb;
+	fogColor.a = clamp((len - FOG_CONTROL.x) / (FOG_CONTROL.y - FOG_CONTROL.x), 0.0, 1.0);
+#endif
+
+///// blended layer (mostly water) magic
+#ifdef BLEND
+	//Mega hack: only things that become opaque are allowed to have vertex-driven transparency in the Blended layer...
+	//to fix this we'd need to find more space for a flag in the vertex format. color.a is the only unused part
+	bool shouldBecomeOpaqueInTheDistance = color.a < 0.95;
+	if(shouldBecomeOpaqueInTheDistance) {
+		#ifdef FANCY  /////enhance water
+			float cameraDist = cameraDepth / FAR_CHUNKS_DISTANCE;
+			color = COLOR;
+		#else
+			// Completely insane, but if I don't have these two lines in here, the water doesn't render on a Nexus 6
+			vec4 surfColor = vec4(color.rgb, 1.0);
+			color = surfColor;
+				
+			vec3 relPos = -worldPos.xyz;
+			float camDist = length(relPos);
+			float cameraDist = camDist / FAR_CHUNKS_DISTANCE;
+		#endif //FANCY
+		
+		float alphaFadeOut = clamp(cameraDist, 0.0, 1.0);
+		color.a = mix(color.a, 1.0, alphaFadeOut);
+	}
+#endif
+
+#ifndef BYPASS_PIXEL_SHADER
+	#ifndef FOG
+		// If the FOG_COLOR isn't used, the reflection on NVN fails to compute the correct size of the constant buffer as the uniform will also be gone from the reflection data
+		color.rgb += FOG_COLOR.rgb * 0.000001;
+	#endif
+#endif
+}

@@ -1,0 +1,118 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+
+
+#include "fragmentVersionCentroidUV.h"
+#include "uniformPerFrameConstants.h"
+#include "util.h"
+
+LAYOUT_BINDING(0) uniform sampler2D TEXTURE_0; // blur color
+LAYOUT_BINDING(1) uniform sampler2D TEXTURE_1; // clear color
+LAYOUT_BINDING(2) uniform sampler2D TEXTURE_2; // depth texture
+
+uniform vec4 DEPTH_OF_FIELD_VECTOR4_1; // { radius, mFocusDistance, mNearEndDepth, mFarStartDepth }
+uniform float DEPTH_OF_FIELD_FLOAT1_1; // switch
+uniform vec4 EXTRA_VECTOR4;  // Screen Info vec4(width, height, pixelWidth, pixelHeight)
+
+vec4 Dual_Kawase_Blur_Upsample() {
+	vec3 sum = vec3(0.0,0.0,0.0);
+    vec2 pixelSize = EXTRA_VECTOR4.zw;
+	float radius = DEPTH_OF_FIELD_VECTOR4_1.x;
+
+    sum += texture(TEXTURE_0, uv + vec2(pixelSize.x * -1.0, pixelSize.y * 1.0) * radius).rgb * 2.0;
+    sum += texture(TEXTURE_0, uv + vec2(pixelSize.x * 1.0, pixelSize.y * 1.0) * radius).rgb * 2.0;
+    sum += texture(TEXTURE_0, uv + vec2(pixelSize.x * -1.0, pixelSize.y * -1.0) * radius).rgb * 2.0;
+    sum += texture(TEXTURE_0, uv + vec2(pixelSize.x * 1.0, pixelSize.y * -1.0) * radius).rgb * 2.0;
+
+    sum += texture(TEXTURE_0, uv + vec2(0.0 , pixelSize.y * 2.0) * radius).rgb;
+    sum += texture(TEXTURE_0, uv + vec2(pixelSize.x * 2.0 , 0.0) * radius).rgb;
+    sum += texture(TEXTURE_0, uv + vec2(0.0 , pixelSize.y * -2.0) * radius).rgb;
+    sum += texture(TEXTURE_0, uv + vec2(pixelSize.x * -2.0 , 0.0) * radius).rgb;  
+   
+    sum = sum * 0.0833;
+	return vec4(sum, 1.0);
+}
+
+float MakeDepthLinear(float z, float n, float f)
+{
+    // scale z to [0,1]
+	z = 2.0 * z - 1.0;
+	return (2.0 * n) / (f + n - z * (f - n));
+}
+
+float DepthToViewZ(float z, float n, float f) 
+{
+	return (f*n)/(f-z*(f-n));
+}
+
+float ViewZToNonLinearDepth(float viewZ, float n , float f) {
+	float s = step(viewZ, 0.0);
+	viewZ = 0.025 * s + (1.0-s) * viewZ;
+	return  f * (viewZ - n) / ((f-n) * viewZ);
+}
+
+//vec4 detpt_test() {
+//	float depth = texture(TEXTURE_2, uv).r;
+//	depth = MakeDepthLinear(depth, 0.025, FAR_CHUNKS_DISTANCE);
+//	return vec4( depth, depth, depth ,1.0);
+//}
+
+vec4 depth_sample_defined(vec4 blurColor, vec4 clearColor, float depth, float nearBlurScale, float farBlurScale){ 
+
+	vec4 finalColor = vec4(0.0,0.0,0.0,1.0);
+
+	// use self-defined focus
+	float focus = DEPTH_OF_FIELD_VECTOR4_1.y;
+	float realZ = DepthToViewZ(depth, 0.025, FAR_CHUNKS_DISTANCE);
+
+	depth = MakeDepthLinear(depth, 0.025, FAR_CHUNKS_DISTANCE);
+
+	float focusTest = clamp(sign(realZ-focus),0.0,1.0);
+	float ratio1 = (realZ - focus) / (FAR_CHUNKS_DISTANCE-0.025);
+	float ratio2 = (focus - realZ) / (FAR_CHUNKS_DISTANCE-0.025);
+	finalColor = (1.0-focusTest)*clearColor + focusTest*mix(clearColor,blurColor,clamp((ratio1)* farBlurScale,0.0,1.0));
+	finalColor = focusTest * finalColor + (1.0-focusTest)*mix(clearColor,blurColor,clamp((ratio2)*nearBlurScale,0.0,1.0));
+
+	return finalColor;
+}
+
+vec4 depth_sample_auto(vec4 blurColor, vec4 clearColor, float depth, float nearBlurScale, float farBlurScale){
+	vec4 finalColor = vec4(0.0,0.0,0.0,1.0);
+	// use auto focus
+	float centerDepth = texture(TEXTURE_2, vec2(0.5,0.5)).r;
+	depth = MakeDepthLinear(depth, 0.025, FAR_CHUNKS_DISTANCE);
+	centerDepth = MakeDepthLinear(centerDepth, 0.025, FAR_CHUNKS_DISTANCE);
+	float focusTest2 = clamp(sign(depth-centerDepth),0.0,1.0);
+	finalColor = (1.0-focusTest2)*clearColor + focusTest2*mix(clearColor,blurColor,clamp((depth-centerDepth)* farBlurScale,0.0,1.0));
+	finalColor = focusTest2 * finalColor + (1.0-focusTest2)*mix(clearColor,blurColor,clamp((centerDepth-depth)*nearBlurScale,0.0,1.0));
+
+	return finalColor;
+
+}
+
+vec4 depth_sample2(vec4 color){
+	// common
+	vec4 blurColor = color; //texture(TEXTURE_0, uv);
+    vec4 clearColor = texture(TEXTURE_1, uv);
+	float depth = texture(TEXTURE_2, uv).r;
+
+	float nearBlurScale = DEPTH_OF_FIELD_VECTOR4_1.z;
+	float farBlurScale = DEPTH_OF_FIELD_VECTOR4_1.w;
+	
+	float useAuto = DEPTH_OF_FIELD_FLOAT1_1;
+	vec4 finalColor = vec4(0.0,0.0,0.0,1.0);
+	if(useAuto >= 1.0) {
+		finalColor = depth_sample_auto(blurColor, clearColor, depth , nearBlurScale, farBlurScale);
+	}
+	else{
+		finalColor = depth_sample_defined(blurColor, clearColor, depth , nearBlurScale, farBlurScale);
+	}
+	return finalColor;
+}
+
+void main(){
+
+	vec4 color = Dual_Kawase_Blur_Upsample();
+    gl_FragColor = depth_sample2(color);
+
+}

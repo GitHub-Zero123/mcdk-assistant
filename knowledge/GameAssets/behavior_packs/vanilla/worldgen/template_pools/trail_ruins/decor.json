@@ -1,0 +1,66 @@
+{
+    "format_version": "1.21.20",
+    "minecraft:template_pool": {
+        "description": {
+            "identifier": "minecraft:trail_ruins/decor"
+        },
+        "elements": [
+            {
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "trail_ruins/decor/decor_1",
+                    "processors": "minecraft:trail_ruins_houses_archaeology"
+                },
+                "weight": 1
+            },
+            {
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "trail_ruins/decor/decor_2",
+                    "processors": "minecraft:trail_ruins_houses_archaeology"
+                },
+                "weight": 1
+            },
+            {
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "trail_ruins/decor/decor_3",
+                    "processors": "minecraft:trail_ruins_houses_archaeology"
+                },
+                "weight": 1
+            },
+            {
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "trail_ruins/decor/decor_4",
+                    "processors": "minecraft:trail_ruins_houses_archaeology"
+                },
+                "weight": 1
+            },
+            {
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "trail_ruins/decor/decor_5",
+                    "processors": "minecraft:trail_ruins_houses_archaeology"
+                },
+                "weight": 1
+            },
+            {
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "trail_ruins/decor/decor_6",
+                    "processors": "minecraft:trail_ruins_houses_archaeology"
+                },
+                "weight": 1
+            },
+            {
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "trail_ruins/decor/decor_7",
+                    "processors": "minecraft:trail_ruins_houses_archaeology"
+                },
+                "weight": 1
+            }
+        ]
+    }
+}

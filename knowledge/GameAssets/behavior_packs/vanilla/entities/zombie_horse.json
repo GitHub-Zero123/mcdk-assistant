@@ -1,5 +1,5 @@
 {
-    "format_version": "1.21.0",
+    "format_version": "1.21.90",
     "minecraft:entity": {
         "description": {
             "identifier": "minecraft:zombie_horse",
@@ -33,6 +33,7 @@
                 "minecraft:loot": {
                     "table": "loot_tables/entities/zombie_horse.json"
                 },
+                "minecraft:leashable_to": {},
                 "minecraft:rideable": {
                     "seat_count": 1,
                     "family_types": [
@@ -42,7 +43,7 @@
                     "seats": {
                         "position": [
                             0.0,
-                            1.2,
+                            1.1,
                             -0.2
                         ]
                     }
@@ -58,6 +59,7 @@
         },
         "components": {
             "minecraft:is_hidden_when_invisible": {},
+            "minecraft:ambient_sound_interval": {},
             "minecraft:type_family": {
                 "family": [
                     "zombiehorse",
@@ -110,9 +112,16 @@
                 }
             },
             "minecraft:leashable": {
-                "soft_distance": 4.0,
-                "hard_distance": 6.0,
-                "max_distance": 10.0
+                "presets": [
+                    {
+                        "filter": {
+                            "test": "is_family",
+                            "subject": "other",
+                            "value": "happy_ghast"
+                        },
+                        "spring_type": "quad_dampened"
+                    }
+                ]
             },
             "minecraft:balloonable": {},
             "minecraft:despawn": {

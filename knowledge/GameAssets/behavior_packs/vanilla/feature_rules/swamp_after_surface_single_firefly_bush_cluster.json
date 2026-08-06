@@ -1,0 +1,28 @@
+{
+    "format_version": "1.21.60",
+    "minecraft:feature_rules": {
+        "description": {
+            "identifier": "minecraft:swamp_after_surface_single_firefly_bush_cluster",
+            "places_feature": "minecraft:firefly_bush_cluster_feature"
+        },
+        "conditions": {
+            "placement_pass": "after_surface_pass",
+            "minecraft:biome_filter": [
+                {
+                    "test": "has_biome_tag",
+                    "value": "swamp"
+                }
+            ]
+        },
+        "distribution": {
+            "iterations": 1,
+            "scatter_chance": {
+                "numerator": 1,
+                "denominator": 16
+            },
+            "x": 0,
+            "y": "query.heightmap(variable.worldx, variable.worldz)",
+            "z": 0
+        }
+    }
+}

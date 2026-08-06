@@ -57,25 +57,24 @@
                                 "controls": [
                                     {
                                         "side_image_stack_left": {
-                                            "type": "stack_panel",
-                                            "orientation": "horizontal",
+                                            "type": "panel",
                                             "size": [
-                                                "40%",
-                                                "100%"
+                                                "177.8%y",
+                                                70
                                             ],
                                             "controls": [
                                                 {
                                                     "csb_image": {
                                                         "type": "image",
                                                         "size": [
-                                                            "default",
-                                                            "default"
+                                                            "177.8%y",
+                                                            "100%"
                                                         ],
-                                                        "keep_ratio": false,
+                                                        "keep_ratio": true,
                                                         "anchor_from": "top_left",
                                                         "anchor_to": "top_left",
                                                         "layer": 3,
-                                                        "texture": "textures/ui/csb_subscribe_banner"
+                                                        "texture": "textures/ui/subscription_MarketplacePass"
                                                     }
                                                 }
                                             ]
@@ -85,8 +84,8 @@
                                         "padding_02": {
                                             "type": "panel",
                                             "size": [
-                                                5,
-                                                "100%"
+                                                4,
+                                                "100%sm"
                                             ]
                                         }
                                     },
@@ -96,18 +95,14 @@
                                             "orientation": "vertical",
                                             "anchor_from": "top_right",
                                             "size": [
-                                                "45%",
-                                                "100px"
+                                                "fill",
+                                                "100%sm"
                                             ],
                                             "controls": [
                                                 {
                                                     "interior_content_stack": {
                                                         "type": "stack_panel",
                                                         "orientation": "vertical",
-                                                        "size": [
-                                                            "100%",
-                                                            "100%"
-                                                        ],
                                                         "layer": 3,
                                                         "controls": [
                                                             {
@@ -118,80 +113,13 @@
                                                                     ],
                                                                     "text": "options.csbHeading",
                                                                     "color": "$store_white_text_color",
+                                                                    "size": [
+                                                                        "100%",
+                                                                        "default"
+                                                                    ],
                                                                     "anchor_from": "top_left",
                                                                     "anchor_to": "top_left",
                                                                     "layer": 2
-                                                                }
-                                                            },
-                                                            {
-                                                                "interior_top_padding": {
-                                                                    "type": "panel",
-                                                                    "size": [
-                                                                        "100%",
-                                                                        2
-                                                                    ]
-                                                                }
-                                                            },
-                                                            {
-                                                                "description_panel": {
-                                                                    "type": "stack_panel",
-                                                                    "anchor_to": "top_left",
-                                                                    "orientation": "vertical",
-                                                                    "size": [
-                                                                        "100%",
-                                                                        10
-                                                                    ],
-                                                                    "controls": [
-                                                                        {
-                                                                            "interior_label_panel": {
-                                                                                "type": "panel",
-                                                                                "size": [
-                                                                                    "100%",
-                                                                                    "100%"
-                                                                                ],
-                                                                                "controls": [
-                                                                                    {
-                                                                                        "panel_label": {
-                                                                                            "type": "label",
-                                                                                            "text": "options.csbSubheading",
-                                                                                            "font_type": "smooth",
-                                                                                            "offset": [
-                                                                                                2,
-                                                                                                -1
-                                                                                            ],
-                                                                                            "font_scale_factor": 0.7,
-                                                                                            "size": [
-                                                                                                "default",
-                                                                                                "default"
-                                                                                            ],
-                                                                                            "max_size": [
-                                                                                                "100% - 4px",
-                                                                                                "100%"
-                                                                                            ],
-                                                                                            "color": "$0_color_format",
-                                                                                            "anchor_from": "left_middle",
-                                                                                            "anchor_to": "left_middle",
-                                                                                            "layer": 3
-                                                                                        }
-                                                                                    },
-                                                                                    {
-                                                                                        "background_panel": {
-                                                                                            "type": "image",
-                                                                                            "size": [
-                                                                                                "100%sm + 4px",
-                                                                                                "80%"
-                                                                                            ],
-                                                                                            "anchor_from": "left_middle",
-                                                                                            "anchor_to": "left_middle",
-                                                                                            "keep_ratio": false,
-                                                                                            "texture": "textures/ui/White",
-                                                                                            "color": "$csb_secondary_panel_background"
-                                                                                        }
-                                                                                    }
-                                                                                ]
-                                                                            }
-                                                                        }
-                                                                    ]
                                                                 }
                                                             },
                                                             {
@@ -199,138 +127,23 @@
                                                                     "type": "panel",
                                                                     "size": [
                                                                         "100%",
-                                                                        4
+                                                                        1
                                                                     ]
                                                                 }
                                                             },
                                                             {
-                                                                "ln_01_container": {
-                                                                    "type": "stack_panel",
-                                                                    "orientation": "horizontal",
-                                                                    "size": [
-                                                                        "100%",
-                                                                        "15%+5px"
-                                                                    ],
-                                                                    "controls": [
-                                                                        {
-                                                                            "bullet_holder_01": {
-                                                                                "type": "stack_panel",
-                                                                                "orientation": "vertical",
-                                                                                "size": [
-                                                                                    "10%",
-                                                                                    "100%"
-                                                                                ],
-                                                                                "controls": [
-                                                                                    {
-                                                                                        "bullet_spacer": {
-                                                                                            "type": "panel",
-                                                                                            "size": [
-                                                                                                "100%",
-                                                                                                1
-                                                                                            ]
-                                                                                        }
-                                                                                    },
-                                                                                    {
-                                                                                        "bullet_01": {
-                                                                                            "type": "label",
-                                                                                            "text": "●",
-                                                                                            "font_type": "Minecraft",
-                                                                                            "backup_font_type": "UIFont",
-                                                                                            "color": "$generic_button_text_color",
-                                                                                            "text_alignment": "center",
-                                                                                            "font_scale_factor": 0.5,
-                                                                                            "size": [
-                                                                                                "100%",
-                                                                                                "90%"
-                                                                                            ]
-                                                                                        }
-                                                                                    }
-                                                                                ]
-                                                                            }
-                                                                        },
-                                                                        {
-                                                                            "panel_details_ln1": {
-                                                                                "type": "label",
-                                                                                "anchor_from": "top_right",
-                                                                                "anchor_to": "top_right",
-                                                                                "text": "options.csbInfoLine01",
-                                                                                "font_type": "smooth",
-                                                                                "backup_font_type": "UIFont",
-                                                                                "color": "$generic_button_text_color",
-                                                                                "text_alignment": "left",
-                                                                                "font_scale_factor": 0.8,
-                                                                                "size": [
-                                                                                    "90%",
-                                                                                    "100%"
-                                                                                ]
-                                                                            }
-                                                                        }
-                                                                    ]
+                                                                "ln_01_container@csb_marketplace_benefit": {
+                                                                    "$benefit": "options.csbInfoLine01"
                                                                 }
                                                             },
                                                             {
-                                                                "ln_02_container": {
-                                                                    "type": "stack_panel",
-                                                                    "orientation": "horizontal",
-                                                                    "size": [
-                                                                        "100%",
-                                                                        "15%"
-                                                                    ],
-                                                                    "controls": [
-                                                                        {
-                                                                            "bullet_holder_02": {
-                                                                                "type": "stack_panel",
-                                                                                "orientation": "vertical",
-                                                                                "size": [
-                                                                                    "10%",
-                                                                                    "100%"
-                                                                                ],
-                                                                                "controls": [
-                                                                                    {
-                                                                                        "bullet_spacer": {
-                                                                                            "type": "panel",
-                                                                                            "size": [
-                                                                                                "100%",
-                                                                                                1
-                                                                                            ]
-                                                                                        }
-                                                                                    },
-                                                                                    {
-                                                                                        "bullet_02": {
-                                                                                            "type": "label",
-                                                                                            "text": "●",
-                                                                                            "font_type": "Minecraft",
-                                                                                            "backup_font_type": "UIFont",
-                                                                                            "color": "$generic_button_text_color",
-                                                                                            "text_alignment": "center",
-                                                                                            "font_scale_factor": 0.5,
-                                                                                            "size": [
-                                                                                                "100%",
-                                                                                                "90%"
-                                                                                            ]
-                                                                                        }
-                                                                                    }
-                                                                                ]
-                                                                            }
-                                                                        },
-                                                                        {
-                                                                            "panel_details_ln3": {
-                                                                                "type": "label",
-                                                                                "anchor_from": "top_right",
-                                                                                "anchor_to": "top_right",
-                                                                                "text": "options.csbInfoLine02",
-                                                                                "font_type": "smooth",
-                                                                                "backup_font_type": "UIFont",
-                                                                                "color": "$generic_button_text_color",
-                                                                                "text_alignment": "left",
-                                                                                "font_scale_factor": 0.8,
-                                                                                "size": [
-                                                                                    "90%",
-                                                                                    "100%"
-                                                                                ]
-                                                                            }
-                                                                        }
-                                                                    ]
+                                                                "ln_02_container@csb_marketplace_benefit": {
+                                                                    "$benefit": "options.csbInfoLine02"
+                                                                }
+                                                            },
+                                                            {
+                                                                "ln_03_container@csb_marketplace_benefit": {
+                                                                    "$benefit": "options.csbInfoLine03"
                                                                 }
                                                             },
                                                             {
@@ -373,6 +186,7 @@
                                 "controls": [
                                     {
                                         "button_panel_padding": {
+                                            "ignored": "$left_button_ignored",
                                             "type": "panel",
                                             "size": [
                                                 4,
@@ -394,7 +208,7 @@
                                     },
                                     {
                                         "csb_info_button@common_buttons.light_content_button": {
-                                            "$button_text": "options.viewSubscriptions.button.info",
+                                            "$button_text": "options.viewSubscriptions.button.addMarketplacePass",
                                             "$button_text_size": [
                                                 "default",
                                                 "default"
@@ -426,8 +240,71 @@
         ],
         "bindings": "$csb_panel_bindings"
     },
+    "csb_marketplace_benefit": {
+        "type": "stack_panel",
+        "orientation": "horizontal",
+        "size": [
+            "100%",
+            "100%cm"
+        ],
+        "$benefit|default": "",
+        "controls": [
+            {
+                "bullet_holder_01": {
+                    "type": "stack_panel",
+                    "orientation": "vertical",
+                    "size": [
+                        "10%",
+                        "100%c"
+                    ],
+                    "controls": [
+                        {
+                            "bullet_spacer": {
+                                "type": "panel",
+                                "size": [
+                                    "100%",
+                                    1
+                                ]
+                            }
+                        },
+                        {
+                            "bullet_01": {
+                                "type": "label",
+                                "text": "●",
+                                "font_type": "smooth",
+                                "backup_font_type": "UIFont",
+                                "color": "$generic_button_text_color",
+                                "text_alignment": "center",
+                                "font_scale_factor": 0.5,
+                                "size": [
+                                    "100%",
+                                    "default"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "panel_details_ln1": {
+                    "type": "label",
+                    "anchor_from": "top_right",
+                    "anchor_to": "top_right",
+                    "text": "$benefit",
+                    "font_type": "smooth",
+                    "backup_font_type": "UIFont",
+                    "color": "$generic_button_text_color",
+                    "text_alignment": "left",
+                    "size": [
+                        "90%",
+                        "default"
+                    ]
+                }
+            }
+        ]
+    },
     "csb_buy_container": {
-        "ignored": "$pre_release",
+        "ignored": "($pre_release or $left_button_ignored)",
         "type": "panel",
         "size": [
             "50%",

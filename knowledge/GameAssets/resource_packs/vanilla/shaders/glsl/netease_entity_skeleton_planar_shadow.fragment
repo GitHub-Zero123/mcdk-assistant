@@ -1,0 +1,23 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+#define MCPE_NETEASE
+#include "uniformPerFrameConstants.h"
+#include "neteaseModelFragmentUtil.h"
+#line 5
+
+varying vec3 wPosition;
+
+LAYOUT_BINDING(0) uniform sampler2D TEXTURE_0;
+LAYOUT_BINDING(1) uniform sampler2D TEXTURE_1;
+
+void main() {
+	float intensity = PLANAR_SHADOW_PARAMS1.w;
+	vec3 planePosition = PLANAR_SHADOW_PARAMS1.xyz;
+	vec3 planeNormal = PLANAR_SHADOW_PARAMS2.xyz;
+	vec3 color = PLANAR_SHADOW_PARAMS4.xyz;
+	if (dot(wPosition.xyz - planePosition.xyz, planeNormal.xyz) <= 0.0) {
+		discard;
+	}
+
+	gl_FragColor = vec4(color.rgb, intensity);
+}

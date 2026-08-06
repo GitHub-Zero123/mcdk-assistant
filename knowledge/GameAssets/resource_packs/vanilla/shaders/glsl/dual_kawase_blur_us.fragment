@@ -1,0 +1,33 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+
+
+#include "fragmentVersionCentroidUV.h"
+
+#include "util.h"
+
+LAYOUT_BINDING(0) uniform sampler2D TEXTURE_0;
+
+uniform vec4 DEPTH_OF_FIELD_VECTOR4_1; // { radius, mFocusDistance, mNearEndDepth, mFarStartDepth }
+uniform vec4 EXTRA_VECTOR4;  // Screen Info vec4(width, height, pixelWidth, pixelHeight)
+
+void main(){
+
+    vec3 sum = vec3(0.0,0.0,0.0);
+    vec2 pixelSize = EXTRA_VECTOR4.zw;
+	float radius = DEPTH_OF_FIELD_VECTOR4_1.x;
+
+    sum += texture(TEXTURE_0, uv + vec2(pixelSize.x * -1.0, pixelSize.y * 1.0) * radius).rgb * 2.0;
+    sum += texture(TEXTURE_0, uv + vec2(pixelSize.x * 1.0, pixelSize.y * 1.0) * radius).rgb * 2.0;
+    sum += texture(TEXTURE_0, uv + vec2(pixelSize.x * -1.0, pixelSize.y * -1.0) * radius).rgb * 2.0;
+    sum += texture(TEXTURE_0, uv + vec2(pixelSize.x * 1.0, pixelSize.y * -1.0) * radius).rgb * 2.0;
+
+    sum += texture(TEXTURE_0, uv + vec2(0.0 , pixelSize.y * 2.0) * radius).rgb;
+    sum += texture(TEXTURE_0, uv + vec2(pixelSize.x * 2.0 , 0.0) * radius).rgb;
+    sum += texture(TEXTURE_0, uv + vec2(0.0 , pixelSize.y * -2.0) * radius).rgb;
+    sum += texture(TEXTURE_0, uv + vec2(pixelSize.x * -2.0 , 0.0) * radius).rgb;  
+   
+    sum = sum * 0.0833;
+
+    gl_FragColor = vec4(sum, 1.0);
+}

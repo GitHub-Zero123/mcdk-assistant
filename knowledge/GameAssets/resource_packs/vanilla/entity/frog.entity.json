@@ -6,22 +6,13 @@
             "materials": {
                 "default": "frog"
             },
+            "geometry": {
+                "default": "geometry.frog"
+            },
             "textures": {
                 "temperate": "textures/entity/frog/temperate_frog",
                 "cold": "textures/entity/frog/cold_frog",
                 "warm": "textures/entity/frog/warm_frog"
-            },
-            "geometry": {
-                "default": "geometry.frog"
-            },
-            "spawn_egg": {
-                "base_color": "#d07444",
-                "overlay_color": "#ffc77c"
-            },
-            "scripts": {
-                "pre_animation": [
-                    "variable.moving = query.ground_speed > 0 || query.vertical_speed > 0;"
-                ]
             },
             "animations": {
                 "croak": "animation.frog.croak",
@@ -31,6 +22,17 @@
                 "swim": "animation.frog.swim",
                 "idle_water": "animation.frog.idle.water",
                 "look_at_target": "animation.common.look_at_target"
+            },
+            "render_controllers": [
+                "controller.render.frog"
+            ],
+            "spawn_egg": {
+                "texture": "spawn_egg_frog"
+            },
+            "scripts": {
+                "pre_animation": [
+                    "variable.moving = query.ground_speed > 0 || query.vertical_speed > 0;"
+                ]
             },
             "animation_controllers": [
                 {
@@ -42,9 +44,6 @@
                 {
                     "eat_mob": "controller.animation.frog.eat_mob"
                 }
-            ],
-            "render_controllers": [
-                "controller.render.frog"
             ]
         }
     }

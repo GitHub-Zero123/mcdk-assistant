@@ -6,11 +6,21 @@
             "materials": {
                 "default": "cod"
             },
+            "geometry": {
+                "default": "geometry.cod"
+            },
             "textures": {
                 "default": "textures/entity/fish/cod"
             },
-            "geometry": {
-                "default": "geometry.cod"
+            "animations": {
+                "flop": "animation.cod.flop",
+                "swim": "animation.cod.swim"
+            },
+            "render_controllers": [
+                "controller.render.cod"
+            ],
+            "spawn_egg": {
+                "texture": "spawn_egg_cod"
             },
             "scripts": {
                 "pre_animation": [
@@ -18,22 +28,11 @@
                     "variable.AnimationAmountBlend = Math.lerp(variable.AnimationAmountPrev, variable.AnimationAmount, query.frame_alpha);"
                 ]
             },
-            "animations": {
-                "flop": "animation.cod.flop",
-                "swim": "animation.cod.swim"
-            },
             "animation_controllers": [
                 {
                     "general": "controller.animation.fish.general"
                 }
-            ],
-            "render_controllers": [
-                "controller.render.cod"
-            ],
-            "spawn_egg": {
-                "texture": "spawn_egg",
-                "texture_index": 45
-            }
+            ]
         }
     }
 }

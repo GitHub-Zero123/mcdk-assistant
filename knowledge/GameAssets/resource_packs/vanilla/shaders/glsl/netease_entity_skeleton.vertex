@@ -1,0 +1,62 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+#include "neteaseModelVertexUtil.h"
+#line 4
+
+varying vec4 light; // 光照值 vec4(r, g, b, a)
+varying vec4 fogColor; // 雾色与雾强度 vec4(r, g, b, 雾强度)
+
+#ifdef RNGL_LOCAL_LIGHT
+varying vec4 worldSpacePos;
+#endif
+
+#if defined(RNGL_LOCAL_LIGHT) || defined(RNGL_REFLECT)
+varying vec4 worldSpaceNormal;
+#endif
+
+#if defined(RNGL_REFLECT)
+varying vec4 clipPos;
+varying vec3 viewDir;
+#endif
+
+void main() {
+	POS4 entitySpacePosition, entitySpaceNormal;
+	// 计算顶点动画 得到模型空间位置与法线
+	getEntitySpacePositionAndNormal(entitySpacePosition, entitySpaceNormal);
+
+#ifdef RNGL_LOCAL_LIGHT
+	worldSpacePos = WORLD * entitySpacePosition;
+#endif
+
+#if defined(RNGL_LOCAL_LIGHT) || defined(RNGL_REFLECT)
+	worldSpaceNormal = entitySpaceNormal;
+	worldSpaceNormal.xyz = normalize(entitySpaceNormal.xyz);
+	worldSpaceNormal = WORLD * worldSpaceNormal;
+	worldSpaceNormal.xyz = normalize(entitySpaceNormal.xyz);
+#endif
+
+	calculateOverlayColor(); // 受伤变红等效果
+	calculateGlint(); // 计算附魔效果相关变量
+
+	// 包含其他内置宏相关的varying计算
+	neteaseModelCommonVert();
+
+	// 计算默认的MC顶点光照
+	light = getLightColor(entitySpacePosition, entitySpaceNormal);
+
+	// 变量uv已经在头文件中预先声明 这里使用TEXCOORD_0作为uv值
+	uv = TEXCOORD_0;
+	// 计算顶点uv 包括MC支持的UV序列帧效果
+	applyUVAnim(uv);
+
+	// 变换到投影空间
+	POS4 projSpacePos = WORLDVIEWPROJ * entitySpacePosition;
+#if defined(RNGL_REFLECT)
+ 	clipPos = projSpacePos;
+	viewDir = getViewDir(entitySpacePosition);
+#endif
+	gl_Position = projSpacePos;
+
+	// 根据投影位置 计算雾的效果
+	fogColor = getFogColor(projSpacePos);
+}

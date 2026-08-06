@@ -1,0 +1,50 @@
+{
+    "format_version": "1.21.20",
+    "minecraft:template_pool": {
+        "description": {
+            "identifier": "minecraft:trail_ruins/tower/tower_top"
+        },
+        "elements": [
+            {
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "trail_ruins/tower/tower_top_1",
+                    "processors": "minecraft:trail_ruins_tower_top_archaeology"
+                },
+                "weight": 1
+            },
+            {
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "trail_ruins/tower/tower_top_2",
+                    "processors": "minecraft:trail_ruins_tower_top_archaeology"
+                },
+                "weight": 1
+            },
+            {
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "trail_ruins/tower/tower_top_3",
+                    "processors": "minecraft:trail_ruins_tower_top_archaeology"
+                },
+                "weight": 1
+            },
+            {
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "trail_ruins/tower/tower_top_4",
+                    "processors": "minecraft:trail_ruins_tower_top_archaeology"
+                },
+                "weight": 1
+            },
+            {
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "trail_ruins/tower/tower_top_5",
+                    "processors": "minecraft:trail_ruins_tower_top_archaeology"
+                },
+                "weight": 1
+            }
+        ]
+    }
+}

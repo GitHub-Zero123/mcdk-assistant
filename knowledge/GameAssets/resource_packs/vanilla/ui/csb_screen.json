@@ -379,9 +379,10 @@
     "$pressed_no_hover_texture": "textures/ui/csb_button_borderless_pressed",
 
     "$default_checked_text_color": "$dark_toggle_hover_text_color",
+
     "bindings": [
       {
-        "binding_name": "#buy_visible",
+        "binding_name": "#buy_now_tab_visible",
         "binding_name_override": "#visible"
       }
     ]
@@ -519,7 +520,7 @@
         "csb_chevron": {
           "type": "image",
           "texture": "textures/ui/csbChevronArrowLarge",
-          "size": [ "138.89%y", "100%" ],
+          "size": [ 25, 19 ],
           "anchor_from": "bottom_left",
           "anchor_to": "bottom_left",
           "layer": 15
@@ -624,46 +625,5 @@
 
   "full_width_section_divider@common.section_divider": {
     "$divider_size": [ "100%", 1 ]
-  },
-
-  "tts_activate_sibling@common.button": {
-    "sound_volume": 1.0,
-    "size": [ "100%sm", "100%sm" ],
-    "$pressed_button_name": "button.focus_filler",
-    "$button_tts_name": "",
-    "focus_enabled": true,
-    "tts_inherit_siblings": true,
-    "controls": [
-      {
-        "default@csb.label_hover": {
-          "$visible_hover": false
-        }
-      },
-      {
-        "pressed@csb.label_hover": {
-          "$visible_hover": true
-        }
-      },
-      {
-        "hover@csb.label_hover": {
-          "$visible_hover": true
-        }
-      }
-    ]
-  },
-
-  "label_hover": {
-    "type": "panel",
-    "size": [ "100%", "100%" ],
-    "$visible_hover|default": true,
-    "controls": [
-      {
-        "hover@common.focus_border_white": {
-          "size": [ "100%", "100%" ],
-          "offset": [ 0, 2 ],
-          "visible": "$visible_hover"
-        }
-      }
-    ]
   }
 }

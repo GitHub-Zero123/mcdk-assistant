@@ -6,27 +6,26 @@
             "materials": {
                 "default": "endermite"
             },
-            "textures": {
-                "default": "textures/entity/endermite"
-            },
             "geometry": {
                 "default": "geometry.endermite"
             },
+            "textures": {
+                "default": "textures/entity/endermite"
+            },
             "animations": {
                 "move": "animation.endermite.move"
+            },
+            "render_controllers": [
+                "controller.render.endermite"
+            ],
+            "spawn_egg": {
+                "texture": "spawn_egg_endermite"
             },
             "animation_controllers": [
                 {
                     "move": "controller.animation.endermite.move"
                 }
-            ],
-            "render_controllers": [
-                "controller.render.endermite"
-            ],
-            "spawn_egg": {
-                "texture": "spawn_egg",
-                "texture_index": 25
-            }
+            ]
         }
     }
 }

@@ -1,5 +1,5 @@
 {
-    "format_version": "1.21.0",
+    "format_version": "1.21.100",
     "minecraft:entity": {
         "description": {
             "identifier": "minecraft:cave_spider",
@@ -20,7 +20,7 @@
                     "seats": {
                         "position": [
                             0.0,
-                            0.3,
+                            0.325,
                             -0.1
                         ]
                     }
@@ -28,7 +28,7 @@
             },
             "minecraft:spider_stray_jockey": {
                 "minecraft:addrider": {
-                    "entity_type": "minecraft:skeleton.stray"
+                    "entity_type": "minecraft:stray"
                 },
                 "minecraft:rideable": {
                     "seat_count": 1,
@@ -38,7 +38,25 @@
                     "seats": {
                         "position": [
                             0.0,
-                            0.3,
+                            0.325,
+                            -0.1
+                        ]
+                    }
+                }
+            },
+            "minecraft:spider_bogged_jockey": {
+                "minecraft:addrider": {
+                    "entity_type": "minecraft:bogged"
+                },
+                "minecraft:rideable": {
+                    "seat_count": 1,
+                    "family_types": [
+                        "skeleton"
+                    ],
+                    "seats": {
+                        "position": [
+                            0.0,
+                            0.325,
                             -0.1
                         ]
                     }
@@ -46,7 +64,7 @@
             },
             "minecraft:spider_wither_jockey": {
                 "minecraft:addrider": {
-                    "entity_type": "minecraft:skeleton.wither"
+                    "entity_type": "minecraft:wither_skeleton"
                 },
                 "minecraft:rideable": {
                     "seat_count": 1,
@@ -56,7 +74,7 @@
                     "seats": {
                         "position": [
                             0.0,
-                            0.25,
+                            0.325,
                             -0.1
                         ]
                     }
@@ -200,6 +218,7 @@
         },
         "components": {
             "minecraft:is_hidden_when_invisible": {},
+            "minecraft:renders_when_invisible": {},
             "minecraft:experience_reward": {
                 "on_death": "query.last_hit_by_player ? 5 : 0"
             },
@@ -232,9 +251,7 @@
                     {
                         "filters": {
                             "test": "in_lava",
-                            "subject": "self",
-                            "operator": "==",
-                            "value": true
+                            "subject": "self"
                         },
                         "cause": "lava",
                         "damage_per_tick": 4
@@ -319,7 +336,7 @@
                 "seats": {
                     "position": [
                         0.0,
-                        0.3,
+                        0.325,
                         0.0
                     ]
                 }
@@ -339,76 +356,116 @@
                         "randomize": [
                             {
                                 "weight": 80,
-                                "filters": {
-                                    "all_of": [
-                                        {
-                                            "test": "is_daytime",
-                                            "value": false
-                                        },
-                                        {
-                                            "test": "is_snow_covered",
-                                            "value": true
-                                        },
-                                        {
-                                            "test": "is_underground",
-                                            "value": false
-                                        }
-                                    ]
-                                },
-                                "remove": {},
-                                "add": {
-                                    "component_groups": [
-                                        "minecraft:spider_stray_jockey",
-                                        "minecraft:spider_neutral"
-                                    ]
-                                }
-                            },
-                            {
-                                "weight": 80,
-                                "filters": {
-                                    "test": "is_biome",
-                                    "value": "the_nether"
-                                },
-                                "remove": {},
-                                "add": {
-                                    "component_groups": [
-                                        "minecraft:spider_wither_jockey",
-                                        "minecraft:spider_neutral"
-                                    ]
-                                }
+                                "trigger": "minecraft:entity_spawned_with_biome_specific_jockey"
                             },
                             {
                                 "weight": 20,
-                                "filters": {
-                                    "all_of": [
-                                        {
-                                            "test": "is_daytime",
-                                            "value": false
-                                        },
-                                        {
-                                            "test": "is_underground",
-                                            "value": true
-                                        }
-                                    ]
-                                },
-                                "remove": {},
-                                "add": {
-                                    "component_groups": [
-                                        "minecraft:spider_jockey",
-                                        "minecraft:spider_neutral"
-                                    ]
-                                }
+                                "trigger": "minecraft:entity_spawned_with_default_jockey"
                             }
                         ]
                     },
                     {
                         "weight": 99,
-                        "remove": {},
                         "add": {
                             "component_groups": [
                                 "minecraft:spider_neutral"
                             ]
                         }
+                    }
+                ]
+            },
+            "minecraft:entity_spawned_with_default_jockey": {
+                "filters": {
+                    "any_of": [
+                        {
+                            "test": "is_daytime",
+                            "value": false
+                        },
+                        {
+                            "test": "is_underground",
+                            "value": true
+                        }
+                    ]
+                },
+                "add": {
+                    "component_groups": [
+                        "minecraft:spider_jockey",
+                        "minecraft:spider_neutral"
+                    ]
+                }
+            },
+            "minecraft:entity_spawned_with_biome_specific_jockey": {
+                "first_valid": [
+                    {
+                        "filters": {
+                            "all_of": [
+                                {
+                                    "test": "is_daytime",
+                                    "value": false
+                                },
+                                {
+                                    "test": "is_snow_covered",
+                                    "value": true
+                                },
+                                {
+                                    "test": "is_underground",
+                                    "value": false
+                                }
+                            ]
+                        },
+                        "add": {
+                            "component_groups": [
+                                "minecraft:spider_stray_jockey",
+                                "minecraft:spider_neutral"
+                            ]
+                        }
+                    },
+                    {
+                        "filters": {
+                            "all_of": [
+                                {
+                                    "test": "is_daytime",
+                                    "value": false
+                                },
+                                {
+                                    "test": "is_underground",
+                                    "value": false
+                                },
+                                {
+                                    "any_of": [
+                                        {
+                                            "test": "has_biome_tag",
+                                            "value": "swamp"
+                                        },
+                                        {
+                                            "test": "has_biome_tag",
+                                            "value": "mangrove_swamp"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        "add": {
+                            "component_groups": [
+                                "minecraft:spider_bogged_jockey",
+                                "minecraft:spider_neutral"
+                            ]
+                        }
+                    },
+                    {
+                        "filters": {
+                            "test": "has_biome_tag",
+                            "value": "nether"
+                        },
+                        "add": {
+                            "component_groups": [
+                                "minecraft:spider_wither_jockey",
+                                "minecraft:spider_neutral"
+                            ]
+                        }
+                    },
+                    {
+                        "trigger": "minecraft:entity_spawned_with_default_jockey"
                     }
                 ]
             },

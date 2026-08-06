@@ -1,5 +1,5 @@
 {
-    "format_version": "1.12.0",
+    "format_version": "1.21.0",
     "minecraft:geometry": [
         {
             "description": {
@@ -44,7 +44,14 @@
                                 9.0
                             ]
                         }
-                    ]
+                    ],
+                    "locators": {
+                        "lead_hold": [
+                            0,
+                            28.0,
+                            0.0
+                        ]
+                    }
                 },
                 {
                     "name": "head",
@@ -277,7 +284,14 @@
                                 9.0
                             ]
                         }
-                    ]
+                    ],
+                    "locators": {
+                        "lead_hold": [
+                            0.0,
+                            28.0,
+                            0.0
+                        ]
+                    }
                 },
                 {
                     "name": "head",

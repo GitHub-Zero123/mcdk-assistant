@@ -1,0 +1,333 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as appropriate.
+#line 4
+precision highp float;
+
+#if __VERSION__ < 300
+  #extension GL_EXT_shader_texture_lod : enable
+#endif
+
+#include "uniformPerFrameConstants.h"
+#include "uniformExtraVectorConstants.h"
+#include "neteaseModelFragmentUtil.h"
+#include "pbr_util.h"
+
+LAYOUT_BINDING(0) uniform sampler2D TEXTURE_0; // sclera/conjunctiva diffuse (was res41).
+LAYOUT_BINDING(1) uniform sampler2D TEXTURE_1; // iris diffuse + alpha mask (was res43).
+LAYOUT_BINDING(2) uniform sampler2D TEXTURE_2; // iris normal (was res42).
+LAYOUT_BINDING(3) uniform sampler2D TEXTURE_3; // MCPE dynamic IBL prefiltered octahedral atlas.
+LAYOUT_BINDING(4) uniform sampler2D TEXTURE_4; // Original res40 lookup/slot compat, unused.
+LAYOUT_BINDING(5) uniform sampler2D TEXTURE_5; // cornea/sphere normal (was res44).
+#if defined(NTES_ANIMATED_MODEL_BATCH_TEXTURE)
+#define PBR_EXTRA_TEXTURE TEXTURE_5
+#else
+LAYOUT_BINDING(6) uniform sampler2D TEXTURE_6; // hand-painted cornea env/matcap (was res45).
+#define PBR_EXTRA_TEXTURE TEXTURE_6
+#endif
+
+varying highp vec4 light;
+varying highp vec4 fogColor;
+varying highp vec3 positionWS;
+varying mediump vec3 normalWS;
+varying mediump vec4 tangentWS;
+varying mediump vec3 lightDirWS;
+varying mediump float lightIntensity;
+varying highp vec3 entitySpaceNormalOut;
+varying highp float entitySpacePosXOut;
+// Eye basis directions in world space: front/up/UV-U axis.
+varying highp vec3 worldXdir;
+varying highp vec3 worldYdir;
+varying highp vec3 worldZdir;
+#ifdef USE_VISIBLE_SH_MAP
+varying highp vec2 uvSH;
+#endif
+
+// Captured from RenderDoc uniform dump (descriptor set 3, binding 3):
+//   child20=0.50  cornea depth/parallax scale
+//   child22=0.005 child26=0.203 -> iris UV-radius mask: inner=0.193, outer=0.243
+//   child25=0.20  cornea perceptual roughness
+//   child27=0.91  sub-mask scale
+//   child29=1.0   iris normal map strength
+//   child30=1.40  iris edge darkening scale
+//   child31=0.40  cornea normal map strength
+//   child33=0.05  cornea F0
+//   child4=(0.346,0.321,0.321,0.0275)  iris additive dark tint
+//   child6=(0.0161,0.01457,0.01771)    iris edge dark color
+#define LYSK_IRIS_INNER       0.193
+#define LYSK_IRIS_OUTER       0.243
+#define LYSK_PARALLAX_STR     0.203
+#define LYSK_CORNEA_DEPTH_SCALE 0.50
+#define LYSK_CORNEA_ROUGHNESS 0.20
+#define LYSK_CORNEA_NORMAL_STR 0.40
+#define LYSK_IRIS_NORMAL_STR  1.00
+#define LYSK_IRIS_SUB_MASK_SCALE 0.91
+#define LYSK_IRIS_EDGE_SCALE  1.40
+#define LYSK_CORNEA_F0        0.05
+#define LYSK_IOR_RATIO        0.7695
+#define LYSK_DIFFUSE_IBL_INTENSITY 1.00
+// Captured projection Y is world-up-like, while this MCPE mesh UV-V increases
+// downward on the eyeball. Flip only the V component when applying parallax UV.
+#define LYSK_PARALLAX_U_SIGN  1.0
+#define LYSK_PARALLAX_V_SIGN -1.0
+#define LYSK_GRAZING_ALIGN_END   0.08
+#define LYSK_GRAZING_ALIGN_START 0.28
+
+const vec3 LYSK_IRIS_TINT = vec3(0.346 * 0.0275, 0.321 * 0.0275, 0.321 * 0.0275);
+const vec3 LYSK_IRIS_PUPIL = vec3(0.0161, 0.01457, 0.01771);
+
+float saturate(float v) { return clamp(v, 0.0, 1.0); }
+vec3 saturate(vec3 v) { return clamp(v, vec3(0.0), vec3(1.0)); }
+
+// EXTRA_VECTOR2.z optionally flips the front hemisphere; default is +X.
+float getFrontSign() {
+#ifdef USE_EXTRA_VECTOR
+    if (EXTRA_VECTOR2.z < -0.5) return -1.0;
+#endif
+    return 1.0;
+}
+float getFrontGate(float entityPosX) {
+    return smoothstep(-0.0005, 0.0005, entityPosX * getFrontSign());
+}
+
+vec2 safeNormalize2(vec2 v) {
+    float len2 = dot(v, v);
+    if (len2 < 1e-6) return vec2(0.0, 0.0);
+    return v * inversesqrt(len2);
+}
+
+vec3 safeNormalize3(vec3 v, vec3 fallback) {
+    float len2 = dot(v, v);
+    if (len2 < 1e-6) return fallback;
+    return v * inversesqrt(len2);
+}
+
+mat3 tangentFrame(vec3 n, vec4 tangent) {
+    vec3 t = tangent.xyz - n * dot(n, tangent.xyz);
+    t = normalize(t);
+    vec3 b = normalize(cross(n, t)) * tangent.w;
+    return mat3(t, b, n);
+}
+
+vec3 decodeNormalTS(vec4 normalSample) {
+    vec2 xy = normalSample.xy * 2.0 - 1.0;
+    float z = sqrt(saturate(1.0 - dot(xy, xy)));
+    return normalize(vec3(xy, z));
+}
+
+vec3 scaleNormalTS(vec3 n, float strength) {
+    vec2 xy = n.xy * strength;
+    float z = sqrt(saturate(1.0 - dot(xy, xy)));
+    return normalize(vec3(xy, z));
+}
+
+vec3 capturedNormalToWorld(vec3 nTS, mat3 tbn) {
+    // The captured shader uses y*B - x*T + z*N for res42/res44 normals.
+    return normalize(tbn[2] * nTS.z + tbn[1] * nTS.y - tbn[0] * nTS.x);
+}
+
+vec3 corneaDepthNormalSwizzled(vec3 nTS, mat3 tbn) {
+    // Direct translation of assembly lines 211-252:
+    //   depthN = normalize((-y)*B.yzx + x*T.yzx + z*N.yzx)
+    // Keep this swizzled representation because the projection code below uses
+    // the same yzx/zxy coordinate convention.
+    return normalize((-nTS.y) * tbn[1].yzx + nTS.x * tbn[0].yzx + nTS.z * tbn[2].yzx);
+}
+
+vec2 projectCorneaOffsetToIrisUV(vec3 offsetW, vec3 depthNSw, vec3 tangentW) {
+    // Direct translation of assembly lines 393-440. This is not equivalent to
+    // a plain dot against T/B in our current coordinate basis; the captured
+    // shader projects through swizzled axes.
+    float tDotN = dot(tangentW.yzx, depthNSw);
+    vec3 axisU = safeNormalize3((-tDotN) * depthNSw.yzx + tangentW.zxy, tangentW.zxy);
+    float offsetU = dot(axisU.yzx, offsetW);
+    vec3 axisV = axisU.zxy * depthNSw.yzx - depthNSw * axisU;
+    float offsetV = dot(axisV, offsetW);
+    return vec2(offsetU, offsetV);
+}
+
+vec2 matcapUVFromNormal(vec3 n, vec3 viewW) {
+    vec3 up = abs(viewW.y) > 0.98 ? vec3(0.0, 0.0, 1.0) : vec3(0.0, 1.0, 0.0);
+    vec3 right = normalize(cross(up, viewW));
+    vec3 viewUp = normalize(cross(viewW, right));
+    return clamp(vec2(dot(n, right), dot(n, viewUp)) * 0.5 + vec2(0.5), vec2(0.001), vec2(0.999));
+}
+
+vec4 sampleHandPaintedEnv(vec2 envUV, float lod) {
+#if __VERSION__ < 300
+    return texture2DLodEXT(PBR_EXTRA_TEXTURE, envUV, lod);
+#else
+    return textureLod(PBR_EXTRA_TEXTURE, envUV, lod);
+#endif
+}
+
+#ifdef USE_VISIBLE_SH_MAP
+mediump vec3 reconstructDiffuseIrradiance(mediump vec3 N) {
+    mediump vec3 Nsq = N * N;
+    return Nsq.x * (N.x >= 0.0 ? EXTRA_VECTOR3.xyz : EXTRA_VECTOR4.xyz)
+         + Nsq.y * (N.y >= 0.0 ? EXTRA_VECTOR5.xyz : EXTRA_VECTOR6.xyz)
+         + Nsq.z * (N.z >= 0.0 ? EXTRA_VECTOR7.xyz : EXTRA_VECTOR8.xyz);
+}
+#endif
+
+vec3 refractThroughSurfaceNormal(vec3 viewW, vec3 normalW) {
+    float w = LYSK_IOR_RATIO * dot(normalW, viewW);
+    float k = sqrt(max(1.0 + (w - LYSK_IOR_RATIO) * (w + LYSK_IOR_RATIO), 0.0));
+    return normalize((w - k) * normalW - LYSK_IOR_RATIO * viewW);
+}
+
+float irisMaskFromUV(vec2 baseUV) {
+    float d = length(baseUV - vec2(0.5));
+    return 1.0 - smoothstep(LYSK_IRIS_INNER, LYSK_IRIS_OUTER, d);
+}
+
+float irisSubMaskFromParallaxUV(vec2 parallaxUV) {
+    vec2 d = (parallaxUV - vec2(0.5)) * (0.5 / LYSK_PARALLAX_STR);
+    float r = length(d);
+    return clamp((1.0 - 2.0 * r) * LYSK_IRIS_SUB_MASK_SCALE, 0.0, 1.0);
+}
+
+vec2 remapIrisUV(vec2 parallaxUV) {
+    // Original shader maps the refracted UV into a circular iris space instead
+    // of clamping against a square. This keeps the painted pupil circular.
+    vec2 d = (parallaxUV - vec2(0.5)) * (0.5 / LYSK_PARALLAX_STR);
+    vec2 dir = safeNormalize2(d);
+    float subMask = irisSubMaskFromParallaxUV(parallaxUV);
+    vec2 irisUV = vec2(0.5) + dir * (0.5 * (1.0 - subMask));
+    return clamp(irisUV, vec2(0.001), vec2(0.999));
+}
+
+vec2 sphereUVFromParallaxUV(vec2 parallaxUV) {
+    vec2 sphereUV = vec2(0.5) + (parallaxUV - vec2(0.5)) * (0.5 / LYSK_PARALLAX_STR);
+    return clamp(sphereUV, vec2(0.001), vec2(0.999));
+}
+
+void main() {
+    vec3 nGeom = normalize(normalWS);
+    vec3 V = normalize(-positionWS);
+    vec3 L = normalize(lightDirWS);
+    mat3 tbn = tangentFrame(nGeom, tangentWS);
+
+    // Cornea normal/depth for the refraction ray.
+    vec4 corneaNormalSample = texture2D(TEXTURE_5, uv);
+    float corneaDepth = corneaNormalSample.a;
+    vec3 corneaNormalTS = decodeNormalTS(corneaNormalSample);
+    vec3 NCorneaDepthSw = corneaDepthNormalSwizzled(corneaNormalTS, tbn);
+
+    // Front/back gate
+    float frontGate = getFrontGate(entitySpacePosXOut);
+
+    // Iris mask
+    float irisMaskBase = irisMaskFromUV(uv);
+
+    // Refraction parallax. The captured LYSK shader refracts against the
+    // geometric eye surface, then projects that offset through a local frame
+    // built from the tangent axis and cornea ray normal.
+    vec3 Vrefr = refractThroughSurfaceNormal(V, nGeom);
+
+    float height = corneaDepth * LYSK_CORNEA_DEPTH_SCALE;
+    float NoVCornea = dot(V.yzx, NCorneaDepthSw);
+    float parallaxDenom = NoVCornea * NoVCornea * 0.675 + 0.325;
+    float dist = height / parallaxDenom;
+    vec3 offsetW = -Vrefr * dist;
+    vec2 offsetL = projectCorneaOffsetToIrisUV(offsetW, NCorneaDepthSw, tbn[0]);
+    vec2 parallaxUV = uv - irisMaskBase * offsetL * vec2(LYSK_PARALLAX_U_SIGN, LYSK_PARALLAX_V_SIGN) * LYSK_PARALLAX_STR;
+    vec2 irisUV = remapIrisUV(parallaxUV);
+    vec2 corneaSphereUVOriginal = sphereUVFromParallaxUV(parallaxUV);
+    vec2 corneaSphereUVAligned = clamp(irisUV, vec2(0.001), vec2(0.999));
+    float grazingAlign = (1.0 - smoothstep(LYSK_GRAZING_ALIGN_END, LYSK_GRAZING_ALIGN_START, abs(dot(nGeom, V)))) * irisMaskBase;
+    vec2 corneaSphereUV = mix(corneaSphereUVOriginal, corneaSphereUVAligned, grazingAlign);
+    float irisMask = irisMaskBase * frontGate;
+    float corneaNormalMask = frontGate;
+
+    // Sample textures
+    vec4 scleraSample = getSampledColor(TEXTURE_0, uv);
+    vec4 irisSample = getSampledColor(TEXTURE_1, irisUV);
+    vec4 irisNormalSample = texture2D(TEXTURE_2, irisUV);
+    vec3 irisNormalTS = scaleNormalTS(decodeNormalTS(irisNormalSample), LYSK_IRIS_NORMAL_STR);
+    // Original LYSK samples res44 again in parallax sphere space for the visible
+    // cornea normal, then decodes it through mesh TBN: y*B - x*T + z*N.
+    vec4 corneaLitSample = texture2D(TEXTURE_5, corneaSphereUV);
+    vec3 corneaNormalTSParallax = scaleNormalTS(decodeNormalTS(corneaLitSample), LYSK_CORNEA_NORMAL_STR);
+    vec3 corneaNormalTSLit = corneaNormalTSParallax;
+    vec3 NCorneaLitRaw = capturedNormalToWorld(corneaNormalTSLit, tbn);
+    vec3 NCorneaLit = normalize(mix(nGeom, NCorneaLitRaw, corneaNormalMask));
+
+    // === Albedo composition (NO sRGB->linear, matches original) ===
+    // Re-read of assembly lines 815-894: the "pupil" dark dot is NOT drawn by the
+    // shader. It's already painted into the iris texture at its UV center.
+    //
+    // child6 (0.016, 0.015, 0.018) is actually an EDGE darkening color, applied
+    // to the outer ring of the iris to soften the iris->sclera boundary:
+    //   mask2_sub = clamp((1 - 2*invR*len(parallax_uv-0.5)) * 0.91, 0, 1)
+    //   edge_t    = min((0.7 * (1 - mask2_sub))^2, 1)       // child30=1.4, child19=2
+    //   iris_rim  = lerp(iris_rgb, child6, edge_t)
+    //   out       = lerp(sclera, iris_rim, mask_uv)
+    //
+    // Bug the user hit: I was lerping the iris CENTER toward child6 which made the
+    // pupil swallow the iris. The iris texture's own center pixels are the pupil.
+    vec3 sclera = scleraSample.rgb;
+    vec3 irisCore = irisSample.rgb + irisSample.a * LYSK_IRIS_TINT;
+
+    // Reconstruct the original edge-darkening sub-mask from the circular iris UV.
+    float mask2Sub = irisSubMaskFromParallaxUV(parallaxUV);
+    float edgeT = min(pow(0.5 * LYSK_IRIS_EDGE_SCALE * (1.0 - mask2Sub), 2.0), 1.0);
+    vec3 irisBlended = mix(irisCore, LYSK_IRIS_PUPIL, edgeT);
+    vec3 albedo = mix(sclera, irisBlended, irisMask);
+
+    // === Lighting normal: original blends iris normal from the geometry normal.
+    // Keep both iris and cornea detail out of the sclera/back side.
+    vec3 NIris = capturedNormalToWorld(irisNormalTS, tbn);
+    float irisNormalBlend = irisMask * irisMask;
+    vec3 N = normalize(mix(nGeom, NIris, irisNormalBlend));
+
+    // === Direct + IBL diffuse (no tonemap/gamma — original outputs linear-ish color) ===
+    vec3 lightColor = mix(vec3(0.4, 0.5, 0.7), vec3(1.0, 0.95, 0.9), lightIntensity) * (lightIntensity * 2.0);
+    float NoL = max(dot(N, L), 0.0);
+    vec3 directDiffuse = albedo * lightColor * (0.30 + NoL * 0.70);
+#ifdef USE_VISIBLE_SH_MAP
+    vec3 diffuseEnv = reconstructDiffuseIrradiance(N);
+#else
+    vec3 diffuseEnv = vec3(0.45);
+#endif
+    vec3 diffuseIBL = diffuseEnv * albedo * LYSK_DIFFUSE_IBL_INTENSITY;
+
+    // === Cornea specular (uses NCorneaLit for the highlight shape, NCornea for
+    //     Fresnel so the rim falls off naturally instead of ringing the mesh) ===
+    float perceptualRoughness = LYSK_CORNEA_ROUGHNESS;
+    float roughness = perceptualRoughnessToRoughness(perceptualRoughness);
+    vec3 corneaF0 = vec3(LYSK_CORNEA_F0);
+
+    // Use the geometric cornea normal for NoV. The strengthened (lighting) normal
+    // has noisy grazing terms which cause a bright fresnel-like rim around the
+    // whole mesh. Geometric NoV decays smoothly from 1 (centre) to 0 (rim).
+    float NoVGeom = max(dot(nGeom, V), MIN_NOV);
+    // Original matcap reflection is multiplied by pow(irisMask, 80), so the
+    // soft iris/sclera border does not become a broad white reflection band.
+    float irisSpecMask = pow(saturate(irisMaskBase), 80.0) * frontGate;
+    float corneaReflectMask = irisSpecMask;
+    float specVisibility = smoothstep(0.0, 0.08, NoVGeom) * corneaReflectMask;
+    float matcapLod = (1.7 - 0.7 * perceptualRoughness) * perceptualRoughness * 6.0;
+    vec2 matcapUV = matcapUVFromNormal(NCorneaLit, V);
+    vec3 specularIBL = sampleHandPaintedEnv(matcapUV, matcapLod).rgb * specVisibility;
+
+    // Direct cornea highlight (sun glint): keep the D*G*F lobe but scale lightly
+    // and gate back-facing cornea only.
+    vec3 H = normalize(V + L);
+    float NoH = max(dot(NCorneaLit, H), 0.0);
+    float VoH = max(dot(V, H), 0.0);
+    float NoLc = max(dot(NCorneaLit, L), 0.0);
+    vec3 F = F_Schlick(VoH, corneaF0);
+    float D = D_GGX(NoH, roughness, NCorneaLit, H);
+    float G = V_SmithGGXCorrelated(NoVGeom, max(NoLc, 0.001), roughness);
+    vec3 directSpecular = F * (D * G * NoLc) * lightColor * specVisibility * 0.35;
+
+    // === Composition: NO tonemap, NO gamma — matches original assembly output ===
+    vec3 hdrColor = directDiffuse + diffuseIBL + directSpecular + specularIBL;
+    vec3 colorOut = saturate(hdrColor);
+
+    vec4 outColor = vec4(colorOut, scleraSample.a);
+    neteaseModelCommonFrag(outColor);
+    applyOverlayColor(outColor);
+    applyFog(outColor, fogColor);
+    gl_FragColor = outColor;
+}

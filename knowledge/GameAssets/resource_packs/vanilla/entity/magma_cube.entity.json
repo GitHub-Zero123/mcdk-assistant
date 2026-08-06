@@ -6,11 +6,20 @@
             "materials": {
                 "default": "magma_cube"
             },
-            "textures": {
-                "default": "textures/entity/slime/magmacube"
-            },
             "geometry": {
-                "default": "geometry.lavaslime"
+                "default": "geometry.magma_cube_v2"
+            },
+            "textures": {
+                "default": "textures/entity/slime/magmacube_v2"
+            },
+            "animations": {
+                "move": "animation.magma_cube.move"
+            },
+            "render_controllers": [
+                "controller.render.magma_cube"
+            ],
+            "spawn_egg": {
+                "texture": "spawn_egg_magma_cube"
             },
             "scripts": {
                 "pre_animation": [
@@ -23,21 +32,11 @@
                 "scaleY": "variable.vertical_scale_amount",
                 "scaleZ": "variable.horizontal_scale_amount"
             },
-            "animations": {
-                "move": "animation.magma_cube.move"
-            },
             "animation_controllers": [
                 {
                     "general": "controller.animation.magma_cube.general"
                 }
-            ],
-            "render_controllers": [
-                "controller.render.magma_cube"
-            ],
-            "spawn_egg": {
-                "texture": "spawn_egg",
-                "texture_index": 20
-            }
+            ]
         }
     }
 }

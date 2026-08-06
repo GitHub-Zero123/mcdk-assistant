@@ -1,0 +1,49 @@
+{
+    "format_version": "1.13.0",
+    "minecraft:feature_rules": {
+        "description": {
+            "identifier": "minecraft:birch_forest_before_surface_wildflowers_feature_rules",
+            "places_feature": "minecraft:scatter_birch_forest_wildflowers_feature"
+        },
+        "conditions": {
+            "placement_pass": "before_surface_pass",
+            "minecraft:biome_filter": [
+                {
+                    "test": "has_biome_tag",
+                    "value": "birch"
+                },
+                {
+                    "test": "has_biome_tag",
+                    "value": "forest"
+                },
+                {
+                    "test": "has_biome_tag",
+                    "operator": "!=",
+                    "value": "hills"
+                }
+            ]
+        },
+        "distribution": {
+            "iterations": 3,
+            "scatter_chance": {
+                "numerator": 1,
+                "denominator": 2
+            },
+            "x": {
+                "distribution": "uniform",
+                "extent": [
+                    0,
+                    16
+                ]
+            },
+            "y": "query.heightmap(variable.worldx, variable.worldz)",
+            "z": {
+                "distribution": "uniform",
+                "extent": [
+                    0,
+                    16
+                ]
+            }
+        }
+    }
+}

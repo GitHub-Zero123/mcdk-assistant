@@ -1,0 +1,57 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+
+
+#include "fragmentVersionCentroidUV.h"
+
+#include "util.h"
+precision highp float;
+
+LAYOUT_BINDING(0) uniform sampler2D TEXTURE_0;
+
+uniform float GAUSSIAN_BLUR_VECTOR1_1; // radius
+uniform vec4 EXTRA_VECTOR4; // Screen Info vec4(width, height, pixelWidth, pixelHeight)
+
+vec4 dual_us()
+{
+    vec3 sum = vec3(0.0,0.0,0.0);
+    vec2 pixelSize = EXTRA_VECTOR4.zw;
+	float radius = GAUSSIAN_BLUR_VECTOR1_1;
+
+    sum += texture(TEXTURE_0, uv + vec2(pixelSize.x * -1.0, pixelSize.y * 1.0) * radius).rgb * 2.0;
+    sum += texture(TEXTURE_0, uv + vec2(pixelSize.x * 1.0, pixelSize.y * 1.0) * radius).rgb * 2.0;
+    sum += texture(TEXTURE_0, uv + vec2(pixelSize.x * -1.0, pixelSize.y * -1.0) * radius).rgb * 2.0;
+    sum += texture(TEXTURE_0, uv + vec2(pixelSize.x * 1.0, pixelSize.y * -1.0) * radius).rgb * 2.0;
+
+    sum += texture(TEXTURE_0, uv + vec2(0.0 , pixelSize.y * 2.0) * radius).rgb;
+    sum += texture(TEXTURE_0, uv + vec2(pixelSize.x * 2.0 , 0.0) * radius).rgb;
+    sum += texture(TEXTURE_0, uv + vec2(0.0 , pixelSize.y * -2.0) * radius).rgb;
+    sum += texture(TEXTURE_0, uv + vec2(pixelSize.x * -2.0 , 0.0) * radius).rgb;  
+   
+    sum = sum * 0.0833;
+    return vec4(sum, 1.0);
+}
+
+vec4 gaussBlur_ver()
+{
+    // ================= ==============
+    float radius = GAUSSIAN_BLUR_VECTOR1_1;
+    vec4 blurOffset = vec4(0.0, radius/EXTRA_VECTOR4.y, 0.0, 0.0);
+    vec4 sum = vec4(0.0);
+    sum += 0.40 * texture(TEXTURE_0, uv);
+    sum += 0.15 * texture(TEXTURE_0, uv + vec2(blurOffset.x, blurOffset.y));
+    sum += 0.15 * texture(TEXTURE_0, uv + vec2(-1.0 * blurOffset.x, -1.0 * blurOffset.y));
+    sum += 0.10 * texture(TEXTURE_0, uv + vec2( 1.0 * blurOffset.x, 1.0 * blurOffset.y)*2.0);
+    sum += 0.10 * texture(TEXTURE_0, uv + vec2(-1.0 * blurOffset.x, -1.0 * blurOffset.y)*2.0);
+    sum += 0.05 * texture(TEXTURE_0, uv + vec2(1.0 * blurOffset.x, 1.0 * blurOffset.y)*6.0);
+    sum += 0.05 * texture(TEXTURE_0, uv + vec2(-1.0 * blurOffset.x, -1.0 * blurOffset.y)*6.0);
+    
+    return vec4(sum.rgb,1.0);
+
+}
+
+void main(){
+
+   //gl_FragColor = gaussBlur_ver();
+   gl_FragColor = dual_us();
+}

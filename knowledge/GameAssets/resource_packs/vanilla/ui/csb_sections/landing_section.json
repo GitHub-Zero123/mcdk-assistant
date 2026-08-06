@@ -65,11 +65,15 @@
           "$pressed_button_name": "button.action_button",
           "bindings": [
             {
-              "binding_name": "#buy_visible",
+              "binding_name": "#call_to_action_button_visible",
               "binding_name_override": "#visible"
             }
           ],
           "$buy_now_bindings": [
+            {
+              "binding_name": "#landing_buy_button_enabled",
+              "binding_name_override": "#enabled"
+            }
           ]
         }
       },
@@ -102,15 +106,15 @@
               }
             },
             {
-              "tts_hover@csb.tts_activate_sibling": {
+              "tts_hover@common.tts_activate_sibling": {
                 "size": [ "100% - 2px", "100%sm" ],
-                "offset": [0, -2]
+                "offset": [ 0, -2 ]
               }
             }
           ],
           "bindings": [
             {
-              "binding_name": "#csb_one_month_free_trial_visible",
+              "binding_name": "#free_trial_banner_visible",
               "binding_name_override": "#visible"
             }
           ]
@@ -128,7 +132,7 @@
               }
             },
             {
-              "tts_hover@csb.tts_activate_sibling": {
+              "tts_hover@common.tts_activate_sibling": {
                 "size": [ "100% - 2px", "100%sm" ],
                 "offset": [ 0, -2 ]
               }
@@ -136,7 +140,7 @@
           ],
           "bindings": [
             {
-              "binding_name": "(not #csb_one_month_free_trial_visible)",
+              "binding_name": "#subscription_banner_visible",
               "binding_name_override": "#visible"
             }
           ]
@@ -170,7 +174,8 @@
   },
 
   "title_image_panel": {
-    "type": "panel",
+    "type": "stack_panel",
+    "orientation": "vertical",
     "size": [ "100%", "100%c" ],
     "controls": [
       {
@@ -254,6 +259,7 @@
           "size": [ "100% - 4px", "100%cm" ],
           "anchor_to": "top_left",
           "$info_text_line": "#landing_info_text",
+          "$font_scale_factor": 1.1,
           "$text_bindings": [
             {
               "binding_name": "#landing_info_text"
@@ -308,25 +314,6 @@
       {
         "info_text_bullet_6@csb_landing.info_text_bullet": {
           "$info_text_line": "store.csb.landing.info.line6"
-        }
-      },
-      {
-        "vertical_small_spacer_6@csb_landing.vertical_small_spacer": {}
-      },
-      {
-        "info_text_bullet_7@csb_landing.info_text_bullet": {
-          "$info_text_line": "#subscription_info_text",
-          "$text_bindings": [
-            {
-              "binding_name": "#subscription_info_text"
-            }
-          ],
-          "bindings": [
-            {
-              "binding_name": "#sign_in_visible",
-              "binding_name_override": "#visible"
-            }
-          ]
         }
       },
       {
@@ -440,6 +427,7 @@
   "info_text_body": {
     "type": "panel",
     "size": [ "fill", "100%cm" ],
+    "$font_scale_factor|default": 1.0,
     "controls": [
       {
         "text_body": {
@@ -447,12 +435,13 @@
           "text": "$info_text_line",
           "size": [ "100%", "default" ],
           "font_type": "smooth",
+          "font_scale_factor": "$font_scale_factor",
           "color": "$store_white_text_color",
           "bindings": "$text_bindings"
         }
       },
       {
-        "tts_border@csb.tts_activate_sibling": {
+        "tts_border@common.tts_activate_sibling": {
           "size": [ "100%sm + 2px", "100%sm + 2px" ],
           "offset": [ 0, -2 ]
         }

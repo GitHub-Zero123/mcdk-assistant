@@ -1,0 +1,44 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+
+
+#include "fragmentVersionCentroidUV.h"
+
+#include "util.h"
+
+LAYOUT_BINDING(0) uniform sampler2D TEXTURE_0;
+
+uniform vec4 EXTRA_VECTOR4;  // Screen Info vec4(width, height, pixelWidth, pixelHeight)
+uniform vec4 EXTRA_VECTOR1;  // (threshold, intensity, radius, 1.0)
+
+
+void main(){
+#ifdef RNGL
+    vec4 c0 = texture(TEXTURE_0, uv).rgba;
+#else
+	vec3 c0 = texture(TEXTURE_0, uv).rgb;
+#endif
+
+    vec2 pixelSize = EXTRA_VECTOR4.zw;
+
+	float radius = EXTRA_VECTOR1.z;
+
+    vec3 c1 = texture(TEXTURE_0, uv + vec2(pixelSize.x * -1.0, pixelSize.y * 1.0) * radius).rgb;
+
+    vec3 c2 = texture(TEXTURE_0, uv + vec2(pixelSize.x * 1.0, pixelSize.y * 1.0) * radius).rgb;
+
+    vec3 c3 = texture(TEXTURE_0, uv + vec2(pixelSize.x * -1.0, pixelSize.y * -1.0) * radius).rgb;
+
+    vec3 c4 = texture(TEXTURE_0, uv + vec2(pixelSize.x * 1.0, pixelSize.y * -1.0) * radius).rgb;
+
+#ifdef RNGL
+    vec3 result = (c0.rgb + c1.rgb + c2.rgb + c3.rgb + c4.rgb) * 0.2;
+
+    gl_FragColor = vec4(result.rgb, c0.a);
+#else
+	vec3 result = (c0 + c1 + c2 + c3 + c4) * 0.2;
+
+    gl_FragColor = vec4(result, 1.0);
+#endif
+
+}

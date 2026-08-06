@@ -1,0 +1,67 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as appropriate.
+#line 4
+precision highp float;
+
+#include "uniformPerFrameConstants.h"
+#include "uniformExtraVectorConstants.h"
+#include "neteaseModelFragmentUtil.h"
+
+LAYOUT_BINDING(0) uniform sampler2D TEXTURE_0; // Diffuse texture
+LAYOUT_BINDING(1) uniform sampler2D TEXTURE_1; // Mask texture
+
+varying highp vec2 uvDiffuse;
+varying highp vec2 uvMask;
+varying highp vec4 light;
+varying highp vec4 fogColor;
+
+// EXTRA_VECTOR4 layout:
+// x = brightness
+// y = reserved
+// z = auto_scroll_flag (used in vertex shader)
+// w = has_mask (1.0 = use TEXTURE_1 mask, 0.0 = skip mask)
+
+void main() {
+	// Sample diffuse texture
+	vec4 diffuseColor = texture2D(TEXTURE_0, uvDiffuse);
+
+	// Sample mask texture (if no texture is bound, sampler may return 0 —
+	// use MATERIAL_INSTANCE_PARAM4.w as "has_mask" flag: 1.0 = use mask, 0.0 = skip)
+	float hasMask = EXTRA_VECTOR4.w;
+	vec4 maskColor = texture2D(TEXTURE_1, uvMask);
+	float maskAlpha = mix(1.0, maskColor.a, hasMask);
+
+	// Alpha: diffuse.a × mask.a (or just diffuse.a if no mask)
+	float finalAlpha = diffuseColor.a * maskAlpha;
+
+	// Brightness scaling
+	float brightness = EXTRA_VECTOR4.x;
+	vec3 finalRGB = diffuseColor.rgb * brightness;
+
+	// Apply lighting
+	finalRGB *= light.rgb;
+
+	// Blend mode output via defines (set by editor refreshMaterialDefines)
+	vec4 color;
+#if defined(FX_BLEND_ADD)
+	// Additive: GPU blend state = SrcAlpha, One
+	color = vec4(finalRGB, finalAlpha);
+#elif defined(FX_BLEND_PREMUL)
+	// Premultiplied alpha: GPU blend state = One, OneMinusSrcAlpha
+	color = vec4(finalRGB * finalAlpha, finalAlpha);
+#else
+	// Default (FX_BLEND_ALPHA): standard alpha blend = SrcAlpha, OneMinusSrcAlpha
+	color = vec4(finalRGB, finalAlpha);
+#endif
+
+	// Apply common fragment operations (alpha control, pet distance alpha, etc.)
+	neteaseModelCommonFrag(color);
+
+	// Apply overlay
+	applyOverlayColor(color);
+
+	// Apply fog
+	applyFog(color, fogColor);
+
+	gl_FragColor = color;
+}

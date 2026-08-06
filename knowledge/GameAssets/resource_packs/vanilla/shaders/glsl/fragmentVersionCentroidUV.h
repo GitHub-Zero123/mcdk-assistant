@@ -11,8 +11,8 @@
 #define _centroid
 #endif
 
-// version 300 code
-_centroid in vec2 uv;
+// version 300 code (highp: stable uv derivatives / PBR on iOS fragment mediump default)
+_centroid in highp vec2 uv;
 
 #define varying in
 #define texture2D texture
@@ -22,6 +22,6 @@ out vec4 FragColor;
 #else
 
 // version 100 code
-varying vec2 uv;
+varying highp vec2 uv;
 
 #endif

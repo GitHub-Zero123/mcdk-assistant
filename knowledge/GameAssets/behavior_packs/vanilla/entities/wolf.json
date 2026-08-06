@@ -1,5 +1,5 @@
 {
-  "format_version": "1.21.40",
+  "format_version": "1.21.100",
   "minecraft:entity": {
     "description": {
       "identifier": "minecraft:wolf",
@@ -13,6 +13,17 @@
           "default": false
         },
         "minecraft:has_increased_max_health": {
+          "type": "bool",
+          "client_sync": false,
+          "default": false
+        },
+        "minecraft:sound_variant": {
+          "type": "enum",
+          "values": [ "default", "big", "cute", "grumpy", "mad", "puglin", "sad" ],
+          "default": "default",
+          "client_sync": true
+        },
+        "minecraft:was_upgraded_to_1_21_100": {
           "type": "bool",
           "client_sync": false,
           "default": false
@@ -61,9 +72,12 @@
         "minecraft:loot": {
           "table": "loot_tables/entities/wolf.json"
         },
+        "minecraft:leashable_to": {
+        },
         "minecraft:breedable": {
           "require_tame": true,
           "require_full_health": true,
+          "combine_parent_colors": true,
           "breeds_with": {
             "mate_type": "minecraft:wolf",
             "baby_type": "minecraft:wolf",
@@ -107,7 +121,9 @@
             "zombie"
           ],
           "seats": {
-            "position": [ 0.0, 0.675, -0.1 ]
+            // This value results in zombies floating when riding baby cats,
+            // but switching to a different setup would break pre-existing mobs.
+            "position": [ 0.0, 0.625, -0.1 ]
           }
         }
       },
@@ -217,7 +233,9 @@
             "zombie"
           ],
           "seats": {
-            "position": [ 0.0, 0.675, -0.1 ]
+            // This value results in zombies floating when riding baby cats,
+            // but switching to a different setup would break pre-existing mobs.
+            "position": [ 0.0, 0.625, -0.1 ]
           }
         }
       },
@@ -229,11 +247,14 @@
         }
       },
 
-      "minecraft:wolf_tame": {
-        "minecraft:is_tamed": {
-        },
+      "minecraft:on_tame_collar_color": {
         "minecraft:color": {
           "value": 14
+        }
+      },
+
+      "minecraft:wolf_tame": {
+        "minecraft:is_tamed": {
         },
         "minecraft:attack": {
           "damage": 4
@@ -437,6 +458,19 @@
         }
       },
 
+      "minecraft:wolf_leashable": {
+        "minecraft:leashable": {
+          "on_leash": {
+            "event": "minecraft:on_leash",
+            "target": "self"
+          },
+          "on_unleash": {
+            "event": "minecraft:on_unleash",
+            "target": "self"
+          }
+        }
+      },
+
       "minecraft:wolf_pale": {
         "minecraft:variant": {
           "value": 0
@@ -493,19 +527,6 @@
     },
 
     "components": {
-      "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0,
-        "on_leash": {
-          "event": "minecraft:on_leash",
-          "target": "self"
-        },
-        "on_unleash": {
-          "event": "minecraft:on_unleash",
-          "target": "self"
-        }
-      },
       "minecraft:balloonable": {
         "mass": 0.8
       },
@@ -677,6 +698,10 @@
               ]
             },
             "event": "minecraft:become_armorable"
+          },
+          {
+            "filters": { "test": "bool_property", "operator": "!=", "domain": "minecraft:was_upgraded_to_1_21_100" },
+            "event": "minecraft:upgrade_to_1_21_100"
           }
         ]
       },
@@ -1061,36 +1086,56 @@
         "add": {
           "component_groups": [
             "minecraft:wolf_baby",
-            "minecraft:wolf_wild"
+            "minecraft:wolf_wild",
+            "minecraft:wolf_leashable"
           ]
-        }
+        },
+        "set_property": {
+          "minecraft:was_upgraded_to_1_21_100": true
+        },
+        "trigger": "minecraft:randomize_sound_variant"
       },
 
       "minecraft:spawn_wild_adult": {
         "add": {
           "component_groups": [
             "minecraft:wolf_adult",
-            "minecraft:wolf_wild"
+            "minecraft:wolf_wild",
+            "minecraft:wolf_leashable"
           ]
-        }
+        },
+        "set_property": {
+          "minecraft:was_upgraded_to_1_21_100": true
+        },
+        "trigger": "minecraft:randomize_sound_variant"
       },
 
       "minecraft:spawn_tame_baby": {
         "add": {
           "component_groups": [
             "minecraft:wolf_baby",
-            "minecraft:wolf_tame"
+            "minecraft:wolf_tame",
+            "minecraft:wolf_leashable"
           ]
-        }
+        },
+        "set_property": {
+          "minecraft:was_upgraded_to_1_21_100": true
+        },
+        "trigger": "minecraft:randomize_sound_variant"
       },
 
       "minecraft:spawn_tame_adult": {
         "add": {
           "component_groups": [
             "minecraft:wolf_adult",
-            "minecraft:wolf_tame"
+            "minecraft:wolf_tame",
+            "minecraft:wolf_leashable"
           ]
-        }
+        },
+        "set_property": {
+          "minecraft:was_upgraded_to_1_21_100": true
+        },
+        "trigger": "minecraft:randomize_sound_variant"
       },
 
       "minecraft:ageable_grow_up": {
@@ -1127,7 +1172,8 @@
         },
         "add": {
           "component_groups": [
-            "minecraft:wolf_tame"
+            "minecraft:wolf_tame",
+            "minecraft:on_tame_collar_color"
           ]
         }
       },
@@ -1146,7 +1192,8 @@
       "minecraft:become_angry": {
         "remove": {
           "component_groups": [
-            "minecraft:wolf_wild"
+            "minecraft:wolf_wild",
+            "minecraft:wolf_leashable"
           ]
         },
         "add": {
@@ -1164,7 +1211,8 @@
         },
         "add": {
           "component_groups": [
-            "minecraft:wolf_wild"
+            "minecraft:wolf_wild",
+            "minecraft:wolf_leashable"
           ]
         }
       },
@@ -1178,6 +1226,71 @@
         "set_property": {
           "minecraft:is_armorable": true
         }
+      },
+
+      "minecraft:upgrade_to_1_21_100": {
+        "sequence": [
+          {
+            "filters": { "test": "has_component", "operator": "!=", "value": "minecraft:angry" },
+            "add": {
+              "component_groups": [
+                "minecraft:wolf_leashable"
+              ]
+            }
+          },
+          {
+            "set_property": {
+              "minecraft:was_upgraded_to_1_21_100": true
+            }
+          }
+        ]
+      },
+
+      "minecraft:randomize_sound_variant": {
+        "randomize": [
+          {
+            "weight": 1,
+            "set_property": {
+              "minecraft:sound_variant": "default"
+            }
+          },
+          {
+            "weight": 1,
+            "set_property": {
+              "minecraft:sound_variant": "big"
+            }
+          },
+          {
+            "weight": 1,
+            "set_property": {
+              "minecraft:sound_variant": "cute"
+            }
+          },
+          {
+            "weight": 1,
+            "set_property": {
+              "minecraft:sound_variant": "grumpy"
+            }
+          },
+          {
+            "weight": 1,
+            "set_property": {
+              "minecraft:sound_variant": "mad"
+            }
+          },
+          {
+            "weight": 1,
+            "set_property": {
+              "minecraft:sound_variant": "puglin"
+            }
+          },
+          {
+            "weight": 1,
+            "set_property": {
+              "minecraft:sound_variant": "sad"
+            }
+          }
+        ]
       }
     }
   }

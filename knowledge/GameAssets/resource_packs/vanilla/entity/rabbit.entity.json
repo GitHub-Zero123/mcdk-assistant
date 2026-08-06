@@ -3,9 +3,11 @@
     "minecraft:client_entity": {
         "description": {
             "identifier": "minecraft:rabbit",
-            "min_engine_version": "1.8.0",
             "materials": {
                 "default": "rabbit"
+            },
+            "geometry": {
+                "default": "geometry.rabbit.v1.8"
             },
             "textures": {
                 "brown": "textures/entity/rabbit/brown",
@@ -16,14 +18,18 @@
                 "salt": "textures/entity/rabbit/salt",
                 "toast": "textures/entity/rabbit/toast"
             },
-            "geometry": {
-                "default": "geometry.rabbit.v1.8"
-            },
             "animations": {
                 "move": "animation.rabbit.move",
                 "baby_transform": "animation.rabbit.baby_transform",
                 "look_at_target": "animation.common.look_at_target"
             },
+            "render_controllers": [
+                "controller.render.rabbit"
+            ],
+            "spawn_egg": {
+                "texture": "spawn_egg_rabbit"
+            },
+            "min_engine_version": "1.8.0",
             "animation_controllers": [
                 {
                     "general": "controller.animation.rabbit.general"
@@ -31,14 +37,7 @@
                 {
                     "baby": "controller.animation.rabbit.baby"
                 }
-            ],
-            "render_controllers": [
-                "controller.render.rabbit"
-            ],
-            "spawn_egg": {
-                "texture": "spawn_egg",
-                "texture_index": 24
-            }
+            ]
         }
     }
 }
