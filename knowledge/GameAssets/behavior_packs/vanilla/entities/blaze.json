@@ -1,12 +1,11 @@
 {
-    "format_version": "1.16.0",
+    "format_version": "1.21.90",
     "minecraft:entity": {
         "description": {
             "identifier": "minecraft:blaze",
             "spawn_category": "monster",
             "is_spawnable": true,
-            "is_summonable": true,
-            "is_experimental": false
+            "is_summonable": true
         },
         "component_groups": {
             "mode_switcher": {
@@ -36,7 +35,7 @@
                     "charge_shoot_trigger": 4.0,
                     "attack_interval_min": 3.0,
                     "attack_interval_max": 5.0,
-                    "attack_radius": 16.0
+                    "attack_radius": 48.0
                 }
             },
             "melee_mode": {
@@ -63,7 +62,7 @@
             "minecraft:damage_sensor": {
                 "triggers": {
                     "cause": "fall",
-                    "deals_damage": false
+                    "deals_damage": "no"
                 }
             },
             "minecraft:movement": {
@@ -85,9 +84,7 @@
                 "damage_conditions": [
                     {
                         "filters": {
-                            "test": "in_contact_with_water",
-                            "operator": "==",
-                            "value": true
+                            "test": "in_contact_with_water"
                         },
                         "cause": "drowning",
                         "damage_per_tick": 1

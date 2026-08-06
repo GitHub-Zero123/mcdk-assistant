@@ -1,5 +1,5 @@
 {
-    "format_version": "1.21.20",
+    "format_version": "1.21.90",
     "minecraft:entity": {
         "description": {
             "identifier": "minecraft:iron_golem",
@@ -16,13 +16,13 @@
                                 {
                                     "test": "is_family",
                                     "subject": "other",
-                                    "operator": "!=",
+                                    "operator": "not",
                                     "value": "player"
                                 },
                                 {
                                     "test": "is_family",
                                     "subject": "other",
-                                    "operator": "!=",
+                                    "operator": "not",
                                     "value": "creeper"
                                 }
                             ]
@@ -88,9 +88,7 @@
                     {
                         "filters": {
                             "test": "in_lava",
-                            "subject": "self",
-                            "operator": "==",
-                            "value": true
+                            "subject": "self"
                         },
                         "cause": "lava",
                         "damage_per_tick": 4
@@ -126,8 +124,7 @@
                                         "value": "iron_ingot"
                                     },
                                     {
-                                        "test": "is_missing_health",
-                                        "value": true
+                                        "test": "is_missing_health"
                                     }
                                 ]
                             }
@@ -148,17 +145,14 @@
             "minecraft:damage_sensor": {
                 "triggers": {
                     "cause": "fall",
-                    "deals_damage": false
+                    "deals_damage": "no"
                 }
             },
             "minecraft:knockback_resistance": {
                 "value": 1.0
             },
-            "minecraft:leashable": {
-                "soft_distance": 4.0,
-                "hard_distance": 6.0,
-                "max_distance": 10.0
-            },
+            "minecraft:leashable": {},
+            "minecraft:leashable_to": {},
             "minecraft:balloonable": {
                 "mass": 2.0
             },
@@ -353,7 +347,7 @@
                                 {
                                     "test": "is_family",
                                     "subject": "other",
-                                    "operator": "!=",
+                                    "operator": "not",
                                     "value": "creeper"
                                 }
                             ]
@@ -382,12 +376,7 @@
             "minecraft:behavior.offer_flower": {
                 "priority": 5,
                 "filters": {
-                    "all_of": [
-                        {
-                            "test": "is_daytime",
-                            "value": true
-                        }
-                    ]
+                    "test": "is_daytime"
                 }
             },
             "minecraft:behavior.random_stroll": {
@@ -419,7 +408,7 @@
                                 {
                                     "test": "is_family",
                                     "subject": "other",
-                                    "operator": "!=",
+                                    "operator": "not",
                                     "value": "creeper"
                                 }
                             ]
@@ -436,7 +425,7 @@
                                 },
                                 {
                                     "test": "is_difficulty",
-                                    "operator": "!=",
+                                    "operator": "not",
                                     "value": "peaceful"
                                 }
                             ]
@@ -453,7 +442,7 @@
                                 },
                                 {
                                     "test": "is_difficulty",
-                                    "operator": "!=",
+                                    "operator": "not",
                                     "value": "peaceful"
                                 }
                             ]
@@ -468,7 +457,7 @@
                     "filters": {
                         "test": "is_family",
                         "subject": "other",
-                        "operator": "!=",
+                        "operator": "not",
                         "value": "creeper"
                     }
                 }

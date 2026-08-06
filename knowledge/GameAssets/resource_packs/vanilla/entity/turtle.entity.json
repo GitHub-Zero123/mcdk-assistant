@@ -6,11 +6,23 @@
             "materials": {
                 "default": "turtle"
             },
+            "geometry": {
+                "default": "geometry.turtle"
+            },
             "textures": {
                 "default": "textures/entity/sea_turtle"
             },
-            "geometry": {
-                "default": "geometry.turtle"
+            "animations": {
+                "general": "animation.turtle.general",
+                "move": "animation.turtle.move",
+                "ground_move": "animation.turtle.ground_move",
+                "look_at_target": "animation.common.look_at_target"
+            },
+            "render_controllers": [
+                "controller.render.turtle"
+            ],
+            "spawn_egg": {
+                "texture": "spawn_egg_turtle"
             },
             "scripts": {
                 "pre_animation": [
@@ -21,12 +33,6 @@
                 ],
                 "scale": "1.2"
             },
-            "animations": {
-                "general": "animation.turtle.general",
-                "move": "animation.turtle.move",
-                "ground_move": "animation.turtle.ground_move",
-                "look_at_target": "animation.common.look_at_target"
-            },
             "animation_controllers": [
                 {
                     "general": "controller.animation.turtle.general"
@@ -34,14 +40,7 @@
                 {
                     "move": "controller.animation.turtle.move"
                 }
-            ],
-            "render_controllers": [
-                "controller.render.turtle"
-            ],
-            "spawn_egg": {
-                "texture": "spawn_egg",
-                "texture_index": 50
-            }
+            ]
         }
     }
 }

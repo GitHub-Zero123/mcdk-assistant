@@ -303,6 +303,14 @@
             }
           ]
         }
+      },
+      {
+        "tip_point": {
+          "type": "panel",
+          "size": [ 0, 0 ],
+          "anchor_from": "top_left",
+          "anchor_to": "top_left"
+        }
       }
     ],
     "default_control": "default",
@@ -957,9 +965,9 @@
       {
         "title_panel": {
           "type": "panel",
-          // 调小，并往左偏移
-          "size": [ "100%-60px", 20 ],
-          "offset": [ -30, 1 ],
+          // 调小
+          "size": [ "100%+0px", 20 ],
+          "offset": [ 0, 1 ],
           "controls": [
             {
               "back_button_content_panel@netease_chat.back_content_panel": {
@@ -1055,12 +1063,14 @@
                   }
                 ]
               }
+            },
+            {
+              "friends_button@netease_chat.friends_button": {
+                "size": [ 70, "102%+0px" ]
+              }
             }
           ]
         }
-      },
-      {
-        "friends_button@netease_chat.friends_button": {}
       },
       {
         "bg_left": {
@@ -1100,7 +1110,7 @@
     "$texture_layer": 2,
     "anchor_from": "top_right",
     "anchor_to": "top_right",
-    "size": [ 70.0, "default" ],
+    "size": [ 70.0, "100%+0px" ],
     "button_mappings": [],
     "default_control": "default",
     "hover_control": "hover",
@@ -1303,6 +1313,9 @@
                         },
                         {
                           "pressed@netease_editor_template_namespace.pressed": {}
+                        },
+                        {
+                          "popup_switch_tip@netease_chat.popup_switch_tip": {}
                         }
                       ]
                     }
@@ -1359,6 +1372,9 @@
                         },
                         {
                           "pressed@netease_editor_template_namespace.pressed": {}
+                        },
+                        {
+                          "popup_switch_tip@netease_chat.popup_switch_tip": {}
                         }
                       ]
                     }
@@ -1383,14 +1399,14 @@
   },
 
   // game tips popups //
-  "game_tip": {
+  "game_tip_base": {
     "type": "image",
     "texture": "textures/ui/gameTipBorder",
-    "layer": 50,
+    "layer": 3,
     "min_size": [ "default", 30 ],
     "size": [ "100%c", "100%cm" ],
     "offset": [ 10, -40 ],
-    "anchor_from": "bottom_left",
+    "anchor_from": "top_left",
     "anchor_to": "bottom_left",
     "alpha": "@netease_chat.game_tips_alpha_0_1",
     "propagate_alpha": true,
@@ -1402,7 +1418,7 @@
           "layer": 1,
           "text_alignment": "left",
           "color": [ 1.0, 1.0, 1.0 ],
-          "max_size": [ 120, 100 ],
+          "max_size": [ 150, 100 ],
           "line_padding": 1.5,
           "text": ""
         }
@@ -1419,6 +1435,22 @@
         }
       }
     ]
+  },
+
+  // Player tip 动态模板（供 CreateChildControl 使用）
+  "game_tip_template@netease_chat.game_tip_base": {
+    "offset": [ 2, -7 ]
+  },
+
+  // Voice tip（静态子控件模板，挂载在 voice_button 下）
+  "voice_tip@netease_chat.game_tip_base": {
+    "layer": 10,
+    "offset": [ 0, -8 ]
+  },
+
+  // 语音弹窗开关按钮通用 tip（挂载在每个 switch_button 下，显示时由 Python 修改文字）
+  "popup_switch_tip@netease_chat.game_tip_base": {
+    "offset": [ 0, -5 ]
   },
 
   "game_tips_alpha_0_1": {
@@ -1512,7 +1544,7 @@
       { "chat_bottom_panel@netease_chat.chat_bottom_panel": { "layer": 2 } },
       { "chat_top_panel@netease_chat.chat_header": { "layer": 2 } },
       { "autocomplete_commands_panel@netease_chat.commands_panel": { "layer": 3 } },
-      { "host_main_panel@host_options.host_panel": { "layer": 7 } },
+      { "host_main_panel@host_options.host_panel": { "layer": 10 } },
       { "popup_factory@chat_settings.popup_factory": {} },
       { "message_button@netease_chat.message_button": {} },
       {
@@ -1523,8 +1555,7 @@
           }
         }
       },
-      { "voice_popups_panel@netease_chat.voice_popups_panel": {} },
-      { "game_tip@netease_chat.game_tip": {} }
+      { "voice_popups_panel@netease_chat.voice_popups_panel": {} }
     ]
   },
 

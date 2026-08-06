@@ -167,6 +167,7 @@ class EntityType(object):
 	OminousItemSpawner = 145						# 不祥之物生成器
 	Creaking = 146 | Monster						# 嘎枝
 	HappyGhast = 147 | Animal						# 快乐恶魂
+	CopperGolem = 148 | PathfinderMob				# 铜傀儡
 	CustomProjectile = 254 | Projectile				# 自定义抛射物
 	EntityExtension = 255							# 实体扩展
 	MAX_ENTITY_ID = 256								# 最大实体ID

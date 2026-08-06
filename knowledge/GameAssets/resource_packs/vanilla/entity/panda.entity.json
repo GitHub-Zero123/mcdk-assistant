@@ -6,6 +6,9 @@
             "materials": {
                 "default": "panda"
             },
+            "geometry": {
+                "default": "geometry.panda"
+            },
             "textures": {
                 "default": "textures/entity/panda/panda",
                 "lazy": "textures/entity/panda/panda_lazy",
@@ -14,9 +17,6 @@
                 "brown": "textures/entity/panda/panda_brown",
                 "weak": "textures/entity/panda/panda_sneezy",
                 "aggressive": "textures/entity/panda/panda_aggressive"
-            },
-            "geometry": {
-                "default": "geometry.panda"
             },
             "animations": {
                 "unhappy": "animation.panda.unhappy",
@@ -27,6 +27,12 @@
                 "sitting": "animation.panda.sitting",
                 "rolling": "animation.panda.rolling",
                 "lying": "animation.panda.lying"
+            },
+            "render_controllers": [
+                "controller.render.panda"
+            ],
+            "spawn_egg": {
+                "texture": "spawn_egg_panda"
             },
             "animation_controllers": [
                 {
@@ -41,14 +47,7 @@
                 {
                     "baby": "controller.animation.panda.baby"
                 }
-            ],
-            "render_controllers": [
-                "controller.render.panda"
-            ],
-            "spawn_egg": {
-                "texture": "spawn_egg",
-                "texture_index": 54
-            }
+            ]
         }
     }
 }

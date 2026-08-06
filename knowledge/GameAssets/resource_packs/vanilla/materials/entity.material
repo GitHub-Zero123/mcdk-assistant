@@ -337,12 +337,14 @@
       "+defines": [ "USE_COLOR_MASK", "USE_UV_ANIM" ]
     },
 
+    // The texture must be a tga and it uses the alpha channel for determining emissiveness
     "entity_emissive:entity": {
       "+defines": [ "USE_EMISSIVE" ]
     },
 
     "glow_squid:entity_emissive": {},
 
+    // Same as entity_emissive but we alpha test (transparency) the actual texture
     "entity_emissive_alpha:entity_nocull": {
       "+defines": [
         "ALPHA_TEST",
@@ -355,6 +357,19 @@
         "ALPHA_TEST",
         "USE_EMISSIVE"
       ]
+    },
+
+    // Make a specific layer of an entity emissive, the texture is a normal png layered ontop of the main entity texture
+    "entity_emissive_layer_alpha_blend:entity_nocull": {
+      "+defines": [ "USE_COLOR_MASK", "ALPHA_TEST" ],
+      "+states": [ "Blending" ],
+      "depthFunc": "Equal",
+      "blendSrc": "SourceAlpha",
+      "blendDst": "OneMinusSrcAlpha"
+    },
+      "entity_emissive_layer_alpha_test:entity_nocull": {
+      "+defines": [ "USE_COLOR_MASK", "ALPHA_TEST" ],
+      "depthFunc": "Equal"
     },
 
     "entity_custom:entity": {
@@ -920,16 +935,12 @@
     "chalkboard:entity": {},
     "chest:entity": {},
     "chicken:entity": {},
+    "chicken_cold:entity_alphatest": {},
     "chicken_legs:entity_alphatest": {},
     "cow:entity": {},
+    "cow_cold:entity_alphatest": {},
     "creaking:entity_alphatest": {},
-    "creaking_eyes:entity_alphatest": {
-      "+defines": [ "USE_COLOR_MASK" ],
-      "+states": [ "Blending" ],
-      "depthFunc": "Equal",
-      "blendSrc": "SourceAlpha",
-      "blendDst": "OneMinusSrcAlpha"
-    },
+    "creaking_eyes:entity_emissive_layer_alpha_test": {},
     "creeper:entity": {},
     "dragon_head:entity_alphatest": {},
     "dragon_head_glint:entity_glint": {},
@@ -963,6 +974,7 @@
     "tropicalfish:entity_multitexture_multiplicative_blend": {},
     "ghast:entity_emissive_alpha": {},
     "guardian:entity_alphatest": {},
+    "harness:entity_alphatest": {},
     "horse:entity_alphatest": {},
     "horse_leather_armor:entity_multitexture_alpha_test_color_mask": {},
     "husk:entity_alphatest": {},
@@ -985,6 +997,7 @@
     "ocelot:entity_alphatest": {},
     "parrot:entity_alphatest": {},
     "pig:entity": {},
+    "pig_v3:entity_alphatest": {},
     "hoglin:entity_alphatest": {},
     "zoglin:entity_alphatest": {},
     "shield:entity": {},
@@ -1012,13 +1025,7 @@
     "goat:entity_alphatest": {},
     "allay:entity_alphatest": {},
     "warden:entity_alphatest": {},
-    "warden_bioluminescent_layer:entity_nocull": {
-      "+defines": [ "USE_COLOR_MASK" ],
-      "+states": [ "Blending" ],
-      "depthFunc": "Equal",
-      "blendSrc": "SourceAlpha",
-      "blendDst": "OneMinusSrcAlpha"
-    },
+    "warden_bioluminescent_layer:entity_emissive_layer_alpha_blend": {},
     "chest_boat:entity": {},
     "slime:entity_alphatest": {},
     "slime_outer:entity": {
@@ -1083,7 +1090,6 @@
       "vertexShader": "shaders/pattern.vertex",
       "fragmentShader": "shaders/pattern.fragment",
       "depthFunc": "LessEqual",
-      "+states": [ "Blending" ],
       "vertexFields": [
         { "field": "Position" },
         { "field": "Normal" },
@@ -1128,12 +1134,7 @@
     },
 
     "breeze:entity_alphatest": {},
-    "breeze_eyes:entity_nocull": {
-      "+defines": [ "USE_COLOR_MASK", "ALPHA_TEST" ],
-      "depthFunc": "Equal",
-      "blendSrc": "SourceAlpha",
-      "blendDst": "OneMinusSrcAlpha"
-    },
+    "breeze_eyes:entity_emissive_layer_alpha_test": {},
     "breeze_wind:entity_static": {
       "+defines": [ "USE_UV_ANIM", "ALPHA_TEST" ],
       "+states": [ "Blending", "DisableCulling", "DisableDepthWrite" ],
@@ -1161,6 +1162,10 @@
       ]
     },
     "bogged:entity_alphatest": {},
-    "bogged_clothes:entity_alphatest": {}
+    "bogged_clothes:entity_alphatest": {},
+    "saddle:entity_alphatest": {},
+    "copper_golem:entity": {},
+    "copper_golem_eyes:entity_emissive_layer_alpha_test": {},
+    "copper_golem_flower:entity_alphatest": {}
   }
 }

@@ -30,29 +30,21 @@ class OriginGUIName(object):
 	WalkState = "binding.area.walkstate"  # 方向键模式下强制疾跑按钮
 	MobEffects = "binding.area.mobeffects"  # buff状态
 	Emote = "binding.area.emote"  # 表情按钮
-
-	# 以下枚举将会于后续版本加入，请开发者直接使用字符串
-	"binding.area.turn_interact" # 转向交互
-	"binding.area.dpad_no_turn_interact" # 方向键无转向交互
-	"binding.area.disable_jump" # 禁用的跳跃
-	"binding.area.disable_sneak" # 禁用的潜行
-	"binding.area.gui_passthrough" # GUI穿透区域
-	"binding.area.changing_flight_height" # 改变飞行高度
-	"binding.area.move_up_invisible" # 隐藏的向上移动键
-	"binding.area.middle_right" # 十字键模式上升下降面板区域
-	"binding.area.code_builder" # 教育版编程按钮
-	"binding.area.move_up_left" # 向左上方移动（十字键模式）
-	"binding.area.move_up_right" # 向右上方移动（十字键模式）
-	"binding.area.player_effects" # 玩家效果
-	"binding.area.paddle_right" # 右侧划船按钮
-	"binding.area.paddle_right_border" # 右侧划船按钮边界
-	"binding.area.paddle_left" # 左侧划船按钮
-	"binding.area.paddle_left_border" # 左侧划船按钮边界
-	"binding.area.toast"# 提示区域
-	"binding.area.keyjoy" # 按键/摇杆
-	"binding.area.sneak_jk" # 潜行（按键/摇杆）
-	"binding.area.store" # 商店按钮
-	"binding.area.vstate0" # 视图状态0
-	"binding.area.voice_trans" # 语音转文字按钮（若”我的好友“已启用，则会消失）钮
+	TurnInteract = "binding.area.turn_interact"  #转向交互
+	DpadNoTurnInteract = "binding.area.dpad_no_turn_interact"  #方向键无转向交互
+	GuiPassthrough = "binding.area.gui_passthrough"  #GUI穿透区域
+	MoveUpInvisible = "binding.area.move_up_invisible"  #隐藏的向上移动键
+	MiddleRight = "binding.area.middle_right"  #十字键模式上升下降面板区域
+	CodeBuilder = "binding.area.code_builder"  #教育版编程按钮
+	MoveUpLeft = "binding.area.move_up_left"  #向左上方移动（十字键模式）
+	MoveUpRight = "binding.area.move_up_right"  #向右上方移动（十字键模式）
+	PaddleRight = "binding.area.paddle_right"  #右侧划船按钮
+	PaddleLeft = "binding.area.paddle_left"  #左侧划船按钮
+	Toast = "binding.area.toast"  #提示区域
+	KeyJoy = "binding.area.keyjoy"  #按键/摇杆
+	SneakJK = "binding.area.sneak_jk"  #"潜行（按键/摇杆）
+	Store = "binding.area.store"  #商店按钮
+	VState0 = "binding.area.vstate0"  #视图状态0
+	VoiceTrans = "binding.area.voice_trans"  #语音转文字按钮（若”我的好友“已启用，则会消失）
 
 ```

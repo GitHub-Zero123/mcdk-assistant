@@ -1,5 +1,5 @@
 {
-  "format_version": "1.21.50",
+  "format_version": "1.21.90",
   "minecraft:entity": {
     "description": {
       "identifier": "minecraft:ravager",
@@ -329,7 +329,9 @@
           "mangrove_leaves",
           "pale_hanging_moss",
           "cherry_leaves",
-          "pale_oak_leaves"
+          "pale_oak_leaves",
+          "firefly_bush",
+          "bush"
         ]
       },
       "minecraft:follow_range": {
@@ -343,7 +345,7 @@
           "evocation_illager"
         ],
         "seats": {
-          "position": [ 0.0, 2.1, -0.3 ]
+          "position": [ 0.0, 2.025, -0.3 ]
         }
       },
       "minecraft:type_family": {

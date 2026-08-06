@@ -35,7 +35,8 @@
 
   "long_form@common_dialogs.main_panel_no_buttons": {
     "$title_panel": "common_dialogs.standard_title_label",
-    "$title_size": [ "100% - 14px", 10 ],
+    "$title_size": [ "100% - 15px", 10 ],
+    "$title_max_size": [ "100% - 15px", 10 ],
     "size": [225, 200],
     "$text_name": "#title_text",
     "$title_text_binding_type": "none",
@@ -51,7 +52,7 @@
     "anchor_from": "top_left",
     "anchor_to": "top_left",
     "controls": [
-      
+
       {
         "scrolling_panel@common.scrolling_panel": {
           "anchor_to": "top_left",
@@ -125,13 +126,18 @@
 
     "factory":{
       "name": "buttons",
-      "control_name": "server_form.dynamic_button"
+      "control_ids": {
+        "button": "server_form.dynamic_button",
+        "label": "@server_form.dynamic_label",
+        "header": "@server_form.dynamic_header",
+        "divider": "@settings_common.option_group_section_divider"
+      }
     },
 
     "collection_name": "form_buttons",
     "bindings": [
       {
-        "binding_name": "#form_button_length",
+        "binding_name": "#form_button_contents",
         "binding_name_override": "#collection_length"
       }
     ]
@@ -162,7 +168,7 @@
                 "type": "image",
                 "layer": 2,
                 "size": [32, 32],
-                "offset": [-2, 0],
+                "offset": [0, 0],
                 "bindings":[
                   {
                     "binding_name": "#form_button_texture",
@@ -223,10 +229,32 @@
     ]
   },
 
+  "dynamic_label@settings_common.option_group_spaced_label": {
+    "$text": "#form_button_text",
+    "$text_bindings": [
+      {
+        "binding_name": "#form_button_text",
+        "binding_type": "collection",
+        "binding_collection_name": "form_buttons"
+      }
+    ]
+  },
+
+  "dynamic_header@settings_common.option_group_spaced_header": {
+    "$text": "#form_button_text",
+    "$text_bindings": [
+      {
+        "binding_name": "#form_button_text",
+        "binding_type": "collection",
+        "binding_collection_name": "form_buttons"
+      }
+    ]
+  },
 
   "custom_form@common_dialogs.main_panel_no_buttons": {
     "$title_panel": "common_dialogs.standard_title_label",
-    "$title_size": [ "100% - 14px", 10 ],
+    "$title_size": [ "100% - 15px", 10 ],
+    "$title_max_size": [ "100% - 15px", 10 ],
     "size": [225, 200],
     "$text_name": "#title_text",
     "$title_text_binding_type": "none",
@@ -261,7 +289,9 @@
         "slider": "@server_form.custom_slider",
         "step_slider": "@server_form.custom_step_slider",
         "dropdown": "@server_form.custom_dropdown",
-        "input": "@server_form.custom_input"
+        "input": "@server_form.custom_input",
+        "header": "@server_form.custom_header",
+        "divider": "@settings_common.option_group_section_divider"
       }
     },
 
@@ -318,6 +348,17 @@
     ]
   },
 
+  "custom_header@settings_common.option_group_header": {
+    "$text": "#custom_text",
+    "$text_bindings": [
+      {
+        "binding_name": "#custom_text",
+        "binding_type": "collection",
+        "binding_collection_name": "custom_form"
+      }
+    ]
+  },
+
   "custom_toggle@settings_common.option_toggle": {
     "$option_label": "#custom_text",
     "$toggle_name": "custom_toggle",
@@ -327,6 +368,10 @@
     "$toggle_enabled_binding_name": "#custom_toggle_enabled",
     "$toggle_enabled_binding_type": "collection",
     "$toggle_grid_collection_name": "custom_form",
+    "$option_tooltip_binding_type": "collection",
+    "$option_tooltip_collection_name": "custom_form",
+    "$option_tooltip_text_binding_name": "#custom_tooltip_text",
+    "$option_tooltip_area": "inside_header_panel",
     "$label_bindings": [
       {
         "binding_name": "#custom_text",
@@ -345,6 +390,12 @@
     "$slider_collection_name": "custom_form",
     "$slider_enabled_binding_name": "#custom_slider_enabled",
     "$slider_enabled_binding_type": "collection",
+    "$slider_timeout_binding_type": "collection",
+    "$slider_timeout_binding_name": "#custom_slider_timeout",
+    "$option_tooltip_binding_type": "collection",
+    "$option_tooltip_collection_name": "custom_form",
+    "$option_tooltip_text_binding_name": "#custom_tooltip_text",
+    "$option_tooltip_area": "inside_header_panel",
     "$label_bindings": [
       {
         "binding_name": "#custom_slider_text",
@@ -361,6 +412,10 @@
     "$slider_tts_text_value": "#custom_slider_step_text_value",
     "$slider_steps_binding_type": "collection",
     "$slider_steps_binding_name": "#custom_slider_steps",
+    "$option_tooltip_binding_type": "collection",
+    "$option_tooltip_collection_name": "custom_form",
+    "$option_tooltip_text_binding_name": "#custom_tooltip_text",
+    "$option_tooltip_area": "inside_header_panel",
     "$label_bindings": [
       {
         "binding_name": "#custom_slider_step_text",
@@ -373,18 +428,23 @@
   "custom_dropdown": {
     "type": "panel",
     "size": ["100%", "100%c"],
+    "layer": 2,
     "controls": [
       {
         "dropdown@settings_common.option_dropdown": {
           "$option_label": "#custom_text",
           "$dropdown_content": "server_form.custom_dropdown_content",
-          "$dropdown_area": "generated_form",
+          "$dropdown_area": "inside_header_panel",
           "$dropdown_name": "custom_dropdown",
           "$toggle_binding_type": "collection",
           "$toggle_grid_collection_name": "custom_form",
           "$options_dropdown_toggle_label_binding": "#dropdown_option_text",
           "$options_dropdown_toggle_label_binding_type": "collection",
           "$options_dropdown_toggle_label_binding_collection_name": "custom_form",
+          "$option_tooltip_binding_type": "collection",
+          "$option_tooltip_collection_name": "custom_form",
+          "$option_tooltip_text_binding_name": "#custom_tooltip_text",
+          "$option_tooltip_area": "inside_header_panel",
           "$dropdown_scroll_content_size": [ "100%", "200%" ],
           "$label_bindings": [
             {
@@ -400,6 +460,9 @@
 
   "custom_dropdown_content@settings_common.option_radio_dropdown_group": {
     "$radio_buttons": [],
+    "$toggle_focus_id_binding_type": "collection",
+    "$toggle_focus_id_collection_name": "custom_form",
+    "$toggle_focus_id_binding_name": "#custom_toggle_focus_id",
 
     "$radio_factory":{
       "name": "buttons",
@@ -452,6 +515,11 @@
     "$option_binding_name": "#custom_input_text",
     "$text_box_enabled_binding_name": "#custom_input_enabled",
     "$text_box_name": "custom_input",
+
+    "$option_tooltip_binding_type": "collection",
+    "$option_tooltip_collection_name": "custom_form",
+    "$option_tooltip_text_binding_name": "#custom_tooltip_text",
+    "$option_tooltip_area": "inside_header_panel",
     "$label_bindings": [
       {
         "binding_name": "#custom_text",

@@ -1,0 +1,13 @@
+{
+    "format_version": "1.16.0",
+    "minecraft:aggregate_feature": {
+        "description": {
+            "identifier": "minecraft:random_roofed_forest_feature_with_decoration_feature"
+        },
+        "early_out": "none",
+        "features": [
+            "minecraft:random_roofed_forest_feature_with_leaf_litter_feature",
+            "minecraft:scatter_tall_grass_around_forest_foliage_feature"
+        ]
+    }
+}

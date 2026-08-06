@@ -6,31 +6,27 @@
             "materials": {
                 "default": "ghast"
             },
-            "textures": {
-                "default": "textures/entity/ghast/ghast",
-                "shooting": "textures/entity/ghast/ghast_shooting"
-            },
             "geometry": {
                 "default": "geometry.ghast"
             },
-            "spawn_egg": {
-                "texture": "spawn_egg",
-                "texture_index": 19
+            "textures": {
+                "default": "textures/entity/ghast/ghast",
+                "shooting": "textures/entity/ghast/ghast_shooting"
             },
             "animations": {
                 "move": "animation.ghast.move",
                 "scale": "animation.ghast.scale"
             },
+            "render_controllers": [
+                "controller.render.ghast"
+            ],
+            "spawn_egg": {
+                "texture": "spawn_egg_ghast"
+            },
             "animation_controllers": [
                 {
                     "move": "controller.animation.ghast.move"
-                },
-                {
-                    "scale": "controller.animation.ghast.scale"
                 }
-            ],
-            "render_controllers": [
-                "controller.render.ghast"
             ]
         }
     }

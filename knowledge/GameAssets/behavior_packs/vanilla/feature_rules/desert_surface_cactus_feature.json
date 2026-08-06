@@ -1,0 +1,16 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:feature_rules": {
+    "description": {
+      "identifier": "minecraft:desert_surface_cactus_feature",
+      "places_feature": "minecraft:cactus_feature"
+    },
+    "conditions": {
+      "placement_pass": "surface_pass",
+      "minecraft:biome_filter": [
+        // This feature has been deprecated in favor of "minecraft:desert_after_surface_cactus_feature_rules".
+        { "test": "has_biome_tag", "value": "deprecated" }
+      ]
+    }
+  }
+}

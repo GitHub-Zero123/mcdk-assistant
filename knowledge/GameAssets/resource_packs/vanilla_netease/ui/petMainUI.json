@@ -578,7 +578,7 @@
                                                 100,
                                                 18
                                             ],
-                                            "text": "玩耍",
+                                            "text": "对话",
                                             "text_alignment": "center",
                                             "type": "label",
                                             "visible": true
@@ -631,15 +631,15 @@
                                                 17,
                                                 16
                                             ],
-                                            "texture": "textures/ui/pet/icon20@3x",
+                                            "texture": "textures/ui/pet/parterner/pet_floating_hub_chat",
                                             "type": "image",
                                             "uv": [
                                                 0,
                                                 0
                                             ],
                                             "uv_size": [
-                                                64,
-                                                64
+                                                0,
+                                                0
                                             ],
                                             "visible": true
                                         }
@@ -662,7 +662,7 @@
                                                 0.0,
                                                 16.0
                                             ],
-                                            "$label_text": "玩耍",
+                                            "$label_text": "对话",
                                             "$nine_slice_buttom": 0,
                                             "$nine_slice_left": 0,
                                             "$nine_slice_right": 0,
@@ -1087,7 +1087,7 @@
                                                 100,
                                                 18
                                             ],
-                                            "text": "我的伙伴",
+                                            "text": "伙伴主页",
                                             "text_alignment": "center",
                                             "type": "label",
                                             "visible": true
@@ -1139,7 +1139,7 @@
                                                 26,
                                                 26
                                             ],
-                                            "texture": "textures/ui/pet_icon",
+                                            "texture": "textures/ui/pet/parterner/pet_floating_hub_mainpage",
                                             "type": "image",
                                             "uv": [
                                                 0,
@@ -1170,7 +1170,7 @@
                                                 0.0,
                                                 16.0
                                             ],
-                                            "$label_text": "我的伙伴",
+                                            "$label_text": "伙伴主页",
                                             "$nine_slice_buttom": 0,
                                             "$nine_slice_left": 0,
                                             "$nine_slice_right": 0,

@@ -1,5 +1,5 @@
 {
-    "format_version": "1.21.10",
+    "format_version": "1.21.90",
     "minecraft:entity": {
         "description": {
             "identifier": "minecraft:trader_llama",
@@ -43,6 +43,7 @@
                 "minecraft:loot": {
                     "table": "loot_tables/entities/llama.json"
                 },
+                "minecraft:leashable_to": {},
                 "minecraft:behavior.breed": {
                     "priority": 4,
                     "speed_multiplier": 1.0
@@ -115,6 +116,9 @@
                         },
                         {
                             "item": "horsearmordiamond"
+                        },
+                        {
+                            "item": "minecraft:copper_horse_armor"
                         },
                         {
                             "item": "saddle"
@@ -343,7 +347,21 @@
                 "minecraft:damage_sensor": {
                     "triggers": {
                         "cause": "all",
-                        "deals_damage": true
+                        "deals_damage": "yes"
+                    }
+                }
+            },
+            "minecraft:llama_unleashed": {
+                "minecraft:behavior.follow_caravan": {
+                    "priority": 3,
+                    "speed_multiplier": 2.1,
+                    "entity_count": 10,
+                    "entity_types": {
+                        "filters": {
+                            "test": "is_family",
+                            "subject": "other",
+                            "value": "llama"
+                        }
                     }
                 }
             }
@@ -389,7 +407,7 @@
                                 {
                                     "test": "has_component",
                                     "subject": "other",
-                                    "operator": "!=",
+                                    "operator": "not",
                                     "value": "minecraft:is_tamed"
                                 }
                             ]
@@ -399,18 +417,6 @@
                 ],
                 "must_see": false,
                 "must_reach": true
-            },
-            "minecraft:behavior.follow_caravan": {
-                "priority": 3,
-                "speed_multiplier": 2.1,
-                "entity_count": 10,
-                "entity_types": {
-                    "filters": {
-                        "test": "is_family",
-                        "subject": "other",
-                        "value": "llama"
-                    }
-                }
             },
             "minecraft:behavior.panic": {
                 "priority": 4,
@@ -485,10 +491,14 @@
                 "max": 40
             },
             "minecraft:leashable": {
-                "soft_distance": 4.0,
-                "hard_distance": 6.0,
-                "max_distance": 10.0,
-                "can_be_stolen": true
+                "on_leash": {
+                    "event": "minecraft:on_leash",
+                    "target": "self"
+                },
+                "on_unleash": {
+                    "event": "minecraft:on_unleash",
+                    "target": "self"
+                }
             },
             "minecraft:balloonable": {},
             "minecraft:healable": {
@@ -513,7 +523,7 @@
             "minecraft:damage_sensor": {
                 "triggers": {
                     "cause": "all",
-                    "deals_damage": true,
+                    "deals_damage": "yes",
                     "on_damage": {
                         "filters": {
                             "all_of": [
@@ -601,7 +611,8 @@
             "minecraft:entity_born": {
                 "add": {
                     "component_groups": [
-                        "minecraft:llama_baby"
+                        "minecraft:llama_baby",
+                        "minecraft:llama_unleashed"
                     ]
                 }
             },
@@ -695,6 +706,20 @@
                         "minecraft:llama_angry",
                         "minecraft:llama_angry_wolf",
                         "minecraft:llama_defend_trader"
+                    ]
+                }
+            },
+            "minecraft:on_leash": {
+                "remove": {
+                    "component_groups": [
+                        "minecraft:llama_unleashed"
+                    ]
+                }
+            },
+            "minecraft:on_unleash": {
+                "add": {
+                    "component_groups": [
+                        "minecraft:llama_unleashed"
                     ]
                 }
             },
@@ -797,7 +822,8 @@
             "minecraft:spawn_baby": {
                 "add": {
                     "component_groups": [
-                        "minecraft:llama_baby"
+                        "minecraft:llama_baby",
+                        "minecraft:llama_unleashed"
                     ]
                 },
                 "trigger": "minecraft:add_attributes"
@@ -806,7 +832,8 @@
                 "add": {
                     "component_groups": [
                         "minecraft:llama_adult",
-                        "minecraft:llama_wild"
+                        "minecraft:llama_wild",
+                        "minecraft:llama_unleashed"
                     ]
                 },
                 "trigger": "minecraft:add_attributes"

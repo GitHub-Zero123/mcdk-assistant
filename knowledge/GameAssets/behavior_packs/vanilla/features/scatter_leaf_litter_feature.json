@@ -1,0 +1,32 @@
+{
+    "format_version": "1.13.0",
+    "minecraft:scatter_feature": {
+        "description": {
+            "identifier": "minecraft:scatter_leaf_litter_feature"
+        },
+        "iterations": 96,
+        "x": {
+            "distribution": "gaussian",
+            "extent": [
+                -4,
+                4
+            ]
+        },
+        "y": {
+            "distribution": "gaussian",
+            "extent": [
+                -2,
+                2
+            ]
+        },
+        "z": {
+            "distribution": "gaussian",
+            "extent": [
+                -4,
+                4
+            ]
+        },
+        "coordinate_eval_order": "zxy",
+        "places_feature": "minecraft:leaf_litter_feature"
+    }
+}

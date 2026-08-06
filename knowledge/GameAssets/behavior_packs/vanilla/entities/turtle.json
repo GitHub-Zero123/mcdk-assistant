@@ -1,5 +1,5 @@
 {
-    "format_version": "1.21.0",
+    "format_version": "1.21.70",
     "minecraft:entity": {
         "description": {
             "identifier": "minecraft:turtle",
@@ -11,6 +11,7 @@
             "minecraft:baby": {
                 "minecraft:type_family": {
                     "family": [
+                        "aquatic",
                         "turtle",
                         "baby_turtle",
                         "mob"
@@ -54,6 +55,7 @@
                 },
                 "minecraft:type_family": {
                     "family": [
+                        "aquatic",
                         "turtle",
                         "mob"
                     ]
@@ -142,7 +144,7 @@
             "minecraft:damage_sensor": {
                 "triggers": {
                     "cause": "lightning",
-                    "deals_damage": true,
+                    "deals_damage": "yes",
                     "damage_multiplier": 2000.0
                 }
             },

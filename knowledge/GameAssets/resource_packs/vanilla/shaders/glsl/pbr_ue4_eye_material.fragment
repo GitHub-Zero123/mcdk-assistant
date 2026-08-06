@@ -1,0 +1,192 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as appropriate.
+#line 4
+precision highp float;
+
+#if __VERSION__ < 300
+  #extension GL_EXT_shader_texture_lod : enable
+#endif
+
+#include "uniformPerFrameConstants.h"
+#include "uniformExtraVectorConstants.h"
+#include "neteaseModelFragmentUtil.h"
+#include "pbr_util.h"
+
+LAYOUT_BINDING(0) uniform sampler2D TEXTURE_0; // UE4 eyeball diffuse (sclera + iris)
+LAYOUT_BINDING(1) uniform sampler2D TEXTURE_1; // UE4 eyeball normal/roughness (RG normal, B roughness)
+LAYOUT_BINDING(2) uniform sampler2D TEXTURE_2; // Unused placeholder; UE4 eye does not use ARM
+LAYOUT_BINDING(3) uniform sampler2D TEXTURE_3; // MCPE dynamic IBL prefiltered octahedral atlas
+LAYOUT_BINDING(4) uniform sampler2D TEXTURE_4; // Optional SH/compat slot, unused here
+
+varying highp vec4 light;
+varying highp vec4 fogColor;
+varying highp vec3 positionWS;
+varying mediump vec3 normalWS;
+varying mediump vec4 tangentWS;
+varying mediump vec3 lightDirWS;
+varying mediump float lightIntensity;
+#ifdef USE_VISIBLE_SH_MAP
+varying highp vec2 uvSH;
+#endif
+
+#define IBL_DIFFUSE_PR 0.75
+#define EYE_DIFFUSE_IBL_INTENSITY 0.45
+#define EYE_SPECULAR_IBL_INTENSITY 0.22
+#define EYE_DIRECT_SPECULAR_INTENSITY 0.35
+#define EYE_CORNEA_PARALLAX_STRENGTH 0.018
+#define EYE_MIN_PERCEPTUAL_ROUGHNESS 0.28
+
+float saturate(float v) {
+    return clamp(v, 0.0, 1.0);
+}
+
+vec3 saturate(vec3 v) {
+    return clamp(v, vec3(0.0), vec3(1.0));
+}
+
+// EXTRA_VECTOR1 = (roughnessScale, irisSlope, irisFlatness, pupilOffset)
+// EXTRA_VECTOR2 = (pupilExponent, outerEdge, innerEdge, irisScale)
+// These fields mirror the useful UE4 material constants found in eye_assemb.glsl.
+vec4 getUE4EyeParams1() {
+#ifdef USE_EXTRA_VECTOR
+    vec4 v = EXTRA_VECTOR1;
+    if (v.x + v.y + v.z + v.w > 0.001) {
+        return vec4(max(v.x, 0.001), v.y, v.z, v.w);
+    }
+#endif
+    return vec4(1.0, 1.0, 0.5, 0.02);
+}
+
+vec4 getUE4EyeParams2() {
+#ifdef USE_EXTRA_VECTOR
+    vec4 v = EXTRA_VECTOR2;
+    if (v.x + v.y + v.z + v.w > 0.001) {
+        return v;
+    }
+#endif
+    return vec4(1.3, 0.28, 0.65, 1.0);
+}
+
+vec3 getUE4IrisColor() {
+    return vec3(0.42, 0.26, 0.15);
+}
+
+mat3 tangentFrame(vec3 n, vec4 tangent) {
+    vec3 t = tangent.xyz - n * dot(n, tangent.xyz);
+    t = normalize(t);
+    vec3 b = normalize(cross(n, t)) * tangent.w;
+    return mat3(t, b, n);
+}
+
+vec3 decodeUE4EyeNormalTS(vec4 normalSample) {
+    vec2 xy = normalSample.xy * 2.0 - 1.0;
+    float z = sqrt(saturate(1.0 - dot(xy, xy)));
+    return normalize(vec3(xy, z));
+}
+
+float computeUE4IrisBlend(vec2 eyeUV, vec3 normalTS, vec4 p1, vec4 p2) {
+    float distToCenter = length(vec2(0.5) - eyeUV);
+
+    float normalZ = saturate(
+        p1.y * distToCenter +
+        mix(normalTS, vec3(0.0, 0.0, 1.0), saturate(p1.z)).z
+    );
+
+    // UE4 shifts only the pupil mask center. The diffuse and normal samples keep
+    // the original UV; moving the sampled texture causes the pupil to slide aside.
+    vec2 pupilUV = vec2(eyeUV.x + p1.w, eyeUV.y);
+    float distToPupil = length(vec2(0.5) - pupilUV);
+    float pupilMask = distToPupil <= 0.0 ? 0.0 : pow(distToPupil, p2.x);
+
+    float edge = clamp(mix(p2.z, p2.y, normalZ + saturate(pupilMask)), 0.0, 1.0);
+    return 1.0 - saturate(edge * p2.w);
+}
+
+float computeIrisRegion(vec2 eyeUV) {
+    float distToCenter = length(eyeUV - vec2(0.5));
+    return 1.0 - smoothstep(0.28, 0.50, distToCenter);
+}
+
+vec2 refractCorneaUV(vec2 eyeUV, vec3 viewTS) {
+    float irisRegion = computeIrisRegion(eyeUV);
+    float viewZ = max(abs(viewTS.z), 0.25);
+    float viewTilt = min(length(viewTS.xy) / viewZ, 2.0);
+    vec2 centeredUV = eyeUV - vec2(0.5);
+    float refractScale = 1.0 - EYE_CORNEA_PARALLAX_STRENGTH * viewTilt * irisRegion;
+    return clamp(vec2(0.5) + centeredUV * refractScale, vec2(0.001), vec2(0.999));
+}
+
+void main() {
+    vec4 p1 = getUE4EyeParams1();
+    vec4 p2 = getUE4EyeParams2();
+
+    vec4 baseAlphaSample = getSampledColor(TEXTURE_0, uv);
+#ifdef ALPHA_TEST
+    if (baseAlphaSample.a < 0.5) discard;
+#endif
+
+    vec4 normalSample = texture2D(TEXTURE_1, uv);
+    vec3 normalTS = decodeUE4EyeNormalTS(normalSample);
+
+    vec3 nGeom = normalize(normalWS);
+    vec3 V = normalize(-positionWS);
+    vec3 L = normalize(lightDirWS);
+    mat3 tbn = tangentFrame(nGeom, tangentWS);
+    vec3 N = normalize(tbn * normalTS);
+    if (dot(N, V) < 0.0) {
+        N = -N;
+    }
+
+    vec3 viewTS = normalize(vec3(dot(V, tbn[0]), dot(V, tbn[1]), dot(V, tbn[2])));
+    vec2 refractedUV = refractCorneaUV(uv, viewTS);
+    vec4 baseSample = getSampledColor(TEXTURE_0, refractedUV);
+
+    float irisBlend = computeUE4IrisBlend(uv, normalTS, p1, p2);
+    float irisRegion = computeIrisRegion(uv);
+    vec3 baseTex = sRGBToLinear(baseSample.rgb);
+    vec3 irisTint = mix(getUE4IrisColor(), vec3(1.0), irisBlend);
+    vec3 albedo = saturate(baseTex * mix(vec3(1.0), irisTint, 0.18 * irisRegion));
+
+    // UE4 export stores the roughness control in the normal texture blue channel.
+    // TEXTURE_2 is intentionally ignored; on this test asset it is just an orange fallback.
+    float perceptualRoughness = clamp(max((normalSample.b + 0.06) * p1.x, EYE_MIN_PERCEPTUAL_ROUGHNESS), MIN_PERCEPTUAL_ROUGHNESS, 1.0);
+    float roughness = perceptualRoughnessToRoughness(perceptualRoughness);
+
+    vec3 lightColor = mix(vec3(0.4, 0.5, 0.7), vec3(1.0, 0.95, 0.9), lightIntensity) * lightIntensity;
+    float NoL = max(dot(N, L), 0.0);
+    vec3 directDiffuse = albedo * lightColor * (0.18 + NoL * 0.82);
+    vec3 ambientFloor = albedo * 0.16;
+
+    vec3 diffuseEnv = sampleIBLOctAtlas(TEXTURE_3, N, IBL_DIFFUSE_PR);
+    vec3 diffuseIBL = diffuseEnv * albedo * EYE_DIFFUSE_IBL_INTENSITY;
+
+#ifdef CUSTOM_DIELECTRIC_F0
+    vec3 corneaF0 = vec3(CUSTOM_DIELECTRIC_F0);
+#else
+    vec3 corneaF0 = vec3(0.08);
+#endif
+    vec3 R = reflect(-V, N);
+    R = getSpecularDominantDirection(N, R, roughness);
+    float NoV = max(dot(N, V), MIN_NOV);
+    vec2 dfg = prefilteredDFG_Karis(NoV, roughness);
+    vec3 prefilteredEnv = sampleIBLOctAtlas(TEXTURE_3, R, perceptualRoughness);
+    vec3 specularIBL = prefilteredEnv * (corneaF0 * dfg.x + dfg.y) * EYE_SPECULAR_IBL_INTENSITY;
+
+    vec3 H = normalize(V + L);
+    float NoH = max(dot(N, H), 0.0);
+    float VoH = max(dot(V, H), 0.0);
+    vec3 F = F_Schlick(VoH, corneaF0);
+    float D = D_GGX(NoH, roughness, N, H);
+    float G = V_SmithGGXCorrelated(NoV, NoL, roughness);
+    vec3 directSpecular = F * (D * G * NoL) * lightColor * EYE_DIRECT_SPECULAR_INTENSITY;
+
+    vec3 hdrColor = ambientFloor + directDiffuse + diffuseIBL + directSpecular + specularIBL;
+    vec3 colorOut = tonemapACES(hdrColor);
+    colorOut = pow(max(colorOut, vec3(0.0)), vec3(1.0 / 2.2));
+
+    vec4 outColor = vec4(colorOut, baseAlphaSample.a);
+    neteaseModelCommonFrag(outColor);
+    applyOverlayColor(outColor);
+    applyFog(outColor, fogColor);
+    gl_FragColor = outColor;
+}

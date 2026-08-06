@@ -1,0 +1,246 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+#line 4
+precision highp float;
+
+#if __VERSION__ < 300
+  #extension GL_EXT_shader_texture_lod : enable
+#endif
+
+#include "uniformPerFrameConstants.h"
+#include "uniformExtraVectorConstants.h"
+#include "neteaseModelFragmentUtil.h"
+#include "pbr_util.h"
+
+LAYOUT_BINDING(0) uniform sampler2D TEXTURE_0; // Albedo (Diffuse)
+LAYOUT_BINDING(1) uniform sampler2D TEXTURE_1; // ARM: R=AO, G=Roughness, B=Metallic
+LAYOUT_BINDING(2) uniform sampler2D TEXTURE_2; // Normal map (OpenGL tangent-space)
+LAYOUT_BINDING(3) uniform sampler2D TEXTURE_3; // IBL prefiltered octahedral map
+LAYOUT_BINDING(4) uniform sampler2D TEXTURE_4; // Visible SH map
+
+varying vec4 light;
+varying vec4 fogColor;
+varying vec3 positionWS;
+varying vec3 normalWS;
+varying vec4 tangentWS;
+varying vec3 lightDirWS;
+varying float lightIntensity;
+
+#ifdef USE_MATERIAL_UNIFORM_REFLECTION
+uniform float diffuse_multiplier;
+uniform float specular_multiplier;
+uniform float normal_strength;
+uniform float ao_strength;
+uniform float roughness_multiplier;
+uniform float metallic_multiplier;
+uniform float emissive_strength;
+uniform float sh_visibility_strength;
+#endif
+
+#define IBL_SPECULAR_INTENSITY 1.0
+#define IBL_DIFFUSE_INTENSITY  1.0
+#define IBL_MAX_MIP_LEVEL 6.0
+#define IBL_DIFFUSE_PR 0.75
+#define VISIBILITY_MIN_DIRECT 0.0
+#define VISIBILITY_MIN_IBL    0.28
+#define VISIBILITY_POWER_DIRECT 1.20
+#define VISIBILITY_POWER_IBL    1.35
+
+vec3 sampleIBL(vec3 dir, float perceptualRoughness) {
+    return sampleIBLOctahedral(TEXTURE_3, dir, perceptualRoughness, IBL_MAX_MIP_LEVEL);
+}
+
+vec4 getPbrTuningParams() {
+#ifdef USE_MATERIAL_UNIFORM_REFLECTION
+    return max(vec4(diffuse_multiplier, specular_multiplier, normal_strength, ao_strength), vec4(0.0));
+#elif defined(USE_EXTRA_VECTOR)
+    vec4 v = EXTRA_VECTOR1;
+    if (v.x + v.y + v.z + v.w < 0.001) {
+        return vec4(1.0, 1.0, 1.0, 0.0);
+    }
+    return max(v, vec4(0.0));
+#else
+    return vec4(1.0, 1.0, 1.0, 0.0);
+#endif
+}
+
+vec4 getPbrTuningParams2() {
+#ifdef USE_MATERIAL_UNIFORM_REFLECTION
+    return max(vec4(roughness_multiplier, metallic_multiplier, emissive_strength, sh_visibility_strength), vec4(0.0));
+#elif defined(USE_EXTRA_VECTOR)
+    vec4 v = EXTRA_VECTOR2;
+    if (v.x + v.y + v.z + v.w < 0.001) {
+        return vec4(1.0, 0.0, 0.0, 0.0);
+    }
+    return max(v, vec4(0.0));
+#else
+    return vec4(1.0, 0.0, 0.0, 0.0);
+#endif
+}
+
+mat3 tangentFrame(vec3 N, vec4 tangent) {
+    vec3 T = tangent.xyz - N * dot(N, tangent.xyz);
+    float tLen2 = dot(T, T);
+    if (tLen2 < 1e-6) {
+        vec3 up = abs(N.z) < 0.999 ? vec3(0.0, 0.0, 1.0) : vec3(0.0, 1.0, 0.0);
+        T = normalize(cross(up, N));
+    } else {
+        T *= inversesqrt(tLen2);
+    }
+    float handedness = abs(tangent.w) > 0.5 ? tangent.w : 1.0;
+    vec3 B = normalize(cross(N, T)) * handedness;
+    return mat3(T, B, N);
+}
+
+vec3 decodeNormalTS(vec3 enc) {
+    vec2 xy = enc.xy * 2.0 - 1.0;
+    float z = sqrt(clamp(1.0 - dot(xy, xy), 0.0, 1.0));
+    return vec3(xy, z);
+}
+
+float sampleVisibleSHVisibility(vec3 lightDirectionWS, mat3 tangentToWorld) {
+#if __VERSION__ < 300
+    vec4 visibleSH = texture2DLodEXT(TEXTURE_4, uv, 0.0);
+#else
+    vec4 visibleSH = textureLod(TEXTURE_4, uv, 0.0);
+#endif
+    // When using vertex tangent TBN, the bitangent direction is consistent
+    // between bake and runtime, so no Y flip is needed.
+    // visibleSH.xyz = vec3(visibleSH.x, 1.0 - visibleSH.y, visibleSH.z);
+#ifdef SH_MAP_FLOAT
+    visibleSH.xyz = tangentToWorld * visibleSH.xyz;
+    visibleSH.xyz = visibleSH.xyz * 2.0;
+    visibleSH *= vec4(-0.488603, -0.488603, -0.488603, 0.282095);
+    return clamp(dot(visibleSH, vec4(lightDirectionWS, 1.0)), 0.0, 1.0);
+#else
+    visibleSH = visibleSH * 4.0 - 2.0;
+    visibleSH.xyz = tangentToWorld * visibleSH.xyz;
+    visibleSH.xyz = visibleSH.xyz * 2.0;
+    visibleSH *= vec4(-0.488603, -0.488603, -0.488603, 0.282095);
+    return clamp(dot(visibleSH, vec4(lightDirectionWS, 1.0)), 0.0, 1.0);
+#endif
+}
+
+float distributionCharlie(float roughness, float NoH) {
+    float a = max(roughness, MIN_ROUGHNESS);
+    float invAlpha = 1.0 / a;
+    float cos2h = NoH * NoH;
+    float sin2h = max(1.0 - cos2h, 0.0078125);
+    return (2.0 + invAlpha) * pow(sin2h, invAlpha * 0.5) / (2.0 * PI);
+}
+
+float visibilityClothNeubelt(float NoV, float NoL) {
+    return 1.0 / max(4.0 * (NoL + NoV - NoL * NoV), 1e-5);
+}
+
+vec3 perturbNormal(vec3 N, vec4 tangent, vec2 uv) {
+    vec3 enc = texture2D(TEXTURE_2, uv).rgb;
+    vec3 normalTS = decodeNormalTS(enc);
+    vec4 pbrTuning = getPbrTuningParams();
+    float normalStrength = max(pbrTuning.z, 0.0);
+    normalTS = normalize(vec3(normalTS.xy * normalStrength, normalTS.z));
+    mat3 TBN = tangentFrame(N, tangent);
+    return normalize(TBN * normalTS);
+}
+
+void main() {
+    vec4 albedoSample = getSampledColor(TEXTURE_0, uv);
+    vec3 albedo = sRGBToLinear(albedoSample.rgb);
+    float baseAlpha = albedoSample.a;
+
+#ifdef ALPHA_TEST
+    if (baseAlpha < 0.5) discard;
+#endif
+
+    vec4 armSample = texture2D(TEXTURE_1, uv);
+    vec4 pbrTuning2 = getPbrTuningParams2();
+    float perceptualRoughness = clamp(armSample.g * max(pbrTuning2.x, 0.0), MIN_PERCEPTUAL_ROUGHNESS, 1.0);
+    float roughness = perceptualRoughnessToRoughness(perceptualRoughness);
+    vec4 pbrTuning = getPbrTuningParams();
+    float diffuseStrength = max(pbrTuning.x, 0.0);
+    float specularStrength = max(pbrTuning.y, 0.0);
+
+    vec3 N = normalize(normalWS);
+    vec3 V = normalize(-positionWS);
+    N = perturbNormal(N, tangentWS, uv);
+
+    vec3 L = normalize(lightDirWS);
+    vec3 H = normalize(V + L);
+    float NoV = max(dot(N, V), MIN_NOV);
+    float NoL = max(dot(N, L), 0.0);
+    float NoH = max(dot(N, H), 0.0);
+
+    vec3 lightColor = mix(vec3(0.4, 0.5, 0.7), vec3(1.0, 0.95, 0.9), lightIntensity) * lightIntensity;
+    vec3 clothSheenColor = sqrt(clamp(albedo, vec3(0.0), vec3(1.0)));
+    float clothD = distributionCharlie(roughness, NoH);
+    float clothV = visibilityClothNeubelt(NoV, NoL);
+    vec3 clothFr = (clothD * clothV) * clothSheenColor;
+    vec3 clothFd = albedo * Fd_Lambert();
+    vec3 directDiffuseColor = clothFd * lightColor * NoL;
+    vec3 directSpecularColor = clothFr * lightColor * NoL;
+    vec3 directColor = directDiffuseColor * diffuseStrength + directSpecularColor * specularStrength;
+
+    vec3 R = reflect(-V, N);
+    R = getSpecularDominantDirection(N, R, roughness);
+    vec3 prefilteredEnv = sampleIBL(R, perceptualRoughness);
+    vec3 diffuseEnv = sampleIBL(N, IBL_DIFFUSE_PR);
+    vec2 clothDFGPair = prefilteredDFG_ClothCharlie(NoV, perceptualRoughness);
+    float clothDFG = clothDFGPair.x;
+    vec3 clothSpecularIBL = prefilteredEnv * (clothSheenColor * clothDFG) * IBL_SPECULAR_INTENSITY;
+#ifdef USE_MATERIAL_UNIFORM_REFLECTION
+    clothSpecularIBL *= max(pbr_specular_ibl_time_scale, 0.0);
+#endif
+    vec3 clothDiffuseIBL = diffuseEnv * albedo * IBL_DIFFUSE_INTENSITY;
+#ifdef USE_AO_MAP
+    float aoStrength = clamp(pbrTuning.w, 0.0, 1.0);
+    float ao = mix(1.0, clamp(armSample.r, 0.0, 1.0), aoStrength);
+    clothSpecularIBL *= ao;
+    clothDiffuseIBL *= ao;
+#endif
+    vec3 indirectColor = clothSpecularIBL * specularStrength + clothDiffuseIBL * diffuseStrength;
+
+#ifdef USE_VISIBLE_SH_MAP
+    float shVisibilityStrength = clamp(pbrTuning2.w, 0.0, 1.0);
+    mat3 visibleSHTBN = tangentFrame(normalize(normalWS), tangentWS);
+    float localVisibilityDirectRaw = sampleVisibleSHVisibility(lightDirWS, visibleSHTBN);
+    float localVisibilityIBLSpecRaw = sampleVisibleSHVisibility(R, visibleSHTBN);
+    float localVisibilityIBLDiffRaw = sampleVisibleSHVisibility(N, visibleSHTBN);
+#ifdef SH_VISIBILITY_DEBUG_OUTPUT_DIRECT
+    vec4 debugColor = vec4(vec3(localVisibilityDirectRaw), baseAlpha);
+    neteaseModelCommonFrag(debugColor);
+    applyOverlayColor(debugColor);
+    applyFog(debugColor, fogColor);
+    gl_FragColor = debugColor;
+    return;
+#elif defined(SH_VISIBILITY_DEBUG_OUTPUT_IBL)
+    vec4 debugColor = vec4(vec3(localVisibilityIBLDiffRaw), baseAlpha);
+    neteaseModelCommonFrag(debugColor);
+    applyOverlayColor(debugColor);
+    applyFog(debugColor, fogColor);
+    gl_FragColor = debugColor;
+    return;
+#endif
+    float localVisibilityDirect = pow(localVisibilityDirectRaw, VISIBILITY_POWER_DIRECT);
+    float localVisibilityIBLSpec = pow(localVisibilityIBLSpecRaw, VISIBILITY_POWER_IBL);
+    float localVisibilityIBLDiff = pow(localVisibilityIBLDiffRaw, VISIBILITY_POWER_IBL);
+    localVisibilityDirect = mix(VISIBILITY_MIN_DIRECT, 1.0, localVisibilityDirect);
+    localVisibilityIBLSpec = mix(VISIBILITY_MIN_IBL, 1.0, localVisibilityIBLSpec);
+    localVisibilityIBLDiff = mix(VISIBILITY_MIN_IBL, 1.0, localVisibilityIBLDiff);
+    // Apply SH visibility strength: 0.0 = no SH occlusion, 1.0 = full SH occlusion
+    localVisibilityDirect = mix(1.0, localVisibilityDirect, shVisibilityStrength);
+    localVisibilityIBLSpec = mix(1.0, localVisibilityIBLSpec, shVisibilityStrength);
+    localVisibilityIBLDiff = mix(1.0, localVisibilityIBLDiff, shVisibilityStrength);
+    directColor *= localVisibilityDirect;
+    indirectColor *= 0.5 * (localVisibilityIBLSpec + localVisibilityIBLDiff);
+#endif
+
+    vec3 hdrColor = directColor + indirectColor;
+    vec3 finalColor = tonemapACES(hdrColor);
+    finalColor = pow(finalColor, vec3(1.0 / 2.2));
+
+    vec4 color = vec4(finalColor, baseAlpha);
+    neteaseModelCommonFrag(color);
+    applyOverlayColor(color);
+    applyFog(color, fogColor);
+    gl_FragColor = color;
+}

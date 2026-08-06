@@ -145,11 +145,24 @@
                 },
                 {
                     "type": "item",
+                    "name": "minecraft:copper_horse_armor"
+                },
+                {
+                    "type": "item",
                     "name": "minecraft:horsearmorgold"
                 },
                 {
                     "type": "item",
                     "name": "minecraft:horsearmordiamond"
+                }
+            ]
+        },
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "loot_table",
+                    "name": "loot_tables/chests/village/village_bundle.json"
                 }
             ]
         }

@@ -1,0 +1,11 @@
+// __multiversion__
+precision highp float;
+
+#include "fragmentVersionCentroidUV.h"
+
+// Fills the moment shadow RT with the MSM16-encoded value of z = 1
+// (i.e. "no occluder anywhere"). Must match encodeMoments4(1.0) in
+// ntes_pbr_entity_shadow_caster.fragment.
+void main() {
+    gl_FragColor = vec4(0.99999999, 0.99755993, 0.89343751, 0.0);
+}

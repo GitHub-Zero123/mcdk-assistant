@@ -1,19 +1,19 @@
 {
     "content": [
         {
-            "path": "contents.json"
-        },
-        {
             "path": "manifest.json"
         },
         {
             "path": "manifest_publish.json"
         },
         {
-            "path": "netease_config.json"
+            "path": "pack_icon.png"
         },
         {
-            "path": "pack_icon.png"
+            "path": "aim_assist/categories/categories.json"
+        },
+        {
+            "path": "aim_assist/presets/aim_assist_preset.json"
         },
         {
             "path": "behavior_trees/attack.json"
@@ -82,6 +82,39 @@
             "path": "behavior_trees/walk_forward.json"
         },
         {
+            "path": "biomes/bamboo_jungle.biome.json"
+        },
+        {
+            "path": "biomes/bamboo_jungle_hills.biome.json"
+        },
+        {
+            "path": "biomes/basalt_deltas.biome.json"
+        },
+        {
+            "path": "biomes/beach.biome.json"
+        },
+        {
+            "path": "biomes/birch_forest.biome.json"
+        },
+        {
+            "path": "biomes/birch_forest_hills.biome.json"
+        },
+        {
+            "path": "biomes/birch_forest_hills_mutated.biome.json"
+        },
+        {
+            "path": "biomes/birch_forest_mutated.biome.json"
+        },
+        {
+            "path": "biomes/cherry_grove.biome.json"
+        },
+        {
+            "path": "biomes/cold_beach.biome.json"
+        },
+        {
+            "path": "biomes/cold_ocean.biome.json"
+        },
+        {
             "path": "biomes/cold_taiga.biome.json"
         },
         {
@@ -91,7 +124,229 @@
             "path": "biomes/cold_taiga_mutated.biome.json"
         },
         {
+            "path": "biomes/crimson_forest.biome.json"
+        },
+        {
+            "path": "biomes/deep_cold_ocean.biome.json"
+        },
+        {
+            "path": "biomes/deep_dark.biome.json"
+        },
+        {
+            "path": "biomes/deep_frozen_ocean.biome.json"
+        },
+        {
+            "path": "biomes/deep_lukewarm_ocean.biome.json"
+        },
+        {
+            "path": "biomes/deep_ocean.biome.json"
+        },
+        {
+            "path": "biomes/deep_warm_ocean.biome.json"
+        },
+        {
+            "path": "biomes/desert.biome.json"
+        },
+        {
+            "path": "biomes/desert_hills.biome.json"
+        },
+        {
+            "path": "biomes/desert_mutated.biome.json"
+        },
+        {
+            "path": "biomes/dripstone_caves.biome.json"
+        },
+        {
+            "path": "biomes/extreme_hills.biome.json"
+        },
+        {
+            "path": "biomes/extreme_hills_edge.biome.json"
+        },
+        {
+            "path": "biomes/extreme_hills_mutated.biome.json"
+        },
+        {
+            "path": "biomes/extreme_hills_plus_trees.biome.json"
+        },
+        {
+            "path": "biomes/extreme_hills_plus_trees_mutated.biome.json"
+        },
+        {
+            "path": "biomes/flower_forest.biome.json"
+        },
+        {
+            "path": "biomes/forest.biome.json"
+        },
+        {
+            "path": "biomes/forest_hills.biome.json"
+        },
+        {
+            "path": "biomes/frozen_ocean.biome.json"
+        },
+        {
+            "path": "biomes/frozen_peaks.biome.json"
+        },
+        {
+            "path": "biomes/frozen_river.biome.json"
+        },
+        {
+            "path": "biomes/grove.biome.json"
+        },
+        {
+            "path": "biomes/hell.biome.json"
+        },
+        {
+            "path": "biomes/ice_mountains.biome.json"
+        },
+        {
+            "path": "biomes/ice_plains.biome.json"
+        },
+        {
+            "path": "biomes/ice_plains_spikes.biome.json"
+        },
+        {
+            "path": "biomes/jagged_peaks.biome.json"
+        },
+        {
+            "path": "biomes/jungle.biome.json"
+        },
+        {
+            "path": "biomes/jungle_edge.biome.json"
+        },
+        {
+            "path": "biomes/jungle_edge_mutated.biome.json"
+        },
+        {
+            "path": "biomes/jungle_hills.biome.json"
+        },
+        {
+            "path": "biomes/jungle_mutated.biome.json"
+        },
+        {
+            "path": "biomes/legacy_frozen_ocean.biome.json"
+        },
+        {
+            "path": "biomes/lukewarm_ocean.biome.json"
+        },
+        {
+            "path": "biomes/lush_caves.biome.json"
+        },
+        {
+            "path": "biomes/mangrove_swamp.biome.json"
+        },
+        {
+            "path": "biomes/meadow.biome.json"
+        },
+        {
+            "path": "biomes/mega_taiga.biome.json"
+        },
+        {
+            "path": "biomes/mega_taiga_hills.biome.json"
+        },
+        {
+            "path": "biomes/mesa.biome.json"
+        },
+        {
+            "path": "biomes/mesa_bryce.biome.json"
+        },
+        {
+            "path": "biomes/mesa_plateau.biome.json"
+        },
+        {
+            "path": "biomes/mesa_plateau_mutated.biome.json"
+        },
+        {
+            "path": "biomes/mesa_plateau_stone.biome.json"
+        },
+        {
+            "path": "biomes/mesa_plateau_stone_mutated.biome.json"
+        },
+        {
+            "path": "biomes/mushroom_island.biome.json"
+        },
+        {
+            "path": "biomes/mushroom_island_shore.biome.json"
+        },
+        {
+            "path": "biomes/ocean.biome.json"
+        },
+        {
+            "path": "biomes/pale_garden.biome.json"
+        },
+        {
+            "path": "biomes/plains.biome.json"
+        },
+        {
+            "path": "biomes/redwood_taiga_hills_mutated.biome.json"
+        },
+        {
+            "path": "biomes/redwood_taiga_mutated.biome.json"
+        },
+        {
+            "path": "biomes/river.biome.json"
+        },
+        {
+            "path": "biomes/roofed_forest.biome.json"
+        },
+        {
+            "path": "biomes/roofed_forest_mutated.biome.json"
+        },
+        {
+            "path": "biomes/savanna.biome.json"
+        },
+        {
+            "path": "biomes/savanna_mutated.biome.json"
+        },
+        {
+            "path": "biomes/savanna_plateau.biome.json"
+        },
+        {
+            "path": "biomes/savanna_plateau_mutated.biome.json"
+        },
+        {
+            "path": "biomes/snowy_slopes.biome.json"
+        },
+        {
+            "path": "biomes/soulsand_valley.biome.json"
+        },
+        {
+            "path": "biomes/stone_beach.biome.json"
+        },
+        {
+            "path": "biomes/stony_peaks.biome.json"
+        },
+        {
+            "path": "biomes/sunflower_plains.biome.json"
+        },
+        {
+            "path": "biomes/swampland.biome.json"
+        },
+        {
+            "path": "biomes/swampland_mutated.biome.json"
+        },
+        {
+            "path": "biomes/taiga.biome.json"
+        },
+        {
+            "path": "biomes/taiga_hills.biome.json"
+        },
+        {
+            "path": "biomes/taiga_mutated.biome.json"
+        },
+        {
+            "path": "biomes/the_end.biome.json"
+        },
+        {
+            "path": "biomes/warm_ocean.biome.json"
+        },
+        {
+            "path": "biomes/warped_forest.biome.json"
+        },
+        {
             "path": "cameras/presets/first_person.json"
+        },
+        {
+            "path": "cameras/presets/fixed_boom.json"
         },
         {
             "path": "cameras/presets/follow_orbit.json"
@@ -167,6 +422,9 @@
         },
         {
             "path": "entities/command_block_minecart.json"
+        },
+        {
+            "path": "entities/copper_golem.json"
         },
         {
             "path": "entities/cow.json"
@@ -245,6 +503,9 @@
         },
         {
             "path": "entities/guardian.json"
+        },
+        {
+            "path": "entities/happy_ghast.json"
         },
         {
             "path": "entities/hoglin.json"
@@ -502,6 +763,9 @@
             "path": "features/birch_tree_feature.json"
         },
         {
+            "path": "features/bush_feature.json"
+        },
+        {
             "path": "features/cave_vine_feature.json"
         },
         {
@@ -598,6 +862,9 @@
             "path": "features/fancy_oak_tree_feature.json"
         },
         {
+            "path": "features/fancy_oak_tree_with_leaf_litter_and_optional_beehive.json"
+        },
+        {
             "path": "features/fern_double_plant_patch_feature.json"
         },
         {
@@ -616,6 +883,9 @@
             "path": "features/granite_feature.json"
         },
         {
+            "path": "features/grass_double_plant_lower_feature.json"
+        },
+        {
             "path": "features/grass_double_plant_patch_feature.json"
         },
         {
@@ -629,6 +899,12 @@
         },
         {
             "path": "features/jungle_bush_feature.json"
+        },
+        {
+            "path": "features/jungle_fern_feature.json"
+        },
+        {
+            "path": "features/jungle_tall_grass_feature.json"
         },
         {
             "path": "features/jungle_tree_feature.json"
@@ -688,6 +964,9 @@
             "path": "features/oak_tree_with_vines_feature.json"
         },
         {
+            "path": "features/optional_mountain_spruce_tree_feature.json"
+        },
+        {
             "path": "features/pale_hanging_moss_feature.json"
         },
         {
@@ -724,7 +1003,19 @@
             "path": "features/random_clay_with_dripleaves_snap_to_floor_feature.json"
         },
         {
+            "path": "features/random_dry_grass_block_feature.json"
+        },
+        {
+            "path": "features/random_mangrove_tree_feature.json"
+        },
+        {
             "path": "features/random_pale_oak_tree_feature.json"
+        },
+        {
+            "path": "features/random_roofed_forest_feature_with_decoration_feature.json"
+        },
+        {
+            "path": "features/random_roofed_forest_feature_with_leaf_litter_feature.json"
         },
         {
             "path": "features/redstone_ore_feature.json"
@@ -739,13 +1030,79 @@
             "path": "features/savanna_tree_feature.json"
         },
         {
+            "path": "features/scatter_birch_forest_wildflowers_feature.json"
+        },
+        {
+            "path": "features/scatter_brown_mushroom_feature.json"
+        },
+        {
+            "path": "features/scatter_bush_feature.json"
+        },
+        {
+            "path": "features/scatter_cold_ocean_seagrass_feature.json"
+        },
+        {
+            "path": "features/scatter_deep_cold_ocean_seagrass_feature.json"
+        },
+        {
+            "path": "features/scatter_deep_ocean_seagrass_feature.json"
+        },
+        {
+            "path": "features/scatter_deep_warm_ocean_seagrass_feature.json"
+        },
+        {
+            "path": "features/scatter_dry_grass_feature.json"
+        },
+        {
             "path": "features/scatter_eyeblossom_feature.json"
         },
         {
             "path": "features/scatter_fern_feature.json"
         },
         {
+            "path": "features/scatter_flower_forest_flower_feature.json"
+        },
+        {
+            "path": "features/scatter_jungle_plant_feature.json"
+        },
+        {
+            "path": "features/scatter_leaf_litter_feature.json"
+        },
+        {
+            "path": "features/scatter_meadow_flower_feature.json"
+        },
+        {
+            "path": "features/scatter_meadow_tall_grass_feature.json"
+        },
+        {
+            "path": "features/scatter_meadow_wildflowers_feature.json"
+        },
+        {
+            "path": "features/scatter_ocean_seagrass_feature.json"
+        },
+        {
+            "path": "features/scatter_overworld_flower_feature.json"
+        },
+        {
             "path": "features/scatter_pale_hanging_moss_feature.json"
+        },
+        {
+            "path": "features/scatter_plains_flower_feature.json"
+        },
+        {
+            "path": "features/scatter_red_mushroom_feature.json"
+        },
+        {
+            "path": "features/scatter_river_seagrass_feature.json"
+        },
+        {
+            "path": "features/scatter_swamp_flower_feature.json"
+        },
+        {
+            "path": "features/scatter_swamp_seagrass_feature.json"
+        },
+        {
+            "path": "features/scatter_taiga_plant_feature.json"
         },
         {
             "path": "features/scatter_tall_grass_around_forest_foliage_feature.json"
@@ -755,6 +1112,9 @@
         },
         {
             "path": "features/scatter_tall_grass_feature.json"
+        },
+        {
+            "path": "features/scatter_warm_ocean_seagrass_feature.json"
         },
         {
             "path": "features/sculk_patch_feature.json"
@@ -769,7 +1129,22 @@
             "path": "features/select_birch_tree_feature.json"
         },
         {
+            "path": "features/select_birch_tree_with_leaf_litter_feature.json"
+        },
+        {
+            "path": "features/select_jungle_plant_feature.json"
+        },
+        {
+            "path": "features/select_oak_tree_with_leaf_litter_feature.json"
+        },
+        {
             "path": "features/select_standing_oak_tree_feature.json"
+        },
+        {
+            "path": "features/select_taiga_plant_feature.json"
+        },
+        {
+            "path": "features/short_dry_grass_feature.json"
         },
         {
             "path": "features/silverfish_feature.json"
@@ -800,6 +1175,9 @@
         },
         {
             "path": "features/swamp_tree_feature.json"
+        },
+        {
+            "path": "features/tall_dry_grass_feature.json"
         },
         {
             "path": "features/tall_mangrove_tree_feature.json"
@@ -847,7 +1225,22 @@
             "path": "feature_rules/after_surface_silverfish_feature.json"
         },
         {
+            "path": "feature_rules/bamboo_jungle_after_surface_bamboo_feature.json"
+        },
+        {
+            "path": "feature_rules/bamboo_jungle_after_surface_tall_grass_feature_rules.json"
+        },
+        {
+            "path": "feature_rules/bamboo_jungle_before_surface_bamboo_feature_rules.json"
+        },
+        {
+            "path": "feature_rules/bamboo_jungle_surface_tall_grass_feature.json"
+        },
+        {
             "path": "feature_rules/bamboo_jungle_surface_trees_feature.json"
+        },
+        {
+            "path": "feature_rules/birch_forest_before_surface_wildflowers_feature_rules.json"
         },
         {
             "path": "feature_rules/birch_forest_mutated_surface_trees_feature.json"
@@ -862,16 +1255,61 @@
             "path": "feature_rules/cherry_biome_surface_tall_grass_feature_rules.json"
         },
         {
+            "path": "feature_rules/cherry_grove_after_surface_cherry_tree_feature_rules.json"
+        },
+        {
             "path": "feature_rules/cherry_grove_cherry_tree_feature_rules.json"
         },
         {
             "path": "feature_rules/cherry_grove_pink_petals_feature_rules.json"
         },
         {
+            "path": "feature_rules/cherry_grove_surface_pink_petals_feature_rules.json"
+        },
+        {
+            "path": "feature_rules/cold_ocean_after_surface_seagrass_feature_rules.json"
+        },
+        {
+            "path": "feature_rules/cold_taiga_after_surface_sweet_berry_bush_feature_rules.json"
+        },
+        {
+            "path": "feature_rules/cold_taiga_first_sweet_berry_bush_feature.json"
+        },
+        {
+            "path": "feature_rules/deep_cold_ocean_after_surface_seagrass_feature_rules.json"
+        },
+        {
+            "path": "feature_rules/deep_ocean_after_surface_seagrass_feature_rules.json"
+        },
+        {
+            "path": "feature_rules/deep_warm_ocean_after_surface_seagrass_feature_rules.json"
+        },
+        {
+            "path": "feature_rules/desert_after_surface_cactus_feature_rules.json"
+        },
+        {
+            "path": "feature_rules/desert_after_surface_dead_bush_feature_rules.json"
+        },
+        {
             "path": "feature_rules/desert_after_surface_desert_well_feature.json"
         },
         {
+            "path": "feature_rules/desert_after_surface_dry_grass_feature_rules.json"
+        },
+        {
+            "path": "feature_rules/desert_after_surface_reeds_feature_rules.json"
+        },
+        {
             "path": "feature_rules/desert_or_swamp_after_surface_fossil_deepslate_feature.json"
+        },
+        {
+            "path": "feature_rules/desert_surface_cactus_feature.json"
+        },
+        {
+            "path": "feature_rules/desert_surface_dead_bush_feature.json"
+        },
+        {
+            "path": "feature_rules/desert_surface_reeds_feature.json"
         },
         {
             "path": "feature_rules/dripstone_caves_underground_copper_ore_feature.json"
@@ -892,13 +1330,28 @@
             "path": "feature_rules/eyeblossom_feature_rules.json"
         },
         {
+            "path": "feature_rules/flower_forest_after_surface_flowers_feature_rules.json"
+        },
+        {
             "path": "feature_rules/flower_forest_first_foliage_feature.json"
+        },
+        {
+            "path": "feature_rules/flower_forest_surface_flowers_feature.json"
         },
         {
             "path": "feature_rules/flower_forest_surface_trees_feature.json"
         },
         {
+            "path": "feature_rules/forest_after_surface_tall_grass_feature_rules.json"
+        },
+        {
             "path": "feature_rules/forest_first_foliage_feature.json"
+        },
+        {
+            "path": "feature_rules/forest_surface_flowers_feature.json"
+        },
+        {
+            "path": "feature_rules/forest_surface_tall_grass_feature.json"
         },
         {
             "path": "feature_rules/forest_surface_trees_feature.json"
@@ -916,16 +1369,43 @@
             "path": "feature_rules/ice_surface_trees_feature.json"
         },
         {
+            "path": "feature_rules/jungle_after_surface_bamboo_feature.json"
+        },
+        {
+            "path": "feature_rules/jungle_after_surface_flowers_feature_rules.json"
+        },
+        {
+            "path": "feature_rules/jungle_after_surface_melon_feature.json"
+        },
+        {
+            "path": "feature_rules/jungle_after_surface_tall_grass_feature_rules.json"
+        },
+        {
             "path": "feature_rules/jungle_after_surface_vines_feature.json"
         },
         {
+            "path": "feature_rules/jungle_edge_after_surface_melon_feature.json"
+        },
+        {
             "path": "feature_rules/jungle_edge_surface_trees_feature.json"
+        },
+        {
+            "path": "feature_rules/jungle_surface_flowers_feature.json"
+        },
+        {
+            "path": "feature_rules/jungle_surface_tall_grass_feature.json"
         },
         {
             "path": "feature_rules/jungle_surface_trees_feature.json"
         },
         {
             "path": "feature_rules/large_dripstone_feature.json"
+        },
+        {
+            "path": "feature_rules/lukewarm_ocean_after_surface_kelp_feature_rules.json"
+        },
+        {
+            "path": "feature_rules/lukewarm_ocean_surface_kelp_feature.json"
         },
         {
             "path": "feature_rules/lush_caves_after_surface_azalea_root_system_feature.json"
@@ -952,6 +1432,15 @@
             "path": "feature_rules/lush_caves_underground_clay_ore_feature.json"
         },
         {
+            "path": "feature_rules/mangrove_swamp_after_surface_dead_bush_feature_rules.json"
+        },
+        {
+            "path": "feature_rules/mangrove_swamp_after_surface_seagrass_feature_rules.json"
+        },
+        {
+            "path": "feature_rules/mangrove_swamp_after_surface_tall_grass_feature_rules.json"
+        },
+        {
             "path": "feature_rules/mangrove_swamp_mangrove_tree_feature.json"
         },
         {
@@ -973,19 +1462,67 @@
             "path": "feature_rules/mangrove_swamp_tall_mangrove_tree_with_beenest_feature.json"
         },
         {
+            "path": "feature_rules/meadow_after_surface_double_plant_feature_rules.json"
+        },
+        {
+            "path": "feature_rules/meadow_after_surface_flowers_feature_rules.json"
+        },
+        {
+            "path": "feature_rules/meadow_after_surface_tall_grass_feature_rules.json"
+        },
+        {
+            "path": "feature_rules/meadow_before_surface_wildflowers_feature_rules.json"
+        },
+        {
             "path": "feature_rules/meadow_flowers_feature.json"
+        },
+        {
+            "path": "feature_rules/meadow_surface_double_plant_feature_rules.json"
+        },
+        {
+            "path": "feature_rules/meadow_surface_tall_grass_feature.json"
         },
         {
             "path": "feature_rules/meadow_surface_trees_feature.json"
         },
         {
+            "path": "feature_rules/mega_taiga_after_surface_brown_mushroom_feature_rules.json"
+        },
+        {
+            "path": "feature_rules/mega_taiga_after_surface_dead_bush_feature_rules.json"
+        },
+        {
+            "path": "feature_rules/mega_taiga_after_surface_red_mushroom_feature_rules.json"
+        },
+        {
+            "path": "feature_rules/mega_taiga_after_surface_tall_grass_feature_rules.json"
+        },
+        {
             "path": "feature_rules/mega_taiga_first_forest_rock_feature.json"
+        },
+        {
+            "path": "feature_rules/mega_taiga_surface_dead_bush_feature.json"
         },
         {
             "path": "feature_rules/mega_taiga_surface_mushrooms_feature.json"
         },
         {
+            "path": "feature_rules/mega_taiga_surface_tall_grass_feature.json"
+        },
+        {
             "path": "feature_rules/mega_taiga_surface_trees_feature.json"
+        },
+        {
+            "path": "feature_rules/mesa_after_surface_cactus_feature_rules.json"
+        },
+        {
+            "path": "feature_rules/mesa_after_surface_dead_bush_feature_rules.json"
+        },
+        {
+            "path": "feature_rules/mesa_after_surface_dry_grass_feature_rules.json"
+        },
+        {
+            "path": "feature_rules/mesa_after_surface_reeds_feature_rules.json"
         },
         {
             "path": "feature_rules/mesa_before_surface_gold_ore_feature.json"
@@ -994,16 +1531,64 @@
             "path": "feature_rules/mesa_plateau_stone_surface_trees_feature.json"
         },
         {
+            "path": "feature_rules/mesa_surface_cactus_feature.json"
+        },
+        {
+            "path": "feature_rules/mesa_surface_dead_bush_feature.json"
+        },
+        {
+            "path": "feature_rules/mesa_surface_reeds_feature.json"
+        },
+        {
             "path": "feature_rules/mesa_underground_gold_ore_feature.json"
         },
         {
+            "path": "feature_rules/mountains_underground_coal_ore_feature.json"
+        },
+        {
+            "path": "feature_rules/mushroom_island_after_surface_brown_mushroom_feature_rules.json"
+        },
+        {
+            "path": "feature_rules/mushroom_island_after_surface_red_mushroom_feature_rules.json"
+        },
+        {
             "path": "feature_rules/mushroom_island_surface_mushrooms_feature.json"
+        },
+        {
+            "path": "feature_rules/ocean_after_surface_kelp_feature_rules.json"
+        },
+        {
+            "path": "feature_rules/ocean_after_surface_seagrass_feature_rules.json"
         },
         {
             "path": "feature_rules/ocean_surface_kelp_feature.json"
         },
         {
             "path": "feature_rules/ocean_surface_seagrass_feature.json"
+        },
+        {
+            "path": "feature_rules/overworld_after_surface_bush_feature_rules.json"
+        },
+        {
+            "path": "feature_rules/overworld_after_surface_extra_brown_mushroom_feature_rules.json"
+        },
+        {
+            "path": "feature_rules/overworld_after_surface_extra_red_mushroom_feature_rules.json"
+        },
+        {
+            "path": "feature_rules/overworld_after_surface_firefly_bush_water_cluster.json"
+        },
+        {
+            "path": "feature_rules/overworld_after_surface_flowers_feature_rules.json"
+        },
+        {
+            "path": "feature_rules/overworld_after_surface_pumpkin_feature_rules.json"
+        },
+        {
+            "path": "feature_rules/overworld_after_surface_reeds_feature_rules.json"
+        },
+        {
+            "path": "feature_rules/overworld_after_surface_tall_grass_feature_rules.json"
         },
         {
             "path": "feature_rules/overworld_amethyst_geode_feature.json"
@@ -1028,6 +1613,12 @@
         },
         {
             "path": "feature_rules/overworld_surface_mangrove_grass_feature.json"
+        },
+        {
+            "path": "feature_rules/overworld_surface_pumpkin_feature.json"
+        },
+        {
+            "path": "feature_rules/overworld_surface_reeds_feature.json"
         },
         {
             "path": "feature_rules/overworld_surface_sand_feature.json"
@@ -1156,6 +1747,27 @@
             "path": "feature_rules/pale_garden_surface_tall_grass_feature_rules.json"
         },
         {
+            "path": "feature_rules/plains_after_surface_double_plant_sunflower_feature_rules.json"
+        },
+        {
+            "path": "feature_rules/plains_after_surface_flowers_feature_rules.json"
+        },
+        {
+            "path": "feature_rules/plains_after_surface_tall_grass_feature_rules.json"
+        },
+        {
+            "path": "feature_rules/plains_first_double_plant_grass_feature.json"
+        },
+        {
+            "path": "feature_rules/plains_first_double_plant_sunflower_feature.json"
+        },
+        {
+            "path": "feature_rules/plains_surface_flowers_feature.json"
+        },
+        {
+            "path": "feature_rules/plains_surface_tall_grass_feature.json"
+        },
+        {
             "path": "feature_rules/plains_surface_trees_feature.json"
         },
         {
@@ -1165,13 +1777,34 @@
             "path": "feature_rules/redwood_taiga_mutated_surface_trees_feature.json"
         },
         {
+            "path": "feature_rules/river_after_surface_seagrass_feature_rules.json"
+        },
+        {
             "path": "feature_rules/river_surface_seagrass_feature.json"
         },
         {
-            "path": "feature_rules/roofed_forest_first_foliage_feature.json"
+            "path": "feature_rules/savanna_after_surface_flowers_feature_rules.json"
+        },
+        {
+            "path": "feature_rules/savanna_after_surface_tall_grass_feature_rules.json"
+        },
+        {
+            "path": "feature_rules/savanna_first_double_plant_grass_feature.json"
+        },
+        {
+            "path": "feature_rules/savanna_mutated_after_surface_tall_grass_feature_rules.json"
+        },
+        {
+            "path": "feature_rules/savanna_mutated_surface_tall_grass_feature.json"
         },
         {
             "path": "feature_rules/savanna_mutated_surface_trees_feature.json"
+        },
+        {
+            "path": "feature_rules/savanna_surface_flowers_feature.json"
+        },
+        {
+            "path": "feature_rules/savanna_surface_tall_grass_feature.json"
         },
         {
             "path": "feature_rules/savanna_surface_trees_feature.json"
@@ -1186,19 +1819,85 @@
             "path": "feature_rules/small_dripstone_feature.json"
         },
         {
+            "path": "feature_rules/soulsand_valley_fossil_surface_feature.json"
+        },
+        {
             "path": "feature_rules/surface_pass_large_dripstone_feature.json"
+        },
+        {
+            "path": "feature_rules/swamp_after_surface_brown_mushroom_feature_rules.json"
+        },
+        {
+            "path": "feature_rules/swamp_after_surface_dead_bush_feature_rules.json"
+        },
+        {
+            "path": "feature_rules/swamp_after_surface_firefly_bush_water_cluster.json"
+        },
+        {
+            "path": "feature_rules/swamp_after_surface_flowers_feature_rules.json"
+        },
+        {
+            "path": "feature_rules/swamp_after_surface_red_mushroom_feature_rules.json"
+        },
+        {
+            "path": "feature_rules/swamp_after_surface_reeds_feature_rules.json"
+        },
+        {
+            "path": "feature_rules/swamp_after_surface_seagrass_feature_rules.json"
+        },
+        {
+            "path": "feature_rules/swamp_after_surface_single_firefly_bush_cluster.json"
+        },
+        {
+            "path": "feature_rules/swamp_after_surface_tall_grass_feature_rules.json"
+        },
+        {
+            "path": "feature_rules/swamp_after_surface_waterlily_feature_rules.json"
+        },
+        {
+            "path": "feature_rules/swamp_surface_dead_bush_feature.json"
+        },
+        {
+            "path": "feature_rules/swamp_surface_flowers_feature.json"
         },
         {
             "path": "feature_rules/swamp_surface_mushrooms_feature.json"
         },
         {
+            "path": "feature_rules/swamp_surface_reeds_feature.json"
+        },
+        {
             "path": "feature_rules/swamp_surface_swamp_foliage_feature.json"
+        },
+        {
+            "path": "feature_rules/swamp_surface_tall_grass_feature.json"
         },
         {
             "path": "feature_rules/swamp_surface_waterlily_feature.json"
         },
         {
+            "path": "feature_rules/taiga_after_surface_brown_mushroom_feature_rules.json"
+        },
+        {
+            "path": "feature_rules/taiga_after_surface_red_mushroom_feature_rules.json"
+        },
+        {
+            "path": "feature_rules/taiga_after_surface_sweet_berry_bush_feature_rules.json"
+        },
+        {
+            "path": "feature_rules/taiga_after_surface_tall_grass_feature_rules.json"
+        },
+        {
+            "path": "feature_rules/taiga_first_double_plant_fern_feature.json"
+        },
+        {
+            "path": "feature_rules/taiga_first_sweet_berry_bush_feature.json"
+        },
+        {
             "path": "feature_rules/taiga_surface_mushrooms_feature.json"
+        },
+        {
+            "path": "feature_rules/taiga_surface_tall_grass_feature.json"
         },
         {
             "path": "feature_rules/taiga_surface_trees_feature.json"
@@ -1214,6 +1913,9 @@
         },
         {
             "path": "feature_rules/warm_ocean_after_surface_pickle_feature.json"
+        },
+        {
+            "path": "feature_rules/warm_ocean_after_surface_seagrass_feature_rules.json"
         },
         {
             "path": "items/apple.json"
@@ -1426,6 +2128,9 @@
             "path": "items/yellow_bundle.json"
         },
         {
+            "path": "item_catalog/crafting_item_catalog.json"
+        },
+        {
             "path": "loot_tables/empty.json"
         },
         {
@@ -1561,6 +2266,9 @@
             "path": "loot_tables/chests/village/village_armorer.json"
         },
         {
+            "path": "loot_tables/chests/village/village_bundle.json"
+        },
+        {
             "path": "loot_tables/chests/village/village_butcher.json"
         },
         {
@@ -1618,6 +2326,9 @@
             "path": "loot_tables/entities/armor_set_chain.json"
         },
         {
+            "path": "loot_tables/entities/armor_set_copper.json"
+        },
+        {
             "path": "loot_tables/entities/armor_set_diamond.json"
         },
         {
@@ -1670,6 +2381,12 @@
         },
         {
             "path": "loot_tables/entities/cold_ocean_ruins_brushable_block.json"
+        },
+        {
+            "path": "loot_tables/entities/copper_golem.json"
+        },
+        {
+            "path": "loot_tables/entities/copper_golem_shear.json"
         },
         {
             "path": "loot_tables/entities/cow.json"
@@ -1817,6 +2534,9 @@
         },
         {
             "path": "loot_tables/entities/ravager.json"
+        },
+        {
+            "path": "loot_tables/entities/saddle.json"
         },
         {
             "path": "loot_tables/entities/salmon_large.json"
@@ -2038,6 +2758,9 @@
             "path": "recipes/acacia_planks_from_wood.json"
         },
         {
+            "path": "recipes/acacia_shelf_from_stripped_acacia_log.json"
+        },
+        {
             "path": "recipes/acacia_stairs.json"
         },
         {
@@ -2114,6 +2837,9 @@
         },
         {
             "path": "recipes/bamboo_raft.json"
+        },
+        {
+            "path": "recipes/bamboo_shelf_from_stripped_bamboo_block.json"
         },
         {
             "path": "recipes/bamboo_sign.json"
@@ -2213,6 +2939,9 @@
         },
         {
             "path": "recipes/birch_planks_from_wood.json"
+        },
+        {
+            "path": "recipes/birch_shelf_from_stripped_birch_log.json"
         },
         {
             "path": "recipes/birch_stairs.json"
@@ -2833,6 +3562,9 @@
             "path": "recipes/cherry_pressure_plate.json"
         },
         {
+            "path": "recipes/cherry_shelf_from_stripped_cherry_log.json"
+        },
+        {
             "path": "recipes/cherry_sign.json"
         },
         {
@@ -2959,7 +3691,55 @@
             "path": "recipes/cookie.json"
         },
         {
+            "path": "recipes/copper_axe.json"
+        },
+        {
+            "path": "recipes/copper_bars.json"
+        },
+        {
             "path": "recipes/copper_block_from_ingots.json"
+        },
+        {
+            "path": "recipes/copper_boots.json"
+        },
+        {
+            "path": "recipes/copper_chain.json"
+        },
+        {
+            "path": "recipes/copper_chest.json"
+        },
+        {
+            "path": "recipes/copper_chestplate.json"
+        },
+        {
+            "path": "recipes/copper_helmet.json"
+        },
+        {
+            "path": "recipes/copper_hoe.json"
+        },
+        {
+            "path": "recipes/copper_ingot_from_nuggets.json"
+        },
+        {
+            "path": "recipes/copper_lantern.json"
+        },
+        {
+            "path": "recipes/copper_leggings.json"
+        },
+        {
+            "path": "recipes/copper_nugget.json"
+        },
+        {
+            "path": "recipes/copper_pickaxe.json"
+        },
+        {
+            "path": "recipes/copper_shovel.json"
+        },
+        {
+            "path": "recipes/copper_sword.json"
+        },
+        {
+            "path": "recipes/copper_torch.json"
         },
         {
             "path": "recipes/cracked_deepslate_bricks_furnace.json"
@@ -3178,6 +3958,9 @@
             "path": "recipes/crimson_pressure_plate.json"
         },
         {
+            "path": "recipes/crimson_shelf_from_stripped_crimson_stem.json"
+        },
+        {
             "path": "recipes/crimson_sign.json"
         },
         {
@@ -3257,6 +4040,9 @@
         },
         {
             "path": "recipes/dark_oak_planks_from_wood.json"
+        },
+        {
+            "path": "recipes/dark_oak_shelf_from_stripped_dark_oak_log.json"
         },
         {
             "path": "recipes/dark_oak_stairs.json"
@@ -3445,6 +4231,9 @@
             "path": "recipes/dispenser.json"
         },
         {
+            "path": "recipes/dried_ghast.json"
+        },
+        {
             "path": "recipes/dried_kelp.json"
         },
         {
@@ -3541,13 +4330,22 @@
             "path": "recipes/furnace.json"
         },
         {
+            "path": "recipes/furnace_acacia_leaves.json"
+        },
+        {
             "path": "recipes/furnace_acacia_wood.json"
         },
         {
             "path": "recipes/furnace_ancient_debris.json"
         },
         {
+            "path": "recipes/furnace_azalea_leaves.json"
+        },
+        {
             "path": "recipes/furnace_beef.json"
+        },
+        {
+            "path": "recipes/furnace_birch_leaves.json"
         },
         {
             "path": "recipes/furnace_birch_wood.json"
@@ -3566,6 +4364,9 @@
         },
         {
             "path": "recipes/furnace_chainmail_leggings.json"
+        },
+        {
+            "path": "recipes/furnace_cherry_leaves.json"
         },
         {
             "path": "recipes/furnace_chicken.json"
@@ -3589,13 +4390,43 @@
             "path": "recipes/furnace_copper.json"
         },
         {
+            "path": "recipes/furnace_copper_axe.json"
+        },
+        {
+            "path": "recipes/furnace_copper_boots.json"
+        },
+        {
+            "path": "recipes/furnace_copper_chestplate.json"
+        },
+        {
+            "path": "recipes/furnace_copper_helmet.json"
+        },
+        {
+            "path": "recipes/furnace_copper_hoe.json"
+        },
+        {
+            "path": "recipes/furnace_copper_leggings.json"
+        },
+        {
             "path": "recipes/furnace_copper_ore.json"
+        },
+        {
+            "path": "recipes/furnace_copper_pickaxe.json"
+        },
+        {
+            "path": "recipes/furnace_copper_shovel.json"
+        },
+        {
+            "path": "recipes/furnace_copper_sword.json"
         },
         {
             "path": "recipes/furnace_cracked_nether_bricks.json"
         },
         {
             "path": "recipes/furnace_cracked_polished_blackstone_bricks.json"
+        },
+        {
+            "path": "recipes/furnace_dark_oak_leaves.json"
         },
         {
             "path": "recipes/furnace_dark_oak_wood.json"
@@ -3632,6 +4463,9 @@
         },
         {
             "path": "recipes/furnace_fish.json"
+        },
+        {
+            "path": "recipes/furnace_flowering_azalea_leaves.json"
         },
         {
             "path": "recipes/furnace_from_blackstone.json"
@@ -3673,6 +4507,9 @@
             "path": "recipes/furnace_gold_ore.json"
         },
         {
+            "path": "recipes/furnace_horse_armor_copper.json"
+        },
+        {
             "path": "recipes/furnace_horse_armor_gold.json"
         },
         {
@@ -3712,6 +4549,9 @@
             "path": "recipes/furnace_iron_sword.json"
         },
         {
+            "path": "recipes/furnace_jungle_leaves.json"
+        },
+        {
             "path": "recipes/furnace_jungle_wood.json"
         },
         {
@@ -3745,6 +4585,9 @@
             "path": "recipes/furnace_log_spruce.json"
         },
         {
+            "path": "recipes/furnace_mangrove_leaves.json"
+        },
+        {
             "path": "recipes/furnace_mangrove_wood.json"
         },
         {
@@ -3757,7 +4600,13 @@
             "path": "recipes/furnace_nether_gold_ore.json"
         },
         {
+            "path": "recipes/furnace_oak_leaves.json"
+        },
+        {
             "path": "recipes/furnace_oak_wood.json"
+        },
+        {
+            "path": "recipes/furnace_pale_oak_leaves.json"
         },
         {
             "path": "recipes/furnace_porkchop.json"
@@ -3803,6 +4652,9 @@
         },
         {
             "path": "recipes/furnace_sponge.json"
+        },
+        {
+            "path": "recipes/furnace_spruce_leaves.json"
         },
         {
             "path": "recipes/furnace_spruce_wood.json"
@@ -4207,6 +5059,9 @@
             "path": "recipes/jungle_planks_from_wood.json"
         },
         {
+            "path": "recipes/jungle_shelf_from_stripped_jungle_log.json"
+        },
+        {
             "path": "recipes/jungle_stairs.json"
         },
         {
@@ -4522,6 +5377,9 @@
             "path": "recipes/mangrove_pressure_plate.json"
         },
         {
+            "path": "recipes/mangrove_shelf_from_stripped_mangrove_log.json"
+        },
+        {
             "path": "recipes/mangrove_sign.json"
         },
         {
@@ -4654,6 +5512,9 @@
             "path": "recipes/oak_planks_from_wood.json"
         },
         {
+            "path": "recipes/oak_shelf_from_stripped_oak_log.json"
+        },
+        {
             "path": "recipes/oak_stairs.json"
         },
         {
@@ -4756,6 +5617,9 @@
             "path": "recipes/pale_oak_pressure_plate.json"
         },
         {
+            "path": "recipes/pale_oak_shelf_from_stripped_pale_oak_log.json"
+        },
+        {
             "path": "recipes/pale_oak_sign.json"
         },
         {
@@ -4793,6 +5657,9 @@
         },
         {
             "path": "recipes/pink_dye.json"
+        },
+        {
+            "path": "recipes/pink_dye_from_cactus_flower.json"
         },
         {
             "path": "recipes/pink_dye_from_peony.json"
@@ -5146,6 +6013,9 @@
             "path": "recipes/rib_armor_trim_smithing_template_duplicate.json"
         },
         {
+            "path": "recipes/saddle.json"
+        },
+        {
             "path": "recipes/sandstone.json"
         },
         {
@@ -5485,6 +6355,9 @@
             "path": "recipes/spruce_planks_from_wood.json"
         },
         {
+            "path": "recipes/spruce_shelf_from_stripped_spruce_log.json"
+        },
+        {
             "path": "recipes/spruce_stairs.json"
         },
         {
@@ -5600,6 +6473,12 @@
         },
         {
             "path": "recipes/stonecutter_cut_copper_to_cut_copper_stairs.json"
+        },
+        {
+            "path": "recipes/stonecutter_cut_red_sandstone_slab.json"
+        },
+        {
+            "path": "recipes/stonecutter_cut_sandstone_slab.json"
         },
         {
             "path": "recipes/stonecutter_dark_prismarine_slab.json"
@@ -6385,6 +7264,9 @@
             "path": "recipes/warped_pressure_plate.json"
         },
         {
+            "path": "recipes/warped_shelf_from_stripped_warped_stem.json"
+        },
+        {
             "path": "recipes/warped_sign.json"
         },
         {
@@ -6400,16 +7282,31 @@
             "path": "recipes/waxing_chiseled_copper.json"
         },
         {
+            "path": "recipes/waxing_copper_bars.json"
+        },
+        {
             "path": "recipes/waxing_copper_block.json"
         },
         {
             "path": "recipes/waxing_copper_bulb.json"
         },
         {
+            "path": "recipes/waxing_copper_chain.json"
+        },
+        {
+            "path": "recipes/waxing_copper_chest.json"
+        },
+        {
             "path": "recipes/waxing_copper_door.json"
         },
         {
+            "path": "recipes/waxing_copper_golem_statue.json"
+        },
+        {
             "path": "recipes/waxing_copper_grate.json"
+        },
+        {
+            "path": "recipes/waxing_copper_lantern.json"
         },
         {
             "path": "recipes/waxing_copper_trapdoor.json"
@@ -6427,16 +7324,31 @@
             "path": "recipes/waxing_exposed_chiseled_copper.json"
         },
         {
+            "path": "recipes/waxing_exposed_copper_bars.json"
+        },
+        {
             "path": "recipes/waxing_exposed_copper_block.json"
         },
         {
             "path": "recipes/waxing_exposed_copper_bulb.json"
         },
         {
+            "path": "recipes/waxing_exposed_copper_chain.json"
+        },
+        {
+            "path": "recipes/waxing_exposed_copper_chest.json"
+        },
+        {
             "path": "recipes/waxing_exposed_copper_door.json"
         },
         {
+            "path": "recipes/waxing_exposed_copper_golem_statue.json"
+        },
+        {
             "path": "recipes/waxing_exposed_copper_grate.json"
+        },
+        {
+            "path": "recipes/waxing_exposed_copper_lantern.json"
         },
         {
             "path": "recipes/waxing_exposed_copper_trapdoor.json"
@@ -6451,7 +7363,16 @@
             "path": "recipes/waxing_exposed_cut_copper_stairs.json"
         },
         {
+            "path": "recipes/waxing_exposed_lightning_rod.json"
+        },
+        {
+            "path": "recipes/waxing_lightning_rod.json"
+        },
+        {
             "path": "recipes/waxing_oxidized_chiseled_copper.json"
+        },
+        {
+            "path": "recipes/waxing_oxidized_copper_bars.json"
         },
         {
             "path": "recipes/waxing_oxidized_copper_block.json"
@@ -6460,10 +7381,22 @@
             "path": "recipes/waxing_oxidized_copper_bulb.json"
         },
         {
+            "path": "recipes/waxing_oxidized_copper_chain.json"
+        },
+        {
+            "path": "recipes/waxing_oxidized_copper_chest.json"
+        },
+        {
             "path": "recipes/waxing_oxidized_copper_door.json"
         },
         {
+            "path": "recipes/waxing_oxidized_copper_golem_statue.json"
+        },
+        {
             "path": "recipes/waxing_oxidized_copper_grate.json"
+        },
+        {
+            "path": "recipes/waxing_oxidized_copper_lantern.json"
         },
         {
             "path": "recipes/waxing_oxidized_copper_trapdoor.json"
@@ -6478,7 +7411,13 @@
             "path": "recipes/waxing_oxidized_cut_copper_stairs.json"
         },
         {
+            "path": "recipes/waxing_oxidized_lightning_rod.json"
+        },
+        {
             "path": "recipes/waxing_weathered_chiseled_copper.json"
+        },
+        {
+            "path": "recipes/waxing_weathered_copper_bars.json"
         },
         {
             "path": "recipes/waxing_weathered_copper_block.json"
@@ -6487,10 +7426,22 @@
             "path": "recipes/waxing_weathered_copper_bulb.json"
         },
         {
+            "path": "recipes/waxing_weathered_copper_chain.json"
+        },
+        {
+            "path": "recipes/waxing_weathered_copper_chest.json"
+        },
+        {
             "path": "recipes/waxing_weathered_copper_door.json"
         },
         {
+            "path": "recipes/waxing_weathered_copper_golem_statue.json"
+        },
+        {
             "path": "recipes/waxing_weathered_copper_grate.json"
+        },
+        {
+            "path": "recipes/waxing_weathered_copper_lantern.json"
         },
         {
             "path": "recipes/waxing_weathered_copper_trapdoor.json"
@@ -6503,6 +7454,9 @@
         },
         {
             "path": "recipes/waxing_weathered_cut_copper_stairs.json"
+        },
+        {
+            "path": "recipes/waxing_weathered_lightning_rod.json"
         },
         {
             "path": "recipes/wayfinder_armor_trim_smithing_template_duplicate.json"
@@ -6649,6 +7603,9 @@
             "path": "recipes/yellow_dye_from_sunflower.json"
         },
         {
+            "path": "recipes/yellow_dye_from_wildflowers.json"
+        },
+        {
             "path": "recipes/yellow_stained_glass.json"
         },
         {
@@ -6677,6 +7634,9 @@
         },
         {
             "path": "spawn_rules/bogged.json"
+        },
+        {
+            "path": "spawn_rules/camel.json"
         },
         {
             "path": "spawn_rules/cat.json"
@@ -7324,9 +8284,6 @@
             "path": "structures/bastion/treasure/ramparts/bottom_wall_0.nbt"
         },
         {
-            "path": "structures/bastion/treasure/ramparts/lava_basin.nbt"
-        },
-        {
             "path": "structures/bastion/treasure/ramparts/lava_basin_main.nbt"
         },
         {
@@ -7493,9 +8450,6 @@
         },
         {
             "path": "structures/bastion/units/walls/wall_base.nbt"
-        },
-        {
-            "path": "structures/bastion/units/wall_units/edge_0.nbt"
         },
         {
             "path": "structures/bastion/units/wall_units/edge_0_large.nbt"
@@ -9887,6 +10841,42 @@
         },
         {
             "path": "worldgen/metadata/jigsawstructure_metadata_registry.dat"
+        },
+        {
+            "path": "worldgen/processors/trail_ruins_houses_archaeology.json"
+        },
+        {
+            "path": "worldgen/processors/trail_ruins_roads_archaeology.json"
+        },
+        {
+            "path": "worldgen/processors/trail_ruins_tower_top_archaeology.json"
+        },
+        {
+            "path": "worldgen/structures/trail_ruins.json"
+        },
+        {
+            "path": "worldgen/structure_sets/trail_ruins.json"
+        },
+        {
+            "path": "worldgen/template_pools/trail_ruins/buildings.json"
+        },
+        {
+            "path": "worldgen/template_pools/trail_ruins/decor.json"
+        },
+        {
+            "path": "worldgen/template_pools/trail_ruins/roads.json"
+        },
+        {
+            "path": "worldgen/template_pools/trail_ruins/tower.json"
+        },
+        {
+            "path": "worldgen/template_pools/trail_ruins/buildings/grouped.json"
+        },
+        {
+            "path": "worldgen/template_pools/trail_ruins/tower/additions.json"
+        },
+        {
+            "path": "worldgen/template_pools/trail_ruins/tower/tower_top.json"
         }
     ]
 }

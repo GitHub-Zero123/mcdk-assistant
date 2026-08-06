@@ -147,18 +147,18 @@
                                         "layer": 7,
                                         "controls": [
                                           {
-                                "hotbar@hotbar_chooser": {
-                                  "offset": [ 4, 16 ]
+                                            "hotbar@hotbar_chooser": {
+                                              "offset": [ 4, 16 ]
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  ]
                                 }
                               }
                             ]
                           }
-                        }
-                      ]
-                    }
-                  }
-                ]
-              }
                         }
                       ]
                     }
@@ -181,7 +181,7 @@
           ]
         }
       },
-      // For when we hide the XP bar in Creative Move we still want to display the HUD
+        // For when we hide the XP bar in Creative Move we still want to display the HUD
       {
         "resizing_hotbar_no_xp_bar": {
           "type": "panel",
@@ -210,10 +210,47 @@
                               {
                                 "hotbar@hotbar_chooser": {
                             "offset": [ 4, 16 ]
-                                }
-                              }
-                            ]
                           }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      // For when we are showing the Locator Bar instead of the XP bar
+      {
+        "resizing_hotbar_locator_bar": {
+          "type": "panel",
+          "size": [ "100%c", 5 ],
+          "controls": [
+            {
+              "size_owner": {
+                "type": "panel",
+                "size": [ "100%c", "100%c" ],
+                "controls": [
+                  {
+                    "hotbar@hotbar_chooser": {
+                      "offset": [ 4, 16 ],
+                      "bindings": [
+                        {
+                          "binding_name": "(not #is_spectator_mode)",
+                          "binding_name_override": "#visible"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "size_without_hotbar": {
+                      "type": "panel",
+                      "size": [ 180, 5 ],
+                      "bindings": [
+                        {
+                          "binding_name": "#is_spectator_mode",
+                          "binding_name_override": "#visible"
                         }
                       ]
                     }
@@ -222,6 +259,42 @@
               }
             },
             {
+              "horse_jump_rend@horse_jump_renderer": {
+                "anchor_from": "bottom_middle",
+                "anchor_to": "bottom_middle",
+                "size": [ "100%sm", 5 ],
+                "replaced_while_inactive": true
+              }
+            },
+            {
+              "dash_rend@dash_renderer": {
+                "anchor_from": "bottom_middle",
+                "anchor_to": "bottom_middle",
+                "size": [ "100%sm", 5 ],
+                "replaced_while_inactive": true
+              }
+            },
+            {
+              "locator_bar@locator_bar": {
+                "size": [ "100%sm", 5 ],
+                "anchor_from": "bottom_middle",
+                "anchor_to": "bottom_middle",
+                "layer": 10
+              }
+            },
+            {
+              "progress_text_label@progress_text_label": {}
+            }
+          ],
+          "bindings": [
+            {
+              "binding_name": "#hotbar_with_locator_bar",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
         "item_text_factory": {
           "size": [ 100, 10 ],
           "type": "factory",
@@ -763,6 +836,10 @@
         "binding_name_override": "#visible",
         "binding_condition": "always",
         "binding_type": "global"
+      },
+      {
+        "binding_name": "#hud_text_background_alpha",
+        "binding_name_override": "#alpha"
       }
     ]
   },
@@ -825,6 +902,10 @@
         "binding_name_override": "#visible",
         "binding_condition": "always",
         "binding_type": "global"
+      },
+      {
+        "binding_name": "#hud_text_background_alpha",
+        "binding_name_override": "#alpha"
       }
     ]
   },
@@ -1183,6 +1264,11 @@
             { "hotbar_hint@edu_common.hotbar_hint": {} },
             {
               "item_dura@item_durability": {
+                "layer": 10
+              }
+            },
+            {
+              "item_store@item_storage": {
                 "layer": 10
               }
             },
@@ -1846,7 +1932,7 @@
     "anim_type": "alpha",
     "duration": 0,
     "from": 0,
-    "to": 0.6,
+    "to": "$item_text_background_alpha",
     "next": "@hud.anim_item_name_background_alpha_stay"
   },
 
@@ -1860,7 +1946,7 @@
     "anim_type": "alpha",
     "easing": "in_expo",
     "duration": 2,
-    "from": 0.6,
+    "from": "$item_text_background_alpha",
     "to": 0
   },
 
@@ -1979,6 +2065,7 @@
     "size": [ "100%c + 12px", "100%c + 5px" ],
     "offset": [ 0, -42 ],
     "texture": "textures/ui/hud_tip_text_background",
+    "$item_text_background_alpha": 0.6,
     "alpha": "@hud.anim_item_name_background_alpha_out",
     "anchor_from": "bottom_middle",
     "anchor_to": "bottom_middle",
@@ -3420,12 +3507,7 @@
               "paper_doll_padding_living_room": {
                 "type": "panel",
                 "size": "$paper_doll_living_room_size",
-                "bindings": [
-                  {
-                    "binding_name": "#paper_doll_visible_living_room",
-                    "binding_name_override": "#visible"
-                  }
-                ],
+                "visible": false,
                 "variables" : [
                   {
                     "requires": "$netease_game_chat_extension",

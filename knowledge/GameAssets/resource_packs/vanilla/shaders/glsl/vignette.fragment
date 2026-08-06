@@ -1,0 +1,35 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+
+
+#include "fragmentVersionCentroidUV.h"
+
+#include "util.h"
+
+LAYOUT_BINDING(0) uniform sampler2D TEXTURE_0;
+
+uniform vec4 VIGNETTE_VECTOR4_1; // color
+uniform vec4 VIGNETTE_VECTOR4_2; // { center.x, center.y, radius, smooth }
+uniform vec4 EXTRA_VECTOR4; // Screen Info vec4(width, height, pixelWidth, pixelHeight)
+
+
+vec4 applyVignette(vec4 color)
+{
+    vec2 wh = EXTRA_VECTOR4.xy;
+    vec2 center = VIGNETTE_VECTOR4_2.xy;
+    vec2 position = (gl_FragCoord.xy / wh) - center;
+    float dist = length(position);
+    float radius = VIGNETTE_VECTOR4_2.z;
+    float softness = VIGNETTE_VECTOR4_2.w;
+    float vignette = smoothstep(radius - softness, radius, dist);
+
+    color.rgb = color.rgb * (1.0 - vignette) + VIGNETTE_VECTOR4_1.rgb * vignette;
+    return color;
+}
+
+void main(){
+
+    vec4 color = texture(TEXTURE_0, uv);
+
+    gl_FragColor = applyVignette(color);
+}

@@ -1,4 +1,4 @@
-# BLOCKS DOCUMENTATION Version: 1.21.90.3
+# BLOCKS DOCUMENTATION Version: 1.21.120.4
 
 
 ## Index
@@ -14,30 +14,31 @@
 | --- | --- | --- | --- |
 | minecraft:breathability | String |  | Determines whether the block is breathable by defining if the block is treated as a `solid` or as `air`. The default is `solid` if this component is omitted. |
 | minecraft:collision_box | Boolean / JSON Object | true | Defines the area of the block that collides with entities. If set to true, default values are used. If set to false, the block's collision with entities is disabled. If this component is omitted, default values are used. |
-| minecraft:crafting_table | JSON Object |  | Makes your block into a custom crafting table which enables the crafting table UI and the ability to craft recipes. This component supports only "recipe_shaped" and "recipe_shapeless" typed recipes and not others like "recipe_furnace" or "recipe_brewing_mix". If there are two recipes for one item, the recipe book will pick the first that was parsed. If two input recipes are the same, crafting may assert and the resulting item may vary.crafting_tags Defines the tags recipes should define to be crafted on this table. Limited to 64 tags. Each tag is limited to 64 characters.    table_name Specifies the language file key that maps to what text will be displayed in the UI of this table. If the string given can not be resolved as a loc string, the raw string given will be displayed. If this field is omitted, the name displayed will default to the name specified in the "display_name" component. If this block has no "display_name" component, the name displayed will default to the name of the block. |
+| minecraft:crafting_table | JSON Object |  | Makes your block into a custom crafting table which enables the crafting table UI and the ability to craft recipes. This component supports only "recipe_shaped" and "recipe_shapeless" typed recipes and not others like "recipe_furnace" or "recipe_brewing_mix". If there are two recipes for one item, the recipe book will pick the first that was parsed. If two input recipes are the same, crafting may assert and the resulting item may vary.crafting_tags Defines the tags recipes should define to be crafted on this table. Limited to 64 tags. Each tag is limited to 64 characters. table_name Specifies the language file key that maps to what text will be displayed in the UI of this table. If the string given can not be resolved as a loc string, the raw string given will be displayed. If this field is omitted, the name displayed will default to the name specified in the "display_name" component. If this block has no "display_name" component, the name displayed will default to the name of the block. |
 | minecraft:custom_components | Array |  | Sets an ordered list of custom component names which are bound in script to be executed upon a block event. |
 | minecraft:destructible_by_explosion | Boolean / JSON Object | true | Describes the destructible by explosion properties for this block. If set to true, the block will have the default explosion resistance. If set to false, this block is indestructible by explosion. If the component is omitted, the block will have the default explosion resistance. |
 | minecraft:destructible_by_mining | Boolean / JSON Object | true | Describes the destructible by mining properties for this block. If set to true, the block will take the default number of seconds to destroy. If set to false, this block is indestructible by mining. If the component is omitted, the block will take the default number of seconds to destroy. |
-| minecraft:destruction_particles | JSON Object |  | Sets the particles that will be used when block is destroyed. This component can be omitted.particle_count Optional, number of particles to spawn of destruction. Default is 100, maximum is 255 inclusively    texture The texture name used for the particle.    tint_method Optional, tint multiplied to the color. Tint method logic varies, but often refers to the "rain" and "temperature" of the biome the block is placed in to compute the tint. Supported tint methods are "none", "default_foliage", "birch_foliage", "evergreen_foliage", "dry_foliage", "grass" and "water" |
+| minecraft:destruction_particles | JSON Object |  | Sets the particles that will be used when block is destroyed. This component can be omitted.particle_count Optional, number of particles to spawn of destruction. Default is 100, maximum is 255 inclusively texture The texture name used for the particle. tint_method Optional, tint multiplied to the color. Tint method logic varies, but often refers to the "rain" and "temperature" of the biome the block is placed in to compute the tint. Supported tint methods are "none", "default_foliage", "birch_foliage", "evergreen_foliage", "dry_foliage", "grass" and "water" |
 | minecraft:display_name | Localization String |  | Specifies the language file key that maps to what text will be displayed when you hover over the block in your inventory and hotbar. If the string given can not be resolved as a loc string, the raw string given will be displayed. If this component is omitted, the name of the block will be used as the display name. |
 | minecraft:flammable | Boolean / JSON Object |  | Describes the flammable properties for this block. If set to true, default values are used. If set to false, or if this component is omitted, the block will not be able to catch on fire naturally from neighbors, but it can still be directly ignited. |
 | minecraft:friction | Decimal | 0.4 | Describes the friction for this block in a range of (0.0-0.9). Friction affects an entity's movement speed when it travels on the block. Greater value results in more friction. |
 | minecraft:geometry | String / JSON Object |  | The description identifier of the geometry to use to render this block. This identifier must either match an existing geometry identifier in any of the loaded resource packs or be one of the currently supported Vanilla identifiers: "minecraft:geometry.full_block" or "minecraft:geometry.cross".As an object The component can be defined as an object to gain control over more specific behaviors. |
-| minecraft:item_visual | JSON Object |  | The description identifier of the geometry and material used to render the item of this block.Experimental toggles required: Upcoming Creator Features (in format versions before 1.21.50)geometry [Required] The "minecraft:geometry" component that will be used for the item.    material_instances [Required] The "minecraft:material_instances" component that will be used for the item. |
+| minecraft:item_visual | JSON Object |  | The description identifier of the geometry and material used to render the item of this block.Experimental toggles required: Upcoming Creator Features (in format versions before 1.21.50)geometry [Required] The "minecraft:geometry" component that will be used for the item. material_instances [Required] The "minecraft:material_instances" component that will be used for the item. |
 | minecraft:light_dampening | Integer | 15 | The amount that light will be dampened when it passes through the block, in a range (0-15). Higher value means the light will be dampened more. |
 | minecraft:light_emission | Integer | 0 | The amount of light this block will emit in a range (0-15). Higher value means more light will be emitted. |
 | minecraft:liquid_detection | JSON Object |  | The definitions for how a block behaves when detecting liquid. Only one rule definition is allowed per liquid type - if multiple are specified, the first will be used and the rest will be ignored.Experimental toggles required: Upcoming Creator Features (in format versions before 1.21.60) |
 | minecraft:loot | Path String |  | The path to the loot table, relative to the behavior pack. Path string is limited to 256 characters. |
-| minecraft:map_color | JSON Object |  | Sets the color of the block when rendered to a map. If this component is omitted, the block will not show up on the map.color The color is represented as a hex value in the format "#RRGGBB". May also be expressed as an array of [R, G, B] from 0 to 255.    tint_method Optional, tint multiplied to the color. Tint method logic varies, but often refers to the "rain" and "temperature" of the biome the block is placed in to compute the tint. Supported tint methods are "none", "default_foliage", "birch_foliage", "evergreen_foliage", "dry_foliage", "grass" and "water" |
+| minecraft:map_color | JSON Object |  | Sets the color of the block when rendered to a map. If this component is omitted, the block will not show up on the map.color The color is represented as a hex value in the format "#RRGGBB". May also be expressed as an array of [R, G, B] from 0 to 255. tint_method Optional, tint multiplied to the color. Tint method logic varies, but often refers to the "rain" and "temperature" of the biome the block is placed in to compute the tint. Supported tint methods are "none", "default_foliage", "birch_foliage", "evergreen_foliage", "dry_foliage", "grass" and "water" |
 | minecraft:material_instances | JSON Object |  | The material instances for a block. Maps face or material_instance names in a geometry file to an actual material instance. You can assign a material instance object to any of these faces: "up", "down", "north", "south", "east", "west", or "*". You can also give an instance the name of your choosing such as "my_instance", and then assign it to a face by doing "north":"my_instance".Material Instance A material instance definition to map to a material instance in a geometry file. The material instance "*" will be used for any materials that don't have a match. |
-| minecraft:movable | JSON Object |  | The description identifier of the movable componentExperimental toggles required: Upcoming Creator Featuresmovement_type [Required] How the block reacts to being pushed by another block like a piston. Must be one of the following options:"push_pull" - The default value for this field. The block will be pushed and pulled by a piston."push" - The block will only be pulled by a piston and will ignore a sticky piston."popped" - The block is destroyed when moved by a piston."immovable" - The block is unaffected by a piston.    sticky [Optional] How the block should handle adjacent blocks around it when being pushed by another block like a piston. Must be one of the following options:"same" - Adjacent blocks to this block will be moved when moved. This excludes other blocks with the "same" property. This will only work with the movement_type: "push_pull"."none" - The default and will not move adjacent blocks. |
+| minecraft:movable | JSON Object |  | The description identifier of the movable componentExperimental toggles required: Upcoming Creator Features (in format versions before 1.21.100)movement_type [Required] How the block reacts to being pushed by another block like a piston. Must be one of the following options:"push_pull" - The default value for this field. The block will be pushed and pulled by a piston."push" - The block will only be pulled by a piston and will ignore a sticky piston."popped" - The block is destroyed when moved by a piston."immovable" - The block is unaffected by a piston. sticky [Optional] How the block should handle adjacent blocks around it when being pushed by another block like a piston. Must be one of the following options:"same" - Adjacent blocks to this block will be moved when moved. This excludes other blocks with the "same" property. This will only work with the movement_type: "push_pull"."none" - The default and will not move adjacent blocks. |
 | minecraft:placement_filter | JSON Object |  | Sets rules for under what conditions the block can be placed/surviveconditions List of conditions where the block can be placed/survive. Limited to 64 conditions. |
+| minecraft:precipitation_interactions | JSON Object |  | Component that determines how the block will interact with rain and snowprecipitation_behavior What behavior should the block have. Three possible values: obstruct_rain, obstruct_rain_accumulate_snow and none |
 | minecraft:queued_ticking | JSON Object |  | Triggers the specified event, either once, or at a regular interval equal to a number of ticks randomly chosen from the interval_range provided. |
 | minecraft:random_ticking | JSON Object |  | Triggers the specified event randomly based on the random tick speed gamerule. The random tick speed determines how often blocks are updated. Some other examples of game mechanics that use random ticking are crop growth and fire spreading. |
 | minecraft:redstone_conductivity | JSON Object |  | The basic redstone properties of a block; if the component is not provided the default values are used. Requires 1.21.30 format version and above.Experimental toggles required: Upcoming Creator Features (in format versions before 1.21.30) |
 | minecraft:replaceable | JSON Object |  | A block with this component can be replaced when another block is placed in the same block position.Experimental toggles required: Upcoming Creator Features (in format versions before 1.21.60) |
 | minecraft:selection_box | Boolean / JSON Object |  | Defines the area of the block that is selected by the player's cursor. If set to true, default values are used. If set to false, this block is not selectable by the player's cursor. If this component is omitted, default values are used. |
-| minecraft:transformation | JSON Object |  | The block's translation, rotation and scale with respect to the center of its world positionrotation The block's rotation in increments of 90 degrees    rotation_pivot The point to apply rotation around    scale The block's scale    scale_pivot The point to apply scale around    translation The block's translation |
+| minecraft:transformation | JSON Object |  | The block's translation, rotation and scale with respect to the center of its world positionrotation The block's rotation in increments of 90 degrees rotation_pivot The point to apply rotation around scale The block's scale scale_pivot The point to apply scale around translation The block's translation |
 | minecraft:unit_cube | JSON Object |  | Specifies that a unit cube is to be used with tessellation. |
 
 
@@ -63,7 +64,7 @@
 
 | Name | Type | Default Value | Description |
 | --- | --- | --- | --- |
-| item_specific_speeds | Array |  | Optional array of objects to describe item specific block destroy speeds, each object contains an 'item' ItemDescriptor and a 'destroy_speed' float. This array currently requires UpcomingFeatures experiment to be enabled.destroy_speed    Required.A destroy speed applied while using the defined 'item'.    item    Required.An ItemDescriptor filtering for the item used while mining. |
+| item_specific_speeds | Array |  | Optional array of objects to describe item specific block destroy speeds, each object contains an 'item' ItemDescriptor and a 'destroy_speed' float. This array currently requires UpcomingFeatures experiment to be enabled.destroy_speed Required.A destroy speed applied while using the defined 'item'. item Required.An ItemDescriptor filtering for the item used while mining. |
 | seconds_to_destroy | Decimal | 0.0 | Sets the number of seconds it takes to destroy the block with base equipment. Greater numbers result in greater mining times. |
 
 
@@ -104,10 +105,12 @@
 
 | Name | Type | Default Value | Description |
 | --- | --- | --- | --- |
+| alpha_masked_tint | Boolean | false | Should the tint be multiplied by the alpha channel of texture (similar to grass_block's sides)? Requires 'format_version' >= 1.21.120, a "tint_method" other than "none" and a "render_method" set to "opaque" |
 | ambient_occlusion | Decimal | true | Should this material have ambient occlusion applied when lighting? If true, shadows will be created around and underneath the block. Optionally can be constructed with float to control exponent applied to ao value after lighting. |
+| emissive | Boolean | false | Should this material be rendered as emissive? Requires 'format_version' >= 1.21.120. |
 | face_dimming | Boolean | true | Should this material be dimmed by the direction it's facing? |
 | isotropic | Boolean | false | Should the faces that this material is applied to randomize their UVs? |
-| render_method | String | opaque | The render method to use. Must be one of these options:"opaque" - Used for a regular block texture without an alpha layer. Does not allow for transparency or translucency."double_sided" - Used for completely disabling backface culling."blend" - Used for a block like stained glass. Allows for transparency and translucency (slightly transparent textures)."alpha_test" - Used for a block like the vanilla (unstained) glass. Does not allow for translucency, only fully opaque or fully transparent textures. Also disables backface culling. |
+| render_method | String | opaque | The render method to use. Must be one of these options and must be the same for each:"opaque" - Used for a regular block texture without an alpha layer. Does not allow for transparency or translucency."double_sided" - Used for completely disabling backface culling."blend" - Used for a block like stained glass. Allows for transparency and translucency (slightly transparent textures)."alpha_test" - Used for a block like the vanilla (unstained) glass. Does not allow for translucency, only fully opaque or fully transparent textures. Also disables backface culling. |
 | texture | String |  | Texture name for the material. |
 | tint_method | Boolean | none | Tint multiplied to the color. Tint method logic varies, but often refers to the "rain" and "temperature" of the biome the block is placed in to compute the tint. Supported tint methods are "none", "default_foliage", "birch_foliage", "evergreen_foliage", "dry_foliage", "grass" and "water" |
 
@@ -206,41 +209,23 @@ Example
 
 ```json
 {
-
-  "format_version": "1.21.90",
-
+  "format_version": "1.21.120",
   "minecraft:block": {
-
     "description": {
-
       "identifier": "design:lavenderstone"
-
     },
-
     "components": {
-
       "minecraft:loot": "loot_tables/chests/simple_dungeon.json",
-
       "minecraft:destroy_time": 4.0,
-
       "minecraft:friction": 0.6,
-
       "minecraft:map_color": "#00ff00",
-
       "minecraft:flammable": {
-
         "flame_odds": 50,
-
         "burn_odds": 0
-
     },
-
       "minecraft:light_emission": 1
-
     }
-
   }
-
 }
 ```
 
@@ -406,44 +391,25 @@ Event Response Example
 
 
 ```json
-    "minecraft:block": {
-
+"minecraft:block": {
       "description": {
-
         "identifier": "test:on_interact_change_state_block",
-
         "properties": {
-
           "custom:direction": [0, 1, 2, 3]
-
         }
-
       },
-
       "components": {
-
         "minecraft:on_interact": {
-
           "event": "test_event"
-
         }
-
       },
-
       "events": {
-
         "test_event": {
-
           "set_block_state": {
-
             "custom:direction": "1"
-
           }
-
         }
-
       }
-
     }
 ```
 

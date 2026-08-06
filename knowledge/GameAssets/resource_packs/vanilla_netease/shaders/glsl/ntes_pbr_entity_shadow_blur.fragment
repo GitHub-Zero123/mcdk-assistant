@@ -1,0 +1,18 @@
+// __multiversion__
+precision highp float;
+
+#include "fragmentVersionCentroidUV.h"
+#include "uniformExtraVectorConstants.h"
+
+LAYOUT_BINDING(0) uniform sampler2D TEXTURE_0;
+
+void main() {
+    vec2 d = EXTRA_VECTOR4.xy * clamp(EXTRA_VECTOR4.w, 0.0, 4.0);
+
+    highp vec4 c = texture2D(TEXTURE_0, uv) * 0.2734375;
+    c += (texture2D(TEXTURE_0, uv + d * 1.0) + texture2D(TEXTURE_0, uv - d * 1.0)) * 0.21875;
+    c += (texture2D(TEXTURE_0, uv + d * 2.0) + texture2D(TEXTURE_0, uv - d * 2.0)) * 0.109375;
+    c += (texture2D(TEXTURE_0, uv + d * 3.0) + texture2D(TEXTURE_0, uv - d * 3.0)) * 0.03125;
+    c += (texture2D(TEXTURE_0, uv + d * 4.0) + texture2D(TEXTURE_0, uv - d * 4.0)) * 0.00390625;
+    gl_FragColor = c;
+}

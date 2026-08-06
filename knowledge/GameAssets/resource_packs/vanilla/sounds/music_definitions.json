@@ -145,7 +145,7 @@
         "max_delay": 180
     },
     "forest": {
-        "event_name": "music.game_and_wild_equal_chance",
+        "event_name": "music.overworld.forest",
         "min_delay": 60,
         "max_delay": 180
     },
@@ -165,7 +165,7 @@
         "max_delay": 180
     },
     "jungle_mutated": {
-        "event_name": "music.game_and_wild_equal_chance",
+        "event_name": "music.overworld.jungle",
         "min_delay": 60,
         "max_delay": 180
     },
@@ -219,18 +219,13 @@
         "min_delay": 60,
         "max_delay": 180
     },
-    "desert_hills_mutated": {
+    "desert_mutated": {
         "event_name": "music.overworld.desert",
         "min_delay": 60,
         "max_delay": 180
     },
     "mesa": {
         "event_name": "music.overworld.mesa",
-        "min_delay": 60,
-        "max_delay": 180
-    },
-    "jungle_hills_mutated": {
-        "event_name": "music.overworld.jungle",
         "min_delay": 60,
         "max_delay": 180
     },

@@ -486,25 +486,27 @@
   },
 
   "progress_title_text@progress.progress_screen_text": {
-    "size": [ "default", 20 ],
-    "max_size": [ "100% - 8px", 20 ],
-    "offset": [ 0, -15 ],
-    "text": "#title_text",
-    "bindings": [
-      {
-        "binding_name": "#title_text"
-      }
-    ]
+      "size": [ "default", 20 ],
+      "max_size": [ "100% - 8px", 20 ],
+      "offset": [ 0, -15 ],
+      "$title_text_binding|default": "#title_text",
+      "text": "$title_text_binding",
+      "bindings": [
+          {
+              "binding_name": "$title_text_binding"
+          }
+      ]
   },
 
   "progress_bar_text@progress.progress_screen_text": {
-    "size": [ "default", 20 ],
-    "max_size": [ "100% - 8px", 20 ],
-    "offset": [ 0, 9 ],
-    "text": "#progress_text",
-    "bindings": [
-      { "binding_name": "#progress_text" }
-    ]
+      "size": [ "default", 20 ],
+      "max_size": [ "100% - 8px", 20 ],
+      "offset": [ 0, 9 ],
+      "$progress_text_binding|default": "#progress_text",
+      "text": "$progress_text_binding",
+      "bindings": [
+          { "binding_name": "$progress_text_binding" }
+      ]
   },
 
   "code_text@progress.progress_screen_text": {
@@ -694,7 +696,7 @@
 
   "edu_cloud_upload_progress_bar": {
     "type": "panel",
-    "size": [ "100%" , "100%c" ],
+    "size": [ "100%", "100%c" ],
     "controls": [
       {
         "waveform_loading_bar@progress.progress_loading_bars": {
@@ -727,7 +729,7 @@
   },
 
   "cancel_button@common_buttons.light_text_button": {
-    "$pressed_button_name": "button.menu_exit",
+    "$pressed_button_name|default": "button.menu_exit",
     "$button_text": "#cancel_button_text",
     "$button_text_binding_type": "global",
     "size": [ 66, 26 ],
@@ -867,6 +869,12 @@
     "texture": "textures/ui/cloud_only_storage",
     "size": [ 14, 10 ]
   },
+  
+  "server_image": {
+    "type": "image",
+    "texture": "textures/ui/servers",
+    "size": [ 16, 16 ]
+  },
 
   "edu_cloud_upload_image": {
     "type": "stack_panel",
@@ -994,6 +1002,48 @@
           "size": [ "100%c", "100%c" ],
           "controls": [
             { "download_world_image@progress.world_image": { "offset": [ 6, 1 ] } }
+          ]
+        }
+      }
+    ]
+  },
+
+  "edu_server_fetch_image": {
+    "type": "stack_panel",
+    "size": [ "100%c", 16 ],
+    "orientation": "horizontal",
+    "controls": [
+      {
+        "server_image_wrapper_left": {
+          "type": "panel",
+          "size": [ "100%c", "100%c" ],
+          "controls": [
+            { "server_image@progress.server_image": { "offset": [ -6, 0 ] } }
+          ]
+        }
+      },
+      {
+        "spyglass_image_wrapper": {
+          "type": "panel",
+          "size": [ "100%c", "100%c" ],
+          "controls": [
+            {
+              "spyglass_image": {
+                "type": "image",
+                "texture": "textures/ui/spyglass_flat",
+                "size": [ 16, 16 ],
+                "offset": [ 0, 0 ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "server_image_wrapper_right": {
+          "type": "panel",
+          "size": [ "100%c", "100%c" ],
+          "controls": [
+            { "server_image@progress.server_image": { "offset": [ 6, 0 ] } }
           ]
         }
       }
@@ -1153,8 +1203,7 @@
           "type": "custom",
           "renderer": "gradient_renderer",
           "color1": [ 0, 0, 0, 0.5 ],
-          "color2": [ 0, 0, 0, 0.7 ],
-          "ignored": "$is_holographic"
+          "color2": [ 0, 0, 0, 0.7 ]
         }
       }
     ]
@@ -1173,8 +1222,7 @@
           "type": "custom",
           "renderer": "gradient_renderer",
           "color1": [ 0.3, 0.3, 0.3, 0.2 ],
-          "color2": [ 0.5, 0.188, 0.188, 0.4 ],
-          "ignored": "$is_holographic"
+          "color2": [ 0.5, 0.188, 0.188, 0.4 ]
         }
       }
     ]
@@ -1192,8 +1240,7 @@
           "type": "custom",
           "renderer": "gradient_renderer",
           "color1": [ 0, 0, 0, 0.2 ],
-          "color2": [ 0, 0, 0, 0.4 ],
-          "ignored": "$is_holographic"
+          "color2": [ 0, 0, 0, 0.4 ]
         }
       }
     ]
@@ -1224,11 +1271,21 @@
       }
     ]
   },
+
   "edu_cloud_download_progress_screen@progress_screen": {
     "variables": [
       {
         "requires": "($education_edition and $edu_save_to_cloud_on)",
         "$screen_content": "progress.cloud_download_screen_content"
+      }
+    ]
+  },
+
+  "fetching_edu_servers@progress_screen": {
+    "variables": [
+      {
+        "requires": "($education_edition)",
+        "$screen_content": "progress.edu_server_fetch_screen_content"
       }
     ]
   },
@@ -1812,6 +1869,68 @@
     ]
   },
 
+  "server_fetch_panel": {
+    "type": "panel",
+    "size": [ 270, 84 ],
+    "controls": [
+      {
+        "common_panel@common.common_panel": {
+          "$dialog_background": "dialog_background_hollow_3",
+          "$show_close_button": false
+        }
+      },
+      {
+        "base_content": {
+          "type": "panel",
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "size": [ "100%-12px", "100%-12px" ],
+          "offset": [ 6, 6 ],
+          "controls": [
+            {
+              "progress_title_text@progress.progress_title_text": {
+                "color": "$title_text_color",
+                "anchor_from": "top_middle",
+                "anchor_to": "top_middle",
+                "offset": [ 0, 3 ]
+              }
+            },
+            {
+              "progress_text": {
+                "type": "label",
+                "size": [ "default", 60 ],
+                "max_size": [ "100% - 8px", 60 ],
+                "offset": [ 0, 15 ],
+                "color": "$loading_text_color",
+                "layer": 2,
+                "anchor_from": "center",
+                "anchor_to": "center",
+                "text": "#progress_text",
+                "bindings": [
+                  { "binding_name": "#progress_text" }
+                ]
+              }
+            },
+            {
+              "edu_server_fetch_image@progress.edu_server_fetch_image": { "offset": [ 0, 6 ] }
+            },
+            {
+              "loading_bar_panel": {
+                "type": "panel",
+                "size": [ "100%", "100%c" ],
+                "controls": [
+                  {
+                    "progress_loading_bars@progress.progress_loading_bars": { "offset": [ 0, 25 ] }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
   "cloud_download_panel": {
     "type": "panel",
     "size": [ 270, 84 ],
@@ -1930,7 +2049,65 @@
           "$modal_button_panel_type": "progress.modal_button_panel"
         }
       },
-      { "popup_dialog_factory@progress.popup_dialog_factory": {} }
+      { "popup_dialog_factory@progress.popup_dialog_factory": {} },
+      {
+        "server_region_connected": {
+          "type": "stack_panel",
+          "orientation": "horizontal",
+          "offset": [ 0, 30 ],
+          "size": [ "100%c", "100%c" ],
+          "anchor_from": "bottom_middle",
+          "anchor_to": "bottom_middle",
+          "controls": [
+            {
+              "server_region_label": {
+                "type": "label",
+                "text": "progressScreen.label.serverRegion",
+                "color": "$loading_text_color",
+                "size": [ "default", 35 ]
+              }
+            },
+            {
+              "server_region_connected_text": {
+                "type": "label",
+                "text": "#server_region_text",
+                "color": "$loading_text_color",
+                "size": [ "default", 35 ],
+                "bindings": [
+                  {
+                    "binding_name": "#server_region_text"
+                  }
+                ]
+              }
+            },
+            {
+              "padding": {
+                "type": "panel",
+                "size": [ 8, 0 ]
+              }
+            },
+            {
+              "server_region_ping_icon": {
+                "type": "image",
+                "texture": "#server_region_ping_icon",
+                "size": [ 8, 8 ],
+                "bindings": [
+                  {
+                    "binding_name": "#server_region_ping_icon",
+                    "binding_name_override": "#texture"
+                  }
+                ]
+              }
+            }
+          ],
+          "bindings": [
+            {
+              "binding_name": "#server_region_connected_visible",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      }
     ]
   },
 
@@ -1996,6 +2173,14 @@
     "type": "panel",
     "controls": [
       { "cloud_fetch_panel@progress.cloud_fetch_panel": {} },
+      { "popup_dialog_factory@progress.popup_dialog_factory": {} }
+    ]
+  },
+
+  "edu_server_fetch_screen_content": {
+    "type": "panel",
+    "controls": [
+      { "server_fetch_panel@progress.server_fetch_panel": {} },
       { "popup_dialog_factory@progress.popup_dialog_factory": {} }
     ]
   },

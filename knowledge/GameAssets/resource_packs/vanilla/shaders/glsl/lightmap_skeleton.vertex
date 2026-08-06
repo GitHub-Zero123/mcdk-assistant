@@ -1,0 +1,69 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+
+#include "vertexVersionCentroid.h"
+#if __VERSION__ >= 300
+	#ifndef BYPASS_PIXEL_SHADER
+		_centroid out vec2 uv0;
+		_centroid out vec2 uv1;
+	#endif
+#else
+	#ifndef BYPASS_PIXEL_SHADER
+		varying vec2 uv0;
+		varying vec2 uv1;
+	#endif
+#endif
+
+#ifdef FOG
+	varying vec4 fogColor;
+#endif
+
+#ifndef USE_LIGHTMAP
+varying float light;
+uniform vec4 HIDE_COLOR;
+#endif
+
+
+#include "uniformWorldConstants.h"
+#include "uniformPerFrameConstants.h"
+
+#ifdef USE_SKINNING
+#include "uniformAnimationConstants.h"
+attribute float BONEID_0;
+#endif
+
+attribute POS4 POSITION;
+attribute vec4 NORMAL;
+attribute vec2 TEXCOORD_0;
+attribute vec2 TEXCOORD_1;
+
+
+void main() {
+	POS4 entitySpacePosition;
+	POS4 entitySpaceNormal;
+#ifdef USE_SKINNING
+	MAT4 boneMat = GetBoneMatForNetease(int(BONEID_0));  //int(BONEID_0) cause in-game fps drop on ios, so do not define this macro
+	entitySpacePosition = boneMat * POSITION;
+	entitySpaceNormal = boneMat * NORMAL;
+#else
+	entitySpacePosition = POSITION * vec4(1, 1, 1, 1);
+	entitySpaceNormal = NORMAL * vec4(1, 1, 1, 0);
+#endif
+
+	POS4 pos = WORLDVIEWPROJ * entitySpacePosition;
+	gl_Position = pos;
+
+	uv0 = TEXCOORD_0;
+	uv1 = TEXCOORD_1;
+
+#ifndef USE_LIGHTMAP
+	vec3 N = normalize(entitySpaceNormal).xyz;  // world space normal (WORLD*normal for correctness)
+	vec3 D = normalize(HIDE_COLOR.xyz);         // world space light source dir (point to light)
+	light = max(0.0, dot(N, D)) * 0.35 + 0.65;  // range [0.65, 1.0]
+#endif
+	
+#ifdef FOG
+	fogColor.rgb = FOG_COLOR.rgb;
+	fogColor.a = clamp(((pos.z / RENDER_DISTANCE) - FOG_CONTROL.x) / (FOG_CONTROL.y - FOG_CONTROL.x), 0.0, 1.0);
+#endif
+}

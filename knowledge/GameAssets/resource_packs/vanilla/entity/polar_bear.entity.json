@@ -22,8 +22,10 @@
                 "controller.render.polarbear"
             ],
             "spawn_egg": {
-                "base_color": "#eeeede",
-                "overlay_color": "#d5d6cd"
+                "texture": "spawn_egg_polar_bear"
+            },
+            "scripts": {
+                "scale": "1.2"
             },
             "animation_controllers": [
                 {
@@ -32,10 +34,7 @@
                 {
                     "baby": "controller.animation.polarbear.baby"
                 }
-            ],
-            "scripts": {
-                "scale": "1.2"
-            }
+            ]
         }
     }
 }

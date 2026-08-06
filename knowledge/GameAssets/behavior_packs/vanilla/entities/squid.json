@@ -1,12 +1,11 @@
 {
-    "format_version": "1.18.10",
+    "format_version": "1.21.90",
     "minecraft:entity": {
         "description": {
             "identifier": "minecraft:squid",
             "spawn_category": "water_creature",
             "is_spawnable": true,
-            "is_summonable": true,
-            "is_experimental": false
+            "is_summonable": true
         },
         "component_groups": {
             "minecraft:squid_baby": {
@@ -14,6 +13,9 @@
                 "minecraft:scale": {
                     "value": 0.5
                 }
+            },
+            "minecraft:squid_adult": {
+                "minecraft:leashable_to": {}
             }
         },
         "components": {
@@ -24,13 +26,14 @@
             "minecraft:nameable": {},
             "minecraft:type_family": {
                 "family": [
+                    "aquatic",
                     "squid",
                     "mob"
                 ]
             },
             "minecraft:collision_box": {
-                "width": 0.95,
-                "height": 0.95
+                "width": 0.8,
+                "height": 0.8
             },
             "minecraft:health": {
                 "value": 10,
@@ -41,9 +44,7 @@
                     {
                         "filters": {
                             "test": "in_lava",
-                            "subject": "self",
-                            "operator": "==",
-                            "value": true
+                            "subject": "self"
                         },
                         "cause": "lava",
                         "damage_per_tick": 4
@@ -69,11 +70,7 @@
             "minecraft:movement.basic": {},
             "minecraft:jump.static": {},
             "minecraft:can_climb": {},
-            "minecraft:leashable": {
-                "soft_distance": 4.0,
-                "hard_distance": 6.0,
-                "max_distance": 10.0
-            },
+            "minecraft:leashable": {},
             "minecraft:balloonable": {
                 "mass": 0.5
             },
@@ -107,12 +104,14 @@
                 "randomize": [
                     {
                         "weight": 95,
-                        "remove": {},
-                        "add": {}
+                        "add": {
+                            "component_groups": [
+                                "minecraft:squid_adult"
+                            ]
+                        }
                     },
                     {
                         "weight": 5,
-                        "remove": {},
                         "add": {
                             "component_groups": [
                                 "minecraft:squid_baby"

@@ -127,6 +127,7 @@
   "$hud_gamertag_color": [ 1.0, 1.0, 1.0 ],
 
   "$realms_text_color": [ 0.57, 0.29, 0.67 ],
+  "$realms_neutral_dimmer_text_color": [ 0.82, 0.82, 0.83 ],
 
   "$death_text_color": [ 1.0, 1.0, 1.0 ],
 
@@ -209,6 +210,7 @@
   "$realms_plus_border_color": [ 0.4, 0.118, 0.459 ],
   "$csb_border_color": [ 1.0, 0.769, 0.169 ],
   "$csub_text_color": [ 1.0, 0.77, 0.17 ],
+  "$toast_subtitle_message": [ 0.694, 0.698, 0.710 ],
 
   //////// Border colors ////////
   "$slider_default_border_color": [ 0.0, 0.0, 0.0 ],
@@ -225,6 +227,9 @@
   "$world_diskspace_empty": [ 0.157, 0.157, 0.157 ],
   "$servers_screenshot": [ 0.208, 0.208, 0.208 ],
   "$servers_current_screenshot": [ 0.118, 0.561, 0.263 ],
+  "$realms_storage_bar_fill": [ 0.424, 0.765, 0.286 ],
+  "$toast_message_progress_bar_empty": [ 0.180, 0.420, 0.898 ],
+  "$toast_message_progress_bar_fill": [ 0.192, 0.196, 0.200 ],
 
   //////// Jukebox Popup Text /////////
   "$jukebox_text_color": [ 1.0, 0.4, 0.7 ],
@@ -310,6 +315,7 @@
   "$store_realms-guidelines-deep-blue-5": [ 0.1294, 0.0392, 0.5019 ],
   "$store_realms-guidelines-deep-blue-6": [ 0.0471, 0.0078, 0.2824 ],
   "$store_sales_banner_text_color": [ 0.3, 0.3, 0.3 ],
+  "$store_sales_banner_text_dark_color": [ 0.149, 0.141, 0.137 ],
   "$store_product_detail_strikethru_color": [ 0.5585, 0.5585, 0.5585 ],
   "$store_play_button_hover": [ 0.215, 0.839, 0.118 ],
   "$new_offer_icon_text_color": [ 0.3, 0.3, 0.3 ],
@@ -429,6 +435,9 @@
   "$realmsplus_exclamation_mark_color": [ 1, 1, 1 ],
 
   //////// Bundle Tooltip colors ////////
-  "$bundle_info_description_color": [ 0.46, 0.46, 0.46 ]
+  "$bundle_info_description_color": [ 0.46, 0.46, 0.46 ],
+
+  //////// Vibrant Visuals colors ////////
+  "$vibrant_visuals_supported_color": [ 0.235, 0.522, 0.153 ]
 }
 

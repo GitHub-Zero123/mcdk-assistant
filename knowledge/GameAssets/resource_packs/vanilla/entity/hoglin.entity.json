@@ -6,15 +6,23 @@
             "materials": {
                 "default": "hoglin"
             },
-            "textures": {
-                "default": "textures/entity/hoglin/hoglin"
-            },
             "geometry": {
                 "default": "geometry.hoglin"
             },
+            "textures": {
+                "default": "textures/entity/hoglin/hoglin"
+            },
+            "animations": {
+                "walk": "animation.hoglin.walk",
+                "look_at_target": "animation.hoglin.look_at_target",
+                "attack": "animation.hoglin.attack",
+                "hoglin_baby_scaling": "animation.hoglin.baby_scaling"
+            },
+            "render_controllers": [
+                "controller.render.hoglin"
+            ],
             "spawn_egg": {
-                "base_color": "#C66E55",
-                "overlay_color": "#5f6464"
+                "texture": "spawn_egg_hoglin"
             },
             "scripts": {
                 "pre_animation": [
@@ -22,12 +30,6 @@
                     "variable.tcos_left_side = -variable.tcos_right_side;",
                     "variable.attack_head_rot =  Math.sin(variable.attack_time * 180.0) * -37.3;"
                 ]
-            },
-            "animations": {
-                "walk": "animation.hoglin.walk",
-                "look_at_target": "animation.hoglin.look_at_target",
-                "attack": "animation.hoglin.attack",
-                "hoglin_baby_scaling": "animation.hoglin.baby_scaling"
             },
             "animation_controllers": [
                 {
@@ -42,9 +44,6 @@
                 {
                     "hoglin_baby_scaling": "controller.animation.hoglin.baby_scaling"
                 }
-            ],
-            "render_controllers": [
-                "controller.render.hoglin"
             ]
         }
     }

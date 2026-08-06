@@ -3,16 +3,18 @@
     "minecraft:client_entity": {
         "description": {
             "identifier": "minecraft:pig",
-            "min_engine_version": "1.8.0",
             "materials": {
-                "default": "pig"
-            },
-            "textures": {
-                "default": "textures/entity/pig/pig",
-                "saddled": "textures/entity/pig/pig_saddle"
+                "default": "pig_v3"
             },
             "geometry": {
-                "default": "geometry.pig.v1.8"
+                "default": "geometry.pig.v3"
+            },
+            "textures": {
+                "default": "textures/entity/pig/pig_v3",
+                "saddled": "textures/entity/pig/pig_saddle",
+                "warm": "textures/entity/pig/pig_warm",
+                "cold": "textures/entity/pig/pig_cold",
+                "saddle": "textures/entity/saddle_v2"
             },
             "animations": {
                 "setup": "animation.pig.setup",
@@ -20,6 +22,14 @@
                 "look_at_target": "animation.common.look_at_target",
                 "baby_transform": "animation.pig.baby_transform"
             },
+            "render_controllers": [
+                "controller.render.saddle",
+                "controller.render.pig.v3"
+            ],
+            "spawn_egg": {
+                "texture": "spawn_egg_pig"
+            },
+            "min_engine_version": "1.8.0",
             "scripts": {
                 "animate": [
                     "setup",
@@ -30,14 +40,11 @@
                     {
                         "baby_transform": "query.is_baby"
                     }
+                ],
+                "pre_animation": [
+                    "t.variant = query.property('minecraft:climate_variant');",
+                    "v.index = (t.variant == 'temperate') ? 0 : ((t.variant == 'warm') ? 1 : 2);"
                 ]
-            },
-            "render_controllers": [
-                "controller.render.pig"
-            ],
-            "spawn_egg": {
-                "texture": "spawn_egg",
-                "texture_index": 2
             }
         }
     }

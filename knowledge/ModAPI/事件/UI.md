@@ -53,11 +53,26 @@
 
 - 参数
 
-  无
+| 参数名 | 数据类型 | 说明 |
+| --- | --- | --- |
+| playerId | str | 玩家实体id |
+| x | int | 箱子位置x值 |
+| y | int | 箱子位置y值 |
+| z | int | 箱子位置z值 |
+| fullName | str | 方块名称，如minecraft:chest |
+| auxData | int | 方块附加值 |
+| dimensionId | int | 维度id |
+| isLargeChest | bool | 是否是大箱子，仅箱子(chest)时存在该参数，末影箱/木桶/潜影盒不存在该参数 |
 
 - 返回值
 
   无
+
+- 备注
+
+  - 注：关闭时若容器管理器已提前释放，参数可能为空
+
+在零件中直接声明一个同名函数，即可完成监听，详情参考零件事件
 
 ## ClientChestOpenEvent
 
@@ -75,6 +90,10 @@
 | x | int | 箱子位置x值 |
 | y | int | 箱子位置y值 |
 | z | int | 箱子位置z值 |
+| fullName | str | 方块名称，如minecraft:chest |
+| auxData | int | 方块附加值 |
+| dimensionId | int | 维度id |
+| isLargeChest | bool | 是否是大箱子，仅箱子(chest)时存在该参数，末影箱/木桶/潜影盒不存在该参数 |
 
 - 返回值
 

@@ -1,0 +1,32 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+#include "fragmentVersionCentroidUV.h"
+#include "uniformPerFrameConstants.h"
+#include "util.h"
+
+LAYOUT_BINDING(3) uniform sampler2D TEXTURE_3; // Perlin Noise
+
+uniform vec4 EXTRA_VECTOR1; // (0, 0, 0, TIME)
+uniform vec4 EXTRA_VECTOR2;  //(_Transparency, _lineWidthAdj, _OutlineWidthAdj2, _Outline)
+uniform vec4 EXTRA_VECTOR3;  // (_OutlineColor )
+varying vec4 fogColor;
+varying float dissolveOffset;
+
+void main()
+{
+	vec4 color = vec4(1.0);
+
+    // dissolving
+    // TIME -> [0, 210)
+    float clip = (TIME - EXTRA_VECTOR1.a) * 0.5 - 0.9;
+	float dissolveValue = clip + dissolveOffset + texture2D(TEXTURE_3, uv).r * 4;
+	if (dissolveValue > 1.0) discard;
+
+	clip = step(0.01, clip) * step(0.98, dissolveValue);
+	color = clip * vec4(0.2, 1, 0.8, 1) + (1.0 - clip) * vec4(EXTRA_VECTOR3.xyz, EXTRA_VECTOR2.x);
+
+	//apply fog
+	color.rgb = mix( color.rgb, fogColor.rgb, fogColor.a ) * 1.8;
+
+	gl_FragColor = color;
+}

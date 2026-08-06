@@ -42,6 +42,11 @@
                                     "test": "has_biome_tag",
                                     "operator": "!=",
                                     "value": "frozen"
+                                },
+                                {
+                                    "test": "has_biome_tag",
+                                    "operator": "!=",
+                                    "value": "mangrove_swamp"
                                 }
                             ]
                         },

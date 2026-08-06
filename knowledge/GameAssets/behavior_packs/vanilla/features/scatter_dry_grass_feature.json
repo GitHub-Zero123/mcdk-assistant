@@ -1,0 +1,33 @@
+{
+    "format_version": "1.21.60",
+    "minecraft:scatter_feature": {
+        "description": {
+            "identifier": "minecraft:scatter_dry_grass_feature"
+        },
+        "places_feature": "minecraft:random_dry_grass_block_feature",
+        "distribution": {
+            "iterations": 64,
+            "x": {
+                "distribution": "triangle",
+                "extent": [
+                    -7,
+                    7
+                ]
+            },
+            "y": {
+                "distribution": "triangle",
+                "extent": [
+                    -3,
+                    3
+                ]
+            },
+            "z": {
+                "distribution": "triangle",
+                "extent": [
+                    -7,
+                    7
+                ]
+            }
+        }
+    }
+}

@@ -1,4 +1,4 @@
-# BIOMES DOCUMENTATION Version: 1.21.90.3
+# BIOMES DOCUMENTATION Version: 1.21.120.4
 
 
 ## Index
@@ -7,98 +7,98 @@
 # Overview
 
 
-Minecraft biomes can have different terrain characteristics. By writing custom biome data you could:1) Change the general shape of the terrain.2) Change the ratio of frequency of biome types.3) Change the blocks that make up the biome, both at the surface and down below.4) Change the distribution of decorative features like trees, grass, and flowers.5) Change the mobs that spawn.6) Change the climate.7) ...and more!
+Minecraft biomes can have different terrain characteristics. By writing custom biome data you could:
+
+
+1) Change the general shape of the terrain.
+
+
+2) Change the ratio of frequency of biome types.
+
+
+3) Change the blocks that make up the biome, both at the surface and down below.
+
+
+4) Change the distribution of decorative features like trees, grass, and flowers.
+
+
+5) Change the mobs that spawn.
+
+
+6) Change the climate.
+
+
+7) ...and more!
 
 
 # JSON Format
 
 
-All biomes should specify the version that they target via the "format_version" field. The remainder of the biome data is divided up into independent JSON sub-objects, or components. In general, a component defines what game behaviors a biome participates in, and the component fields define how it participates. There are basically two categories of components:1) Namespaced components, such as those with a 'name:' prefix, that map to specific behaviors in-game. They may have member fields that parameterize that behavior. Only names that have a valid mapping are supported.2) 'tags' which are defined under the "minecraft:tags" component. Tags consist of alphanumeric characters, along with '.' and '_'. A tag is attached to the biome so that either code or data may check for its existence.
+All biomes should specify the version that they target via the "format_version" field. Biomes should also specify a "description" sub-object with a namespaced "identifier" field that uniquely labels the biome. The remainder of the biome data is divided up into independent JSON sub-objects, or components.
+
+
+In general, a component defines what game behaviors a biome participates in, and the component fields define how it participates.
+
+
+There are basically two categories of components:
+
+
+1) Namespaced components, such as those with a 'name:' prefix, that map to specific behaviors in-game. They may have member fields that parameterize that behavior. Only names that have a valid mapping are supported.
+
+
+2) 'tags' which are defined under the "minecraft:tags" component. Tags consist of alphanumeric characters, along with '.' and '_'. A tag is attached to the biome so that either code or data may check for its existence.
+
 
 Here is a sample biome schema with additional details and the full list of namespaced components.
 
 
 ```json
 {
-
-  "plains": {
-
-    "format_version": "1.20.60",
-
-
+  "format_version": "1.21.110",
+  "minecraft:biome": {
+    "description": {
+      "identifier": "minecraft:plains"
+    },
     "minecraft:climate": {
-
       "downfall": 0.4,
-
       "snow_accumulation": [ 0.0, 0.125 ],
-
       "temperature": 0.8
-
     },
-
     "minecraft:overworld_height": {
-
       "noise_type": "lowlands"
-
     },
-
-    "minecraft:surface_parameters": {
-
-      "sea_floor_depth": 7,
-
-      "sea_floor_material": "minecraft:gravel",
-
-      "foundation_material": "minecraft:stone",
-
-      "mid_material": "minecraft:dirt",
-
-      "top_material": "minecraft:grass_block"
-
+    "minecraft:surface_builder": {
+    "builder": {
+        "type": "minecraft:overworld",
+    "sea_floor_depth": 7,
+    "sea_floor_material": "minecraft:gravel",
+    "foundation_material": "minecraft:stone",
+    "mid_material": "minecraft:dirt",
+    "top_material": "minecraft:grass_block"
+    }
     },
-
     "minecraft:overworld_generation_rules": {
-
       "hills_transformation": [
-
-        [ "forest_hills", 1 ],
-
-        [ "forest", 2 ]
-
+        [ "minecraft:forest_hills", 1 ],
+        [ "minecraft:forest", 2 ]
       ],
-
-      "mutate_transformation": "sunflower_plains",
-
+      "mutate_transformation": "minecraft:sunflower_plains",
       "generate_for_climates": [
-
         [ "medium", 3 ],
-
         [ "warm", 1 ],
-
         [ "cold", 1 ]
-
       ]
-
     },
-
 
     "minecraft:tags": {
-
       "tags": [
-
         "animal",
-
         "monster",
-
         "overworld",
-
         "plains"
-
       ]
-
     }
-
   }
-
 }
 ```
 
@@ -106,7 +106,7 @@ Here is a sample biome schema with additional details and the full list of names
 # Adding Biomes
 
 
-Biomes are read from JSON files in the biomes subfolders of behavior packs. Loading enforces one biome per file; and the file name and the actual biome name must match. Adding a file with a new name to the biome data location will make it available for the game to use, while existing biomes can be overridden using files that match their existing name. Note that if you add a new biome, you'll need to write component data that allows it to participate in world generation (as shown in the full schema below), or else it won't show up in your worlds!
+Biomes are read from JSON files in the biomes subfolders of behavior packs. Loading enforces one biome per file. The biome's identifier acts as its name and must be namespaced. Adding a file with a new name to the biome data location will make it available for the game to use, while existing biomes can be overridden using another biome with the same identifier. Note that if you add a new biome, you'll need to write component data that allows it to participate in world generation (as shown in the full schema below), or else it won't show up in your worlds!
 
 
 # Schema
@@ -120,21 +120,19 @@ Any components that this Biome uses
 
 | Name | Type | Required? | Description |
 | --- | --- | --- | --- |
-| minecraft:capped_surface | Object | Optional | Generates surface on blocks with non-solid blocks above or below. |
 | minecraft:climate | Object | Optional | Describes temperature, humidity, precipitation, and similar. Biomes without this component will have default values. |
 | minecraft:creature_spawn_probability | Object | Optional | Probability that creatures will spawn within the biome when a chunk is generated. |
-| minecraft:frozen_ocean_surface | Object | Optional | Similar to overworld_surface. Adds icebergs. |
-| minecraft:mesa_surface | Object | Optional | Similar to overworld_surface. Adds colored strata and optional pillars. |
+| minecraft:humidity | Object | Optional | Forces a biome to ether always be humid or never humid. Humidity effects the spread chance, and spread rate of fire in the biome |
+| minecraft:map_tints | Object | Optional | Sets the color grass and foliage will be tinted by in this biome on the map. |
 | minecraft:mountain_parameters | Object | Optional | Noise parameters used to drive mountain terrain generation in Overworld. |
 | minecraft:multinoise_generation_rules | Object | Optional | Controls how this biome is instantiated (and then potentially modified) during world generation of the nether. |
 | minecraft:overworld_generation_rules | Object | Optional | Controls how this biome is instantiated (and then potentially modified) during world generation of the overworld. |
 | minecraft:overworld_height | Object | Optional | Noise parameters used to drive terrain height in the Overworld. |
+| minecraft:partially_frozen | Object | Optional | Component will impact the temperature in a frozen biome, causing some areas to not be frozen. Ex: patchy ice, patchy snow |
 | minecraft:replace_biomes | Object | Optional | Replaces a specified portion of one or more Minecraft biomes. |
+| minecraft:surface_builder | Object | Optional | Controls the materials used for terrain generation. |
 | minecraft:surface_material_adjustments | Object | Optional | Specify fine-detail changes to blocks used in terrain generation (based on a noise function). |
-| minecraft:surface_parameters | Object | Optional | Controls the blocks used for the default Minecraft Overworld terrain generation. |
-| minecraft:swamp_surface | Object | Optional | Similar to overworld_surface. Adds swamp surface details. |
 | minecraft:tags | Object | Optional | Attach arbitrary string tags to this biome.Most biome tags are referenced by JSON settings, but some meanings of tags are directly implemented in the game's code. These tags are listed here:birch: Biome uses wildflowers (mutually exclusive with other flower biome tags). Does nothing if biome is tagged "hills".cold: Villagers will be dressed for snowy weather.deep: Pre-Caves and Cliffs, prevents an ocean from having islands or connected rivers and makes the biome less likely to have hills.desert: Allows partially-buried ruined portals to be placed in the biome. Sand blocks will play ambient sounds when the player is nearby.extreme_hills: Ruined portals can be placed higher than normal. Biomes tagged "forest" or "forest_generation" will use normal Overworld flowers instead of forest flowers.flower_forest: Biome uses forest flowers (mutually exclusive with other flower biome tags).forest: Biome uses forest flowers (mutually exclusive with other flower biome tags). Does nothing if biome is tagged tagged "taiga" or "extreme_hills".forest_generation: Equivalent to "forest".frozen: Villagers will be dressed for snowy weather. Prevents the biome from containing lava springs if it is also tagged "ocean".ice: Around ruined portals, lava is always replaced by Netherrack and Netherrack cannot be replaced by magma.ice_plains: Prevents the biome from containing lava springs if it is also tagged "mutated".jungle: Ruined portals will be very mossy.hills: Biomes tagged "meadow" or "birch" will use normal Overworld flowers instead of wildflowers.meadow: Biome uses wildflowers (mutually exclusive with other flower biome tags). Does nothing if biome is tagged "hills".mesa: Sand blocks will play ambient sounds when the player is nearby.mountain: Ruined portals can be placed higher than normal.mutated: Pre-Caves and Cliffs, prevents switching to the specified "mutate_transformation" as the biome is already considered mutated. Prevents the biome from containing lava springs if it is also tagged "ice_plains".no_legacy_worldgen: Prevents biome from using legacy world generation behavior unless the biome is being placed in the Overworld.ocean: Prevents the biome from containing lava springs if it is also tagged "frozen". Allows ruined portals to be found underwater. Pre-Caves and Cliffs, determines if shorelines and rivers should be placed at the edges of the biome and identifies the biome as a shallow ocean for placing islands, unless the "deep" tag is present.pale_garden: Biome uses closed-eye blossoms (mutually exclusive with other flower biome tags).plains: Biome uses plains flowers (mutually exclusive with other flower biome tags).rare: Pre-Caves and Cliffs, this tag flags the biome as a special biome. Oceans cannot be special.swamp: Allows ruined portals to be found underwater. Biome uses swamp flowers (mutually exclusive with other flower biome tags).taiga: Biomes tagged "forest" or "forest_generation" will use normal Overworld flowers instead of forest flowers. |
-| minecraft:the_end_surface | Object | Optional | Use default Minecraft End terrain generation. |
 
 
 # Biome Definition
@@ -157,7 +155,7 @@ Contains non-component settings for a Biome.
 
 | Name | Type | Required? | Description |
 | --- | --- | --- | --- |
-| identifier | Object of type struct SharedTypes::Identifier<0> | Required | The name of the Biome, used by other features like the '/locate biome' command. Identifiers should only be lowercase. |
+| identifier | Object of type Identifier | Required | The name of the Biome, used by other features like the '/locate biome' command. Identifiers should only be lowercase. |
 
 
 # Biome JSON File
@@ -183,7 +181,7 @@ Represents the replacement information used to determine the placement of the ov
 | amount | Float | Required | Noise value used to determine whether or not the replacement is attempted, similar to a percentage. Must be in the range (0.0, 1.0]. |
 | dimension | String | Required | Dimension in which this replacement can happen. Must be 'minecraft:overworld'. |
 | noise_frequency_scale | Float | Required | Scaling value used to alter the frequency of replacement attempts. A lower frequency will mean a bigger contiguous biome area that occurs less often. A higher frequency will mean smaller contiguous biome areas that occur more often. Must be in the range (0.0, 100.0]. |
-| targets | Array of Object of type struct SharedTypes::Reference<0> | Required | Biomes that are going to be replaced by the overriding biome. Target biomes must not contain namespaces. |
+| targets | Array of Object of type Reference | Required | Biomes that are going to be replaced by the overriding biome. Target biomes must not contain namespaces. |
 
 
 # Block Specifier
@@ -194,7 +192,7 @@ Specifies a particular block. Can be a string block name or a JSON object
 
 | Name | Type | Required? | Description |
 | --- | --- | --- | --- |
-| name | Object of type struct SharedTypes::Reference<1> | Required | Name of the block |
+| name | Object of type Reference | Required | Name of the block |
 | states | Object | Optional | Contains members named after each state, with boolean, integer, or string values. |
 
 
@@ -204,7 +202,30 @@ Specifies a particular block. Can be a string block name or a JSON object
 A JSON field that specifies a Molang expression. Can be an integer, float, boolean, or string.
 
 
-# minecraft:capped_surface
+# custom_map_tint_grass_noise
+
+
+Makes grass use the noise based colors for tinting in this biome on the map.
+
+
+| Name | Type | Required? | Description |
+| --- | --- | --- | --- |
+| type | "tint", "noise" | Required | Controls the type of grass tint to use. |
+
+
+# custom_map_tint_grass_tint
+
+
+Sets the color grass will be tinted by in this biome on the map.
+
+
+| Name | Type | Required? | Description |
+| --- | --- | --- | --- |
+| tint | Object of type Color255RGB | Required | Tint color used in this biome on the map. |
+| type | "tint", "noise" | Required | Controls the type of grass tint to use. |
+
+
+# minecraft:capped
 
 
 Generates surface on blocks with non-solid blocks above or below.
@@ -217,6 +238,7 @@ Generates surface on blocks with non-solid blocks above or below.
 | floor_materials | Array of Object of type Block Specifier | Required | Materials used for the surface floor. |
 | foundation_material | Object of type Block Specifier | Required | Material used to replace solid blocks that are not surface blocks. |
 | sea_material | Object of type Block Specifier | Required | Material used to replace air blocks below sea level. |
+| type | "minecraft:overworld", "minecraft:frozen_ocean", "minecraft:mesa", "minecraft:swamp", "minecraft:capped", "minecraft:the_end" | Required | Controls the type of surface builder to use |
 
 
 # minecraft:climate
@@ -227,13 +249,9 @@ Describes temperature, humidity, precipitation, and similar. Biomes without this
 
 | Name | Type | Required? | Description |
 | --- | --- | --- | --- |
-| ash | Float | Optional | Density of ash precipitation visuals |
-| blue_spores | Float | Optional | Density of blue spore precipitation visuals |
-| downfall | Float | Optional | Amount that precipitation affects colors and block changes |
-| red_spores | Float | Optional | Density of blue spore precipitation visuals |
+| downfall | Float | Optional | Amount that precipitation affects colors and block changes. Setting to 0 will stop rain from falling in the biome. |
 | snow_accumulation | Array of 2 Floats | Optional | Minimum and maximum snow level, each multiple of 0.125 is another snow layer |
 | temperature | Float | Optional | Temperature affects a variety of visual and behavioral things, including snow and ice placement, sponge drying, and sky color |
-| white_ash | Float | Optional | Density of white ash precipitation visuals |
 
 
 # minecraft:creature_spawn_probability
@@ -247,7 +265,7 @@ Probability that creatures will spawn within the biome when a chunk is generated
 | probability | Float | Optional | Probabiltity between [0.0, 0.75] of creatures spawning within the biome on chunk generation. |
 
 
-# minecraft:frozen_ocean_surface
+# minecraft:frozen_ocean
 
 
 Similar to overworld_surface. Adds icebergs.
@@ -261,9 +279,33 @@ Similar to overworld_surface. Adds icebergs.
 | sea_floor_material | Object of type Block Specifier | Required | Controls the block type used as a floor for bodies of water in this biome |
 | sea_material | Object of type Block Specifier | Required | Controls the block type used for the bodies of water in this biome |
 | top_material | Object of type Block Specifier | Required | Controls the block type used for the surface of this biome |
+| type | "minecraft:overworld", "minecraft:frozen_ocean", "minecraft:mesa", "minecraft:swamp", "minecraft:capped", "minecraft:the_end" | Required | Controls the type of surface builder to use |
 
 
-# minecraft:mesa_surface
+# minecraft:humidity
+
+
+Forces a biome to ether always be humid or never humid. Humidity effects the spread chance, and spread rate of fire in the biome
+
+
+| Name | Type | Required? | Description |
+| --- | --- | --- | --- |
+| is_humid | Boolean | Required |  |
+
+
+# minecraft:map_tints
+
+
+Sets the color grass and foliage will be tinted by in this biome on the map.
+
+
+| Name | Type | Required? | Description |
+| --- | --- | --- | --- |
+| foliage | Object of type Color255RGB | Optional | Sets the color foliage will be tinted by in this biome on the map. |
+| grass | Object of type custom_map_tint_grass_tint or Object of type custom_map_tint_grass_noise | Required | Controls whether the grass will use a custom tint color or a noise based tint color. |
+
+
+# minecraft:mesa
 
 
 Similar to overworld_surface. Adds colored strata and optional pillars.
@@ -281,6 +323,7 @@ Similar to overworld_surface. Adds colored strata and optional pillars.
 | sea_floor_material | Object of type Block Specifier | Required | Controls the block type used as a floor for bodies of water in this biome |
 | sea_material | Object of type Block Specifier | Required | Controls the block type used for the bodies of water in this biome |
 | top_material | Object of type Block Specifier | Required | Controls the block type used for the surface of this biome |
+| type | "minecraft:overworld", "minecraft:frozen_ocean", "minecraft:mesa", "minecraft:swamp", "minecraft:capped", "minecraft:the_end" | Required | Controls the type of surface builder to use |
 
 
 # minecraft:mountain_parameters
@@ -336,6 +379,23 @@ Controls how this biome is instantiated (and then potentially modified) during w
 | weight | Float | Optional | Weight with which this biome should be generated, relative to other biomes. |
 
 
+# minecraft:overworld
+
+
+Controls the blocks used for the default Minecraft Overworld terrain generation.
+
+
+| Name | Type | Required? | Description |
+| --- | --- | --- | --- |
+| foundation_material | Object of type Block Specifier | Required | Controls the block type used deep underground in this biome |
+| mid_material | Object of type Block Specifier | Required | Controls the block type used in a layer below the surface of this biome |
+| sea_floor_depth | Integer | Required | Controls how deep below the world water level the floor should occur |
+| sea_floor_material | Object of type Block Specifier | Required | Controls the block type used as a floor for bodies of water in this biome |
+| sea_material | Object of type Block Specifier | Required | Controls the block type used for the bodies of water in this biome |
+| top_material | Object of type Block Specifier | Required | Controls the block type used for the surface of this biome |
+| type | "minecraft:overworld", "minecraft:frozen_ocean", "minecraft:mesa", "minecraft:swamp", "minecraft:capped", "minecraft:the_end" | Required | Controls the type of surface builder to use |
+
+
 # minecraft:overworld_generation_rules
 
 
@@ -375,6 +435,12 @@ Noise parameters used to drive terrain height in the Overworld.
 | noise_type | "default", "default_mutated", "river", "ocean", "deep_ocean", "lowlands", "taiga", "mountains", "highlands", "extreme", "less_extreme", "beach", "stone_beach", "mushroom", "swamp" | Optional | Specifies a preset based on a built-in setting rather than manually using noise_params |
 
 
+# minecraft:partially_frozen
+
+
+Component will impact the temperature in a frozen biome, causing some areas to not be frozen. Ex: patchy ice, patchy snow
+
+
 # minecraft:replace_biomes
 
 
@@ -384,6 +450,17 @@ Replaces a specified portion of one or more Minecraft biomes.
 | Name | Type | Required? | Description |
 | --- | --- | --- | --- |
 | replacements | Array of Object of type Biome Replacement | Required | List of biome replacement configurations. Retroactively adding a new replacement to the front of this list will cause the world generation to change. Please add any new replacements to the end of the list. |
+
+
+# minecraft:surface_builder
+
+
+Controls the materials used for terrain generation.
+
+
+| Name | Type | Required? | Description |
+| --- | --- | --- | --- |
+| builder | Object of type minecraft:overworld or Object of type minecraft:frozen_ocean or Object of type minecraft:mesa or Object of type minecraft:swamp or Object of type minecraft:capped or Object of type minecraft:the_end | Required | Controls the block types used for terrain generation. |
 
 
 # minecraft:surface_material_adjustments
@@ -426,42 +503,103 @@ An adjustment to generated terrain, replacing blocks based on the specified sett
 | noise_range | Array of 2 Floats | Optional | Defines a range of noise values [min, max] for which this adjustment should be applied. |
 
 
-# minecraft:surface_parameters
+# minecraft:swamp
 
 
-Controls the blocks used for the default Minecraft Overworld terrain generation.
-
-
-| Name | Type | Required? | Description |
-| --- | --- | --- | --- |
-| foundation_material | Object of type Block Specifier | Required | Controls the block type used deep underground in this biome. |
-| mid_material | Object of type Block Specifier | Required | Controls the block type used in a layer below the surface of this biome. |
-| sea_floor_depth | Integer | Required | Controls how deep below the world water level the floor should occur. |
-| sea_floor_material | Object of type Block Specifier | Required | Controls the block type used as a floor for bodies of water in this biome. |
-| sea_material | Object of type Block Specifier | Required | Controls the block type used for the bodies of water in this biome. |
-| top_material | Object of type Block Specifier | Required | Controls the block type used for the surface of this biome. |
-
-
-# minecraft:swamp_surface
-
-
-Similar to overworld_surface. Adds swamp surface details.
+Used to add decoration to the surface of swamp biomes such as water lilies.
 
 
 | Name | Type | Required? | Description |
 | --- | --- | --- | --- |
 | foundation_material | Object of type Block Specifier | Required | Controls the block type used deep underground in this biome. |
+| max_puddle_depth_below_sea_level | Integer | Required | Controls the depth at which surface level blocks can be replaced with water for puddles. The number represents the number of blocks (0, 127) below sea level that we will go down to look for a surface block. |
 | mid_material | Object of type Block Specifier | Required | Controls the block type used in a layer below the surface of this biome. |
 | sea_floor_depth | Integer | Required | Controls how deep below the world water level the floor should occur. |
 | sea_floor_material | Object of type Block Specifier | Required | Controls the block type used as a floor for bodies of water in this biome. |
 | sea_material | Object of type Block Specifier | Required | Controls the block type used for the bodies of water in this biome. |
 | top_material | Object of type Block Specifier | Required | Controls the block type used for the surface of this biome. |
+| type | "minecraft:overworld", "minecraft:frozen_ocean", "minecraft:mesa", "minecraft:swamp", "minecraft:capped", "minecraft:the_end" | Required | Controls the type of surface builder to use |
 
 
 # minecraft:tags
 
 
-Attach arbitrary string tags to this biome.Most biome tags are referenced by JSON settings, but some meanings of tags are directly implemented in the game's code. These tags are listed here:birch: Biome uses wildflowers (mutually exclusive with other flower biome tags). Does nothing if biome is tagged "hills".cold: Villagers will be dressed for snowy weather.deep: Pre-Caves and Cliffs, prevents an ocean from having islands or connected rivers and makes the biome less likely to have hills.desert: Allows partially-buried ruined portals to be placed in the biome. Sand blocks will play ambient sounds when the player is nearby.extreme_hills: Ruined portals can be placed higher than normal. Biomes tagged "forest" or "forest_generation" will use normal Overworld flowers instead of forest flowers.flower_forest: Biome uses forest flowers (mutually exclusive with other flower biome tags).forest: Biome uses forest flowers (mutually exclusive with other flower biome tags). Does nothing if biome is tagged tagged "taiga" or "extreme_hills".forest_generation: Equivalent to "forest".frozen: Villagers will be dressed for snowy weather. Prevents the biome from containing lava springs if it is also tagged "ocean".ice: Around ruined portals, lava is always replaced by Netherrack and Netherrack cannot be replaced by magma.ice_plains: Prevents the biome from containing lava springs if it is also tagged "mutated".jungle: Ruined portals will be very mossy.hills: Biomes tagged "meadow" or "birch" will use normal Overworld flowers instead of wildflowers.meadow: Biome uses wildflowers (mutually exclusive with other flower biome tags). Does nothing if biome is tagged "hills".mesa: Sand blocks will play ambient sounds when the player is nearby.mountain: Ruined portals can be placed higher than normal.mutated: Pre-Caves and Cliffs, prevents switching to the specified "mutate_transformation" as the biome is already considered mutated. Prevents the biome from containing lava springs if it is also tagged "ice_plains".no_legacy_worldgen: Prevents biome from using legacy world generation behavior unless the biome is being placed in the Overworld.ocean: Prevents the biome from containing lava springs if it is also tagged "frozen". Allows ruined portals to be found underwater. Pre-Caves and Cliffs, determines if shorelines and rivers should be placed at the edges of the biome and identifies the biome as a shallow ocean for placing islands, unless the "deep" tag is present.pale_garden: Biome uses closed-eye blossoms (mutually exclusive with other flower biome tags).plains: Biome uses plains flowers (mutually exclusive with other flower biome tags).rare: Pre-Caves and Cliffs, this tag flags the biome as a special biome. Oceans cannot be special.swamp: Allows ruined portals to be found underwater. Biome uses swamp flowers (mutually exclusive with other flower biome tags).taiga: Biomes tagged "forest" or "forest_generation" will use normal Overworld flowers instead of forest flowers.
+Attach arbitrary string tags to this biome.
+
+
+Most biome tags are referenced by JSON settings, but some meanings of tags are directly implemented in the game's code. These tags are listed here:
+
+
+birch: Biome uses wildflowers (mutually exclusive with other flower biome tags). Does nothing if biome is tagged "hills".
+
+
+cold: Villagers will be dressed for snowy weather.
+
+
+deep: Pre-Caves and Cliffs, prevents an ocean from having islands or connected rivers and makes the biome less likely to have hills.
+
+
+desert: Allows partially-buried ruined portals to be placed in the biome. Sand blocks will play ambient sounds when the player is nearby.
+
+
+extreme_hills: Ruined portals can be placed higher than normal. Biomes tagged "forest" or "forest_generation" will use normal Overworld flowers instead of forest flowers.
+
+
+flower_forest: Biome uses forest flowers (mutually exclusive with other flower biome tags).
+
+
+forest: Biome uses forest flowers (mutually exclusive with other flower biome tags). Does nothing if biome is tagged tagged "taiga" or "extreme_hills".
+
+
+forest_generation: Equivalent to "forest".
+
+
+frozen: Villagers will be dressed for snowy weather. Prevents the biome from containing lava springs if it is also tagged "ocean".
+
+
+ice: Around ruined portals, lava is always replaced by Netherrack and Netherrack cannot be replaced by magma.
+
+
+ice_plains: Prevents the biome from containing lava springs if it is also tagged "mutated".
+
+
+jungle: Ruined portals will be very mossy.
+
+
+hills: Biomes tagged "meadow" or "birch" will use normal Overworld flowers instead of wildflowers.
+
+
+meadow: Biome uses wildflowers (mutually exclusive with other flower biome tags). Does nothing if biome is tagged "hills".
+
+
+mesa: Sand blocks will play ambient sounds when the player is nearby.
+
+
+mountain: Ruined portals can be placed higher than normal.
+
+
+mutated: Pre-Caves and Cliffs, prevents switching to the specified "mutate_transformation" as the biome is already considered mutated. Prevents the biome from containing lava springs if it is also tagged "ice_plains".
+
+
+no_legacy_worldgen: Prevents biome from using legacy world generation behavior unless the biome is being placed in the Overworld.
+
+
+ocean: Prevents the biome from containing lava springs if it is also tagged "frozen". Allows ruined portals to be found underwater. Pre-Caves and Cliffs, determines if shorelines and rivers should be placed at the edges of the biome and identifies the biome as a shallow ocean for placing islands, unless the "deep" tag is present.
+
+
+pale_garden: Biome uses closed-eye blossoms (mutually exclusive with other flower biome tags).
+
+
+plains: Biome uses plains flowers (mutually exclusive with other flower biome tags).
+
+
+rare: Pre-Caves and Cliffs, this tag flags the biome as a special biome. Oceans cannot be special.
+
+
+swamp: Allows ruined portals to be found underwater. Biome uses swamp flowers (mutually exclusive with other flower biome tags).
+
+
+taiga: Biomes tagged "forest" or "forest_generation" will use normal Overworld flowers instead of forest flowers.
 
 
 | Name | Type | Required? | Description |
@@ -469,7 +607,9 @@ Attach arbitrary string tags to this biome.Most biome tags are referenced by JSO
 | tags | Array of String | Required | Array of string tags used by other systems such as entity spawning |
 
 
-# minecraft:the_end_surface
+# minecraft:the_end
 
 
-Use default Minecraft End terrain generation.
+| Name | Type | Required? | Description |
+| --- | --- | --- | --- |
+| type | "minecraft:overworld", "minecraft:frozen_ocean", "minecraft:mesa", "minecraft:swamp", "minecraft:capped", "minecraft:the_end" | Required | Use default Minecraft End terrain generation. |

@@ -1,0 +1,42 @@
+{
+    "format_version": "1.13.0",
+    "minecraft:feature_rules": {
+        "description": {
+            "identifier": "minecraft:mountains_underground_coal_ore_feature",
+            "places_feature": "minecraft:coal_ore_feature"
+        },
+        "conditions": {
+            "placement_pass": "underground_pass",
+            "minecraft:biome_filter": {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "mountains"
+            }
+        },
+        "distribution": {
+            "iterations": 20,
+            "coordinate_eval_order": "zyx",
+            "x": {
+                "distribution": "uniform",
+                "extent": [
+                    0,
+                    16
+                ]
+            },
+            "y": {
+                "distribution": "uniform",
+                "extent": [
+                    128,
+                    256
+                ]
+            },
+            "z": {
+                "distribution": "uniform",
+                "extent": [
+                    0,
+                    16
+                ]
+            }
+        }
+    }
+}

@@ -26,13 +26,6 @@
         "name": "minecraft:spruce_leaves"
       }
     },
-    "base_cluster": {
-      "may_replace": [
-        { "tags": "query.any_tag('dirt')" }
-      ],
-      "num_clusters": 5,
-      "cluster_radius": 2
-    },
     // Blocks the tree can be placed on.
     "may_grow_on": [
       { "tags": "query.any_tag('dirt')" }
@@ -41,6 +34,14 @@
     "base_block": [
       "minecraft:podzol"
     ],
+    // Blocks replaced with "base_block" at random positions around the tree.
+    "base_cluster": {
+      "may_replace": [
+        { "tags": "query.any_tag('dirt')" }
+      ],
+      "num_clusters": 5,
+      "cluster_radius": 2
+    },
     // Blocks to ignore when checking for clearance around the tree. Already includes all blocks specified in "may_replace".
     "may_grow_through": [
       { "tags": "query.any_tag('dirt')" }
@@ -60,7 +61,10 @@
       "minecraft:mangrove_leaves",
       "minecraft:oak_leaves",
       "minecraft:pale_oak_leaves",
-      "minecraft:spruce_leaves"
+      "minecraft:spruce_leaves",
+      // Plants
+      "minecraft:wildflowers",
+      "minecraft:leaf_litter"
     ]
   }
 }

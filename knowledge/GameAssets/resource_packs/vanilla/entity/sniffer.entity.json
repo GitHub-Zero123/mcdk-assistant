@@ -6,16 +6,11 @@
             "materials": {
                 "default": "sniffer"
             },
-            "textures": {
-                "default": "textures/entity/sniffer/sniffer"
-            },
-            "scripts": {
-                "pre_animation": [
-                    "variable.moving = math.min(1.0, query.modified_move_speed * 10);"
-                ]
-            },
             "geometry": {
                 "default": "geometry.sniffer"
+            },
+            "textures": {
+                "default": "textures/entity/sniffer/sniffer"
             },
             "animations": {
                 "baby_transform": "animation.sniffer.baby_transform",
@@ -27,6 +22,26 @@
                 "dig": "animation.sniffer.dig",
                 "stand_up": "animation.sniffer.stand_up",
                 "feeling_happy": "animation.sniffer.feeling_happy"
+            },
+            "sound_effects": {
+                "drop_seed": "mob.sniffer.drop_seed",
+                "sniffsniff": "mob.sniffer.sniffsniff",
+                "searching": "mob.sniffer.searching",
+                "long_sniff": "mob.sniffer.long_sniff",
+                "digging": "mob.sniffer.digging",
+                "stand_up": "mob.sniffer.stand_up",
+                "happy": "mob.sniffer.happy"
+            },
+            "render_controllers": [
+                "controller.render.sniffer"
+            ],
+            "spawn_egg": {
+                "texture": "spawn_egg_sniffer"
+            },
+            "scripts": {
+                "pre_animation": [
+                    "variable.moving = math.min(1.0, query.modified_move_speed * 10);"
+                ]
             },
             "animation_controllers": [
                 {
@@ -56,23 +71,7 @@
                 {
                     "feeling_happy": "controller.animation.sniffer.feeling_happy"
                 }
-            ],
-            "render_controllers": [
-                "controller.render.sniffer"
-            ],
-            "spawn_egg": {
-                "base_color": "#871E09",
-                "overlay_color": "#25AB70"
-            },
-            "sound_effects": {
-                "drop_seed": "mob.sniffer.drop_seed",
-                "sniffsniff": "mob.sniffer.sniffsniff",
-                "searching": "mob.sniffer.searching",
-                "long_sniff": "mob.sniffer.long_sniff",
-                "digging": "mob.sniffer.digging",
-                "stand_up": "mob.sniffer.stand_up",
-                "happy": "mob.sniffer.happy"
-            }
+            ]
         }
     }
 }

@@ -1,16 +1,15 @@
 {
-    "format_version": "1.16.0",
+    "format_version": "1.21.60",
     "minecraft:entity": {
         "description": {
             "identifier": "minecraft:phantom",
             "spawn_category": "monster",
             "is_spawnable": true,
-            "is_summonable": true,
-            "is_experimental": false
+            "is_summonable": true
         },
-        "component_groups": {},
         "components": {
             "minecraft:is_hidden_when_invisible": {},
+            "minecraft:renders_when_invisible": {},
             "minecraft:experience_reward": {
                 "on_death": "query.last_hit_by_player ? 5 : 0"
             },

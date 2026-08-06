@@ -62,10 +62,8 @@
       "minecraft:dirt",
       "minecraft:coarse_dirt"
     ],
-    // Blocks to ignore when checking for clearance around the tree. Already includes all blocks specified in "may_replace".
-    "may_grow_through": [
-      { "tags": "query.any_tag('dirt')" }
-    ],
+    // Unlike other trees, we avoid adding "query.any_tag('dirt')" to "may_grow_through" because, combined with "can_be_submerged", it would cause the trunk to start underground.
+    // "may_grow_through": [],
     // Blocks that can be replaced by the tree's trunk and canopy.
     "may_replace": [
       "minecraft:air",
@@ -81,7 +79,10 @@
       "minecraft:spruce_leaves",
       // Water
       "minecraft:water",
-      "minecraft:flowing_water"
+      "minecraft:flowing_water",
+      // Plants
+      "minecraft:wildflowers",
+      "minecraft:leaf_litter"
     ]
   }
 }

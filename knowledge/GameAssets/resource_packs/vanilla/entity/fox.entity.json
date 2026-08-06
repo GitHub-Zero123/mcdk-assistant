@@ -6,12 +6,12 @@
             "materials": {
                 "default": "fox"
             },
+            "geometry": {
+                "default": "geometry.fox"
+            },
             "textures": {
                 "red": "textures/entity/fox/fox",
                 "arctic": "textures/entity/fox/arctic_fox"
-            },
-            "geometry": {
-                "default": "geometry.fox"
             },
             "animations": {
                 "walk": "animation.quadruped.walk",
@@ -26,6 +26,12 @@
                 "pounce": "animation.fox.pounce",
                 "move": "controller.animation.fox.move"
             },
+            "render_controllers": [
+                "controller.render.fox"
+            ],
+            "spawn_egg": {
+                "texture": "spawn_egg_fox"
+            },
             "scripts": {
                 "animate": [
                     "setup",
@@ -34,13 +40,6 @@
                     },
                     "move"
                 ]
-            },
-            "render_controllers": [
-                "controller.render.fox"
-            ],
-            "spawn_egg": {
-                "texture": "spawn_egg",
-                "texture_index": 55
             }
         }
     }

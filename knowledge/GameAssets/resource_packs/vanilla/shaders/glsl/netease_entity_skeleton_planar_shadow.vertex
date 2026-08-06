@@ -1,0 +1,33 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+#define MCPE_NETEASE
+#include "neteaseModelVertexUtil.h"
+#line 6
+
+varying vec3 wPosition;
+
+void main() {
+	POS4 entitySpacePosition, entitySpaceNormal;
+	getEntitySpacePositionAndNormal(entitySpacePosition, entitySpaceNormal);
+
+	neteaseModelCommonVert();
+
+	uv = TEXCOORD_0;
+	applyUVAnim(uv);
+
+	vec3 planePosition = PLANAR_SHADOW_PARAMS1.xyz;
+	vec3 planeNormal = PLANAR_SHADOW_PARAMS2.xyz;
+	vec3 lightDirection = PLANAR_SHADOW_PARAMS3.xyz;
+	float bias = PLANAR_SHADOW_PARAMS2.w;
+
+	vec4 worldPosition = WORLD * entitySpacePosition;
+	worldPosition.xyz += -1.0 * min(dot(worldPosition.xyz - planePosition.xyz, planeNormal.xyz), 0.0) * planeNormal.xyz;
+	float NDotL = dot(planeNormal.xyz, lightDirection.xyz);
+	float t = abs(dot(planeNormal.xyz, worldPosition.xyz - planePosition.xyz) / NDotL);
+	worldPosition.xyz += max(t, 0.0) * lightDirection * (-sign(NDotL));
+	worldPosition.xyz += planeNormal * bias;
+	wPosition = worldPosition.xyz;
+
+	POS4 projSpacePos = VIEWPROJ * worldPosition;
+	gl_Position = projSpacePos;
+}

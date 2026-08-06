@@ -736,21 +736,6 @@
         }
       },
       {
-        "option_slider_1@settings_common.option_slider": {
-          "ignored": "(not $is_holographic)",
-          "$option_label": "#vr_ui_mouse_sensitivity_slider_label",
-          "$slider_name": "vr_ui_mouse_sensitivity",
-          "$slider_value_binding_name": "#vr_ui_mouse_sensitivity",
-          "$slider_tts_text_value": "#vr_ui_mouse_sensitivity_text_value",
-          "$option_enabled_binding_name": "#vr_ui_mouse_sensitivity_enabled",
-          "$label_bindings": [
-            {
-              "binding_name": "$option_label"
-            }
-          ]
-        }
-      },
-      {
         "option_toggle_0@settings_common.option_toggle": {
           "$option_label": "options.invertYAxis",
           "$option_binding_name": "#keyboard_mouse_invert_y_axis",
@@ -985,7 +970,6 @@
     "controls": [
       {
         "option_slider_0@settings_common.option_slider": {
-          "ignored": "($is_holographic and not $is_living_room_mode)",
           "$option_label": "#controller_sensitivity_slider_label",
           "$slider_name": "controller_sensitivity",
           "$slider_value_binding_name": "#controller_sensitivity",
@@ -1014,42 +998,6 @@
         }
       },
       {
-        "option_slider_1@settings_common.option_slider": {
-          "ignored": "($is_living_room_mode or not $is_holographic)",
-          "$option_label": "#vr_sensitivity_slider_label",
-          "$slider_name": "vr_sensitivity",
-          "$slider_value_binding_name": "#vr_sensitivity",
-          "$slider_tts_text_value": "#vr_sensitivity_text_value",
-          "$option_enabled_binding_name": "#vr_sensitivity_enabled",
-          "$label_bindings": [
-            {
-              "binding_name": "$option_label"
-            }
-          ]
-        }
-      },
-      {
-        "option_slider_2@settings_common.option_slider": {
-          "$option_label": "#vr_roll_turn_sensitivity_slider_label",
-          "$slider_name": "vr_roll_turn_sensitivity",
-          "$slider_value_binding_name": "#vr_roll_turn_sensitivity",
-          "$slider_tts_text_value": "#vr_roll_turn_sensitivity_text_value",
-          "$option_enabled_binding_name": "#vr_roll_turn_sensitivity_enabled",
-          "$focus_override_right": "FOCUS_OVERRIDE_STOP",
-          "$label_bindings": [
-            {
-              "binding_name": "$option_label"
-            }
-          ],
-          "bindings": [
-            {
-              "binding_name": "#vr_roll_turn_sensitivity_visible",
-              "binding_name_override": "#visible"
-            }
-          ]
-        }
-      },
-      {
         "option_toggle_0@settings_common.option_toggle": {
           "$option_label": "options.invertYAxis",
           "$option_binding_name": "#controller_invert_y_axis",
@@ -1060,7 +1008,6 @@
       },
       {
         "option_toggle_1@settings_common.option_toggle": {
-          "ignored": "($is_holographic and not $is_living_room_mode)",
           "$option_label": "options.autojump",
           "$option_binding_name": "#controller_autojump",
           "$option_enabled_binding_name": "#controller_autojump_enabled",
@@ -1146,16 +1093,6 @@
               "binding_name": "$option_label"
             }
           ]
-        }
-      },
-      {
-        "option_toggle_2@settings_common.option_toggle": {
-          "ignored": "($is_living_room_mode or not $is_holographic)",
-          "$option_label": "options.vrAutojump",
-          "$option_binding_name": "#vr_autojump",
-          "$option_enabled_binding_name": "#vr_autojump_enabled",
-          "$toggle_name": "vr_autojump",
-          "$focus_override_right": "FOCUS_OVERRIDE_STOP"
         }
       },
       {
@@ -1453,7 +1390,7 @@
                       ]
                     }
                   },
-                  {
+                  { 
                     "customize_tooltip_option@controls_section.customize_tooltip_option": {}
                   },
                   {
@@ -1547,6 +1484,8 @@
                 "$option_binding_name": "#sprint_on_movement",
                 "$option_enabled_binding_name": "#sprint_on_movement_enabled",
                 "$toggle_name": "sprint_on_movement",
+                "$has_option_description": true,
+                "$option_description": "options.sprintOnMovement.description",
                 "bindings": [
                   {
                     "binding_name": "#touch_controls_v2",

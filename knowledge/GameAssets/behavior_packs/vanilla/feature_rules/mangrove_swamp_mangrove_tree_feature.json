@@ -3,20 +3,19 @@
     "minecraft:feature_rules": {
         "description": {
             "identifier": "minecraft:mangrove_swamp_mangrove_tree_feature",
-            "places_feature": "minecraft:mangrove_tree_feature"
+            "places_feature": "minecraft:random_mangrove_tree_feature"
         },
         "conditions": {
             "placement_pass": "surface_pass",
             "minecraft:biome_filter": [
                 {
                     "test": "has_biome_tag",
-                    "operator": "==",
                     "value": "mangrove_swamp"
                 }
             ]
         },
         "distribution": {
-            "iterations": 8,
+            "iterations": 25,
             "x": {
                 "distribution": "uniform",
                 "extent": [
@@ -24,7 +23,7 @@
                     16
                 ]
             },
-            "y": "query.heightmap(variable.worldx, variable.worldz)",
+            "y": "math.max(query.above_top_solid(variable.worldx, variable.worldz), query.heightmap(variable.worldx, variable.worldz) - 4)",
             "z": {
                 "distribution": "uniform",
                 "extent": [

@@ -4,30 +4,29 @@
         "description": {
             "identifier": "minecraft:sunflower_double_plant_patch_feature"
         },
-        "iterations": 64,
-        "coordinate_eval_order": "zyx",
+        "iterations": 96,
         "x": {
             "extent": [
-                -8,
-                8
-            ],
-            "distribution": "triangle"
-        },
-        "z": {
-            "extent": [
-                -8,
-                8
+                -7,
+                7
             ],
             "distribution": "triangle"
         },
         "y": {
             "extent": [
-                -4,
-                4
+                -3,
+                3
             ],
             "distribution": "triangle"
         },
-        "project_input_to_floor": false,
+        "z": {
+            "extent": [
+                -7,
+                7
+            ],
+            "distribution": "triangle"
+        },
+        "coordinate_eval_order": "zyx",
         "places_feature": "minecraft:sunflower_double_plant_feature"
     }
 }

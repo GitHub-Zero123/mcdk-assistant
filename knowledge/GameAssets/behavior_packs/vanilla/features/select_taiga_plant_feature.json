@@ -1,0 +1,18 @@
+{
+    "format_version": "1.13.0",
+    "minecraft:weighted_random_feature": {
+        "description": {
+            "identifier": "minecraft:select_taiga_plant_feature"
+        },
+        "features": [
+            [
+                "minecraft:fern_feature",
+                4
+            ],
+            [
+                "minecraft:tall_grass_feature",
+                1
+            ]
+        ]
+    }
+}

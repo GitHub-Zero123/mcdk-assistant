@@ -6,18 +6,25 @@
             "materials": {
                 "default": "strider"
             },
+            "geometry": {
+                "default": "geometry.strider"
+            },
             "textures": {
                 "default": "textures/entity/strider/strider",
                 "saddled": "textures/entity/strider/strider_saddled",
                 "suffocated": "textures/entity/strider/strider_suffocated",
                 "suffocated_saddled": "textures/entity/strider/strider_suffocated_saddled"
             },
-            "geometry": {
-                "default": "geometry.strider"
+            "animations": {
+                "look_at_target": "animation.strider.look_at_target.default",
+                "walk": "animation.strider.walk",
+                "bristle_flow": "animation.strider.bristle_flow"
             },
+            "render_controllers": [
+                "controller.render.strider"
+            ],
             "spawn_egg": {
-                "base_color": "#9c3436",
-                "overlay_color": "#4d494d"
+                "texture": "spawn_egg_strider"
             },
             "scripts": {
                 "pre_animation": [
@@ -32,15 +39,7 @@
                     "walk",
                     "bristle_flow"
                 ]
-            },
-            "animations": {
-                "look_at_target": "animation.strider.look_at_target.default",
-                "walk": "animation.strider.walk",
-                "bristle_flow": "animation.strider.bristle_flow"
-            },
-            "render_controllers": [
-                "controller.render.strider"
-            ]
+            }
         }
     }
 }

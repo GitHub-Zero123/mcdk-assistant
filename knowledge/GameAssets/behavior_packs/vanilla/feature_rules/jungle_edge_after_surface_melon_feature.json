@@ -1,0 +1,44 @@
+{
+    "format_version": "1.13.0",
+    "minecraft:feature_rules": {
+        "description": {
+            "identifier": "minecraft:jungle_edge_after_surface_melon_feature",
+            "places_feature": "minecraft:melon_feature"
+        },
+        "conditions": {
+            "placement_pass": "after_surface_pass",
+            "minecraft:biome_filter": [
+                {
+                    "test": "has_biome_tag",
+                    "value": "jungle"
+                },
+                {
+                    "test": "has_biome_tag",
+                    "value": "edge"
+                }
+            ]
+        },
+        "distribution": {
+            "iterations": 1,
+            "scatter_chance": {
+                "numerator": 1,
+                "denominator": 64
+            },
+            "x": {
+                "distribution": "uniform",
+                "extent": [
+                    0,
+                    16
+                ]
+            },
+            "y": "query.heightmap(variable.worldx, variable.worldz)",
+            "z": {
+                "distribution": "uniform",
+                "extent": [
+                    0,
+                    16
+                ]
+            }
+        }
+    }
+}

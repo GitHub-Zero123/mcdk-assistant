@@ -23,7 +23,7 @@
                             }
                         },
                         {
-                            "tts_border@csb.tts_activate_sibling": {
+                            "tts_border@common.tts_activate_sibling": {
                                 "size": [
                                     "100%sm",
                                     "100%sm + 2px"
@@ -48,12 +48,6 @@
             },
             {
                 "content_section_vertical_padding_3@csb.vertical_padding_4px": {}
-            },
-            {
-                "content_description@csb_content.content_description": {}
-            },
-            {
-                "section_divider@csb.full_width_section_divider": {}
             }
         ]
     },
@@ -89,26 +83,6 @@
             },
             {
                 "section_divider@csb.full_width_section_divider": {}
-            }
-        ]
-    },
-    "content_text_section": {
-        "type": "stack_panel",
-        "size": [
-            "100%",
-            "100%c"
-        ],
-        "controls": [
-            {
-                "content_description@csb_content.content_description": {}
-            },
-            {
-                "padding@common.empty_panel": {
-                    "size": [
-                        "100%",
-                        4
-                    ]
-                }
             }
         ]
     },
@@ -318,7 +292,7 @@
                             }
                         },
                         {
-                            "tts_border@csb.tts_activate_sibling": {
+                            "tts_border@common.tts_activate_sibling": {
                                 "size": [
                                     "100%sm + 2px",
                                     "100%sm + 2px"
@@ -414,8 +388,7 @@
                                 "size": [
                                     "100%",
                                     20
-                                ],
-                                "visible": "$view_character_creator_items_visible"
+                                ]
                             }
                         }
                     ]
@@ -568,18 +541,6 @@
                                         "binding_name": "#key_art_texture_path",
                                         "binding_name_override": "#texture"
                                     }
-                                ],
-                                "controls": [
-                                    {
-                                        "chevron@csb_content.csb_content_chevron": {
-                                            "anchor_from": "bottom_left",
-                                            "anchor_to": "bottom_left",
-                                            "offset": [
-                                                0,
-                                                0.5
-                                            ]
-                                        }
-                                    }
                                 ]
                             }
                         },
@@ -643,59 +604,6 @@
                         {
                             "pressed@common.square_image_border_white": {}
                         }
-                    ]
-                }
-            }
-        ]
-    },
-    "csb_content_chevron": {
-        "size": [
-            25,
-            19
-        ],
-        "type": "image",
-        "texture": "textures/ui/csbChevronArrowLarge",
-        "layer": 1
-    },
-    "content_description": {
-        "type": "panel",
-        "size": [
-            "100%",
-            "100%cm - 2px"
-        ],
-        "controls": [
-            {
-                "content_description_label": {
-                    "type": "label",
-                    "size": [
-                        "100% - 1px",
-                        "default"
-                    ],
-                    "offset": [
-                        1,
-                        0
-                    ],
-                    "text": "#content_section_text",
-                    "color": "$body_text_color",
-                    "font_type": "smooth",
-                    "bindings": [
-                        {
-                            "binding_name": "#content_section_text",
-                            "binding_type": "collection",
-                            "binding_collection_name": "content_sections"
-                        }
-                    ]
-                }
-            },
-            {
-                "tts_border@csb.tts_activate_sibling": {
-                    "size": [
-                        "100%sm",
-                        "100%sm + 2px"
-                    ],
-                    "offset": [
-                        0,
-                        -2
                     ]
                 }
             }

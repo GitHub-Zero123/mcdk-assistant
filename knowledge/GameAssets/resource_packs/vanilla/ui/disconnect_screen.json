@@ -13,6 +13,7 @@
   },
 
   "disconnect_text@disconnect.disconnect_screen_text": {
+    "enable_profanity_filter": true,
     "offset": [ 0, -40 ],
     "text": "#disconnect_text",
     "bindings": [
@@ -73,7 +74,7 @@
   "check_store_button@disconnect.menu_button_template": {
     "$pressed_button_name": "button.menu_check_store",
     "$button_text": "gui.store",
-    "ignored": "($is_holographic or $nx_os or $is_ps4)"
+    "ignored": "($nx_os or $is_ps4)"
   },
 
   "exit_button@disconnect.menu_button_template": {
@@ -107,7 +108,6 @@
         "open_uri_button_panel": {
           "type": "panel",
           "size": [ "100%", 30 ],
-          "ignored": "$is_holographic",
           "visible": false,
           "bindings": [
             {
@@ -207,7 +207,6 @@
         "open_uri_button_panel": {
           "type": "panel",
           "size": [ "100%", 30 ],
-          "ignored": "$is_holographic",
           "visible": false,
           "bindings": [
             {
@@ -232,9 +231,7 @@
                 "controls": [
                   { "check_store_button@disconnect.check_store_button": {} },
                   {
-                    "spacing_gap@disconnect.spacing_gap": {
-                      "ignored": "$is_holographic"
-                    }
+                    "spacing_gap@disconnect.spacing_gap": {}
                   },
                   { "exit_button@disconnect.exit_button": {} }
                 ]
@@ -281,9 +278,7 @@
                 "controls": [
                   { "check_store_button@disconnect.check_store_button": {} },
                   {
-                    "spacing_gap@disconnect.spacing_gap": {
-                      "ignored": "$is_holographic"
-                    }
+                    "spacing_gap@disconnect.spacing_gap": {}
                   },
                   { "continue_button@disconnect.continue_button": {} }
                 ]

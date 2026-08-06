@@ -25246,6 +25246,24 @@
             "path": "textures/ui/pet/parterner/icon26_2x.png"
         },
         {
+            "path": "textures/ui/pet/parterner/main_hub_chat.png"
+        },
+        {
+            "path": "textures/ui/pet/parterner/main_hub_summon.png"
+        },
+        {
+            "path": "textures/ui/pet/parterner/main_hub_dismiss.png"
+        },
+        {
+            "path": "textures/ui/pet/parterner/pet_floating_hub_mainpage.png"
+        },
+        {
+            "path": "textures/ui/pet/parterner/pet_floating_hub_chat.png"
+        },
+        {
+            "path": "textures/ui/pet/parterner/pet_mainpage_chat.png"
+        },
+        {
             "path": "textures/ui/pet/parterner/icon27_2x.png"
         },
         {
@@ -25399,9 +25417,6 @@
             "path": "textures/ui/gameChatExtension/common/common_button6_normal.png"
         },
         {
-            "path": "textures/ui/gameChatExtension/common/common_ol.png"
-        },
-        {
             "path": "ui/netease/gameChatExtension/permission_req_confirm.json"
         },
         {
@@ -25412,21 +25427,6 @@
         },
         {
             "path": "ui/netease/commonChatInput.json"
-        },
-        {
-            "path": "ui/netease/gameChatExtension/gameChatMainUI.json"
-        },
-        {
-            "path": "textures/ui/gameChatExtension/chat/chat_mingcheng.png"
-        },
-        {
-            "path": "textures/ui/gameChatExtension/common/common_button9_click.png"
-        },
-        {
-            "path": "textures/ui/gameChatExtension/common/common_button6_normal.png"
-        },
-        {
-            "path": "textures/ui/gameChatExtension/common/common_ol.png"
         },
         {
             "path": "textures/ui/gameChatExtension/new/bg_top01.png"
@@ -25889,6 +25889,513 @@
         },
         {
             "path": "textures/ui/horse/btn02_mask.png"
+        },
+        {
+            "path": "materials/pbr_entity.material"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/pbr_test_armor_set_m00_material_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/pbr_test_armor_set_m01_cloak_and_foot_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/pbr_test_armor_set_m02_clothing_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/pbr_test_armor_set_m03_dagger_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/pbr_test_armor_set_m04_hand_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/pbr_test_armor_set_m05_helm_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/pbr_test_armor_set_m06_material_6_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/pbr_test_armor_set_m07_main_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/pbr_test_armor_set_m08_po01_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/pbr_test_armor_set_m09_po02_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/pbr_test_armor_set_m10_shield_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/pbr_test_armor_set_m11_sword_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/pbr_test_chair_lod_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/pbr_test_chair_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/pbr_test_crepe_satin_lod_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/pbr_test_crepe_satin_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/pbr_test_electric_stove_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/pbr_test_endfield_eye_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/pbr_test_endfield_eyeslash_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/pbr_test_endfield_face_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/pbr_test_lysk_eye_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/pbr_test_namaqualand_cliff_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/pbr_test_sphere_lod_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/pbr_test_sphere_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/pbr_test_ue4_eye_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/pbr_test_witch_eye_lod_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/pbr_test_witch_eye_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/pbr_test_witch_lod_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/pbr_test_witch_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/whitebird_beishi_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/whitebird_body_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/whitebird_guashi_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/whitebird_head_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/whitebird_leftarm_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/whitebird_leftarmdown_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/whitebird_leftleg_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/whitebird_leftlegdown_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/whitebird_rightarm_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/whitebird_rightarmdown_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/whitebird_rightleg_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/whitebird_rightlegdown_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/whitebird_toushi_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/whitebird_zhoushen_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/witchgirl_body_lod_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/witchgirl_body_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/witchgirl_eye_lod_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/witchgirl_eye_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/witchgirl_head_lod_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/witchgirl_head_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/witchgirl_leftarm_lod_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/witchgirl_leftarm_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/witchgirl_leftarmdown_lod_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/witchgirl_leftarmdown_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/witchgirl_leftleg_lod_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/witchgirl_leftleg_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/witchgirl_leftlegdown_lod_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/witchgirl_leftlegdown_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/witchgirl_rightarm_lod_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/witchgirl_rightarm_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/witchgirl_rightarmdown_lod_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/witchgirl_rightarmdown_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/witchgirl_rightleg_lod_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/witchgirl_rightleg_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/witchgirl_rightlegdown_lod_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/mesh/witchgirl_rightlegdown_mesh.bin"
+        },
+        {
+            "path": "models/ntes_pbr/skeleton/pbr_test_armor_set_m00_material_skeleton.json"
+        },
+        {
+            "path": "models/ntes_pbr/skeleton/pbr_test_armor_set_m01_cloak_and_foot_skeleton.json"
+        },
+        {
+            "path": "models/ntes_pbr/skeleton/pbr_test_armor_set_m02_clothing_skeleton.json"
+        },
+        {
+            "path": "models/ntes_pbr/skeleton/pbr_test_armor_set_m03_dagger_skeleton.json"
+        },
+        {
+            "path": "models/ntes_pbr/skeleton/pbr_test_armor_set_m04_hand_skeleton.json"
+        },
+        {
+            "path": "models/ntes_pbr/skeleton/pbr_test_armor_set_m05_helm_skeleton.json"
+        },
+        {
+            "path": "models/ntes_pbr/skeleton/pbr_test_armor_set_m06_material_6_skeleton.json"
+        },
+        {
+            "path": "models/ntes_pbr/skeleton/pbr_test_armor_set_m07_main_skeleton.json"
+        },
+        {
+            "path": "models/ntes_pbr/skeleton/pbr_test_armor_set_m08_po01_skeleton.json"
+        },
+        {
+            "path": "models/ntes_pbr/skeleton/pbr_test_armor_set_m09_po02_skeleton.json"
+        },
+        {
+            "path": "models/ntes_pbr/skeleton/pbr_test_armor_set_m10_shield_skeleton.json"
+        },
+        {
+            "path": "models/ntes_pbr/skeleton/pbr_test_armor_set_m11_sword_skeleton.json"
+        },
+        {
+            "path": "models/ntes_pbr/skeleton/pbr_test_armor_set_skeleton.json"
+        },
+        {
+            "path": "models/ntes_pbr/skeleton/pbr_test_chair_skeleton.json"
+        },
+        {
+            "path": "models/ntes_pbr/skeleton/pbr_test_crepe_satin_skeleton.json"
+        },
+        {
+            "path": "models/ntes_pbr/skeleton/pbr_test_electric_stove_skeleton.json"
+        },
+        {
+            "path": "models/ntes_pbr/skeleton/pbr_test_endfield_eye_skeleton.json"
+        },
+        {
+            "path": "models/ntes_pbr/skeleton/pbr_test_namaqualand_cliff_skeleton.json"
+        },
+        {
+            "path": "models/ntes_pbr/skeleton/pbr_test_sphere_skeleton.json"
+        },
+        {
+            "path": "models/ntes_pbr/skeleton/pbr_test_witch_eye_skeleton.json"
+        },
+        {
+            "path": "models/ntes_pbr/skeleton/pbr_test_witch_skeleton.json"
+        },
+        {
+            "path": "models/ntes_pbr/skeleton/whitebird_beishi_skeleton.json"
+        },
+        {
+            "path": "models/ntes_pbr/skeleton/whitebird_body_skeleton.json"
+        },
+        {
+            "path": "models/ntes_pbr/skeleton/whitebird_guashi_skeleton.json"
+        },
+        {
+            "path": "models/ntes_pbr/skeleton/whitebird_head_skeleton.json"
+        },
+        {
+            "path": "models/ntes_pbr/skeleton/whitebird_leftarm_skeleton.json"
+        },
+        {
+            "path": "models/ntes_pbr/skeleton/whitebird_leftarmdown_skeleton.json"
+        },
+        {
+            "path": "models/ntes_pbr/skeleton/whitebird_leftleg_skeleton.json"
+        },
+        {
+            "path": "models/ntes_pbr/skeleton/whitebird_leftlegdown_skeleton.json"
+        },
+        {
+            "path": "models/ntes_pbr/skeleton/whitebird_rightarm_skeleton.json"
+        },
+        {
+            "path": "models/ntes_pbr/skeleton/whitebird_rightarmdown_skeleton.json"
+        },
+        {
+            "path": "models/ntes_pbr/skeleton/whitebird_rightleg_skeleton.json"
+        },
+        {
+            "path": "models/ntes_pbr/skeleton/whitebird_rightlegdown_skeleton.json"
+        },
+        {
+            "path": "models/ntes_pbr/skeleton/whitebird_toushi_skeleton.json"
+        },
+        {
+            "path": "models/ntes_pbr/skeleton/whitebird_zhoushen_skeleton.json"
+        },
+        {
+            "path": "models/ntes_pbr/skeleton/witchgirl_body_skeleton.json"
+        },
+        {
+            "path": "models/ntes_pbr/skeleton/witchgirl_eye_skeleton.json"
+        },
+        {
+            "path": "models/ntes_pbr/skeleton/witchgirl_head_skeleton.json"
+        },
+        {
+            "path": "models/ntes_pbr/skeleton/witchgirl_leftarm_skeleton.json"
+        },
+        {
+            "path": "models/ntes_pbr/skeleton/witchgirl_leftarmdown_skeleton.json"
+        },
+        {
+            "path": "models/ntes_pbr/skeleton/witchgirl_leftleg_skeleton.json"
+        },
+        {
+            "path": "models/ntes_pbr/skeleton/witchgirl_leftlegdown_skeleton.json"
+        },
+        {
+            "path": "models/ntes_pbr/skeleton/witchgirl_rightarm_skeleton.json"
+        },
+        {
+            "path": "models/ntes_pbr/skeleton/witchgirl_rightarmdown_skeleton.json"
+        },
+        {
+            "path": "models/ntes_pbr/skeleton/witchgirl_rightleg_skeleton.json"
+        },
+        {
+            "path": "models/ntes_pbr/skeleton/witchgirl_rightlegdown_skeleton.json"
+        },
+        {
+            "path": "textures/models/4d_skin/sh_skin_s9WhiteBird_bloom.png"
+        },
+        {
+            "path": "textures/models/ntes_pbr/pbr_ibl_specular.ktx"
+        },
+        {
+            "path": "textures/models/ntes_pbr/pbr_test_witch_arm.astc.ktx"
+        },
+        {
+            "path": "textures/models/ntes_pbr/pbr_test_witch_arm.bc.ktx"
+        },
+        {
+            "path": "textures/models/ntes_pbr/pbr_test_witch_arm.png"
+        },
+        {
+            "path": "textures/models/ntes_pbr/pbr_test_witch_diff.astc.ktx"
+        },
+        {
+            "path": "textures/models/ntes_pbr/pbr_test_witch_diff.bc.ktx"
+        },
+        {
+            "path": "textures/models/ntes_pbr/pbr_test_witch_diff.png"
+        },
+        {
+            "path": "textures/models/ntes_pbr/pbr_test_witch_eye_arm.astc.ktx"
+        },
+        {
+            "path": "textures/models/ntes_pbr/pbr_test_witch_eye_arm.bc.ktx"
+        },
+        {
+            "path": "textures/models/ntes_pbr/pbr_test_witch_eye_arm.png"
+        },
+        {
+            "path": "textures/models/ntes_pbr/pbr_test_witch_eye_diff.astc.ktx"
+        },
+        {
+            "path": "textures/models/ntes_pbr/pbr_test_witch_eye_diff.bc.ktx"
+        },
+        {
+            "path": "textures/models/ntes_pbr/pbr_test_witch_eye_diff.png"
+        },
+        {
+            "path": "textures/models/ntes_pbr/pbr_test_witch_eye_nor.astc.ktx"
+        },
+        {
+            "path": "textures/models/ntes_pbr/pbr_test_witch_eye_nor.bc.ktx"
+        },
+        {
+            "path": "textures/models/ntes_pbr/pbr_test_witch_eye_nor.png"
+        },
+        {
+            "path": "textures/models/ntes_pbr/pbr_test_witch_eye_white_studio.ktx"
+        },
+        {
+            "path": "textures/models/ntes_pbr/pbr_test_witch_nor.astc.ktx"
+        },
+        {
+            "path": "textures/models/ntes_pbr/pbr_test_witch_nor.bc.ktx"
+        },
+        {
+            "path": "textures/models/ntes_pbr/pbr_test_witch_nor.png"
+        },
+        {
+            "path": "textures/models/ntes_pbr/pbr_test_witch_sh.astc.ktx"
+        },
+        {
+            "path": "textures/models/ntes_pbr/pbr_test_witch_sh.json"
+        },
+        {
+            "path": "textures/models/ntes_pbr/pbr_test_witch_sh.png"
+        },
+        {
+            "path": "textures/models/ntes_pbr/whitebird_01_D.astc.ktx"
+        },
+        {
+            "path": "textures/models/ntes_pbr/whitebird_01_D.bc.ktx"
+        },
+        {
+            "path": "textures/models/ntes_pbr/whitebird_01_D.tga"
+        },
+        {
+            "path": "textures/models/ntes_pbr/whitebird_01_M.astc.ktx"
+        },
+        {
+            "path": "textures/models/ntes_pbr/whitebird_01_M.bc.ktx"
+        },
+        {
+            "path": "textures/models/ntes_pbr/whitebird_01_M.tga"
+        },
+        {
+            "path": "textures/models/ntes_pbr/whitebird_01_N.astc.ktx"
+        },
+        {
+            "path": "textures/models/ntes_pbr/whitebird_01_N.bc.ktx"
+        },
+        {
+            "path": "textures/models/ntes_pbr/whitebird_01_N.tga"
+        },
+        {
+            "path": "textures/models/ntes_pbr/whitebird_02_D.astc.ktx"
+        },
+        {
+            "path": "textures/models/ntes_pbr/whitebird_02_D.bc.ktx"
+        },
+        {
+            "path": "textures/models/ntes_pbr/whitebird_02_D.tga"
+        },
+        {
+            "path": "textures/models/ntes_pbr/whitebird_02_M.astc.ktx"
+        },
+        {
+            "path": "textures/models/ntes_pbr/whitebird_02_M.bc.ktx"
+        },
+        {
+            "path": "textures/models/ntes_pbr/whitebird_02_M.tga"
+        },
+        {
+            "path": "textures/models/ntes_pbr/whitebird_02_N.astc.ktx"
+        },
+        {
+            "path": "textures/models/ntes_pbr/whitebird_02_N.bc.ktx"
+        },
+        {
+            "path": "textures/models/ntes_pbr/whitebird_02_N.tga"
+        },
+        {
+            "path": "textures/models/ntes_pbr/whitebird_sh_skin_s9WhiteBird_shv768.astc.ktx"
+        },
+        {
+            "path": "textures/models/ntes_pbr/whitebird_sh_skin_s9WhiteBird_shv768.json"
+        },
+        {
+            "path": "textures/models/ntes_pbr/whitebird_sh_skin_s9WhiteBird_shv768.png"
+        },
+        {
+            "path": "textures/models/ntes_pbr/witchgirl_D_body_albedo_shv768.astc.ktx"
+        },
+        {
+            "path": "textures/models/ntes_pbr/witchgirl_D_body_albedo_shv768.json"
+        },
+        {
+            "path": "textures/models/ntes_pbr/witchgirl_D_body_albedo.astc.ktx"
+        },
+        {
+            "path": "textures/models/ntes_pbr/witchgirl_D_body_albedo.bc.ktx"
+        },
+        {
+            "path": "textures/models/ntes_pbr/witchgirl_Detail_1_Normal.astc.ktx"
+        },
+        {
+            "path": "textures/models/ntes_pbr/witchgirl_Detail_1_Normal.bc.ktx"
+        },
+        {
+            "path": "textures/models/ntes_pbr/witchgirl_M_body_ARM.astc.ktx"
+        },
+        {
+            "path": "textures/models/ntes_pbr/witchgirl_M_body_ARM.bc.ktx"
+        },
+        {
+            "path": "textures/models/ntes_pbr/witchgirl_N_body_normal.astc.ktx"
+        },
+        {
+            "path": "textures/models/ntes_pbr/witchgirl_N_body_normal.bc.ktx"
+        },
+        {
+            "path": "textures/models/ntes_pbr/witchgirl_ss_s8Witch_E.astc.ktx"
+        },
+        {
+            "path": "textures/models/ntes_pbr/witchgirl_ss_s8Witch_E.bc.ktx"
         }
     ]
 }

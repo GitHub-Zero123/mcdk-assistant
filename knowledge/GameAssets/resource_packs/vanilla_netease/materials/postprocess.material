@@ -412,5 +412,53 @@
             "DisableDepthTest"
         ],
         "msaaSupport": "Both"
+    },
+    "ggx_prefilter": {
+        "vertexShader": "shaders/uv_fullscreen.vertex",
+        "fragmentShader": "shaders/ggx_prefilter.fragment",
+        "vertexFields": [
+            {
+                "field": "Position"
+            },
+            {
+                "field": "UV0"
+            }
+        ],
+        "samplerStates": [
+            {
+                "samplerIndex": 0,
+                "textureWrap": "Clamp",
+                "textureFilter": "Trilinear"
+            }
+        ],
+        "states": [
+            "DisableDepthTest",
+            "DisableCulling"
+        ],
+        "msaaSupport": "Both"
+    },
+    "ggx_prefilter_equirect": {
+        "vertexShader": "shaders/uv_fullscreen.vertex",
+        "fragmentShader": "shaders/ggx_prefilter_equirect.fragment",
+        "vertexFields": [
+            {
+                "field": "Position"
+            },
+            {
+                "field": "UV0"
+            }
+        ],
+        "samplerStates": [
+            {
+                "samplerIndex": 0,
+                "textureWrap": "Repeat",
+                "textureFilter": "Trilinear"
+            }
+        ],
+        "states": [
+            "DisableDepthTest",
+            "DisableCulling"
+        ],
+        "msaaSupport": "Both"
     }
 }

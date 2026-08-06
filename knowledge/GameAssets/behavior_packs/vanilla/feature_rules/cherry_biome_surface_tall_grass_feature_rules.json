@@ -10,13 +10,13 @@
             "minecraft:biome_filter": [
                 {
                     "test": "has_biome_tag",
-                    "operator": "==",
                     "value": "cherry_grove"
                 }
             ]
         },
         "distribution": {
-            "iterations": "20",
+            "iterations": "(query.noise((variable.originx + 8) / 200.0, (variable.originz + 8) / 200.0) < -0.8) ? 5 : 10",
+            "scatter_chance": "variable.is_legacy ? 0.0 : 100.0",
             "x": {
                 "distribution": "uniform",
                 "extent": [
@@ -24,13 +24,7 @@
                     16
                 ]
             },
-            "y": {
-                "distribution": "uniform",
-                "extent": [
-                    0,
-                    "query.heightmap(variable.worldx, variable.worldz) + 4"
-                ]
-            },
+            "y": "query.heightmap(variable.worldx, variable.worldz)",
             "z": {
                 "distribution": "uniform",
                 "extent": [

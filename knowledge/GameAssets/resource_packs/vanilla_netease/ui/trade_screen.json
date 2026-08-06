@@ -231,6 +231,12 @@
         "mapping_type": "pressed"
       },
       {
+        "from_button_id": "button.controller_back",
+        "to_button_id": "button.trade_take_all_place_all",
+        "mapping_type": "pressed",
+        "ignored": "(not $is_ps4)"
+      },
+      {
         "from_button_id": "button.menu_secondary_select",
         "to_button_id": "button.trade_take_half_place_one",
         "mapping_type": "pressed"
@@ -507,7 +513,6 @@
     "type": "panel",
     "controls": [
       { "gamepad_helpers@common.container_gamepad_helpers": {} },
-      { "flying_item_renderer@common.flying_item_renderer": {} },
       { "selected_item_details_factory@common.selected_item_details_factory": {} },
       { "item_lock_notification_factory@common.item_lock_notification_factory": {} },
       {
@@ -529,7 +534,8 @@
             }
           ]
         }
-      }
+      },
+      { "flying_item_renderer@common.flying_item_renderer": { "layer": 21 } }
     ]
   },
 

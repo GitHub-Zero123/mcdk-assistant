@@ -1,0 +1,32 @@
+{
+    "format_version": "1.13.0",
+    "minecraft:scatter_feature": {
+        "description": {
+            "identifier": "minecraft:scatter_brown_mushroom_feature"
+        },
+        "iterations": 96,
+        "x": {
+            "distribution": "triangle",
+            "extent": [
+                -7,
+                7
+            ]
+        },
+        "y": {
+            "distribution": "triangle",
+            "extent": [
+                -3,
+                3
+            ]
+        },
+        "z": {
+            "distribution": "triangle",
+            "extent": [
+                -7,
+                7
+            ]
+        },
+        "coordinate_eval_order": "zyx",
+        "places_feature": "minecraft:brown_mushroom_feature"
+    }
+}

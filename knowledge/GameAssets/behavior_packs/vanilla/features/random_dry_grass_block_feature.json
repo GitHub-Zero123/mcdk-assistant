@@ -1,0 +1,18 @@
+{
+    "format_version": "1.21.60",
+    "minecraft:weighted_random_feature": {
+        "description": {
+            "identifier": "minecraft:random_dry_grass_block_feature"
+        },
+        "features": [
+            [
+                "minecraft:short_dry_grass_feature",
+                1
+            ],
+            [
+                "minecraft:tall_dry_grass_feature",
+                1
+            ]
+        ]
+    }
+}

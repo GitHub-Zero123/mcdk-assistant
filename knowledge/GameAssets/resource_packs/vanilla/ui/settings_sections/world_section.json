@@ -124,6 +124,13 @@
         }
       },
       {
+        "spacer_01": {
+          "ignored": "($nx_os or not $education_edition or not $settings_spatial_pattern_fix_enabled)",
+          "type": "panel",
+          "size": "$spatialPatternsPadding"
+        }
+      },
+      {
         "classroom_button@settings_common.section_toggle_base": {
           "ignored": "($nx_os or not $education_edition)",
           "$toggle_view_binding_name": "classroom_button_toggle",
@@ -138,11 +145,25 @@
         }
       },
       {
+        "spacer_02": {
+          "ignored": "(not $nx_os or not $settings_spatial_pattern_fix_enabled)",
+          "type": "panel",
+          "size": "$spatialPatternsPadding"
+        }
+      },
+      {
         "switch_game_button@world_section.game_button": {
           "ignored": "(not $nx_os)",
           "$toggle_group_forced_index": "$game_forced_index",
           "$glyph_texture": "textures/ui/controller_glyph_switch",
           "$glyph_color_texture": "textures/ui/controller_glyph_color_switch"
+        }
+      },
+      {
+        "spacer_03": {
+          "ignored": "($education_edition or not $settings_spatial_pattern_fix_enabled)",
+          "type": "panel",
+          "size": "$spatialPatternsPadding"
         }
       },
       {
@@ -153,9 +174,23 @@
         }
       },
       {
+        "spacer_04": {
+          "ignored": "(not $education_edition or not $edu_save_to_cloud_on or not $edu_save_to_cloud_general_toggle_on or $is_multiplayer_client or not $settings_spatial_pattern_fix_enabled)",
+          "type": "panel",
+          "size": "$spatialPatternsPadding"
+        }
+      },
+      {
         "edu_cloud_button@world_section.edu_cloud_button": {
           "ignored": "(not $education_edition or not $edu_save_to_cloud_on or not $edu_save_to_cloud_general_toggle_on or $is_multiplayer_client)",
           "$toggle_group_forced_index": "$edu_cloud_level_forced_index"
+        }
+      },
+      {
+        "spacer_05": {
+          "ignored": "($is_publish or not $settings_spatial_pattern_fix_enabled)",
+          "type": "panel",
+          "size": "$spatialPatternsPadding"
         }
       },
       {
@@ -281,7 +316,7 @@
     "$tts_section_header": "options.category.addons",
     "controls": [
       {
-        "spacer": {
+        "spacer_01": {
           "type": "panel",
           "size": [ 0, 8 ]
         }
@@ -294,6 +329,13 @@
       {
         "level_texture_pack_button@world_section.level_texture_pack_button": {
           "$toggle_group_forced_index": "$level_texture_pack_toggle_index"
+        }
+      },
+      {
+        "spacer_02": {
+          "ignored": "(not $settings_spatial_pattern_fix_enabled)",
+          "type": "panel",
+          "size": "$spatialPatternsPadding"
         }
       },
       {
@@ -386,7 +428,7 @@
   "export_world_button@settings_common.action_button": {
     // std pocket should not have export until bedrock wants it
     // export is disabled in game
-    // Some platforms such as fireTV do not support file picking
+    // Some platforms do not support file picking
     // EDU supports file picking on all supported platforms except ios which is pocket
     "ignored": "(($pocket_edition or $export_disabled or not $file_picking_supported) and not $education_edition)",
     "size": [ "50%", 30 ],
@@ -861,7 +903,6 @@
       {
         "server_sim_distance_slider@settings_common.option_slider": {
           "$tts_section_header": "createWorldScreen.worldPreferences",
-          "ignored": "($is_holographic)",
           "$option_label": "#server_sim_distance_slider_label",
           "$slider_name": "server_sim_distance",
           "$slider_value_binding_name": "#server_sim_distance",
@@ -905,6 +946,17 @@
           "$option_binding_name": "#show_coordinates",
           "$option_enabled_binding_name": "#show_coordinates_enabled",
           "$toggle_name": "show_coordinates",
+          "$focus_override_right": "FOCUS_OVERRIDE_STOP",
+          "$toggle_binding_condition": "always_when_visible"
+        }
+      },
+      {
+        "locator_bar_toggle@settings_common.option_toggle": {
+          "$tts_section_header": "createWorldScreen.worldSettings",
+          "$option_label": "createWorldScreen.locatorBar",
+          "$option_binding_name": "#locator_bar",
+          "$option_enabled_binding_name": "#locator_bar_enabled",
+          "$toggle_name": "locator_bar",
           "$focus_override_right": "FOCUS_OVERRIDE_STOP",
           "$toggle_binding_condition": "always_when_visible"
         }
@@ -1509,6 +1561,7 @@
     "$no_realms_packs_visibility_binding": "#no_realms_packs_visibility_level",
     "$no_unowned_packs_visibility_binding": "#no_unowned_packs_visibility_level",
     "$view_more_unowned_content_button_visibility_binding": "#suggested_content_visible_level",
+    "$addon_stacking_warning_visibility_binding": "#addon_stacking_warning_visible_level",
     "$force_pack_download_binding_type": "global",
     "bindings": [
       {
@@ -1603,6 +1656,7 @@
     "$no_realms_packs_visibility_binding": "#no_realms_packs_visibility_addon",
     "$no_unowned_packs_visibility_binding": "#no_unowned_packs_visibility_addon",
     "$view_more_unowned_content_button_visibility_binding": "#suggested_content_visible_addon",
+    "$addon_stacking_warning_visibility_binding": "#addon_stacking_warning_visible_addon",
     "bindings": [
       {
         "binding_type": "view",
@@ -1933,7 +1987,6 @@
       {
         "open_uri_button@play.open_account_setting_button": {
           "size": [ "100%", 30 ],
-          "ignored": "$is_holographic",
           "visible": false,
           "bindings": [
             {

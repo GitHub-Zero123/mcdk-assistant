@@ -1,0 +1,19 @@
+{
+    "format_version": "1.21.40",
+    "minecraft:single_block_feature": {
+        "description": {
+            "identifier": "minecraft:jungle_fern_feature"
+        },
+        "places_block": {
+            "name": "minecraft:fern"
+        },
+        "enforce_survivability_rules": true,
+        "enforce_placement_rules": false,
+        "may_replace": [
+            "minecraft:air"
+        ],
+        "may_not_attach_to": {
+            "bottom": "minecraft:podzol"
+        }
+    }
+}

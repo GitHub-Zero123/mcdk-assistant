@@ -1,0 +1,1314 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+#line 4
+precision highp float;
+
+#if __VERSION__ < 300
+  #extension GL_EXT_shader_texture_lod : enable
+#endif
+
+#include "uniformPerFrameConstants.h"
+#include "uniformExtraVectorConstants.h"
+#include "neteaseModelFragmentUtil.h"
+#include "pbr_util.h"
+
+LAYOUT_BINDING(0) uniform sampler2D TEXTURE_0; // Albedo (Diffuse)
+LAYOUT_BINDING(1) uniform sampler2D TEXTURE_1; // ARM: R=AO, G=Roughness, B=Metallic
+LAYOUT_BINDING(2) uniform sampler2D TEXTURE_2; // Normal map (OpenGL tangent-space)
+LAYOUT_BINDING(3) uniform sampler2D TEXTURE_3; // IBL prefiltered octahedral map (from DynamicCubemap)
+LAYOUT_BINDING(4) uniform sampler2D TEXTURE_4; // Visible SH map (runtime-compatible RGBA encoding)
+LAYOUT_BINDING(5) uniform sampler2D TEXTURE_5; // Emissive map
+#if defined(NTES_ANIMATED_MODEL_BATCH_TEXTURE)
+#define PBR_EXTRA_TEXTURE TEXTURE_5
+#elif defined(EYE_CUBEMAP_SAMPLE) || defined(USE_DETAIL_MAP)
+LAYOUT_BINDING(6) uniform sampler2D TEXTURE_6; // Eye env, or Unity-style detail map: R=AO, G=normalY, B=smoothness, A=normalX
+#define PBR_EXTRA_TEXTURE TEXTURE_6
+#endif
+#ifdef USE_NTES_PBR_ENTITY_SHADOWMAP
+LAYOUT_BINDING(7) uniform sampler2D TEXTURE_7; // Netease PBR entity shadowmap
+#endif
+#ifdef USE_FABRIC_VIP_SILK_UV_BLEND
+LAYOUT_BINDING(8) uniform sampler2D TEXTURE_8; // UV1/UV2 blend base color
+LAYOUT_BINDING(9) uniform sampler2D TEXTURE_9; // UV1/UV2 blend packed map: R/G=normal, B=roughness, A=mask
+#endif
+
+// Mobile precision strategy:
+// - positionWS: highp (camera-relative distance needs fp32)
+// - normalWS/tangentWS/lightDirWS: mediump (normalized [-1,1], fp16 sufficient)
+// - lightIntensity: mediump ([0,1] range)
+varying highp vec4 light;
+varying highp vec4 fogColor;
+varying highp vec3 positionWS;
+varying mediump vec3 normalWS;
+varying mediump vec4 tangentWS;
+varying mediump vec3 lightDirWS;
+varying mediump float lightIntensity;
+#ifdef USE_VISIBLE_SH_MAP
+varying highp vec2 uvSH;
+varying highp float shTangentW;
+#endif
+#ifdef USE_FABRIC_VIP_SILK_UV_BLEND
+varying highp vec2 uvFabric2;
+#ifndef SILK_UV2_SCALE
+#define SILK_UV2_SCALE 1.0
+#endif
+#endif
+
+#ifdef USE_MATERIAL_UNIFORM_REFLECTION
+uniform float diffuse_multiplier;
+uniform float specular_multiplier;
+uniform float normal_strength;
+uniform float ao_strength;
+uniform float roughness_multiplier;
+uniform float metallic_multiplier;
+uniform float emissive_strength;
+uniform float sh_visibility_strength;
+uniform vec4 base_color;
+#ifdef USE_PBR_UV_TRANSFORM
+uniform vec4 pbr_base_uv_transform;
+uniform float pbr_base_uv_rotator;
+#endif
+#ifdef USE_PBR_DETAIL_UV_TRANSFORM
+uniform vec4 pbr_detail_uv_transform;
+uniform float pbr_detail_uv_rotator;
+#endif
+#ifdef USE_FABRIC_VIP_UV_BLEND
+uniform vec4 fabric_uv1_color_metallic;
+uniform vec4 fabric_detail_uv_transform;
+uniform vec4 fabric_uv2_uv_transform;
+uniform vec4 fabric_normal_mask_metallic;
+uniform vec4 fabric_roughness_control;
+uniform vec4 fabric_anisotropy_tangent;
+uniform vec4 fabric_rotator_uv2_tangent;
+uniform float fabric_sh_specular_visibility_strength;
+#define FABRIC_EV10 fabric_uv1_color_metallic
+#define FABRIC_EV11 fabric_detail_uv_transform
+#define FABRIC_EV12 fabric_uv2_uv_transform
+#define FABRIC_EV13 fabric_normal_mask_metallic
+#define FABRIC_EV14 fabric_roughness_control
+#define FABRIC_EV15 fabric_anisotropy_tangent
+#define FABRIC_EV16 fabric_rotator_uv2_tangent
+#endif
+#ifdef USE_FABRIC_VIP_BODY
+uniform vec3 fabric_body_color;
+uniform float fabric_body_roughness_multiplier;
+uniform float fabric_body_metallic_multiplier;
+uniform float fabric_body_ao_strength;
+uniform float fabric_body_sh_specular_visibility_strength;
+#endif
+#endif
+
+#if defined(USE_FABRIC_VIP_UV_BLEND) && !defined(USE_MATERIAL_UNIFORM_REFLECTION)
+#ifndef FABRIC_EV10
+#define FABRIC_EV10 EXTRA_VECTOR10
+#endif
+#ifndef FABRIC_EV11
+#define FABRIC_EV11 EXTRA_VECTOR11
+#endif
+#ifndef FABRIC_EV12
+#define FABRIC_EV12 EXTRA_VECTOR12
+#endif
+#ifndef FABRIC_EV13
+#define FABRIC_EV13 EXTRA_VECTOR13
+#endif
+#ifndef FABRIC_EV14
+#define FABRIC_EV14 EXTRA_VECTOR14
+#endif
+#ifndef FABRIC_EV15
+#define FABRIC_EV15 EXTRA_VECTOR15
+#endif
+#ifndef FABRIC_EV16
+#define FABRIC_EV16 EXTRA_VECTOR16
+#endif
+#endif
+
+// IBL intensity control
+#define IBL_SPECULAR_INTENSITY 1.0
+#define IBL_DIFFUSE_INTENSITY  1.0
+// Avoid sampling the coarsest 2x2 face for diffuse proxy; keep some angular interpolation.
+#define IBL_DIFFUSE_PR 0.75
+// Keep some residual light when visibility is extremely low.
+#define VISIBILITY_MIN_DIRECT 0.0
+#define VISIBILITY_MIN_IBL    0.28
+#define SILK_VISIBILITY_MIN_IBL 0.05
+// Optional: strengthen SH occlusion response (higher -> darker when occluded).
+#define VISIBILITY_POWER_DIRECT 1.20
+#define VISIBILITY_POWER_IBL    1.35
+#define SILK_VISIBILITY_POWER_IBL 1.65
+#define EMISSIVE_INTENSITY      1.0
+#define EYE_ENV_DIFFUSE_REF_LUMA 0.35
+#define EYE_ENV_MIN_DIFFUSE_SCALE 0.25
+#define EYE_ENV_MAX_DIFFUSE_SCALE 1.40
+#ifdef RNGL_LIGHT
+#define RNGL_DIRECT_LIGHT_MULTIPLIER 3.0
+#else
+#define RNGL_DIRECT_LIGHT_MULTIPLIER 1.0
+#endif
+// Debug macros are injected by material defines:
+// SH_VISIBILITY_DEBUG_OUTPUT_DIRECT / SH_VISIBILITY_DEBUG_OUTPUT_IBL_DIFF / SH_VISIBILITY_DEBUG_OUTPUT_UV2
+
+#ifdef USE_NTES_PBR_ENTITY_SHADOWMAP
+highp mat4 getNtesPBREntityShadowMatrix() {
+    return mat4(NTES_PBR_ENTITY_SHADOW_MATRIX0, NTES_PBR_ENTITY_SHADOW_MATRIX1, NTES_PBR_ENTITY_SHADOW_MATRIX2, NTES_PBR_ENTITY_SHADOW_MATRIX3);
+}
+
+highp float getNtesPBREntityShadowMapSize() {
+    return max(NTES_PBR_ENTITY_SHADOW_PARAMS2.x, 1.0);
+}
+
+highp float linstep(highp float a, highp float b, highp float v) {
+    return clamp((v - a) / max(b - a, 1.0e-5), 0.0, 1.0);
+}
+
+// MSM16 decode (inverse of encodeMoments4 in ntes_pbr_entity_shadow_caster.fragment).
+// After this, b = (E[z], E[z^2], E[z^3], E[z^4]) ready for Hamburger reconstruction.
+highp vec4 decodeMoments4(highp vec4 encoded) {
+    encoded.x -= 0.0359558848;
+    highp mat4 fromEncoded = mat4(
+        0.2227744146, 0.1549679261, 0.1451988946,  0.163127443,
+        0.0771972861, 0.1394629426, 0.2120202157,  0.2591432266,
+        0.7926986636, 0.7963415838, 0.7258694464,  0.6539092497,
+        0.0319417555,-0.1722823173,-0.2758014811, -0.3376131734);
+    return fromEncoded * encoded;
+}
+
+// Hamburger 4MSM, transcribed from Peters & Klein 2015 "Moment Shadow Mapping"
+// Listing 4 (HPG 2015). Returns shadow intensity in [0,1] (0 = fully lit).
+highp float computeMSMHamburger(highp vec4 b, highp float fragmentDepth, highp float depthBias, highp float momentBias) {
+    // Bias input moments and compute Cholesky factorisation L L^T
+    highp vec4 b_ = mix(b, vec4(0.5, 0.5, 0.5, 0.5), momentBias);
+    highp vec3 z;
+    z[0] = fragmentDepth - depthBias;
+
+    highp float L32D22 = (-b_.x * b_.y) + b_.z;
+    highp float D22 = (-b_.x * b_.x) + b_.y;
+    highp float squaredDepthVariance = (-b_.y * b_.y) + b_.w;
+    highp float D33D22 = dot(vec2(squaredDepthVariance, -L32D22), vec2(D22, L32D22));
+    D22 = max(D22, 1.0e-6);
+    D33D22 = max(D33D22, 1.0e-6);
+    highp float invD22 = 1.0 / D22;
+    highp float L32 = L32D22 * invD22;
+
+    // Solve L * c1 = (1, z[0], z[0]^2)^T
+    highp vec3 c = vec3(1.0, z[0], z[0] * z[0]);
+    c[1] -= b_.x;
+    c[2] -= b_.y + L32 * c[1];
+
+    // Solve D * c2 = c1
+    c[1] *= invD22;
+    c[2] *= D22 / D33D22;
+
+    // Solve L^T * c3 = c2
+    c[1] -= L32 * c[2];
+    c[0] -= dot(c.yz, b_.xy);
+
+    // Solve quadratic c[0] + c[1] * z + c[2] * z^2 = 0 -> roots z[1], z[2]
+    c[2] = abs(c[2]) < 1.0e-6 ? (c[2] < 0.0 ? -1.0e-6 : 1.0e-6) : c[2];
+    highp float p = c[1] / c[2];
+    highp float q = c[0] / c[2];
+    highp float D = (p * p * 0.25) - q;
+    D = max(D, 0.0);
+    highp float r = sqrt(D);
+    z[1] = -p * 0.5 - r;
+    z[2] = -p * 0.5 + r;
+
+    // 4-point ordering selection per Listing 4
+    highp vec4 switchVal = (z[2] < z[0]) ? vec4(z[1], z[0], 1.0, 1.0)
+                         : ((z[1] < z[0]) ? vec4(z[0], z[1], 0.0, 1.0)
+                                          : vec4(0.0, 0.0, 0.0, 0.0));
+    highp float denom = (z[2] - switchVal[1]) * (z[0] - z[1]);
+    denom = abs(denom) < 1.0e-6 ? (denom < 0.0 ? -1.0e-6 : 1.0e-6) : denom;
+    highp float quotient = (switchVal[0] * z[2] - b_[0] * (switchVal[0] + z[2]) + b_[1]) / denom;
+    return clamp(switchVal[2] + switchVal[3] * quotient, 0.0, 1.0);
+}
+
+highp float hamburger4MSMLitVisibility(highp vec4 encodedMoments, highp float fragmentDepth) {
+    highp float depthBias = NTES_PBR_ENTITY_SHADOW_PARAMS.y;
+    highp float momentBias = NTES_PBR_ENTITY_SHADOW_PARAMS.z;
+    highp float leakReduction = NTES_PBR_ENTITY_SHADOW_PARAMS.w;
+    highp vec4 moments = decodeMoments4(encodedMoments);
+    highp float shadowIntensity = computeMSMHamburger(moments, fragmentDepth, depthBias, momentBias);
+    highp float litVisibility = 1.0 - shadowIntensity;
+    // Light-bleeding reduction: remap [leakReduction, 1] -> [0, 1].
+    return linstep(leakReduction, 1.0, litVisibility);
+}
+
+highp float getNtesPBREntityShadowPCFBias(highp vec3 normalWSForBias, highp vec3 lightDirWSForBias) {
+    highp float baseBias = max(NTES_PBR_ENTITY_SHADOW_PARAMS.y, 0.0005);
+    highp float ndotl = abs(dot(normalize(normalWSForBias), normalize(lightDirWSForBias)));
+    highp float slope = 1.0 - clamp(ndotl, 0.0, 1.0);
+    return clamp(baseBias * (2.5 + slope * 6.0), baseBias, 0.014);
+}
+
+highp float sampleNtesPBREntityShadowPCFDepth(highp vec2 texelCoord) {
+    highp float shadowMapSize = getNtesPBREntityShadowMapSize();
+    highp vec2 clampedTexel = clamp(texelCoord, vec2(0.0), vec2(shadowMapSize - 1.0));
+    highp vec2 uv = (clampedTexel + vec2(0.5)) / shadowMapSize;
+    return texture2D(TEXTURE_7, uv).r;
+}
+
+highp float sampleNtesPBREntityShadowPCF(highp vec3 shadowCoord, highp vec3 normalWSForBias, highp vec3 lightDirWSForBias) {
+    highp float shadowMapSize = getNtesPBREntityShadowMapSize();
+    highp vec2 centerTexel = floor(shadowCoord.xy * shadowMapSize);
+    // Bias subtracts from receiver depth so it does NOT shadow itself across a
+    // quantised SM. timurson uses + here:
+    //   shadowCoef = projCoords.z - bias > shadowDepth ? 0 : 1
+    // i.e. fragment is in shadow if (z - bias) > caster_z, equivalent to
+    //      step(z - bias, caster_z) lit. Same sign convention here.
+    highp float receiverDepth = shadowCoord.z - getNtesPBREntityShadowPCFBias(normalWSForBias, lightDirWSForBias);
+    highp float visibility = 0.0;
+    visibility += step(receiverDepth, sampleNtesPBREntityShadowPCFDepth(centerTexel + vec2(-1.0, -1.0)));
+    visibility += step(receiverDepth, sampleNtesPBREntityShadowPCFDepth(centerTexel + vec2( 0.0, -1.0)));
+    visibility += step(receiverDepth, sampleNtesPBREntityShadowPCFDepth(centerTexel + vec2( 1.0, -1.0)));
+    visibility += step(receiverDepth, sampleNtesPBREntityShadowPCFDepth(centerTexel + vec2(-1.0,  0.0)));
+    visibility += step(receiverDepth, sampleNtesPBREntityShadowPCFDepth(centerTexel));
+    visibility += step(receiverDepth, sampleNtesPBREntityShadowPCFDepth(centerTexel + vec2( 1.0,  0.0)));
+    visibility += step(receiverDepth, sampleNtesPBREntityShadowPCFDepth(centerTexel + vec2(-1.0,  1.0)));
+    visibility += step(receiverDepth, sampleNtesPBREntityShadowPCFDepth(centerTexel + vec2( 0.0,  1.0)));
+    visibility += step(receiverDepth, sampleNtesPBREntityShadowPCFDepth(centerTexel + vec2( 1.0,  1.0)));
+    return visibility * 0.1111111111;
+}
+
+highp float sampleNtesPBREntityShadowVisibility(highp vec3 worldPos, highp vec3 normalWSForBias, highp vec3 lightDirWSForBias) {
+    if (NTES_PBR_ENTITY_SHADOW_PARAMS.x < 0.5) {
+        return 1.0;
+    }
+    highp vec4 shadowClip = getNtesPBREntityShadowMatrix() * vec4(worldPos, 1.0);
+    highp vec3 shadowCoord = shadowClip.xyz / max(abs(shadowClip.w), 1.0e-6);
+    shadowCoord = shadowCoord * 0.5 + 0.5;
+    // Outside the light frustum: treat as fully lit so the world outside the SM
+    // doesn't get painted black.
+    if (shadowCoord.z <= 0.0 || shadowCoord.z >= 1.0) {
+        return 1.0;
+    }
+    if (shadowCoord.x <= 0.0 || shadowCoord.x >= 1.0 || shadowCoord.y <= 0.0 || shadowCoord.y >= 1.0) {
+        return 1.0;
+    }
+    highp float texel = 1.0 / getNtesPBREntityShadowMapSize();
+    shadowCoord.xy = clamp(shadowCoord.xy, vec2(texel), vec2(1.0 - texel));
+    if (NTES_PBR_ENTITY_SHADOW_PARAMS.x > 1.5) {
+        return sampleNtesPBREntityShadowPCF(shadowCoord, normalWSForBias, lightDirWSForBias);
+    }
+    // MSM: the moment texture is linearly filterable; reconstruct visibility
+    // from that filtered moment distribution once. Using the alternate branch
+    // here produced visible multi-edge ghost shadows in wide penumbrae.
+    return hamburger4MSMLitVisibility(texture2D(TEXTURE_7, shadowCoord.xy), shadowCoord.z);
+}
+#endif
+
+#ifndef DETAIL_UV_SCALE
+#define DETAIL_UV_SCALE 16.0
+#endif
+#ifndef DETAIL_NORMAL_STRENGTH
+#define DETAIL_NORMAL_STRENGTH 0.35
+#endif
+#ifndef DETAIL_AO_STRENGTH
+#define DETAIL_AO_STRENGTH 0.35
+#endif
+#ifndef DETAIL_SMOOTHNESS_STRENGTH
+#define DETAIL_SMOOTHNESS_STRENGTH 0.25
+#endif
+#ifndef SILK_TEXTURE_UV_SCALE
+#define SILK_TEXTURE_UV_SCALE 1.0
+#endif
+#include "pbr_material_uv_util.h"
+#ifndef FABRIC_SH_SPECULAR_VISIBILITY_STRENGTH
+#define FABRIC_SH_SPECULAR_VISIBILITY_STRENGTH 0.5
+#endif
+#ifndef FABRIC_BODY_COLOR_R
+#define FABRIC_BODY_COLOR_R 1.0
+#endif
+#ifndef FABRIC_BODY_COLOR_G
+#define FABRIC_BODY_COLOR_G 1.0
+#endif
+#ifndef FABRIC_BODY_COLOR_B
+#define FABRIC_BODY_COLOR_B 1.0
+#endif
+#ifndef FABRIC_BODY_ROUGHNESS_MULTIPLIER
+#define FABRIC_BODY_ROUGHNESS_MULTIPLIER 1.0
+#endif
+#ifndef FABRIC_BODY_METALLIC_MULTIPLIER
+#define FABRIC_BODY_METALLIC_MULTIPLIER 1.0
+#endif
+#ifndef FABRIC_BODY_AO_STRENGTH
+#define FABRIC_BODY_AO_STRENGTH 1.0
+#endif
+#ifndef FABRIC_BODY_SH_SPECULAR_VISIBILITY_STRENGTH
+#define FABRIC_BODY_SH_SPECULAR_VISIBILITY_STRENGTH 0.5
+#endif
+
+vec3 sampleIBL(vec3 dir, float perceptualRoughness) {
+    return sampleIBLOctAtlas(TEXTURE_3, dir, perceptualRoughness);
+}
+
+#ifdef EYE_CUBEMAP_SAMPLE
+vec2 eyeEquirectUVFromDirection(vec3 dirWS) {
+    vec3 dir = normalize(dirWS);
+    float phi = atan(dir.z, dir.x);
+    float theta = acos(clamp(dir.y, -1.0, 1.0));
+    return vec2(fract(phi * 0.15915494309 + 0.5), clamp(theta * 0.31830988618, 0.001, 0.999));
+}
+
+mediump float getEyeStaticEnvDiffuseScale() {
+#ifdef USE_EXTRA_VECTOR
+    const mediump vec3 lumaW = vec3(0.2126, 0.7152, 0.0722);
+    mediump float luma = dot(EXTRA_VECTOR3.xyz, lumaW)
+                       + dot(EXTRA_VECTOR4.xyz, lumaW)
+                       + dot(EXTRA_VECTOR5.xyz, lumaW)
+                       + dot(EXTRA_VECTOR6.xyz, lumaW)
+                       + dot(EXTRA_VECTOR7.xyz, lumaW)
+                       + dot(EXTRA_VECTOR8.xyz, lumaW);
+    luma *= 0.16666667;
+    return clamp(luma / EYE_ENV_DIFFUSE_REF_LUMA, EYE_ENV_MIN_DIFFUSE_SCALE, EYE_ENV_MAX_DIFFUSE_SCALE);
+#else
+    return 1.0;
+#endif
+}
+
+vec3 sampleEyeHandPaintedEnv(vec3 dirWS, vec3 viewWS, float perceptualRoughness) {
+    float lod = (1.7 - 0.7 * perceptualRoughness) * perceptualRoughness * 6.0;
+    vec2 envUV = eyeEquirectUVFromDirection(dirWS);
+#if __VERSION__ < 300
+    return texture2DLodEXT(PBR_EXTRA_TEXTURE, envUV, lod).rgb * getEyeStaticEnvDiffuseScale();
+#else
+    return textureLod(PBR_EXTRA_TEXTURE, envUV, lod).rgb * getEyeStaticEnvDiffuseScale();
+#endif
+}
+#endif
+
+// PBR tuning parameters from EXTRA_VECTOR1:
+//   x = diffuse_multiplier,  y = specular_multiplier,
+//   z = normal_strength,     w = ao_strength
+//   Silk override: w = anisotropy
+// Safe default: vec4(1.0, 1.0, 1.0, 0.0)
+// When the engine hasn't written any value, all components are 0.0;
+// detect that and return safe defaults to avoid black models.
+vec4 getPbrTuningParams() {
+#ifdef USE_MATERIAL_UNIFORM_REFLECTION
+    return max(vec4(diffuse_multiplier, specular_multiplier, normal_strength, ao_strength), vec4(0.0));
+#elif defined(USE_EXTRA_VECTOR)
+    vec4 v = EXTRA_VECTOR1;
+    if (v.x + v.y + v.z + v.w < 0.001) {
+        return vec4(1.0, 1.0, 1.0, 0.0);
+    }
+    return max(v, vec4(0.0));
+#else
+    return vec4(1.0, 1.0, 1.0, 0.0);
+#endif
+}
+
+// PBR tuning parameters from EXTRA_VECTOR2:
+//   x = roughness_multiplier,  y = metallic_multiplier,
+//   z = emissive_strength,     w = sh_visibility_strength
+//   Silk override: yzw = specular color, SH visibility strength is fixed to 1.0
+// Safe default: vec4(1.0, 1.0, 0.0, 1.0)
+vec4 getPbrTuningParams2() {
+#ifdef USE_ANISOTROPIC_SILK
+    vec4 defaultParams = vec4(0.32, 0.08, 0.075, 0.065);
+#else
+    vec4 defaultParams = vec4(1.0, 1.0, 0.0, 1.0);
+#endif
+#ifdef USE_MATERIAL_UNIFORM_REFLECTION
+    return max(vec4(roughness_multiplier, metallic_multiplier, emissive_strength, sh_visibility_strength), vec4(0.0));
+#elif defined(USE_EXTRA_VECTOR)
+    vec4 v = EXTRA_VECTOR2;
+    if (v.x + v.y + v.z + v.w < 0.001) {
+        return defaultParams;
+    }
+    return max(v, vec4(0.0));
+#else
+    return defaultParams;
+#endif
+}
+
+float getSilkAnisotropy(vec4 pbrTuning) {
+    return clamp(pbrTuning.w, -0.99, 0.99);
+}
+
+vec3 getSilkSpecularColor(vec4 pbrTuning2) {
+    return max(pbrTuning2.yzw, vec3(0.0));
+}
+
+vec4 getPbrBaseColorParam() {
+#ifdef USE_MATERIAL_UNIFORM_REFLECTION
+    return max(base_color, vec4(0.0));
+#elif defined(USE_EXTRA_VECTOR)
+    vec4 v = EXTRA_VECTOR9;
+    if (v.x + v.y + v.z + v.w < 0.001) {
+        return vec4(1.0);
+    }
+    return max(v, vec4(0.0));
+#else
+    return vec4(1.0);
+#endif
+}
+
+#ifdef USE_FABRIC_VIP_UV_BLEND
+float fabricShSpecularVisibilityStrength() {
+#ifdef USE_MATERIAL_UNIFORM_REFLECTION
+    return clamp(fabric_sh_specular_visibility_strength, 0.0, 1.0);
+#else
+    return FABRIC_SH_SPECULAR_VISIBILITY_STRENGTH;
+#endif
+}
+
+vec3 fabricFlattenNormal(vec3 n, float flatness) {
+    return mix(n, vec3(0.0, 0.0, 1.0), flatness);
+}
+
+float fabricPackedRoughness(float packedB, float scale, float contrast) {
+    float x = (1.0 - packedB) * scale;
+    if (x <= 0.0) return 1.0;
+    float c = max(contrast, 1.0e-4);
+    return clamp(1.0 - pow(x, c), 0.0, 1.0);
+}
+#endif
+
+#ifdef USE_FABRIC_VIP_BODY
+vec3 fabricBodyColorMultiplier() {
+#ifdef USE_MATERIAL_UNIFORM_REFLECTION
+    return max(fabric_body_color, vec3(0.0));
+#else
+    return vec3(float(FABRIC_BODY_COLOR_R), float(FABRIC_BODY_COLOR_G), float(FABRIC_BODY_COLOR_B));
+#endif
+}
+
+float fabricBodyRoughnessMultiplier() {
+#ifdef USE_MATERIAL_UNIFORM_REFLECTION
+    return max(fabric_body_roughness_multiplier, 0.0);
+#else
+    return max(float(FABRIC_BODY_ROUGHNESS_MULTIPLIER), 0.0);
+#endif
+}
+
+float fabricBodyMetallicMultiplier() {
+#ifdef USE_MATERIAL_UNIFORM_REFLECTION
+    return max(fabric_body_metallic_multiplier, 0.0);
+#else
+    return max(float(FABRIC_BODY_METALLIC_MULTIPLIER), 0.0);
+#endif
+}
+
+float fabricBodyAoStrength() {
+#ifdef USE_MATERIAL_UNIFORM_REFLECTION
+    return clamp(fabric_body_ao_strength, 0.0, 1.0);
+#else
+    return clamp(float(FABRIC_BODY_AO_STRENGTH), 0.0, 1.0);
+#endif
+}
+
+float fabricBodyShSpecularVisibilityStrength() {
+#ifdef USE_MATERIAL_UNIFORM_REFLECTION
+    return clamp(fabric_body_sh_specular_visibility_strength, 0.0, 1.0);
+#else
+    return FABRIC_BODY_SH_SPECULAR_VISIBILITY_STRENGTH;
+#endif
+}
+#endif
+
+vec2 getMaterialUV(vec2 baseUV) {
+    return pbrGetMaterialUV(baseUV);
+}
+
+mat3 tangentFrame(vec3 N, vec4 tangent) {
+    vec3 T = tangent.xyz - N * dot(N, tangent.xyz);
+    T = normalize(T);
+    vec3 B = normalize(cross(N, T)) * tangent.w;
+    return mat3(T, B, N);
+}
+
+// Decode tangent-space normal from texture: use XY and reconstruct Z.
+// This is robust for both RGB normal maps and BC5/XY-only formats.
+vec3 decodeNormalTS(vec3 enc) {
+    vec2 xy = enc.xy * 2.0 - 1.0;
+    float z = sqrt(clamp(1.0 - dot(xy, xy), 0.0, 1.0));
+    return vec3(xy, z);
+}
+
+#ifdef USE_FABRIC_VIP_SILK_UV_BLEND
+vec2 getSilkUV2() {
+#ifdef USE_FABRIC_VIP_UV_BLEND
+    return pbrUETextureUV(pbrApplyUVTransform(uvFabric2, FABRIC_EV12.xy, FABRIC_EV12.zw, FABRIC_EV16.y));
+#else
+    return uvFabric2 * SILK_UV2_SCALE;
+#endif
+}
+
+vec3 decodeNormalRG(vec2 enc) {
+    vec2 xy = enc * 2.0 - 1.0;
+    float z = sqrt(clamp(1.0 - dot(xy, xy), 0.0, 1.0));
+    return vec3(xy, z);
+}
+#endif
+
+#ifdef USE_DETAIL_MAP
+vec4 sampleDetailMap(vec2 baseUV) {
+    return texture2D(PBR_EXTRA_TEXTURE, pbrGetDetailUV(baseUV));
+}
+
+vec3 decodeDetailNormalTS(vec4 packedDetail) {
+    vec2 xy = vec2(packedDetail.a, packedDetail.g) * 2.0 - 1.0;
+    float z = sqrt(clamp(1.0 - dot(xy, xy), 0.0, 1.0));
+    return vec3(xy, z);
+}
+
+vec3 applyDetailNormalTS(vec3 baseNormalTS, vec4 packedDetail) {
+    vec3 detailNormalTS = decodeDetailNormalTS(packedDetail);
+    float strength = max(DETAIL_NORMAL_STRENGTH, 0.0);
+    return normalize(vec3(baseNormalTS.xy + detailNormalTS.xy * strength, baseNormalTS.z));
+}
+
+float applyDetailSmoothness(float perceptualRoughness, vec4 packedDetail) {
+    float smoothness = 1.0 - perceptualRoughness;
+    smoothness = clamp(smoothness + (clamp(packedDetail.b, 0.0, 1.0) - 0.5) * DETAIL_SMOOTHNESS_STRENGTH, 0.0, 1.0);
+    return clamp(1.0 - smoothness, MIN_PERCEPTUAL_ROUGHNESS, 1.0);
+}
+
+float getDetailAO(vec4 packedDetail) {
+    return mix(1.0, clamp(packedDetail.r, 0.0, 1.0), clamp(DETAIL_AO_STRENGTH, 0.0, 1.0));
+}
+#else
+vec3 applyDetailNormalTS(vec3 baseNormalTS, vec4 packedDetail) {
+    return baseNormalTS;
+}
+
+float applyDetailSmoothness(float perceptualRoughness, vec4 packedDetail) {
+    return perceptualRoughness;
+}
+
+float getDetailAO(vec4 packedDetail) {
+    return 1.0;
+}
+#endif
+
+// Tangent-space SH visibility decode.
+// Force mip level 0 to prevent LOD discontinuity at triangle boundaries.
+// tangentToWorld: columns are T, B, N in world space.
+#ifdef USE_VISIBLE_SH_MAP
+mediump vec4 sampleVisibilitySHStorage() {
+#ifdef USE_VISIBLE_SH_MAP_ATLAS
+    highp vec2 uvPair0 = vec2(uvSH.x * 0.5, uvSH.y);
+    highp vec2 uvPair1 = uvPair0 + vec2(0.5, 0.0);
+#if __VERSION__ < 300
+    mediump vec4 pair0 = texture2DLodEXT(TEXTURE_4, uvPair0, 0.0);
+    mediump vec4 pair1 = texture2DLodEXT(TEXTURE_4, uvPair1, 0.0);
+#else
+    mediump vec4 pair0 = textureLod(TEXTURE_4, uvPair0, 0.0);
+    mediump vec4 pair1 = textureLod(TEXTURE_4, uvPair1, 0.0);
+#endif
+    return vec4(pair0.r, pair0.a, pair1.r, pair1.a);
+#else
+#if __VERSION__ < 300
+    return texture2DLodEXT(TEXTURE_4, uvSH, 0.0);
+#else
+    return textureLod(TEXTURE_4, uvSH, 0.0);
+#endif
+#endif
+}
+
+// Decode SH visibility map to world-space L1 SH coefficients (mediump vec4).
+// Returns: vec4(Y1_x, Y1_y, Y1_z, Y0) with SH basis constants applied.
+// Output range ~[-1.69, 0.56]: well within fp16 range (±65504).
+// These can be dotted with vec4(dir, 1.0) for directional query,
+// or dotted with irradiance SH for band-limited convolution.
+mediump vec4 decodeVisibilitySH_WS(mat3 tangentToWorld) {
+    mediump vec4 visibleSH = sampleVisibilitySHStorage();
+#ifdef SH_MAP_FLOAT
+    // RGBA16F SH maps store decoded tangent-space coeff4 directly.
+    // Keep TBN after texture filtering, matching the packed PNG path.
+    visibleSH.xyz = tangentToWorld * visibleSH.xyz;
+    visibleSH *= vec4(-0.977206, -0.977206, -0.977206, 0.282095);
+    return visibleSH;
+#else
+    visibleSH = visibleSH * 4.0 - 2.0; // SH space [-2, 2] TS
+    // Existing SH maps are trained with inverted tangent-Y decode. This is
+    // not a UV flip; keep it paired with the handedness-correct shTangentW.
+    visibleSH.y = -visibleSH.y;
+    // TBN rotation: highp mat3 * mediump vec3 -> mediump is fine since
+    // result range is bounded by L1 norm of input (~3.46 max after rotation).
+    visibleSH.xyz = tangentToWorld * visibleSH.xyz;
+    visibleSH *= vec4(-0.977206, -0.977206, -0.977206, 0.282095);
+    return visibleSH;
+#endif
+}
+
+mediump float evalVisibilityCurve(highp float rawVisibility) {
+    const highp float k = 4.0;
+    const highp float t = 0.5;
+    highp float width = clamp(1.0 / k, 0.0001, 1.0);
+    highp float x = clamp((rawVisibility - (t - width)) / max(2.0 * width, 0.000001), 0.0, 1.0);
+    return x * x * (3.0 - 2.0 * x);
+}
+
+highp float evalVisibilitySHRaw(highp vec4 visSH_WS, highp vec3 dirWS) {
+    return clamp(dot(visSH_WS, vec4(dirWS, 1.0)), 0.0, 1.0);
+}
+
+// Evaluate visibility for a single direction (direct light / specular IBL).
+// All inputs/outputs in [0,1] after clamp; mediump is sufficient.
+mediump float evalVisibilitySH(mediump vec4 visSH_WS, mediump vec3 dirWS) {
+    highp float rawVisibility = evalVisibilitySHRaw(visSH_WS, dirWS);
+    return evalVisibilityCurve(rawVisibility);
+}
+
+// Analytical "open hemisphere" SH visibility for a surface with normal N.
+// Result clamped to [0,1]; mediump is sufficient.
+mediump float evalOpenHemisphereVisibility(mediump vec3 normalWS, mediump vec3 dirWS) {
+    const mediump float OPEN_SH_L0 = 0.56419;   // 2.0 * 0.282095
+    const mediump float OPEN_SH_L1 = 1.954412;  // 4.0 * 0.488603
+    return clamp(OPEN_SH_L0 + OPEN_SH_L1 * dot(normalWS, dirWS), 0.0, 1.0);
+}
+
+// Convolve raw SH visibility with 6-axis IBL irradiance (RGB from CPU uniforms).
+// Direct/specular can use the hard runtime curve per direction, but diffuse
+// IBL must integrate first; thresholding each axis independently creates
+// blocky patches from tiny coefficient differences.
+mediump float convolveVisibilitySH_Irradiance(mediump vec4 visSH_WS, mediump vec3 normalWS) {
+    // 6-axis RGB irradiance from CPU readback (EXTRA_VECTOR3~8, each .xyz = RGB)
+    const mediump vec3 lumaW = vec3(0.2126, 0.7152, 0.0722);
+    mediump float lPX = dot(EXTRA_VECTOR3.xyz, lumaW);
+    mediump float lNX = dot(EXTRA_VECTOR4.xyz, lumaW);
+    mediump float lPY = dot(EXTRA_VECTOR5.xyz, lumaW);
+    mediump float lNY = dot(EXTRA_VECTOR6.xyz, lumaW);
+    mediump float lPZ = dot(EXTRA_VECTOR7.xyz, lumaW);
+    mediump float lNZ = dot(EXTRA_VECTOR8.xyz, lumaW);
+
+    mediump float oPX = evalOpenHemisphereVisibility(normalWS, vec3( 1, 0, 0));
+    mediump float oNX = evalOpenHemisphereVisibility(normalWS, vec3(-1, 0, 0));
+    mediump float oPY = evalOpenHemisphereVisibility(normalWS, vec3( 0, 1, 0));
+    mediump float oNY = evalOpenHemisphereVisibility(normalWS, vec3( 0,-1, 0));
+    mediump float oPZ = evalOpenHemisphereVisibility(normalWS, vec3( 0, 0, 1));
+    mediump float oNZ = evalOpenHemisphereVisibility(normalWS, vec3( 0, 0,-1));
+
+    mediump float numerator = evalVisibilitySHRaw(visSH_WS, vec3( 1, 0, 0)) * oPX * lPX
+                    + evalVisibilitySHRaw(visSH_WS, vec3(-1, 0, 0)) * oNX * lNX
+                    + evalVisibilitySHRaw(visSH_WS, vec3( 0, 1, 0)) * oPY * lPY
+                    + evalVisibilitySHRaw(visSH_WS, vec3( 0,-1, 0)) * oNY * lNY
+                    + evalVisibilitySHRaw(visSH_WS, vec3( 0, 0, 1)) * oPZ * lPZ
+                    + evalVisibilitySHRaw(visSH_WS, vec3( 0, 0,-1)) * oNZ * lNZ;
+
+    mediump float denominator = oPX * lPX
+                      + oNX * lNX
+                      + oPY * lPY
+                      + oNY * lNY
+                      + oPZ * lPZ
+                      + oNZ * lNZ;
+
+    if (denominator < 0.001) return 1.0;
+    return clamp(numerator / denominator, 0.0, 1.0);
+}
+
+#endif // USE_VISIBLE_SH_MAP
+
+// Reconstruct diffuse irradiance color from 6-axis RGB uniforms along normal direction.
+// Ambient cube interpolation (Valve HL2): weight = N_component^2, selects +/- by sign.
+// For normalized N: weights sum to 1 (N.x^2+N.y^2+N.z^2=1), no renormalization needed.
+mediump vec3 reconstructDiffuseIrradiance(mediump vec3 N) {
+    mediump vec3 Nsq = N * N;
+    mediump vec3 result = Nsq.x * (N.x >= 0.0 ? EXTRA_VECTOR3.xyz : EXTRA_VECTOR4.xyz)
+                        + Nsq.y * (N.y >= 0.0 ? EXTRA_VECTOR5.xyz : EXTRA_VECTOR6.xyz)
+                        + Nsq.z * (N.z >= 0.0 ? EXTRA_VECTOR7.xyz : EXTRA_VECTOR8.xyz);
+    return result;
+}
+
+vec4 shadeMinimalPbrDiffuse(vec4 albedoSample) {
+    vec4 baseColorParam = getPbrBaseColorParam();
+    albedoSample.rgb *= baseColorParam.rgb;
+    albedoSample.a *= baseColorParam.a;
+
+    mediump vec3 N = normalize(normalWS);
+    mediump vec3 diffuseEnv = reconstructDiffuseIrradiance(N);
+    highp vec3 hdrColor = diffuseEnv * sRGBToLinear(albedoSample.rgb) * IBL_DIFFUSE_INTENSITY;
+    vec3 finalColor = tonemapACES(min(max(hdrColor, vec3(0.0)), vec3(64.0)));
+    finalColor = pow(max(finalColor, vec3(0.0)), vec3(1.0 / 2.2));
+    return vec4(finalColor, albedoSample.a);
+}
+
+// Returns perturbed normal from tangent-space normal map.
+vec3 perturbNormal(vec3 N, vec4 tangent, vec2 uv, vec4 detailSample
+#ifdef USE_FABRIC_VIP_SILK_UV_BLEND
+                   , vec3 uv2NormalTS, float uv2Mask
+#endif
+                   ) {
+    vec3 enc = texture2D(TEXTURE_2, uv).rgb;
+    vec3 normalTS = decodeNormalTS(enc);
+#ifdef USE_FABRIC_VIP_SILK_UV_BLEND
+    normalTS = normalize(mix(normalTS, uv2NormalTS, uv2Mask));
+#endif
+    vec4 pbrTuning = getPbrTuningParams();
+    float normalStrength = max(pbrTuning.z, 0.0);
+    normalTS = normalize(vec3(normalTS.xy * normalStrength, normalTS.z));
+    normalTS = applyDetailNormalTS(normalTS, detailSample);
+    mat3 TBN = tangentFrame(N, tangent);
+    return normalize(TBN * normalTS);
+}
+
+void main() {
+#ifdef USE_PBR_LOD_MINIMAL
+    {
+#ifdef USE_FABRIC_VIP_UV_BLEND
+        vec4 ev11 = FABRIC_EV11;
+        vec4 ev16 = FABRIC_EV16;
+        vec2 minimalUV = pbrUETextureUV(pbrApplyUVTransform(uv, ev11.xy, ev11.zw, ev16.x));
+#else
+        vec2 minimalUV = getMaterialUV(uv);
+#endif
+        vec4 albedoSample = getSampledColor(TEXTURE_0, minimalUV);
+        vec4 color = shadeMinimalPbrDiffuse(albedoSample);
+        neteaseModelCommonFrag(color);
+        applyOverlayColor(color);
+        applyFog(color, fogColor);
+        gl_FragColor = color;
+    }
+    return;
+#endif
+#ifdef USE_FABRIC_VIP_UV_BLEND
+    vec4 ev11 = FABRIC_EV11;
+    vec4 ev12 = FABRIC_EV12;
+    vec4 ev13 = FABRIC_EV13;
+    vec4 ev14 = FABRIC_EV14;
+    vec4 ev15 = FABRIC_EV15;
+    vec4 ev16 = FABRIC_EV16;
+
+    vec2 detailUV = pbrUETextureUV(pbrApplyUVTransform(uv, ev11.xy, ev11.zw, ev16.x));
+    vec2 silkUV2 = getSilkUV2();
+
+    vec4 baseAlbedoSample = getSampledColor(TEXTURE_0, detailUV);
+    vec4 baseArmSample = texture2D(TEXTURE_1, detailUV);
+    vec4 baseNormalSample = texture2D(TEXTURE_2, detailUV);
+    vec4 uv2Packed = texture2D(TEXTURE_9, silkUV2);
+
+    float uv2Mask = clamp(uv2Packed.a * ev13.z, 0.0, 1.0);
+    vec3 detailNormalTS = fabricFlattenNormal(decodeNormalRG(baseNormalSample.rg), ev13.x);
+    vec3 uv2NormalTS = fabricFlattenNormal(decodeNormalRG(uv2Packed.rg), ev13.y);
+    vec3 normalTS = normalize(mix(detailNormalTS, uv2NormalTS, uv2Mask));
+
+    vec4 uv2BaseSample = getSampledColor(TEXTURE_8, silkUV2);
+    vec3 baseColor = sRGBToLinear(baseAlbedoSample.rgb);
+    vec3 uv2Color = sRGBToLinear(uv2BaseSample.rgb);
+    vec3 albedo = clamp(mix(baseColor, uv2Color, uv2Mask), vec3(0.0), vec3(1.0));
+    float baseAlpha = mix(baseAlbedoSample.a, uv2BaseSample.a, uv2Mask);
+
+    float uv2Rough = fabricPackedRoughness(uv2Packed.b, ev14.z, ev14.w);
+    float perceptualRoughness = clamp(mix(clamp(baseArmSample.g, 0.0, 1.0), uv2Rough, uv2Mask), MIN_PERCEPTUAL_ROUGHNESS, 1.0);
+    float metalness = clamp(mix(clamp(baseArmSample.b, 0.0, 1.0), ev13.w, uv2Mask), 0.0, 1.0);
+    float anisotropy = clamp(mix(ev15.x, ev15.y, uv2Mask), -0.99, 0.99);
+    vec2 tangentXY = mix(ev15.zw, ev16.zw, uv2Mask);
+
+    vec3 Ngeom = normalize(normalWS);
+    mat3 geomTBN = tangentFrame(Ngeom, tangentWS);
+    vec3 N = normalize(geomTBN * normalTS);
+    vec3 V = normalize(-positionWS);
+    vec3 L = normalize(lightDirWS);
+    vec3 H = normalize(V + L);
+    float NoV = max(dot(N, V), MIN_NOV);
+    float NoL = max(dot(N, L), 0.0);
+    float NoH = max(dot(N, H), 0.0);
+    float VoH = max(dot(V, H), 0.0);
+
+    vec3 tangentTS = vec3(tangentXY, 0.0);
+    vec3 tangentTSDir = (dot(tangentXY, tangentXY) > 1.0e-8) ? normalize(tangentTS) : vec3(1.0, 0.0, 0.0);
+    vec3 anisoT = normalize(geomTBN * tangentTSDir);
+    anisoT = normalize(anisoT - N * dot(N, anisoT));
+    vec3 anisoB = normalize(cross(N, anisoT));
+
+    vec3 diffuseColor = albedo * (1.0 - metalness);
+    vec3 specularColor = mix(DIELECTRIC_F0, albedo, metalness);
+    vec3 lightColor = mix(vec3(0.4, 0.5, 0.7), vec3(1.0, 0.95, 0.9), lightIntensity) * (lightIntensity * 2.0 * RNGL_DIRECT_LIGHT_MULTIPLIER);
+    float roughness = perceptualRoughnessToRoughness(perceptualRoughness);
+    vec3 directDiffuse = diffuseColor * Fd_Lambert() * lightColor * NoL;
+    vec3 directSpecular = specularBRDFAnisotropic(anisoT, anisoB, N, V, L, H, NoH, NoV, NoL, VoH, roughness, anisotropy, specularColor) * lightColor * NoL;
+
+    vec3 iblN;
+    float iblPerceptualRoughness;
+    GetGGXAnisotropicModifiedNormalAndRoughness(anisoB, anisoT, N, V, anisotropy, perceptualRoughness, iblN, iblPerceptualRoughness);
+    float NoVIBL = max(dot(iblN, V), MIN_NOV);
+    vec3 R = GetSpecularDominantDir(iblN, reflect(-V, iblN), iblPerceptualRoughness, NoVIBL);
+    vec3 prefilteredEnv = sampleIBL(R, iblPerceptualRoughness);
+    vec2 dfg = prefilteredDFG_Karis(NoVIBL, iblPerceptualRoughness);
+    vec3 specularIBL = prefilteredEnv * (specularColor * dfg.x + vec3(clamp(50.0 * specularColor.g, 0.0, 1.0) * dfg.y));
+
+#ifdef USE_VISIBLE_SH_MAP
+    mat3 visibleSHTBN = tangentFrame(Ngeom, vec4(tangentWS.xyz, shTangentW));
+    mediump vec4 visSH_WS = decodeVisibilitySH_WS(visibleSHTBN);
+    mediump float vDirectRaw = evalVisibilitySH(visSH_WS, lightDirWS);
+    mediump float vIBLSpecRaw = evalVisibilitySH(visSH_WS, R);
+    mediump float vIBLDiffRaw = convolveVisibilitySH_Irradiance(visSH_WS, Ngeom);
+
+    mediump float vDirect = pow(vDirectRaw, VISIBILITY_POWER_DIRECT);
+    mediump float vIBLSpec = pow(vIBLSpecRaw, SILK_VISIBILITY_POWER_IBL);
+    vIBLSpec = mix(1.0, vIBLSpec, fabricShSpecularVisibilityStrength());
+    mediump float vIBLDiff = pow(vIBLDiffRaw, SILK_VISIBILITY_POWER_IBL);
+
+#ifdef SH_VISIBILITY_DEBUG_OUTPUT_DIRECT
+    vec4 debugColor = vec4(vec3(vDirectRaw), baseAlpha);
+    neteaseModelCommonFrag(debugColor);
+    applyOverlayColor(debugColor);
+    applyFog(debugColor, fogColor);
+    gl_FragColor = debugColor;
+    return;
+#elif defined(SH_VISIBILITY_DEBUG_OUTPUT_UV2)
+    highp vec2 uvDebug = clamp(uvSH, 0.0, 1.0);
+    highp vec2 gridUV = abs(fract(uvDebug * 16.0) - 0.5);
+    highp float grid = 1.0 - smoothstep(0.03, 0.05, min(gridUV.x, gridUV.y));
+    vec3 uvColor = mix(vec3(uvDebug, 0.0), vec3(1.0), grid * 0.35);
+    gl_FragColor = vec4(uvColor, baseAlpha);
+    return;
+#elif defined(SH_VISIBILITY_DEBUG_OUTPUT_IBL_SPEC)
+    vec4 debugColor = vec4(vec3(vIBLSpec), baseAlpha);
+    neteaseModelCommonFrag(debugColor);
+    applyOverlayColor(debugColor);
+    applyFog(debugColor, fogColor);
+    gl_FragColor = debugColor;
+    return;
+#elif defined(SH_VISIBILITY_DEBUG_OUTPUT_IBL_DIFF) || defined(SH_VISIBILITY_DEBUG_OUTPUT_IBL)
+    vec3 diffIrrShaded = reconstructDiffuseIrradiance(N) * vIBLDiffRaw;
+    diffIrrShaded = tonemapACES(diffIrrShaded);
+    diffIrrShaded = linearToSRGB(diffIrrShaded);
+    vec4 debugColor = vec4(diffIrrShaded, baseAlpha);
+    neteaseModelCommonFrag(debugColor);
+    applyOverlayColor(debugColor);
+    applyFog(debugColor, fogColor);
+    gl_FragColor = debugColor;
+    return;
+#elif defined(SH_VISIBILITY_DEBUG_OUTPUT_WHITE_DIFFUSE)
+    vec3 wdDirect = (lightColor * max(dot(N, L), 0.0) * Fd_Lambert()) * vDirectRaw;
+    vec3 wdIBL = reconstructDiffuseIrradiance(N) * vIBLDiffRaw;
+    vec3 wdResult = tonemapACES(wdDirect + wdIBL);
+    wdResult = linearToSRGB(wdResult);
+    vec4 debugColor = vec4(wdResult, baseAlpha);
+    neteaseModelCommonFrag(debugColor);
+    applyOverlayColor(debugColor);
+    applyFog(debugColor, fogColor);
+    gl_FragColor = debugColor;
+    return;
+#endif
+
+    directDiffuse *= vDirect;
+    directSpecular *= vDirect;
+    specularIBL *= vIBLSpec;
+    vec3 diffuseIBL = reconstructDiffuseIrradiance(N) * diffuseColor * vIBLDiff;
+#else
+    vec3 diffuseIBL = sampleIBL(N, IBL_DIFFUSE_PR) * diffuseColor;
+#endif
+
+    vec3 hdrColor = directDiffuse + directSpecular + diffuseIBL + specularIBL;
+    vec3 finalColor = tonemapACES(min(max(hdrColor, vec3(0.0)), vec3(64.0)));
+    finalColor = linearToSRGB(finalColor);
+    vec4 color = vec4(finalColor, baseAlpha);
+    neteaseModelCommonFrag(color);
+    applyOverlayColor(color);
+    applyFog(color, fogColor);
+    gl_FragColor = color;
+#elif defined(USE_FABRIC_VIP_BODY)
+    vec2 materialUV = getMaterialUV(uv);
+    vec4 baseSample = texture2D(TEXTURE_0, materialUV);
+    vec3 albedo = sRGBToLinear(baseSample.rgb) * fabricBodyColorMultiplier();
+    float baseAlpha = baseSample.a;
+
+    mediump vec4 armSample = texture2D(TEXTURE_1, materialUV);
+    float ao = mix(1.0, clamp(armSample.r, 0.0, 1.0), fabricBodyAoStrength());
+    float perceptualRoughness = clamp(armSample.g * fabricBodyRoughnessMultiplier(), MIN_PERCEPTUAL_ROUGHNESS, 1.0);
+    float roughness = perceptualRoughnessToRoughness(perceptualRoughness);
+    float metalness = clamp(armSample.b * fabricBodyMetallicMultiplier(), 0.0, 1.0);
+
+    vec3 Ngeom = normalize(normalWS);
+    vec3 normalTS = decodeNormalTS(texture2D(TEXTURE_2, materialUV).rgb);
+    vec3 N = normalize(tangentFrame(Ngeom, tangentWS) * normalTS);
+    vec3 V = normalize(-positionWS);
+    vec3 L = normalize(lightDirWS);
+    float NoV = max(dot(N, V), MIN_NOV);
+
+    vec3 f0 = mix(DIELECTRIC_F0, albedo, metalness);
+    vec3 lightColor = mix(vec3(0.4, 0.5, 0.7), vec3(1.0, 0.95, 0.9), lightIntensity) * (lightIntensity * 2.0 * RNGL_DIRECT_LIGHT_MULTIPLIER);
+    vec3 directColor = evaluateDirectPBR(N, V, L, lightColor, albedo, metalness, perceptualRoughness);
+
+    vec3 R = getSpecularDominantDirection(N, reflect(-V, N), roughness);
+    vec3 prefilteredEnv = sampleIBL(R, perceptualRoughness);
+    vec2 dfg = prefilteredDFG_Karis(NoV, roughness);
+    vec3 specularIBL = prefilteredEnv * (f0 * dfg.x + dfg.y);
+
+#ifdef USE_VISIBLE_SH_MAP
+    mat3 visibleSHTBN = tangentFrame(Ngeom, vec4(tangentWS.xyz, shTangentW));
+    mediump vec4 visSH_WS = decodeVisibilitySH_WS(visibleSHTBN);
+    mediump float vDirectRaw = evalVisibilitySH(visSH_WS, lightDirWS);
+    mediump float vIBLSpecRaw = evalVisibilitySH(visSH_WS, R);
+    mediump float vIBLDiffRaw = convolveVisibilitySH_Irradiance(visSH_WS, Ngeom);
+
+    mediump float vDirect = pow(vDirectRaw, VISIBILITY_POWER_DIRECT);
+    mediump float vIBLSpec = pow(vIBLSpecRaw, SILK_VISIBILITY_POWER_IBL);
+    vIBLSpec = mix(1.0, vIBLSpec, fabricBodyShSpecularVisibilityStrength());
+    mediump float vIBLDiff = pow(vIBLDiffRaw, SILK_VISIBILITY_POWER_IBL);
+
+#ifdef SH_VISIBILITY_DEBUG_OUTPUT_DIRECT
+    vec4 debugColor = vec4(vec3(vDirectRaw), baseAlpha);
+    neteaseModelCommonFrag(debugColor);
+    applyOverlayColor(debugColor);
+    applyFog(debugColor, fogColor);
+    gl_FragColor = debugColor;
+    return;
+#elif defined(SH_VISIBILITY_DEBUG_OUTPUT_UV2)
+    highp vec2 uvDebug = clamp(uvSH, 0.0, 1.0);
+    highp vec2 gridUV = abs(fract(uvDebug * 16.0) - 0.5);
+    highp float grid = 1.0 - smoothstep(0.03, 0.05, min(gridUV.x, gridUV.y));
+    vec3 uvColor = mix(vec3(uvDebug, 0.0), vec3(1.0), grid * 0.35);
+    gl_FragColor = vec4(uvColor, baseAlpha);
+    return;
+#elif defined(SH_VISIBILITY_DEBUG_OUTPUT_IBL_SPEC)
+    vec4 debugColor = vec4(vec3(vIBLSpec), baseAlpha);
+    neteaseModelCommonFrag(debugColor);
+    applyOverlayColor(debugColor);
+    applyFog(debugColor, fogColor);
+    gl_FragColor = debugColor;
+    return;
+#elif defined(SH_VISIBILITY_DEBUG_OUTPUT_IBL_DIFF) || defined(SH_VISIBILITY_DEBUG_OUTPUT_IBL)
+    vec3 diffIrrShaded = reconstructDiffuseIrradiance(N) * vIBLDiffRaw * ao;
+    diffIrrShaded = tonemapACES(diffIrrShaded);
+    diffIrrShaded = pow(max(diffIrrShaded, vec3(0.0)), vec3(1.0 / 2.2));
+    vec4 debugColor = vec4(diffIrrShaded, baseAlpha);
+    neteaseModelCommonFrag(debugColor);
+    applyOverlayColor(debugColor);
+    applyFog(debugColor, fogColor);
+    gl_FragColor = debugColor;
+    return;
+#elif defined(SH_VISIBILITY_DEBUG_OUTPUT_WHITE_DIFFUSE)
+    vec3 wdDirect = (lightColor * max(dot(N, L), 0.0) * Fd_Lambert()) * vDirectRaw;
+    vec3 wdIBL = reconstructDiffuseIrradiance(N) * vIBLDiffRaw;
+    vec3 wdResult = tonemapACES((wdDirect + wdIBL) * ao);
+    wdResult = pow(max(wdResult, vec3(0.0)), vec3(1.0 / 2.2));
+    vec4 debugColor = vec4(wdResult, baseAlpha);
+    neteaseModelCommonFrag(debugColor);
+    applyOverlayColor(debugColor);
+    applyFog(debugColor, fogColor);
+    gl_FragColor = debugColor;
+    return;
+#endif
+
+    directColor *= vDirect;
+    specularIBL *= vIBLSpec;
+    vec3 diffuseIBL = reconstructDiffuseIrradiance(N) * albedo * (1.0 - metalness) * vIBLDiff;
+#else
+    vec3 diffuseIBL = sampleIBL(N, IBL_DIFFUSE_PR) * albedo * (1.0 - metalness);
+#endif
+
+    vec3 hdrColor = (directColor + diffuseIBL + specularIBL) * ao;
+    vec3 finalColor = tonemapACES(min(max(hdrColor, vec3(0.0)), vec3(64.0)));
+    finalColor = pow(max(finalColor, vec3(0.0)), vec3(1.0 / 2.2));
+    vec4 color = vec4(finalColor, baseAlpha);
+    neteaseModelCommonFrag(color);
+    applyOverlayColor(color);
+    applyFog(color, fogColor);
+    gl_FragColor = color;
+#else
+    vec2 materialUV = getMaterialUV(uv);
+#ifdef USE_FABRIC_VIP_SILK_UV_BLEND
+    vec2 silkUV2 = getSilkUV2();
+    mediump vec4 silkUv2Packed = texture2D(TEXTURE_9, silkUV2);
+    mediump float silkUv2Mask = clamp(silkUv2Packed.a, 0.0, 1.0);
+#endif
+
+    // Sample albedo
+#ifdef USE_PBR_BASE_COLOR_ONLY
+    vec4 albedoSample = vec4(1.0);
+#else
+    vec4 albedoSample = getSampledColor(TEXTURE_0, materialUV);
+#endif
+#ifdef USE_FABRIC_VIP_SILK_UV_BLEND
+    vec4 silkUv2Base = getSampledColor(TEXTURE_8, silkUV2);
+    albedoSample = mix(albedoSample, silkUv2Base, silkUv2Mask);
+#endif
+    vec4 baseColorParam = getPbrBaseColorParam();
+    albedoSample.rgb *= baseColorParam.rgb;
+    albedoSample.a *= baseColorParam.a;
+    vec3 albedo = sRGBToLinear(albedoSample.rgb);
+    float baseAlpha = albedoSample.a;
+
+#ifdef ALPHA_TEST
+    if (baseAlpha < 0.5) discard;
+#endif
+
+    // Sample ARM texture (glTF standard: R=AO, G=Roughness, B=Metallic)
+    mediump vec4 armSample = texture2D(TEXTURE_1, materialUV);
+    vec4 pbrTuning            = getPbrTuningParams();
+    vec4 pbrTuning2           = getPbrTuningParams2();
+    // Apply roughness and metallic multipliers from EXTRA_VECTOR2
+    mediump float perceptualRoughness = clamp(armSample.g * max(pbrTuning2.x, 0.0), MIN_PERCEPTUAL_ROUGHNESS, 1.0);
+#ifdef USE_FABRIC_VIP_SILK_UV_BLEND
+    mediump float silkUv2Roughness = clamp(silkUv2Packed.b * max(pbrTuning2.x, 0.0), MIN_PERCEPTUAL_ROUGHNESS, 1.0);
+    perceptualRoughness = mix(perceptualRoughness, silkUv2Roughness, silkUv2Mask);
+#endif
+    mediump vec4 detailSample = vec4(1.0, 0.5, 0.5, 0.5);
+#ifdef USE_DETAIL_MAP
+#ifdef USE_PBR_DETAIL_UV_TRANSFORM
+    detailSample = sampleDetailMap(uv);
+#else
+    detailSample = sampleDetailMap(materialUV);
+#endif
+    perceptualRoughness = applyDetailSmoothness(perceptualRoughness, detailSample);
+#endif
+    mediump float detailAO = getDetailAO(detailSample);
+    mediump float metalness           = clamp(armSample.b * max(pbrTuning2.y, 0.0), 0.0, 1.0);
+    mediump float diffuseStrength     = max(pbrTuning.x, 0.0);
+    mediump float specularStrength    = max(pbrTuning.y, 0.0);
+    mediump float emissiveMultiplier  = max(pbrTuning2.z, 0.0);
+#ifdef USE_ANISOTROPIC_SILK
+    metalness = 0.0;
+    float silkAnisotropy = getSilkAnisotropy(pbrTuning);
+#endif
+
+    // Geometric normal (camera-relative world space)
+    vec3 N = normalize(normalWS);
+    vec3 V = normalize(-positionWS); // Camera is at origin in relative-camera space
+
+    // Perturb normal with normal map. SpecAA is intentionally disabled.
+#ifdef USE_FABRIC_VIP_SILK_UV_BLEND
+    vec3 silkUv2NormalTS = decodeNormalRG(silkUv2Packed.rg);
+    N = perturbNormal(N, tangentWS, materialUV, detailSample, silkUv2NormalTS, silkUv2Mask);
+#else
+    N = perturbNormal(N, tangentWS, materialUV, detailSample);
+#endif
+#ifdef USE_ANISOTROPIC_SILK
+    mat3 silkTBN = tangentFrame(N, tangentWS);
+    vec3 silkT = silkTBN[0];
+    vec3 silkB = silkTBN[1];
+#endif
+
+    vec3 L = normalize(lightDirWS);
+    float NoV = max(dot(N, V), MIN_NOV);
+    vec3 H = normalize(V + L);
+    float NoL = max(dot(N, L), 0.0);
+    float NoH = max(dot(N, H), 0.0);
+    float VoH = max(dot(V, H), 0.0);
+
+    // ---- Direct Lighting (Cook-Torrance) ----
+    vec3 lightColor = mix(vec3(0.4, 0.5, 0.7), vec3(1.0, 0.95, 0.9), lightIntensity) * (lightIntensity * 2.0 * RNGL_DIRECT_LIGHT_MULTIPLIER);
+    mediump vec3 directDiffuseColor;
+    mediump vec3 directSpecularColor;
+    mediump vec3 directColor;
+
+    // ---- IBL (Image-Based Lighting) ----
+    // CUSTOM_DIELECTRIC_F0 can be injected by material defines for non-standard IOR
+    // (e.g. cornea IOR 1.98 -> F0 = 0.108).
+#ifdef CUSTOM_DIELECTRIC_F0
+    vec3 dielectricF0 = vec3(CUSTOM_DIELECTRIC_F0);
+#else
+    vec3 dielectricF0 = DIELECTRIC_F0;
+#endif
+#ifdef USE_ANISOTROPIC_SILK
+    vec3 f0 = getSilkSpecularColor(pbrTuning2);
+#else
+    vec3 f0 = mix(dielectricF0, albedo, metalness);
+#endif
+    float roughness = perceptualRoughnessToRoughness(perceptualRoughness);
+
+    // Compute reflection vector early (needed by both IBL and SH visibility)
+    vec3 R = reflect(-V, N);
+    float iblPerceptualRoughness = perceptualRoughness;
+#ifdef USE_ANISOTROPIC_SILK
+    vec3 iblN;
+    GetGGXAnisotropicModifiedNormalAndRoughness(silkB, silkT, N, V, silkAnisotropy, perceptualRoughness, iblN, iblPerceptualRoughness);
+    R = GetSpecularDominantDir(iblN, reflect(-V, iblN), iblPerceptualRoughness, NoV);
+#else
+    R = getSpecularDominantDirection(N, R, roughness);
+#endif
+
+    // ---- Direct Lighting (Cook-Torrance) ----
+#ifdef USE_ANISOTROPIC_SILK
+    float silkDiffuse = Fd_DisneyDiffuse(NoV, NoL, VoH, perceptualRoughness);
+    directDiffuseColor = albedo * silkDiffuse * lightColor * NoL;
+    directSpecularColor = specularBRDFAnisotropic(silkT, silkB, N, V, L, H, NoH, NoV, NoL, VoH, roughness, silkAnisotropy, f0) * lightColor * NoL;
+#elif defined(USE_PREMUL_ALPHA)
+    evaluateDirectPBRComponentsWithF0(N, V, L, lightColor, albedo, metalness, perceptualRoughness, dielectricF0, directDiffuseColor, directSpecularColor);
+#else
+    evaluateDirectPBRComponents(N, V, L, lightColor, albedo, metalness, perceptualRoughness, directDiffuseColor, directSpecularColor);
+#endif
+    directColor = directDiffuseColor * diffuseStrength + directSpecularColor * specularStrength;
+
+#ifdef USE_AO_MAP
+    mediump float aoRaw = clamp(armSample.r, 0.0, 1.0);
+    mediump float aoStrength = max(pbrTuning.w, 0.0);
+    mediump float ao = pow(aoRaw, aoStrength);
+#endif
+
+#ifdef USE_NTES_PBR_ENTITY_SHADOWMAP
+    highp float entityShadowVisibility = sampleNtesPBREntityShadowVisibility(positionWS, N, L);
+#else
+    highp float entityShadowVisibility = 1.0;
+#endif
+
+    // ---- Pre-compute SH visibility (before IBL sampling) ----
+    // SH decode only needs TBN + TEXTURE_4, independent of IBL atlas.
+    // By computing it early, we can apply visibility inline with each IBL sample,
+    // avoiding the need to keep specularIBL/diffuseIBL alive simultaneously.
+#ifdef USE_VISIBLE_SH_MAP
+    mat3 visibleSHTBN = tangentFrame(normalize(normalWS), vec4(tangentWS.xyz, shTangentW));
+    mediump vec4 visSH_WS = decodeVisibilitySH_WS(visibleSHTBN);
+    highp vec3 shDirectLightDirWS = lightDirWS;
+    mediump float localVisibilityDirectRaw = evalVisibilitySH(visSH_WS, shDirectLightDirWS);
+    mediump float localVisibilityIBLSpecRaw = evalVisibilitySH(visSH_WS, R);
+    mediump float localVisibilityIBLDiffRaw = convolveVisibilitySH_Irradiance(visSH_WS, normalize(normalWS));
+
+#ifdef SH_VISIBILITY_DEBUG_OUTPUT_DIRECT
+    vec4 debugColor = vec4(vec3(min(localVisibilityDirectRaw, entityShadowVisibility)), baseAlpha);
+    neteaseModelCommonFrag(debugColor);
+    applyOverlayColor(debugColor);
+    applyFog(debugColor, fogColor);
+    gl_FragColor = debugColor;
+    return;
+#elif defined(NTES_PBR_ENTITY_SHADOW_DEBUG_OUTPUT)
+    // Show entityShadowVisibility (1=lit white, 0=shadow black).
+    vec4 debugColor = vec4(vec3(entityShadowVisibility), baseAlpha);
+    gl_FragColor = debugColor;
+    return;
+#elif defined(SH_VISIBILITY_DEBUG_OUTPUT_UV2)
+    highp vec2 uvDebug = clamp(uvSH, 0.0, 1.0);
+    highp vec2 gridUV = abs(fract(uvDebug * 16.0) - 0.5);
+    highp float grid = 1.0 - smoothstep(0.03, 0.05, min(gridUV.x, gridUV.y));
+    vec3 uvColor = mix(vec3(uvDebug, 0.0), vec3(1.0), grid * 0.35);
+    gl_FragColor = vec4(uvColor, baseAlpha);
+    return;
+#elif defined(SH_VISIBILITY_DEBUG_OUTPUT_IBL_SPEC)
+    vec4 debugColor = vec4(vec3(localVisibilityIBLSpecRaw), baseAlpha);
+    neteaseModelCommonFrag(debugColor);
+    applyOverlayColor(debugColor);
+    applyFog(debugColor, fogColor);
+    gl_FragColor = debugColor;
+    return;
+#elif defined(SH_VISIBILITY_DEBUG_OUTPUT_IBL_DIFF) || defined(SH_VISIBILITY_DEBUG_OUTPUT_IBL)
+    // IBL diffuse lighting x SH visibility (white albedo)
+    vec3 diffIrrShaded = reconstructDiffuseIrradiance(N) * localVisibilityIBLDiffRaw;
+#ifdef USE_AO_MAP
+    diffIrrShaded *= ao;
+#endif
+    diffIrrShaded = tonemapACES(diffIrrShaded);
+    diffIrrShaded = pow(max(diffIrrShaded, vec3(0.0)), vec3(1.0 / 2.2));
+    vec4 debugColor = vec4(diffIrrShaded, baseAlpha);
+    neteaseModelCommonFrag(debugColor);
+    applyOverlayColor(debugColor);
+    applyFog(debugColor, fogColor);
+    gl_FragColor = debugColor;
+    return;
+#elif defined(SH_VISIBILITY_DEBUG_OUTPUT_WHITE_DIFFUSE)
+    // White-albedo pure-diffuse with full SH occlusion:
+    vec3 wdDirect = (lightColor * max(dot(N, L), 0.0) / PI) * min(localVisibilityDirectRaw, entityShadowVisibility);
+    vec3 wdIBL = reconstructDiffuseIrradiance(N) * localVisibilityIBLDiffRaw;
+#ifdef USE_AO_MAP
+    wdIBL *= ao;
+#endif
+    vec3 wdResult = wdDirect + wdIBL;
+    wdResult = tonemapACES(wdResult);
+    wdResult = pow(max(wdResult, vec3(0.0)), vec3(1.0 / 2.2));
+    vec4 debugColor = vec4(wdResult, baseAlpha);
+    neteaseModelCommonFrag(debugColor);
+    applyOverlayColor(debugColor);
+    applyFog(debugColor, fogColor);
+    gl_FragColor = debugColor;
+    return;
+#endif
+
+    mediump float localVisibilityDirect = pow(localVisibilityDirectRaw, VISIBILITY_POWER_DIRECT);
+#ifdef USE_ANISOTROPIC_SILK
+    mediump float localVisibilityIBLSpec = pow(localVisibilityIBLSpecRaw, SILK_VISIBILITY_POWER_IBL);
+    mediump float localVisibilityIBLDiff = pow(localVisibilityIBLDiffRaw, SILK_VISIBILITY_POWER_IBL);
+#else
+    mediump float localVisibilityIBLSpec = pow(localVisibilityIBLSpecRaw, VISIBILITY_POWER_IBL);
+    mediump float localVisibilityIBLDiff = pow(localVisibilityIBLDiffRaw, VISIBILITY_POWER_IBL);
+#endif
+    localVisibilityDirect = mix(VISIBILITY_MIN_DIRECT, 1.0, localVisibilityDirect);
+#ifdef USE_ANISOTROPIC_SILK
+    localVisibilityIBLSpec = mix(SILK_VISIBILITY_MIN_IBL, 1.0, localVisibilityIBLSpec);
+    localVisibilityIBLDiff = mix(SILK_VISIBILITY_MIN_IBL, 1.0, localVisibilityIBLDiff);
+#else
+    localVisibilityIBLSpec = mix(VISIBILITY_MIN_IBL, 1.0, localVisibilityIBLSpec);
+    localVisibilityIBLDiff = mix(VISIBILITY_MIN_IBL, 1.0, localVisibilityIBLDiff);
+#endif
+    // Apply SH visibility strength: 0.0 = no SH occlusion, 1.0 = full SH occlusion
+#ifdef USE_ANISOTROPIC_SILK
+    mediump float shVisibilityStrength = 1.0;
+#else
+    mediump float shVisibilityStrength = clamp(pbrTuning2.w, 0.0, 1.0);
+#endif
+    localVisibilityDirect = mix(1.0, localVisibilityDirect, shVisibilityStrength);
+    localVisibilityIBLSpec = mix(1.0, localVisibilityIBLSpec, shVisibilityStrength);
+    localVisibilityIBLDiff = mix(1.0, localVisibilityIBLDiff, shVisibilityStrength);
+    localVisibilityDirect = min(localVisibilityDirect, entityShadowVisibility);
+    directColor = min(max(directColor, vec3(0.0)), vec3(65504.0));
+    directColor *= localVisibilityDirect;
+#else
+    directColor = min(max(directColor, vec3(0.0)), vec3(65504.0));
+    directColor *= entityShadowVisibility;
+#endif
+
+    // ---- Diffuse IBL (first: uniform-based, cheap, free registers before atlas sample) ----
+#ifdef USE_VISIBLE_SH_MAP
+    mediump vec3 diffuseEnv = reconstructDiffuseIrradiance(N);
+#else
+    mediump vec3 diffuseEnv = sampleIBL(N, IBL_DIFFUSE_PR);
+#endif
+    mediump vec3 diffuseIBL = diffuseEnv * albedo * (1.0 - metalness) * IBL_DIFFUSE_INTENSITY;
+#ifdef USE_AO_MAP
+    diffuseIBL *= ao;
+#endif
+#ifdef USE_DETAIL_MAP
+    diffuseIBL *= detailAO;
+#endif
+#ifdef USE_VISIBLE_SH_MAP
+    diffuseIBL *= localVisibilityIBLDiff;
+#endif
+    mediump vec3 hdrColor = directColor + diffuseIBL * diffuseStrength;
+
+    // ---- Specular IBL (after diffuse is consumed, atlas intermediates reuse freed regs) ----
+#ifdef EYE_CUBEMAP_SAMPLE
+    mediump vec3 prefilteredEnv = sampleEyeHandPaintedEnv(R, V, iblPerceptualRoughness);
+#else
+    mediump vec3 prefilteredEnv = sampleIBL(R, iblPerceptualRoughness);
+#endif
+    mediump vec2 dfg = prefilteredDFG_Karis(NoV, roughness);
+    mediump vec3 specularIBL = prefilteredEnv * (f0 * dfg.x + dfg.y) * IBL_SPECULAR_INTENSITY;
+#ifdef USE_AO_MAP
+    specularIBL *= ao;
+#endif
+#ifdef USE_DETAIL_MAP
+    specularIBL *= mix(1.0, detailAO, 0.5);
+#endif
+#ifdef USE_VISIBLE_SH_MAP
+    specularIBL *= localVisibilityIBLSpec;
+#endif
+    hdrColor += specularIBL * specularStrength;
+
+    vec3 emissiveColor = vec3(0.0);
+#ifdef USE_EMISSIVE_MAP
+    vec3 emissiveSample = getSampledColor(TEXTURE_5, materialUV).rgb;
+    emissiveColor = sRGBToLinear(emissiveSample) * EMISSIVE_INTENSITY * emissiveMultiplier;
+#endif
+#ifdef USE_ARM_EMISSIVE
+    float armEmissiveIntensity = armSample.a;
+    emissiveColor += albedo * armEmissiveIntensity * 2.0 * emissiveMultiplier;
+#endif
+
+    // ---- Final composition with tonemapping ----
+#ifdef USE_PREMUL_ALPHA
+    float VoH_approx = NoV;
+    vec3 fresnelVec = F_Schlick(VoH_approx, f0);
+    float fresnel = dot(fresnelVec, vec3(0.3333));
+    float alpha = clamp(fresnel + baseAlpha * (1.0 - fresnel), 0.0, 1.0);
+    // Recompose for premul: specular at full intensity, diffuse premultiplied by alpha
+    vec3 hdrSpec = directSpecularColor * specularStrength + specularIBL * specularStrength;
+    vec3 hdrBase = directDiffuseColor * diffuseStrength + diffuseIBL * diffuseStrength;
+    hdrColor = hdrSpec + hdrBase * alpha + emissiveColor * alpha;
+
+    vec3 finalColor = tonemapACES(min(max(hdrColor, vec3(0.0)), vec3(64.0)));
+    finalColor = pow(max(finalColor, vec3(0.0)), vec3(1.0 / 2.2));
+    vec4 color = vec4(finalColor, alpha);
+#else
+    hdrColor += emissiveColor;
+    vec3 finalColor = tonemapACES(min(max(hdrColor, vec3(0.0)), vec3(64.0)));
+    finalColor = pow(max(finalColor, vec3(0.0)), vec3(1.0 / 2.2));
+    vec4 color = vec4(finalColor, baseAlpha);
+#endif
+    neteaseModelCommonFrag(color);
+    applyOverlayColor(color);
+    applyFog(color, fogColor);
+    gl_FragColor = color;
+#endif
+}

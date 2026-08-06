@@ -10,6 +10,11 @@
         },
         "billboard_text_depth_tested:sign_text": {
             "fragmentShader": "shaders/billboard_text.fragment"
+        },
+        "name_text_depth_tested:sign_text": {
+            "-defines": [
+                "USE_LIGHTING"
+            ]
         }
     }
 }

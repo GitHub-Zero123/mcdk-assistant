@@ -1,4 +1,4 @@
-# ADDONS DOCUMENTATION Version: 1.21.90.3
+# ADDONS DOCUMENTATION Version: 1.21.120.4
 
 
 ## Index
@@ -628,9 +628,6 @@
 | minecraft:cauldron:013 | minecraft:cauldron | 13 | minecraft:cauldron ["cauldron_liquid" = "lava", "fill_level" = 5] |
 | minecraft:cauldron:014 | minecraft:cauldron | 14 | minecraft:cauldron ["cauldron_liquid" = "lava", "fill_level" = 6] |
 | minecraft:cauldron:015 | minecraft:cauldron | 15 | minecraft:cauldron ["cauldron_liquid" = "lava", "fill_level" = 6] |
-| minecraft:chain:000 | minecraft:chain | 0 | minecraft:chain ["pillar_axis" = "y"] |
-| minecraft:chain:001 | minecraft:chain | 1 | minecraft:chain ["pillar_axis" = "x"] |
-| minecraft:chain:002 | minecraft:chain | 2 | minecraft:chain ["pillar_axis" = "z"] |
 | minecraft:chain_command_block:000 | minecraft:chain_command_block | 0 | minecraft:chain_command_block ["conditional_bit" = 0, "facing_direction" = 0] |
 | minecraft:chain_command_block:001 | minecraft:chain_command_block | 1 | minecraft:chain_command_block ["conditional_bit" = 0, "facing_direction" = 1] |
 | minecraft:chain_command_block:002 | minecraft:chain_command_block | 2 | minecraft:chain_command_block ["conditional_bit" = 0, "facing_direction" = 2] |
@@ -1744,6 +1741,9 @@
 | minecraft:hopper:013 | minecraft:hopper | 13 | minecraft:hopper ["facing_direction" = 5, "toggle_bit" = 1] |
 | minecraft:hopper:014 | minecraft:hopper | 14 | minecraft:hopper ["facing_direction" = 0, "toggle_bit" = 1] |
 | minecraft:hopper:015 | minecraft:hopper | 15 | minecraft:hopper ["facing_direction" = 0, "toggle_bit" = 1] |
+| minecraft:iron_chain:000 | minecraft:iron_chain | 0 | minecraft:iron_chain ["pillar_axis" = "y"] |
+| minecraft:iron_chain:001 | minecraft:iron_chain | 1 | minecraft:iron_chain ["pillar_axis" = "x"] |
+| minecraft:iron_chain:002 | minecraft:iron_chain | 2 | minecraft:iron_chain ["pillar_axis" = "z"] |
 | minecraft:iron_door:000 | minecraft:iron_door | 0 | minecraft:iron_door ["door_hinge_bit" = 0, "minecraft:cardinal_direction" = "south", "open_bit" = 0, "upper_block_bit" = 0] |
 | minecraft:iron_door:001 | minecraft:iron_door | 1 | minecraft:iron_door ["door_hinge_bit" = 1, "minecraft:cardinal_direction" = "west", "open_bit" = 0, "upper_block_bit" = 0] |
 | minecraft:iron_door:002 | minecraft:iron_door | 2 | minecraft:iron_door ["door_hinge_bit" = 0, "minecraft:cardinal_direction" = "north", "open_bit" = 0, "upper_block_bit" = 0] |
@@ -4062,6 +4062,7 @@ List of all Vanilla BlockStates.
 | sapling_type | String | evergreen, birch, jungle, acacia, roofed_oak | DEPRECATED - Determines the type of the sapling block |
 | sculk_sensor_phase | String | inactive, active, cooldown | Determines the current phase of a sculk sensor block |
 | sea_grass_type | String | default, double_top, double_bot | Determines the type of a seagrass block |
+| shelf_connection_type | Integer | unconnected, right, center, left | Determines the powered variant of the Shelf |
 | sponge_type | String | dry, wet | DEPRECATED - Determines the type of a sponge block |
 | stability | Integer | 0 - 5 | Determines the stability of a scaffolding block |
 | stability_check | Boolean | True, False | Describes if a scaffolding block has been checked for stability |
@@ -4148,48 +4149,27 @@ List of all Block Traits and the BlockStates they include.
 
 
 ```json
-      {
-
+{
         "format_version": "1.20.0",
-
         "minecraft:block": {
-
           "description": {
-
             "identifier": "test:placement_direction_trait_block",
-
             "traits" : {
-
               "minecraft:placement_direction": {
-
                 "enabled_states": ["minecraft:cardinal_direction"], // 4 permutations
-
                 "y_rotation_offset": 0.0 // 0.0-360.0
-
               }
-
             }
-
           },
-
           "permutations": [
-
             {
-
               "condition": "query.block_state('minecraft:cardinal_direction') == 1", // west
-
               "components": {
-
-                // ...
-
+                // ...  
               }
-
             }
-
           ]
-
         }
-
             }
 ```
 
@@ -4213,6 +4193,7 @@ List of all Block Traits and the BlockStates they include.
 | minecraft:acacia_planks |
 | minecraft:acacia_pressure_plate |
 | minecraft:acacia_sapling |
+| minecraft:acacia_shelf |
 | minecraft:acacia_slab |
 | minecraft:acacia_stairs |
 | minecraft:acacia_standing_sign |
@@ -4251,6 +4232,7 @@ List of all Block Traits and the BlockStates they include.
 | minecraft:bamboo_planks |
 | minecraft:bamboo_pressure_plate |
 | minecraft:bamboo_sapling |
+| minecraft:bamboo_shelf |
 | minecraft:bamboo_slab |
 | minecraft:bamboo_stairs |
 | minecraft:bamboo_standing_sign |
@@ -4278,6 +4260,7 @@ List of all Block Traits and the BlockStates they include.
 | minecraft:birch_planks |
 | minecraft:birch_pressure_plate |
 | minecraft:birch_sapling |
+| minecraft:birch_shelf |
 | minecraft:birch_slab |
 | minecraft:birch_stairs |
 | minecraft:birch_standing_sign |
@@ -4363,7 +4346,6 @@ List of all Block Traits and the BlockStates they include.
 | minecraft:cave_vines |
 | minecraft:cave_vines_body_with_berries |
 | minecraft:cave_vines_head_with_berries |
-| minecraft:chain |
 | minecraft:chain_command_block |
 | minecraft:chalkboard |
 | minecraft:chemical_heat |
@@ -4378,6 +4360,7 @@ List of all Block Traits and the BlockStates they include.
 | minecraft:cherry_planks |
 | minecraft:cherry_pressure_plate |
 | minecraft:cherry_sapling |
+| minecraft:cherry_shelf |
 | minecraft:cherry_slab |
 | minecraft:cherry_stairs |
 | minecraft:cherry_standing_sign |
@@ -4424,11 +4407,17 @@ List of all Block Traits and the BlockStates they include.
 | minecraft:composter |
 | minecraft:compound_creator |
 | minecraft:conduit |
+| minecraft:copper_bars |
 | minecraft:copper_block |
 | minecraft:copper_bulb |
+| minecraft:copper_chain |
+| minecraft:copper_chest |
 | minecraft:copper_door |
+| minecraft:copper_golem_statue |
 | minecraft:copper_grate |
+| minecraft:copper_lantern |
 | minecraft:copper_ore |
+| minecraft:copper_torch |
 | minecraft:copper_trapdoor |
 | minecraft:cornflower |
 | minecraft:cracked_deepslate_bricks |
@@ -4452,6 +4441,7 @@ List of all Block Traits and the BlockStates they include.
 | minecraft:crimson_planks |
 | minecraft:crimson_pressure_plate |
 | minecraft:crimson_roots |
+| minecraft:crimson_shelf |
 | minecraft:crimson_slab |
 | minecraft:crimson_stairs |
 | minecraft:crimson_standing_sign |
@@ -4492,6 +4482,7 @@ List of all Block Traits and the BlockStates they include.
 | minecraft:dark_oak_planks |
 | minecraft:dark_oak_pressure_plate |
 | minecraft:dark_oak_sapling |
+| minecraft:dark_oak_shelf |
 | minecraft:dark_oak_slab |
 | minecraft:dark_oak_stairs |
 | minecraft:dark_oak_trapdoor |
@@ -4703,14 +4694,20 @@ List of all Block Traits and the BlockStates they include.
 | minecraft:ender_chest |
 | minecraft:exposed_chiseled_copper |
 | minecraft:exposed_copper |
+| minecraft:exposed_copper_bars |
 | minecraft:exposed_copper_bulb |
+| minecraft:exposed_copper_chain |
+| minecraft:exposed_copper_chest |
 | minecraft:exposed_copper_door |
+| minecraft:exposed_copper_golem_statue |
 | minecraft:exposed_copper_grate |
+| minecraft:exposed_copper_lantern |
 | minecraft:exposed_copper_trapdoor |
 | minecraft:exposed_cut_copper |
 | minecraft:exposed_cut_copper_slab |
 | minecraft:exposed_cut_copper_stairs |
 | minecraft:exposed_double_cut_copper_slab |
+| minecraft:exposed_lightning_rod |
 | minecraft:farmland |
 | minecraft:fence_gate |
 | minecraft:fern |
@@ -4829,6 +4826,7 @@ List of all Block Traits and the BlockStates they include.
 | minecraft:invisible_bedrock |
 | minecraft:iron_bars |
 | minecraft:iron_block |
+| minecraft:iron_chain |
 | minecraft:iron_door |
 | minecraft:iron_ore |
 | minecraft:iron_trapdoor |
@@ -4845,6 +4843,7 @@ List of all Block Traits and the BlockStates they include.
 | minecraft:jungle_planks |
 | minecraft:jungle_pressure_plate |
 | minecraft:jungle_sapling |
+| minecraft:jungle_shelf |
 | minecraft:jungle_slab |
 | minecraft:jungle_stairs |
 | minecraft:jungle_standing_sign |
@@ -4948,6 +4947,7 @@ List of all Block Traits and the BlockStates they include.
 | minecraft:mangrove_pressure_plate |
 | minecraft:mangrove_propagule |
 | minecraft:mangrove_roots |
+| minecraft:mangrove_shelf |
 | minecraft:mangrove_slab |
 | minecraft:mangrove_stairs |
 | minecraft:mangrove_standing_sign |
@@ -5005,6 +5005,7 @@ List of all Block Traits and the BlockStates they include.
 | minecraft:oak_log |
 | minecraft:oak_planks |
 | minecraft:oak_sapling |
+| minecraft:oak_shelf |
 | minecraft:oak_slab |
 | minecraft:oak_stairs |
 | minecraft:oak_wood |
@@ -5027,14 +5028,20 @@ List of all Block Traits and the BlockStates they include.
 | minecraft:oxeye_daisy |
 | minecraft:oxidized_chiseled_copper |
 | minecraft:oxidized_copper |
+| minecraft:oxidized_copper_bars |
 | minecraft:oxidized_copper_bulb |
+| minecraft:oxidized_copper_chain |
+| minecraft:oxidized_copper_chest |
 | minecraft:oxidized_copper_door |
+| minecraft:oxidized_copper_golem_statue |
 | minecraft:oxidized_copper_grate |
+| minecraft:oxidized_copper_lantern |
 | minecraft:oxidized_copper_trapdoor |
 | minecraft:oxidized_cut_copper |
 | minecraft:oxidized_cut_copper_slab |
 | minecraft:oxidized_cut_copper_stairs |
 | minecraft:oxidized_double_cut_copper_slab |
+| minecraft:oxidized_lightning_rod |
 | minecraft:packed_ice |
 | minecraft:packed_mud |
 | minecraft:pale_hanging_moss |
@@ -5051,6 +5058,7 @@ List of all Block Traits and the BlockStates they include.
 | minecraft:pale_oak_planks |
 | minecraft:pale_oak_pressure_plate |
 | minecraft:pale_oak_sapling |
+| minecraft:pale_oak_shelf |
 | minecraft:pale_oak_slab |
 | minecraft:pale_oak_stairs |
 | minecraft:pale_oak_standing_sign |
@@ -5267,6 +5275,7 @@ List of all Block Traits and the BlockStates they include.
 | minecraft:spruce_planks |
 | minecraft:spruce_pressure_plate |
 | minecraft:spruce_sapling |
+| minecraft:spruce_shelf |
 | minecraft:spruce_slab |
 | minecraft:spruce_stairs |
 | minecraft:spruce_standing_sign |
@@ -5370,6 +5379,7 @@ List of all Block Traits and the BlockStates they include.
 | minecraft:warped_planks |
 | minecraft:warped_pressure_plate |
 | minecraft:warped_roots |
+| minecraft:warped_shelf |
 | minecraft:warped_slab |
 | minecraft:warped_stairs |
 | minecraft:warped_standing_sign |
@@ -5381,9 +5391,14 @@ List of all Block Traits and the BlockStates they include.
 | minecraft:waterlily |
 | minecraft:waxed_chiseled_copper |
 | minecraft:waxed_copper |
+| minecraft:waxed_copper_bars |
 | minecraft:waxed_copper_bulb |
+| minecraft:waxed_copper_chain |
+| minecraft:waxed_copper_chest |
 | minecraft:waxed_copper_door |
+| minecraft:waxed_copper_golem_statue |
 | minecraft:waxed_copper_grate |
+| minecraft:waxed_copper_lantern |
 | minecraft:waxed_copper_trapdoor |
 | minecraft:waxed_cut_copper |
 | minecraft:waxed_cut_copper_slab |
@@ -5391,44 +5406,69 @@ List of all Block Traits and the BlockStates they include.
 | minecraft:waxed_double_cut_copper_slab |
 | minecraft:waxed_exposed_chiseled_copper |
 | minecraft:waxed_exposed_copper |
+| minecraft:waxed_exposed_copper_bars |
 | minecraft:waxed_exposed_copper_bulb |
+| minecraft:waxed_exposed_copper_chain |
+| minecraft:waxed_exposed_copper_chest |
 | minecraft:waxed_exposed_copper_door |
+| minecraft:waxed_exposed_copper_golem_statue |
 | minecraft:waxed_exposed_copper_grate |
+| minecraft:waxed_exposed_copper_lantern |
 | minecraft:waxed_exposed_copper_trapdoor |
 | minecraft:waxed_exposed_cut_copper |
 | minecraft:waxed_exposed_cut_copper_slab |
 | minecraft:waxed_exposed_cut_copper_stairs |
 | minecraft:waxed_exposed_double_cut_copper_slab |
+| minecraft:waxed_exposed_lightning_rod |
+| minecraft:waxed_lightning_rod |
 | minecraft:waxed_oxidized_chiseled_copper |
 | minecraft:waxed_oxidized_copper |
+| minecraft:waxed_oxidized_copper_bars |
 | minecraft:waxed_oxidized_copper_bulb |
+| minecraft:waxed_oxidized_copper_chain |
+| minecraft:waxed_oxidized_copper_chest |
 | minecraft:waxed_oxidized_copper_door |
+| minecraft:waxed_oxidized_copper_golem_statue |
 | minecraft:waxed_oxidized_copper_grate |
+| minecraft:waxed_oxidized_copper_lantern |
 | minecraft:waxed_oxidized_copper_trapdoor |
 | minecraft:waxed_oxidized_cut_copper |
 | minecraft:waxed_oxidized_cut_copper_slab |
 | minecraft:waxed_oxidized_cut_copper_stairs |
 | minecraft:waxed_oxidized_double_cut_copper_slab |
+| minecraft:waxed_oxidized_lightning_rod |
 | minecraft:waxed_weathered_chiseled_copper |
 | minecraft:waxed_weathered_copper |
+| minecraft:waxed_weathered_copper_bars |
 | minecraft:waxed_weathered_copper_bulb |
+| minecraft:waxed_weathered_copper_chain |
+| minecraft:waxed_weathered_copper_chest |
 | minecraft:waxed_weathered_copper_door |
+| minecraft:waxed_weathered_copper_golem_statue |
 | minecraft:waxed_weathered_copper_grate |
+| minecraft:waxed_weathered_copper_lantern |
 | minecraft:waxed_weathered_copper_trapdoor |
 | minecraft:waxed_weathered_cut_copper |
 | minecraft:waxed_weathered_cut_copper_slab |
 | minecraft:waxed_weathered_cut_copper_stairs |
 | minecraft:waxed_weathered_double_cut_copper_slab |
+| minecraft:waxed_weathered_lightning_rod |
 | minecraft:weathered_chiseled_copper |
 | minecraft:weathered_copper |
+| minecraft:weathered_copper_bars |
 | minecraft:weathered_copper_bulb |
+| minecraft:weathered_copper_chain |
+| minecraft:weathered_copper_chest |
 | minecraft:weathered_copper_door |
+| minecraft:weathered_copper_golem_statue |
 | minecraft:weathered_copper_grate |
+| minecraft:weathered_copper_lantern |
 | minecraft:weathered_copper_trapdoor |
 | minecraft:weathered_cut_copper |
 | minecraft:weathered_cut_copper_slab |
 | minecraft:weathered_cut_copper_stairs |
 | minecraft:weathered_double_cut_copper_slab |
+| minecraft:weathered_lightning_rod |
 | minecraft:web |
 | minecraft:weeping_vines |
 | minecraft:wet_sponge |
@@ -5494,6 +5534,7 @@ List of all Block Traits and the BlockStates they include.
 | chicken | 4874 | 10 |
 | cod | 9072 | 112 |
 | command_block_minecart | 524388 | 100 |
+| copper_golem | 916 | 148 |
 | cow | 4875 | 11 |
 | creaking | 2962 | 146 |
 | creeper | 2849 | 33 |
@@ -5655,10 +5696,10 @@ List of all Block Traits and the BlockStates they include.
 
 | Name | ID | Aux Values |
 | --- | --- | --- |
-| acacia_boat | 383 |  |
+| acacia_boat | 382 |  |
 | acacia_button | -140 |  |
-| acacia_chest_boat | 658 |  |
-| acacia_door | 567 |  |
+| acacia_chest_boat | 656 |  |
+| acacia_door | 566 |  |
 | acacia_double_slab | -812 |  |
 | acacia_fence | -575 |  |
 | acacia_fence_gate | 187 |  |
@@ -5668,7 +5709,8 @@ List of all Block Traits and the BlockStates they include.
 | acacia_planks | -742 |  |
 | acacia_pressure_plate | -150 |  |
 | acacia_sapling | -828 |  |
-| acacia_sign | 590 |  |
+| acacia_shelf | -1051 |  |
+| acacia_sign | 589 |  |
 | acacia_slab | -807 |  |
 | acacia_stairs | 163 |  |
 | acacia_standing_sign | -190 |  |
@@ -5676,41 +5718,41 @@ List of all Block Traits and the BlockStates they include.
 | acacia_wall_sign | -191 |  |
 | acacia_wood | -817 |  |
 | activator_rail | 126 |  |
-| agent_spawn_egg | 493 |  |
+| agent_spawn_egg | 492 |  |
 | air | -158 |  |
-| allay_spawn_egg | 647 |  |
+| allay_spawn_egg | 645 |  |
 | allium | -831 |  |
 | allow | 210 |  |
 | amethyst_block | -327 |  |
 | amethyst_cluster | -329 |  |
-| amethyst_shard | 640 |  |
+| amethyst_shard | 638 |  |
 | ancient_debris | -271 |  |
 | andesite | -594 |  |
 | andesite_double_slab | -920 |  |
 | andesite_slab | -893 |  |
 | andesite_stairs | -171 |  |
 | andesite_wall | -974 |  |
-| angler_pottery_sherd | 672 |  |
+| angler_pottery_sherd | 670 |  |
 | anvil | 145 |  |
 | apple | 257 |  |
-| archer_pottery_sherd | 673 |  |
-| armadillo_scute | 719 |  |
-| armadillo_spawn_egg | 718 |  |
-| armor_stand | 563 |  |
-| arms_up_pottery_sherd | 674 |  |
+| archer_pottery_sherd | 671 |  |
+| armadillo_scute | 717 |  |
+| armadillo_spawn_egg | 716 |  |
+| armor_stand | 562 |  |
+| arms_up_pottery_sherd | 672 |  |
 | arrow | 303 |  |
 | axolotl_bucket | 372 |  |
-| axolotl_spawn_egg | 508 |  |
+| axolotl_spawn_egg | 507 |  |
 | azalea | -337 |  |
 | azalea_leaves | -324 |  |
 | azalea_leaves_flowered | -325 |  |
 | azure_bluet | -832 |  |
 | baked_potato | 281 |  |
-| balloon | 614 |  |
+| balloon | 613 |  |
 | bamboo | -163 |  |
 | bamboo_block | -527 |  |
 | bamboo_button | -511 |  |
-| bamboo_chest_raft | 670 |  |
+| bamboo_chest_raft | 668 |  |
 | bamboo_door | -517 |  |
 | bamboo_double_slab | -521 |  |
 | bamboo_fence | -515 |  |
@@ -5722,25 +5764,26 @@ List of all Block Traits and the BlockStates they include.
 | bamboo_mosaic_stairs | -523 |  |
 | bamboo_planks | -510 |  |
 | bamboo_pressure_plate | -514 |  |
-| bamboo_raft | 669 |  |
+| bamboo_raft | 667 |  |
 | bamboo_sapling | -164 |  |
-| bamboo_sign | 668 |  |
+| bamboo_shelf | -1056 |  |
+| bamboo_sign | 666 |  |
 | bamboo_slab | -513 |  |
 | bamboo_stairs | -512 |  |
 | bamboo_standing_sign | -518 |  |
 | bamboo_trapdoor | -520 |  |
 | bamboo_wall_sign | -519 |  |
-| banner | 578 |  |
-| banner_pattern | 792 |  |
+| banner | 577 |  |
+| banner_pattern | 801 |  |
 | barrel | -203 |  |
 | barrier | -161 |  |
 | basalt | -234 |  |
-| bat_spawn_egg | 458 |  |
+| bat_spawn_egg | 457 |  |
 | beacon | 138 |  |
-| bed | 422 |  |
+| bed | 421 |  |
 | bedrock | 7 |  |
 | bee_nest | -218 |  |
-| bee_spawn_egg | 500 |  |
+| bee_spawn_egg | 499 |  |
 | beef | 273 |  |
 | beehive | -219 |  |
 | beetroot | 285 |  |
@@ -5748,10 +5791,10 @@ List of all Block Traits and the BlockStates they include.
 | beetroot_soup | 286 |  |
 | bell | -206 |  |
 | big_dripleaf | -323 |  |
-| birch_boat | 380 |  |
+| birch_boat | 379 |  |
 | birch_button | -141 |  |
-| birch_chest_boat | 655 |  |
-| birch_door | 565 |  |
+| birch_chest_boat | 653 |  |
+| birch_door | 564 |  |
 | birch_double_slab | -810 |  |
 | birch_fence | -576 |  |
 | birch_fence_gate | 184 |  |
@@ -5761,7 +5804,8 @@ List of all Block Traits and the BlockStates they include.
 | birch_planks | -740 |  |
 | birch_pressure_plate | -151 |  |
 | birch_sapling | -826 |  |
-| birch_sign | 588 |  |
+| birch_shelf | -1049 |  |
+| birch_sign | 587 |  |
 | birch_slab | -805 |  |
 | birch_stairs | 135 |  |
 | birch_standing_sign | -186 |  |
@@ -5773,9 +5817,9 @@ List of all Block Traits and the BlockStates they include.
 | black_carpet | -611 |  |
 | black_concrete | -642 |  |
 | black_concrete_powder | -723 |  |
-| black_dye | 399 |  |
+| black_dye | 398 |  |
 | black_glazed_terracotta | 235 |  |
-| black_harness | 731 |  |
+| black_harness | 727 |  |
 | black_shulker_box | -627 |  |
 | black_stained_glass | -687 |  |
 | black_stained_glass_pane | -657 |  |
@@ -5786,21 +5830,21 @@ List of all Block Traits and the BlockStates they include.
 | blackstone_slab | -282 |  |
 | blackstone_stairs | -276 |  |
 | blackstone_wall | -277 |  |
-| blade_pottery_sherd | 675 |  |
+| blade_pottery_sherd | 673 |  |
 | blast_furnace | -196 |  |
-| blaze_powder | 434 |  |
-| blaze_rod | 427 |  |
-| blaze_spawn_egg | 461 |  |
-| bleach | 612 |  |
+| blaze_powder | 433 |  |
+| blaze_rod | 426 |  |
+| blaze_spawn_egg | 460 |  |
+| bleach | 611 |  |
 | blue_candle | -424 |  |
 | blue_candle_cake | -441 |  |
 | blue_carpet | -607 |  |
 | blue_concrete | -638 |  |
 | blue_concrete_powder | -719 |  |
-| blue_dye | 403 |  |
-| blue_egg | 728 |  |
+| blue_dye | 402 |  |
+| blue_egg | 724 |  |
 | blue_glazed_terracotta | 231 |  |
-| blue_harness | 732 |  |
+| blue_harness | 728 |  |
 | blue_ice | -11 |  |
 | blue_orchid | -830 |  |
 | blue_shulker_box | -623 |  |
@@ -5808,17 +5852,17 @@ List of all Block Traits and the BlockStates they include.
 | blue_stained_glass_pane | -653 |  |
 | blue_terracotta | -734 |  |
 | blue_wool | -563 |  |
-| board | 608 |  |
-| boat | 790 |  |
-| bogged_spawn_egg | 468 |  |
-| bolt_armor_trim_smithing_template | 714 |  |
-| bone | 419 |  |
+| board | 607 |  |
+| boat | 799 |  |
+| bogged_spawn_egg | 467 |  |
+| bolt_armor_trim_smithing_template | 712 |  |
+| bone | 418 |  |
 | bone_block | 216 |  |
-| bone_meal | 415 |  |
-| book | 391 |  |
+| bone_meal | 414 |  |
+| book | 390 |  |
 | bookshelf | 47 |  |
 | border_block | 212 |  |
-| bordure_indented_banner_pattern | 597 |  |
+| bordure_indented_banner_pattern | 596 |  |
 | bow | 302 |  |
 | bowl | 324 |  |
 | brain_coral | -581 |  |
@@ -5826,11 +5870,11 @@ List of all Block Traits and the BlockStates they include.
 | brain_coral_fan | -840 |  |
 | brain_coral_wall_fan | -904 |  |
 | bread | 261 |  |
-| breeze_rod | 428 |  |
-| breeze_spawn_egg | 507 |  |
-| brewer_pottery_sherd | 676 |  |
-| brewing_stand | 436 |  |
-| brick | 387 |  |
+| breeze_rod | 427 |  |
+| breeze_spawn_egg | 506 |  |
+| brewer_pottery_sherd | 674 |  |
+| brewing_stand | 435 |  |
+| brick | 386 |  |
 | brick_block | 45 |  |
 | brick_double_slab | -880 |  |
 | brick_slab | -874 |  |
@@ -5841,10 +5885,10 @@ List of all Block Traits and the BlockStates they include.
 | brown_carpet | -608 |  |
 | brown_concrete | -639 |  |
 | brown_concrete_powder | -720 |  |
-| brown_dye | 402 |  |
-| brown_egg | 729 |  |
+| brown_dye | 401 |  |
+| brown_egg | 725 |  |
 | brown_glazed_terracotta | 232 |  |
-| brown_harness | 733 |  |
+| brown_harness | 729 |  |
 | brown_mushroom | 39 |  |
 | brown_mushroom_block | 99 |  |
 | brown_shulker_box | -624 |  |
@@ -5852,7 +5896,7 @@ List of all Block Traits and the BlockStates they include.
 | brown_stained_glass_pane | -654 |  |
 | brown_terracotta | -735 |  |
 | brown_wool | -555 |  |
-| brush | 695 |  |
+| brush | 693 |  |
 | bubble_column | -160 |  |
 | bubble_coral | -582 |  |
 | bubble_coral_block | -850 |  |
@@ -5860,31 +5904,30 @@ List of all Block Traits and the BlockStates they include.
 | bubble_coral_wall_fan | -136 |  |
 | bucket | 363 |  |
 | budding_amethyst | -328 |  |
-| burn_pottery_sherd | 677 |  |
+| burn_pottery_sherd | 675 |  |
 | bush | -1023 |  |
 | cactus | 81 |  |
 | cactus_flower | -1030 |  |
-| cake | 421 |  |
+| cake | 420 |  |
 | calcite | -326 |  |
 | calibrated_sculk_sensor | -580 |  |
-| camel_spawn_egg | 671 |  |
-| camera | 609 |  |
-| campfire | 602 |  |
+| camel_spawn_egg | 669 |  |
+| camera | 608 |  |
+| campfire | 601 |  |
 | candle | -412 |  |
 | candle_cake | -429 |  |
-| carpet | 748 |  |
+| carpet | 756 |  |
 | carrot | 279 |  |
-| carrot_on_a_stick | 528 |  |
+| carrot_on_a_stick | 527 |  |
 | carrots | 141 |  |
 | cartography_table | -200 |  |
 | carved_pumpkin | -155 |  |
-| cat_spawn_egg | 494 |  |
-| cauldron | 437 |  |
-| cave_spider_spawn_egg | 462 |  |
+| cat_spawn_egg | 493 |  |
+| cauldron | 436 |  |
+| cave_spider_spawn_egg | 461 |  |
 | cave_vines | -322 |  |
 | cave_vines_body_with_berries | -375 |  |
 | cave_vines_head_with_berries | -376 |  |
-| chain | 635 |  |
 | chain_command_block | 189 |  |
 | chainmail_boots | 345 |  |
 | chainmail_chestplate | 343 |  |
@@ -5893,10 +5936,10 @@ List of all Block Traits and the BlockStates they include.
 | chalkboard | 230 |  |
 | charcoal | 305 |  |
 | chemical_heat | 192 |  |
-| chemistry_table | 784 |  |
-| cherry_boat | 665 |  |
+| chemistry_table | 793 |  |
+| cherry_boat | 663 |  |
 | cherry_button | -530 |  |
-| cherry_chest_boat | 666 |  |
+| cherry_chest_boat | 664 |  |
 | cherry_door | -531 |  |
 | cherry_double_slab | -540 |  |
 | cherry_fence | -532 |  |
@@ -5907,7 +5950,8 @@ List of all Block Traits and the BlockStates they include.
 | cherry_planks | -537 |  |
 | cherry_pressure_plate | -538 |  |
 | cherry_sapling | -547 |  |
-| cherry_sign | 667 |  |
+| cherry_shelf | -1054 |  |
+| cherry_sign | 665 |  |
 | cherry_slab | -539 |  |
 | cherry_stairs | -541 |  |
 | cherry_standing_sign | -542 |  |
@@ -5915,10 +5959,10 @@ List of all Block Traits and the BlockStates they include.
 | cherry_wall_sign | -544 |  |
 | cherry_wood | -546 |  |
 | chest | 54 |  |
-| chest_boat | 661 |  |
-| chest_minecart | 393 |  |
+| chest_boat | 659 |  |
+| chest_minecart | 392 |  |
 | chicken | 275 |  |
-| chicken_spawn_egg | 440 |  |
+| chicken_spawn_egg | 439 |  |
 | chipped_anvil | -959 |  |
 | chiseled_bookshelf | -526 |  |
 | chiseled_copper | -760 |  |
@@ -5933,18 +5977,18 @@ List of all Block Traits and the BlockStates they include.
 | chiseled_tuff | -753 |  |
 | chiseled_tuff_bricks | -759 |  |
 | chorus_flower | 200 |  |
-| chorus_fruit | 569 |  |
+| chorus_fruit | 568 |  |
 | chorus_plant | 240 |  |
 | clay | 82 |  |
-| clay_ball | 388 |  |
+| clay_ball | 387 |  |
 | client_request_placeholder_block | -465 |  |
-| clock | 397 |  |
+| clock | 396 |  |
 | closed_eyeblossom | -1019 |  |
 | coal | 304 |  |
 | coal_block | 173 |  |
 | coal_ore | 16 |  |
 | coarse_dirt | -962 |  |
-| coast_armor_trim_smithing_template | 699 |  |
+| coast_armor_trim_smithing_template | 697 |  |
 | cobbled_deepslate | -379 |  |
 | cobbled_deepslate_double_slab | -396 |  |
 | cobbled_deepslate_slab | -380 |  |
@@ -5955,47 +5999,65 @@ List of all Block Traits and the BlockStates they include.
 | cobblestone_slab | -873 |  |
 | cobblestone_wall | 139 |  |
 | cocoa | 127 |  |
-| cocoa_beans | 416 |  |
+| cocoa_beans | 415 |  |
 | cod | 264 |  |
 | cod_bucket | 367 |  |
-| cod_spawn_egg | 486 |  |
+| cod_spawn_egg | 485 |  |
 | colored_torch_blue | 204 |  |
-| colored_torch_bp | 788 |  |
+| colored_torch_bp | 797 |  |
 | colored_torch_green | -963 |  |
 | colored_torch_purple | -964 |  |
 | colored_torch_red | 202 |  |
-| colored_torch_rg | 787 |  |
+| colored_torch_rg | 796 |  |
 | command_block | 137 |  |
-| command_block_minecart | 574 |  |
-| comparator | 533 |  |
-| compass | 395 |  |
+| command_block_minecart | 573 |  |
+| comparator | 532 |  |
+| compass | 394 |  |
 | composter | -213 |  |
-| compound | 610 |  |
+| compound | 609 |  |
 | compound_creator | 238 |  |
-| concrete | 774 |  |
-| concrete_powder | 775 |  |
+| concrete | 782 |  |
+| concrete_powder | 783 |  |
 | conduit | -157 |  |
 | cooked_beef | 274 |  |
 | cooked_chicken | 276 |  |
 | cooked_cod | 268 |  |
-| cooked_mutton | 562 |  |
+| cooked_mutton | 561 |  |
 | cooked_porkchop | 263 |  |
 | cooked_rabbit | 289 |  |
 | cooked_salmon | 269 |  |
 | cookie | 271 |  |
+| copper_axe | 747 |  |
+| copper_bars | -1066 |  |
 | copper_block | -340 |  |
+| copper_boots | 752 |  |
 | copper_bulb | -776 |  |
+| copper_chain | -1074 |  |
+| copper_chest | -1031 |  |
+| copper_chestplate | 750 |  |
 | copper_door | -784 |  |
+| copper_golem_spawn_egg | 743 |  |
+| copper_golem_statue | -1039 |  |
 | copper_grate | -768 |  |
-| copper_ingot | 516 |  |
+| copper_helmet | 749 |  |
+| copper_hoe | 748 |  |
+| copper_horse_armor | 754 |  |
+| copper_ingot | 515 |  |
+| copper_lantern | -1083 |  |
+| copper_leggings | 751 |  |
+| copper_nugget | 753 |  |
 | copper_ore | -311 |  |
+| copper_pickaxe | 746 |  |
+| copper_shovel | 745 |  |
+| copper_sword | 744 |  |
+| copper_torch | -1082 |  |
 | copper_trapdoor | -792 |  |
-| coral | 770 |  |
-| coral_block | 752 |  |
-| coral_fan | 761 |  |
-| coral_fan_dead | 762 |  |
+| coral | 778 |  |
+| coral_block | 760 |  |
+| coral_fan | 769 |  |
+| coral_fan_dead | 770 |  |
 | cornflower | -838 |  |
-| cow_spawn_egg | 441 |  |
+| cow_spawn_egg | 440 |  |
 | cracked_deepslate_bricks | -410 |  |
 | cracked_deepslate_tiles | -409 |  |
 | cracked_nether_bricks | -303 |  |
@@ -6004,12 +6066,12 @@ List of all Block Traits and the BlockStates they include.
 | crafter | -313 |  |
 | crafting_table | 58 |  |
 | creaking_heart | -1012 |  |
-| creaking_spawn_egg | 726 |  |
-| creeper_banner_pattern | 593 |  |
+| creaking_spawn_egg | 722 |  |
+| creeper_banner_pattern | 592 |  |
 | creeper_head | -968 |  |
-| creeper_spawn_egg | 446 |  |
+| creeper_spawn_egg | 445 |  |
 | crimson_button | -260 |  |
-| crimson_door | 632 |  |
+| crimson_door | 631 |  |
 | crimson_double_slab | -266 |  |
 | crimson_fence | -256 |  |
 | crimson_fence_gate | -258 |  |
@@ -6020,14 +6082,15 @@ List of all Block Traits and the BlockStates they include.
 | crimson_planks | -242 |  |
 | crimson_pressure_plate | -262 |  |
 | crimson_roots | -223 |  |
-| crimson_sign | 630 |  |
+| crimson_shelf | -1057 |  |
+| crimson_sign | 629 |  |
 | crimson_slab | -264 |  |
 | crimson_stairs | -254 |  |
 | crimson_standing_sign | -250 |  |
 | crimson_stem | -225 |  |
 | crimson_trapdoor | -246 |  |
 | crimson_wall_sign | -252 |  |
-| crossbow | 586 |  |
+| crossbow | 585 |  |
 | crying_obsidian | -289 |  |
 | cut_copper | -347 |  |
 | cut_copper_slab | -361 |  |
@@ -6043,9 +6106,9 @@ List of all Block Traits and the BlockStates they include.
 | cyan_carpet | -605 |  |
 | cyan_concrete | -636 |  |
 | cyan_concrete_powder | -717 |  |
-| cyan_dye | 405 |  |
+| cyan_dye | 404 |  |
 | cyan_glazed_terracotta | 229 |  |
-| cyan_harness | 734 |  |
+| cyan_harness | 730 |  |
 | cyan_shulker_box | -621 |  |
 | cyan_stained_glass | -681 |  |
 | cyan_stained_glass_pane | -651 |  |
@@ -6053,11 +6116,11 @@ List of all Block Traits and the BlockStates they include.
 | cyan_wool | -561 |  |
 | damaged_anvil | -960 |  |
 | dandelion | 37 |  |
-| danger_pottery_sherd | 678 |  |
-| dark_oak_boat | 384 |  |
+| danger_pottery_sherd | 676 |  |
+| dark_oak_boat | 383 |  |
 | dark_oak_button | -142 |  |
-| dark_oak_chest_boat | 659 |  |
-| dark_oak_door | 568 |  |
+| dark_oak_chest_boat | 657 |  |
+| dark_oak_door | 567 |  |
 | dark_oak_double_slab | -813 |  |
 | dark_oak_fence | -577 |  |
 | dark_oak_fence_gate | 186 |  |
@@ -6067,7 +6130,8 @@ List of all Block Traits and the BlockStates they include.
 | dark_oak_planks | -743 |  |
 | dark_oak_pressure_plate | -152 |  |
 | dark_oak_sapling | -829 |  |
-| dark_oak_sign | 591 |  |
+| dark_oak_shelf | -1052 |  |
+| dark_oak_sign | 590 |  |
 | dark_oak_slab | -808 |  |
 | dark_oak_stairs | 164 |  |
 | dark_oak_trapdoor | -147 |  |
@@ -6101,7 +6165,7 @@ List of all Block Traits and the BlockStates they include.
 | dead_tube_coral_fan | -134 |  |
 | dead_tube_coral_wall_fan | -905 |  |
 | deadbush | 32 |  |
-| debug_stick | 604 |  |
+| debug_stick | 603 |  |
 | decorated_pot | -551 |  |
 | deepslate | -378 |  |
 | deepslate_brick_double_slab | -399 |  |
@@ -6134,7 +6198,7 @@ List of all Block Traits and the BlockStates they include.
 | diamond_chestplate | 351 |  |
 | diamond_helmet | 350 |  |
 | diamond_hoe | 335 |  |
-| diamond_horse_armor | 544 |  |
+| diamond_horse_armor | 543 |  |
 | diamond_leggings | 352 |  |
 | diamond_ore | 56 |  |
 | diamond_pickaxe | 320 |  |
@@ -6147,17 +6211,17 @@ List of all Block Traits and the BlockStates they include.
 | diorite_wall | -973 |  |
 | dirt | 3 |  |
 | dirt_with_roots | -318 |  |
-| disc_fragment_5 | 653 |  |
+| disc_fragment_5 | 651 |  |
 | dispenser | 23 |  |
-| dolphin_spawn_egg | 490 |  |
-| donkey_spawn_egg | 471 |  |
+| dolphin_spawn_egg | 489 |  |
+| donkey_spawn_egg | 470 |  |
 | double_cut_copper_slab | -368 |  |
-| double_plant | 768 |  |
-| double_stone_block_slab | 757 |  |
-| double_stone_block_slab2 | 758 |  |
-| double_stone_block_slab3 | 759 |  |
-| double_stone_block_slab4 | 760 |  |
-| dragon_breath | 571 |  |
+| double_plant | 776 |  |
+| double_stone_block_slab | 765 |  |
+| double_stone_block_slab2 | 766 |  |
+| double_stone_block_slab3 | 767 |  |
+| double_stone_block_slab4 | 768 |  |
+| dragon_breath | 570 |  |
 | dragon_egg | 122 |  |
 | dragon_head | -969 |  |
 | dried_ghast | -1027 |  |
@@ -6165,12 +6229,12 @@ List of all Block Traits and the BlockStates they include.
 | dried_kelp_block | -139 |  |
 | dripstone_block | -317 |  |
 | dropper | 125 |  |
-| drowned_spawn_egg | 489 |  |
-| dune_armor_trim_smithing_template | 698 |  |
-| dye | 791 |  |
-| echo_shard | 663 |  |
-| egg | 394 |  |
-| elder_guardian_spawn_egg | 477 |  |
+| drowned_spawn_egg | 488 |  |
+| dune_armor_trim_smithing_template | 696 |  |
+| dye | 800 |  |
+| echo_shard | 661 |  |
+| egg | 393 |  |
+| elder_guardian_spawn_egg | 476 |  |
 | element_0 | 36 |  |
 | element_1 | -12 |  |
 | element_10 | -21 |  |
@@ -6291,17 +6355,17 @@ List of all Block Traits and the BlockStates they include.
 | element_98 | -109 |  |
 | element_99 | -110 |  |
 | element_constructor | -987 |  |
-| elytra | 575 |  |
-| emerald | 524 |  |
+| elytra | 574 |  |
+| emerald | 523 |  |
 | emerald_block | 133 |  |
 | emerald_ore | 129 |  |
-| empty_map | 527 |  |
-| enchanted_book | 532 |  |
+| empty_map | 526 |  |
+| enchanted_book | 531 |  |
 | enchanted_golden_apple | 259 |  |
 | enchanting_table | 116 |  |
 | end_brick_stairs | -178 |  |
 | end_bricks | 206 |  |
-| end_crystal | 794 |  |
+| end_crystal | 803 |  |
 | end_gateway | 209 |  |
 | end_portal | 119 |  |
 | end_portal_frame | 120 |  |
@@ -6311,82 +6375,88 @@ List of all Block Traits and the BlockStates they include.
 | end_stone_brick_slab | -162 |  |
 | end_stone_brick_wall | -980 |  |
 | ender_chest | 130 |  |
-| ender_dragon_spawn_egg | 513 |  |
-| ender_eye | 438 |  |
-| ender_pearl | 426 |  |
-| enderman_spawn_egg | 447 |  |
-| endermite_spawn_egg | 465 |  |
-| evoker_spawn_egg | 481 |  |
-| experience_bottle | 520 |  |
-| explorer_pottery_sherd | 679 |  |
+| ender_dragon_spawn_egg | 512 |  |
+| ender_eye | 437 |  |
+| ender_pearl | 425 |  |
+| enderman_spawn_egg | 446 |  |
+| endermite_spawn_egg | 464 |  |
+| evoker_spawn_egg | 480 |  |
+| experience_bottle | 519 |  |
+| explorer_pottery_sherd | 677 |  |
 | exposed_chiseled_copper | -761 |  |
 | exposed_copper | -341 |  |
+| exposed_copper_bars | -1067 |  |
 | exposed_copper_bulb | -777 |  |
+| exposed_copper_chain | -1075 |  |
+| exposed_copper_chest | -1032 |  |
 | exposed_copper_door | -785 |  |
+| exposed_copper_golem_statue | -1040 |  |
 | exposed_copper_grate | -769 |  |
+| exposed_copper_lantern | -1084 |  |
 | exposed_copper_trapdoor | -793 |  |
 | exposed_cut_copper | -348 |  |
 | exposed_cut_copper_slab | -362 |  |
 | exposed_cut_copper_stairs | -355 |  |
 | exposed_double_cut_copper_slab | -369 |  |
-| eye_armor_trim_smithing_template | 702 |  |
+| exposed_lightning_rod | -1059 |  |
+| eye_armor_trim_smithing_template | 700 |  |
 | farmland | 60 |  |
 | feather | 330 |  |
-| fence | 750 |  |
+| fence | 758 |  |
 | fence_gate | 107 |  |
-| fermented_spider_eye | 433 |  |
+| fermented_spider_eye | 432 |  |
 | fern | -848 |  |
-| field_masoned_banner_pattern | 596 |  |
-| filled_map | 424 |  |
+| field_masoned_banner_pattern | 595 |  |
+| filled_map | 423 |  |
 | fire | 51 |  |
-| fire_charge | 521 |  |
+| fire_charge | 520 |  |
 | fire_coral | -583 |  |
 | fire_coral_block | -851 |  |
 | fire_coral_fan | -842 |  |
 | fire_coral_wall_fan | -907 |  |
 | firefly_bush | -1025 |  |
-| firework_rocket | 530 |  |
-| firework_star | 531 |  |
-| fishing_rod | 396 |  |
+| firework_rocket | 529 |  |
+| firework_star | 530 |  |
+| fishing_rod | 395 |  |
 | fletching_table | -201 |  |
 | flint | 359 |  |
 | flint_and_steel | 301 |  |
-| flow_armor_trim_smithing_template | 713 |  |
-| flow_banner_pattern | 600 |  |
-| flow_pottery_sherd | 680 |  |
-| flower_banner_pattern | 592 |  |
-| flower_pot | 526 |  |
+| flow_armor_trim_smithing_template | 711 |  |
+| flow_banner_pattern | 599 |  |
+| flow_pottery_sherd | 678 |  |
+| flower_banner_pattern | 591 |  |
+| flower_pot | 525 |  |
 | flowering_azalea | -338 |  |
 | flowing_lava | 10 |  |
 | flowing_water | 8 |  |
-| fox_spawn_egg | 496 |  |
-| frame | 525 |  |
-| friend_pottery_sherd | 681 |  |
+| fox_spawn_egg | 495 |  |
+| frame | 524 |  |
+| friend_pottery_sherd | 679 |  |
 | frog_spawn | -468 |  |
-| frog_spawn_egg | 644 |  |
+| frog_spawn_egg | 642 |  |
 | frosted_ice | 207 |  |
 | furnace | 61 |  |
-| ghast_spawn_egg | 459 |  |
-| ghast_tear | 429 |  |
+| ghast_spawn_egg | 458 |  |
+| ghast_tear | 428 |  |
 | gilded_blackstone | -281 |  |
 | glass | 20 |  |
-| glass_bottle | 432 |  |
+| glass_bottle | 431 |  |
 | glass_pane | 102 |  |
-| glistering_melon_slice | 439 |  |
-| globe_banner_pattern | 599 |  |
-| glow_frame | 639 |  |
-| glow_ink_sac | 515 |  |
+| glistering_melon_slice | 438 |  |
+| globe_banner_pattern | 598 |  |
+| glow_frame | 637 |  |
+| glow_ink_sac | 514 |  |
 | glow_lichen | -411 |  |
-| glow_squid_spawn_egg | 510 |  |
-| glow_stick | 617 |  |
+| glow_squid_spawn_egg | 509 |  |
+| glow_stick | 616 |  |
 | glowingobsidian | 246 |  |
 | glowstone | 89 |  |
-| glowstone_dust | 398 |  |
-| goat_horn | 643 |  |
-| goat_spawn_egg | 509 |  |
+| glowstone_dust | 397 |  |
+| goat_horn | 641 |  |
+| goat_spawn_egg | 508 |  |
 | gold_block | 41 |  |
 | gold_ingot | 308 |  |
-| gold_nugget | 430 |  |
+| gold_nugget | 429 |  |
 | gold_ore | 14 |  |
 | golden_apple | 258 |  |
 | golden_axe | 328 |  |
@@ -6395,7 +6465,7 @@ List of all Block Traits and the BlockStates they include.
 | golden_chestplate | 355 |  |
 | golden_helmet | 354 |  |
 | golden_hoe | 336 |  |
-| golden_horse_armor | 543 |  |
+| golden_horse_armor | 542 |  |
 | golden_leggings | 356 |  |
 | golden_pickaxe | 327 |  |
 | golden_rail | 27 |  |
@@ -6414,9 +6484,9 @@ List of all Block Traits and the BlockStates they include.
 | gray_carpet | -603 |  |
 | gray_concrete | -634 |  |
 | gray_concrete_powder | -715 |  |
-| gray_dye | 407 |  |
+| gray_dye | 406 |  |
 | gray_glazed_terracotta | 227 |  |
-| gray_harness | 735 |  |
+| gray_harness | 731 |  |
 | gray_shulker_box | -619 |  |
 | gray_stained_glass | -679 |  |
 | gray_stained_glass_pane | -649 |  |
@@ -6427,21 +6497,21 @@ List of all Block Traits and the BlockStates they include.
 | green_carpet | -609 |  |
 | green_concrete | -640 |  |
 | green_concrete_powder | -721 |  |
-| green_dye | 401 |  |
+| green_dye | 400 |  |
 | green_glazed_terracotta | 233 |  |
-| green_harness | 736 |  |
+| green_harness | 732 |  |
 | green_shulker_box | -625 |  |
 | green_stained_glass | -685 |  |
 | green_stained_glass_pane | -655 |  |
 | green_terracotta | -736 |  |
 | green_wool | -560 |  |
 | grindstone | -195 |  |
-| guardian_spawn_egg | 466 |  |
+| guardian_spawn_egg | 465 |  |
 | gunpowder | 331 |  |
-| guster_banner_pattern | 601 |  |
-| guster_pottery_sherd | 682 |  |
+| guster_banner_pattern | 600 |  |
+| guster_pottery_sherd | 680 |  |
 | hanging_roots | -319 |  |
-| happy_ghast_spawn_egg | 730 |  |
+| happy_ghast_spawn_egg | 726 |  |
 | hard_black_stained_glass | -702 |  |
 | hard_black_stained_glass_pane | -672 |  |
 | hard_blue_stained_glass | -698 |  |
@@ -6472,36 +6542,36 @@ List of all Block Traits and the BlockStates they include.
 | hard_purple_stained_glass_pane | -667 |  |
 | hard_red_stained_glass | -701 |  |
 | hard_red_stained_glass_pane | -671 |  |
-| hard_stained_glass | 785 |  |
-| hard_stained_glass_pane | 786 |  |
+| hard_stained_glass | 794 |  |
+| hard_stained_glass_pane | 795 |  |
 | hard_white_stained_glass | 254 |  |
 | hard_white_stained_glass_pane | 191 |  |
 | hard_yellow_stained_glass | -691 |  |
 | hard_yellow_stained_glass_pane | -661 |  |
 | hardened_clay | 172 |  |
 | hay_block | 170 |  |
-| heart_of_the_sea | 582 |  |
-| heart_pottery_sherd | 683 |  |
-| heartbreak_pottery_sherd | 684 |  |
+| heart_of_the_sea | 581 |  |
+| heart_pottery_sherd | 681 |  |
+| heartbreak_pottery_sherd | 682 |  |
 | heavy_core | -316 |  |
 | heavy_weighted_pressure_plate | 148 |  |
-| hoglin_spawn_egg | 502 |  |
+| hoglin_spawn_egg | 501 |  |
 | honey_block | -220 |  |
-| honey_bottle | 606 |  |
-| honeycomb | 605 |  |
+| honey_bottle | 605 |  |
+| honeycomb | 604 |  |
 | honeycomb_block | -221 |  |
-| hopper | 538 |  |
-| hopper_minecart | 537 |  |
+| hopper | 537 |  |
+| hopper_minecart | 536 |  |
 | horn_coral | -584 |  |
 | horn_coral_block | -852 |  |
 | horn_coral_fan | -843 |  |
 | horn_coral_wall_fan | -137 |  |
-| horse_spawn_egg | 463 |  |
-| host_armor_trim_smithing_template | 712 |  |
-| howl_pottery_sherd | 685 |  |
-| husk_spawn_egg | 469 |  |
+| horse_spawn_egg | 462 |  |
+| host_armor_trim_smithing_template | 710 |  |
+| howl_pottery_sherd | 683 |  |
+| husk_spawn_egg | 468 |  |
 | ice | 79 |  |
-| ice_bomb | 611 |  |
+| ice_bomb | 610 |  |
 | infested_chiseled_stone_bricks | -862 |  |
 | infested_cobblestone | -858 |  |
 | infested_cracked_stone_bricks | -861 |  |
@@ -6511,21 +6581,22 @@ List of all Block Traits and the BlockStates they include.
 | infested_stone_bricks | -859 |  |
 | info_update | 248 |  |
 | info_update2 | 249 |  |
-| ink_sac | 417 |  |
+| ink_sac | 416 |  |
 | invisible_bedrock | 95 |  |
 | iron_axe | 300 |  |
 | iron_bars | 101 |  |
 | iron_block | 42 |  |
 | iron_boots | 349 |  |
+| iron_chain | -286 |  |
 | iron_chestplate | 347 |  |
 | iron_door | 375 |  |
-| iron_golem_spawn_egg | 511 |  |
+| iron_golem_spawn_egg | 510 |  |
 | iron_helmet | 346 |  |
 | iron_hoe | 334 |  |
-| iron_horse_armor | 542 |  |
+| iron_horse_armor | 541 |  |
 | iron_ingot | 307 |  |
 | iron_leggings | 348 |  |
-| iron_nugget | 580 |  |
+| iron_nugget | 579 |  |
 | iron_ore | 15 |  |
 | iron_pickaxe | 299 |  |
 | iron_shovel | 298 |  |
@@ -6540,7 +6611,6 @@ List of all Block Traits and the BlockStates they include.
 | item.camera | 242 |  |
 | item.campfire | -209 |  |
 | item.cauldron | 118 |  |
-| item.chain | -286 |  |
 | item.crimson_door | -244 |  |
 | item.dark_oak_door | 197 |  |
 | item.flower_pot | 140 |  |
@@ -6561,10 +6631,10 @@ List of all Block Traits and the BlockStates they include.
 | item.wooden_door | 64 |  |
 | jigsaw | -211 |  |
 | jukebox | 84 |  |
-| jungle_boat | 381 |  |
+| jungle_boat | 380 |  |
 | jungle_button | -143 |  |
-| jungle_chest_boat | 656 |  |
-| jungle_door | 566 |  |
+| jungle_chest_boat | 654 |  |
+| jungle_door | 565 |  |
 | jungle_double_slab | -811 |  |
 | jungle_fence | -578 |  |
 | jungle_fence_gate | 185 |  |
@@ -6574,37 +6644,38 @@ List of all Block Traits and the BlockStates they include.
 | jungle_planks | -741 |  |
 | jungle_pressure_plate | -153 |  |
 | jungle_sapling | -827 |  |
-| jungle_sign | 589 |  |
+| jungle_shelf | -1050 |  |
+| jungle_sign | 588 |  |
 | jungle_slab | -806 |  |
 | jungle_stairs | 136 |  |
 | jungle_standing_sign | -188 |  |
 | jungle_trapdoor | -148 |  |
 | jungle_wall_sign | -189 |  |
 | jungle_wood | -816 |  |
-| kelp | 386 |  |
+| kelp | 385 |  |
 | lab_table | -988 |  |
 | ladder | 65 |  |
 | lantern | -208 |  |
 | lapis_block | 22 |  |
-| lapis_lazuli | 418 |  |
+| lapis_lazuli | 417 |  |
 | lapis_ore | 21 |  |
 | large_amethyst_bud | -330 |  |
 | large_fern | -865 |  |
 | lava | 11 |  |
 | lava_bucket | 366 |  |
-| lead | 558 |  |
+| lead | 557 |  |
 | leaf_litter | -1026 |  |
-| leather | 385 |  |
+| leather | 384 |  |
 | leather_boots | 341 |  |
 | leather_chestplate | 339 |  |
 | leather_helmet | 338 |  |
-| leather_horse_armor | 541 |  |
+| leather_horse_armor | 540 |  |
 | leather_leggings | 340 |  |
-| leaves | 764 |  |
-| leaves2 | 765 |  |
+| leaves | 772 |  |
+| leaves2 | 773 |  |
 | lectern | -194 |  |
 | lever | 69 |  |
-| light_block | 789 |  |
+| light_block | 798 |  |
 | light_block_0 | -215 |  |
 | light_block_1 | -929 |  |
 | light_block_10 | -938 |  |
@@ -6626,9 +6697,9 @@ List of all Block Traits and the BlockStates they include.
 | light_blue_carpet | -599 |  |
 | light_blue_concrete | -630 |  |
 | light_blue_concrete_powder | -711 |  |
-| light_blue_dye | 411 |  |
+| light_blue_dye | 410 |  |
 | light_blue_glazed_terracotta | 223 |  |
-| light_blue_harness | 737 |  |
+| light_blue_harness | 733 |  |
 | light_blue_shulker_box | -615 |  |
 | light_blue_stained_glass | -675 |  |
 | light_blue_stained_glass_pane | -645 |  |
@@ -6639,8 +6710,8 @@ List of all Block Traits and the BlockStates they include.
 | light_gray_carpet | -604 |  |
 | light_gray_concrete | -635 |  |
 | light_gray_concrete_powder | -716 |  |
-| light_gray_dye | 406 |  |
-| light_gray_harness | 738 |  |
+| light_gray_dye | 405 |  |
+| light_gray_harness | 734 |  |
 | light_gray_shulker_box | -620 |  |
 | light_gray_stained_glass | -680 |  |
 | light_gray_stained_glass_pane | -650 |  |
@@ -6655,15 +6726,15 @@ List of all Block Traits and the BlockStates they include.
 | lime_carpet | -601 |  |
 | lime_concrete | -632 |  |
 | lime_concrete_powder | -713 |  |
-| lime_dye | 409 |  |
+| lime_dye | 408 |  |
 | lime_glazed_terracotta | 225 |  |
-| lime_harness | 739 |  |
+| lime_harness | 735 |  |
 | lime_shulker_box | -617 |  |
 | lime_stained_glass | -677 |  |
 | lime_stained_glass_pane | -647 |  |
 | lime_terracotta | -728 |  |
 | lime_wool | -559 |  |
-| lingering_potion | 573 |  |
+| lingering_potion | 572 |  |
 | lit_blast_furnace | -214 |  |
 | lit_deepslate_redstone_ore | -404 |  |
 | lit_furnace | 62 |  |
@@ -6671,11 +6742,11 @@ List of all Block Traits and the BlockStates they include.
 | lit_redstone_lamp | 124 |  |
 | lit_redstone_ore | 74 |  |
 | lit_smoker | -199 |  |
-| llama_spawn_egg | 479 |  |
+| llama_spawn_egg | 478 |  |
 | lodestone | -222 |  |
-| lodestone_compass | 618 |  |
-| log | 749 |  |
-| log2 | 772 |  |
+| lodestone_compass | 617 |  |
+| log | 757 |  |
+| log2 | 780 |  |
 | loom | -204 |  |
 | mace | 322 |  |
 | magenta_candle | -415 |  |
@@ -6683,21 +6754,21 @@ List of all Block Traits and the BlockStates they include.
 | magenta_carpet | -598 |  |
 | magenta_concrete | -629 |  |
 | magenta_concrete_powder | -710 |  |
-| magenta_dye | 412 |  |
+| magenta_dye | 411 |  |
 | magenta_glazed_terracotta | 222 |  |
-| magenta_harness | 740 |  |
+| magenta_harness | 736 |  |
 | magenta_shulker_box | -614 |  |
 | magenta_stained_glass | -674 |  |
 | magenta_stained_glass_pane | -644 |  |
 | magenta_terracotta | -725 |  |
 | magenta_wool | -565 |  |
 | magma | 213 |  |
-| magma_cream | 435 |  |
-| magma_cube_spawn_egg | 460 |  |
-| mangrove_boat | 651 |  |
+| magma_cream | 434 |  |
+| magma_cube_spawn_egg | 459 |  |
+| mangrove_boat | 649 |  |
 | mangrove_button | -487 |  |
-| mangrove_chest_boat | 660 |  |
-| mangrove_door | 649 |  |
+| mangrove_chest_boat | 658 |  |
+| mangrove_door | 647 |  |
 | mangrove_double_slab | -499 |  |
 | mangrove_fence | -491 |  |
 | mangrove_fence_gate | -492 |  |
@@ -6708,7 +6779,8 @@ List of all Block Traits and the BlockStates they include.
 | mangrove_pressure_plate | -490 |  |
 | mangrove_propagule | -474 |  |
 | mangrove_roots | -482 |  |
-| mangrove_sign | 650 |  |
+| mangrove_shelf | -1053 |  |
+| mangrove_sign | 648 |  |
 | mangrove_slab | -489 |  |
 | mangrove_stairs | -488 |  |
 | mangrove_standing_sign | -494 |  |
@@ -6716,7 +6788,7 @@ List of all Block Traits and the BlockStates they include.
 | mangrove_wall_sign | -495 |  |
 | mangrove_wood | -497 |  |
 | material_reducer | -986 |  |
-| medicine | 615 |  |
+| medicine | 614 |  |
 | medium_amethyst_bud | -331 |  |
 | melon_block | 103 |  |
 | melon_seeds | 293 |  |
@@ -6724,11 +6796,11 @@ List of all Block Traits and the BlockStates they include.
 | melon_stem | 105 |  |
 | milk_bucket | 364 |  |
 | minecart | 373 |  |
-| miner_pottery_sherd | 686 |  |
+| miner_pottery_sherd | 684 |  |
 | mob_spawner | 52 |  |
-| mojang_banner_pattern | 595 |  |
-| monster_egg | 773 |  |
-| mooshroom_spawn_egg | 445 |  |
+| mojang_banner_pattern | 594 |  |
+| monster_egg | 781 |  |
+| mooshroom_spawn_egg | 444 |  |
 | moss_block | -320 |  |
 | moss_carpet | -335 |  |
 | mossy_cobblestone | 48 |  |
@@ -6741,7 +6813,7 @@ List of all Block Traits and the BlockStates they include.
 | mossy_stone_brick_stairs | -175 |  |
 | mossy_stone_brick_wall | -978 |  |
 | mossy_stone_bricks | -868 |  |
-| mourner_pottery_sherd | 687 |  |
+| mourner_pottery_sherd | 685 |  |
 | moving_block | 250 |  |
 | mud | -473 |  |
 | mud_brick_double_slab | -479 |  |
@@ -6750,33 +6822,34 @@ List of all Block Traits and the BlockStates they include.
 | mud_brick_wall | -481 |  |
 | mud_bricks | -475 |  |
 | muddy_mangrove_roots | -483 |  |
-| mule_spawn_egg | 472 |  |
+| mule_spawn_egg | 471 |  |
 | mushroom_stem | -1008 |  |
 | mushroom_stew | 260 |  |
-| music_disc_11 | 555 |  |
-| music_disc_13 | 545 |  |
-| music_disc_5 | 652 |  |
-| music_disc_blocks | 547 |  |
-| music_disc_cat | 546 |  |
-| music_disc_chirp | 548 |  |
-| music_disc_creator | 780 |  |
-| music_disc_creator_music_box | 781 |  |
-| music_disc_far | 549 |  |
-| music_disc_mall | 550 |  |
-| music_disc_mellohi | 551 |  |
-| music_disc_otherside | 642 |  |
-| music_disc_pigstep | 636 |  |
-| music_disc_precipice | 782 |  |
-| music_disc_relic | 715 |  |
-| music_disc_stal | 552 |  |
-| music_disc_strad | 553 |  |
-| music_disc_tears | 783 |  |
-| music_disc_wait | 556 |  |
-| music_disc_ward | 554 |  |
-| mutton | 561 |  |
+| music_disc_11 | 554 |  |
+| music_disc_13 | 544 |  |
+| music_disc_5 | 650 |  |
+| music_disc_blocks | 546 |  |
+| music_disc_cat | 545 |  |
+| music_disc_chirp | 547 |  |
+| music_disc_creator | 788 |  |
+| music_disc_creator_music_box | 789 |  |
+| music_disc_far | 548 |  |
+| music_disc_lava_chicken | 792 |  |
+| music_disc_mall | 549 |  |
+| music_disc_mellohi | 550 |  |
+| music_disc_otherside | 640 |  |
+| music_disc_pigstep | 634 |  |
+| music_disc_precipice | 790 |  |
+| music_disc_relic | 713 |  |
+| music_disc_stal | 551 |  |
+| music_disc_strad | 552 |  |
+| music_disc_tears | 791 |  |
+| music_disc_wait | 555 |  |
+| music_disc_ward | 553 |  |
+| mutton | 560 |  |
 | mycelium | 110 |  |
-| name_tag | 559 |  |
-| nautilus_shell | 581 |  |
+| name_tag | 558 |  |
+| nautilus_shell | 580 |  |
 | nether_brick | 112 |  |
 | nether_brick_double_slab | -883 |  |
 | nether_brick_fence | 113 |  |
@@ -6784,33 +6857,33 @@ List of all Block Traits and the BlockStates they include.
 | nether_brick_stairs | 114 |  |
 | nether_brick_wall | -979 |  |
 | nether_gold_ore | -288 |  |
-| nether_sprouts | 637 |  |
-| nether_star | 529 |  |
+| nether_sprouts | 635 |  |
+| nether_star | 528 |  |
 | nether_wart | 294 |  |
 | nether_wart_block | 214 |  |
-| netherbrick | 534 |  |
-| netherite_axe | 622 |  |
+| netherbrick | 533 |  |
+| netherite_axe | 621 |  |
 | netherite_block | -270 |  |
-| netherite_boots | 628 |  |
-| netherite_chestplate | 626 |  |
-| netherite_helmet | 625 |  |
-| netherite_hoe | 623 |  |
-| netherite_ingot | 624 |  |
-| netherite_leggings | 627 |  |
-| netherite_pickaxe | 621 |  |
-| netherite_scrap | 629 |  |
-| netherite_shovel | 620 |  |
-| netherite_sword | 619 |  |
-| netherite_upgrade_smithing_template | 696 |  |
+| netherite_boots | 627 |  |
+| netherite_chestplate | 625 |  |
+| netherite_helmet | 624 |  |
+| netherite_hoe | 622 |  |
+| netherite_ingot | 623 |  |
+| netherite_leggings | 626 |  |
+| netherite_pickaxe | 620 |  |
+| netherite_scrap | 628 |  |
+| netherite_shovel | 619 |  |
+| netherite_sword | 618 |  |
+| netherite_upgrade_smithing_template | 694 |  |
 | netherrack | 87 |  |
 | netherreactor | 247 |  |
 | normal_stone_double_slab | -926 |  |
 | normal_stone_slab | -899 |  |
 | normal_stone_stairs | -180 |  |
 | noteblock | 25 |  |
-| npc_spawn_egg | 476 |  |
-| oak_boat | 379 |  |
-| oak_chest_boat | 654 |  |
+| npc_spawn_egg | 475 |  |
+| oak_boat | 378 |  |
+| oak_chest_boat | 652 |  |
 | oak_double_slab | 157 |  |
 | oak_fence | 85 |  |
 | oak_hanging_sign | -500 |  |
@@ -6818,25 +6891,25 @@ List of all Block Traits and the BlockStates they include.
 | oak_log | 17 |  |
 | oak_planks | 5 |  |
 | oak_sapling | 6 |  |
+| oak_shelf | -1047 |  |
 | oak_sign | 361 |  |
 | oak_slab | 158 |  |
 | oak_stairs | 53 |  |
 | oak_wood | -212 |  |
 | observer | 251 |  |
 | obsidian | 49 |  |
-| ocelot_spawn_egg | 456 |  |
+| ocelot_spawn_egg | 455 |  |
 | ochre_froglight | -471 |  |
-| ominous_bottle | 607 |  |
-| ominous_trial_key | 722 |  |
+| ominous_bottle | 606 |  |
 | open_eyeblossom | -1018 |  |
 | orange_candle | -414 |  |
 | orange_candle_cake | -431 |  |
 | orange_carpet | -597 |  |
 | orange_concrete | -628 |  |
 | orange_concrete_powder | -709 |  |
-| orange_dye | 413 |  |
+| orange_dye | 412 |  |
 | orange_glazed_terracotta | 221 |  |
-| orange_harness | 741 |  |
+| orange_harness | 737 |  |
 | orange_shulker_box | -613 |  |
 | orange_stained_glass | -673 |  |
 | orange_stained_glass_pane | -643 |  |
@@ -6846,23 +6919,29 @@ List of all Block Traits and the BlockStates they include.
 | oxeye_daisy | -837 |  |
 | oxidized_chiseled_copper | -763 |  |
 | oxidized_copper | -343 |  |
+| oxidized_copper_bars | -1069 |  |
 | oxidized_copper_bulb | -779 |  |
+| oxidized_copper_chain | -1077 |  |
+| oxidized_copper_chest | -1034 |  |
 | oxidized_copper_door | -787 |  |
+| oxidized_copper_golem_statue | -1042 |  |
 | oxidized_copper_grate | -771 |  |
+| oxidized_copper_lantern | -1086 |  |
 | oxidized_copper_trapdoor | -795 |  |
 | oxidized_cut_copper | -350 |  |
 | oxidized_cut_copper_slab | -364 |  |
 | oxidized_cut_copper_stairs | -357 |  |
 | oxidized_double_cut_copper_slab | -371 |  |
+| oxidized_lightning_rod | -1061 |  |
 | packed_ice | 174 |  |
 | packed_mud | -477 |  |
 | painting | 360 |  |
 | pale_hanging_moss | -1011 |  |
 | pale_moss_block | -1009 |  |
 | pale_moss_carpet | -1010 |  |
-| pale_oak_boat | 723 |  |
+| pale_oak_boat | 719 |  |
 | pale_oak_button | -989 |  |
-| pale_oak_chest_boat | 724 |  |
+| pale_oak_chest_boat | 720 |  |
 | pale_oak_door | -990 |  |
 | pale_oak_double_slab | -999 |  |
 | pale_oak_fence | -991 |  |
@@ -6873,36 +6952,37 @@ List of all Block Traits and the BlockStates they include.
 | pale_oak_planks | -996 |  |
 | pale_oak_pressure_plate | -997 |  |
 | pale_oak_sapling | -1006 |  |
-| pale_oak_sign | 725 |  |
+| pale_oak_shelf | -1055 |  |
+| pale_oak_sign | 721 |  |
 | pale_oak_slab | -998 |  |
 | pale_oak_stairs | -1000 |  |
 | pale_oak_standing_sign | -1001 |  |
 | pale_oak_trapdoor | -1002 |  |
 | pale_oak_wall_sign | -1003 |  |
 | pale_oak_wood | -1005 |  |
-| panda_spawn_egg | 495 |  |
-| paper | 390 |  |
-| parrot_spawn_egg | 484 |  |
+| panda_spawn_egg | 494 |  |
+| paper | 389 |  |
+| parrot_spawn_egg | 483 |  |
 | pearlescent_froglight | -469 |  |
 | peony | -867 |  |
 | petrified_oak_double_slab | -903 |  |
 | petrified_oak_slab | -902 |  |
-| phantom_membrane | 585 |  |
-| phantom_spawn_egg | 492 |  |
-| pig_spawn_egg | 442 |  |
-| piglin_banner_pattern | 598 |  |
-| piglin_brute_spawn_egg | 505 |  |
+| phantom_membrane | 584 |  |
+| phantom_spawn_egg | 491 |  |
+| pig_spawn_egg | 441 |  |
+| piglin_banner_pattern | 597 |  |
+| piglin_brute_spawn_egg | 504 |  |
 | piglin_head | -970 |  |
-| piglin_spawn_egg | 503 |  |
-| pillager_spawn_egg | 497 |  |
+| piglin_spawn_egg | 502 |  |
+| pillager_spawn_egg | 496 |  |
 | pink_candle | -419 |  |
 | pink_candle_cake | -436 |  |
 | pink_carpet | -602 |  |
 | pink_concrete | -633 |  |
 | pink_concrete_powder | -714 |  |
-| pink_dye | 408 |  |
+| pink_dye | 407 |  |
 | pink_glazed_terracotta | 226 |  |
-| pink_harness | 742 |  |
+| pink_harness | 738 |  |
 | pink_petals | -549 |  |
 | pink_shulker_box | -618 |  |
 | pink_stained_glass | -678 |  |
@@ -6915,13 +6995,13 @@ List of all Block Traits and the BlockStates they include.
 | pitcher_crop | -574 |  |
 | pitcher_plant | -612 |  |
 | pitcher_pod | 297 |  |
-| planks | 769 |  |
+| planks | 777 |  |
 | player_head | -967 |  |
-| plenty_pottery_sherd | 688 |  |
+| plenty_pottery_sherd | 686 |  |
 | podzol | 243 |  |
 | pointed_dripstone | -308 |  |
 | poisonous_potato | 282 |  |
-| polar_bear_spawn_egg | 478 |  |
+| polar_bear_spawn_egg | 477 |  |
 | polished_andesite | -595 |  |
 | polished_andesite_double_slab | -919 |  |
 | polished_andesite_slab | -892 |  |
@@ -6957,13 +7037,13 @@ List of all Block Traits and the BlockStates they include.
 | polished_tuff_slab | -749 |  |
 | polished_tuff_stairs | -751 |  |
 | polished_tuff_wall | -752 |  |
-| popped_chorus_fruit | 570 |  |
+| popped_chorus_fruit | 569 |  |
 | poppy | 38 |  |
 | porkchop | 262 |  |
 | portal | 90 |  |
 | potato | 280 |  |
 | potatoes | 142 |  |
-| potion | 431 |  |
+| potion | 430 |  |
 | powder_snow | -306 |  |
 | powder_snow_bucket | 371 |  |
 | powered_comparator | 150 |  |
@@ -6973,16 +7053,16 @@ List of all Block Traits and the BlockStates they include.
 | prismarine_brick_slab | -887 |  |
 | prismarine_bricks | -948 |  |
 | prismarine_bricks_stairs | -4 |  |
-| prismarine_crystals | 560 |  |
+| prismarine_crystals | 559 |  |
 | prismarine_double_slab | -912 |  |
-| prismarine_shard | 576 |  |
+| prismarine_shard | 575 |  |
 | prismarine_slab | -885 |  |
 | prismarine_stairs | -2 |  |
 | prismarine_wall | -981 |  |
-| prize_pottery_sherd | 689 |  |
+| prize_pottery_sherd | 687 |  |
 | pufferfish | 267 |  |
 | pufferfish_bucket | 370 |  |
-| pufferfish_spawn_egg | 487 |  |
+| pufferfish_spawn_egg | 486 |  |
 | pumpkin | 86 |  |
 | pumpkin_pie | 284 |  |
 | pumpkin_seeds | 292 |  |
@@ -6992,9 +7072,9 @@ List of all Block Traits and the BlockStates they include.
 | purple_carpet | -606 |  |
 | purple_concrete | -637 |  |
 | purple_concrete_powder | -718 |  |
-| purple_dye | 404 |  |
+| purple_dye | 403 |  |
 | purple_glazed_terracotta | 219 |  |
-| purple_harness | 743 |  |
+| purple_harness | 739 |  |
 | purple_shulker_box | -622 |  |
 | purple_stained_glass | -682 |  |
 | purple_stained_glass_pane | -652 |  |
@@ -7005,7 +7085,7 @@ List of all Block Traits and the BlockStates they include.
 | purpur_pillar | -951 |  |
 | purpur_slab | -884 |  |
 | purpur_stairs | 203 |  |
-| quartz | 535 |  |
+| quartz | 534 |  |
 | quartz_block | 155 |  |
 | quartz_bricks | -304 |  |
 | quartz_double_slab | -882 |  |
@@ -7014,30 +7094,30 @@ List of all Block Traits and the BlockStates they include.
 | quartz_slab | -876 |  |
 | quartz_stairs | 156 |  |
 | rabbit | 288 |  |
-| rabbit_foot | 539 |  |
-| rabbit_hide | 540 |  |
-| rabbit_spawn_egg | 464 |  |
+| rabbit_foot | 538 |  |
+| rabbit_hide | 539 |  |
+| rabbit_spawn_egg | 463 |  |
 | rabbit_stew | 290 |  |
 | rail | 66 |  |
-| raiser_armor_trim_smithing_template | 710 |  |
-| rapid_fertilizer | 613 |  |
-| ravager_spawn_egg | 499 |  |
-| raw_copper | 519 |  |
+| raiser_armor_trim_smithing_template | 708 |  |
+| rapid_fertilizer | 612 |  |
+| ravager_spawn_egg | 498 |  |
+| raw_copper | 518 |  |
 | raw_copper_block | -452 |  |
-| raw_gold | 518 |  |
+| raw_gold | 517 |  |
 | raw_gold_block | -453 |  |
-| raw_iron | 517 |  |
+| raw_iron | 516 |  |
 | raw_iron_block | -451 |  |
-| recovery_compass | 662 |  |
+| recovery_compass | 660 |  |
 | red_candle | -427 |  |
 | red_candle_cake | -444 |  |
 | red_carpet | -610 |  |
 | red_concrete | -641 |  |
 | red_concrete_powder | -722 |  |
-| red_dye | 400 |  |
-| red_flower | 767 |  |
+| red_dye | 399 |  |
+| red_flower | 775 |  |
 | red_glazed_terracotta | 234 |  |
-| red_harness | 744 |  |
+| red_harness | 740 |  |
 | red_mushroom | 40 |  |
 | red_mushroom_block | 100 |  |
 | red_nether_brick | 215 |  |
@@ -7064,11 +7144,11 @@ List of all Block Traits and the BlockStates they include.
 | redstone_torch | 76 |  |
 | redstone_wire | 55 |  |
 | reinforced_deepslate | -466 |  |
-| repeater | 423 |  |
+| repeater | 422 |  |
 | repeating_command_block | 188 |  |
 | reserved6 | 255 |  |
 | resin_block | -1021 |  |
-| resin_brick | 727 |  |
+| resin_brick | 723 |  |
 | resin_brick_double_slab | -1015 |  |
 | resin_brick_slab | -1014 |  |
 | resin_brick_stairs | -1016 |  |
@@ -7076,22 +7156,22 @@ List of all Block Traits and the BlockStates they include.
 | resin_bricks | -1013 |  |
 | resin_clump | -1022 |  |
 | respawn_anchor | -272 |  |
-| rib_armor_trim_smithing_template | 706 |  |
+| rib_armor_trim_smithing_template | 704 |  |
 | rose_bush | -866 |  |
 | rotten_flesh | 277 |  |
 | saddle | 374 |  |
 | salmon | 265 |  |
 | salmon_bucket | 368 |  |
-| salmon_spawn_egg | 488 |  |
+| salmon_spawn_egg | 487 |  |
 | sand | 12 |  |
 | sandstone | 24 |  |
 | sandstone_double_slab | -878 |  |
 | sandstone_slab | -872 |  |
 | sandstone_stairs | 128 |  |
 | sandstone_wall | -975 |  |
-| sapling | 763 |  |
+| sapling | 771 |  |
 | scaffolding | -165 |  |
-| scrape_pottery_sherd | 690 |  |
+| scrape_pottery_sherd | 688 |  |
 | sculk | -458 |  |
 | sculk_catalyst | -460 |  |
 | sculk_sensor | -307 |  |
@@ -7100,31 +7180,31 @@ List of all Block Traits and the BlockStates they include.
 | sea_lantern | 169 |  |
 | sea_pickle | -156 |  |
 | seagrass | -130 |  |
-| sentry_armor_trim_smithing_template | 697 |  |
-| shaper_armor_trim_smithing_template | 711 |  |
-| sheaf_pottery_sherd | 691 |  |
-| shears | 425 |  |
-| sheep_spawn_egg | 443 |  |
-| shelter_pottery_sherd | 692 |  |
+| sentry_armor_trim_smithing_template | 695 |  |
+| shaper_armor_trim_smithing_template | 709 |  |
+| sheaf_pottery_sherd | 689 |  |
+| shears | 424 |  |
+| sheep_spawn_egg | 442 |  |
+| shelter_pottery_sherd | 690 |  |
 | shield | 358 |  |
 | short_dry_grass | -1028 |  |
 | short_grass | 31 |  |
 | shroomlight | -230 |  |
-| shulker_box | 778 |  |
-| shulker_shell | 577 |  |
-| shulker_spawn_egg | 475 |  |
-| silence_armor_trim_smithing_template | 708 |  |
+| shulker_box | 786 |  |
+| shulker_shell | 576 |  |
+| shulker_spawn_egg | 474 |  |
+| silence_armor_trim_smithing_template | 706 |  |
 | silver_glazed_terracotta | 228 |  |
-| silverfish_spawn_egg | 448 |  |
-| skeleton_horse_spawn_egg | 473 |  |
+| silverfish_spawn_egg | 447 |  |
+| skeleton_horse_spawn_egg | 472 |  |
 | skeleton_skull | 144 |  |
-| skeleton_spawn_egg | 449 |  |
-| skull | 716 |  |
-| skull_banner_pattern | 594 |  |
-| skull_pottery_sherd | 693 |  |
+| skeleton_spawn_egg | 448 |  |
+| skull | 714 |  |
+| skull_banner_pattern | 593 |  |
+| skull_pottery_sherd | 691 |  |
 | slime | 165 |  |
-| slime_ball | 392 |  |
-| slime_spawn_egg | 450 |  |
+| slime_ball | 391 |  |
+| slime_spawn_egg | 449 |  |
 | small_amethyst_bud | -332 |  |
 | small_dripleaf_block | -336 |  |
 | smithing_table | -202 |  |
@@ -7146,31 +7226,31 @@ List of all Block Traits and the BlockStates they include.
 | smooth_stone_double_slab | 43 |  |
 | smooth_stone_slab | 44 |  |
 | sniffer_egg | -596 |  |
-| sniffer_spawn_egg | 506 |  |
-| snort_pottery_sherd | 694 |  |
-| snout_armor_trim_smithing_template | 705 |  |
+| sniffer_spawn_egg | 505 |  |
+| snort_pottery_sherd | 692 |  |
+| snout_armor_trim_smithing_template | 703 |  |
 | snow | 80 |  |
-| snow_golem_spawn_egg | 512 |  |
+| snow_golem_spawn_egg | 511 |  |
 | snow_layer | 78 |  |
 | snowball | 377 |  |
-| soul_campfire | 638 |  |
+| soul_campfire | 636 |  |
 | soul_fire | -237 |  |
 | soul_lantern | -269 |  |
 | soul_sand | 88 |  |
 | soul_soil | -236 |  |
 | soul_torch | -268 |  |
-| sparkler | 616 |  |
-| spawn_egg | 793 |  |
+| sparkler | 615 |  |
+| spawn_egg | 802 |  |
 | spider_eye | 278 |  |
-| spider_spawn_egg | 451 |  |
-| spire_armor_trim_smithing_template | 707 |  |
-| splash_potion | 572 |  |
+| spider_spawn_egg | 450 |  |
+| spire_armor_trim_smithing_template | 705 |  |
+| splash_potion | 571 |  |
 | sponge | 19 |  |
 | spore_blossom | -321 |  |
-| spruce_boat | 382 |  |
+| spruce_boat | 381 |  |
 | spruce_button | -144 |  |
-| spruce_chest_boat | 657 |  |
-| spruce_door | 564 |  |
+| spruce_chest_boat | 655 |  |
+| spruce_door | 563 |  |
 | spruce_double_slab | -809 |  |
 | spruce_fence | -579 |  |
 | spruce_fence_gate | 183 |  |
@@ -7180,18 +7260,19 @@ List of all Block Traits and the BlockStates they include.
 | spruce_planks | -739 |  |
 | spruce_pressure_plate | -154 |  |
 | spruce_sapling | -825 |  |
-| spruce_sign | 587 |  |
+| spruce_shelf | -1048 |  |
+| spruce_sign | 586 |  |
 | spruce_slab | -804 |  |
 | spruce_stairs | 134 |  |
 | spruce_standing_sign | -181 |  |
 | spruce_trapdoor | -149 |  |
 | spruce_wall_sign | -182 |  |
 | spruce_wood | -814 |  |
-| spyglass | 641 |  |
-| squid_spawn_egg | 455 |  |
-| stained_glass | 776 |  |
-| stained_glass_pane | 777 |  |
-| stained_hardened_clay | 717 |  |
+| spyglass | 639 |  |
+| squid_spawn_egg | 454 |  |
+| stained_glass | 784 |  |
+| stained_glass_pane | 785 |  |
+| stained_hardened_clay | 715 |  |
 | standing_banner | 176 |  |
 | standing_sign | 63 |  |
 | stick | 323 |  |
@@ -7199,10 +7280,10 @@ List of all Block Traits and the BlockStates they include.
 | sticky_piston_arm_collision | -217 |  |
 | stone | 1 |  |
 | stone_axe | 317 |  |
-| stone_block_slab | 753 |  |
-| stone_block_slab2 | 754 |  |
-| stone_block_slab3 | 755 |  |
-| stone_block_slab4 | 756 |  |
+| stone_block_slab | 761 |  |
+| stone_block_slab2 | 762 |  |
+| stone_block_slab3 | 763 |  |
+| stone_block_slab4 | 764 |  |
 | stone_brick_double_slab | -881 |  |
 | stone_brick_slab | -875 |  |
 | stone_brick_stairs | 109 |  |
@@ -7215,11 +7296,11 @@ List of all Block Traits and the BlockStates they include.
 | stone_shovel | 315 |  |
 | stone_stairs | 67 |  |
 | stone_sword | 314 |  |
-| stonebrick | 751 |  |
+| stonebrick | 759 |  |
 | stonecutter | 245 |  |
 | stonecutter_block | -197 |  |
-| stray_spawn_egg | 467 |  |
-| strider_spawn_egg | 501 |  |
+| stray_spawn_egg | 466 |  |
+| strider_spawn_egg | 500 |  |
 | string | 329 |  |
 | stripped_acacia_log | -8 |  |
 | stripped_acacia_wood | -823 |  |
@@ -7246,40 +7327,39 @@ List of all Block Traits and the BlockStates they include.
 | stripped_warped_stem | -241 |  |
 | structure_block | 252 |  |
 | structure_void | 217 |  |
-| sugar | 420 |  |
-| sugar_cane | 389 |  |
+| sugar | 419 |  |
+| sugar_cane | 388 |  |
 | sunflower | 175 |  |
 | suspicious_gravel | -573 |  |
 | suspicious_sand | -529 |  |
-| suspicious_stew | 603 |  |
+| suspicious_stew | 602 |  |
 | sweet_berries | 287 |  |
 | sweet_berry_bush | -207 |  |
-| tadpole_bucket | 646 |  |
-| tadpole_spawn_egg | 645 |  |
+| tadpole_bucket | 644 |  |
+| tadpole_spawn_egg | 643 |  |
 | tall_dry_grass | -1029 |  |
 | tall_grass | -864 |  |
-| tallgrass | 771 |  |
+| tallgrass | 779 |  |
 | target | -239 |  |
-| tide_armor_trim_smithing_template | 704 |  |
+| tide_armor_trim_smithing_template | 702 |  |
 | tinted_glass | -334 |  |
 | tnt | 46 |  |
-| tnt_minecart | 536 |  |
+| tnt_minecart | 535 |  |
 | torch | 50 |  |
 | torchflower | -568 |  |
 | torchflower_crop | -567 |  |
 | torchflower_seeds | 296 |  |
-| totem_of_undying | 579 |  |
-| trader_llama_spawn_egg | 664 |  |
+| totem_of_undying | 578 |  |
+| trader_llama_spawn_egg | 662 |  |
 | trapdoor | 96 |  |
 | trapped_chest | 146 |  |
-| trial_key | 721 |  |
 | trial_spawner | -315 |  |
-| trident | 557 |  |
+| trident | 556 |  |
 | trip_wire | 132 |  |
 | tripwire_hook | 131 |  |
 | tropical_fish | 266 |  |
 | tropical_fish_bucket | 369 |  |
-| tropical_fish_spawn_egg | 485 |  |
+| tropical_fish_spawn_egg | 484 |  |
 | tube_coral | -131 |  |
 | tube_coral_block | -132 |  |
 | tube_coral_fan | -133 |  |
@@ -7295,9 +7375,9 @@ List of all Block Traits and the BlockStates they include.
 | tuff_stairs | -746 |  |
 | tuff_wall | -747 |  |
 | turtle_egg | -159 |  |
-| turtle_helmet | 584 |  |
-| turtle_scute | 583 |  |
-| turtle_spawn_egg | 491 |  |
+| turtle_helmet | 583 |  |
+| turtle_scute | 582 |  |
+| turtle_spawn_egg | 490 |  |
 | twisting_vines | -287 |  |
 | underwater_tnt | -985 |  |
 | underwater_torch | 239 |  |
@@ -7308,30 +7388,31 @@ List of all Block Traits and the BlockStates they include.
 | unpowered_repeater | 93 |  |
 | vault | -314 |  |
 | verdant_froglight | -470 |  |
-| vex_armor_trim_smithing_template | 703 |  |
-| vex_spawn_egg | 482 |  |
-| villager_spawn_egg | 454 |  |
-| vindicator_spawn_egg | 480 |  |
+| vex_armor_trim_smithing_template | 701 |  |
+| vex_spawn_egg | 481 |  |
+| villager_spawn_egg | 453 |  |
+| vindicator_spawn_egg | 479 |  |
 | vine | 106 |  |
 | wall_banner | 177 |  |
 | wall_sign | 68 |  |
-| wandering_trader_spawn_egg | 498 |  |
-| ward_armor_trim_smithing_template | 701 |  |
-| warden_spawn_egg | 648 |  |
+| wandering_trader_spawn_egg | 497 |  |
+| ward_armor_trim_smithing_template | 699 |  |
+| warden_spawn_egg | 646 |  |
 | warped_button | -261 |  |
-| warped_door | 633 |  |
+| warped_door | 632 |  |
 | warped_double_slab | -267 |  |
 | warped_fence | -257 |  |
 | warped_fence_gate | -259 |  |
 | warped_fungus | -229 |  |
-| warped_fungus_on_a_stick | 634 |  |
+| warped_fungus_on_a_stick | 633 |  |
 | warped_hanging_sign | -507 |  |
 | warped_hyphae | -298 |  |
 | warped_nylium | -233 |  |
 | warped_planks | -243 |  |
 | warped_pressure_plate | -263 |  |
 | warped_roots | -224 |  |
-| warped_sign | 631 |  |
+| warped_shelf | -1058 |  |
+| warped_sign | 630 |  |
 | warped_slab | -265 |  |
 | warped_stairs | -255 |  |
 | warped_standing_sign | -251 |  |
@@ -7344,9 +7425,14 @@ List of all Block Traits and the BlockStates they include.
 | waterlily | 111 |  |
 | waxed_chiseled_copper | -764 |  |
 | waxed_copper | -344 |  |
+| waxed_copper_bars | -1070 |  |
 | waxed_copper_bulb | -780 |  |
+| waxed_copper_chain | -1078 |  |
+| waxed_copper_chest | -1035 |  |
 | waxed_copper_door | -788 |  |
+| waxed_copper_golem_statue | -1043 |  |
 | waxed_copper_grate | -772 |  |
+| waxed_copper_lantern | -1087 |  |
 | waxed_copper_trapdoor | -796 |  |
 | waxed_cut_copper | -351 |  |
 | waxed_cut_copper_slab | -365 |  |
@@ -7354,45 +7440,70 @@ List of all Block Traits and the BlockStates they include.
 | waxed_double_cut_copper_slab | -372 |  |
 | waxed_exposed_chiseled_copper | -765 |  |
 | waxed_exposed_copper | -345 |  |
+| waxed_exposed_copper_bars | -1071 |  |
 | waxed_exposed_copper_bulb | -781 |  |
+| waxed_exposed_copper_chain | -1079 |  |
+| waxed_exposed_copper_chest | -1036 |  |
 | waxed_exposed_copper_door | -789 |  |
+| waxed_exposed_copper_golem_statue | -1044 |  |
 | waxed_exposed_copper_grate | -773 |  |
+| waxed_exposed_copper_lantern | -1088 |  |
 | waxed_exposed_copper_trapdoor | -797 |  |
 | waxed_exposed_cut_copper | -352 |  |
 | waxed_exposed_cut_copper_slab | -366 |  |
 | waxed_exposed_cut_copper_stairs | -359 |  |
 | waxed_exposed_double_cut_copper_slab | -373 |  |
+| waxed_exposed_lightning_rod | -1063 |  |
+| waxed_lightning_rod | -1062 |  |
 | waxed_oxidized_chiseled_copper | -766 |  |
 | waxed_oxidized_copper | -446 |  |
+| waxed_oxidized_copper_bars | -1073 |  |
 | waxed_oxidized_copper_bulb | -783 |  |
+| waxed_oxidized_copper_chain | -1081 |  |
+| waxed_oxidized_copper_chest | -1038 |  |
 | waxed_oxidized_copper_door | -791 |  |
+| waxed_oxidized_copper_golem_statue | -1046 |  |
 | waxed_oxidized_copper_grate | -775 |  |
+| waxed_oxidized_copper_lantern | -1090 |  |
 | waxed_oxidized_copper_trapdoor | -799 |  |
 | waxed_oxidized_cut_copper | -447 |  |
 | waxed_oxidized_cut_copper_slab | -449 |  |
 | waxed_oxidized_cut_copper_stairs | -448 |  |
 | waxed_oxidized_double_cut_copper_slab | -450 |  |
+| waxed_oxidized_lightning_rod | -1065 |  |
 | waxed_weathered_chiseled_copper | -767 |  |
 | waxed_weathered_copper | -346 |  |
+| waxed_weathered_copper_bars | -1072 |  |
 | waxed_weathered_copper_bulb | -782 |  |
+| waxed_weathered_copper_chain | -1080 |  |
+| waxed_weathered_copper_chest | -1037 |  |
 | waxed_weathered_copper_door | -790 |  |
+| waxed_weathered_copper_golem_statue | -1045 |  |
 | waxed_weathered_copper_grate | -774 |  |
+| waxed_weathered_copper_lantern | -1089 |  |
 | waxed_weathered_copper_trapdoor | -798 |  |
 | waxed_weathered_cut_copper | -353 |  |
 | waxed_weathered_cut_copper_slab | -367 |  |
 | waxed_weathered_cut_copper_stairs | -360 |  |
 | waxed_weathered_double_cut_copper_slab | -374 |  |
-| wayfinder_armor_trim_smithing_template | 709 |  |
+| waxed_weathered_lightning_rod | -1064 |  |
+| wayfinder_armor_trim_smithing_template | 707 |  |
 | weathered_chiseled_copper | -762 |  |
 | weathered_copper | -342 |  |
+| weathered_copper_bars | -1068 |  |
 | weathered_copper_bulb | -778 |  |
+| weathered_copper_chain | -1076 |  |
+| weathered_copper_chest | -1033 |  |
 | weathered_copper_door | -786 |  |
+| weathered_copper_golem_statue | -1041 |  |
 | weathered_copper_grate | -770 |  |
+| weathered_copper_lantern | -1085 |  |
 | weathered_copper_trapdoor | -794 |  |
 | weathered_cut_copper | -349 |  |
 | weathered_cut_copper_slab | -363 |  |
 | weathered_cut_copper_stairs | -356 |  |
 | weathered_double_cut_copper_slab | -370 |  |
+| weathered_lightning_rod | -1060 |  |
 | web | 30 |  |
 | weeping_vines | -231 |  |
 | wet_sponge | -984 |  |
@@ -7403,26 +7514,25 @@ List of all Block Traits and the BlockStates they include.
 | white_carpet | 171 |  |
 | white_concrete | 236 |  |
 | white_concrete_powder | 237 |  |
-| white_dye | 414 |  |
+| white_dye | 413 |  |
 | white_glazed_terracotta | 220 |  |
-| white_harness | 745 |  |
+| white_harness | 741 |  |
 | white_shulker_box | 218 |  |
 | white_stained_glass | 241 |  |
 | white_stained_glass_pane | 160 |  |
 | white_terracotta | 159 |  |
 | white_tulip | -835 |  |
 | white_wool | 35 |  |
-| wild_armor_trim_smithing_template | 700 |  |
+| wild_armor_trim_smithing_template | 698 |  |
 | wildflowers | -1024 |  |
-| wind_charge | 378 |  |
-| witch_spawn_egg | 457 |  |
+| witch_spawn_egg | 456 |  |
 | wither_rose | -216 |  |
 | wither_skeleton_skull | -965 |  |
-| wither_skeleton_spawn_egg | 470 |  |
-| wither_spawn_egg | 514 |  |
-| wolf_armor | 720 |  |
-| wolf_spawn_egg | 444 |  |
-| wood | 779 |  |
+| wither_skeleton_spawn_egg | 469 |  |
+| wither_spawn_egg | 513 |  |
+| wolf_armor | 718 |  |
+| wolf_spawn_egg | 443 |  |
+| wood | 787 |  |
 | wooden_axe | 313 |  |
 | wooden_button | 143 |  |
 | wooden_door | 362 |  |
@@ -7430,30 +7540,30 @@ List of all Block Traits and the BlockStates they include.
 | wooden_pickaxe | 312 |  |
 | wooden_pressure_plate | 72 |  |
 | wooden_shovel | 311 |  |
-| wooden_slab | 766 |  |
+| wooden_slab | 774 |  |
 | wooden_sword | 310 |  |
-| wool | 747 |  |
-| writable_book | 522 |  |
-| written_book | 523 |  |
+| wool | 755 |  |
+| writable_book | 521 |  |
+| written_book | 522 |  |
 | yellow_candle | -417 |  |
 | yellow_candle_cake | -434 |  |
 | yellow_carpet | -600 |  |
 | yellow_concrete | -631 |  |
 | yellow_concrete_powder | -712 |  |
-| yellow_dye | 410 |  |
+| yellow_dye | 409 |  |
 | yellow_glazed_terracotta | 224 |  |
-| yellow_harness | 746 |  |
+| yellow_harness | 742 |  |
 | yellow_shulker_box | -616 |  |
 | yellow_stained_glass | -676 |  |
 | yellow_stained_glass_pane | -646 |  |
 | yellow_terracotta | -727 |  |
 | yellow_wool | -558 |  |
-| zoglin_spawn_egg | 504 |  |
+| zoglin_spawn_egg | 503 |  |
 | zombie_head | -966 |  |
-| zombie_horse_spawn_egg | 474 |  |
-| zombie_pigman_spawn_egg | 453 |  |
-| zombie_spawn_egg | 452 |  |
-| zombie_villager_spawn_egg | 483 |  |
+| zombie_horse_spawn_egg | 473 |  |
+| zombie_pigman_spawn_egg | 452 |  |
+| zombie_spawn_egg | 451 |  |
+| zombie_villager_spawn_egg | 482 |  |
 
 
 # manifest.json
@@ -7501,7 +7611,7 @@ The manifest file contains all the basic information about the pack that Minecra
 | base_game_version | Vector [a, b, c] | This is the version of the base game your world template requires, specified as [majorVersion, minorVersion, revision].We use this to determine what version of the base game resource and behavior packs to apply when your content is used. |
 | description | String | This is a short description of the pack. It will appear in the game below the name of the pack. We recommend keeping it to 1-2 lines. |
 | lock_template_options | Boolean | This option is required for any world templates. This will lock the player from modifying the options of the world. |
-| min_engine_version | String | This is the minimum version of the game that this pack was written for.  This is a required field for resource and behavior packs. This helps the game identify whether any backwards compatibility is needed for your pack. You should always use the highest version currently available when creating packs |
+| min_engine_version | String | This is the minimum version of the game that this pack was written for. This is a required field for resource and behavior packs. This helps the game identify whether any backwards compatibility is needed for your pack. You should always use the highest version currently available when creating packs |
 | name | String | This is the name of the pack as it appears within Minecraft. This is a required field. |
 | uuid | String | This is a special type of identifier that uniquely identifies this pack from any other pack. UUIDs are written in the format xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx where each x is a hexadecimal value (0-9 or a-f). We recommend using an online service to generate this and guarantee their uniqueness (just bing UUID Generator to find some) |
 | version | Vector [a, b, c] | This is the version of your pack in the format [majorVersion, minorVersion, revision].The version number is used when importing a pack that has been imported before. The new pack will replace the old one if the version is higher, and ignored if it's the same or lower |
@@ -7536,61 +7646,33 @@ Behavior Pack
 
 ```json
 {
-
     "format_version": 1,
-
     "header": {
-
         "description": "Example vanilla behavior pack",
-
         "name": "Vanilla Behavior Pack",
-
         "uuid": "ee649bcf-256c-4013-9068-6a802b89d756",
-
         "version": [0, 0, 1]
-
     },
-
     "modules": [
-
         {
-
             "description": "Example behavior pack module",
-
             "type": "data",
-
             "uuid": "fa6e90c8-c925-460f-8155-c8a60b753caa",
-
             "version": [0, 0, 1]
-
         },
-
         {
-
             "description": "Example client scripts module",
-
             "type": "client_data",
-
             "uuid": "c05a992e-482a-455f-898c-58bbb4975e47",
-
             "version": [0, 0, 1]
-
         }
-
     ],
-
     "dependencies": [
-
         {
-
             "uuid": "66c6e9a8-3093-462a-9c36-dbb052165822",
-
             "version": [0, 0, 1]
-
         }
-
     ]
-
 }
 ```
 
@@ -7600,40 +7682,22 @@ Resource Pack
 
 ```json
 {
-
     "format_version": 1,
-
     "header": {
-
         "description": "Example vanilla resource pack",
-
         "name": "Vanilla Resource Pack",
-
         "uuid": "66c6e9a8-3093-462a-9c36-dbb052165822",
-
         "version": [0, 0, 1],
-
         "min_engine_version": [1, 2, 6]
-
         "vanilla": [1, 12, 0]
-
     },
-
     "modules": [
-
         {
-
             "description": "Example vanilla resource pack",
-
             "type": "resources",
-
             "uuid": "743f6949-53be-44b6-b326-398005028819",
-
             "version": [0, 0, 1]
-
         }
-
     ]
-
 }
 ```

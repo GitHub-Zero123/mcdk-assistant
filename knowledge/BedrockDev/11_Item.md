@@ -1,4 +1,4 @@
-# ITEM DOCUMENTATION Version: 1.21.90.3
+# ITEM DOCUMENTATION Version: 1.21.120.4
 
 
 ## Index
@@ -7,7 +7,10 @@
 # Items
 
 
-Items are defined in a JSON file inside a behavior pack.All attributes, including item names, must be defined using item components.
+Items are defined in a JSON file inside a behavior pack.
+
+
+All attributes, including item names, must be defined using item components.
 
 
 # Item Definition Properties
@@ -30,44 +33,24 @@ Example
 
 ```json
 {
-
   "format_version": "1.20.20",
-
   "minecraft:item": {
-
     "description": {
-
       "identifier": "minecraft:blaze_rod"
-
     },
-
     "components": {
-
       "minecraft:fuel": {
-
         "duration": 120.0
-
       },
-
       "minecraft:max_stack_size": 64,
-
       "minecraft:icon": {
-
         "texture": "blaze_rod"
-
       },
-
       "minecraft:hand_equipped": true,
-
       "minecraft:display_name": {
-
         "value": "Blaze Rod"
-
       }
-
     }
-
   }
-
 }
 ```

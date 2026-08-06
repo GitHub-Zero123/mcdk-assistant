@@ -155,6 +155,65 @@
     "type": "stack_panel",
     "controls": [
       {
+        "new_edit_world_opt_in_panel": {
+          "ignored": "$realm_no_world_edit",
+          "type": "stack_panel",
+          "orientation": "vertical",
+          "size": [ "100%", "100%c + 4px" ],
+          "bindings": [
+            {
+              "binding_name": "#show_new_edit_realm_world_opt_in",
+              "binding_name_override": "#visible"
+            }
+          ],
+          "controls": [
+            {
+              "panel_title@settings_common.option_group_label": {
+                "$text": "options.newUiEditWorld.title"
+              }
+            },
+            {
+              "panel_text@settings_common.option_group_label": {
+                "$text": "options.newUiEditWorld.info"
+              }
+            },
+            {
+              "opt_in_button@settings_common.action_button": {
+                "size": [ "100%", 30 ],
+                "$button_text": "options.newUiEditWorld.initiate",
+                "$pressed_button_name": "switch_to_new_edit_realm_world",
+                "$focus_override_right": "FOCUS_OVERRIDE_STOP"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "new_edit_world_opt_in_divider": {
+          "ignored": "$realm_no_world_edit",
+          "type": "panel",
+          "size": [ "100%", "100%c + 14px" ],
+          "bindings": [
+            {
+              "binding_name": "#show_new_edit_realm_world_opt_in",
+              "binding_name_override": "#visible"
+            }
+          ],
+          "controls": [
+            {
+              "section_divider": {
+                "type": "image",
+                "size": [ "100% - 30px", 1 ],
+                "anchor_from": "center",
+                "anchor_to": "center",
+                "layer": 3,
+                "texture": "textures/ui/list_item_divider_line_light"
+              }
+            }
+          ]
+        }
+      },
+      {
         "option_info_label@settings_common.option_info_label": {
           "$container_text_binding_name": "#achievement_warning_text",
           "$show_option_label": false,
@@ -225,6 +284,18 @@
         }
       },
       {
+        "locator_bar_toggle@settings_common.option_toggle": {
+          "$tts_section_header": "createWorldScreen.worldSettings",
+          "ignored": "$realm_no_world_edit",
+          "$option_label": "createWorldScreen.locatorBar",
+          "$option_binding_name": "#locator_bar",
+          "$option_enabled_binding_name": "#locator_bar_enabled",
+          "$toggle_name": "locator_bar",
+          "$focus_override_right": "FOCUS_OVERRIDE_STOP",
+          "$toggle_binding_condition": "always_when_visible"
+        }
+      },
+      {
         "show_days_played_toggle@settings_common.option_toggle": {
           "$tts_section_header": "createWorldScreen.worldSettings",
           "ignored": "$realm_no_world_edit",
@@ -251,6 +322,7 @@
       {
         "recipes_unlock_toggle@settings_common.option_toggle": {
           "$tts_section_header": "createWorldScreen.worldSettings",
+          "ignored": "$realm_no_world_edit",
           "$option_label": "createWorldScreen.recipesUnlock",
           "$option_binding_name": "#recipes_unlock",
           "$option_enabled_binding_name": "#recipes_unlock_enabled",
@@ -317,6 +389,37 @@
           "$toggle_name": "tile_drops",
           "$focus_override_right": "FOCUS_OVERRIDE_STOP",
           "$toggle_binding_condition": "always_when_visible"
+        }
+      },
+      {
+        "player_sleep_toggle@settings_common.option_toggle": {
+          "$tts_section_header": "createWorldScreen.worldSettings",
+          "ignored": "$realm_no_world_edit",
+          "$option_label": "createWorldScreen.playerSleep",
+          "$option_binding_name": "#player_sleep",
+          "$option_enabled_binding_name": "#player_sleep_enabled",
+          "$toggle_name": "player_sleep",
+          "$focus_override_right": "FOCUS_OVERRIDE_STOP",
+          "$toggle_binding_condition": "always_when_visible"
+        }
+      },
+      {
+        "player_sleep_percentage_slider@settings_common.option_slider": {
+          "$tts_section_header": "createWorldScreen.worldSettings",
+          "ignored": "$realm_no_world_edit",
+          "$option_label": "#player_sleep_percentage_slider_label",
+          "$slider_name": "player_sleep_percentage",
+          "$has_option_description": true,
+          "$option_description": "createWorldScreen.playerSleepPercentageDescription",
+          "$slider_value_binding_name": "#player_sleep_percentage",
+          "$option_enabled_binding_name": "#player_sleep_percentage_enabled",
+          "$slider_tts_text_value": "#player_sleep_percentage_text_value",
+          "$slider_steps_binding_name": "#player_sleep_percentage_steps",
+          "$label_bindings": [
+            {
+              "binding_name": "$option_label"
+            }
+          ]
         }
       },
       {

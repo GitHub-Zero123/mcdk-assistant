@@ -770,6 +770,17 @@
       {
         "all_entities_label_offset": {
           "type": "panel",
+          "size": [ "100%", 2 ]
+        }
+      },
+      {
+        "nearest_label@command_block.command_block_helper_stack": {
+          "$text_override": "advMode.nearest"
+        }
+      },
+      {
+        "nearest_label_offset": {
+          "type": "panel",
           "size": [ "100%", 20 ]
         }
       },

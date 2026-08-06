@@ -1,0 +1,28 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+
+
+#include "fragmentVersionCentroidUV.h"
+
+#include "util.h"
+
+LAYOUT_BINDING(0) uniform sampler2D TEXTURE_0;
+
+uniform vec4 EXTRA_VECTOR1;  // (threshold, intensity, radius, 1.0)
+
+float luminance(vec3 color){
+    return color.r * 0.2126f + color.g * 0.7152f + color.b * 0.0722f;
+}
+
+void main(){
+    vec4 color = texture( TEXTURE_0, uv );
+
+#ifdef RNGL
+    float lum = luminance(color.rgb);
+
+    float alpha = step(EXTRA_VECTOR1.r, lum * color.a);
+#else
+	float alpha = step(EXTRA_VECTOR1.r, 1.0 - color.a);
+#endif
+    gl_FragColor = vec4(color.rgb * alpha, alpha);
+}
