@@ -1,4 +1,4 @@
-# RECIPES DOCUMENTATION Version: 1.21.90.3
+# RECIPES DOCUMENTATION Version: 1.21.120.4
 
 
 ## Index
@@ -7,7 +7,10 @@
 # Recipes
 
 
-Recipes are setup in Json files under the behavior_packs /'name of pack'/ recipes directory.Recipe JSON files have different structures dependent on their type.
+Recipes are setup in Json files under the behavior_packs /'name of pack'/ recipes directory.
+
+
+Recipe JSON files have different structures dependent on their type.
 
 
 # Furnace Recipe
@@ -30,33 +33,19 @@ Represents a furnace recipe for a furnace.'Input' items will burn and transform 
 
 ```json
 {
-
 "format_version": "1.12",
-
 "minecraft:recipe_furnace": {
-
 "description": {
-
 "identifier": "minecraft:furnace_beef"
-
 },
-
 "tags": ["furnace", "smoker", "campfire", "soul_campfire"],
-
 "input": {
-
 "item": "minecraft:beef",
-
 "data": 0,
-
 "count": 4
-
 },
-
 "output ": "minecraft:cooked_beef"
-
 }
-
 }
 ```
 
@@ -83,29 +72,18 @@ Represents a Potion Brewing Container Recipe.
 
 ```json
 {
-
 "format_version": "1.12",
-
 "minecraft:recipe_brewing_container": {
-
 "description": {
-
   "identifier": "minecraft:brew_potion_sulphur"
-
   },
-
-
+ 
  "tags": [ "brewing_stand" ],
-
-
+ 
   "input": "minecraft:potion",
-
   "reagent": "minecraft:gunpowder",
-
   "output": "minecraft:splash_potion"
-
   }
-
 }
 ```
 
@@ -132,29 +110,18 @@ Represents a Potion Brewing Mix.
 
 ```json
 {
-
 "format_version": "1.12",
-
 "minecraft:recipe_brewing_mix": {
-
 "description": {
-
   "identifier": "minecraft:brew_awkward_blaze_powder"
-
   },
-
-
+ 
  "tags": [ "brewing_stand" ],
-
-
+ 
   "input": "minecraft:potion_type:awkward",
-
   "reagent": "minecraft:blaze_powder",
-
   "output": "minecraft:potion_type:strength"
-
   }
-
 }
 ```
 
@@ -162,7 +129,10 @@ Represents a Potion Brewing Mix.
 # Shaped Recipe
 
 
-Represents a shaped crafting recipe for a crafting table.The key used in the pattern may be any single character except the 'space' character, which is reserved for empty slots in a recipe.
+Represents a shaped crafting recipe for a crafting table.
+
+
+The key used in the pattern may be any single character except the 'space' character, which is reserved for empty slots in a recipe.
 
 
 ## Parameters
@@ -183,55 +153,30 @@ Represents a shaped crafting recipe for a crafting table.The key used in the pat
 
 ```json
 {
-
 "format_version": "1.12",
-
 "minecraft:recipe_shaped": {
-
 "description": {
-
   "identifier": "minecraft:acacia_boat"
-
   },
-
 "tags": [ "crafting_table" ],
-
 "pattern": [
-
         "#P#",
-
         "###"
-
         ],
-
   "key": {
-
     "P": {
-
       "item": "minecraft:wooden_shovel"
-
     },
-
     "#": {
-
       "item": "minecraft:planks",
-
       "data": 4
-
       }
-
     },
-
 "result": {
-
     "item": "minecraft:boat",
-
     "data": 4
-
     }
-
   }
-
 }
 ```
 
@@ -258,39 +203,22 @@ Represents a shapeless crafting recipe.
 
 ```json
 {
-
 "format_version": "1.12",
-
 "minecraft:recipe_shapeless": {
-
 "description": {
-
   "identifier": "minecraft:firecharge_coal_sulphur"
-
   },
-
  "priority": 0,
-
  "ingredients": {
-
       "item": "minecraft:fireball",
-
       "data": 0,
-
       "count": 4
-
  },
-
 "result": {
-
       "item": "minecraft:blaze_powder",
-
       "data": 4
-
       }
-
   }
-
 }
 ```
 
@@ -298,7 +226,10 @@ Represents a shapeless crafting recipe.
 # Smithing Transform Recipe
 
 
-Represents a Smithing Transform Recipe for the Smithing Table.This recipe transforms an item into another one, while retaining its properties.
+Represents a Smithing Transform Recipe for the Smithing Table.
+
+
+This recipe transforms an item into another one, while retaining its properties.
 
 
 ## Parameters
@@ -318,31 +249,19 @@ Represents a Smithing Transform Recipe for the Smithing Table.This recipe transf
 
 ```json
 {
-
  "format_version": "1.12",
-
  "minecraft:recipe_smithing_transform": {
-
   "description": {
-
     "identifier": "minecraft:smithing_netherite_boots"
-
    },
-
-
+  
   "tags": [ "smithing_table" ],
-
-
+  
    "template": "minecraft:netherite_upgrade_smithing_template",
-
    "base": "minecraft:diamond_boots",
-
    "addition": "minecraft:netherite_ingot",
-
    "result": "minecraft:netherite_boots"
-
  }
-
 }
 ```
 
@@ -350,7 +269,10 @@ Represents a Smithing Transform Recipe for the Smithing Table.This recipe transf
 # Smithing Trim Recipe
 
 
-Represents a Smithing Trim Recipe for the Smithing Table.This recipe applies a colored trim pattern to an item, while preserving its other properties.
+Represents a Smithing Trim Recipe for the Smithing Table.
+
+
+This recipe applies a colored trim pattern to an item, while preserving its other properties.
 
 
 ## Parameters
@@ -369,28 +291,17 @@ Represents a Smithing Trim Recipe for the Smithing Table.This recipe applies a c
 
 ```json
 {
-
  "format_version": "1.12",
-
  "minecraft:recipe_smithing_trim": {
-
   "description": {
-
     "identifier": "minecraft:smithing_diamond_boots_jungle_quartz_trim"
-
    },
-
-
+  
   "tags": [ "smithing_table" ],
-
-
+  
    "template": "minecraft:jungle_temple_smithing_template",
-
    "base": "minecraft:diamond_boots",
-
    "addition": "minecraft:quartz",
-
  }
-
 }
 ```

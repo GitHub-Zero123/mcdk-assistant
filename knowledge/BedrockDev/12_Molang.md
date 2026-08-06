@@ -1,4 +1,4 @@
-# MOLANG DOCUMENTATION Version: 1.21.90.3
+# MOLANG DOCUMENTATION Version: 1.21.120.4
 
 
 ## Index
@@ -7,13 +7,19 @@
 # Why Does Molang Exist?
 
 
-Molang is a simple expression-based language designed for fast, data-driven calculation of values at run-time, and with a direct connection to in-game values and systems.  Its focus is to enable low-level systems like animation to support flexible data-driven behavior for both internal and external creators, while staying highly performant.
+Molang is a simple expression-based language designed for fast, data-driven calculation of values at run-time, and with a direct connection to in-game values and systems. Its focus is to enable low-level systems like animation to support flexible data-driven behavior for both internal and external creators, while staying highly performant.
 
 
 # Lexical Structure
 
 
-The language structure is largely based on simple 'C' language family style syntax.  An expression can be made of either one simple value or math calculation, or can be made of several sub-expressions where more complicated code is required. In simple cases, the terminating `;` is omitted and the expression result is returned.  In complex cases, multiple sub-expressions are each terminated with a semicolon `;`.  Complex expressions evaluate to `0.0` unless there is a `return` statement, in which case the evaluated value of the `return`'s sub-expression will be returned out of the current scope.
+The language structure is largely based on simple 'C' language family style syntax. An expression can be made of either one simple value or math calculation, or can be made of several sub-expressions where more complicated code is required.
+
+
+In simple cases, the terminating `;` is omitted and the expression result is returned.
+
+
+In complex cases, multiple sub-expressions are each terminated with a semicolon `;`. Complex expressions evaluate to `0.0` unless there is a `return` statement, in which case the evaluated value of the `return`'s sub-expression will be returned out of the current scope.
 
 
 # Case Sensitivity
@@ -31,7 +37,7 @@ All identifiers not in a scope listed below are reserved for future use
 | Keyword | Description |
 | --- | --- |
 | `1.23` | Numerical constant value |
-| `! && || < <= >= > == !=` | Logical operators |
+| `! && \|\| < <= >= > == !=` | Logical operators |
 | `* / + -` | Basic math operators |
 | `(` `)` | Parentheses for expression term evaluation control |
 | `{` `}` | Braces for execution scope |
@@ -44,8 +50,8 @@ All identifiers not in a scope listed below are reserved for future use
 | `variable.variable_name` | Read/write storage on an actor |
 | `temp.variable_name` | Read/write temporary storage |
 | `context.variable_name` | Read-only storage provided by the game in certain scenarios |
-| ` ? ` | Binary conditional operator |
-| ` ?  : ` | Ternary conditional operator - NOTE: Nested ternary expressions without parentheses were incorrectly parsed before a Versioned Change was made to fix it (see 'Versioned Changes' below) |
+| `<test> ? <if true>` | Binary conditional operator |
+| `<test> ? <if true> : <if false>` | Ternary conditional operator - NOTE: Nested ternary expressions without parentheses were incorrectly parsed before a Versioned Change was made to fix it (see 'Versioned Changes' below) |
 | `this` | The current value that this expression will ultimately write to (context specific) |
 | `return` | For complex expressions, this evaluates the following statement and stops execution of the expression, returns the value computed |
 | `->` | Arrow operator, for accessing data from a different entity |
@@ -71,7 +77,7 @@ Molang Operators follow this order to determine which thing is evaluated first w
 | Comparisons | Comparison operators '<' '<=' '>' '>=' (See 'Versioned Changes' below) |
 | Equality checks | Equality checking operators '==' '!=' (See 'Versioned Changes' below) |
 | Logical AND | The Logical AND '&&' operator (See 'Versioned Changes' below) |
-| Logical OR | The Logical OR '||' operator (See 'Versioned Changes' below) |
+| Logical OR | The Logical OR '\|\|' operator (See 'Versioned Changes' below) |
 | Ternary Conditional | Ternary conditional operators using '? :'. Evaluated right-to-left when there are multiple ternary operators. (See 'Versioned Changes' below) |
 | Null Coalescing | Null coalescing operator '??' |
 | (Lowest Precedence) | Lower precedence operators are evaluated last when no parentheses are used to control evaluation order |
@@ -80,28 +86,43 @@ Molang Operators follow this order to determine which thing is evaluated first w
 # Variables
 
 
-There are three variable lifetimes a variable may belong to: Temporary, Entity, and Context:- Temporary variables (eg: `temp.moo = 1;`) are read/write and valid for the scope they are defined in, as per C rules.  For performance reasons their lifetime is global to the current expression execution and may return a valid value outside of the outermost scope they are defined in for an expression.  Be careful in complex expressions.  We will be adding content errors for invalid accesses as soon as possible.- Entity variables (eg: `variable.moo = 1;`) are read/write and store their value on the entity for the lifetime of that entity.  Note that these are currently not saved, so quitting and reloading the world will re-initialize these.  In the same way, if the entity is despawned, any variables on the entity will be lost.- Context variables (eg: `context.moo`) are read-only and specified by the game in certain situations. Details on what variables are specified and when will be available in the documentation of the area where that Molang expression is used (such as behaviors defining what context variables they expose).
+There are three variable lifetimes a variable may belong to: Temporary, Entity, and Context:
+
+
+- Temporary variables (eg: `temp.moo = 1;`) are read/write and valid for the scope they are defined in, as per C rules. For performance reasons their lifetime is global to the current expression execution and may return a valid value outside of the outermost scope they are defined in for an expression. Be careful in complex expressions. We will be adding content errors for invalid accesses as soon as possible.
+
+
+- Entity variables (eg: `variable.moo = 1;`) are read/write and store their value on the entity for the lifetime of that entity. Note that these are currently not saved, so quitting and reloading the world will re-initialize these. In the same way, if the entity is despawned, any variables on the entity will be lost.
+
+
+- Context variables (eg: `context.moo`) are read-only and specified by the game in certain situations. Details on what variables are specified and when will be available in the documentation of the area where that Molang expression is used (such as behaviors defining what context variables they expose).
 
 
 # Values
 
 
-- All numerical values are floats.- Boolean values such as actor flags are converted and stored as a float value of either 0.0 or 1.0 for values of false or true respectively.- For boolean tests, a float value equivalent to 0.0 is false, and anything not equal to 0.0 is true.- For array indices, floats are C-style-cast to ints, and clamped at zero for negative values or wrapped by the array size for large values.- Other supported types are:
+- All numerical values are floats.
+
+
+- Boolean values such as actor flags are converted and stored as a float value of either 0.0 or 1.0 for values of false or true respectively.
+
+
+- For boolean tests, a float value equivalent to 0.0 is false, and anything not equal to 0.0 is true.
+
+
+- For array indices, floats are C-style-cast to ints, and clamped at zero for negative values or wrapped by the array size for large values.
+
+
+- Other supported types are:
 
 
 ```json
 Geometry
-
 Texture
-
 Material
-
 Actor Reference
-
 Actor Reference Array
-
 String
-
 Struct (see 'structs' section below)
 ```
 
@@ -112,13 +133,13 @@ Struct (see 'structs' section below)
 # Query Functions
 
 
-Query functions (eg: `query.is_baby` or `query.is_item_equipped('main_hand')`) allow expressions to read game data.  If a query function takes no arguments, do not use parentheses. Otherwise, use parentheses and separate arguments with commas. For a full list of query functions, see below.
+Query functions (eg: `query.is_baby` or `query.is_item_equipped('main_hand')`) allow expressions to read game data. If a query function takes no arguments, do not use parentheses. Otherwise, use parentheses and separate arguments with commas. For a full list of query functions, see below.
 
 
 # Aliases
 
 
-To reduce typing burden and increase clarity when reading and writing Molang, the following keyword aliases can make life a bit easier.  Note that left and right sides function identically.
+To reduce typing burden and increase clarity when reading and writing Molang, the following keyword aliases can make life a bit easier. Note that left and right sides function identically.
 
 
 ## Alias Mapping
@@ -159,16 +180,13 @@ math.cos(q.anim_time * 38) * variable.rotation_scale + v.x * variable.x * query.
 # Structs
 
 
-Structures of data, unlike C, are implicitly defined by usage.  Their purpose is to more efficiently pass data around, such as passing `v.location` rather than `v.x`, `v.y`, and `v.z`.  eg:
+Structures of data, unlike C, are implicitly defined by usage. Their purpose is to more efficiently pass data around, such as passing `v.location` rather than `v.x`, `v.y`, and `v.z`. eg:
 
 
 ```json
 v.location.x = 1;
-
 v.location.y = 2;
-
 v.location.z = 3;
-
 v.another_mobs_location = v.another_mob_set_elsewhere->v.location;
 ```
 
@@ -201,13 +219,16 @@ v.cowcow.friend = v.pigpig; v.pigpig->v.test.a.b.c = 1.23; v.moo = v.cowcow.frie
 ```
 
 
-Note that structures can be arbitrarily deep in their nesting/recursiveness.  That said, it is recommended that you don't copy full structures inside other structures to avoid exploding memory, and not making structures too deep as there is a slight performance cost for each layer.
+Note that structures can be arbitrarily deep in their nesting/recursiveness. That said, it is recommended that you don't copy full structures inside other structures to avoid exploding memory, and not making structures too deep as there is a slight performance cost for each layer.
 
 
 # Strings
 
 
-Strings in Molang are surrounded by single quotes, eg: `'minecraft:pig'` or `'hello world!'`. An empty string is defined as two consecutive single quotes.  String operations only support `==` and `!=` at this time.Note: strings don't support the ' character as there is no support for escape characters at this time.
+Strings in Molang are surrounded by single quotes, eg: `'minecraft:pig'` or `'hello world!'`. An empty string is defined as two consecutive single quotes. String operations only support `==` and `!=` at this time.
+
+
+Note: strings don't support the ' character as there is no support for escape characters at this time.
 
 
 # Math Functions
@@ -219,15 +240,47 @@ Strings in Molang are surrounded by single quotes, eg: `'minecraft:pig'` or `'he
 | `math.acos(value)` | arccos of value |
 | `math.asin(value)` | arcsin of value |
 | `math.atan(value)` | arctan of value |
-| `math.atan2(y, x)` | arctan of y/x.  NOTE: the order of arguments! |
+| `math.atan2(y, x)` | arctan of y/x. NOTE: the order of arguments! |
 | `math.ceil(value)` | Round value up to nearest integral number |
 | `math.clamp(value, min, max)` | Clamp value to between min and max inclusive |
+| `math.copy_sign(A, B)` | Returns A with the sign of B |
 | `math.cos(value)` | Cosine (in degrees) of value |
-| `math.die_roll(num, low, high)` | returns the sum of 'num' random numbers, each with a value from low to high`.  Note: the generated random numbers are not integers like normal dice.  For that, use `math.die_roll_integer`. |
-| `math.die_roll_integer(num, low, high)` | returns the sum of 'num' random integer numbers, each with a value from low to high`.  Note: the generated random numbers are integers like normal dice. |
+| `math.die_roll(num, low, high)` | returns the sum of 'num' random numbers, each with a value from low to high`. Note: the generated random numbers are not integers like normal dice. For that, use `math.die_roll_integer`. |
+| `math.die_roll_integer(num, low, high)` | returns the sum of 'num' random integer numbers, each with a value from low to high`. Note: the generated random numbers are integers like normal dice. |
+| `math.ease_in_back(start, end, 0_to_1)` | Output goes from start to end via 0_to_1, overshooting backward before accelerating into the end |
+| `math.ease_in_bounce(start, end, 0_to_1)` | Output goes from start to end via 0_to_1, starting with bounce oscillations and settling into the end |
+| `math.ease_in_circ(start, end, 0_to_1)` | Output goes from start to end via 0_to_1, starting slow and accelerating along a circular curve toward the end |
+| `math.ease_in_cubic(start, end, 0_to_1)` | Output goes from start to end via 0_to_1, starting slow and accelerating rapidly toward the end |
+| `math.ease_in_elastic(start, end, 0_to_1)` | Output goes from start to end via 0_to_1, starting with elastic oscillations before accelerating into the end |
+| `math.ease_in_expo(start, end, 0_to_1)` | Output goes from start to end via 0_to_1, starting slow and accelerating extremely rapidly toward the end |
+| `math.ease_in_out_back(start, end, 0_to_1)` | Output goes from start to end via 0_to_1, overshooting at both start and end, with smoother change in the middle |
+| `math.ease_in_out_bounce(start, end, 0_to_1)` | Output goes from start to end via 0_to_1, starting and ending with bounce oscillations, smoother in the middle |
+| `math.ease_in_out_circ(start, end, 0_to_1)` | Output goes from start to end via 0_to_1, starting and ending slow, with circular acceleration and deceleration in the middle |
+| `math.ease_in_out_cubic(start, end, 0_to_1)` | Output goes from start to end via 0_to_1, starting slow, accelerating rapidly in the middle, then slowing again at the end |
+| `math.ease_in_out_elastic(start, end, 0_to_1)` | Output goes from start to end via 0_to_1, oscillating elastically at both start and end, with stable change in the middle |
+| `math.ease_in_out_expo(start, end, 0_to_1)` | Output goes from start to end via 0_to_1, starting and ending slow, with extremely rapid change in the middle |
+| `math.ease_in_out_quad(start, end, 0_to_1)` | Output goes from start to end via 0_to_1, starting slow, accelerating in the middle, then slowing again at the end |
+| `math.ease_in_out_quart(start, end, 0_to_1)` | Output goes from start to end via 0_to_1, starting slow, accelerating very rapidly in the middle, then slowing again at the end |
+| `math.ease_in_out_quint(start, end, 0_to_1)` | Output goes from start to end via 0_to_1, starting slow, accelerating extremely rapidly in the middle, then slowing again at the end |
+| `math.ease_in_out_sine(start, end, 0_to_1)` | Output goes from start to end via 0_to_1, starting and ending slow, with smoother change in the middle |
+| `math.ease_in_quad(start, end, 0_to_1)` | Output goes from start to end via 0_to_1, starting slow and accelerating toward the end |
+| `math.ease_in_quart(start, end, 0_to_1)` | Output goes from start to end via 0_to_1, starting slow and accelerating very rapidly toward the end |
+| `math.ease_in_quint(start, end, 0_to_1)` | Output goes from start to end via 0_to_1, starting slow and accelerating extremely rapidly toward the end |
+| `math.ease_in_sine(start, end, 0_to_1)` | Output goes from start to end via 0_to_1, starting slow and accelerating smoothly toward the end |
+| `math.ease_out_back(start, end, 0_to_1)` | Output goes from start to end via 0_to_1, overshooting past the end before settling into it |
+| `math.ease_out_bounce(start, end, 0_to_1)` | Output goes from start to end via 0_to_1, approaching the end with bounce oscillations that diminish over time |
+| `math.ease_out_circ(start, end, 0_to_1)` | Output goes from start to end via 0_to_1, starting fast and decelerating along a circular curve toward the end |
+| `math.ease_out_cubic(start, end, 0_to_1)` | Output goes from start to end via 0_to_1, starting fast and decelerating rapidly toward the end |
+| `math.ease_out_elastic(start, end, 0_to_1)` | Output goes from start to end via 0_to_1, overshooting the end with elastic oscillations before settling |
+| `math.ease_out_expo(start, end, 0_to_1)` | Output goes from start to end via 0_to_1, starting extremely fast and decelerating gradually toward the end |
+| `math.ease_out_quad(start, end, 0_to_1)` | Output goes from start to end via 0_to_1, starting fast and decelerating toward the end |
+| `math.ease_out_quart(start, end, 0_to_1)` | Output goes from start to end via 0_to_1, starting fast and decelerating very rapidly toward the end |
+| `math.ease_out_quint(start, end, 0_to_1)` | Output goes from start to end via 0_to_1, starting fast and decelerating extremely rapidly toward the end |
+| `math.ease_out_sine(start, end, 0_to_1)` | Output goes from start to end via 0_to_1, starting fast and decelerating smoothly toward the end |
 | `math.exp(value)` | Calculates e to the value'th power |
 | `math.floor(value)` | Round value down to nearest integral number |
-| `math.hermite_blend(value)` | Useful for simple smooth curve interpolation using one of the Hermite Basis functions: `3t^2 - 2t^3`.  Note that while any valid float is a valid input, this function works best in the range [0,1]. |
+| `math.hermite_blend(value)` | Useful for simple smooth curve interpolation using one of the Hermite Basis functions: `3t^2 - 2t^3`. Note that while any valid float is a valid input, this function works best in the range [0,1]. |
+| `math.inverse_lerp(start, end, value)` | Returns the normalized progress between start and end given value |
 | `math.lerp(start, end, 0_to_1)` | Lerp from start to end via 0_to_1 |
 | `math.lerprotate(start, end, 0_to_1)` | Lerp the shortest direction around a circle from start degrees to end degrees via 0_to_1 |
 | `math.ln(value)` | Natural logarithm of value |
@@ -240,24 +293,25 @@ Strings in Molang are surrounded by single quotes, eg: `'minecraft:pig'` or `'he
 | `math.random(low, high)` | Random value between low and high inclusive |
 | `math.random_integer(low, high)` | Random integer value between low and high inclusive |
 | `math.round(value)` | Round value to nearest integral number |
+| `math.sign(value)` | Returns 1 if value is positive, -1 otherwise |
 | `math.sin(value)` | Sine (in degrees) of value |
 | `math.sqrt(value)` | Square root of value |
 | `math.trunc(value)` | Round value towards zero |
 
 
-# ->  Arrow Operator
+# -> Arrow Operator
 
 
-Some return values of query function, or values stored in temp/entity/context variables can be a reference to another entity.  The `->` operator allows an expression to access variables or run queries on that entity.  For example, the example below will find all pigs within four meters of the current entity (including itself if it's a pig), and increment a variable `v.x` on itself if the block immediately above each pig is flammable (such as an oak button) :Note that in the case where the left-hand side of the `->` operator has an error (value is null, the entity was killed previously, or some other issue), the expression will not evaluate the right-hand side and will return 0. This implementation style was a choice between performance and not requiring content creators to overly worry about checking for potentially bad values everywhere.
+Some return values of query function, or values stored in temp/entity/context variables can be a reference to another entity. The `->` operator allows an expression to access variables or run queries on that entity. For example, the example below will find all pigs within four meters of the current entity (including itself if it's a pig), and increment a variable `v.x` on itself if the block immediately above each pig is flammable (such as an oak button) :
+
+
+Note that in the case where the left-hand side of the `->` operator has an error (value is null, the entity was killed previously, or some other issue), the expression will not evaluate the right-hand side and will return 0. This implementation style was a choice between performance and not requiring content creators to overly worry about checking for potentially bad values everywhere.
 
 
 ```json
 "v.x = 0;
-
 for_each(v.pig, query.get_nearby_entities(4, 'minecraft:pig'), {
-
     v.x = v.x + v.pig->query.get_relative_block_state(0, 1, 0, 'flammable');
-
 });"
 ```
 
@@ -265,44 +319,27 @@ for_each(v.pig, query.get_nearby_entities(4, 'minecraft:pig'), {
 ## Public Variables
 
 
-In general, variables of a mob are considered private to that mob and cannot be accessed by another.  To expose read-only access of a variable to other mobs, you need to set the 'public' setting on that variable in the owning entity's resource definition.  It is also recommended to default-initialize the variable.
+In general, variables of a mob are considered private to that mob and cannot be accessed by another. To expose read-only access of a variable to other mobs, you need to set the 'public' setting on that variable in the owning entity's resource definition. It is also recommended to default-initialize the variable.
 
 
 ```json
 {
-
   "format_version": "1.10.0",
-
   "minecraft:client_entity": {
-
     "description": {
-
       ...
-
       "scripts": {
-
         "variables": {
-
           "variable.oink": "public"
-
         },
-
         "initialize": [
-
           "variable.oink = 0;"
-
         ],
-
         ...
-
       },
-
       ...
-
     }
-
   }
-
 }
 ```
 
@@ -310,22 +347,16 @@ In general, variables of a mob are considered private to that mob and cannot be 
 # { } Brace Scope Delimiters
 
 
-One can group a series of statements into a single group by wrapping them in `{` and `}` symbols.  This is used primarily in loops and conditional statements:
+One can group a series of statements into a single group by wrapping them in `{` and `}` symbols. This is used primarily in loops and conditional statements:
 
 
 ```json
 (v.moo > 0) ? {
-
   v.x = math.sin(q.life_time * 45);
-
   v.x = v.x * v.x + 17.3;
-
   t.sin_x = math.sin(v.x);
-
   v.x = t.sin_x * t.sin_x + v.x * v.x;
-
   v.x = math.sqrt(v.x) * v.x * math.pi;
-
 }
 ```
 
@@ -333,14 +364,23 @@ One can group a series of statements into a single group by wrapping them in `{`
 # Conditionals
 
 
-The conditional '?' operator allows for two convenient ways to implement simple branching logic. The first way is to use '?' by itself to conditionally execute part of an expression, for example `A ? B`. The part after the '?' is only run if the part before it evaluates to a true boolean. The second way is to use '?' with a ':' as a 'conditional ternary', for example `A ? B : C`. If the part before the '?' is evaluated as true, the part before the ':' is returned. Otherwise the part after is returned. NOTE: Nested ternary expressions without parentheses were incorrectly parsed before a Versioned Change was made to fix it (see 'Versioned Changes' below).
+The conditional '?' operator allows for two convenient ways to implement simple branching logic.
+
+
+The first way is to use '?' by itself to conditionally execute part of an expression, for example `A ? B`. The part after the '?' is only run if the part before it evaluates to a true boolean.
+
+
+The second way is to use '?' with a ':' as a 'conditional ternary', for example `A ? B : C`. If the part before the '?' is evaluated as true, the part before the ':' is returned. Otherwise the part after is returned.
+
+
+NOTE: Nested ternary expressions without parentheses were incorrectly parsed before a Versioned Change was made to fix it (see 'Versioned Changes' below).
+
 
 Conditional Examples
 
 
 ```json
 v.should_reset_a ? { v.a = 0; }
-
 
 v.larger_value = (v.a > v.b) ? v.a : v.b;
 ```
@@ -349,24 +389,31 @@ v.larger_value = (v.a > v.b) ? v.a : v.b;
 # loop
 
 
-Sometimes you want to execute an expression multiple times.  Rather than copy-pasting it a bunch, you can use `loop(count, expression);`.  We have placed some arbitrary restrictions on these for safety for now. The maximum loop counter is (as of this document being written) 1024.  Also, note that while you can nest loops inside loops pretty much as deep as you want, be careful you don't make a loop so long it will hang your game.
+Sometimes you want to execute an expression multiple times. Rather than copy-pasting it a bunch, you can use `loop(
+
+
+<count>
+
+
+,
+
+
+<expression>
+
+
+);`. We have placed some arbitrary restrictions on these for safety for now. The maximum loop counter is (as of this document being written) 1024. Also, note that while you can nest loops inside loops pretty much as deep as you want, be careful you don't make a loop so long it will hang your game.
+
 
 A Fibonacci Calculator
 
 
 ```json
 v.x = 1;
-
 v.y = 1;
-
 loop(10, {
-
   t.x = v.x + v.y;
-
   v.x = v.y;
-
   v.y = t.x;
-
 });
 ```
 
@@ -374,16 +421,31 @@ loop(10, {
 # for_each
 
 
-`query.get_nearby_entities` (see below) returns an array of entities.  In order to iterate through them, you can use the following new built-in function `for_each`.  It takes three parameters: `for_each(variable, array, expression);`  The variable can be any variable, either a `temp.` or `variable.`, although I'd recommend using `temp.` to not pollute the entity's variable space.  The expression is any Molang expression you want to execute for each entry in the array)
+`query.get_nearby_entities` (see below) returns an array of entities. In order to iterate through them, you can use the following new built-in function `for_each`. It takes three parameters: `for_each(
+
+
+<variable>
+
+
+,
+
+
+<array>
+
+
+,
+
+
+<expression>
+
+
+);` The variable can be any variable, either a `temp.` or `variable.`, although I'd recommend using `temp.` to not pollute the entity's variable space. The expression is any Molang expression you want to execute for each entry in the array)
 
 
 ```json
 "v.x = 0;
-
 for_each(t.pig, query.get_nearby_entities(4, 'minecraft:pig'), {
-
     v.x = v.x + 1;
-
 });"
 ```
 
@@ -391,46 +453,39 @@ for_each(t.pig, query.get_nearby_entities(4, 'minecraft:pig'), {
 # break
 
 
-This will exit out of a `loop` or `for_each` early.  Eg:
+This will exit out of a `loop` or `for_each` early. Eg:
 
 
 ```json
 v.x = 1;
-
 v.y = 1;
-
 loop(10, {t.x = v.x + v.y; v.x = v.y; v.y = t.x; (v.y > 20) ? break;});
 ```
 
 
-This will immediately exit the inner-most active loop, as per C-style language rules.  If you have:
+This will immediately exit the inner-most active loop, as per C-style language rules. If you have:
 
 
 ```json
 v.x = 0;
-
 loop(10, {loop(10, {v.x = v.x + 1; (v.x > 5) ? break;});});
 ```
 
 
-The `break` statement will terminate the inner loop when `v.x > 5`, and continue processing the outer loop's expression.  Note that as v.x is not reset between the outer loops, the second time into the inner loop this will add one more to `v.x` and then exit the inner loop again, resulting in a final value of `v.x` of `6 + 1 + 1 + 1 + ... + 1` = `15`.)
+The `break` statement will terminate the inner loop when `v.x > 5`, and continue processing the outer loop's expression. Note that as v.x is not reset between the outer loops, the second time into the inner loop this will add one more to `v.x` and then exit the inner loop again, resulting in a final value of `v.x` of `6 + 1 + 1 + 1 + ... + 1` = `15`.)
 
 
 # continue
 
 
-`continue` functions as per C-style language rules.  Currently only supported in `loop` and `for_each`, this will skip to the next iteration of the current loop.  See `break` above for more details on inner/outer loops.  The following example will result in v.x becoming 6.0, as the increment will be skipped once it reaches that value.  Note that it is better to break out of the loop in this contrived example, as it would be more performant than continuing to perform all 10 iterations.
+`continue` functions as per C-style language rules. Currently only supported in `loop` and `for_each`, this will skip to the next iteration of the current loop. See `break` above for more details on inner/outer loops. The following example will result in v.x becoming 6.0, as the increment will be skipped once it reaches that value. Note that it is better to break out of the loop in this contrived example, as it would be more performant than continuing to perform all 10 iterations.
 
 
 ```json
 v.x = 0;
-
 loop(10, {
-
   (v.x > 5) ? continue;
-
   v.x = v.x + 1;
-
 });
 ```
 
@@ -438,7 +493,7 @@ loop(10, {
 # ?? Null Coalescing Operator
 
 
-Similar to how the null-coalescing operator works in C#, one can now reference a variable that may or may not exist without seeing a content error.  If it doesn't, you can now provide a default value to use.  Previously, if a variable didn't exist you would get a content error.  This was to make sure variables were always initialized correctly to avoid uninitialized variable bugs.  Unfortunately this then required initialize scripts, or in some cases some complex work-arounds to make sure variables were initialized.  Now, if you know a variable won't be initialized in the first run of a script, you can use the following:
+Similar to how the null-coalescing operator works in C#, one can now reference a variable that may or may not exist without seeing a content error. If it doesn't, you can now provide a default value to use. Previously, if a variable didn't exist you would get a content error. This was to make sure variables were always initialized correctly to avoid uninitialized variable bugs. Unfortunately this then required initialize scripts, or in some cases some complex work-arounds to make sure variables were initialized. Now, if you know a variable won't be initialized in the first run of a script, you can use the following:
 
 
 ```json
@@ -446,13 +501,31 @@ variable.x = (variable.x ?? 1.2) + 0.3;
 ```
 
 
-This will use the value of `variable.x` if it is valid, or else 1.2 if `variable.x`:- has not yet been initialized- is a reference to a deleted entity- is an invalid reference- holds an errorNote that the `??` operator will work with `variable.`s, `temp.`s, and `context.`s that hold numbers or entity references, but not resources such as materials, textures, or geometries (as those must exist and be valid else it's a content error).  If the first argument would result in something that can't be resolved, it will return the second argument._Reminder: the standing rule of thumb in Molang is that if something would error or be a bad value, it is converted to 0.0 (and generally throw a content error on screen in non-publish builds.  Note that content errors may prevent uploading content to the Marketplace, so please ensure expressions aren't going to do bad things such as dividing by zero)._
+This will use the value of `variable.x` if it is valid, or else 1.2 if `variable.x`:
+
+
+- has not yet been initialized
+
+
+- is a reference to a deleted entity
+
+
+- is an invalid reference
+
+
+- holds an error
+
+
+Note that the `??` operator will work with `variable.`s, `temp.`s, and `context.`s that hold numbers or entity references, but not resources such as materials, textures, or geometries (as those must exist and be valid else it's a content error). If the first argument would result in something that can't be resolved, it will return the second argument.
+
+
+_Reminder: the standing rule of thumb in Molang is that if something would error or be a bad value, it is converted to 0.0 (and generally throw a content error on screen in non-publish builds. Note that content errors may prevent uploading content to the Marketplace, so please ensure expressions aren't going to do bad things such as dividing by zero)._
 
 
 # Simple vs Complex Expressions
 
 
-A simple expression is a single statement, the value of which is returned to the system that evaluated the expression.  eg:
+A simple expression is a single statement, the value of which is returned to the system that evaluated the expression. eg:
 
 
 ```json
@@ -460,19 +533,17 @@ math.sin(query.anim_time * 1.23)
 ```
 
 
-A complex expression is one with multiple statements, each ending in a ';'.  Each statement is evaluated in order.  In the current implementation, the last statement requires the use of the return keyword and defines the resulting value of the expression.  eg:
+A complex expression is one with multiple statements, each ending in a ';'. Each statement is evaluated in order. In the current implementation, the last statement requires the use of the return keyword and defines the resulting value of the expression. eg:
 
 
 ```json
 temp.moo = math.sin(query.anim_time * 1.23);
-
 temp.baa = math.cos(query.life_time + 2.0);
-
 return temp.moo * temp.moo + temp.baa;
 ```
 
 
-Note that in a simple expression, `;` is not allowed, whereas in a complex expression, each statement requires a `;` including the last.  Also, note that if you don't `return` a value from a complex expression, the expression will evaluate to 0.0.
+Note that in a simple expression, `;` is not allowed, whereas in a complex expression, each statement requires a `;` including the last. Also, note that if you don't `return` a value from a complex expression, the expression will evaluate to 0.0.
 
 
 # Domain Examples
@@ -481,20 +552,15 @@ Note that in a simple expression, `;` is not allowed, whereas in a complex expre
 # Entity Definition Scripts
 
 
-In the definition file there is a section for pre-computing values.  These are executed immediately before animation and render controllers are processed, and stored in the entity.  The purpose is to pre-compute any expensive and complex values you may want to reuse in your scripts, long-living index variable updates, or generally any one-off computation per render tick.
+In the definition file there is a section for pre-computing values. These are executed immediately before animation and render controllers are processed, and stored in the entity. The purpose is to pre-compute any expensive and complex values you may want to reuse in your scripts, long-living index variable updates, or generally any one-off computation per render tick.
 
 
 ```json
 "scripts": {
-
     "pre_animation": [
-
       "variable.my_constant = (Math.cos(query.modified_distance_moved * 38.17) * query.modified_move_speed;",
-
       "variable.my_constant2 = Math.exp(1.5);",
-
     ]
-
   },
 ```
 
@@ -502,47 +568,49 @@ In the definition file there is a section for pre-computing values.  These are e
 # Animation and Animation Controller Files
 
 
-These are numerical operations to control which animations are playing and how to animate bones.  "variable.variable_name" and "query.function_name" refer to the entity currently being rendered.  They have access to everything in the language except material, texture, and geometry types.
+These are numerical operations to control which animations are playing and how to animate bones. "variable.variable_name" and "query.function_name" refer to the entity currently being rendered. They have access to everything in the language except material, texture, and geometry types.
 
 
 # Render Controllers
 
 
-There are a few different kinds of expressions here, where context implies what is allowed.  As with animations, the entity accessors refer to the current entity, however depending on the context one also has access to materials, textures, and geometries.  There are two sections in a render controller:-Array definitions (optional)-Resource usage (required)The array definition section allows you to create arrays of resources by resource type if you so desire.  These can then be referenced in the resource usage section.
+There are a few different kinds of expressions here, where context implies what is allowed. As with animations, the entity accessors refer to the current entity, however depending on the context one also has access to materials, textures, and geometries. There are two sections in a render controller:
+
+
+-Array definitions (optional)
+
+
+-Resource usage (required)
+
+
+The array definition section allows you to create arrays of resources by resource type if you so desire. These can then be referenced in the resource usage section.
 
 
 ## Array Expressions
 
 
-For each of the three resource types (materials, textures, and geometry), you can define an array of resources.  The name of the resource is the nice-name from the definition file.  Using materials as an example:
+For each of the three resource types (materials, textures, and geometry), you can define an array of resources. The name of the resource is the nice-name from the definition file. Using materials as an example:
 
 
 ```json
 "arrays":
-
 {
-
   "materials": {
-
     "array.my_array_1": ["material.a", "material.b", "material.c"],
-
     "array.my_array_2" : ["material.d", "material.e"],
-
     "array.my_array_3" : ["array.my_array_1", "material.my_array_2"],
-
     "array.my_array_4" : ["array.my_array_2", "material.my_array_3"],
-
     "array.my_array_5" : ["array.my_array_1", "material.my_array_1", "material.my_array_4"],
-
     "array.my_array_6" : ["array.my_array_1", "material.f"],
-
     ...
-
   },
 ```
 
 
-Note that all elements of an array must be of the same type.  eg: a texture array must only contain textures.An array can reference any combination of zero or more arrays (including duplicates if desired) and/or zero or more materials (again, including duplicates if you like), and you can have as many arrays as you like, each with as many elements as you like.  If an array includes arrays in its members, they do not need to be the same length.  When indexing into an array in the resource usage section, you use numerical expressions.  If the resulting number is negative, it will use zero as the index.  Any non - negative index will converted to an integer, and will wrap based on the size of the array:
+Note that all elements of an array must be of the same type. eg: a texture array must only contain textures.
+
+
+An array can reference any combination of zero or more arrays (including duplicates if desired) and/or zero or more materials (again, including duplicates if you like), and you can have as many arrays as you like, each with as many elements as you like. If an array includes arrays in its members, they do not need to be the same length. When indexing into an array in the resource usage section, you use numerical expressions. If the resulting number is negative, it will use zero as the index. Any non - negative index will converted to an integer, and will wrap based on the size of the array:
 
 
 ```json
@@ -553,7 +621,11 @@ index = max(0, expression_result) % array_size
 ## Resource Expression
 
 
-A resource expression must return a single resource of a specific type depending on the context.For example, in the "geometry" section, you must produce an expression that will result in a single geometry.  Some examples:
+A resource expression must return a single resource of a specific type depending on the context.
+
+
+For example, in the "geometry" section, you must produce an expression that will result in a single geometry. Some examples:
+
 
 Cycle through an array of geometries at a rate of one per second
 
@@ -593,31 +665,35 @@ Use specific geo when sleeping, otherwise flip through an array based on a cosin
 ### Geometry
 
 
-The geometry section specifies which geometry to use when rendering.  As you can specify as many render controllers as you like in the definition file, a single render controller is only concerned with how to render a single geometry.  Note that a geometry can be arbitrarily complex using any number of bones and polygons.
+The geometry section specifies which geometry to use when rendering. As you can specify as many render controllers as you like in the definition file, a single render controller is only concerned with how to render a single geometry. Note that a geometry can be arbitrarily complex using any number of bones and polygons.
 
 
 ### Materials
 
 
-The materials section specifies how to map what material to what bone of the geometry.  A single material is mapped to a whole bone.  Material expressions are evaluated in the order listed.  The first part of each statement is the name of the model part to apply the material to, and the second part is the material to use.  The model part name can use * for wild - card matching of characters.  For example:
+The materials section specifies how to map what material to what bone of the geometry. A single material is mapped to a whole bone. Material expressions are evaluated in the order listed. The first part of each statement is the name of the model part to apply the material to, and the second part is the material to use. The model part name can use * for wild - card matching of characters. For example:
 
 
 ```json
-  "materials": [
-
+"materials": [
       { "*": "Material.default" },
-
       { "TailA": "array.hair_colors[variable.hair_color]" },
-
       { "Mane": "array.hair_colors[variable.hair_color]" },
-
       { "*Saddle*": "variable.is_leather_saddle ? material.leather_saddle : material.iron_saddle" }
-
     ],
 ```
 
 
-- This will start by applying Material.default to all model parts.- Next, it will set the material on a model part named "TailA" to the result of the expression "Array.hairColors[variable.hair_color]".  This will look up some previously created variable on the entity named hair_color and use that to index into a material array called "array.hair_colors" defined in this render controller.  This will overwrite the Material.default material set in the line above.- Third, it will look up the same material as the expression is identical, and apply it to the "Mane" model part.- Lastly, if will find any model part starting with, ending with, or containing "Saddle" (case sensitive) and change its material to either material.leather_saddle or material.iron_saddle depending on the previously set entity variable variable.is_leather_saddle.
+- This will start by applying Material.default to all model parts.
+
+
+- Next, it will set the material on a model part named "TailA" to the result of the expression "Array.hairColors[variable.hair_color]". This will look up some previously created variable on the entity named hair_color and use that to index into a material array called "array.hair_colors" defined in this render controller. This will overwrite the Material.default material set in the line above.
+
+
+- Third, it will look up the same material as the expression is identical, and apply it to the "Mane" model part.
+
+
+- Lastly, if will find any model part starting with, ending with, or containing "Saddle" (case sensitive) and change its material to either material.leather_saddle or material.iron_saddle depending on the previously set entity variable variable.is_leather_saddle.
 
 
 # Query Functions
@@ -639,19 +715,20 @@ Query Functions are operators that access a wide variety of information. They ca
 | query.above_top_solid | Returns the height of the block immediately above the highest solid block at the input (x,z) position |
 | query.actor_count | Returns the number of actors rendered in the last frame. |
 | query.all | Requires at least 3 arguments. Evaluates the first argument, then returns 1.0 if all of the following arguments evaluate to the same value as the first. Otherwise it returns 0.0. |
-| query.all_animations_finished | Only valid in an animation controller.  Returns 1.0 if all animations in the current animation controller state have played through at least once, else it returns 0.0. |
+| query.all_animations_finished | Only valid in an animation controller. Returns 1.0 if all animations in the current animation controller state have played through at least once, else it returns 0.0. |
 | query.all_tags | Returns if the item or block has all of the tags specified. |
 | query.anger_level | Returns the anger level of the actor [0,n). On errors or if the actor has no anger level, returns 0. Available on the Server only. |
 | query.anim_time | Returns the time in seconds since the current animation started, else 0.0 if not called within an animation. |
 | query.any | Requires at least 3 arguments. Evaluates the first argument, then returns 1.0 if any of the following arguments evaluate to the same value as the first. Otherwise it returns 0.0. |
-| query.any_animation_finished | Only valid in an animation controller.  Returns 1.0 if any animation in the current animation controller state has played through at least once, else it returns 0.0. |
+| query.any_animation_finished | Only valid in an animation controller. Returns 1.0 if any animation in the current animation controller state has played through at least once, else it returns 0.0. |
 | query.any_tag | Returns if the item or block has any of the tags specified. |
 | query.approx_eq | Returns 1.0 if all of the arguments are within 0.000000 of each other, else 0.0. |
 | query.armor_color_slot | Takes the armor slot index as a parameter, and returns the color of the armor in the requested slot. The valid values for the armor slot index are 0 (head), 1 (chest), 2 (legs), 3 (feet) and 4 (body). |
 | query.armor_damage_slot | Takes the armor slot index as a parameter, and returns the damage value of the requested slot. The valid values for the armor slot index are 0 (head), 1 (chest), 2 (legs), 3 (feet) and 4 (body). Support for entities other than players may be limited, as the damage value is not always available on clients. |
 | query.armor_material_slot | Takes the armor slot index as a parameter, and returns the armor material type in the requested armor slot. The valid values for the armor slot index are 0 (head), 1 (chest), 2 (legs) and 3 (feet). |
 | query.armor_texture_slot | Takes the armor slot index as a parameter, and returns the texture type of the requested slot. The valid values for the armor slot index are 0 (head), 1 (chest), 2 (legs), 3 (feet) and 4 (body). |
-| query.average_frame_time | Returns the time in *seconds* of the average frame time over the last 'n' frames.  If an argument is passed, it is assumed to be the number of frames in the past that you wish to query.  'query.average_frame_time' (or the equivalent 'query.average_frame_time(0)') will return the frame time of the frame before the current one.  'query.average_frame_time(1)' will return the average frame time of the previous two frames.  Currently we store the history of the last 30 frames, although note that this may change in the future.  Asking for more frames will result in only sampling the number of frames stored. |
+| query.average_frame_time | Returns the time in *seconds* of the average frame time over the last 'n' frames. If an argument is passed, it is assumed to be the number of frames in the past that you wish to query. 'query.average_frame_time' (or the equivalent 'query.average_frame_time(0)') will return the frame time of the frame before the current one. 'query.average_frame_time(1)' will return the average frame time of the previous two frames. Currently we store the history of the last 30 frames, although note that this may change in the future. Asking for more frames will result in only sampling the number of frames stored. |
+| query.base_swing_duration | Returns the duration of the mob's swing/attack animation, determined by the carried item and unmodified by effects applied on the mob. To access the swing/attack animation progress, use "variable.attack_time" instead. |
 | query.block_face | Returns the block face for this (only valid for certain triggers such as placing blocks, or interacting with block) (Down=0.0, Up=1.0, North=2.0, South=3.0, West=4.0, East=5.0, Undefined=6.0). |
 | query.block_has_all_tags | Takes a world-origin-relative position and one or more tag names, and returns either 0 or 1 based on if the block at that position has all of the tags provided. |
 | query.block_has_any_tag | Takes a world-origin-relative position and one or more tag names, and returns either 0 or 1 based on if the block at that position has any of the tags provided. |
@@ -664,11 +741,11 @@ Query Functions are operators that access a wide variety of information. They ca
 | query.body_y_rotation | Returns the body yaw rotation if called on an actor, else it returns 0.0. |
 | query.bone_aabb | Returns the axis aligned bounding box of a bone as a struct with members '.min', '.max', along with '.x', '.y', and '.z' values for each. |
 | query.bone_orientation_matrix | Takes the name of the bone as an argument. Returns the bone orientation (as a matrix) of the desired bone provided it exists in the queryable geometry of the mob, else this returns the identity matrix and throws a content error. |
-| query.bone_orientation_trs | TRS stands for Translate/Rotate/Scale.  Takes the name of the bone as an argument.  Returns the bone orientation matrix decomposed into the component translation/rotation/scale parts of the desired bone provided it exists in the queryable geometry of the mob, else this returns the identity matrix and throws a content error.  The returned value is returned as a variable of type 'struct' with members '.t', '.r', and '.s', each with members '.x', '.y', and '.z', and can be accessed as per the following example: v.my_variable = q.bone_orientation_trs('rightarm'); return v.my_variable.r.x; |
+| query.bone_orientation_trs | TRS stands for Translate/Rotate/Scale. Takes the name of the bone as an argument. Returns the bone orientation matrix decomposed into the component translation/rotation/scale parts of the desired bone provided it exists in the queryable geometry of the mob, else this returns the identity matrix and throws a content error. The returned value is returned as a variable of type 'struct' with members '.t', '.r', and '.s', each with members '.x', '.y', and '.z', and can be accessed as per the following example: v.my_variable = q.bone_orientation_trs('rightarm'); return v.my_variable.r.x; |
 | query.bone_origin | Returns the initial (from the .geo) pivot of a bone as a struct with members '.x', '.y', and '.z'. |
 | query.bone_rotation | Returns the initial (from the .geo) rotation of a bone as a struct with members '.x', '.y', and '.z' in degrees. |
-| query.camera_distance_range_lerp | Takes two distances (any order) and return a number from 0 to 1 based on the camera distance between the two ranges clamped to that range.  For example, 'query.camera_distance_range_lerp(10, 20)' will return 0 for any distance less than or equal to 10, 0.2 for a distance of 12, 0.5 for 15, and 1 for 20 or greater.  If you pass in (20, 10), a distance of 20 will return 0.0. |
-| query.camera_rotation | Returns the rotation of the camera.  Requires one argument representing the rotation axis you would like (0 for x, 1 for y). |
+| query.camera_distance_range_lerp | Takes two distances (any order) and return a number from 0 to 1 based on the camera distance between the two ranges clamped to that range. For example, 'query.camera_distance_range_lerp(10, 20)' will return 0 for any distance less than or equal to 10, 0.2 for a distance of 12, 0.5 for 15, and 1 for 20 or greater. If you pass in (20, 10), a distance of 20 will return 0.0. |
+| query.camera_rotation | Returns the rotation of the camera. Requires one argument representing the rotation axis you would like (0 for x, 1 for y). |
 | query.can_climb | Returns 1.0 if the entity can climb, else it returns 0.0. |
 | query.can_damage_nearby_mobs | Returns 1.0 if the entity can damage nearby mobs, else it returns 0.0. |
 | query.can_dash | Returns 1.0 if the entity can dash, else it returns 0.0 |
@@ -683,7 +760,7 @@ Query Functions are operators that access a wide variety of information. They ca
 | query.cardinal_player_facing | Returns the current facing of the player (Down=0.0, Up=1.0, North=2.0, South=3.0, West=4.0, East=5.0, Undefined=6.0). |
 | query.client_max_render_distance | Returns the max render distance in chunks of the current client. Available on the Client (Resource Packs) only. |
 | query.client_memory_tier | Returns a number representing the client RAM memory tier, 0 = 'SuperLow', 1 = 'Low', 2 = 'Mid', 3 = 'High', or 4 = 'SuperHigh'. Available on the Client (Resource Packs) only. |
-| query.combine_entities | Combines any valid entity references from all arguments into a single array.  Note that order is not preserved, and duplicates and invalid values are removed. |
+| query.combine_entities | Combines any valid entity references from all arguments into a single array. Note that order is not preserved, and duplicates and invalid values are removed. |
 | query.cooldown_time | Returns the total cooldown time in seconds for the item held or worn by the specified equipment slot name (and if required second numerical slot id), otherwise returns 0. Uses the same name and id that the replaceitem command takes when querying entities. |
 | query.cooldown_time_remaining | Returns the cooldown time remaining in seconds for specified cooldown type or the item held or worn by the specified equipment slot name (and if required second numerical slot id), otherwise returns 0. Uses the same name and id that the replaceitem command takes when querying entities. Returns highest cooldown if no parameters are supplied. |
 | query.count | Counts the number of things passed to it (arrays are counted as the number of elements they contain; non-arrays count as 1). |
@@ -731,8 +808,8 @@ Query Functions are operators that access a wide variety of information. They ca
 | query.has_rider | Returns 1.0 if the entity has a rider, else it returns 0.0 |
 | query.has_target | Returns 1.0 if the entity has a target, else it returns 0.0 |
 | query.head_roll_angle | Returns the roll angle of the head of the entity if it makes sense, else it returns 0.0. |
-| query.head_x_rotation | Takes one argument as a parameter.  Returns the nth head x rotation of the entity if it makes sense, else it returns 0.0. |
-| query.head_y_rotation | Takes one argument as a parameter.  Returns the nth head y rotation of the entity if it makes sense, else it returns 0.0. Horses, zombie horses, skeleton horses, donkeys and mules require a second parameter that clamps rotation in degrees. |
+| query.head_x_rotation | Takes one argument as a parameter. Returns the nth head x rotation of the entity if it makes sense, else it returns 0.0. |
+| query.head_y_rotation | Takes one argument as a parameter. Returns the nth head y rotation of the entity if it makes sense, else it returns 0.0. Horses, zombie horses, skeleton horses, donkeys and mules require a second parameter that clamps rotation in degrees. |
 | query.health | Returns the health of the entity, or 0.0 if it doesn't make sense to call on this entity. |
 | query.heartbeat_interval | Returns the heartbeat interval of the actor in seconds. Returns 0 when the actor has no heartbeat. |
 | query.heartbeat_phase | Returns the heartbeat phase of the actor. 0.0 if at start of current heartbeat, 1.0 if at the end. Returns 0 on errors or when the actor has no heartbeat. Available on the Client (Resource Packs) only. |
@@ -758,7 +835,7 @@ Query Functions are operators that access a wide variety of information. They ca
 | query.is_charged | Returns 1.0 if the entity is charged, else it returns 0.0. |
 | query.is_charging | Returns 1.0 if the entity is charging, else it returns 0.0. |
 | query.is_chested | Returns 1.0 if the entity has chests attached to it, else it returns 0.0. |
-| query.is_cooldown_type | Returns 1.0 if the specified held or worn item has the specified cooldown type name, otherwise returns 0.0. First argument is the cooldown name to check for, second argument is the equipment slot name, and if required third argument is the numerical slot id. For second and third arguments, uses the same name and id that the replaceitem command takes when querying entities. |
+| query.is_cooldown_category | Returns 1.0 if the specified held or worn item has the specified cooldown category, otherwise returns 0.0. First argument is the cooldown name to check for, second argument is the equipment slot name, and if required third argument is the numerical slot id. For second and third arguments, uses the same name and id that the replaceitem command takes when querying entities. |
 | query.is_crawling | Returns 1.0 if the entity is crawling, else it returns 0.0 |
 | query.is_critical | Returns 1.0 if the entity is critical, else it returns 0.0. |
 | query.is_croaking | Returns 1.0 if the entity is croaking, else it returns 0.0. |
@@ -847,12 +924,12 @@ Query Functions are operators that access a wide variety of information. They ca
 | query.item_in_use_duration | Returns the amount of time an item has been in use in seconds up to the maximum duration, else 0.0 if it doesn't make sense. |
 | query.item_is_charged | Takes one optional hand slot as a parameter (0 or 'main_hand' for main hand, 1 or 'off_hand' for off hand), and returns 1.0 if the item is charged in the requested slot (defaulting to the main hand if no parameter is supplied), otherwise returns 0.0. |
 | query.item_max_use_duration | Returns the maximum amount of time the item can be used, else 0.0 if it doesn't make sense. |
-| query.item_remaining_use_duration | Returns the amount of time an item has left to use, else 0.0 if it doesn't make sense.Item queried is specified by the slot name 'main_hand' or 'off_hand'.Time remaining is normalized using the normalization value, only if one is given, else it is returned in seconds. |
-| query.item_slot_to_bone_name | query.item_slot_to_bone_name requires one parameter: the name of the equipment slot.  This function returns the name of the bone this entity has mapped to that slot. |
+| query.item_remaining_use_duration | Returns the amount of time an item has left to use, else 0.0 if it doesn't make sense. Item queried is specified by the slot name 'main_hand' or 'off_hand'. Time remaining is normalized using the normalization value, only if one is given, else it is returned in seconds. |
+| query.item_slot_to_bone_name | query.item_slot_to_bone_name requires one parameter: the name of the equipment slot. This function returns the name of the bone this entity has mapped to that slot. |
 | query.key_frame_lerp_time | Returns the ratio between the previous and next key frames. |
-| query.last_frame_time | Returns the time in *seconds* of the last frame.  If an argument is passed, it is assumed to be the number of frames in the past that you wish to query.  'query.last_frame_time' (or the equivalent 'query.last_frame_time(0)') will return the frame time of the frame before the current one.  'query.last_frame_time(1)' will return the frame time of two frames ago.  Currently we store the history of the last 30 frames, although note that this may change in the future.  Passing an index more than the available data will return the oldest frame stored. |
+| query.last_frame_time | Returns the time in *seconds* of the last frame. If an argument is passed, it is assumed to be the number of frames in the past that you wish to query. 'query.last_frame_time' (or the equivalent 'query.last_frame_time(0)') will return the frame time of the frame before the current one. 'query.last_frame_time(1)' will return the frame time of two frames ago. Currently we store the history of the last 30 frames, although note that this may change in the future. Passing an index more than the available data will return the oldest frame stored. |
 | query.last_hit_by_player | Returns 1.0 if the entity was last hit by the player, else it returns 0.0. If called by the client always returns 0.0. |
-| query.last_input_mode_is_any | Takes one or more arguments ('keyboard_and_mouse', 'touch', 'gamepad', or 'motion_controller'). If the last input used is any of the specified string values, returns 1.0. Otherwise returns 0.0. Available on the Client (Resource Packs) only. |
+| query.last_input_mode_is_any | Takes one or more arguments ('keyboard_and_mouse', 'touch', or 'gamepad'). If the last input used is any of the specified string values, returns 1.0. Otherwise returns 0.0. Available on the Client (Resource Packs) only. |
 | query.leashed_entity_count | Returns the number of entities for which this entity is the leash holder. |
 | query.lie_amount | Returns the lie down amount for the entity. |
 | query.life_span | Returns the limited life span of an entity, or 0.0 if it lives forever |
@@ -865,11 +942,12 @@ Query Functions are operators that access a wide variety of information. They ca
 | query.max_durability | Returns the max durability an item can take. |
 | query.max_health | Returns the maximum health of the entity, or 0.0 if it doesn't make sense to call on this entity. |
 | query.max_trade_tier | Returns the maximum trade tier of the entity if it makes sense, else it returns 0.0 |
-| query.maximum_frame_time | Returns the time in *seconds* of the most expensive frame over the last 'n' frames.  If an argument is passed, it is assumed to be the number of frames in the past that you wish to query.  'query.maximum_frame_time' (or the equivalent 'query.maximum_frame_time(0)') will return the frame time of the frame before the current one.  'query.maximum_frame_time(1)' will return the maximum frame time of the previous two frames.  Currently we store the history of the last 30 frames, although note that this may change in the future.  Asking for more frames will result in only sampling the number of frames stored. |
-| query.minimum_frame_time | Returns the time in *seconds* of the least expensive frame over the last 'n' frames.  If an argument is passed, it is assumed to be the number of frames in the past that you wish to query.  'query.minimum_frame_time' (or the equivalent 'query.minimum_frame_time(0)') will return the frame time of the frame before the current one.  'query.minimum_frame_time(1)' will return the minimum frame time of the previous two frames.  Currently we store the history of the last 30 frames, although note that this may change in the future.  Asking for more frames will result in only sampling the number of frames stored. |
+| query.maximum_frame_time | Returns the time in *seconds* of the most expensive frame over the last 'n' frames. If an argument is passed, it is assumed to be the number of frames in the past that you wish to query. 'query.maximum_frame_time' (or the equivalent 'query.maximum_frame_time(0)') will return the frame time of the frame before the current one. 'query.maximum_frame_time(1)' will return the maximum frame time of the previous two frames. Currently we store the history of the last 30 frames, although note that this may change in the future. Asking for more frames will result in only sampling the number of frames stored. |
+| query.minimum_frame_time | Returns the time in *seconds* of the least expensive frame over the last 'n' frames. If an argument is passed, it is assumed to be the number of frames in the past that you wish to query. 'query.minimum_frame_time' (or the equivalent 'query.minimum_frame_time(0)') will return the frame time of the frame before the current one. 'query.minimum_frame_time(1)' will return the minimum frame time of the previous two frames. Currently we store the history of the last 30 frames, although note that this may change in the future. Asking for more frames will result in only sampling the number of frames stored. |
 | query.model_scale | Returns the scale of the current entity. |
 | query.modified_distance_moved | Returns the total distance the entity has moved horizontally in meters (since the entity was last loaded, not necessarily since it was originally created) modified along the way by status flags such as is_baby or on_fire. |
 | query.modified_move_speed | Returns the current walk speed of the entity modified by status flags such as is_baby or on_fire. |
+| query.modified_swing_duration | Returns the duration of the mob's swing/attack animation, determined by the carried item and modified by effects applied on the mob. To access the swing/attack animation progress, use "variable.attack_time" instead. |
 | query.moon_brightness | Returns the brightness of the moon (FULL_MOON=1.0, WANING_GIBBOUS=0.75, FIRST_QUARTER=0.5, WANING_CRESCENT=0.25, NEW_MOON=0.0, WAXING_CRESCENT=0.25, LAST_QUARTER=0.5, WAXING_GIBBOUS=0.75). |
 | query.moon_phase | Returns the phase of the moon (FULL_MOON=0, WANING_GIBBOUS=1, FIRST_QUARTER=2, WANING_CRESCENT=3, NEW_MOON=4, WAXING_CRESCENT=5, LAST_QUARTER=6, WAXING_GIBBOUS=7). |
 | query.movement_direction | Returns the specified axis of the normalized position delta of the entity. |
@@ -879,8 +957,8 @@ Query Functions are operators that access a wide variety of information. They ca
 | query.overlay_alpha | DEPRECATED (Do not use - this function is deprecated and will be removed). |
 | query.owner_identifier | DEPRECATED (Use query.is_owner_identifier_any instead if possible so names can be changed later without breaking content.) Returns the root actor identifier. |
 | query.player_level | Returns the players level if the actor is a player, otherwise returns 0. |
-| query.position | Returns the absolute position of an actor.  Takes one argument that represents the desired axis (0 == x-axis, 1 == y-axis, 2 == z-axis). |
-| query.position_delta | Returns the position delta for an actor.  Takes one argument that represents the desired axis (0 == x-axis, 1 == y-axis, 2 == z-axis). |
+| query.position | Returns the absolute position of an actor. Takes one argument that represents the desired axis (0 == x-axis, 1 == y-axis, 2 == z-axis). |
+| query.position_delta | Returns the position delta for an actor. Takes one argument that represents the desired axis (0 == x-axis, 1 == y-axis, 2 == z-axis). |
 | query.previous_squish_value | Returns the previous squish value for the current entity, or 0.0 if this doesn't make sense. |
 | query.property | Takes one argument: the name of the property on the entity. Returns the value of that property if it exists, else 0.0 if not. |
 | query.relative_block_has_all_tags | Takes an entity-relative position and one or more tag names, and returns either 0 or 1 based on if the block at that position has all of the tags provided. |
@@ -895,7 +973,7 @@ Query Functions are operators that access a wide variety of information. They ca
 | query.rider_head_x_rotation | Takes one argument as a parameter. Returns the head x world-rotation of the rider entity at the provided index, else it returns 0.0. |
 | query.rider_head_y_rotation | Takes one or two arguments as parameters. Returns the head y world-rotation of the rider entity at the provided index, else it returns 0.0. Horses, zombie horses, skeleton horses, donkeys and mules require a second parameter that clamps rotation in degrees. |
 | query.roll_counter | Returns the roll counter of the entity. |
-| query.rotation_to_camera | Returns the rotation required to aim at the camera.  Requires one argument representing the rotation axis you would like (0 for x, 1 for y). |
+| query.rotation_to_camera | Returns the rotation required to aim at the camera. Requires one argument representing the rotation axis you would like (0 for x, 1 for y). |
 | query.scoreboard | Takes one argument - the name of the scoreboard entry for this entity. Returns the specified scoreboard value for this entity. Available only with behavior packs. |
 | query.server_memory_tier | Returns a number representing the server RAM memory tier, 0 = 'SuperLow', 1 = 'Low', 2 = 'Mid', 3 = 'High', or 4 = 'SuperHigh'. Available on the server side (Behavior Packs) only. |
 | query.shake_angle | Returns the shaking angle of the entity if it makes sense, else it returns 0.0. |
@@ -942,16 +1020,38 @@ Query Functions are operators that access a wide variety of information. They ca
 # List of Experimental Entity Queries
 
 
+| Name | Description |
+| --- | --- |
+| query.entity_biome_has_all_tags | (EXPERIMENTAL. Enable 'Upcoming Creator Features' to use.) Compares the biome the entity is standing in with one or more tag names, and returns either 0 or 1 based on if all of the tag names match. Only supported in resource packs (client-side). |
+| query.entity_biome_has_any_identifier | (EXPERIMENTAL. Enable 'Upcoming Creator Features' to use.) Compares the biome the entity is standing in with one or more identifier names, and returns either 0 or 1 based on if any of the identifier names match. Only supported in resource packs (client-side). |
+| query.entity_biome_has_any_tags | (EXPERIMENTAL. Enable 'Upcoming Creator Features' to use.) Compares the biome the entity is standing in with one or more tag names, and returns either 0 or 1 based on if any of the tag names match. Only supported in resource packs (client-side). |
+| query.get_pack_setting | (EXPERIMENTAL. Enable 'Upcoming Creator Features' to use.) Returns value of Pack Setting slider, parameter is name of slider. Available on the Client (Resource Packs) only. |
+| query.is_pack_setting_enabled | (EXPERIMENTAL. Enable 'Upcoming Creator Features' to use.) Returns 1.0 if the Pack Setting toggle is enabled, parameter is name of toggle. Available on the Client (Resource Packs) only. |
+| query.is_pack_setting_selected | (EXPERIMENTAL. Enable 'Upcoming Creator Features' to use.) Returns 1.0 if the Pack Setting dropdown (first parameter) matches the string value of the second parameter (selection). Available on the Client (Resource Packs) only. |
+
+
 # Experimental Operators
 
 
-Some operators may be behind experimental gameplay toggles (see list below).  After getting feedback, we can adjust them further or move them into general availability.- (There are currently no Experimental Operators)
+Some operators may be behind experimental gameplay toggles (see list below). After getting feedback, we can adjust them further or move them into general availability.
+
+
+- (There are currently no Experimental Operators)
 
 
 # Versioned Changes
 
 
-Molang uses the `"min_engine_version"` from the `manifest.json` of the resource or behavior pack that contains each Molang expression to determine which version of the rules to apply. This allows for changes to how Molang works without breaking existing content. Molang Versioned Change versions apply to each expression separately, so it's possible to have different versions active if multiple packs are loaded. This is a list of the Versioned Changes that have been added, along with the corresponding game version. To know which Versioned Changes are in effect, look at the `"min_engine_version"` of the `manifest.json` of the resource or behavior pack that contains your Molang expression. Any Versioned Change with a version less than or equal to that version number will be in effect.
+Molang uses the `"min_engine_version"` from the `manifest.json` of the resource or behavior pack that contains each Molang expression to determine which version of the rules to apply. This allows for changes to how Molang works without breaking existing content.
+
+
+Molang Versioned Change versions apply to each expression separately, so it's possible to have different versions active if multiple packs are loaded.
+
+
+This is a list of the Versioned Changes that have been added, along with the corresponding game version.
+
+
+To know which Versioned Changes are in effect, look at the `"min_engine_version"` of the `manifest.json` of the resource or behavior pack that contains your Molang expression. Any Versioned Change with a version less than or equal to that version number will be in effect.
 
 
 # Versioned Change Versions
@@ -964,10 +1064,11 @@ Molang uses the `"min_engine_version"` from the `manifest.json` of the resource 
 | 1.17.40 | Added some new error messages for invalid expressions which previously ran with probably unexpected results. For example "'text' + 1" will now cause a content error. |
 | 1.17.40 | Added error detection for too many operators in parentheses or brackets, for example: `1+(2 3)`. Also added more explicit error detection for when an unknown token is encountered. |
 | 1.18.10 | Fixed conditional (ternary) operator associativity. Previously nested conditional expressions like `A ? B : C ? D : E` would evaluate as `(A ? B : C) ? D : E`. Now they evaluate as `A ? B : (C ? D : E)`. |
-| 1.18.20 | Fixed Logical AND to evaluate before Logical OR, and for comparison operators to evaluate before equality operators. For example `A && B || C` now evaluates as `(A && B) || C` instead of `A && (B || C)`. And `A < B == C > D` now evalutes as `(A < B) == (C > D)` instead of `((A < B) == C) > D`. |
+| 1.18.20 | Fixed Logical AND to evaluate before Logical OR, and for comparison operators to evaluate before equality operators. For example `A && B \|\| C` now evaluates as `(A && B) \|\| C` instead of `A && (B \|\| C)`. And `A < B == C > D` now evalutes as `(A < B) == (C > D)` instead of `((A < B) == C) > D`. |
 | 1.19.60 | Fixed error where dividing by a dynamically determined negative variable resulted in a division by the absolute (positive) value of the number instead. |
 | 1.20.0 | Fixed query.cape_flap_amount using the wrong player rotation (head rotation instead of body rotation). |
 | 1.20.10 | Renamed block_property and has_block_property to block_state and has_block_state post this version. |
 | 1.20.40 | Deprecated block_property and has_block_property. |
 | 1.20.50 | dash_cooldown_progress is no longer supported, as that logic is done in the animation. Additionally is_scenting, is_rising, and is_feelingHappy queries are no longer available, and timer_flag_1, timer_flag_2, and timer_flag_3 can be used instead. |
 | 1.20.70 | Queries surface_particle_texture_size, surface_particle_texture_coordinate, and surface_particle_texture_size now register leaf blocks as supporting for step particles |
+| 1.21.100 | query.is_carrying_block is now usable by all entities not just Enderman and returns 1.0 for air like all other blocks. |

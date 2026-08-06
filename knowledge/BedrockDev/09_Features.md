@@ -1,4 +1,4 @@
-# FEATURES DOCUMENTATION Version: 1.21.90.3
+# FEATURES DOCUMENTATION Version: 1.21.120.4
 
 
 ## Index
@@ -7,7 +7,10 @@
 # Overview
 
 
-Features are decorations scattered throughout the world. Things such as trees, plants, flowers, springs, ore, and coral are all features. Basically, if it isn't the terrain or a mob, it's probably a feature!Features can be standalone or composed of multiple sub-features. In practice, most features in Minecraft are defined as a chain of two or more features. These chains typically end with features that place blocks in the world. Other feature types control flow such as conditional, sequential, or random distribution.
+Features are decorations scattered throughout the world. Things such as trees, plants, flowers, springs, ore, and coral are all features. Basically, if it isn't the terrain or a mob, it's probably a feature!
+
+
+Features can be standalone or composed of multiple sub-features. In practice, most features in Minecraft are defined as a chain of two or more features. These chains typically end with features that place blocks in the world. Other feature types control flow such as conditional, sequential, or random distribution.
 
 
 # JSON format
@@ -15,38 +18,25 @@ Features are decorations scattered throughout the world. Things such as trees, p
 
 All features must specify the version that they target via the "format_version" field. The remainder of the data is contained in independet JSON sub-objects for each supported feature type. These feature types define the behavior of the feature and include properties specific to that behavior. To be valid, a definition must include exactly one of these type objects. See the full feature schema below for additional details and the full list of supported feature types.
 
+
 Here is a sample feature
 
 
 ```json
 {
-
   "format_version": "1.13.0",
-
   "minecraft:ore_feature": {
-
     "description": {
-
       "identifier": "minecraft:coal_ore_feature"
-
     },
-
     "count": 17,
-
     "places_block": "minecraft:coal_ore",
-
     "may_replace": [
-
       {
-
         "name": "minecraft:stone"
-
       }
-
     ]
-
   }
-
 }
 ```
 
@@ -63,36 +53,31 @@ Features are read from JSON files in the "features" subfolder of behavior packs.
 # minecraft:aggregate_feature
 
 
-'minecraft:aggregate_feature' places a collection of features in an arbitary order. All features in the collection use the same input position. Features should not depend on each other, as there is no guarantee on the order the features will be placed.Succeeds if: At lease one feature is placed successfully.Fails if: All features fail to be placed.
+'minecraft:aggregate_feature' places a collection of features in an arbitary order. All features in the collection use the same input position. Features should not depend on each other, as there is no guarantee on the order the features will be placed.
+
+
+Succeeds if: At lease one feature is placed successfully.
+
+
+Fails if: All features fail to be placed.
+
 
 Example use: scattering multiple different plants around a monument.
 
 
 ```json
 {
-
   "format_version": "1.13.0",
-
   "minecraft:aggregate_feature": {
-
     "description": {
-
       "identifier": "example:monument_with_flowers_feature"
-
     },
-
     "features": [
-
       "example:monument_feature",
-
       "example:scatter_white_flowers_feature",
-
       "example:scatter_yellow_flower_feature"
-
     ]
-
   }
-
 }
 ```
 
@@ -100,34 +85,30 @@ Example use: scattering multiple different plants around a monument.
 # minecraft:sequence_feature
 
 
-'minecraft:sequence_feature' places a collection of features sequentially, in the order they appear in data. The output position of the previous feature is used as the input position for the next. For example, a tree feature is placed at (0, 0, 0) and places blocks up to (0, 10, 0). The next feature in the sequence begins at (0, 10, 0).Succeeds if: All features in the sequence are successfully placed.Fails if: Any feature in the sequence fails to be placed. Features that have not yet been placed at the time of failure are skipped.
+'minecraft:sequence_feature' places a collection of features sequentially, in the order they appear in data. The output position of the previous feature is used as the input position for the next. For example, a tree feature is placed at (0, 0, 0) and places blocks up to (0, 10, 0). The next feature in the sequence begins at (0, 10, 0).
+
+
+Succeeds if: All features in the sequence are successfully placed.
+
+
+Fails if: Any feature in the sequence fails to be placed. Features that have not yet been placed at the time of failure are skipped.
+
 
 Example use: Scattering fruit throughout the canopy of a tree.
 
 
 ```json
 {
-
   "format_version": "1.13.0",
-
   "minecraft:sequence_feature": {
-
     "description": {
-
       "identifier": "example:oak_tree_then_apples_feature"
-
     },
-
     "features": [
-
       "example:oak_tree_feature",
-
       "example:scatter_apples_feature"
-
     ]
-
   }
-
 }
 ```
 
@@ -135,36 +116,31 @@ Example use: Scattering fruit throughout the canopy of a tree.
 # minecraft:beards_and_shavers
 
 
-'minecraft:beards_and_shavers' will build a 'beard' or 'shave' out space so as to provide a clear space for a feature to place.Succeeds if: a beard/shave is made (this should always happen).Fails if: will always return placement pos, but interior feature placement not guaranteed.
+'minecraft:beards_and_shavers' will build a 'beard' or 'shave' out space so as to provide a clear space for a feature to place.
+
+
+Succeeds if: a beard/shave is made (this should always happen).
+
+
+Fails if: will always return placement pos, but interior feature placement not guaranteed.
+
 
 Example use: provides an area for interior structure placement
 
 
 ```json
 {"code:beards_and_shavers": {
-
           "description": {
-
             "identifier": "..."
-
           },
-
           "places_feature": "minecraft:feature_that_places_a_structure",
-
           "bounding_box_min": [ -2, 0, -2 ],
-
           "bounding_box_max": [ 2, 8, 2 ],
-
           "y_delta": 2.0,
-
           "surface_block_type": "minecraft:grass_block",
-
           "subsurface_block_type": "minecraft:dirt",
-
           "beard_raggedness_min": 0.1,
-
           "beard_raggedness_max": 0.3
-
         }}
 ```
 
@@ -174,88 +150,76 @@ Example use: provides an area for interior structure placement
 
 'minecraft:cave_carver_feature' carves a cave through the world in the current chunk, and in every chunk around the current chunk in an 8 radial pattern.This feature will also only work when placed specifically in the pass "pregeneration_pass".
 
+
 Example use: Carve caves normally.
 
 
 ```json
 {
-
-      "format_version": "1.13.0",
-
-        "minecraft:cave_carver_feature": {
-
-          "description": {
-
-            "identifier": "example:underground_cave_carver_feature"
-
-          },
-
-          "fill_with": "minecraft:air",
-
-          "width_modifier": 0.0,
-
-          "skip_carve_chance": 15
-
+          "format_version": "1.13.0",
+          "minecraft:cave_carver_feature": {
+            "description": {
+              "identifier": "example:underground_cave_carver_feature"
+            },
+            "fill_with": "minecraft:air",
+            "width_modifier": 0.0,
+            "skip_carve_chance": 15
+          }
         }
-
-      }
 ```
 
 
 # minecraft:conditional_list
 
 
-'minecraft:conditional_list' Places the first suitable feature within a collection.These conditional features will be evaluated in order.Succeeds if: A condition is successfully resolved.Fails if: No condition is successfully resolved.
+'minecraft:conditional_list' Places the first suitable feature within a collection.
+
+
+These conditional features will be evaluated in order.
+
+
+Succeeds if: A condition is successfully resolved.
+
+
+Fails if: No condition is successfully resolved.
+
 
 Example use: assigning a feature to an expression
 
 
 ```json
 "conditional_features" : [
-
-            {
-
+            { 
               "places_feature" : "minecraft:some_feature_or_other",
-
               "condition" : "query.check_some_block_property(),
-
             },
-
           ],
-
           "early_out_scheme": "placement_success"
-
-
 ```
 
 
 # minecraft:fossil_feature
 
 
-'minecraft:fossil_feature' generates a skeletal structure composed of bone blocks and parametric ore blocks.Succeeds if: The fossil is placed.Fails if: The fossil is not placed because it overlaps with another structure or because its bounding box has too many corners occupied by air or fluid.
+'minecraft:fossil_feature' generates a skeletal structure composed of bone blocks and parametric ore blocks.Succeeds if: The fossil is placed.
+
+
+Fails if: The fossil is not placed because it overlaps with another structure or because its bounding box has too many corners occupied by air or fluid.
+
 
 Example use: Fossil composed of bone blocks and coal ore blocks.
 
 
 ```json
 {
-
           "format_version": "1.13.0",
-
           "minecraft:fossil_feature": {
-
             "description": {
-
               "identifier": "example:fossil_feature"
-
             },
-
             "ore_block": "minecraft:coal_ore",
-
             "max_empty_corners": 4
-
           }
-
         }
 ```
 
@@ -263,82 +227,51 @@ Example use: Fossil composed of bone blocks and coal ore blocks.
 # minecraft:geode_feature
 
 
-'minecraft:geode_feature' generates a rock formation to simulate a geode. Each layer of, and block within, the geode can be replaced. Succeeds if: At least one block within the geode is placed.Fails if: All blocks within the geode fail to be placed.
+'minecraft:geode_feature' generates a rock formation to simulate a geode. Each layer of, and block within, the geode can be replaced. Succeeds if: At least one block within the geode is placed.
+
+
+Fails if: All blocks within the geode fail to be placed.
+
 
 Example use: Diamond geodes with emerald blocks inside and obsidian on the outside.
 
 
 ```json
 {
-
   "format_version": "1.13.0",
-
   "minecraft:geode_feature": {
-
   "description": {
-
     "identifier": "example:diamond_geode_feature"
-
   },
-
   "filler": "minecraft:air",
-
   "inner_layer": "minecraft:diamond_block",
-
   "alternate_inner_layer": "minecraft:emerald_block",
-
   "middle_layer": "minecraft:calcite",
-
   "outer_layer": "minecraft:obsidian",
-
   "inner_placements": [
-
     {
-
     "name": "minecraft:amethyst_cluster",
-
     "states": {
-
       "amethyst_cluster_type": "small"
-
     }
-
     }
-
   ],
-
   "min_outer_wall_distance": 4,
-
   "max_outer_wall_distance": 7,
-
   "min_distribution_points": 3,
-
   "max_distribution_points": 5,
-
   "min_point_offset": 1,
-
   "max_point_offset": 3,
-
   "max_radius": 16,
-
   "crack_point_offset": 2.0,
-
   "generate_crack_chance": 0.95,
-
   "base_crack_size": 2.0,
-
   "noise_multiplier": 0.025,
-
   "use_potential_placements_chance": 0.35,
-
   "use_alternate_layer0_chance": 0.083,
-
   "placements_require_layer0_alternate": true,
-
   "invalid_blocks_threshold": 1
-
   }
-
 }
 ```
 
@@ -346,58 +279,42 @@ Example use: Diamond geodes with emerald blocks inside and obsidian on the outsi
 # minecraft:growing_plant_feature
 
 
-'minecraft:growing_plant_feature' places a growing plant in the world. A growing plant is a column that is anchored either to the ceiling or the floor, based on its growth direction.The growing plant has a body and a head, where the head is the tip of the plant, and the body consists of the remainder blocks.This feature can be used to define growing plants with variable body and head blocks, e.g. Cave Vines.
+'minecraft:growing_plant_feature' places a growing plant in the world. A growing plant is a column that is anchored either to the ceiling or the floor, based on its growth direction.
+
+
+The growing plant has a body and a head, where the head is the tip of the plant, and the body consists of the remainder blocks.
+
+
+This feature can be used to define growing plants with variable body and head blocks, e.g. Cave Vines.
+
 
 Example use: Defining a growing plant feature with variable body and head blocks and height distribution.
 
 
 ```json
 {
-
   "format_version": "1.13.0",
-
   "minecraft:growing_plant_feature": {
-
     "description": {
-
       "identifier": "example:cave_vine_feature"
-
     },
-
     "height_distribution":  [
-
       [{"range_min": 1, "range_max": 13}, 2],
-
       [{"range_min": 1, "range_max": 2}, 3],
-
       [{"range_min": 1, "range_max": 7}, 10]
-
     ],
-
     "growth_direction": "DOWN",
-
     "age" : {"range_min": 17, "range_max": 26},
-
     "body_blocks" : [
-
       ["minecraft:cave_vines", 4],
-
       ["minecraft:cave_vines_body_with_berries", 1 ]
-
     ],
-
     "head_blocks" : [
-
       ["minecraft:cave_vines", 4],
-
       ["minecraft:cave_vines_head_with_berries", 1 ]
-
     ],
-
   "allow_water": true
-
   }
-
 }
 ```
 
@@ -407,28 +324,20 @@ Example use: Defining a growing plant feature with variable body and head blocks
 
 'minecraft:nether_cave_carver_feature' carves a cave through the Nether in the current chunk, and in every chunk around the current chunk in an 8 radial pattern.This feature will also only work when placed specifically in the pass "pregeneration_pass".
 
+
 Example use: Carve nether caves normally.
 
 
 ```json
 {
-
-      "format_version": "1.13.0",
-
+        "format_version": "1.13.0",
         "minecraft:nether_cave_carver_feature": {
-
           "description": {
-
             "identifier": "example:nether_cave_carver_feature"
-
           },
-
           "fill_with": "minecraft:air"
-
           "width_modifier": 0.0
-
         }
-
       }
 ```
 
@@ -436,44 +345,38 @@ Example use: Carve nether caves normally.
 # minecraft:multiface_feature
 
 
-'minecraft:multiface_feature' places one or a few multiface blocks on floors/walls/ceilings. Despite the name, any block can be placed by this feature. During placement, existing world blocks are checked to see if this feature can be placed on them based on the list provided in the 'can_place_on' field. If no 'can_replace_on' field is specified, the 'place_block' block can be placed on any existing block.This feature will also try to spread the 'place_block' block around the location in world the feature is placed.Succeeds if: At least one block is successfully placed.Fails if: All block placements fail.
+'minecraft:multiface_feature' places one or a few multiface blocks on floors/walls/ceilings. Despite the name, any block can be placed by this feature. During placement, existing world blocks are checked to see if this feature can be placed on them based on the list provided in the 'can_place_on' field. If no 'can_replace_on' field is specified, the 'place_block' block can be placed on any existing block.
+
+
+This feature will also try to spread the 'place_block' block around the location in world the feature is placed.
+
+
+Succeeds if: At least one block is successfully placed.
+
+
+Fails if: All block placements fail.
+
 
 Example use: Blue vines in caves.
 
 
 ```json
 {
-
   "format_version": "1.13.0",
-
   "minecraft:multiface_feature": {
-
     "description": {
-
       "identifier": "example:blue_vines_feature"
-
     },
-
     "places_block": "example:blue_vine",
-
     "search_range": 64,
-
   "can_place_on_floor": true,
-
   "can_place_on_ceiling": true,
-
   "can_place_on_wall": true,
-
   "chance_of_spreading": 0.5,
-
     "can_place_on": [
-
       "minecraft:stone"
-
     ]
-
   }
-
 }
 ```
 
@@ -481,68 +384,47 @@ Example use: Blue vines in caves.
 # minecraft:ore_feature
 
 
-'minecraft:ore_feature' places a vein of blocks to simulate ore deposits. Despite the name, any block can be placed by this feature. During placement, existing world blocks are checked to see if they can be replaced by the new ore block based on the list provided in the 'may_replace' field of a 'replace_rules' entry. If no 'may_replace' field is specified in a 'replace_rule' entry, the ore block can replace any existing block.Succeeds if: At least one ore block is successfully placed.Fails if: All ore block placements fail.
+'minecraft:ore_feature' places a vein of blocks to simulate ore deposits. Despite the name, any block can be placed by this feature. During placement, existing world blocks are checked to see if they can be replaced by the new ore block based on the list provided in the 'may_replace' field of a 'replace_rules' entry. If no 'may_replace' field is specified in a 'replace_rule' entry, the ore block can replace any existing block.
+
+
+Succeeds if: At least one ore block is successfully placed.
+
+
+Fails if: All ore block placements fail.
+
 
 Example use: Malachite ore in different materials.
 
 
 ```json
 {
-
   "format_version": "1.13.0",
-
   "minecraft:ore_feature": {
-
     "description": {
-
       "identifier": "example:malachite_ore_feature"
-
     },
-
   "count": 12,
-
   "replace_rules": [
-
     {
-
       "places_block": "example:malachite_ore",
-
       "may_replace": [
-
         "minecraft:stone"
-
       ]
-
     },
-
     {
-
       "places_block": "example:granite_malachite_ore",
-
       "may_replace": [
-
         "minecraft:granite"
-
       ]
-
     },
-
     {
-
       "places_block": "example:andesite_malachite_ore",
-
       "may_replace": [
-
         "minecraft:andesite"
-
       ]
-
     }
-
   ]
-
   }
-
 }
 ```
 
@@ -552,37 +434,21 @@ Example use: Oil deposits in the sand.
 
 ```json
 {
-
   "format_version": "1.13.0",
-
   "minecraft:ore_feature": {
-
     "description": {
-
       "identifier": "example:oil_deposit_feature"
-
     },
-
   "count": 12,
-
   "replace_rules": [
-
     {
-
       "places_block": "example:oil_block",
-
       "may_replace": [
-
         "minecraft:sand"
-
       ]
-
     }
-
   ]
-
   }
-
 }
 ```
 
@@ -592,32 +458,22 @@ Example use: Oil deposits in the sand.
 
 'minecraft:partially_exposed_blob_feature' generates a blob of the specified block with the specified dimensions For the most part the blob is embedded in the specified surface, however a single side is allowed to be exposed.
 
+
 Example use: Blobs of Magma blocks partially embedded in the floors of flooded caves.
 
 
 ```json
 {
-
     "format_version": "1.13.0",
-
     "minecraft:partially_exposed_blob_feature": {
-
       "description": {
-
         "identifier": "example:underwater_magma_feature"
-
       },
-
       "places_block": "minecraft:magma",
-
       "placement_radius_around_floor": 1,
-
       "placement_probability_per_valid_position": 0.5,
-
       "exposed_face": "up"
-
     }
-
   }
 ```
 
@@ -625,46 +481,46 @@ Example use: Blobs of Magma blocks partially embedded in the floors of flooded c
 # minecraft:rect_layout
 
 
-'minecraft:rect_layout' scans the surface of a Chunk, calling place() on the surface of each block column.Succeeds if: A Feature is successfully placed within a Chunk.Fails if: No Feature could be placed within a Chunk.
+'minecraft:rect_layout' scans the surface of a Chunk, calling place() on the surface of each block column.
+
+
+Succeeds if: A Feature is successfully placed within a Chunk.
+
+
+Fails if: No Feature could be placed within a Chunk.
+
 
 Example use: Scans the surface of a chunk and places a feature if able
 
 
 ```json
-      {
-
+{
         "ratio_of_empty_space": 0.5,
-
         "feature_areas":[
-
           {
-
             "feature": "minecraft:tree",
-
             "area_dimensions": [Width,Height]
-
           },
-
           {
-
             "feature": "minecraft:tree2",
-
             "area_dimensions": [Width,Height]
-
           }
-
         ]
-
       }
-
-
 ```
 
 
 # minecraft:scan_surface
 
 
-'minecraft:scan_surface' scans the surface of a Chunk, calling place() on the surface of each block column.Succeeds if: A Feature was successfully placed during the scan.Fails if: No Feature was placed during the course of the scan.
+'minecraft:scan_surface' scans the surface of a Chunk, calling place() on the surface of each block column.
+
+
+Succeeds if: A Feature was successfully placed during the scan.
+
+
+Fails if: No Feature was placed during the course of the scan.
+
 
 Example use: Scans the surface of a chunk and places a feature if able
 
@@ -677,54 +533,40 @@ Example use: Scans the surface of a chunk and places a feature if able
 # minecraft:scatter_feature
 
 
-'minecraft:scatter_feature' scatters a feature throughout a chunk. The 'x', 'y', and 'z' fields are per-coordinate parameters. Note that coordinates represent an offset from the input position, not an absolute position. Coordinates may be a single value, a random distribution, or Molang expression that resolves to a numeric value. The 'coordinate_eval_order' field is provided for finer control of coordinate resolution (particularly when using the 'grid' distribution). 'iterations' controls how many individual placements should occur if the 'scatter_chance' check succeeds. The 'scatter_chance' check happens once, so either all placements will run or none will.Succeeds if: At least one feature placement succeeds.Fails if: All feature placements fail.
+'minecraft:scatter_feature' scatters a feature throughout a chunk. The 'x', 'y', and 'z' fields are per-coordinate parameters. Note that coordinates represent an offset from the input position, not an absolute position. Coordinates may be a single value, a random distribution, or Molang expression that resolves to a numeric value. The 'coordinate_eval_order' field is provided for finer control of coordinate resolution (particularly when using the 'grid' distribution). 'iterations' controls how many individual placements should occur if the 'scatter_chance' check succeeds. The 'scatter_chance' check happens once, so either all placements will run or none will.
+
+
+Succeeds if: At least one feature placement succeeds.
+
+
+Fails if: All feature placements fail.
+
 
 Example use: Scattering flowers at sea level across half the chunks in a biome.
 
 
 ```json
 {
-
   "format_version": "1.13.0",
-
   "minecraft:scatter_feature": {
-
     "description": {
-
       "identifier": "example:scatter_flowers_feature"
-
     },
-
     "places_feature": "example:flower_feature",
-
     "distribution": {
-
       "iterations": 10,
-
       "scatter_chance": 50.0,
-
       "x": {
-
         "distribution": "uniform",
-
         "extent": [ 0, 15 ]
-
       },
-
       "y": 64,
-
       "z": {
-
         "distribution": "uniform",
-
         "extent": [ 0, 15 ]
-
       }
-
     }
-
   }
-
 }
 ```
 
@@ -738,40 +580,33 @@ Feature type 'minecraft:sculk_patch_feature' has not yet been documented.
 # minecraft:search_feature
 
 
-'minecraft:search_feature' sweeps a volume searching for a valid placement location for its referenced feature. The 'search_volume' field specifies the axis-aligned bounding box that defines the boundaries of the search. The search sweeps along the axis defined by the 'search_axis' field, layer by layer. For example, if 'search_axis' = '-x', blocks with greater x values will be checked before blocks with lower x values. Each layer is searched from the bottom-left to the top-right before moving to the next layer along the axis. By default, only one valid position must be found, but this can be altered by specifying the 'required_successes' field. If fewer than the required successes are found, no placement will occur.Succeeds if: The number of valid positions is equal to the value specified by 'required_successes'.Fails if: The number of valid positions is less than the value specified by 'required_successes'.
+'minecraft:search_feature' sweeps a volume searching for a valid placement location for its referenced feature. The 'search_volume' field specifies the axis-aligned bounding box that defines the boundaries of the search. The search sweeps along the axis defined by the 'search_axis' field, layer by layer. For example, if 'search_axis' = '-x', blocks with greater x values will be checked before blocks with lower x values. Each layer is searched from the bottom-left to the top-right before moving to the next layer along the axis. By default, only one valid position must be found, but this can be altered by specifying the 'required_successes' field. If fewer than the required successes are found, no placement will occur.
+
+
+Succeeds if: The number of valid positions is equal to the value specified by 'required_successes'.
+
+
+Fails if: The number of valid positions is less than the value specified by 'required_successes'.
+
 
 Example use: Attaching apples to a tree canopy
 
 
 ```json
 {
-
   "format_version": "1.13.0",
-
   "minecraft:search_feature": {
-
     "description": {
-
       "identifier": "example:find_valid_apples_feature"
-
     },
-
     "places_feature": "example:apple_feature",
-
     "search_volume": {
-
       "min": [ -3, -3, -3 ],
-
       "max": [ 3, 3, 3 ]
-
     },
-
     "search_axis": "-y",
-
     "required_successes": 3
-
   }
-
 }
 ```
 
@@ -779,84 +614,55 @@ Example use: Attaching apples to a tree canopy
 # minecraft:single_block_feature
 
 
-'minecraft:single_block_feature' places a single block in the world. The 'places_block' field supports a single block or a list of weighted blocks, where the weight defines how likely it is for that block to be selected. The 'may_attach_to' and 'may_replace' fields are allowlists which specify where the block can be placed. If these fields are omitted, the block can be placed anywhere. The 'may_not_attach_to' field is a denylist that specifies what blocks can't be close to the placement location. The 'randomize_rotation' field will randomize the block's cardinal orientation. The block's internal survivability and placement rules can optionally be enforced with the 'enforce_survivability_rules' and 'enforce_placement_rules' fields. These rules are specified per-block and are typically designed to produce high quality gameplay or natural behavior. However, enabling this enforcement may make it harder to debug placement failures.Succeeds if: The block is successfully placed in the world.Fails if: The block fails to be placed.
+'minecraft:single_block_feature' places a single block in the world. The 'places_block' field supports a single block or a list of weighted blocks, where the weight defines how likely it is for that block to be selected. The 'may_attach_to' and 'may_replace' fields are allowlists which specify where the block can be placed. If these fields are omitted, the block can be placed anywhere. The 'may_not_attach_to' field is a denylist that specifies what blocks can't be close to the placement location. The 'randomize_rotation' field will randomize the block's cardinal orientation. The block's internal survivability and placement rules can optionally be enforced with the 'enforce_survivability_rules' and 'enforce_placement_rules' fields. These rules are specified per-block and are typically designed to produce high quality gameplay or natural behavior. However, enabling this enforcement may make it harder to debug placement failures.
+
+
+Succeeds if: The block is successfully placed in the world.
+
+
+Fails if: The block fails to be placed.
+
 
 Example use: Placing a single pumpkin or carved pumpkin block where carved pumpkins are less likely to appear.
 
 
 ```json
 {
-
   "format_version": "1.21.40",
-
   "minecraft:single_block_feature": {
-
     "description": {
-
       "identifier": "example:single_pumpkin_feature"
-
     },
-
     "places_block": [
-
       {
-
         "block": "minecraft:pumpkin",
-
         "weight": 5
-
       },
-
       {
-
         "block": "minecraft:carved_pumpkin",
-
         "weight": 1
-
       }
-
     ],
-
     "randomize_rotation": true,
-
     "enforce_survivability_rules": true,
-
     "enforce_placement_rules": true,
-
     "may_attach_to": {
-
       "auto_rotate": false,
-
       "min_sides_must_attach": 1,
-
       "south": [
-
         "minecraft:grass",
-
         "minecraft:dirt"
-
       ]
-
     },
-
     "may_not_attach_to": {
-
       "south": {
-
         "name": "minecraft:dirt",
-
         "states": {
-
           "dirt_type": "coarse"
-
         }
-
       }
-
     }
-
   }
-
 }
 ```
 
@@ -866,40 +672,26 @@ Example use: Placing a single pumpkin or carved pumpkin block where carved pumpk
 
 'minecraft:snap_to_surface_feature' snaps the y-value of a feature placement pos to the floor or the ceiling within the provided 'vertical_search_range'. The placement biome is preserved. If the snap position goes outside of the placement biome, placement will fail.
 
+
 Example use: Define a feature that snaps the 'cave_vine_feature' to the ceiling.
 
 
 ```json
 {
-
         "format_version": "1.13.0",
-
         "minecraft:snap_to_surface_feature": {
-
         "description": {
-
           "identifier": "example:cave_vine_snapped_to_ceiling_feature"
-
         },
-
         "feature_to_snap":  "example:cave_vine_feature",
-
         "vertical_search_range":  12,
-
         "surface": "ceiling",
-
         "allowed_surface_blocks": {
-
           {
-
           "name": "minecraft:cobblestone"
-
           }
-
         }
-
         }
-
       }
 ```
 
@@ -907,48 +699,37 @@ Example use: Define a feature that snaps the 'cave_vine_feature' to the ceiling.
 # minecraft:structure_template_feature
 
 
-'minecraft:structure_template_feature' places a structure in the world. The structure must be stored as a .mcstructure file in the "structures" subdirectory of a behavior pack. It is possible to reference structures that are part of other behavior packs, they do not need to come from the same behavior pack as this feature. Constraints can be defined to specify where the structure is allowed to be placed. During placement, the feature will search for a position within the 'adjustment_radius' that satisfies all constraints. If none are found, the structure will not be placed.Succeeds if: The structure is placed in the world.Fails if: The structure fails to be placed within the world.
+'minecraft:structure_template_feature' places a structure in the world. The structure must be stored as a .mcstructure file in the "structures" subdirectory of a behavior pack. It is possible to reference structures that are part of other behavior packs, they do not need to come from the same behavior pack as this feature. Constraints can be defined to specify where the structure is allowed to be placed. During placement, the feature will search for a position within the 'adjustment_radius' that satisfies all constraints. If none are found, the structure will not be placed.
+
+
+Succeeds if: The structure is placed in the world.
+
+
+Fails if: The structure fails to be placed within the world.
+
 
 Example use: Place a hot air balloon structure that "floats" in the air.
 
 
 ```json
 {
-
   "format_version": "1.13.0",
-
   "minecraft:structure_template_feature": {
-
     "description": {
-
       "identifier": "example:hot_air_balloon_feature"
-
     },
-
     "structure_name": "example:hot_air_balloon",
-
     "adjustment_radius": 8,
-
     "facing_direction": "random",
-
     "constraints": {
-
       "unburied": {},
-
       "block_intersection": {
-
         "block_allowlist": [
-
           "minecraft:air"
-
         ]
-
       }
-
     }
-
   }
-
 }
 ```
 
@@ -958,28 +739,20 @@ Example use: Place a hot air balloon structure that "floats" in the air.
 
 'minecraft:surface_relative_threshold_feature' determines whether the provided position is below the estimated surface level of the world, and places a feature if so.If the provided position is above configured surface or the surface is not available, placement will fail. This feature only works for Overworld generators using world generation 1.18 or later.
 
+
 Example use: Define a feature that places the 'underwater_magma_snap_to_surface_feature', if the given position is at least two blocks below estimated surface level.
 
 
 ```json
 {
-
   "format_version": "1.13.0",
-
   "minecraft:surface_relative_threshold_feature": {
-
   "description": {
-
     "identifier": "example:underwater_magma_underground_feature"
-
   },
-
   "feature_to_place": "example:underwater_magma_snap_to_surface_feature",
-
   "minimum_distance_below_surface": 2
-
   }
-
 }
 ```
 
@@ -987,32 +760,26 @@ Example use: Define a feature that places the 'underwater_magma_snap_to_surface_
 # minecraft:underwater_cave_carver_feature
 
 
-'minecraft:underwater_cave_carver_feature' carves a cave through the world in the current chunk, and in every chunk around the current chunk in an 8 radial pattern.This feature will specifically target creating caves only below sea level.This feature will also only work when placed specifically in the pass "pregeneration_pass".
+'minecraft:underwater_cave_carver_feature' carves a cave through the world in the current chunk, and in every chunk around the current chunk in an 8 radial pattern.This feature will specifically target creating caves only below sea level.
+
+
+This feature will also only work when placed specifically in the pass "pregeneration_pass".
+
 
 Example use: Carve caves normally.
 
 
 ```json
 {
-
-      "format_version": "1.13.0",
-
+        "format_version": "1.13.0",
         "minecraft:underwater_cave_carver_feature": {
-
           "description": {
-
             "identifier": "example:underground_cave_carver_feature"
-
           },
-
           "fill_with": "minecraft:water"
-
           "width_modifier": 0.0,
-
           "replace_air_with": "minecraft:flowing_water"
-
         }
-
       }
 ```
 
@@ -1020,208 +787,120 @@ Example use: Carve caves normally.
 # minecraft:tree_feature
 
 
-'minecraft:tree_feature' will place a tree in the world. A tree consists of a column that is anchored to a base block with set parameters for what it can be placed on and canopy that extends from the column.Trees support multiple types of canopies, trunks, and roots. Trees will only grow in certain biomes if the 'may_grow_on' property includes the blocks commonly found on the surface of that biome.Succeeds if: The tree is placed in the world.Fails if: The tree fails to be placed within the world.
+'minecraft:tree_feature' will place a tree in the world. A tree consists of a column that is anchored to a base block with set parameters for what it can be placed on and canopy that extends from the column.
+
+
+Trees support multiple types of canopies, trunks, and roots. Trees will only grow in certain biomes if the 'may_grow_on' property includes the blocks commonly found on the surface of that biome.
+
+
+Succeeds if: The tree is placed in the world.
+
+
+Fails if: The tree fails to be placed within the world.
+
 
 Example use: Azalea tree.
 
 
 ```json
 {
-
         "format_version": "1.13.0",
-
         "minecraft:tree_feature": {
-
           "description": {
-
             "identifier": "example:azalea_tree_feature"
-
           },
-
           "acacia_trunk": {
-
             "trunk_width": 1,
-
             "trunk_height": {
-
               "base": 4,
-
               "intervals": [ 2 ],
-
               "min_height_for_canopy": 3
-
             },
-
             "trunk_block": {
-
               "name": "minecraft:log",
-
               "states": {
-
                 "old_log_type": "oak"
-
               }
-
             },
-
             "trunk_lean": {
-
               "allow_diagonal_growth": true,
-
               "lean_height": {
-
                 "range_min": 2,
-
                 "range_max": 3
-
               },
-
               "lean_steps": {
-
                 "range_min": 3,
-
                 "range_max": 4
-
               },
-
               "lean_length": {
-
                 "range_min": 1,
-
                 "range_max": 2
-
               }
-
             }
-
           },
-
           "random_spread_canopy": {
-
             "canopy_height": 2,
-
             "canopy_radius": 3,
-
             "leaf_placement_attempts": 50,
-
             "leaf_blocks": [
-
               ["minecraft:azalea_leaves", 3],
-
               ["minecraft:azalea_leaves_flowered", 1]
-
             ]
-
           },
-
           "base_block": [
-
             "minecraft:dirt_with_roots"
-
           ],
-
           "may_grow_on": [
-
             "minecraft:dirt",
-
             "minecraft:grass_block",
-
             "minecraft:podzol",
-
             "minecraft:dirt",
-
             "minecraft:farmland",
-
             "minecraft:dirt_with_roots",
-
             "minecraft:moss_block",
-
             "minecraft:clay",
-
             "minecraft:mycelium",
-
             "minecraft:mud",
-
             "minecraft:muddy_mangrove_roots"
-
           ],
-
           "may_replace": [
-
             "minecraft:oak_leaves",
-
             "minecraft:spruce_leaves",
-
             "minecraft:birch_leaves",
-
             "minecraft:jungle_leaves",
-
             "minecraft:acacia_leaves",
-
             "minecraft:dark_oak_leaves",
-
             "minecraft:azalea",
-
             "minecraft:flowering_azalea",
-
             "minecraft:azalea_leaves",
-
             "minecraft:azalea_leaves_flowered",
-
             "minecraft:mangrove_leaves",
-
             "minecraft:water",
-
             "minecraft:flowing_water",
-
             "minecraft:moss_carpet",
-
             "minecraft:tallgrass",
-
             "minecraft:grass_block",
-
             "minecraft:air",
-
             "minecraft:sunflower",
-
             "minecraft:lilac",
-
             "minecraft:tall_grass",
-
             "minecraft:large_fern",
-
             "minecraft:rose_bush",
-
             "minecraft:peony"
-
           ],
-
           "may_grow_through": [
-
             "minecraft:dirt",
-
             "minecraft:grass_block",
-
             "minecraft:moss_carpet",
-
             "minecraft:tallgrass",
-
             "minecraft:sunflower",
-
             "minecraft:lilac",
-
             "minecraft:tall_grass",
-
             "minecraft:large_fern",
-
             "minecraft:rose_bush",
-
             "minecraft:peony"
-
           ]
-
         }
-
       }
 ```
 
@@ -1229,84 +908,55 @@ Example use: Azalea tree.
 # minecraft:vegetation_patch_feature
 
 
-'minecraft:vegetation_patch_feature' scatters a vegetation feature in an area. The vegetation feature’s appearance can be modified by adjusting the radius and depth that it will generate.Succeeds if: At least one ground base block was placed.Fails if: No ground base blocks were placed.
+'minecraft:vegetation_patch_feature' scatters a vegetation feature in an area. The vegetation feature’s appearance can be modified by adjusting the radius and depth that it will generate.
+
+
+Succeeds if: At least one ground base block was placed.
+
+
+Fails if: No ground base blocks were placed.
+
 
 Example: A pool of clay with dripleaves.
 
 
 ```json
 {
-
         "format_version": "1.13.0",
-
         "minecraft:vegetation_patch_feature": {
-
           "description": {
-
             "identifier": "example:clay_pool_with_dripleaves_feature"
-
           },
-
           "replaceable_blocks": [
-
             "minecraft:clay",
-
             "minecraft:moss_block",
-
             "minecraft:sand",
-
             "minecraft:gravel",
-
             "minecraft:dirt",
-
             "minecraft:coarse_dirt",
-
             "minecraft:podzol",
-
             "minecraft:dirt_with_roots",
-
             "minecraft:grass_block",
-
             "minecraft:mycelium",
-
             "minecraft:stone",
-
             "minecraft:cave_vines",
-
             "minecraft:cave_vines_body_with_berries",
-
             "minecraft:cave_vines_head_with_berries"
-
           ],
-
           "ground_block": "minecraft:clay",
-
           "vegetation_feature": "minecraft:dripleaf_feature",
-
           "surface": "floor",
-
           "depth": 3,
-
           "vertical_range": 5,
-
           "vegetation_chance": 0.1,
-
           "horizontal_radius": {
-
             "range_min": 4,
-
             "range_max": 8
-
           },
-
           "extra_deep_block_chance": 0.8,
-
           "extra_edge_column_chance": 0.7,
-
           "waterlogged": true
-
         }
-
       }
 ```
 
@@ -1314,38 +964,32 @@ Example: A pool of clay with dripleaves.
 # minecraft:weighted_random_feature
 
 
-'minecraft:weighted_random_feature' randomly selects and places a feature based on a weight value. Weights are relative, with higher values making selection more likely.Succeeds if: The selected feature is placed.Fails if: The selected feature fails to be placed.
+'minecraft:weighted_random_feature' randomly selects and places a feature based on a weight value. Weights are relative, with higher values making selection more likely.
+
+
+Succeeds if: The selected feature is placed.
+
+
+Fails if: The selected feature fails to be placed.
+
 
 Example use: Selecting and placing a variant of a flower.
 
 
 ```json
 {
-
   "format_version": "1.13.0",
-
   "minecraft:weighted_random_feature": {
-
     "description": {
-
       "identifier": "example:select_flower_feature"
-
     },
-
     "features": [
-
       [ "example:white_flower_feature", 1 ],
-
       [ "example:red_flower_feature", 2 ],
-
       [ "example:blue_flower_feature", 1 ],
-
       [ "example:yellow_flower_feature", 4 ]
-
     ]
-
   }
-
 }
 ```
 
@@ -1357,2418 +1001,1212 @@ Here is the complete feature schema
 
 
 ```json
-  {
-
+{
       version "format_version"
-
       object "minecraft:aggregate_feature" : opt
-
       {
-
           object "description"
-
           {
-
               string "identifier" // The name of this feature in the form 'namespace_name:feature_name'. 'feature_name' must match the filename.
-
           }
-
           array "features"[1,*] // Collection of features to be placed one by one. No guarantee of order. All features use the same input position.
-
           {
-
               feature_reference "<any array element>" : opt
-
           }
-
           enumerated_value "early_out"<"none", "first_failure", "first_success"> : opt // LIKELY TO BE CHANGED: Do not continue placing features once either the first success or first failure has occurred.
-
       }
-
       object "minecraft:sequence_feature" : opt
-
       {
-
           object "description"
-
           {
-
               string "identifier" // The name of this feature in the form 'namespace_name:feature_name'. 'feature_name' must match the filename.
-
           }
-
           array "features"[1,*] // List of features to be placed in sequence. The output position of the previous feature is used as the input position to the next.
-
           {
-
               feature_reference "<any array element>" : opt
-
           }
-
       }
-
       object "minecraft:beards_and_shavers" : opt
-
       {
-
           object "description"
-
           {
-
               string "identifier" // The name of this feature in the form 'namespace_name:feature_name'. 'feature_name' must match the filename.
-
           }
-
           feature_reference "places_feature" // Named reference of feature to be placed
-
           array "bounding_box_min" // Dimensions of the Bounding Box
-
           {
-
               float "[0..0]"
-
               float "[1..1]"
-
               float "[2..2]"
-
           }
-
           array "bounding_box_max" // Dimensions of the Bounding Box
-
           {
-
               float "[0..0]"
-
               float "[1..1]"
-
               float "[2..2]"
-
           }
-
           float "y_delta" // Y Delta for BAS
-
            "surface_block_type" // Reference to the block to be placed.
-
            "subsurface_block_type" // Reference to the block to be placed.
-
           float "beard_raggedness_min" : opt // Y Delta for BAS
-
           float "beard_raggedness_max" : opt // Y Delta for BAS
-
       }
-
       object "minecraft:cave_carver_feature" : opt
-
       {
-
           object "description"
-
           {
-
               string "identifier" // The name of this feature in the form 'namespace_name:feature_name'. 'feature_name' must match the filename.
-
           }
-
           block_reference "fill_with" : opt // Reference to the block to fill the cave with.
-
           molang "width_modifier" : opt // How many blocks to increase the cave radius by, from the center point of the cave.
-
           int "skip_carve_chance"<1-*> : opt // The chance to skip doing the carve (1 / value).
-
           int "height_limit" : opt // The height limit where we attempt to carve.
-
           float_range "y_scale" : opt // The scaling in y.
-
           float_range "horizontal_radius_multiplier" : opt // Horizontal radius multiplier.
-
           float_range "vertical_radius_multiplier" : opt // Vertical radius multiplier.
-
           float_range "floor_level" : opt // Floor Level.
-
       }
-
       object "minecraft:conditional_list" : opt
-
       {
-
           object "description"
-
           {
-
               string "identifier" // The name of this feature in the form 'namespace_name:feature_name'. 'feature_name' must match the filename.
-
           }
-
           array "conditional_features" // Array of Features, and their associated Conditions, for attempted placement. These features will be evaluated as ordered.
-
           {
-
               object "<any array element>" : opt
-
               {
-
                   feature_reference "places_feature" // Feature to be placed.
-
                   molang "condition" // Condition for placing associated Feature
-
               }
-
           }
-
           enumerated_value "early_out_scheme"<"condition_success", "placement_success"> : opt // Denote whether placement should end on first successful placement or first passed condition.
-
       }
-
       object "minecraft:fossil_feature" : opt
-
       {
-
           object "description"
-
           {
-
               string "identifier" // The name of this feature in the form 'namespace_name:feature_name'. 'feature_name' must match the filename.
-
           }
-
            "ore_block"
-
           int "max_empty_corners"
-
       }
-
       object "minecraft:geode_feature" : opt
-
       {
-
           object "description"
-
           {
-
               string "identifier" // The name of this feature in the form 'namespace_name:feature_name'. 'feature_name' must match the filename.
-
           }
-
            "filler" // The block to fill the inside of the geode.
-
            "inner_layer" // The block that forms the inside layer of the geode shell.
-
            "alternate_inner_layer" // The block that has a chance of generating instead of inner_layer.
-
            "middle_layer" // The block that forms the middle layer of the geode shell.
-
            "outer_layer" // The block that forms the outer shell of the geode.
-
           array "inner_placements"[1,*] : opt
-
           {
-
                "<any array element>" // A list of blocks that may be replaced during placement. Omit this field to allow any block to be replaced.
-
           }
-
           int "min_outer_wall_distance"<1-10> // The minimum distance each distribution point must be from the outer wall. [0,10]
-
           int "max_outer_wall_distance"<1-20> // The maximum distance each distribution point can be from the outer wall. [0,20]
-
           int "min_distribution_points"<1-10> // The minimum number of points inside the distance field that can get generated. The distance field is the area consisting of all points with a minimum distance to all destribution points. [0,10]
-
           int "max_distribution_points"<1-20> // The maximum number of points inside the distance field that can get generated. The distance field is the area consisting of all points with a minimum distance to all destribution points. [0,20]
-
           int "min_point_offset"<0-10> // The lowest possible value of random offset applied to the position of each distribution point. [0,10]
-
           int "max_point_offset"<0-10> // The highest possible value of random offset applied to the position of each distribution point. [0,10]
-
           int "max_radius" // The maximum possible radius of the geode generated.
-
           int "crack_point_offset"<0-10> // An offset applied to each distribution point that forms the geode crack opening. [0,10]
-
           float "generate_crack_chance"<0.000000-1.000000> // The likelihood of a geode generating with a crack in its shell. [0,1]
-
           float "base_crack_size"<0.000000-5.000000> // How large the crack opening of the geode should be when generated. [0,5]
-
           float "noise_multiplier" // A multiplier applied to the noise that is applied to the distribution points within the geode. Higher = more noisy.
-
           float "use_potential_placements_chance"<0.000000-1.000000> // The likelihood that a special block will be placed on the inside of the geode. [0,1]
-
           float "use_alternate_layer0_chance"<0.000000-1.000000> // The likelihood that a block in the innermost layer of the geode will be replaced with an alternate option. [0,1]
-
           bool "placements_require_layer0_alternate" // If true, the potential placement block will only be placed on the alternate layer0 blocks that get placed. Potential placement blocks are blocks that depend on the existance of another block to be placed. The latter are the layer0 alternate blocks.
-
           int "invalid_blocks_threshold" // The threshold of invalid blocks for a geode to have a distribution point in before it aborts generation entirely.
-
       }
-
       object "minecraft:growing_plant_feature" : opt
-
       {
-
           object "description"
-
           {
-
               string "identifier" // The name of this feature in the form 'namespace_name:feature_name'. 'feature_name' must match the filename.
-
           }
-
           array "height_distribution"[1,*]
-
           {
-
               array "<any array element>"[2] // Collection of weighted heights that placement will select from.
-
               {
-
                   int_range "[0..0]" // Plant height.
-
                   float "[1..1]" // Weight used in random selection. Value is relative to other weights in the collection.
-
               }
-
           }
-
           string "growth_direction" // Direction that the plant grows towards. Valid values: UP and DOWN
-
           int_range "age" : opt // Age of the head of the plant.
-
           array "body_blocks"[1,*]
-
           {
-
               array "<any array element>"[2] // Collection of weighted block descriptor that placement will select from for the body of the plant.
-
               {
-
                    "[0..0]" // Plant body block.
-
                   float "[1..1]" // Weight used in random selection. Value is relative to other weights in the collection.
-
               }
-
           }
-
           array "head_blocks"[1,*]
-
           {
-
               array "<any array element>"[2] // Collection of weighted block descriptor that placement will select from for the head of the plant.
-
               {
-
                    "[0..0]" // Plant head block.
-
                   float "[1..1]" // Weight used in random selection. Value is relative to other weights in the collection.
-
               }
-
           }
-
           bool "allow_water" : opt // Plant blocks can be placed in water.
-
       }
-
       object "minecraft:nether_cave_carver_feature" : opt
-
       {
-
           object "description"
-
           {
-
               string "identifier" // The name of this feature in the form 'namespace_name:feature_name'. 'feature_name' must match the filename.
-
           }
-
           block_reference "fill_with" : opt // Reference to the block to fill the cave with.
-
           molang "width_modifier" : opt // How many blocks to increase the cave radius by, from the center point of the cave.
-
           int "skip_carve_chance"<1-*> : opt // The chance to skip doing the carve (1 / value).
-
           int "height_limit" : opt // The height limit where we attempt to carve.
-
           float_range "y_scale" : opt // The scaling in y.
-
           float_range "horizontal_radius_multiplier" : opt // Horizontal radius multiplier.
-
           float_range "vertical_radius_multiplier" : opt // Vertical radius multiplier.
-
           float_range "floor_level" : opt // Floor Level.
-
       }
-
       object "minecraft:multiface_feature" : opt
-
       {
-
           object "description"
-
           {
-
               string "identifier" // The name of this feature in the form 'namespace_name:feature_name'. 'feature_name' must match the filename.
-
           }
-
            "places_block" // Reference to the block to be placed.
-
           int "search_range"<1-64> // How far, in blocks, this feature can search for a valid position to place.
-
           bool "can_place_on_floor" // Can this feature be placed on the ground (top face of a block)?
-
           bool "can_place_on_ceiling" // Can this feature be placed on the ceiling (bottom face of a block)?
-
           bool "can_place_on_wall" // Can this feature be placed on the wall (side faces of a block)?
-
           float "chance_of_spreading"<0.000000-1.000000> // For each block placed by this feature, how likely will that block spread to another?
-
           array "can_place_on"[1,*] : opt
-
           {
-
                "<any array element>" : opt // A list of blocks that the block in this feature can be placed on. Omit this field to allow any block to be placed on.
-
           }
-
       }
-
       object "minecraft:ore_feature" : opt
-
       {
-
           object "description"
-
           {
-
               string "identifier" // The name of this feature in the form 'namespace_name:feature_name'. 'feature_name' must match the filename.
-
           }
-
           int "count"<1-*> // The number of blocks to be placed.
-
           float "discard_chance_on_air_exposure"<0.000000-1.000000> : opt // Chance of discarding placement if neighboring block is Air.
-
           array "replace_rules"[1,*] : opt
-
           {
-
               object "<any array element>" // Collection of replace rules that will be checked in order of definition. If a rule is resolved, the rest will not be resolved for that block position.
-
               {
-
                    "places_block" // Reference to the block to be placed.
-
                   array "may_replace"[1,*] : opt
-
                   {
-
                        "<any array element>" : opt // A list of blocks that may be replaced during placement. Omit this field to allow any block to be replaced.
-
                   }
-
               }
-
           }
-
       }
-
       object "minecraft:partially_exposed_blob_feature" : opt
-
       {
-
           object "description"
-
           {
-
               string "identifier" // The name of this feature in the form 'namespace_name:feature_name'. 'feature_name' must match the filename.
-
           }
-
           int "placement_radius_around_floor"<1-8> // Defines the cubic radius of the blob. [1, 8]
-
           float "placement_probability_per_valid_position"<0.000000-1.000000> // The probability of trying to place a block at each position within the placement bounds. [0,1]
-
           string "exposed_face" : opt // Defines a block face that is allowed to be exposed to air and/or water. Other faces need to be embedded for blocks to be placed by this feature. Defaults to upwards face.
-
            "places_block" // Reference to the block to be placed.
-
       }
-
       object "minecraft:rect_layout" : opt
-
       {
-
           object "description"
-
           {
-
               string "identifier" // The name of this feature in the form 'namespace_name:feature_name'. 'feature_name' must match the filename.
-
           }
-
           float "ratio_of_empty_space" : opt // Ratio of a Chunk to be filled with empty space rather than features.
-
           array "feature_areas"[1,18446744073709551615]
-
           {
-
               object "<any array element>" : opt
-
               {
-
                   feature_reference "feature" // Feature to be placed.
-
                   array "area_dimensions" // Dimensions (size) of the associated Feature.
-
                   {
-
                       int "[0..0]"
-
                       int "[1..1]"
-
                   }
-
               }
-
           }
-
       }
-
       object "minecraft:scan_surface" : opt
-
       {
-
           object "description"
-
           {
-
               string "identifier" // The name of this feature in the form 'namespace_name:feature_name'. 'feature_name' must match the filename.
-
           }
-
           feature_reference "scan_surface_feature" // Named reference of feature to be placed
-
       }
-
       object "minecraft:scatter_feature" : opt
-
       {
-
           object "description"
-
           {
-
               string "identifier" // The name of this feature in the form 'namespace_name:feature_name'. 'feature_name' must match the filename.
-
           }
-
           feature_reference "places_feature" // Named reference of feature to be placed
-
           bool "project_input_to_floor" : opt // If true, snaps the y-value of the scattered position to the terrain heightmap. If false or unset, y-value is unmodified.
-
           object "distribution" // Parameters controlling the scatter of the feature. Object of type ScatterParams
-
       }
-
       object "minecraft:sculk_patch_feature" : opt
-
       {
-
           object "description"
-
           {
-
               string "identifier" // The name of this feature in the form 'namespace_name:feature_name'. 'feature_name' must match the filename.
-
           }
-
           array "can_place_sculk_patch_on"
-
           {
-
                "<any array element>" : opt
-
           }
-
            "central_block" : opt
-
           float "central_block_placement_chance"<0.000000-1.000000> : opt
-
           int "cursor_count"<0-32>
-
           int "charge_amount"<1-1000>
-
           int "spread_attempts"<1-64>
-
           int "growth_rounds"<0-8>
-
           int "spread_rounds"<0-8>
-
           int_range "extra_growth_chance" : opt
-
       }
-
       object "minecraft:search_feature" : opt
-
       {
-
           object "description"
-
           {
-
               string "identifier" // The name of this feature in the form 'namespace_name:feature_name'. 'feature_name' must match the filename.
-
           }
-
           feature_reference "places_feature" // Named reference of feature to be placed
-
           object "search_volume" // Axis-aligned bounding box that will be searched for valid placement positions. Expressed as offsets from the input position.
-
           {
-
               array "min"[3] // Minimum extent of the bounding volume expressed as [ x, y, z ]
-
               {
-
                   int "[0..0]" // x_min
-
                   int "[1..1]" // y_min
-
                   int "[2..2]" // z_min
-
               }
-
               array "max"[3] // Maxium extent of the bounding volume expressed as [ x, y, z ]
-
               {
-
                   int "[0..0]" // x_max
-
                   int "[1..1]" // y_max
-
                   int "[2..2]" // z_max
-
               }
-
           }
-
           enumerated_value "search_axis"<"-x", "+x", "-y", "+y", "-z", "+z"> // Axis that the search will sweep along through the 'search_volume'
-
           int "required_successes"<1-*> : opt // Number of valid positions the search must find in order to place the referenced feature
-
       }
-
       object "minecraft:single_block_feature" : opt
-
       {
-
           object "description"
-
           {
-
               string "identifier" // The name of this feature in the form 'namespace_name:feature_name'. 'feature_name' must match the filename.
-
           }
-
           object "places_block" : opt // Reference to the block to be placed.
-
           array "places_block" : opt
-
           {
-
               object "<any array element>" : opt
-
               {
-
                   float "weight" // Random weight of this block. A higher number will increase the probability of this block to be picked during placement.
-
                   object "block" // Reference to the block to be placed.
-
               }
-
           }
-
           bool "enforce_placement_rules" // If true, enforce the block's canPlace check.
-
           bool "enforce_survivability_rules" // If true, enforce the block's canSurvive check.
-
           bool "randomize_rotation" : opt // If true, randomizes the block's cardinal orientation.
-
           object "may_attach_to" : opt // Allowlist which specifies where the block can be placed.
-
           {
-
               int "min_sides_must_attach"<1-4> : opt // Number of side faces that need to pass the attach conditions before the block can be placed. Default value is four.
-
               bool "auto_rotate" : opt // Automatically rotate the block to attach sensibly. This setting is ignored if 'randomize_rotation' is enabled.
-
                "top" : opt
-
               array "top" : opt
-
               {
-
                    "<any array element>"
-
               }
-
                "bottom" : opt
-
               array "bottom" : opt
-
               {
-
                    "<any array element>"
-
               }
-
                "north" : opt
-
               array "north" : opt
-
               {
-
                    "<any array element>"
-
               }
-
                "east" : opt
-
               array "east" : opt
-
               {
-
                    "<any array element>"
-
               }
-
                "south" : opt
-
               array "south" : opt
-
               {
-
                    "<any array element>"
-
               }
-
                "west" : opt
-
               array "west" : opt
-
               {
-
                    "<any array element>"
-
               }
-
                "all" : opt
-
               array "all" : opt
-
               {
-
                    "<any array element>"
-
               }
-
                "sides" : opt
-
               array "sides" : opt
-
               {
-
                    "<any array element>"
-
               }
-
                "diagonal" : opt
-
               array "diagonal" : opt
-
               {
-
                    "<any array element>"
-
               }
-
           }
-
           object "may_not_attach_to" : opt // Denylist which specifies where the block can't be placed.
-
           {
-
                "top" : opt
-
               array "top" : opt
-
               {
-
                    "<any array element>"
-
               }
-
                "bottom" : opt
-
               array "bottom" : opt
-
               {
-
                    "<any array element>"
-
               }
-
                "north" : opt
-
               array "north" : opt
-
               {
-
                    "<any array element>"
-
               }
-
                "east" : opt
-
               array "east" : opt
-
               {
-
                    "<any array element>"
-
               }
-
                "south" : opt
-
               array "south" : opt
-
               {
-
                    "<any array element>"
-
               }
-
                "west" : opt
-
               array "west" : opt
-
               {
-
                    "<any array element>"
-
               }
-
                "all" : opt
-
               array "all" : opt
-
               {
-
                    "<any array element>"
-
               }
-
                "sides" : opt
-
               array "sides" : opt
-
               {
-
                    "<any array element>"
-
               }
-
                "diagonal" : opt
-
               array "diagonal" : opt
-
               {
-
                    "<any array element>"
-
               }
-
           }
-
           array "may_replace" : opt
-
           {
-
                "<any array element>" : opt // A list of blocks that may be replaced during placement. Omit this field to allow any block to be replaced.
-
           }
-
       }
-
       object "minecraft:snap_to_surface_feature" : opt
-
       {
-
           object "description"
-
           {
-
               string "identifier" // The name of this feature in the form 'namespace_name:feature_name'. 'feature_name' must match the filename.
-
           }
-
           feature_reference "feature_to_snap" // Named reference of feature to be snapped
-
           int "vertical_search_range" // Range to search for a floor or ceiling for snaping the feature.
-
           string "surface" : opt // Defines the surface that the y-value of the placement position will be snapped to. Valid values: 'ceiling', 'floor' and 'random_horizontal'
-
           bool "allow_air_placement" : opt // Determines whether the feature can snap through air blocks. Defaults to true.
-
           bool "allow_underwater_placement" : opt // Determines whether the feature can snap through water blocks. Defaults to false.
-
           array "allowed_surface_blocks" : opt // A list of blocks that the feature is permitted to snap to. Leaving this empty results in the feature snapping to blocks that can provide support for the given face (up/down/horizontal)
-
           {
-
                "<any array element>"
-
           }
-
       }
-
       object "minecraft:structure_template_feature" : opt
-
       {
-
           object "description"
-
           {
-
               string "identifier" // The name of this feature in the form 'namespace_name:feature_name'. 'feature_name' must match the filename.
-
           }
-
           structure_reference "structure_name" // Reference to the structure to be placed.
-
           int "adjustment_radius"<0-16> : opt // How far the structure is allowed to move when searching for a valid placement position. Search is radial, stopping when the nearest valid position is found. Defaults to 0 if omitted.
-
           enumerated_value "facing_direction"<"north", "south", "east", "west", "random"> : opt // Direction the structure will face when placed in the world. Defaults to "random" if omitted.
-
           object "constraints" // Specific constraints that must be satisfied when placing this structure.
-
           {
-
               object "grounded" : opt // When specified, ensures the structure is on the ground.
-
               object "unburied" : opt // When specified, ensures the structure has air above it.
-
               object "block_intersection" : opt // When specified, ensures the structure only intersects with allowlisted blocks.
-
               {
-
                   array "block_allowlist|block_whitelist"
-
                   {
-
                        "<any array element>" : opt // List of blocks the owning structure is allowed to intersect with.
-
                   }
-
               }
-
           }
-
       }
-
       object "minecraft:surface_relative_threshold_feature" : opt
-
       {
-
           object "description"
-
           {
-
               string "identifier" // The name of this feature in the form 'namespace_name:feature_name'. 'feature_name' must match the filename.
-
           }
-
           feature_reference "feature_to_place" // Named reference of feature to be placed
-
           int "minimum_distance_below_surface" : opt // The minimum number of blocks required to be between the estimated surface level and a valid place for this feature. Defaults to zero.
-
       }
-
       object "minecraft:underwater_cave_carver_feature" : opt
-
       {
-
           object "description"
-
           {
-
               string "identifier" // The name of this feature in the form 'namespace_name:feature_name'. 'feature_name' must match the filename.
-
           }
-
           block_reference "fill_with" : opt // Reference to the block to fill the cave with.
-
           molang "width_modifier" : opt // How many blocks to increase the cave radius by, from the center point of the cave.
-
           int "skip_carve_chance"<1-*> : opt // The chance to skip doing the carve (1 / value).
-
           int "height_limit" : opt // The height limit where we attempt to carve.
-
           float_range "y_scale" : opt // The scaling in y.
-
           float_range "horizontal_radius_multiplier" : opt // Horizontal radius multiplier.
-
           float_range "vertical_radius_multiplier" : opt // Vertical radius multiplier.
-
           float_range "floor_level" : opt // Floor Level.
-
           block_reference "replace_air_with" : opt // Reference to the block to replace air blocks with.
-
       }
-
       object "minecraft:tree_feature" : opt
-
       {
-
           object "description"
-
           {
-
               string "identifier" // The name of this feature in the form 'namespace_name:feature_name'. 'feature_name' must match the filename.
-
           }
-
            "base_block" : opt // The block used for the base of the tree.
-
           array "base_block" : opt
-
           {
-
-               "<any array element>" // The blocks used for the base of the tree
-
+               "<any array element>" // The blocks used for the base of the tree.
           }
-
-          object "base_cluster" : opt // Allows you to define a number of clusters for the base of the tree. Used to generate mega tree variants.
-
+          object "base_cluster" : opt // Clusters of blocks randomly replaced with "base_block" around the base of the tree.
           {
-
               array "may_replace"
-
               {
-
-                   "<any array element>" : opt // List of blocks that the base cluster of a tree can replace.
-
+                   "<any array element>" : opt // List of blocks a cluster can replace.
               }
-
-              int "num_clusters"<1-*> // Number of clusters that can be generated.
-
-              int "cluster_radius"<0-*> // Radius where the clusters that can be generated.
-
+              int "num_clusters"<1-*> // Number of clusters to generate.
+              int "cluster_radius"<0-*> // The radius of each cluster.
           }
-
           array "may_grow_on" : opt
-
           {
-
                "<any array element>" // List of blocks where a tree can grow on.
-
           }
-
           array "may_replace" : opt
-
           {
-
                "<any array element>" // List of blocks that a tree can replace.
-
           }
-
           array "may_grow_through" : opt
-
           {
-
                "<any array element>" // List of blocks that a tree can grow through.
-
           }
-
           object "acacia_trunk" : opt
-
           {
-
               int "trunk_width" // The width of the tree trunk.
-
               object "trunk_height" // Configuration object for the trunk height.
-
               {
-
                   int "base"<1-*> // Min height for the trunk.
-
                   array "intervals" : opt
-
                   {
-
                       int "<any array element>"<1-*> : opt // Intervals used to randomize the trunk height, the value of each interval will create a random number where (0 <= rand < interval)), and will be added to the height.
-
                   }
-
                   int "min_height_for_canopy"<1-*> : opt // Min height where the canopy can be placed.
-
               }
-
               object "trunk_lean" // Configuration object for diagonal branches.
-
               {
-
                   bool "allow_diagonal_growth" // If true, diagonal branches will be created.
-
                   int_range "lean_height" // Number of blocks below the tree height at which diagonal branches can be created.
-
                   int_range "lean_steps" // Number of steps taken in X/Z direction while creating a diagonal branch.
-
                   int_range "lean_length" : opt // Length for the diagonal branch in the Y axis.
-
               }
-
                "trunk_block" // The block that forms the tree trunk.
-
               object "branches" : opt // Configuration object for branches.
-
               {
-
                   int_range "branch_length" // Length for the branch in the Y axis.
-
                   int_range "branch_position" // Starting Y position for the branch.
-
                   chance_information "branch_chance" // Probability of creating a branch.
-
                   object "branch_canopy" : opt // Configuration object for the canopy.
-
                   {
-
                       object "acacia_canopy" : opt
-
                       {
-
                           int "canopy_size"<1-*> // The size of the canopy.
-
                            "leaf_block" // The block that forms the canopy of the tree.
-
                           bool "simplify_canopy" : opt // If true the canopy uses a simple pattern.
-
                       }
-
                       object "canopy" : opt
-
                       {
-
                           object "canopy_offset" // Canopy position offset relative to the block above the trunk.
-
                           {
-
                               int "min" // Min canopy position offset.
-
                               int "max" // Max canopy position offset.
-
                           }
-
                           int "min_width"<0-*> : opt // Min width for the canopy.
-
                           object "canopy_slope" : opt // Configuration object for the canopy slope.
-
                           {
-
                               int "rise"<1-*> : opt // The numerator for the slope fraction.
-
                               int "run"<1-*> : opt // The denominator for the slope fraction.
-
                           }
-
                           chance_information "variation_chance" : opt // Determines the chance of creating leaf blocks for every layer of the canopy. Larger numbers create a denser tree.
-
                           array "variation_chance" : opt
-
                           {
-
                               chance_information "<any array element>" : opt // Determines the chance of creating leaf blocks for every layer of the canopy. Larger numbers create a denser tree.
-
                           }
-
                            "leaf_block" // The block that forms the canopy of the tree.
-
                           object "canopy_decoration" : opt // Configuration object for the canopy decoration.
-
                           {
-
                               chance_information "decoration_chance" // Probability of decorating the trunk.
-
                                "decoration_block" : opt // The block used for decorating the trunk.
-
                               int "num_steps" : opt // Number of decoration blocks to place.
-
                               enumerated_value "step_direction"<"down", "up", "out", "away"> : opt // Directions to spread decoration blocks.
-
                           }
-
                       }
-
                       object "cherry_canopy" : opt
-
                       {
-
                            "leaf_block" // The block that forms the canopy of the tree.
-
                           int_range "height" // Number of layers for the canopy.
-
                           int_range "radius" // The radius of the canopy.
-
                           int "trunk_width"<1-*> : opt // The width of the tree trunk.
-
                           chance_information "wide_bottom_layer_hole_chance" // Probability of the canopy having a hole in the bottom layer [0-100%].
-
                           chance_information "corner_hole_chance" // Probability of the canopy having a hole in the corner [0-100%].
-
                           chance_information "hanging_leaves_chance" // Probability of the canopy having hanging leaves [0-100%].
-
                           chance_information "hanging_leaves_extension_chance" // Probability of hanging leaves extending further down [0-100%].
-
                       }
-
                       object "fancy_canopy" : opt
-
                       {
-
                           int "height"<1-*> // Number of layers for the canopy.
-
                           int "radius"<0-*> // The radius of the canopy.
-
                            "leaf_block" // The block that forms the canopy of the tree.
-
                       }
-
                       object "mangrove_canopy" : opt
-
                       {
-
                           int_range "canopy_height" // Number of layers for the canopy.
-
                           int_range "canopy_radius" // Radius of the canopy.
-
                           int "leaf_placement_attempts"<1-*> // Max number of attempts to create leaf blocks.
-
                           array "leaf_blocks"
-
                           {
-
                               array "<any array element>"[2] // The blocks that form the canopy of the tree.
-
                               {
-
                                    "[0..0]"
-
                                   float "[1..1]"
-
                               }
-
                           }
-
                           object "canopy_decoration" : opt // Configuration object for the canopy decoration.
-
                           {
-
                               chance_information "decoration_chance" // Probability of decorating the trunk.
-
                                "decoration_block" : opt // The block used for decorating the trunk.
-
                               int "num_steps" : opt // Number of decoration blocks to place.
-
                               enumerated_value "step_direction"<"down", "up", "out", "away"> : opt // Directions to spread decoration blocks.
-
                           }
-
                            "hanging_block" // The block to be used as a hanging block.
-
                           chance_information "hanging_block_placement_chance" // Probability of creating a hanging leaf block.
-
                       }
-
                       object "mega_canopy" : opt
-
                       {
-
                           int_range "canopy_height" // Number of layers for the canopy.
-
                           int "base_radius"<0-*> // Radius of the canopy.
-
                           int "core_width"<1-*> : opt // Width of the tree trunk.
-
                           bool "simplify_canopy" : opt // If true the canopy uses a simple pattern.
-
                            "leaf_block" // The block that forms the canopy of the tree.
-
                       }
-
                       object "mega_pine_canopy" : opt
-
                       {
-
                           int_range "canopy_height" // Number of layers for the canopy.
-
                           int "base_radius"<0-*> // Radius of the canopy.
-
                           float "radius_step_modifier"<0.000000-*> // Modifier for the base radius of the canopy.
-
                           int "core_width"<1-*> : opt // Width of the tree trunk.
-
                            "leaf_block" // The block that forms the canopy of the tree.
-
                       }
-
                       object "pine_canopy" : opt
-
                       {
-
                           int_range "canopy_height" // Number of layers for the canopy.
-
                           int "base_radius"<1-*> // Radius of the canopy.
-
                            "leaf_block" // The block that forms the canopy of the tree.
-
                       }
-
                       object "roofed_canopy" : opt
-
                       {
-
                           int "canopy_height"<3-*> // Roofed canopies feature a base and a top layer, and an extra cap layer on some occasions, this value controls the number of layers in the middle.
-
                           int "core_width"<1-*> // Width of the tree trunk.
-
                           int "outer_radius"<0-*> // Radius used for the base and top layers.
-
                           int "inner_radius"<0-*> // Radius used for the middle layers.
-
                            "leaf_block" // The block that forms the canopy of the tree.
-
                       }
-
                       object "spruce_canopy" : opt
-
                       {
-
                           int_range "lower_offset" // Min canopy position offset.
-
                           int_range "upper_offset" // Max canopy position offset.
-
                           int_range "max_radius" // Max radius of the canopy.
-
                            "leaf_block" // The block that forms the canopy of the tree.
-
                       }
-
                   }
-
               }
-
               object "trunk_decoration" : opt // Configuration object for the trunk decoration.
-
               {
-
                   chance_information "decoration_chance" // Probability of decorating the trunk.
-
                    "decoration_block" : opt // The block used for decorating the trunk.
-
                   int "num_steps" : opt // Number of decoration blocks to place.
-
                   enumerated_value "step_direction"<"down", "up", "out", "away"> : opt // Directions to spread decoration blocks.
-
               }
-
           }
-
           object "cherry_trunk" : opt
-
           {
-
                "trunk_block" // The block that forms the tree trunk.
-
               object "trunk_height" // Configuration object for the trunk height.
-
               {
-
                   int "base"<2-*> // Min height for the trunk.
-
                   array "intervals" : opt
-
                   {
-
                       int "<any array element>"<1-*> : opt // Intervals used to randomize the trunk height, the value of each interval will create a random number where (0 <= rand < interval)), and will be added to the height.
-
                   }
-
               }
-
               object "branches" // Configuration object for branches.
-
               {
-
                   object "tree_type_weights" : opt // Configuration object to pick a tree variant based on a weighted random number.
-
                   {
-
                       int "one_branch"<0-*> // Tree variant with one branch.
-
                       int "two_branches"<0-*> // Tree variant with two branches.
-
                       int "two_branches_and_trunk"<0-*> // Tree variant with three branches.
-
                   }
-
                   int_range "branch_horizontal_length" // Branch length in X/Z axis.
-
                   int_range "branch_start_offset_from_top" // Branch starting position relative to the top of the tree.
-
                   int_range "branch_end_offset_from_top" // Branch end position relative to the top of the tree.
-
                   object "branch_canopy" : opt // Configuration object for the canopy.
-
                   {
-
                       object "acacia_canopy" : opt
-
                       {
-
                           int "canopy_size"<1-*> // The size of the canopy.
-
                            "leaf_block" // The block that forms the canopy of the tree.
-
                           bool "simplify_canopy" : opt // If true the canopy uses a simple pattern.
-
                       }
-
                       object "canopy" : opt
-
                       {
-
                           object "canopy_offset" // Canopy position offset relative to the block above the trunk.
-
                           {
-
                               int "min" // Min canopy position offset.
-
                               int "max" // Max canopy position offset.
-
                           }
-
                           int "min_width"<0-*> : opt // Min width for the canopy.
-
                           object "canopy_slope" : opt // Configuration object for the canopy slope.
-
                           {
-
                               int "rise"<1-*> : opt // The numerator for the slope fraction.
-
                               int "run"<1-*> : opt // The denominator for the slope fraction.
-
                           }
-
                           chance_information "variation_chance" : opt // Determines the chance of creating leaf blocks for every layer of the canopy. Larger numbers create a denser tree.
-
                           array "variation_chance" : opt
-
                           {
-
                               chance_information "<any array element>" : opt // Determines the chance of creating leaf blocks for every layer of the canopy. Larger numbers create a denser tree.
-
                           }
-
                            "leaf_block" // The block that forms the canopy of the tree.
-
                           object "canopy_decoration" : opt // Configuration object for the canopy decoration.
-
                           {
-
                               chance_information "decoration_chance" // Probability of decorating the trunk.
-
                                "decoration_block" : opt // The block used for decorating the trunk.
-
                               int "num_steps" : opt // Number of decoration blocks to place.
-
                               enumerated_value "step_direction"<"down", "up", "out", "away"> : opt // Directions to spread decoration blocks.
-
                           }
-
                       }
-
                       object "cherry_canopy" : opt
-
                       {
-
                            "leaf_block" // The block that forms the canopy of the tree.
-
                           int_range "height" // Number of layers for the canopy.
-
                           int_range "radius" // The radius of the canopy.
-
                           int "trunk_width"<1-*> : opt // The width of the tree trunk.
-
                           chance_information "wide_bottom_layer_hole_chance" // Probability of the canopy having a hole in the bottom layer [0-100%].
-
                           chance_information "corner_hole_chance" // Probability of the canopy having a hole in the corner [0-100%].
-
                           chance_information "hanging_leaves_chance" // Probability of the canopy having hanging leaves [0-100%].
-
                           chance_information "hanging_leaves_extension_chance" // Probability of hanging leaves extending further down [0-100%].
-
                       }
-
                       object "fancy_canopy" : opt
-
                       {
-
                           int "height"<1-*> // Number of layers for the canopy.
-
                           int "radius"<0-*> // The radius of the canopy.
-
                            "leaf_block" // The block that forms the canopy of the tree.
-
                       }
-
                       object "mangrove_canopy" : opt
-
                       {
-
                           int_range "canopy_height" // Number of layers for the canopy.
-
                           int_range "canopy_radius" // Radius of the canopy.
-
                           int "leaf_placement_attempts"<1-*> // Max number of attempts to create leaf blocks.
-
                           array "leaf_blocks"
-
                           {
-
                               array "<any array element>"[2] // The blocks that form the canopy of the tree.
-
                               {
-
                                    "[0..0]"
-
                                   float "[1..1]"
-
                               }
-
                           }
-
                           object "canopy_decoration" : opt // Configuration object for the canopy decoration.
-
                           {
-
                               chance_information "decoration_chance" // Probability of decorating the trunk.
-
                                "decoration_block" : opt // The block used for decorating the trunk.
-
                               int "num_steps" : opt // Number of decoration blocks to place.
-
                               enumerated_value "step_direction"<"down", "up", "out", "away"> : opt // Directions to spread decoration blocks.
-
                           }
-
                            "hanging_block" // The block to be used as a hanging block.
-
                           chance_information "hanging_block_placement_chance" // Probability of creating a hanging leaf block.
-
                       }
-
                       object "mega_canopy" : opt
-
                       {
-
                           int_range "canopy_height" // Number of layers for the canopy.
-
                           int "base_radius"<0-*> // Radius of the canopy.
-
                           int "core_width"<1-*> : opt // Width of the tree trunk.
-
                           bool "simplify_canopy" : opt // If true the canopy uses a simple pattern.
-
                            "leaf_block" // The block that forms the canopy of the tree.
-
                       }
-
                       object "mega_pine_canopy" : opt
-
                       {
-
                           int_range "canopy_height" // Number of layers for the canopy.
-
                           int "base_radius"<0-*> // Radius of the canopy.
-
                           float "radius_step_modifier"<0.000000-*> // Modifier for the base radius of the canopy.
-
                           int "core_width"<1-*> : opt // Width of the tree trunk.
-
                            "leaf_block" // The block that forms the canopy of the tree.
-
                       }
-
                       object "pine_canopy" : opt
-
                       {
-
                           int_range "canopy_height" // Number of layers for the canopy.
-
                           int "base_radius"<1-*> // Radius of the canopy.
-
                            "leaf_block" // The block that forms the canopy of the tree.
-
                       }
-
                       object "roofed_canopy" : opt
-
                       {
-
                           int "canopy_height"<3-*> // Roofed canopies feature a base and a top layer, and an extra cap layer on some occasions, this value controls the number of layers in the middle.
-
                           int "core_width"<1-*> // Width of the tree trunk.
-
                           int "outer_radius"<0-*> // Radius used for the base and top layers.
-
                           int "inner_radius"<0-*> // Radius used for the middle layers.
-
                            "leaf_block" // The block that forms the canopy of the tree.
-
                       }
-
                       object "spruce_canopy" : opt
-
                       {
-
                           int_range "lower_offset" // Min canopy position offset.
-
                           int_range "upper_offset" // Max canopy position offset.
-
                           int_range "max_radius" // Max radius of the canopy.
-
                            "leaf_block" // The block that forms the canopy of the tree.
-
                       }
-
                   }
-
               }
-
           }
-
           object "fallen_trunk" : opt
-
           {
-
               int_range "log_length" // Length of the fallen log.
-
               int_range "stump_height" : opt // Height of the stump.
-
               int_range "height_modifier" : opt // Modifier for the length of the fallen log.
-
                "trunk_block" // The block that forms the tree trunk.
-
               feature_reference "log_decoration_feature" : opt // Feature that can be used to decorate the fallen log.
-
               object "trunk_decoration" : opt // Configuration object for the trunk decoration.
-
               {
-
                   chance_information "decoration_chance" // Probability of decorating the trunk.
-
                    "decoration_block" : opt // The block used for decorating the trunk.
-
                   int "num_steps" : opt // Number of decoration blocks to place.
-
                   enumerated_value "step_direction"<"down", "up", "out", "away"> : opt // Directions to spread decoration blocks.
-
               }
-
           }
-
           object "fancy_trunk" : opt
-
           {
-
               object "trunk_height" // Configuration object for the trunk height.
-
               {
-
                   int "base"<1-*> // Min height for the trunk.
-
                   int "variance"<1-*> // Modifier for the trunk height.
-
                   float "scale" // Final tree height is multiplied by this scale. Max supported scale is 1.
-
               }
-
               int "trunk_width"<1-*> // The width of the tree trunk.
-
               object "branches" // Configuration object for branches.
-
               {
-
                   float "slope" // Slope for the branch, where 0 is horizontal and 1 is vertical.
-
                   float "density" // Density of foliage.
-
                   float "min_altitude_factor"<0.000000-1.000000> // Min height for branches. Represented by a percentage of the tree height.
-
               }
-
                "trunk_block" // The block that forms the tree trunk.
-
               float "width_scale"<0.000000-*> // Scale modifier for the tree radius.
-
               float "foliage_altitude_factor"<0.000000-1.000000> // Min height for foliage. Represented by a percentage of the tree height.
-
           }
-
           object "mangrove_trunk" : opt
-
           {
-
               int "trunk_width" // The width of the tree trunk.
-
               object "trunk_height" // Configuration object for the trunk height.
-
               {
-
                   int "base"<1-*> // Min height for the trunk.
-
                   int "height_rand_a"<1-*> // Tree height modifier A.
-
                   int "height_rand_b"<1-*> // Tree height modifier B.
-
               }
-
                "trunk_block" // The block that forms the tree trunk.
-
               object "branches" : opt // Configuration object for branches.
-
               {
-
                   int_range "branch_length" // Length for the branch in the Y axis.
-
                   int_range "branch_steps" // Number of branches to place.
-
                   chance_information "branch_chance" // Probability of creating a branch.
-
               }
-
               object "trunk_decoration" : opt // Configuration object for the trunk decoration.
-
               {
-
                   chance_information "decoration_chance" // Probability of decorating the trunk.
-
                    "decoration_block" : opt // The block used for decorating the trunk.
-
                   int "num_steps" : opt // Number of decoration blocks to place.
-
                   enumerated_value "step_direction"<"down", "up", "out", "away"> : opt // Directions to spread decoration blocks.
-
               }
-
           }
-
           object "mega_trunk" : opt
-
           {
-
               int "trunk_width" // The width of the tree trunk.
-
               object "trunk_height" // Configuration object for the trunk height.
-
               {
-
                   int "base"<1-*> // Min height for the trunk.
-
                   array "intervals" : opt
-
                   {
-
                       int "<any array element>"<1-*> : opt // Intervals used to randomize the trunk height, the value of each interval will create a random number where (0 <= rand < interval)), and will be added to the height.
-
                   }
-
               }
-
                "trunk_block" // The block that forms the tree trunk.
-
               object "trunk_decoration" : opt // Configuration object for the trunk decoration.
-
               {
-
                   chance_information "decoration_chance" // Probability of decorating the trunk.
-
                    "decoration_block" : opt // The block used for decorating the trunk.
-
                   int "num_steps" : opt // Number of decoration blocks to place.
-
                   enumerated_value "step_direction"<"down", "up", "out", "away"> : opt // Directions to spread decoration blocks.
-
               }
-
               object "branches" : opt // Configuration object for branches.
-
               {
-
                   int "branch_length"<1-*> // Length for the branch.
-
                   float "branch_slope" // Slope for the branch, where 0 is horizontal and 1 is vertical.
-
                   int_range "branch_interval" // Randomized distance between branches.
-
                   object "branch_altitude_factor" // Altitude at which branches can spawn, relative to the tree height.
-
                   {
-
                       float "min"<0.000000-1.000000> // Min altitude where branches can spawn.
-
                       float "max"<0.000000-1.000000> // Max altitude where branches can spawn.
-
                   }
-
                   object "branch_canopy" : opt // Configuration object for the canopy.
-
                   {
-
                       object "acacia_canopy" : opt
-
                       {
-
                           int "canopy_size"<1-*> // The size of the canopy.
-
                            "leaf_block" // The block that forms the canopy of the tree.
-
                           bool "simplify_canopy" : opt // If true the canopy uses a simple pattern.
-
                       }
-
                       object "canopy" : opt
-
                       {
-
                           object "canopy_offset" // Canopy position offset relative to the block above the trunk.
-
                           {
-
                               int "min" // Min canopy position offset.
-
                               int "max" // Max canopy position offset.
-
                           }
-
                           int "min_width"<0-*> : opt // Min width for the canopy.
-
                           object "canopy_slope" : opt // Configuration object for the canopy slope.
-
                           {
-
                               int "rise"<1-*> : opt // The numerator for the slope fraction.
-
                               int "run"<1-*> : opt // The denominator for the slope fraction.
-
                           }
-
                           chance_information "variation_chance" : opt // Determines the chance of creating leaf blocks for every layer of the canopy. Larger numbers create a denser tree.
-
                           array "variation_chance" : opt
-
                           {
-
                               chance_information "<any array element>" : opt // Determines the chance of creating leaf blocks for every layer of the canopy. Larger numbers create a denser tree.
-
                           }
-
                            "leaf_block" // The block that forms the canopy of the tree.
-
                           object "canopy_decoration" : opt // Configuration object for the canopy decoration.
-
                           {
-
                               chance_information "decoration_chance" // Probability of decorating the trunk.
-
                                "decoration_block" : opt // The block used for decorating the trunk.
-
                               int "num_steps" : opt // Number of decoration blocks to place.
-
                               enumerated_value "step_direction"<"down", "up", "out", "away"> : opt // Directions to spread decoration blocks.
-
                           }
-
                       }
-
                       object "cherry_canopy" : opt
-
                       {
-
                            "leaf_block" // The block that forms the canopy of the tree.
-
                           int_range "height" // Number of layers for the canopy.
-
                           int_range "radius" // The radius of the canopy.
-
                           int "trunk_width"<1-*> : opt // The width of the tree trunk.
-
                           chance_information "wide_bottom_layer_hole_chance" // Probability of the canopy having a hole in the bottom layer [0-100%].
-
                           chance_information "corner_hole_chance" // Probability of the canopy having a hole in the corner [0-100%].
-
                           chance_information "hanging_leaves_chance" // Probability of the canopy having hanging leaves [0-100%].
-
                           chance_information "hanging_leaves_extension_chance" // Probability of hanging leaves extending further down [0-100%].
-
                       }
-
                       object "fancy_canopy" : opt
-
                       {
-
                           int "height"<1-*> // Number of layers for the canopy.
-
                           int "radius"<0-*> // The radius of the canopy.
-
                            "leaf_block" // The block that forms the canopy of the tree.
-
                       }
-
                       object "mangrove_canopy" : opt
-
                       {
-
                           int_range "canopy_height" // Number of layers for the canopy.
-
                           int_range "canopy_radius" // Radius of the canopy.
-
                           int "leaf_placement_attempts"<1-*> // Max number of attempts to create leaf blocks.
-
                           array "leaf_blocks"
-
                           {
-
                               array "<any array element>"[2] // The blocks that form the canopy of the tree.
-
                               {
-
                                    "[0..0]"
-
                                   float "[1..1]"
-
                               }
-
                           }
-
                           object "canopy_decoration" : opt // Configuration object for the canopy decoration.
-
                           {
-
                               chance_information "decoration_chance" // Probability of decorating the trunk.
-
                                "decoration_block" : opt // The block used for decorating the trunk.
-
                               int "num_steps" : opt // Number of decoration blocks to place.
-
                               enumerated_value "step_direction"<"down", "up", "out", "away"> : opt // Directions to spread decoration blocks.
-
                           }
-
                            "hanging_block" // The block to be used as a hanging block.
-
                           chance_information "hanging_block_placement_chance" // Probability of creating a hanging leaf block.
-
                       }
-
                       object "mega_canopy" : opt
-
                       {
-
                           int_range "canopy_height" // Number of layers for the canopy.
-
                           int "base_radius"<0-*> // Radius of the canopy.
-
                           int "core_width"<1-*> : opt // Width of the tree trunk.
-
                           bool "simplify_canopy" : opt // If true the canopy uses a simple pattern.
-
                            "leaf_block" // The block that forms the canopy of the tree.
-
                       }
-
                       object "mega_pine_canopy" : opt
-
                       {
-
                           int_range "canopy_height" // Number of layers for the canopy.
-
                           int "base_radius"<0-*> // Radius of the canopy.
-
                           float "radius_step_modifier"<0.000000-*> // Modifier for the base radius of the canopy.
-
                           int "core_width"<1-*> : opt // Width of the tree trunk.
-
                            "leaf_block" // The block that forms the canopy of the tree.
-
                       }
-
                       object "pine_canopy" : opt
-
                       {
-
                           int_range "canopy_height" // Number of layers for the canopy.
-
                           int "base_radius"<1-*> // Radius of the canopy.
-
                            "leaf_block" // The block that forms the canopy of the tree.
-
                       }
-
                       object "roofed_canopy" : opt
-
                       {
-
                           int "canopy_height"<3-*> // Roofed canopies feature a base and a top layer, and an extra cap layer on some occasions, this value controls the number of layers in the middle.
-
                           int "core_width"<1-*> // Width of the tree trunk.
-
                           int "outer_radius"<0-*> // Radius used for the base and top layers.
-
                           int "inner_radius"<0-*> // Radius used for the middle layers.
-
                            "leaf_block" // The block that forms the canopy of the tree.
-
                       }
-
                       object "spruce_canopy" : opt
-
                       {
-
                           int_range "lower_offset" // Min canopy position offset.
-
                           int_range "upper_offset" // Max canopy position offset.
-
                           int_range "max_radius" // Max radius of the canopy.
-
                            "leaf_block" // The block that forms the canopy of the tree.
-
                       }
-
                   }
-
               }
-
           }
-
           object "trunk" : opt
-
           {
-
               int_range "trunk_height" // Defines the height of the trunk.
-
               int_range "height_modifier" : opt // Modifier for the height of the trunk.
-
               object "can_be_submerged" : opt // Specifies if the trunk can be submerged.
-
               {
-
                   int "max_depth"<1-*> // Defines the max depth at which the trunk can be submerged.
-
               }
-
               bool "can_be_submerged" : opt // Specifies if the trunk can be submerged.
-
                "trunk_block" // The block that forms the tree trunk.
-
               object "trunk_decoration" : opt // Configuration object for the trunk decoration.
-
               {
-
                   chance_information "decoration_chance" // Probability of decorating the trunk.
-
                    "decoration_block" : opt // The block used for decorating the trunk.
-
                   int "num_steps" : opt // Number of decoration blocks to place.
-
                   enumerated_value "step_direction"<"down", "up", "out", "away"> : opt // Directions to spread decoration blocks.
-
               }
-
           }
-
           object "acacia_canopy" : opt
-
           {
-
               int "canopy_size"<1-*> // The size of the canopy.
-
                "leaf_block" // The block that forms the canopy of the tree.
-
               bool "simplify_canopy" : opt // If true the canopy uses a simple pattern.
-
           }
-
           object "canopy" : opt
-
           {
-
               object "canopy_offset" // Canopy position offset relative to the block above the trunk.
-
               {
-
                   int "min" // Min canopy position offset.
-
                   int "max" // Max canopy position offset.
-
               }
-
               int "min_width"<0-*> : opt // Min width for the canopy.
-
               object "canopy_slope" : opt // Configuration object for the canopy slope.
-
               {
-
                   int "rise"<1-*> : opt // The numerator for the slope fraction.
-
                   int "run"<1-*> : opt // The denominator for the slope fraction.
-
               }
-
               chance_information "variation_chance" : opt // Determines the chance of creating leaf blocks for every layer of the canopy. Larger numbers create a denser tree.
-
               array "variation_chance" : opt
-
               {
-
                   chance_information "<any array element>" : opt // Determines the chance of creating leaf blocks for every layer of the canopy. Larger numbers create a denser tree.
-
               }
-
                "leaf_block" // The block that forms the canopy of the tree.
-
               object "canopy_decoration" : opt // Configuration object for the canopy decoration.
-
               {
-
                   chance_information "decoration_chance" // Probability of decorating the trunk.
-
                    "decoration_block" : opt // The block used for decorating the trunk.
-
                   int "num_steps" : opt // Number of decoration blocks to place.
-
                   enumerated_value "step_direction"<"down", "up", "out", "away"> : opt // Directions to spread decoration blocks.
-
               }
-
           }
-
           object "cherry_canopy" : opt
-
           {
-
                "leaf_block" // The block that forms the canopy of the tree.
-
               int_range "height" // Number of layers for the canopy.
-
               int_range "radius" // The radius of the canopy.
-
               int "trunk_width"<1-*> : opt // The width of the tree trunk.
-
               chance_information "wide_bottom_layer_hole_chance" // Probability of the canopy having a hole in the bottom layer [0-100%].
-
               chance_information "corner_hole_chance" // Probability of the canopy having a hole in the corner [0-100%].
-
               chance_information "hanging_leaves_chance" // Probability of the canopy having hanging leaves [0-100%].
-
               chance_information "hanging_leaves_extension_chance" // Probability of hanging leaves extending further down [0-100%].
-
           }
-
           object "fancy_canopy" : opt
-
           {
-
               int "height"<1-*> // Number of layers for the canopy.
-
               int "radius"<0-*> // The radius of the canopy.
-
                "leaf_block" // The block that forms the canopy of the tree.
-
           }
-
           object "mangrove_canopy" : opt
-
           {
-
               int_range "canopy_height" // Number of layers for the canopy.
-
               int_range "canopy_radius" // Radius of the canopy.
-
               int "leaf_placement_attempts"<1-*> // Max number of attempts to create leaf blocks.
-
               array "leaf_blocks"
-
               {
-
                   array "<any array element>"[2] // The blocks that form the canopy of the tree.
-
                   {
-
                        "[0..0]"
-
                       float "[1..1]"
-
                   }
-
               }
-
               object "canopy_decoration" : opt // Configuration object for the canopy decoration.
-
               {
-
                   chance_information "decoration_chance" // Probability of decorating the trunk.
-
                    "decoration_block" : opt // The block used for decorating the trunk.
-
                   int "num_steps" : opt // Number of decoration blocks to place.
-
                   enumerated_value "step_direction"<"down", "up", "out", "away"> : opt // Directions to spread decoration blocks.
-
               }
-
                "hanging_block" // The block to be used as a hanging block.
-
               chance_information "hanging_block_placement_chance" // Probability of creating a hanging leaf block.
-
           }
-
           object "mega_canopy" : opt
-
           {
-
               int_range "canopy_height" // Number of layers for the canopy.
-
               int "base_radius"<0-*> // Radius of the canopy.
-
               int "core_width"<1-*> : opt // Width of the tree trunk.
-
               bool "simplify_canopy" : opt // If true the canopy uses a simple pattern.
-
                "leaf_block" // The block that forms the canopy of the tree.
-
           }
-
           object "mega_pine_canopy" : opt
-
           {
-
               int_range "canopy_height" // Number of layers for the canopy.
-
               int "base_radius"<0-*> // Radius of the canopy.
-
               float "radius_step_modifier"<0.000000-*> // Modifier for the base radius of the canopy.
-
               int "core_width"<1-*> : opt // Width of the tree trunk.
-
                "leaf_block" // The block that forms the canopy of the tree.
-
           }
-
           object "pine_canopy" : opt
-
           {
-
               int_range "canopy_height" // Number of layers for the canopy.
-
               int "base_radius"<1-*> // Radius of the canopy.
-
                "leaf_block" // The block that forms the canopy of the tree.
-
           }
-
           object "roofed_canopy" : opt
-
           {
-
               int "canopy_height"<3-*> // Roofed canopies feature a base and a top layer, and an extra cap layer on some occasions, this value controls the number of layers in the middle.
-
               int "core_width"<1-*> // Width of the tree trunk.
-
               int "outer_radius"<0-*> // Radius used for the base and top layers.
-
               int "inner_radius"<0-*> // Radius used for the middle layers.
-
                "leaf_block" // The block that forms the canopy of the tree.
-
           }
-
           object "spruce_canopy" : opt
-
           {
-
               int_range "lower_offset" // Min canopy position offset.
-
               int_range "upper_offset" // Max canopy position offset.
-
               int_range "max_radius" // Max radius of the canopy.
-
                "leaf_block" // The block that forms the canopy of the tree.
-
           }
-
           object "random_spread_canopy" : opt
-
           {
-
               int_range "canopy_height" // Number of layers for the canopy.
-
               int_range "canopy_radius" // Radius of the canopy.
-
               int "leaf_placement_attempts"<1-*> // Max number of attempts to create leaf blocks.
-
               array "leaf_blocks"
-
               {
-
                   array "<any array element>"[2] // The blocks that form the canopy of the tree.
-
                   {
-
                        "[0..0]"
-
                       float "[1..1]"
-
                   }
-
               }
-
           }
-
           object "mangrove_roots" : opt
-
           {
-
               int "max_root_width"<1-*> // Max width that the roots can occupy. The width increases up to the max width while moving downwards. When a max width is reached, roots will grow vertically.
-
               int "max_root_length"<1-*> // Max length for the roots.
-
                "root_block" // The block used for the roots.
-
               object "above_root" : opt // Configuration object for blocks decorating the top of the roots.
-
               {
-
                   chance_information "above_root_chance" : opt // Probability of creating a block above the root.
-
                    "above_root_block" : opt // The block placed on the top of the roots.
-
               }
-
                "muddy_root_block" // The block used for muddy roots.
-
                "mud_block" // The block used to determine if a muddy root should be placed.
-
               int_range "y_offset" // Root offset from the trunk.
-
               array "roots_may_grow_through"
-
               {
-
                    "<any array element>" // List of blocks that a root can grow through.
-
               }
-
               object "root_decoration" : opt // Configuration object for the root decoration.
-
               {
-
                   chance_information "decoration_chance" // Probability of decorating the trunk.
-
                    "decoration_block" : opt // The block used for decorating the trunk.
-
                   int "num_steps" : opt // Number of decoration blocks to place.
-
                   enumerated_value "step_direction"<"down", "up", "out", "away"> : opt // Directions to spread decoration blocks.
-
               }
-
           }
-
       }
-
       object "minecraft:vegetation_patch_feature" : opt
-
       {
-
           object "description"
-
           {
-
               string "identifier" // The name of this feature in the form 'namespace_name:feature_name'. 'feature_name' must match the filename.
-
           }
-
           array "replaceable_blocks"
-
           {
-
                "<any array element>" : opt // Blocks that can be replaced by the ground blocks on the patch.
-
           }
-
            "ground_block" // Block used to create a base for the vegetation patch.
-
           feature_reference "vegetation_feature" // Feature that will be placed by the patch.
-
           string "surface" : opt // Determines if a vegetation patch will grow from the ceiling or the floor.
-
           int_range "depth" // Depth of the base covered by the ground blocks.
-
           float "extra_deep_block_chance" : opt // Probability of putting the ground blocks one block deeper. Adds some randomness to the bottom of the patch.
-
           int "vertical_range" // Vertical range used to determine a suitable surface position for the patch.
-
           float "vegetation_chance" : opt // Probability of spawning vegetation on the patch. Larger numbers create a denser vegetation patch.
-
           int_range "horizontal_radius" // Horizontal area that the vegetation patch will cover.
-
           float "extra_edge_column_chance"<0.000000-*> : opt // Probability of spawning vegetation on the edge of the patch radius.
-
           bool "waterlogged" : opt // If true, waterlogs the positions occupied by the ground blocks.
-
       }
-
       object "minecraft:weighted_random_feature" : opt
-
       {
-
           object "description"
-
           {
-
               string "identifier" // The name of this feature in the form 'namespace_name:feature_name'. 'feature_name' must match the filename.
-
           }
-
           array "features"[1,*]
-
           {
-
               array "<any array element>"[2] : opt // Collection of weighted features that placement will select from.
-
               {
-
                   feature_reference "[0..0]" // Named reference to a feature.
-
                   float "[1..1]" // Weight used in random selection. Value is relative to other weights in the collection.
-
               }
-
           }
-
       }
-
   }
 ```
 
@@ -3784,86 +2222,49 @@ Features must be attached to at least one biome in order to show up in the world
 
 Feature rules are separate JSON definition files found in the "feature_rules" subfolder of behavior packs. Feature rules follow the same filename rules as features. Each feature rule controls exactly one feature and serves as the root of a chain of feature data. To attach a feature to a biome with a feature rule, the "conditions" object must include the "minecraft:biome_filter" field. This is a list of filter tests that are performed on each biome to determine if the feature should be attached. Most relevant is the "has_biome_tag" test.
 
+
 Here is a sample feature rule
 
 
 ```json
 {
-
   "format_version": "1.13.0",
-
   "minecraft:feature_rules": {
-
     "description": {
-
       "identifier": "minecraft:birch_forest_surface_trees_feature",
-
       "places_feature": "minecraft:legacy:birch_forest_tree_feature"
-
     },
-
     "conditions": {
-
       "placement_pass": "surface_pass",
-
       "minecraft:biome_filter": [
-
         {
-
           "test": "has_biome_tag",
-
           "operator": "==",
-
           "value": "forest"
-
         },
-
         {
-
           "all_of": [
-
             {
-
               "test": "has_biome_tag",
-
               "operator": "==",
-
               "value": "birch"
-
             },
-
             {
-
               "test": "has_biome_tag",
-
               "operator": "!=",
-
               "value": "mutated"
-
             }
-
           ]
-
         }
-
       ]
-
     },
-
     "distribution": {
-
       "iterations": 1,
-
       "x": 0,
-
       "y": 0,
-
       "z": 0
-
     }
-
   }
-
 }
 ```
 

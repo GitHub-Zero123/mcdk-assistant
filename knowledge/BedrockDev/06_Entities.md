@@ -1,4 +1,4 @@
-# ENTITIES DOCUMENTATION Version: 1.21.90.3
+# ENTITIES DOCUMENTATION Version: 1.21.120.4
 
 
 ## Index
@@ -7,78 +7,52 @@
 # Client Entity Documentation
 
 
-Client entity definitions are contained within a Resource Pack. To start, create a new folder and name it "entity" inside the root of the Resource Pack. In the entity folder create a JSON file and give it a name.The JSON file needs a format version and minecraft:client_entity information.The minecraft:client_entity section contains the description for the entity. Under description there are a number of things that you can set about an entity. Generally, this file is defining what resources a mob requires and gives a friendly name to each, that the other definition files can use.
+Client entity definitions are contained within a Resource Pack.
+
+
+To start, create a new folder and name it "entity" inside the root of the Resource Pack. In the entity folder create a JSON file and give it a name.The JSON file needs a format version and minecraft:client_entity information.
+
+
+The minecraft:client_entity section contains the description for the entity. Under description there are a number of things that you can set about an entity. Generally, this file is defining what resources a mob requires and gives a friendly name to each, that the other definition files can use.
+
 
 Example client entity definitions JSON for the pig
 
 
 ```json
 "format_version": "1.8.0",
-
   "minecraft:client_entity": {
-
      "description": {
-
        "identifier": "minecraft:pig",
-
        "min_engine_version": "1.8.0",
-
        "materials": { "default": "pig" },
-
        "textures": {
-
          "default": "textures/entity/pig/pig",
-
          "saddled": "textures/entity/pig/pig_saddle"
-
        },
-
        "geometry": {
-
          "default": "geometry.pig.v1.8"
-
        },
-
        "animations": {
-
          "setup": "animation.pig.setup",
-
          "walk": "animation.quadruped.walk",
-
          "look_at_target": "animation.common.look_at_target",
-
          "baby_transform": "animation.pig.baby_transform"
-
        },
-
        "animation_controllers": [
-
          { "setup": "controller.animation.pig.setup" },
-
          { "move": "controller.animation.pig.move" },
-
          { "baby": "controller.animation.pig.baby" }
-
        ],
-
        "render_controllers": [ "controller.render.pig" ],
-
        "locators": {
-
          "lead": { "head": [ 0.0, 14.0, -6.0 ] }
-
        },
-
        "spawn_egg": {
-
          "texture": "spawn_egg",
-
          "texture_index": 2
-
        }
-
      }
-
    }
 ```
 
@@ -97,11 +71,8 @@ Example Spawn Egg using hex value
 
 ```json
 "spawn_egg": {
-
   "base_color": "#53443E",
-
   "overlay_color": "#2E6854"
-
 }
 ```
 
@@ -109,18 +80,19 @@ Example Spawn Egg using hex value
 ## Texture
 
 
-The other way is to specify a texture.Example Spawn Egg specifying a texture. The texture is located in the "items_texture" JSON in the textures folder of the Resource Pack. When there are more than one texture associated with a texture name you can use an index to pick the one that you want. If no index is specified than it is assumed to be 0 and the first texture in the list is used.
+The other way is to specify a texture.
+
+
+Example Spawn Egg specifying a texture. The texture is located in the "items_texture" JSON in the textures folder of the Resource Pack. When there are more than one texture associated with a texture name you can use an index to pick the one that you want. If no index is specified than it is assumed to be 0 and the first texture in the list is used.
+
 
 Example Spawn Egg specifying a texture
 
 
 ```json
 "spawn_egg": {
-
-  "texture": "spawn_egg",
-
+  "texture": "spawn_egg", 
   "texture_index": 2
-
 }
 ```
 
@@ -184,9 +156,7 @@ Locator offsets are specified in model space. An example of a locator is the "le
 
 ```json
 "locators": {
-
   "lead": { "head": [ 0.0, 14.0, -6.0 ] }
-
 }
 ```
 
@@ -194,13 +164,19 @@ Locator offsets are specified in model space. An example of a locator is the "le
 # materials, textures, animations
 
 
-Players can set the materials, texture and geometry used for the entity in this section. Players can set one or more materials, textures, and geometries that can be used by the mob. Players must set user defined names for them. These names are used in the Render Controllers JSON. Players can reference materials, textures, and geometry from the vanilla Minecraft Resource Pack or create their own.  Custom materials, textures, and geometry should be in the corresponding folder at the root of the Resource Pack.
+Players can set the materials, texture and geometry used for the entity in this section. Players can set one or more materials, textures, and geometries that can be used by the mob. Players must set user defined names for them. These names are used in the Render Controllers JSON. Players can reference materials, textures, and geometry from the vanilla Minecraft Resource Pack or create their own. Custom materials, textures, and geometry should be in the corresponding folder at the root of the Resource Pack.
 
 
 # min_engine_version
 
 
-When present, players can set the min version needed to allow the JSON to be parsed. The version in the definition is compared to the engine version for which the top resource pack was built.If a definition's min_engine_version is newer than that pack's engine version then the definition is not parsed.Multiple definition files may use the same identifier, in which case only one of those definitions will be loaded. The definition with the same or closest and not greater min_engine_version, as compared to the top resource pack's engine version, will be parsed; all other definitions with the same identifier will not be parsed.This can be useful for continuing to support an older version of an entity, when an older resource pack is used at the top of the resource pack stack, while also supporting a newer version of the entity in all other cases.
+When present, players can set the min version needed to allow the JSON to be parsed. The version in the definition is compared to the engine version for which the top resource pack was built.If a definition's min_engine_version is newer than that pack's engine version then the definition is not parsed.
+
+
+Multiple definition files may use the same identifier, in which case only one of those definitions will be loaded. The definition with the same or closest and not greater min_engine_version, as compared to the top resource pack's engine version, will be parsed; all other definitions with the same identifier will not be parsed.
+
+
+This can be useful for continuing to support an older version of an entity, when an older resource pack is used at the top of the resource pack stack, while also supporting a newer version of the entity in all other cases.
 
 
 # particle
@@ -218,22 +194,24 @@ Specifies the names of render controllers. This name needs to match the name of 
 # scripts
 
 
-Scripts allow players to use Molang to compute calculations once and store that value. This value than can be used over and over again without the need to constantly recompute the calculations. Scripts currently support pre - animation and scale.More script types will be added later.-Pre-animation scripts are evaluated immediately before animations are processed.-Scale sets the scale of the mob's geometry.
+Scripts allow players to use Molang to compute calculations once and store that value. This value than can be used over and over again without the need to constantly recompute the calculations. Scripts currently support pre - animation and scale.More script types will be added later.
+
+
+-Pre-animation scripts are evaluated immediately before animations are processed.
+
+
+-Scale sets the scale of the mob's geometry.
+
 
 Example pre-animation script for cod
 
 
 ```json
 "scripts": {
-
   "pre_animation": [
-
     "variable.ZRot = !query.is_in_water ? Math.cos((query.time_stamp + global.frame_alpha) * 14.32) * 90 : 0.0;",
-
     "variable.AnimationAmountBlend = Math.lerp(variable.AnimationAmountPrev, variable.AnimationAmount, global.frame_alpha);"
-
   ]
-
 },
 ```
 
@@ -243,9 +221,7 @@ Example scale script for the bat
 
 ```json
 "scripts": {
-
   "scale": "0.35"
-
 },
 ```
 
@@ -377,7 +353,22 @@ Conditions contain different components that players can use to customize natura
 ## Getting Started
 
 
-New Spawn Rules are contained within a Behavior Pack. To begin, create a new folder named "spawn_rules" in the root of the Behavior Pack that you want to add the new biome spawn rules in. In the spawn_rules folder, create a JSON file and give it a name. The JSON file needs a format, description and conditions.Spawn rules contain description and conditionsAll Spawn Rules JSON need to have an ID (located under the description section). Similar to other identifiers, it follows the convention "namespace:name". The minecraft namespace is reserved for the vanilla Minecraft rules.When changing an existing mob use the ID that appears in the entity JSON for that entity. When creating your own mob, make sure the mobs have the same ID in all the entity's JSON files.Spawn Rules also needs to define the pool that is used for population control.Each pool has their own spawn limit, By setting an entity to a pool it will spawn as long as that pool hasn't reached the spawn limit.There are 3 pools that entities can be assigned to :-animal-water_animal-monster
+New Spawn Rules are contained within a Behavior Pack. To begin, create a new folder named "spawn_rules" in the root of the Behavior Pack that you want to add the new biome spawn rules in. In the spawn_rules folder, create a JSON file and give it a name. The JSON file needs a format, description and conditions.Spawn rules contain description and conditionsAll Spawn Rules JSON need to have an ID (located under the description section). Similar to other identifiers, it follows the convention "namespace:name". The minecraft namespace is reserved for the vanilla Minecraft rules.When changing an existing mob use the ID that appears in the entity JSON for that entity. When creating your own mob, make sure the mobs have the same ID in all the entity's JSON files.
+
+
+Spawn Rules also needs to define the pool that is used for population control.Each pool has their own spawn limit, By setting an entity to a pool it will spawn as long as that pool hasn't reached the spawn limit.
+
+
+There are 3 pools that entities can be assigned to :
+
+
+-animal
+
+
+-water_animal
+
+
+-monster
 
 
 ## Tagged Biomes
@@ -460,83 +451,44 @@ Example Spawn Rules for the zombie
 
 ```json
 "format_version": "1.8.0",
-
   "minecraft:spawn_rules": {
-
     "description": {
-
       "identifier": "minecraft:zombie",
-
       "population_control": "monster"
-
     },
-
     "conditions": [
-
       {
-
         "minecraft:spawns_on_surface": {},
-
         "minecraft:brightness_filter": {
-
           "min": 0,
-
           "max": 7,
-
           "adjust_for_weather": true
-
         },
-
         "minecraft:difficulty_filter": {
-
           "min": "easy",
-
           "max": "hard"
-
         },
-
         "minecraft:weight": {
-
           "default": 100
-
         },
-
         "minecraft:herd": {
-
           "min_size": 2,
-
           "max_size": 4
-
         },
-
         "minecraft:permute_type": [
-
           {
-
             "weight": 95
-
           },
-
           {
-
             "weight": 5,
-
             "entity_type": "minecraft:zombie_villager"
-
           }
-
         ],
-
         "minecraft:biome_filter": {
-
           "test": "has_biome_tag", "operator": "==", "value": "monster"
-
         }
-
       }
-
     ]
-
   }
 ```
 
@@ -544,7 +496,46 @@ Example Spawn Rules for the zombie
 # Filters
 
 
-Filters allow data objects to specify test criteria which allows their use.For example, a model that includes a filter will only be used when the filter criteria is true.A typical filter consists of four parameters: name: the name of the test to apply. domain: the domain the test should be performed in. An armor slot, for example. This parameter is only used by a few tests. operator: the comparison to apply with the value, such as 'equal' or 'greater'. value: the value being compared with the test.A typical filter looks like the following: { "test" : "moon_intensity", "subject" : "self", "operator" : "greater", "value" : "0.5" } Which results in the calling entity (self) calculating the moon_intensity at its location and returning true if the result is greater than 0.5.Tests can be combined into groups using the collections 'all_of', 'any_of', or 'none_of'. All tests in an 'all_of' group must pass in order for the group to pass. One or more tests in an 'any_of' group must pass in order for the group to pass. All tests in a 'none_of' group must fail in order for the group to pass.
+Filters allow data objects to specify test criteria which allows their use.
+
+
+For example, a model that includes a filter will only be used when the filter criteria is true.
+
+
+A typical filter consists of four parameters:
+
+
+name: the name of the test to apply.
+
+
+domain: the domain the test should be performed in. An armor slot, for example. This parameter is only used by a few tests.
+
+
+operator: the comparison to apply with the value, such as 'equal' or 'greater'.
+
+
+value: the value being compared with the test.
+
+
+A typical filter looks like the following:
+
+
+{ "test" : "moon_intensity", "subject" : "self", "operator" : "greater", "value" : "0.5" }
+
+
+Which results in the calling entity (self) calculating the moon_intensity at its location and returning true if the result is greater than 0.5.
+
+
+Tests can be combined into groups using the collections 'all_of', 'any_of', or 'none_of'.
+
+
+All tests in an 'all_of' group must pass in order for the group to pass.
+
+
+One or more tests in an 'any_of' group must pass in order for the group to pass.
+
+
+All tests in a 'none_of' group must fail in order for the group to pass.
 
 
 # actor_health
@@ -667,6 +658,7 @@ Returns true when the designated equipment location for the subject entity is co
 | head |  |
 | inventory |  |
 | leg |  |
+| main_hand |  |
 | torso |  |
 
 
@@ -746,6 +738,7 @@ Returns true when the designated equipment location for the subject entity has a
 | head |  |
 | inventory |  |
 | leg |  |
+| main_hand |  |
 | torso |  |
 
 
@@ -835,11 +828,7 @@ Short (using Defaults)..
 # clock_time
 
 
-Compares the current time with a float value in the range (0.0, 1.0).
-0.0= Noon
-0.25= Sunset
-0.5= Midnight
-0.75= Sunrise
+Compares the current time with a float value in the range (0.0, 1.0). 0.0= Noon 0.25= Sunset 0.5= Midnight 0.75= Sunrise
 
 
 | Name | Type | Default | Description |
@@ -1484,6 +1473,7 @@ Tests for the presence of a damaged named item in the designated slot of the sub
 | head |  |
 | inventory |  |
 | leg |  |
+| main_hand |  |
 | torso |  |
 
 
@@ -1564,6 +1554,7 @@ Tests for the presence of a named item in the designated slot of the subject ent
 | head |  |
 | inventory |  |
 | leg |  |
+| main_hand |  |
 | torso |  |
 
 
@@ -1644,6 +1635,7 @@ Tests for the presence of an item with the named tag in the designated slot of t
 | head |  |
 | inventory |  |
 | leg |  |
+| main_hand |  |
 | torso |  |
 
 
@@ -6998,6 +6990,69 @@ Short (using Defaults)..
 ```
 
 
+# y_rotation
+
+
+Returns the Y rotation of this entity.
+
+
+| Name | Type | Default | Description |
+| --- | --- | --- | --- |
+| operator | String | equals | (Optional) The comparison to apply with 'value'. |
+| subject | String | self | (Optional) The subject of this filter test. |
+| value | Decimal |  | (Required) A floating point value. |
+
+
+> **operator** 子参数
+
+
+| Options | Description |
+| --- | --- |
+| != | Test for inequality. |
+| < | Test for less-than the value. |
+| <= | Test for less-than or equal to the value. |
+| <> | Test for inequality. |
+| = | Test for equality. |
+| == | Test for equality. |
+| > | Test for greater-than the value. |
+| >= | Test for greater-than or equal to the value. |
+| equals | Test for equality. |
+| not | Test for inequality. |
+
+
+> **subject** 子参数
+
+
+| Options | Description |
+| --- | --- |
+| block | The block involved with the interaction. |
+| damager | The damaging actor involved with the interaction. |
+| other | The other member of an interaction, not the caller. |
+| parent | The caller's current parent. |
+| player | The player involved with the interaction. |
+| self | The entity or object calling the test |
+| target | The caller's current target. |
+
+
+## Examples
+
+
+Full..
+
+
+```json
+{ "test": "y_rotation", "subject": "self", "operator": "equals", "value": "0.00" }
+```
+
+
+Short (using Defaults)..
+
+
+```json
+{ "test": "y_rotation", "value": "0.00" }
+```
+
+
 ## Example:
 
 
@@ -7007,12 +7062,9 @@ This filter group will pass only when the moon_intensity is greater than 0.5 AND
 ```json
 "all_of" : [
 
+:   { "test" : "moon_intensity", "subject" : "self", "operator" : "greater", "value" : "0.5" }, 
 
-:   { "test" : "moon_intensity", "subject" : "self", "operator" : "greater", "value" : "0.5" },
-
-
-:   { "test" : "in_water", "subject" : "target", "operator" : "equal", "value" : "true" }
-
+:   { "test" : "in_water", "subject" : "target", "operator" : "equal", "value" : "true" } 
 
 : ]
 ```
@@ -7036,7 +7088,7 @@ Enables the mob to admire items that have been configured as admirable. Must be 
 | sound_interval | Range [a, b] | 0 | The range of time in seconds to randomly wait before playing the sound again. |
 
 
-## minecraft:behavior.avoid_block
+## minecraft:behavior.avoid_block (See JSON Schema since 1.21.120)
 
 
 Allows this entity to avoid certain blocks.
@@ -7048,7 +7100,7 @@ Allows this entity to avoid certain blocks.
 | on_escape | Array |  | Escape trigger. |
 | search_height | Integer | 0 | Maximum distance to look for a block in y. |
 | search_range | Integer | 0 | Maximum distance to look for a block in xz. |
-| sound_interval | Range [a, b] | [3.0, 8.0] | The range of time in seconds to randomly wait before playing the sound again. |
+| sound_interval | Range [a, b] | [3, 8] | The range of time in seconds to randomly wait before playing the sound again. |
 | sprint_speed_modifier | Decimal | 1.0 | Modifier for sprint speed. 1.0 means keep the regular speed, while higher numbers make the sprint speed faster. |
 | target_blocks | Array |  | List of block types this mob avoids. |
 | target_selection_method | String | nearest | Block search method. |
@@ -7056,7 +7108,7 @@ Allows this entity to avoid certain blocks.
 | walk_speed_modifier | Decimal | 1.0 | Modifier for walking speed. 1.0 means keep the regular speed, while higher numbers make the walking speed faster. |
 
 
-## minecraft:behavior.avoid_mob_type
+## minecraft:behavior.avoid_mob_type (See JSON Schema since 1.21.120)
 
 
 Allows the entity to run away from other entities that meet the criteria specified.
@@ -7074,7 +7126,7 @@ Allows the entity to run away from other entities that meet the criteria specifi
 | on_escape_event | Trigger |  | Event that is triggered when escaping from a mob. |
 | probability_per_strength | Decimal | 1.0 | Percent chance this entity will stop avoiding another entity based on that entity's strength, where 1.0 = 100%. |
 | remove_target | Boolean | false | Determine if we should remove target when fleeing or not. |
-| sound_interval | Range [a, b] | [3.0, 8.0] | The range of time in seconds to randomly wait before playing the sound again. |
+| sound_interval | Range [a, b] | [3, 8] | The range of time in seconds to randomly wait before playing the sound again. |
 | sprint_distance | Decimal | 7.0 | How many blocks within range of its avoid target the entity must be for it to begin sprinting away from the avoid target. |
 | sprint_speed_multiplier | Decimal | 1.0 | Multiplier for sprint speed. 1.0 means keep the regular speed, while higher numbers make the sprint speed faster. |
 | walk_speed_multiplier | Decimal | 1.0 | Multiplier for walking speed. 1.0 means keep the regular speed, while higher numbers make the walking speed faster. |
@@ -7144,7 +7196,7 @@ Allows this entity to celebrate surviving a raid by shooting fireworks.
 | on_celebration_end_event | Trigger |  | The event to trigger when the goal's duration expires. |
 
 
-## minecraft:behavior.charge_attack
+## minecraft:behavior.charge_attack (See JSON Schema since 1.21.100)
 
 
 Allows this entity to damage a target by using a running attack.
@@ -7169,7 +7221,7 @@ Allows an entity to charge and use their held item.
 | items | Array | NA | The list of items that can be used to charge the held item. This list is required and must have at least one item in it. |
 
 
-## minecraft:behavior.circle_around_anchor
+## minecraft:behavior.circle_around_anchor (See JSON Schema since 1.21.100)
 
 
 Causes an entity to circle around an anchor point placed near a point or target.
@@ -7179,16 +7231,16 @@ Causes an entity to circle around an anchor point placed near a point or target.
 | --- | --- | --- | --- |
 | angle_change | Decimal | 15.0 | Number of degrees to change this entity's facing by, when the entity selects its next anchor point. |
 | goal_radius | Decimal | 0.5 | Maximum distance from the anchor-point in which this entity considers itself to have reached the anchor point. This is to prevent the entity from bouncing back and forth trying to reach a specific spot. |
-| height_above_target_range | Range [a, b] | [0.0, 0.0] | The number of blocks above the target that the next anchor point can be set. This value is used only when the entity is tracking a target. |
+| height_above_target_range | Range [a, b] | [0, 0] | The number of blocks above the target that the next anchor point can be set. This value is used only when the entity is tracking a target. |
 | height_adjustment_chance | Decimal | 0.002857 | Percent chance to determine how often to increase or decrease the current height around the anchor point. 1 = 100%. "height_change_chance" is deprecated and has been replaced with "height_adjustment_chance". |
-| height_offset_range | Range [a, b] | [0.0, 0.0] | Vertical distance from the anchor point this entity must stay within, upon a successful height adjustment. |
+| height_offset_range | Range [a, b] | [0, 0] | Vertical distance from the anchor point this entity must stay within, upon a successful height adjustment. |
 | radius_adjustment_chance | Decimal | 0.004 | Percent chance to determine how often to increase the size of the current movement radius around the anchor point. 1 = 100%. "radius_change_chance" is deprecated and has been replaced with "radius_adjustment_chance". |
 | radius_change | Decimal | 1.0 | The number of blocks to increase the current movement radius by, upon successful "radius_adjustment_chance". If the current radius increases over the range maximum, the current radius will be set back to the range minimum and the entity will change between clockwise and counter-clockwise movement.. |
-| radius_range | Range [a, b] | [5.0, 15.0] | Horizontal distance from the anchor point this entity must stay within upon a successful radius adjustment. |
+| radius_range | Range [a, b] | [5, 15] | Horizontal distance from the anchor point this entity must stay within upon a successful radius adjustment. |
 | speed_multiplier | Decimal | 1.0 | Multiplies the speed at which this entity travels to its next desired position. |
 
 
-## minecraft:behavior.controlled_by_player
+## minecraft:behavior.controlled_by_player (See JSON Schema since 1.21.100)
 
 
 Allows the entity to be controlled by the player using an item in the item_controllable property (required). Also requires the minecraft:movement property, and the minecraft:rideable property. On every tick, the entity will attempt to rotate towards where the player is facing with the control item whilst simultaneously moving forward.
@@ -7295,7 +7347,7 @@ Allows an entity to attack, while also delaying the damage-dealt until a specifi
 | y_max_head_rotation | Decimal | 30 | Maximum rotation (in degrees), on the Y-axis, this entity can rotate its head while trying to look at the target. |
 
 
-## minecraft:behavior.dig
+## minecraft:behavior.dig (See JSON Schema since 1.21.120)
 
 
 Allows this entity to dig into the ground before despawning.
@@ -7339,7 +7391,7 @@ Allows this entity to attack a player by charging at them. The player is chosen 
 Allows the dragon to go out with glory. This controls the Ender Dragon's death animation and can't be used by other mobs.
 
 
-## minecraft:behavior.dragonflaming
+## minecraft:behavior.dragonflaming (See JSON Schema since 1.21.100)
 
 
 Allows this entity to use a flame-breath attack. Can only be used by the Ender Dragon.
@@ -7395,7 +7447,7 @@ Allows this entity to fly around looking for a player to shoot fireballs at. Can
 Allows the dragon to leave perch mode and go back to flying around. Can only be used by the Ender Dragon.
 
 
-## minecraft:behavior.drink_milk
+## minecraft:behavior.drink_milk (See JSON Schema since 1.21.120)
 
 
 Allows the mob to drink milk based on specified environment conditions.
@@ -7481,7 +7533,7 @@ If the mob is carrying a food item, the mob will eat it and the effects will be 
 | delay_before_eating | Decimal |  | Time in seconds the mob should wait before eating the item. |
 
 
-## minecraft:behavior.eat_mob
+## minecraft:behavior.eat_mob (See JSON Schema since 1.21.100)
 
 
 Allows the entity to eat a specified Mob.
@@ -8406,7 +8458,10 @@ Allows entities with the "minecraft:dweller" component to move toward their Vill
 ## minecraft:behavior.move_towards_home_restriction
 
 
-Allows entities with a "minecraft:home" component to move towards their home position. 		If "restriction_radius" is set, entities will be able to run this behavior only if outside of it.
+Allows entities with a "minecraft:home" component to move towards their home position.
+
+
+If "restriction_radius" is set, entities will be able to run this behavior only if outside of it.
 
 
 | Name | Type | Default Value | Description |
@@ -8447,7 +8502,7 @@ Allows an entity to attack the closest target within a given subset of specific 
 
 | Name | Type | Default Value | Description |
 | --- | --- | --- | --- |
-| attack_interval|attack_interval_min | Integer | 0 | Time range (in seconds) between searching for an attack target, range is in (0, "attack_interval"]. Only used if "attack_interval" is greater than 0, otherwise "scan_interval" is used. |
+| attack_interval\|attack_interval_min | Integer | 0 | Time range (in seconds) between searching for an attack target, range is in (0, "attack_interval"]. Only used if "attack_interval" is greater than 0, otherwise "scan_interval" is used. |
 | attack_owner | Boolean | false | If true, this entity can attack its owner. |
 | entity_types | Minecraft Filter |  | Filters which types of targets are valid for this entity. |
 | must_reach | Boolean | false | If true, this entity requires a path to the target. |
@@ -8656,6 +8711,21 @@ Allows the mob to pick up items on the ground.
 | pickup_based_on_chance | Boolean | false | If true, depending on the difficulty, there is a random chance that the mob may not be able to pickup items |
 | speed_multiplier | Decimal | 1.0 | Movement speed multiplier of the mob when using this AI Goal |
 | track_target | Boolean | false | If true, this mob will chase after the target as long as it's a valid target |
+
+
+## minecraft:behavior.place_block
+
+
+| Name | Type | Default Value | Description |
+| --- | --- | --- | --- |
+| affected_by_griefing_rule | Boolean |  | If true, whether the goal is affected by the mob griefing game rule. |
+| can_place | Minecraft Filter |  | Filters for if the entity should try to place its block. Self and Target are set. |
+| chance | Decimal |  | Chance each tick for the entity to try and place a block. |
+| on_place | Trigger |  | Trigger ran if the entity does place its block. Self, Target, and Block are set. |
+| placeable_carried_blocks | Array |  | Block descriptors for which blocks are valid to be placed from the entity's carried item, if empty all blocks are valid. |
+| randomly_placeable_blocks | Array |  | Weighted block descriptors for which blocks should be randomly placed, if empty the entity will try to place its carried block from placeable_carried_blocks. |
+| xz_range | Range [a, b] |  | XZ range from which the entity will try and place blocks in. |
+| y_range | Range [a, b] |  | Y range from which the entity will try and place blocks in. |
 
 
 ## minecraft:behavior.play
@@ -8944,7 +9014,7 @@ Allows the mob to stay at a certain level when in liquid.
 | sink_delta | Decimal | 0.0 | Movement down in Y per tick when above the liquid surface. |
 
 
-## minecraft:behavior.roar
+## minecraft:behavior.roar (See JSON Schema since 1.21.110)
 
 
 Allows this entity to roar at another entity based on data in minecraft:anger_level. Once the anger threshold specified in minecraft:anger_level has been reached, this entity will roar for the specified amount of time, look at the other entity, apply anger boost towards it, and finally target it.
@@ -9081,7 +9151,7 @@ Allows mobs that own a bed to in a village to move to and sleep in it.
 | timeout_cooldown | Decimal | 8.0 | The cooldown time in seconds before the goal can be reused after a internal failure or timeout condition |
 
 
-## minecraft:behavior.slime_attack
+## minecraft:behavior.slime_attack (See JSON Schema since 1.21.110)
 
 
 Causes the entity to grow tired every once in a while, while attacking.
@@ -9095,7 +9165,7 @@ Causes the entity to grow tired every once in a while, while attacking.
 | y_max_rotation | Decimal | 10 | Maximum rotation (in degrees), on the Y-axis, this entity can rotate while trying to look at the target. |
 
 
-## minecraft:behavior.slime_float
+## minecraft:behavior.slime_float (See JSON Schema since 1.21.110)
 
 
 Allow slimes to float in water / lava. Can only be used by Slime and Magma Cubes.
@@ -9107,7 +9177,7 @@ Allow slimes to float in water / lava. Can only be used by Slime and Magma Cubes
 | speed_multiplier | Decimal | 1.2 | Determines the multiplier the entity's speed is modified by when moving through water / lava. |
 
 
-## minecraft:behavior.slime_keep_on_jumping
+## minecraft:behavior.slime_keep_on_jumping (See JSON Schema since 1.21.110)
 
 
 Allows the entity to continuously jump around like a slime.
@@ -9118,7 +9188,7 @@ Allows the entity to continuously jump around like a slime.
 | speed_multiplier | Decimal | 1 | Determines the multiplier this entity's speed is modified by when jumping around. |
 
 
-## minecraft:behavior.slime_random_direction
+## minecraft:behavior.slime_random_direction (See JSON Schema since 1.21.110)
 
 
 Allows the entity to move in random directions like a slime.
@@ -9179,7 +9249,7 @@ Allows the mob to stop and sneeze possibly startling nearby mobs and dropping an
 | walk_speed_multiplier | Decimal | 1.0 | Multiplier for the walking speed. A value of 1.0 means the speed is unchanged |
 
 
-## minecraft:behavior.sniff
+## minecraft:behavior.sniff (See JSON Schema since 1.21.110)
 
 
 Allows this entity to detect the nearest player within "sniffing_radius" and update its "minecraft:suspect_tracking" component state
@@ -9187,14 +9257,14 @@ Allows this entity to detect the nearest player within "sniffing_radius" and upd
 
 | Name | Type | Default Value | Description |
 | --- | --- | --- | --- |
-| cooldown_range | Range [a, b] | [3.0, 10.0] | Cooldown range between sniffs in seconds |
+| cooldown_range | Range [a, b] | [3, 10] | Cooldown range between sniffs in seconds |
 | duration | Decimal | 1.0 | Sniffing duration in seconds |
 | sniffing_radius | Decimal | 5.0 | Mob detection radius |
 | suspicion_radius_horizontal | Decimal | 3.0 | Mob suspicion horizontal radius. When a player is within this radius horizontally, the anger level towards that player is increased |
 | suspicion_radius_vertical | Decimal | 3.0 | Mob suspicion vertical radius. When a player is within this radius vertically, the anger level towards that player is increased |
 
 
-## minecraft:behavior.sonic_boom
+## minecraft:behavior.sonic_boom (See JSON Schema since 1.21.110)
 
 
 Allows this entity to perform a 'sonic boom' ranged attack
@@ -9208,7 +9278,7 @@ Allows this entity to perform a 'sonic boom' ranged attack
 | attack_range_vertical | Decimal | 20.00 | Vertical range (in blocks) at which the sonic boom can damage the target. |
 | attack_sound | String |  | Sound event for the attack. |
 | charge_sound | String |  | Sound event for the charge up. |
-| duration | Decimal | 3.00 | Goal duration in seconds |
+| duration | Decimal | 0.00 | Goal duration in seconds |
 | duration_until_attack_sound | Decimal | 1.70 | Duration in seconds until the attack sound is played. |
 | knockback_height_cap | Decimal | 0.00 | Height cap of the attack knockback's vertical delta. |
 | knockback_horizontal_strength | Decimal | 0.00 | Horizontal strength of the attack's knockback applied to the attack target. |
@@ -9265,7 +9335,7 @@ Allows a mob to stalk a target, then once within range pounce onto a target, on 
 | stuck_time | Decimal | 2.0 | The amount of time the mob will be stuck if they fail and land on a block they can be stuck on |
 
 
-## minecraft:behavior.stay_near_noteblock
+## minecraft:behavior.stay_near_noteblock (See JSON Schema since 1.21.110)
 
 
 The entity will attempt to toss the items from its inventory to a nearby recently played noteblock.
@@ -9406,7 +9476,7 @@ Allows the creeper to swell up when a player is nearby. It can only be used by C
 | stop_distance | Decimal | 2 | This mob stops swelling when a target has moved away at least this many blocks |
 
 
-## minecraft:behavior.swim_idle
+## minecraft:behavior.swim_idle (See JSON Schema since 1.21.110)
 
 
 Allows the entity go idle, if swimming. Entity must be in water.
@@ -9418,7 +9488,7 @@ Allows the entity go idle, if swimming. Entity must be in water.
 | success_rate | Decimal | 0.1 | Percent chance this entity will go idle, 1.0 = 100%. |
 
 
-## minecraft:behavior.swim_up_for_breath
+## minecraft:behavior.swim_up_for_breath (See JSON Schema since 1.21.110)
 
 
 Allows the mob to try to move to air once it is close to running out of its total breathable supply. Requires "minecraft:breathable".
@@ -9432,7 +9502,7 @@ Allows the mob to try to move to air once it is close to running out of its tota
 | speed_mod | Decimal | 1.40 | Movement speed multiplier of the mob when using this Goal. |
 
 
-## minecraft:behavior.swim_wander
+## minecraft:behavior.swim_wander (See JSON Schema since 1.21.110)
 
 
 Allows the entity to wander around while swimming, when not path-finding.
@@ -9466,7 +9536,7 @@ Allows the entity follow another entity. Both entities must be swimming [ie, in 
 | success_rate | Decimal | 0.1 | Percent chance to start following another entity, if not already doing so. 1.0 = 100% |
 
 
-## minecraft:behavior.swoop_attack
+## minecraft:behavior.swoop_attack (See JSON Schema since 1.21.110)
 
 
 Allows an entity to attack using swoop attack behavior; Ideal for use with flying mobs. The behavior ends if the entity has a horizontal collision or gets hit.
@@ -9477,6 +9547,21 @@ Allows an entity to attack using swoop attack behavior; Ideal for use with flyin
 | damage_reach | Decimal | 0.2 | Added to the base size of the entity, to determine the target's maximum allowable distance, when trying to deal attack damage. |
 | delay_range | Range [a, b] | [10, 20] | Minimum and maximum cooldown time-range (in seconds) between each attempted swoop attack. |
 | speed_multiplier | Decimal | 1 | During swoop attack behavior, this determines the multiplier the entity's speed is modified by when moving toward the target. |
+
+
+## minecraft:behavior.take_block
+
+
+| Name | Type | Default Value | Description |
+| --- | --- | --- | --- |
+| affected_by_griefing_rule | Boolean |  | If true, whether the goal is affected by the mob griefing game rule. |
+| blocks | Array |  | Block descriptors for which blocks are valid to be taken by the entity, if empty all blocks are valid. |
+| can_take | Minecraft Filter |  | Filters for if the entity should try to take a block. Self and Target are set. |
+| chance | Decimal |  | Chance each tick for the entity to try and take a block. |
+| on_take | Trigger |  | Trigger ran if the entity does take a block. Self, Target, and Block are set. |
+| requires_line_of_sight | Boolean |  | If true, whether the entity needs line of sight to the block they are trying to take. |
+| xz_range | Range [a, b] |  | XZ range from which the entity will try and take blocks from. |
+| y_range | Range [a, b] |  | Y range from which the entity will try and take blocks from. |
 
 
 ## minecraft:behavior.take_flower
@@ -9493,6 +9578,7 @@ Allows the mob to accept flowers from another mob with the minecraft:offer_flowe
 | max_wait_time | Decimal | 20.00 | The maximum amount of time (in seconds) for the mob to randomly wait for before taking the flower. |
 | min_distance_to_target | Decimal | 2.00 | Minimum distance (in blocks) for the entity to be considered having reached its target. |
 | min_wait_time | Decimal | 4.00 | The minimum amount of time (in seconds) for the mob to randomly wait for before taking the flower. |
+| on_take_flower | Trigger |  | Event triggered when the entity takes a flower from another entity. |
 | search_area | Vector [a, b, c] | [6, 2, 6] | The dimensions of the AABB used to search for a potential mob to take a flower from. |
 | speed_multiplier | Decimal | 0.50 | Movement speed multiplier of the mob when using this AI Goal. |
 
@@ -9818,7 +9904,7 @@ Allows this entity to track anger towards a set of nuisances
 | default_annoyingness | String | 0 | The default amount of annoyingness for any given nuisance. Specifies how much to raise anger level on each provocation |
 | max_anger | Positive Integer | 100 | The maximum anger level that can be reached. Applies to any nuisance |
 | nuisance_filter | Minecraft Filter |  | Filter that is applied to determine if a mob can be a nuisance |
-| on_increase_sounds | Array |  | Sounds to play when the entity is getting provoked. Evaluated in order. First matching condition winscondition    A Molang expression describing under which conditions to play this sound, given that the entity was provoked    sound    The sound to play |
+| on_increase_sounds | Array |  | Sounds to play when the entity is getting provoked. Evaluated in order. First matching condition winscondition A Molang expression describing under which conditions to play this sound, given that the entity was provoked sound The sound to play |
 | remove_targets_below_angry_threshold | Boolean | true | Defines if the mob should remove target if it falls below 'angry' threshold |
 
 
@@ -10004,7 +10090,7 @@ Defines the way an entity can get into the 'love' state.
 | breeds_with | List |  | The list of entity definitions that this entity can breed with. |
 | causes_pregnancy | Boolean | false | If true, the entity will become pregnant instead of spawning a baby. |
 | deny_parents_variant | JSON Object |  | Determines how likely the baby of parents with the same variant will deny that variant and take a random variant within the given range instead. |
-| environment_requirements | List |  | The list of nearby block requirements to get the entity into the 'love' state.blocks    The block types required nearby for the entity to breed.    count    The number of the required block types nearby for the entity to breed.    radius    How many blocks radius from the mob's center to search in for the required blocks. Bounded between 0 and 16. |
+| environment_requirements | List |  | The list of nearby block requirements to get the entity into the 'love' state.blocks The block types required nearby for the entity to breed. count The number of the required block types nearby for the entity to breed. radius How many blocks radius from the mob's center to search in for the required blocks. Bounded between 0 and 16. |
 | extra_baby_chance | Decimal | 0 | Chance that up to 16 babies will spawn between 0.0 and 1.0, where 1.0 is 100%. |
 | inherit_tamed | Boolean | true | If true, the babies will be automatically tamed if its parents are |
 | love_filters | Minecraft Filter |  | The filters to run when attempting to fall in love. |
@@ -10139,8 +10225,8 @@ Defines the Conditional Spatial Update Bandwidth Optimizations of this entity.
 
 | Name | Type | Default Value | Description |
 | --- | --- | --- | --- |
-| conditional_values | List |  | The object containing the conditional bandwidth optimization values.conditional_values    Conditions that must be met for these optimization values to be used.    max_dropped_ticks    In relation to the optimization value, determines the maximum ticks spatial update packets can be not sent.    max_optimized_distance    The maximum distance considered during bandwidth optimizations. Any value below the max is interpolated to find optimization, and any value greater than or equal to this max results in max optimization.    use_motion_prediction_hints    When set to true, smaller motion packets will be sent during drop packet intervals, resulting in the same amount of packets being sent as without optimizations but with much less data being sent. This should be used when actors are travelling very quickly or teleporting to prevent visual oddities. |
-| default_values | JSON Object |  | The object containing the default bandwidth optimization values.max_dropped_ticks    In relation to the optimization value, determines the maximum ticks spatial update packets can be not sent.    max_optimized_distance    The maximum distance considered during bandwidth optimizations. Any value below the max is interpolated to find optimization, and any value greater than or equal to this max results in max optimization.    use_motion_prediction_hints    When set to true, smaller motion packets will be sent during drop packet intervals, resulting in the same amount of packets being sent as without optimizations but with much less data being sent. This should be used when actors are travelling very quickly or teleporting to prevent visual oddities. |
+| conditional_values | List |  | The object containing the conditional bandwidth optimization values.conditional_values Conditions that must be met for these optimization values to be used. max_dropped_ticks In relation to the optimization value, determines the maximum ticks spatial update packets can be not sent. max_optimized_distance The maximum distance considered during bandwidth optimizations. Any value below the max is interpolated to find optimization, and any value greater than or equal to this max results in max optimization. use_motion_prediction_hints When set to true, smaller motion packets will be sent during drop packet intervals, resulting in the same amount of packets being sent as without optimizations but with much less data being sent. This should be used when actors are travelling very quickly or teleporting to prevent visual oddities. |
+| default_values | JSON Object |  | The object containing the default bandwidth optimization values.max_dropped_ticks In relation to the optimization value, determines the maximum ticks spatial update packets can be not sent. max_optimized_distance The maximum distance considered during bandwidth optimizations. Any value below the max is interpolated to find optimization, and any value greater than or equal to this max results in max optimization. use_motion_prediction_hints When set to true, smaller motion packets will be sent during drop packet intervals, resulting in the same amount of packets being sent as without optimizations but with much less data being sent. This should be used when actors are travelling very quickly or teleporting to prevent visual oddities. |
 
 
 ## minecraft:custom_hit_test
@@ -10185,12 +10271,12 @@ Applies defined amount of damage to the entity at specified intervals.
 | cause | String | none | Type of damage that triggers the events. |
 | damage_modifier | Decimal | 0.00 | A modifier that adds/removes to the base damage received from the specified damage cause. It does not reduce damage to less than 0. |
 | damage_multiplier | Decimal | 1.00 | A multiplier that modifies the base damage received from the specified damage cause. If "deals_damage" is true the multiplier can only reduce the damage the entity will take to a minimum of 1. |
-| deals_damage | Boolean | yes | Defines how received damage affects the entity:                                          \n- "yes", received damage is applied to the entity.                                          \n- "no", received damage is not applied to the entity.                                          \n- "no_but_side_effects_apply", received damage is not applied to the entity, but the side effects of the attack are. This means that the attacker's weapon loses durability, enchantment side effects are applied, and so on. |
+| deals_damage | Boolean | yes | Defines how received damage affects the entity: \n- "yes", received damage is applied to the entity. \n- "no", received damage is not applied to the entity. \n- "no_but_side_effects_apply", received damage is not applied to the entity, but the side effects of the attack are. This means that the attacker's weapon loses durability, enchantment side effects are applied, and so on. |
 | on_damage | JSON Object |  | Defines which entities the trigger applies to, and which, if any, event to emit when damaged. |
 | on_damage_sound_event | String |  | Defines what sound to play, if any, when the "on_damage" filters are met. |
 
 
-## minecraft:dash
+## minecraft:dash_action
 
 
 Ability for a rideable entity to dash.
@@ -10199,6 +10285,7 @@ Ability for a rideable entity to dash.
 | Name | Type | Default Value | Description |
 | --- | --- | --- | --- |
 | cooldown_time | Decimal | 1.00 | The dash cooldown in seconds. Default value is 1.000000. |
+| direction | String | entity | Should the momentum be applied in the direction of the 'entity' or 'passenger'. When 'entity' is used the momentum is applied horizontally according to the direction the entity is looking, using only the entity's yaw. When 'passenger' is used the momentum will be applied in the direction the controlling passenger is looking, using the passenger's pitch and yaw. |
 | horizontal_momentum | Decimal | 1.00 | Horizontal momentum of the dash. |
 | vertical_momentum | Decimal | 1.00 | Vertical momentum of the dash. |
 
@@ -10442,6 +10529,18 @@ Allows entities to flock in groups in water or not.
 | use_center_of_mass | Boolean | false | Tells the flockers that they will follow flocks based on the center of mass. |
 
 
+## minecraft:free_camera_controlled
+
+
+When configured as a rideable entity, the entity will be controlled using WASD controls and mouse to move in three dimensions.
+
+
+| Name | Type | Default Value | Description |
+| --- | --- | --- | --- |
+| backwards_movement_modifier | Decimal | 0.5 | Modifies speed going backwards. |
+| strafe_speed_modifier | Decimal | 0.4 | Modifies the strafe speed. |
+
+
 ## minecraft:game_event_movement_tracking
 
 
@@ -10578,9 +10677,9 @@ Saves a home position for when the the entity is spawned.
 
 | Name | Type | Default Value | Description |
 | --- | --- | --- | --- |
-| home_block_list | List |  | Optional list of blocks that can be considered a valid home. If no such block longer exists at that position,											the home restriction is removed. Example syntax: minecraft:sand. Not supported: minecraft:sand:1. |
+| home_block_list | List |  | Optional list of blocks that can be considered a valid home. If no such block longer exists at that position, the home restriction is removed. Example syntax: minecraft:sand. Not supported: minecraft:sand:1. |
 | restriction_radius | Integer | 0 | Optional radius that the entity will be restricted to in relation to its home. |
-| restriction_type | String | none | Defines how the the entity will be restricted to its home position. The possible values are:												\n- "none", which poses no restriction.												\n- "random_movement", which restricts randomized movement to be around the home position.												\n- "all_movement", which restricts any kind of movement to be around the home position.													However, entities that somehow got too far away from their home will always be able to move closer to it, if prompted to do so. |
+| restriction_type | String | none | Defines how the the entity will be restricted to its home position. The possible values are: \n- "none", which poses no restriction. \n- "random_movement", which restricts randomized movement to be around the home position. \n- "all_movement", which restricts any kind of movement to be around the home position. However, entities that somehow got too far away from their home will always be able to move closer to it, if prompted to do so. |
 
 
 ## minecraft:hurt_on_condition
@@ -10591,19 +10690,7 @@ Defines a set of conditions under which an entity should take damage.
 
 | Name | Type | Default Value | Description |
 | --- | --- | --- | --- |
-| damage_conditions | Array |  | List of damage conditions that when met can cause damage to the entity.cause    The kind of damage that is caused to the entity. Various armors and spells use this to determine if the entity is immune.      Valid damage causes. An invalid value will result in the default cause of "none" being selected.  override  contact  entity_attack  projectile  suffocation  fall  fire  fire_tick  lava  drowning  block_explosion  entity_explosion  void  SelfDestruct  magic  wither  starve  anvil  thorns  falling_block  piston  magma  fireworks  charging  temperature  all  none         damage_per_tick    The amount of damage done each tick that the conditions are met.    filters    The set of conditions that must be satisfied before the entity takes the defined damage. |
-
-
-## minecraft:input_air_controlled
-
-
-When configured as a rideable entity, the entity will be controlled using WASD controls and mouse to move in three dimensions.
-
-
-| Name | Type | Default Value | Description |
-| --- | --- | --- | --- |
-| backwards_movement_modifier | Decimal | 0.5 | Modifies speed going backwards. |
-| strafe_speed_modifier | Decimal | 0.4 | Modifies the strafe speed. |
+| damage_conditions | Array |  | List of damage conditions that when met can cause damage to the entity.cause The kind of damage that is caused to the entity. Various armors and spells use this to determine if the entity is immune. Valid damage causes. An invalid value will result in the default cause of "none" being selected. override contact entity_attack projectile suffocation fall fire fire_tick lava drowning block_explosion entity_explosion void SelfDestruct magic wither starve anvil thorns falling_block piston magma fireworks charging temperature all none damage_per_tick The amount of damage done each tick that the conditions are met. filters The set of conditions that must be satisfied before the entity takes the defined damage. |
 
 
 ## minecraft:inside_block_notifier
@@ -10650,14 +10737,14 @@ Defines interactions with this entity.
 | add_items | JSON Object |  | Loot table with items to add to the player's inventory upon successful interaction. |
 | cooldown | Decimal | 0 | Time in seconds before this entity can be interacted with again. |
 | cooldown_after_being_attacked | Decimal | 0 | Time in seconds before this entity can be interacted with after being attacked. |
-| drop_item_slot | String |  | The entity's slot to remove and drop the item from, if any, upon successful interaction. Inventory slots are denoted by positive numbers. Armor slots are denoted by 'slot.armor.head', 'slot.armor.chest', 'slot.armor.legs', 'slot.armor.feet' and 'slot.armor.body'. |
+| drop_item_slot | String |  | The entity's slot to remove and drop the item from, if any, upon successful interaction. Inventory slots are denoted by positive numbers. Equipment slots are denoted by 'slot.weapon.mainhand', 'slot.weapon.offhand', 'slot.armor.head', 'slot.armor.chest', 'slot.armor.legs', 'slot.armor.feet' and 'slot.armor.body'. |
 | drop_item_y_offset | Decimal | 0 | Will offset the item drop position this amount in the y direction. Requires "drop_item_slot" to be specified. |
-| equip_item_slot | String |  | The entity's slot to equip the item to, if any, upon successful interaction. Inventory slots are denoted by positive numbers. Armor slots are denoted by 'slot.armor.head', 'slot.armor.chest', 'slot.armor.legs', 'slot.armor.feet' and 'slot.armor.body'. |
+| equip_item_slot | String |  | The entity's slot to equip the item to, if any, upon successful interaction. Inventory slots are denoted by positive numbers. Equipment slots are denoted by 'slot.weapon.mainhand', 'slot.weapon.offhand', 'slot.armor.head', 'slot.armor.chest', 'slot.armor.legs', 'slot.armor.feet' and 'slot.armor.body'. |
 | health_amount | Integer | 0 | The amount of health this entity will recover or lose when interacting with this item. Negative values will harm the entity. |
 | hurt_item | Integer | 0 | The amount of damage the item will take when used to interact with this entity. A value of 0 means the item won't lose durability. |
 | interact_text | String |  | Text to show when the player is able to interact in this way with this entity when playing with touch-screen controls. |
 | on_interact | String |  | Event to fire when the interaction occurs. |
-| particle_on_start | JSON Object |  | Particle effect that will be triggered at the start of the interaction.particle_offset_towards_interactor    Whether or not the particle will appear closer to who performed the interaction.    particle_type    The type of particle that will be spawned.    particle_y_offset    Will offset the particle this amount in the y direction. |
+| particle_on_start | JSON Object |  | Particle effect that will be triggered at the start of the interaction.particle_offset_towards_interactor Whether or not the particle will appear closer to who performed the interaction. particle_type The type of particle that will be spawned. particle_y_offset Will offset the particle this amount in the y direction. |
 | play_sounds | String |  | List of sounds to play when the interaction occurs. |
 | repair_entity_item | JSON Object |  | Allows to repair one of the entity's items. |
 | spawn_entities | String |  | List of entities to spawn when the interaction occurs. |
@@ -10682,7 +10769,7 @@ Defines interactions with this entity.
 | Name | Type | Default Value | Description |
 | --- | --- | --- | --- |
 | amount | Integer |  | How much of the item durability should be restored upon interaction. |
-| slot | Integer |  | The entity's slot containing the item to be repaired. Inventory slots are denoted by positive numbers. Armor slots are denoted by 'slot.armor.head', 'slot.armor.chest', 'slot.armor.legs', 'slot.armor.feet' and 'slot.armor.body'. |
+| slot | Integer |  | The entity's slot containing the item to be repaired. Inventory slots are denoted by positive numbers. Equipment slots are denoted by 'slot.weapon.mainhand', 'slot.weapon.offhand', 'slot.armor.head', 'slot.armor.chest', 'slot.armor.legs', 'slot.armor.feet' and 'slot.armor.body'. |
 
 
 > **spawn_items** 子参数
@@ -10755,10 +10842,10 @@ Allows this entity to be leashed and defines the conditions and events for this 
 | Name | Type | Default Value | Description |
 | --- | --- | --- | --- |
 | filter | Minecraft Filter |  | Conditions that must be met for this preset to be applied. |
-| hard_distance | Decimal | 7 | Distance (in blocks) over which the entity starts being pulled toward the leash holder with an spring-like force. |
+| hard_distance | Decimal | 7 | Distance (in blocks) over which the entity starts being pulled towards the leash holder with a spring-like force. Entities can enter and stay in vehicles if the leash is stretched under this distance, but will dismount once it exceeds it. |
 | max_distance | Decimal | 12 | Distance in blocks at which the leash breaks. |
 | rotation_adjustment | Decimal | 0 | Adjusts the rotation at which the entity reaches equilibrium, when "spring_type" is set to "dampened" or "quad_dampened". |
-| soft_distance | Decimal | 4 | Distance (in blocks) over which the entity begins pathfinding toward the leash holder, if able. |
+| soft_distance | Decimal | 4 | Distance (in blocks) over which the entity starts pathfinding toward the leash holder, if able. |
 | spring_type | Enumerator | dampened | Defines the type of spring-like force that pulls the entity towards its leash holder:- "bouncy": Simulates a highly elastic spring that never reaches an equilibrium if the leashed entity is suspended mid-air.- "dampened": Simulates a dampened spring attached to the front of the leashed entity's collision. It reaches an equilibrium if the entity is suspended mid-air and aligns with the movement direction.- "quad_dampened": Simulates four dampened springs connected to the center of each side of the entities' collisions. It reaches an equilibrium if the entity is suspended mid-air and gradually aligns with the leash holder over time. |
 
 
@@ -10792,7 +10879,7 @@ Defines the behavior when another entity looks at the owner entity.
 | not_looked_at_event | String |  | Defines the event to trigger when no entity is found looking at the owner entity. |
 | scale_fov_by_distance | Boolean | true | When true, the field of view narrows as the distance between the owner entity and the entity looking at it increases. This ensures that the width of the view cone remains somewhat constant towards the owner entity position, regardless of distance. |
 | search_radius | Decimal | 10 | Maximum distance the owner entity will search for entities looking at it. |
-| set_target | Boolean | once_and_stop_scanning | Defines if and how the owner entity will set entities that are looking at it as its combat targets. Valid values:                                          \n- "never", looking entities are never set as targets, but events are emitted.                                          \n- "once_and_stop_scanning", the first detected looking entity is set as target. Scanning and event emission is suspended if and until the owner entity has a target.                                          \n- "once_and_keep_scanning", the first detected looking entity is set as target. Scanning and event emission continues.s |
+| set_target | Boolean | once_and_stop_scanning | Defines if and how the owner entity will set entities that are looking at it as its combat targets. Valid values: \n- "never", looking entities are never set as targets, but events are emitted. \n- "once_and_stop_scanning", the first detected looking entity is set as target. Scanning and event emission is suspended if and until the owner entity has a target. \n- "once_and_keep_scanning", the first detected looking entity is set as target. Scanning and event emission continues.s |
 
 
 ## minecraft:managed_wandering_trader
@@ -11330,7 +11417,7 @@ Determines whether this entity can be ridden. Allows specifying the different se
 | on_rider_exit_event | String |  | Event to execute on the owner entity when an entity stops riding it. |
 | passenger_max_width | Decimal | 0.00 | The max width a mob can have to be a rider. A value of 0 ignores this parameter. |
 | priority | Integer | N/A | This field may exist in old data but isn't used by "minecraft:rideable". |
-| pull_in_entities | Boolean | false | If true, this entity will pull in entities that are in the correct "family_types" into any available seats. |
+| pull_in_entities | Boolean | false | If true, this entity will pull entities matching the specified "family_types" into any available seats. Entities that are leashed will only be pulled in if their distance to their leash holder is less than the "hard_distance" defined in their own "minecraft:leashable" component. |
 | rider_can_interact | Boolean | false | If true, this entity will be picked when looked at by the rider. |
 | seat_count | Integer | 1 | The number of entities that can ride this entity at the same time. |
 | seats | List |  | The list of positions and number of riders for each position for entities riding this entity. |
@@ -11374,7 +11461,7 @@ Fires off scheduled mob events at time of day events.
 ## minecraft:shareables
 
 
-Defines a list of items the mob wants to share or pick up. Each item must have the following parameters:
+Defines a list of items the mob wants to share. Each item must have the following parameters:
 
 
 | Name | Type | Default Value | Description |
@@ -11383,8 +11470,8 @@ Defines a list of items the mob wants to share or pick up. Each item must have t
 | all_items_max_amount | Integer | -1 | Maximum number of this item the mob will hold. |
 | all_items_surplus_amount | Integer | -1 | Number of this item considered extra that the entity wants to share. |
 | all_items_want_amount | Integer | -1 | Number of this item this entity wants to share. |
-| items | List |  | List of items that the entity wants to share.admire    Mob will admire the item after picking up by looking at it. For this to happen the mob needs to have an Admire component and an Admire goal.    barter    Mob will barter for the item after picking it up. For this to work the mob needs to have a Barter component and a Barter goal.    consume_item    Determines whether the mob will consume the item or not.    craft_into    Defines the item this entity wants to craft with the item defined by "item". Should be an item name.    item    The name of the item. Aux value can be specified, for instance 'minecraft:skull:1'.    max_amount    Maximum number of this item the mob will hold.    pickup_limit    Maximum number of this item the mob will pick up during a single goal tick.    pickup_only    Determines whether the mob can only pickup the item and not drop it.    priority    Prioritizes which items the entity prefers. 0 is the highest priority.    stored_in_inventory    Determines whether the mob will try to put the item in its inventory if it has the inventory component and if it can't be equipped.    surplus_amount    Number of this item considered extra that the entity wants to share.    want_amount    Number of this item this entity wants to have. |
-| singular_pickup | Boolean | false | Controls if the mob is able to pick up more of the same item if it is already holding that item |
+| items | List |  | List of items or item tags that the entity wants to share. Items in-game will match to this list from top to bottom, meaning that the first occurance of a match, be it name or tag, will shadow those coming after.admire Mob will admire the item after picking up by looking at it. For this to happen the mob needs to have an Admire component and an Admire goal. barter Mob will barter for the item after picking it up. For this to work the mob needs to have a Barter component and a Barter goal. consume_item Determines whether the mob will consume the item or not. craft_into Defines the item this entity wants to craft with the item defined by "item". Should be an item name. item The name of the item. Aux value can be specified, for instance 'minecraft:skull:1'. Alternatively, a tag can be specified to match all items with that tag. max_amount Maximum number of this item the mob will hold. pickup_limit Maximum number items the mob will pick up during a single goal tick. pickup_only Determines whether the mob can only pickup the item and not drop it. priority Prioritizes which items the entity prefers. 0 is the highest priority. stored_in_inventory Determines whether the mob will try to put the item in its inventory if it has the inventory component and if it can't be equipped. surplus_amount Number of this item considered extra that the entity wants to share. want_amount Number of this item this entity wants to share. |
+| singular_pickup | Boolean | false | Boolean value that controls if the mob is able to pick up more of the same item if it is already holding that item |
 
 
 ## minecraft:shooter
@@ -11525,19 +11612,6 @@ Defines an entity's teleporting behavior.
 | target_teleport_chance | Decimal | 1 | The chance that the entity will teleport between 0.0 and 1.0. 1.0 means 100% |
 
 
-## minecraft:tick_world
-
-
-Defines if the entity ticks the world and the radius around it to tick.
-
-
-| Name | Type | Default Value | Description |
-| --- | --- | --- | --- |
-| distance_to_players | Decimal | 128 | The distance at which the closest player has to be before this entity despawns. This option will be ignored if never_despawn is true. Min: 128 blocks. |
-| never_despawn | Boolean | true | If true, this entity will not despawn even if players are far away. If false, distance_to_players will be used to determine when to despawn. |
-| radius | Positive Integer | 2 | The area around the entity to tick. Default: 2. Allowed range: 2-6. |
-
-
 ## minecraft:timer
 
 
@@ -11656,6 +11730,17 @@ Entities with this component will have a maximum auto step height that is differ
 | jump_prevented_value | Decimal | 0.5625 | The maximum auto step height when on a block that prevents jumping. |
 
 
+## minecraft:vertical_movement_action
+
+
+When configured as a rideable entity, the entity will move upwards or downwards when the player uses the jump action.
+
+
+| Name | Type | Default Value | Description |
+| --- | --- | --- | --- |
+| vertical_velocity | Decimal | 0.5 | Vertical velocity to apply when jump action is issued. |
+
+
 ## minecraft:vibration_damper
 
 
@@ -11690,21 +11775,13 @@ Example
 
 ```json
 {
-
   "format_version": "1.8.0",
-
   "minecraft:entity": {
-
     "component_groups": {
-
       ...
-
     }
-
     ...
-
   }
-
 }
 ```
 
@@ -11776,7 +11853,7 @@ Sets the Spawn Category type of this entity. This entity will spawn with the res
 ## animations
 
 
-Sets the mapping of internal animation references to actual animations.  This is a JSON Object of name/animation pairs
+Sets the mapping of internal animation references to actual animations. This is a JSON Object of name/animation pairs
 
 
 | Name | Type | Default Value | Description |
@@ -11788,7 +11865,7 @@ Sets the mapping of internal animation references to actual animations.  This is
 ## scripts
 
 
-Sets the mapping of internal animation controller references to actual animation controller.  This is a JSON Array of name/animation-controller pairs
+Sets the mapping of internal animation controller references to actual animation controller. This is a JSON Array of name/animation-controller pairs
 
 
 | Name | Type | Default Value | Description |
@@ -11806,38 +11883,38 @@ Sets the mapping of internal animation controller references to actual animation
 | JSON Name | ID |
 | --- | --- |
 | minecraft:behavior.admire_item | 1024844406 |
-| minecraft:behavior.avoid_block | 2854732834617046989 |
-| minecraft:behavior.avoid_mob_type | 12990492194774829831 |
+| minecraft:behavior.avoid_block (See JSON Schema since 1.21.120) | 11673217032596464851 |
+| minecraft:behavior.avoid_mob_type (See JSON Schema since 1.21.120) | 12619167115468661473 |
 | minecraft:behavior.barter | 536670686 |
 | minecraft:behavior.beg | 1346418048 |
 | minecraft:behavior.break_door | -1798237626 |
 | minecraft:behavior.breed | 51166360 |
 | minecraft:behavior.celebrate | 3133100024050825239 |
 | minecraft:behavior.celebrate_survive | 9921563176146616642 |
-| minecraft:behavior.charge_attack | 16313004636962889255 |
+| minecraft:behavior.charge_attack (See JSON Schema since 1.21.100) | 17135737530272528235 |
 | minecraft:behavior.charge_held_item | 9534738104831396526 |
-| minecraft:behavior.circle_around_anchor | 6362218630635387278 |
-| minecraft:behavior.controlled_by_player | 17455778614872480612 |
+| minecraft:behavior.circle_around_anchor (See JSON Schema since 1.21.100) | 10683034454299639524 |
+| minecraft:behavior.controlled_by_player (See JSON Schema since 1.21.100) | 6293745006137368026 |
 | minecraft:behavior.croak | 13695866816529218596 |
 | minecraft:behavior.defend_trusted_target | 2070046390 |
 | minecraft:behavior.defend_village_target | 5237560637228864639 |
 | minecraft:behavior.delayed_attack | 16686103324935382281 |
-| minecraft:behavior.dig | 18229463342171064186 |
+| minecraft:behavior.dig (See JSON Schema since 1.21.120) | 1960392148256567422 |
 | minecraft:behavior.door_interact | -286762735 |
 | minecraft:behavior.dragonchargeplayer | 3000393824704693780 |
 | minecraft:behavior.dragondeath | -1541162059 |
-| minecraft:behavior.dragonflaming | 17923055218634571091 |
+| minecraft:behavior.dragonflaming (See JSON Schema since 1.21.100) | 347128835287996895 |
 | minecraft:behavior.dragonholdingpattern | 1066617362 |
 | minecraft:behavior.dragonlanding | -152352492 |
 | minecraft:behavior.dragonscanning | -1003941066 |
 | minecraft:behavior.dragonstrafeplayer | 18364378208758607551 |
 | minecraft:behavior.dragontakeoff | -1912535317 |
-| minecraft:behavior.drink_milk | 14686590835698253470 |
+| minecraft:behavior.drink_milk (See JSON Schema since 1.21.120) | 14323617142891735146 |
 | minecraft:behavior.drink_potion | 277029334 |
 | minecraft:behavior.drop_item_for | 6288016308568137423 |
 | minecraft:behavior.eat_block | 13717849383294281770 |
 | minecraft:behavior.eat_carried_item | -184757575 |
-| minecraft:behavior.eat_mob | 6189417788331940525 |
+| minecraft:behavior.eat_mob (See JSON Schema since 1.21.100) | 17437542916452098121 |
 | minecraft:behavior.emerge | 12499259831953635711 |
 | minecraft:behavior.enderman_leave_block | -717580550 |
 | minecraft:behavior.enderman_take_block | -537294220 |
@@ -11909,6 +11986,7 @@ Sets the mapping of internal animation controller references to actual animation
 | minecraft:behavior.panic | -169886247 |
 | minecraft:behavior.pet_sleep_with_owner | 1379392240 |
 | minecraft:behavior.pickup_items | 644287189 |
+| minecraft:behavior.place_block | 8805775981579988731 |
 | minecraft:behavior.play | 9028661884418335188 |
 | minecraft:behavior.play_dead | 15611122012431414539 |
 | minecraft:behavior.player_ride_tamed | 603869698 |
@@ -11928,7 +12006,7 @@ Sets the mapping of internal animation controller references to actual animation
 | minecraft:behavior.restrict_open_door | 715583988 |
 | minecraft:behavior.restrict_sun | -382716017 |
 | minecraft:behavior.rise_to_liquid_level | -950950337 |
-| minecraft:behavior.roar | 8169564995138049594 |
+| minecraft:behavior.roar (See JSON Schema since 1.21.110) | 955363010492591411 |
 | minecraft:behavior.roll | 817471653 |
 | minecraft:behavior.run_around_like_crazy | -1390363669 |
 | minecraft:behavior.scared | -1643945926 |
@@ -11938,32 +12016,33 @@ Sets the mapping of internal animation controller references to actual animation
 | minecraft:behavior.silverfish_wake_up_friends | 484391748 |
 | minecraft:behavior.skeleton_horse_trap | 530952387 |
 | minecraft:behavior.sleep | -1811763 |
-| minecraft:behavior.slime_attack | 9939462702916185623 |
-| minecraft:behavior.slime_float | 3498887529883213515 |
-| minecraft:behavior.slime_keep_on_jumping | 9635607836508236313 |
-| minecraft:behavior.slime_random_direction | 16233644158771707634 |
+| minecraft:behavior.slime_attack (See JSON Schema since 1.21.110) | 10551302716455748080 |
+| minecraft:behavior.slime_float (See JSON Schema since 1.21.110) | 12028999845868286476 |
+| minecraft:behavior.slime_keep_on_jumping (See JSON Schema since 1.21.110) | 7774985779375551490 |
+| minecraft:behavior.slime_random_direction (See JSON Schema since 1.21.110) | 12283841380565759883 |
 | minecraft:behavior.snacking | 875141064 |
 | minecraft:behavior.sneeze | 1528584076 |
-| minecraft:behavior.sniff | 2518751594793034670 |
-| minecraft:behavior.sonic_boom | 3140959826915046776 |
+| minecraft:behavior.sniff (See JSON Schema since 1.21.110) | 5511693697264850991 |
+| minecraft:behavior.sonic_boom (See JSON Schema since 1.21.110) | 17472690819733335393 |
 | minecraft:behavior.squid_dive | 1626998843 |
 | minecraft:behavior.squid_flee | 1304043261 |
 | minecraft:behavior.squid_idle | 1741234679 |
 | minecraft:behavior.squid_move_away_from_ground | 892387674 |
 | minecraft:behavior.squid_out_of_water | -1347598607 |
 | minecraft:behavior.stalk_and_pounce_on_target | -1248479202 |
-| minecraft:behavior.stay_near_noteblock | 10537868669633006624 |
+| minecraft:behavior.stay_near_noteblock (See JSON Schema since 1.21.110) | 353733443286183369 |
 | minecraft:behavior.stay_while_sitting | 1346980478 |
 | minecraft:behavior.stomp_attack | 2494714009520253728 |
 | minecraft:behavior.stomp_turtle_egg | 851839416 |
 | minecraft:behavior.stroll_towards_village | -1563831906 |
 | minecraft:behavior.summon_entity | -2005850647 |
 | minecraft:behavior.swell | -1473132493 |
-| minecraft:behavior.swim_idle | 6562850329755828441 |
-| minecraft:behavior.swim_up_for_breath | 6795851152810947053 |
-| minecraft:behavior.swim_wander | 12378924708543723854 |
+| minecraft:behavior.swim_idle (See JSON Schema since 1.21.110) | 454794286552255810 |
+| minecraft:behavior.swim_up_for_breath (See JSON Schema since 1.21.110) | 7965902647256278910 |
+| minecraft:behavior.swim_wander (See JSON Schema since 1.21.110) | 13632521305782430415 |
 | minecraft:behavior.swim_with_entity | 10204691344094313319 |
-| minecraft:behavior.swoop_attack | 7451467701814397451 |
+| minecraft:behavior.swoop_attack (See JSON Schema since 1.21.110) | 6088369849583684812 |
+| minecraft:behavior.take_block | 6937905075348270719 |
 | minecraft:behavior.take_flower | 16066043784359778497 |
 | minecraft:behavior.teleport_to_owner | 1980014114121577323 |
 | minecraft:behavior.tempt | 422904556 |
@@ -12024,7 +12103,7 @@ Sets the mapping of internal animation controller references to actual animation
 | minecraft:custom_hit_test | 2035968892 |
 | minecraft:damage_over_time | -656420526 |
 | minecraft:damage_sensor | -82616534 |
-| minecraft:dash | -51257122 |
+| minecraft:dash_action | -1446083519 |
 | minecraft:despawn | 1674909940 |
 | minecraft:dimension_bound | -1843592159 |
 | minecraft:drying_out_timer | 2113510784 |
@@ -12038,6 +12117,7 @@ Sets the mapping of internal animation controller references to actual animation
 | minecraft:experience_reward | -1992597900 |
 | minecraft:explode | -1683058581 |
 | minecraft:flocking | 1967597361 |
+| minecraft:free_camera_controlled | -1826251563 |
 | minecraft:game_event_movement_tracking | 763815151 |
 | minecraft:genetics | -82484670 |
 | minecraft:giveable | 1739199795 |
@@ -12047,7 +12127,6 @@ Sets the mapping of internal animation controller references to actual animation
 | minecraft:heartbeat | 2102942906 |
 | minecraft:home | 610829097 |
 | minecraft:hurt_on_condition | 163715083 |
-| minecraft:input_air_controlled | 1246978592 |
 | minecraft:inside_block_notifier | -377593253 |
 | minecraft:insomnia | -300455606 |
 | minecraft:instant_despawn | -634288138 |
@@ -12103,7 +12182,6 @@ Sets the mapping of internal animation controller references to actual animation
 | minecraft:tamemount | 1615660288 |
 | minecraft:target_nearby_sensor | 1309819882 |
 | minecraft:teleport | -1900891127 |
-| minecraft:tick_world | -381759296 |
 | minecraft:timer | 1862095863 |
 | minecraft:trade_table | 50480315 |
 | minecraft:trail | 1632590434 |
@@ -12111,6 +12189,7 @@ Sets the mapping of internal animation controller references to actual animation
 | minecraft:transient | -413020544 |
 | minecraft:trusting | 936499892 |
 | minecraft:variable_max_auto_step | -368684982 |
+| minecraft:vertical_movement_action | 2076572763 |
 | minecraft:vibration_damper | 1836172792 |
 | minecraft:vibration_listener | 1844567337 |
 | minecraft:water_movement | -128701925 |
@@ -12132,7 +12211,6 @@ Sets the mapping of internal animation controller references to actual animation
 | --- | --- |
 | minecraft:ambient_sound_interval | -1314051310 |
 | minecraft:body_rotation_always_follows_head | 1766999981 |
-| minecraft:body_rotation_axis_aligned | -769871276 |
 | minecraft:body_rotation_blocked | -31742338 |
 | minecraft:can_climb | -550459594 |
 | minecraft:can_fly | 985724318 |
@@ -12170,6 +12248,7 @@ Sets the mapping of internal animation controller references to actual animation
 | minecraft:movement_sound_distance_offset | 124679519 |
 | minecraft:push_through | -138030768 |
 | minecraft:renders_when_invisible | -1395968564 |
+| minecraft:rotation_axis_aligned | -882714065 |
 | minecraft:scale | 77854436 |
 | minecraft:skin_id | 1838729593 |
 | minecraft:sound_volume | 937951776 |
@@ -12208,7 +12287,7 @@ Sets the entity's delay between playing its ambient sound.
 | Name | Type | Default Value | Description |
 | --- | --- | --- | --- |
 | event_name | String | ambient | Level sound event to be played as the ambient sound. |
-| event_names | Array |  | List of dynamic level sound events, with conditions for choosing between them. Evaluated in order, first one wins. If none evaluate to true, 'event_name' will take precedence.condition    The condition that must be satisfied to select the given ambient sound    event_name    Level sound event to be played as the ambient sound |
+| event_names | Array |  | List of dynamic level sound events, with conditions for choosing between them. Evaluated in order, first one wins. If none evaluate to true, 'event_name' will take precedence.condition The condition that must be satisfied to select the given ambient sound event_name Level sound event to be played as the ambient sound |
 | range | Decimal | 16.000000 | Maximum time in seconds to randomly add to the ambient sound delay time. |
 | value | Decimal | 8.000000 | Minimum time in seconds before the entity plays its ambient sound again. |
 
@@ -12216,13 +12295,10 @@ Sets the entity's delay between playing its ambient sound.
 ## minecraft:body_rotation_always_follows_head
 
 
-Causes the entity's body to always be automatically rotated to align with the entity's head.Does not override the "minecraft:body_rotation_blocked" component.
+Causes the entity's body to always be automatically rotated to align with the entity's head.
 
 
-## minecraft:body_rotation_axis_aligned
-
-
-Causes the entity's body to automatically rotate to align with the nearest cardinal direction based on its current facing direction.Combining this with the "minecraft:body_rotation_blocked" component will cause the entity to align to the nearest cardinal direction and remain fixed in that orientation, regardless of future changes in its facing direction.
+Does not override the "minecraft:body_rotation_blocked" component.
 
 
 ## minecraft:body_rotation_blocked
@@ -12383,7 +12459,13 @@ Sets that this entity is currently carrying a chest.
 ## minecraft:is_collidable
 
 
-Allows other mobs to have vertical and horizontal collisions with this mob. For a collision to occur, both mobs must have a "minecraft:collision_box" component. This component can only be used on mobs and enables collisions exclusively between mobs.Please note that this type of collision is unreliable for moving collidable mobs. It is recommended to use this component only in scenarios where the collidable mob remains stationary.Collidable behavior is closely related to stackable behavior. While the "minecraft:is_collidable" component governs how other mobs interact with the component's owner, the "minecraft:is_stackable" component describes how an entity interacts with others of its own kind.
+Allows other mobs to have vertical and horizontal collisions with this mob. For a collision to occur, both mobs must have a "minecraft:collision_box" component. This component can only be used on mobs and enables collisions exclusively between mobs.
+
+
+Please note that this type of collision is unreliable for moving collidable mobs. It is recommended to use this component only in scenarios where the collidable mob remains stationary.
+
+
+Collidable behavior is closely related to stackable behavior. While the "minecraft:is_collidable" component governs how other mobs interact with the component's owner, the "minecraft:is_stackable" component describes how an entity interacts with others of its own kind.
 
 
 ## minecraft:is_dyeable
@@ -12442,7 +12524,10 @@ Sets that this entity is currently sheared.
 ## minecraft:is_stackable
 
 
-Allows instances of this entity to have vertical and horizontal collisions with each other. For a collision to occur, both instances must have a "minecraft:collision_box" component.Stackable behavior is closely related to collidable behavior. While the "minecraft:is_stackable" component describes how an entity interacts with others of its own kind, the "minecraft:is_collidable" component governs how other mobs interact with the component's owner.)
+Allows instances of this entity to have vertical and horizontal collisions with each other. For a collision to occur, both instances must have a "minecraft:collision_box" component.
+
+
+Stackable behavior is closely related to collidable behavior. While the "minecraft:is_stackable" component describes how an entity interacts with others of its own kind, the "minecraft:is_collidable" component governs how other mobs interact with the component's owner.
 
 
 ## minecraft:is_stunned
@@ -12516,6 +12601,15 @@ Sets the distance through which the entity can push through.
 
 
 When set, the entity will render even when invisible. Appropriate rendering behavior can then be specified in the corresponding "minecraft:client_entity".
+
+
+## minecraft:rotation_axis_aligned
+
+
+Causes the entity to automatically rotate to align with the nearest cardinal direction based on its current facing direction.
+
+
+Combining this with the "minecraft:body_rotation_blocked" component will cause the entity's body to align with the nearest cardinal direction and remain fixed in that orientation, regardless of changes in its facing direction.
 
 
 ## minecraft:scale
@@ -12596,7 +12690,7 @@ Sets that this entity wants to become a jockey.
 ## minecraft:on_death
 
 
-Only usable by the Ender Dragon. Adds a trigger to call on this entity's death.
+Adds a trigger to call on this entity's death.
 
 
 | Name | Type | Default Value | Description |
