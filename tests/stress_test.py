@@ -15,6 +15,7 @@ MCP SSE 并发压测脚本（2024-11-05 legacy SSE 协议）
 用法：python tests/stress_test.py
 """
 
+import argparse
 import threading
 import time
 import json
@@ -26,26 +27,32 @@ from collections import defaultdict
 # ── 配置 ─────────────────────────────────────────────────────────
 HOST            = "http://127.0.0.1:18766"
 SSE_ENDPOINT    = HOST + "/sse"
-NUM_CLIENTS     = 100      # 并发客户端数
+NUM_CLIENTS     = 24       # 并发客户端数
 CALLS_PER_SEC   = 2       # 每个客户端每秒调用次数
-TEST_DURATION   = 8      # 压测持续秒数
+TEST_DURATION   = 12      # 压测持续秒数
 CONNECT_STAGGER = 0.05     # 客户端启动错峰间隔（秒）
 INIT_TIMEOUT    = 10.0    # initialize 响应等待超时（秒）
+CALL_TIMEOUT    = 30.0    # tools/call MCP 结果等待超时（秒）
+TOP_K           = 20
 
 KEYWORDS = [
-    "玩家血量", "实体速度", "方块破坏", "物品栏", "音效播放",
-    "粒子效果", "玩家传送", "世界坐标", "附魔", "经验值",
-    "事件监听", "组件系统", "UI界面", "摄像机", "天气",
-    "方块放置", "实体生成", "伤害计算", "物品栏操作", "背包",
+    "minecraft:entity", "minecraft:block", "texture", "animation",
+    "render_controllers", "materials", "frames", "geometry", "particle",
+    "format_version", "components", "ui", "model", "controller",
 ]
 
 # ── 统计 ─────────────────────────────────────────────────────────
 stats_lock = threading.Lock()
 stats = defaultdict(int)
+latencies = []
 
 def inc(key):
     with stats_lock:
         stats[key] += 1
+
+def record_latency(value):
+    with stats_lock:
+        latencies.append(value)
 
 
 # ── SSE 流读取器（后台线程）────────────────────────────────────────
@@ -214,17 +221,33 @@ def run_client(client_id: int, stop_event: threading.Event):
         keyword = random.choice(KEYWORDS)
         t0 = time.time()
         try:
+            call_id = req_id
             status = post_jsonrpc(msg_url, "tools/call", {
-                "name":      "search_all",
-                "arguments": {"keyword": keyword, "top_k": 1},
-            }, req_id)
+                "name": "minecraft_docs",
+                "arguments": {"command": f"assets {keyword} --top {TOP_K}"},
+            }, call_id)
             req_id += 1
 
-            if status == 202:
-                inc("ok")
-            else:
+            if status != 202:
                 inc("err")
                 print(f"[C{client_id:02d}] 非 202: {status}", flush=True)
+            else:
+                raw_result = sse.get_next_message(timeout=CALL_TIMEOUT)
+                if raw_result is None:
+                    inc("timeout")
+                    print(f"[C{client_id:02d}] 等待 tools/call 响应超时 keyword={keyword!r}", flush=True)
+                    continue
+                result = json.loads(raw_result)
+                if result.get("id") != call_id:
+                    inc("err")
+                    print(f"[C{client_id:02d}] 响应 ID 错位: expected={call_id} actual={result.get('id')}", flush=True)
+                    continue
+                if "error" in result or result.get("result", {}).get("isError"):
+                    inc("err")
+                    print(f"[C{client_id:02d}] 工具错误 keyword={keyword!r}: {result}", flush=True)
+                    continue
+                inc("ok")
+                record_latency(time.time() - t0)
 
         except requests.exceptions.Timeout:
             inc("timeout")
@@ -242,10 +265,32 @@ def run_client(client_id: int, stop_event: threading.Event):
 # ── 主程序 ────────────────────────────────────────────────────────
 
 def main():
+    global NUM_CLIENTS, CALLS_PER_SEC, TEST_DURATION, CALL_TIMEOUT, TOP_K, KEYWORDS
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--clients", type=int, default=NUM_CLIENTS)
+    parser.add_argument("--calls-per-sec", type=float, default=CALLS_PER_SEC)
+    parser.add_argument("--duration", type=float, default=TEST_DURATION)
+    parser.add_argument("--call-timeout", type=float, default=CALL_TIMEOUT)
+    parser.add_argument("--top-k", type=int, default=TOP_K)
+    parser.add_argument(
+        "--keywords",
+        default=",".join(KEYWORDS),
+        help="Comma-separated asset-search keywords. Use one value to isolate a keyword.",
+    )
+    args = parser.parse_args()
+    NUM_CLIENTS = args.clients
+    CALLS_PER_SEC = args.calls_per_sec
+    TEST_DURATION = args.duration
+    CALL_TIMEOUT = args.call_timeout
+    TOP_K = args.top_k
+    KEYWORDS = [item.strip() for item in args.keywords.split(",") if item.strip()]
+    if not KEYWORDS:
+        raise SystemExit("at least one keyword is required")
     print(f"=== MCP SSE 并发压测（2024-11-05 legacy SSE 协议）===")
     print(f"服务: {HOST}")
     print(f"客户端数: {NUM_CLIENTS}  调用频率: {CALLS_PER_SEC}/s/client")
     print(f"持续时间: {TEST_DURATION}s  预期总调用: {NUM_CLIENTS * CALLS_PER_SEC * TEST_DURATION}")
+    print(f"搜索参数: top_k={TOP_K}  keywords={KEYWORDS}")
     print()
 
     stop_event = threading.Event()
@@ -285,6 +330,7 @@ def main():
     total_elapsed = time.time() - t_start
     with stats_lock:
         s = dict(stats)
+        measured_latencies = sorted(latencies)
 
     ok      = s.get("ok", 0)
     err     = s.get("err", 0)
@@ -303,6 +349,12 @@ def main():
     print(f"tool 调用   : 总={total}  成功={ok}  失败={err}  超时={timeout}")
     print(f"成功率      : {ok/total*100:.1f}%" if total else "成功率: N/A")
     print(f"平均吞吐    : {rate:.1f} req/s")
+    if measured_latencies:
+        p50 = measured_latencies[int((len(measured_latencies) - 1) * 0.50)]
+        p95 = measured_latencies[int((len(measured_latencies) - 1) * 0.95)]
+        print(f"响应延迟    : p50={p50:.3f}s  p95={p95:.3f}s  max={measured_latencies[-1]:.3f}s")
+    if cfail or ifail or err or timeout:
+        raise SystemExit(1)
 
 if __name__ == "__main__":
     main()

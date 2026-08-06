@@ -4,6 +4,7 @@
 #include <sstream>
 #include <cstring>
 #include <algorithm>
+#include <chrono>
 
 #ifdef _WIN32
 #define NOMINMAX
@@ -64,7 +65,7 @@ static std::vector<mcdk::SearchResult> dispatch_search(mcdk::SearchService& svc,
     return svc.search_all(query); // 默认全局搜索
 }
 
-int main() {
+int main(int argc, char** argv) {
 #ifdef _WIN32
     SetConsoleOutputCP(65001);
     SetConsoleCP(65001);
@@ -74,6 +75,44 @@ int main() {
     mcdk::SearchService svc(MCDK_DICTS_DIR, MCDK_KNOWLEDGE_DIR);
     std::cout << "[test] indexed " << svc.doc_count() << " fragments\n";
     std::cout << "[test] GameAssets: " << svc.game_assets_count() << " files\n";
+
+    if (argc > 1 && std::strcmp(argv[1], "--asset-token-selection-test") == 0) {
+        const auto baseline = svc.search_game_assets("oak_stairs", 0, 20);
+        if (baseline.empty()) {
+            std::cerr << "[FAIL] baseline oak_stairs query returned no assets\n";
+            return 1;
+        }
+
+        std::ostringstream tail_query;
+        for (int i = 0; i < 40; ++i) tail_query << "zznoise" << i << ' ';
+        tail_query << "oak_stairs";
+        const auto tail_results = svc.search_game_assets(tail_query.str(), 0, 20);
+        const bool overlap = std::any_of(tail_results.begin(), tail_results.end(), [&](const auto& candidate) {
+            return std::any_of(baseline.begin(), baseline.end(), [&](const auto& expected) {
+                return candidate.rel_path == expected.rel_path;
+            });
+        });
+        if (!overlap) {
+            std::cerr << "[FAIL] high-signal token after position 32 lost all baseline matches\n";
+            return 1;
+        }
+
+        std::ostringstream unique_query;
+        for (int i = 0; i < 1024; ++i) unique_query << "zzunique" << i << ' ';
+        const auto started = std::chrono::steady_clock::now();
+        (void)svc.search_game_assets(unique_query.str(), 0, 20);
+        const auto elapsed_ms = std::chrono::duration_cast<std::chrono::milliseconds>(
+            std::chrono::steady_clock::now() - started).count();
+        if (elapsed_ms > 2000) {
+            std::cerr << "[FAIL] bounded unique-token query took " << elapsed_ms << " ms\n";
+            return 1;
+        }
+
+        std::cout << "[PASS] tail recall preserved; 1024-token query completed in "
+                  << elapsed_ms << " ms\n";
+        return 0;
+    }
+
     std::cout << "[test] commands:\n";
     std::cout << "  api:<q>  event:<q>  enum:<q>  wiki:<q>  qumod:<q>  guide:<q>  all:<q>\n";
     std::cout << "  assets:<q>  assets_bp:<q>  assets_rp:<q>  (default: all)\n";
