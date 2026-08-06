@@ -1,0 +1,16 @@
+// __multiversion__
+precision highp float;
+
+#include "fragmentVersionCentroidUV.h"
+
+uniform sampler2D TEXTURE_0;
+
+void main() {
+    float alpha = texture2D(TEXTURE_0, uv).a;
+    if (alpha < 0.05) {
+        discard;
+    }
+
+    highp float z = clamp(gl_FragCoord.z, 0.0, 1.0);
+    gl_FragColor = vec4(z, z, z, 1.0);
+}

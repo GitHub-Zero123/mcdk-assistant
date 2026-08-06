@@ -1,0 +1,14 @@
+// __multiversion__
+// This shader is for fullscreen quad passes (e.g. GGX prefilter).
+
+#include "vertexVersionCentroidUV.h"
+#include "uniformWorldConstants.h"
+
+attribute highp vec3 POSITION;
+attribute highp vec2 TEXCOORD_0;
+
+void main()
+{
+    gl_Position = vec4(POSITION.xy, 0.0, 1.0);
+    uv = TEXCOORD_0;
+}

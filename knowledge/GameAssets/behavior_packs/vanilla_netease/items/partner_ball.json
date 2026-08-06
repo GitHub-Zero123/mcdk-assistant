@@ -1,0 +1,16 @@
+{
+    "format_version": "1.20.0",
+    "minecraft:item": {
+        "description": {
+            "identifier": "netease:partner_ball",
+            "category": "none"
+        },
+        "components": {
+            "minecraft:max_stack_size": 16,
+            "minecraft:icon": {
+                "texture": "netease:partner_ball"
+            },
+            "minecraft:hand_equipped": false
+        }
+    }
+}

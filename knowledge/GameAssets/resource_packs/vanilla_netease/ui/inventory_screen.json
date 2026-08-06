@@ -403,7 +403,7 @@
   "parterner_icon": {
     "type": "image",
     "size": [ 19, 13 ],
-    "texture": "textures/ui/pet/parterner/icon27_2x"
+    "texture": "textures/ui/pet/parterner/pet_floating_hub_mainpage"
   },
   //NETEASE SPECIFI UI
   "mount_icon": {
@@ -2196,14 +2196,14 @@
         "from_button_id": "button.menu_left",
         "to_button_id": "$toggle_off_button",
         "mapping_type": "pressed",
-        "input_mode_condition": "gamepad_and_not_gaze"
+        "input_mode_condition": "gamepad"
       },
       {
         "ignored": "(not $enable_directional_toggling)",
         "from_button_id": "button.menu_right",
         "to_button_id": "$toggle_on_button",
         "mapping_type": "pressed",
-        "input_mode_condition": "gamepad_and_not_gaze"
+        "input_mode_condition": "gamepad"
       }
     ]
   },
@@ -2849,6 +2849,56 @@
         "from_button_id": "button.controller_secondary_select_right",
         "to_button_id": "button.clear_selected_recipe",
         "mapping_type": "global"
+      },
+      {
+        "from_button_id": "button.slot1",
+        "to_button_id": "button.slot_1",
+        "mapping_type": "global"
+      },
+      {
+        "from_button_id": "button.slot2",
+        "to_button_id": "button.slot_2",
+        "mapping_type": "global"
+      },
+      {
+        "from_button_id": "button.slot3",
+        "to_button_id": "button.slot_3",
+        "mapping_type": "global"
+      },
+      {
+        "from_button_id": "button.slot4",
+        "to_button_id": "button.slot_4",
+        "mapping_type": "global"
+      },
+      {
+        "from_button_id": "button.slot5",
+        "to_button_id": "button.slot_5",
+        "mapping_type": "global"
+      },
+      {
+        "from_button_id": "button.slot6",
+        "to_button_id": "button.slot_6",
+        "mapping_type": "global"
+      },
+      {
+        "from_button_id": "button.slot7",
+        "to_button_id": "button.slot_7",
+        "mapping_type": "global"
+      },
+      {
+        "from_button_id": "button.slot8",
+        "to_button_id": "button.slot_8",
+        "mapping_type": "global"
+      },
+      {
+        "from_button_id": "button.slot9",
+        "to_button_id": "button.slot_9",
+        "mapping_type": "global"
+      },
+      {
+        "from_button_id": "button.slot0",
+        "to_button_id": "button.slot_0",
+        "mapping_type": "global"
       }
     ]
   },
@@ -2986,6 +3036,43 @@
               }
             }
           ]
+        }
+      },
+
+      {
+        "partner_hotbar_panel": {
+          "type": "input_panel",
+          "size": [ 162, 18 ],
+          "anchor_from": "center",
+          "anchor_to": "center",
+          "offset": [ 0, 93 ],
+          "layer": 30,
+          "visible": false,
+          "controls": [
+            {
+              "partner_hotbar_grid@common.hotbar_grid_template": {
+                "layer": 2,
+                "$button_ref": "crafting.inventory_container_slot_button",
+                "$background_images": "crafting.container_cell_images",
+                "anchor_from": "center",
+                "anchor_to": "center",
+                "offset": [ 0, 0 ]
+              }
+            }
+          ]
+        }
+      },
+
+      {
+        "partner_ball_fly_icon": {
+          "type": "image",
+          "texture": "textures/items/partner_ball",
+          "size": [ 16, 16 ],
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "offset": [ 0, 0 ],
+          "layer": 1000,
+          "visible": false
         }
       },
 

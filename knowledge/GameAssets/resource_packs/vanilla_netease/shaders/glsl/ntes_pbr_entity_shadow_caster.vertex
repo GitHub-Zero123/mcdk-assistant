@@ -1,0 +1,13 @@
+// __multiversion__
+precision highp float;
+
+#include "neteaseModelVertexUtil.h"
+
+void main() {
+	POS4 entitySpacePosition;
+	POS4 entitySpaceNormal;
+	getEntitySpacePositionAndNormal(entitySpacePosition, entitySpaceNormal);
+
+	uv = TEXCOORD_0;
+	gl_Position = WORLDVIEWPROJ * entitySpacePosition;
+}

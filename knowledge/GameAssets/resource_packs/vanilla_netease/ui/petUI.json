@@ -5983,5 +5983,311 @@
         ],
         "layer": 10000,
         "type": "panel"
+    },
+    "pet_chat_hud@common.base_screen": {
+        "$screen_content": "petUI.PetChatHudEmptyContent"
+    },
+    "PetChatHudEmptyContent": {
+        "controls": [],
+        "type": "panel"
+    },
+    "ai_partner_hud_companion": {
+        "absorbs_input": true,
+        "always_accepts_input": false,
+        "controls": [],
+        "force_render_below": false,
+        "is_showing_menu": true,
+        "render_game_behind": true,
+        "render_only_when_topmost": true,
+        "should_steal_mouse": false,
+        "type": "screen"
+    },
+    "PetChatHudContent": {
+        "controls": [
+            {
+                "pet_chat_button@common.button": {
+                    "$control_alpha": 1.0,
+                    "$default_texture": "textures/ui/gameChatExtension/new/tab1_2",
+                    "$hover_texture": "textures/ui/gameChatExtension/new/tab1_2",
+                    "$pressed_texture": "textures/ui/gameChatExtension/new/tab1_2",
+                    "$is_new_nine_slice": false,
+                    "$nine_slice_buttom": 10,
+                    "$nine_slice_left": 0,
+                    "$nine_slice_right": 0,
+                    "$nine_slice_top": 10,
+                    "$nineslice_size": [
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "$pressed_button_name": "button.pet_chat_hud",
+                    "$label_text": "",
+                    "$label_color": [
+                        1,
+                        1,
+                        1
+                    ],
+                    "$label_font_scale_factor": 1.0,
+                    "$label_font_size": "large",
+                    "$label_layer": 3,
+                    "$label_offset": [
+                        0,
+                        0
+                    ],
+                    "$texture_layer": 2,
+                    "anchor_from": "left_middle",
+                    "anchor_to": "left_middle",
+                    "offset": [
+                        "1.25%+0.0px",
+                        "-280.0%x+0.0px"
+                    ],
+                    "size": [
+                        "3.75%+0.0px",
+                        "100.0%x+0.0px"
+                    ],
+                    "layer": 28,
+                    "button_mappings": [],
+                    "is_handle_button_move_event": true,
+                    "visible": true,
+                    "bindings": [
+                        {
+                            "binding_collection_name": "",
+                            "binding_condition": "always_when_visible",
+                            "binding_type": "collection_details"
+                        }
+                    ],
+                    "controls": [
+                        {
+                            "drag_bg": {
+                                "type": "image",
+                                "texture": "textures/ui/pet/drag_bg",
+                                "anchor_from": "center",
+                                "anchor_to": "center",
+                                "size": [
+                                    "100.0%+0.0px",
+                                    "100.0%+0.0px"
+                                ],
+                                "offset": [
+                                    0,
+                                    0
+                                ],
+                                "layer": 1,
+                                "visible": false
+                            }
+                        },
+                        {
+                            "default@netease_editor_template_namespace.default": {
+                                "alpha": 0.5,
+                                "controls": []
+                            }
+                        },
+                        {
+                            "hover@netease_editor_template_namespace.hover": {
+                                "alpha": 0.5,
+                                "controls": []
+                            }
+                        },
+                        {
+                            "pressed@netease_editor_template_namespace.pressed": {
+                                "controls": []
+                            }
+                        },
+                        {
+                            "button_label@netease_editor_template_namespace.button_label": {
+                                "controls": []
+                            }
+                        },
+                        {
+                            "icon": {
+                                "type": "image",
+                                "texture": "textures/ui/pet/parterner/main_hub_chat",
+                                "layer": 11,
+                                "size": [
+                                    "70.0%+0.0px",
+                                    "70.0%+0.0px"
+                                ],
+                                "offset": [
+                                    0,
+                                    0
+                                ],
+                                "alpha": 0.8
+                            }
+                        },
+                        {
+                            "key_hint_bg": {
+                                "type": "image",
+                                "texture": "textures/ui/pet/hint_bg",
+                                "anchor_from": "center",
+                                "anchor_to": "center",
+                                "size": [
+                                    10,
+                                    10
+                                ],
+                                "offset": [
+                                    17,
+                                    -3
+                                ],
+                                "alpha": 1.0,
+                                "keep_ratio": false,
+                                "layer": 50,
+                                "visible": false,
+                                "controls": [
+                                    {
+                                        "key_hint_label": {
+                                            "type": "label",
+                                            "text": "I",
+                                            "color": [
+                                                1,
+                                                1,
+                                                1
+                                            ],
+                                            "font_size": "normal",
+                                            "font_type": "smooth",
+                                            "font_scale_factor": 1.0,
+                                            "shadow": false,
+                                            "offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "anchor_from": "center",
+                                            "anchor_to": "center",
+                                            "size": [
+                                                "default",
+                                                "default"
+                                            ],
+                                            "text_alignment": "center",
+                                            "layer": 51,
+                                            "visible": true
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    ],
+                    "default_control": "default",
+                    "hover_control": "hover",
+                    "pressed_control": "pressed"
+                }
+            },
+            {
+                "pet_toggle_button@common.button": {
+                    "$control_alpha": 1.0,
+                    "$default_texture": "textures/ui/gameChatExtension/new/tab1_2",
+                    "$hover_texture": "textures/ui/gameChatExtension/new/tab1_2",
+                    "$pressed_texture": "textures/ui/gameChatExtension/new/tab1_2",
+                    "$is_new_nine_slice": false,
+                    "$nine_slice_buttom": 10,
+                    "$nine_slice_left": 0,
+                    "$nine_slice_right": 0,
+                    "$nine_slice_top": 10,
+                    "$nineslice_size": [
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "$pressed_button_name": "button.pet_toggle_hud",
+                    "$label_text": "",
+                    "$label_color": [
+                        1,
+                        1,
+                        1
+                    ],
+                    "$label_font_scale_factor": 1.0,
+                    "$label_font_size": "large",
+                    "$label_layer": 3,
+                    "$label_offset": [
+                        0,
+                        0
+                    ],
+                    "$texture_layer": 2,
+                    "anchor_from": "left_middle",
+                    "anchor_to": "left_middle",
+                    "offset": [
+                        "1.25%+0.0px",
+                        "-180.0%x+0.0px"
+                    ],
+                    "size": [
+                        "3.75%+0.0px",
+                        "100.0%x+0.0px"
+                    ],
+                    "layer": 28,
+                    "button_mappings": [],
+                    "is_handle_button_move_event": true,
+                    "visible": true,
+                    "bindings": [
+                        {
+                            "binding_collection_name": "",
+                            "binding_condition": "always_when_visible",
+                            "binding_type": "collection_details"
+                        }
+                    ],
+                    "controls": [
+                        {
+                            "drag_bg": {
+                                "type": "image",
+                                "texture": "textures/ui/pet/drag_bg",
+                                "anchor_from": "center",
+                                "anchor_to": "center",
+                                "size": [
+                                    "100.0%+0.0px",
+                                    "100.0%+0.0px"
+                                ],
+                                "offset": [
+                                    0,
+                                    0
+                                ],
+                                "layer": 1,
+                                "visible": false
+                            }
+                        },
+                        {
+                            "default@netease_editor_template_namespace.default": {
+                                "alpha": 0.5,
+                                "controls": []
+                            }
+                        },
+                        {
+                            "hover@netease_editor_template_namespace.hover": {
+                                "alpha": 0.5,
+                                "controls": []
+                            }
+                        },
+                        {
+                            "pressed@netease_editor_template_namespace.pressed": {
+                                "controls": []
+                            }
+                        },
+                        {
+                            "button_label@netease_editor_template_namespace.button_label": {
+                                "controls": []
+                            }
+                        },
+                        {
+                            "icon": {
+                                "type": "image",
+                                "texture": "textures/ui/pet/parterner/main_hub_summon",
+                                "layer": 11,
+                                "size": [
+                                    "90.0%+0.0px",
+                                    "90.0%+0.0px"
+                                ],
+                                "offset": [
+                                    0,
+                                    0
+                                ],
+                                "alpha": 0.8
+                            }
+                        }
+                    ],
+                    "default_control": "default",
+                    "hover_control": "hover",
+                    "pressed_control": "pressed"
+                }
+            }
+        ],
+        "layer": 700,
+        "type": "panel"
     }
 }

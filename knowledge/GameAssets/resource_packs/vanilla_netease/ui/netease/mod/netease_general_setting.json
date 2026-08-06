@@ -316,6 +316,137 @@
                                     }
                                 ]
                             }
+                        },
+                        {
+                            "button_panel": {
+                                "type": "panel",
+                                "layer": 1,
+                                "bindings": [
+                                    {
+                                        "binding_name_override": "#visible",
+                                        "binding_collection_name": "config_grid",
+                                        "binding_type": "collection",
+                                        "binding_name": "#config.button.visible"
+                                    }
+                                ],
+                                "controls": [
+                                    {
+                                        "locked": {
+                                            "type": "image",
+                                            "layer": 20,
+                                            "alpha": 0.6,
+                                            "clip_direction": "left",
+                                            "clip_ratio": 0.0,
+                                            "color": [
+                                                0.3,
+                                                0.3,
+                                                0.3
+                                            ],
+                                            "anchor_from": "left_middle",
+                                            "anchor_to": "left_middle",
+                                            "size": [
+                                                "100%sm+0px",
+                                                "100%sm+0px"
+                                            ],
+                                            "fill": true,
+                                            "texture": "textures/ui/white_background",
+                                            "bindings": [
+                                                {
+                                                    "binding_name_override": "#visible",
+                                                    "binding_collection_name": "config_grid",
+                                                    "binding_type": "collection",
+                                                    "binding_name": "(not #config.enabled)"
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "button@common.button": {
+                                            "type": "button",
+                                            "$control_alpha": 1.0,
+                                            "$default_texture": "textures/netease/common/button/default",
+                                            "$hover_texture": "textures/netease/common/button/hover",
+                                            "$is_new_nine_slice": false,
+                                            "$label_color": [
+                                                0,
+                                                0,
+                                                0
+                                            ],
+                                            "$label_font_scale_factor": 1.0,
+                                            "$label_font_size": "normal",
+                                            "$label_layer": 3,
+                                            "$label_offset": [
+                                                0,
+                                                0
+                                            ],
+                                            "$label_text": "",
+                                            "$nine_slice_buttom": 0,
+                                            "$nine_slice_left": 0,
+                                            "$nine_slice_right": 0,
+                                            "$nine_slice_top": 0,
+                                            "$nineslice_size": [
+                                                0,
+                                                0,
+                                                0,
+                                                0
+                                            ],
+                                            "$pressed_button_name": "%SettingScreen.OnButtonClick",
+                                            "$pressed_texture": "textures/netease/common/button/pressed",
+                                            "$texture_layer": 2,
+                                            "anchor_from": "left_middle",
+                                            "anchor_to": "left_middle",
+                                            "size": [
+                                                40.0,
+                                                "default"
+                                            ],
+                                            "layer": 1,
+                                            "default_control": "default",
+                                            "hover_control": "hover",
+                                            "is_handle_button_move_event": true,
+                                            "pressed_control": "pressed",
+                                            "bindings": [
+                                                {
+                                                    "binding_type": "collection_details",
+                                                    "binding_collection_name": "config_grid",
+                                                    "binding_condition": "always_when_visible"
+                                                },
+                                                {
+                                                    "binding_type": "collection",
+                                                    "binding_collection_name": "config_grid",
+                                                    "binding_condition": "always_when_visible",
+                                                    "binding_name": "#config.enabled",
+                                                    "binding_name_override": "#enabled"
+                                                }
+                                            ],
+                                            "controls": [
+                                                {
+                                                    "default@netease_editor_template_namespace.default": {}
+                                                },
+                                                {
+                                                    "hover@netease_editor_template_namespace.hover": {}
+                                                },
+                                                {
+                                                    "pressed@netease_editor_template_namespace.pressed": {}
+                                                },
+                                                {
+                                                    "button_label@netease_editor_template_namespace.button_label": {
+                                                        "bindings": [
+                                                            {
+                                                                "binding_type": "collection",
+                                                                "binding_collection_name": "config_grid",
+                                                                "binding_condition": "always_when_visible",
+                                                                "binding_name": "#config.button.text",
+                                                                "binding_name_override": "#label_text"
+                                                            }
+                                                        ],
+                                                        "text": "#label_text"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
                         }
                     ]
                 }
@@ -334,6 +465,13 @@
     },
     "setting_screen": {
         "type": "screen",
+        "button_mappings": [
+            {
+                "from_button_id": "button.menu_cancel",
+                "to_button_id": "%SettingScreen.OnGeneralSettingClose",
+                "mapping_type": "global"
+            }
+        ],
         "controls": [
             {
                 "image": {

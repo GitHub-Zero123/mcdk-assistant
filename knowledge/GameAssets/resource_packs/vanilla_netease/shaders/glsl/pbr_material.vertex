@@ -1,0 +1,155 @@
+// __multiversion__
+precision highp float;
+#include "neteaseModelVertexUtil.h"
+#include "uniformExtraVectorConstants.h"
+#line 5
+
+attribute vec4 TANGENT;
+#if defined(USE_SILK_UV_BLEND) || (defined(USE_VISIBLE_SH_MAP) && defined(USE_SH_UV2))
+attribute vec2 TEXCOORD_1;
+#endif
+#if defined(USE_VISIBLE_SH_MAP) && (defined(USE_SILK_UV_BLEND) || defined(USE_PBR_LOD_SH_UV3))
+attribute vec2 TEXCOORD_2;
+#endif
+
+varying highp vec4 light;
+varying highp vec4 fogColor;
+varying highp vec3 positionWS;
+varying highp vec3 normalWS;
+varying highp vec4 tangentWS;
+varying highp vec3 lightDirWS;
+varying highp float lightIntensity;
+#ifdef USE_VISIBLE_SH_MAP
+varying highp vec2 uvSH;
+varying highp float shTangentW;
+#endif
+#ifdef USE_SILK_UV_BLEND
+varying highp vec2 uvFabric2;
+#endif
+
+highp float getPbrLinearHandedness(MAT4 m) {
+	highp float det = dot(m[0].xyz, cross(m[1].xyz, m[2].xyz));
+	return det < 0.0 ? -1.0 : 1.0;
+}
+
+POS4 getPbrEntitySpaceNormal() {
+#ifdef USE_SKINNING
+	#ifdef NETEASE_SKINNING
+		MAT4 boneMat = GetBoneMatForNetease(int(BONEID_0));
+		POS4 normal = boneMat * vec4(NORMAL.xyz, 0.0);
+		#ifdef USE_INSTANCE
+			MAT4 instanceMat = GetInstanceWorldMatForNetease();
+			normal = instanceMat * normal;
+		#endif
+		return normal;
+	#else
+		#if defined(LARGE_VERTEX_SHADER_UNIFORMS)
+			return BONES[int(BONEID_0)] * vec4(NORMAL.xyz, 0.0);
+		#else
+			return BONE * vec4(NORMAL.xyz, 0.0);
+		#endif
+	#endif
+#else
+	return vec4(NORMAL.xyz, 0.0);
+#endif
+}
+
+highp float getPbrTransformHandedness() {
+	highp float handedness = getPbrLinearHandedness(WORLD);
+#ifdef USE_SKINNING
+	#ifdef NETEASE_SKINNING
+		MAT4 boneMat = GetBoneMatForNetease(int(BONEID_0));
+		handedness *= getPbrLinearHandedness(boneMat);
+		#ifdef USE_INSTANCE
+			MAT4 instanceMat = GetInstanceWorldMatForNetease();
+			handedness *= getPbrLinearHandedness(instanceMat);
+		#endif
+	#else
+		#if defined(LARGE_VERTEX_SHADER_UNIFORMS)
+			handedness *= getPbrLinearHandedness(BONES[int(BONEID_0)]);
+		#else
+			handedness *= getPbrLinearHandedness(BONE);
+		#endif
+	#endif
+#endif
+	return handedness;
+}
+
+vec4 getEntitySpaceTangent() {
+#ifdef USE_SKINNING
+	#ifdef NETEASE_SKINNING
+		MAT4 boneMat = GetBoneMatForNetease(int(BONEID_0));
+		vec4 tangent = boneMat * vec4(TANGENT.xyz, 0.0);
+		#ifdef USE_INSTANCE
+			MAT4 instanceMat = GetInstanceWorldMatForNetease();
+			tangent = instanceMat * tangent;
+		#endif
+		return vec4(tangent.xyz, TANGENT.w);
+	#else
+		#if defined(LARGE_VERTEX_SHADER_UNIFORMS)
+			return vec4((BONES[int(BONEID_0)] * vec4(TANGENT.xyz, 0.0)).xyz, TANGENT.w);
+		#else
+			return vec4((BONE * vec4(TANGENT.xyz, 0.0)).xyz, TANGENT.w);
+		#endif
+	#endif
+#else
+	return vec4(TANGENT.xyz, TANGENT.w);
+#endif
+}
+
+void main() {
+	POS4 entitySpacePosition, entitySpaceNormal;
+	getEntitySpacePositionAndNormal(entitySpacePosition, entitySpaceNormal);
+	entitySpaceNormal = getPbrEntitySpaceNormal();
+	vec4 entitySpaceTangent = getEntitySpaceTangent();
+#ifdef USE_VISIBLE_SH_MAP
+	highp float transformHandedness = getPbrTransformHandedness();
+#endif
+
+	positionWS = (WORLD * entitySpacePosition).xyz;
+	normalWS = normalize((WORLD * entitySpaceNormal).xyz);
+	// Normal maps use the authored tangent-space handedness. SH visibility
+	// needs transform handedness separately because it is decoded to world SH.
+	tangentWS = vec4(normalize((WORLD * vec4(entitySpaceTangent.xyz, 0.0)).xyz), entitySpaceTangent.w);
+#ifdef USE_VISIBLE_SH_MAP
+	shTangentW = entitySpaceTangent.w * transformHandedness;
+#endif
+
+	calculateOverlayColor();
+	calculateGlint();
+	neteaseModelCommonVert();
+
+	light = getLightColor(entitySpacePosition, entitySpaceNormal);
+
+	uv = TEXCOORD_0;
+	applyUVAnim(uv);
+
+#ifdef USE_VISIBLE_SH_MAP
+#ifdef USE_PBR_LOD_SH_UV3
+	uvSH = TEXCOORD_2;
+#elif defined(USE_SILK_UV_BLEND)
+	uvSH = TEXCOORD_2;
+#elif defined(USE_SH_UV2)
+	uvSH = TEXCOORD_1;
+#else
+	uvSH = uv;
+#endif
+#endif
+#ifdef USE_SILK_UV_BLEND
+	uvFabric2 = TEXCOORD_1;
+#endif
+
+	POS4 projSpacePos = WORLDVIEWPROJ * entitySpacePosition;
+	gl_Position = projSpacePos;
+
+#ifdef RNGL_LIGHT
+	lightDirWS = normalize(HIDE_COLOR.xyz);
+	lightIntensity = SUN_DIR.w;
+#else
+	// SUN_DIR.xyz = sun/moon direction, SUN_DIR.w = 1.0(sun) / 0.0(moon)
+	lightDirWS = normalize(SUN_DIR.xyz);
+	lightIntensity = mix(0.25, 1.0, SUN_DIR.w);
+#endif
+
+	fogColor = getFogColor(projSpacePos);
+}

@@ -1,0 +1,56 @@
+// __multiversion__
+precision highp float;
+#include "neteaseModelVertexUtil.h"
+#include "uniformExtraVectorConstants.h"
+#line 5
+
+attribute vec4 TANGENT;
+
+// FxTranslucent UV outputs: diffuse UV and mask UV computed independently
+varying highp vec2 uvDiffuse;
+varying highp vec2 uvMask;
+varying highp vec4 light;
+varying highp vec4 fogColor;
+
+// EXTRA_VECTOR layout:
+// EXTRA_VECTOR1: diffuse_tiling.xy, diffuse_offset.xy
+// EXTRA_VECTOR2: mask_tiling.xy, mask_offset.xy
+// EXTRA_VECTOR3: diffuse_scroll_speed.xy, mask_scroll_speed.xy
+// EXTRA_VECTOR4: brightness, blend_mode_index, auto_scroll_flag, has_mask
+
+void main() {
+	POS4 entitySpacePosition, entitySpaceNormal;
+	getEntitySpacePositionAndNormal(entitySpacePosition, entitySpaceNormal);
+
+	calculateOverlayColor();
+	calculateGlint();
+	neteaseModelCommonVert();
+
+	light = getLightColor(entitySpacePosition, entitySpaceNormal);
+
+	// Base UV from mesh
+	vec2 baseUV = TEXCOORD_0;
+
+	// Unpack tiling/offset/scroll parameters
+	vec2 diffuseTiling      = EXTRA_VECTOR1.xy;
+	vec2 diffuseOffset      = EXTRA_VECTOR1.zw;
+	vec2 maskTiling          = EXTRA_VECTOR2.xy;
+	vec2 maskOffset          = EXTRA_VECTOR2.zw;
+	vec2 diffuseScrollSpeed = EXTRA_VECTOR3.xy;
+	vec2 maskScrollSpeed     = EXTRA_VECTOR3.zw;
+
+	// TIME loops [0, 210], safe for UV scroll
+	float scrollTime = TIME;
+
+	// Compute final UVs: base * tiling + offset + scroll * time
+	uvDiffuse = baseUV * diffuseTiling + diffuseOffset + diffuseScrollSpeed * scrollTime;
+	uvMask    = baseUV * maskTiling    + maskOffset    + maskScrollSpeed    * scrollTime;
+
+	// Also output standard uv for neteaseModelFragmentUtil compatibility
+	uv = baseUV;
+
+	POS4 projSpacePos = WORLDVIEWPROJ * entitySpacePosition;
+	gl_Position = projSpacePos;
+
+	fogColor = getFogColor(projSpacePos);
+}

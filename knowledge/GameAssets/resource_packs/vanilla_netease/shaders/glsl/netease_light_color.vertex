@@ -1,0 +1,26 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+
+#include "shaders/vertexVersionSimple.h"
+
+#include "shaders/uniformWorldConstants.h"
+
+attribute mediump vec4 POSITION;
+attribute vec4 NORMAL;
+attribute vec4 COLOR;
+
+varying vec3 WorldPos;
+varying vec3 Normal;
+varying vec4 Color;
+
+void main()
+{
+    gl_Position = WORLDVIEWPROJ * POSITION;
+#if defined(COMPASS)
+    gl_Position = gl_Position +  vec4(0.8*gl_Position.w,0.6*gl_Position.w,0.0,0.0);
+#endif
+    vec4 pos = WORLD * POSITION;
+    WorldPos = vec3(pos);
+    Normal = vec3(NORMAL);
+    Color = COLOR;
+}

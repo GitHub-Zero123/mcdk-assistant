@@ -28,7 +28,9 @@
   
   // NETEASE_COMMON_MOD
   "parterner_icon@crafting.icon_image": {
-    "texture": "textures/ui/pet/parterner/icon27_2x"
+    "keep_ratio": true,
+    "size": [ 24, 24 ],
+    "texture": "textures/ui/pet/parterner/pet_floating_hub_mainpage"
   },
 
   "mount_icon@crafting.icon_image": {
@@ -1204,6 +1206,56 @@
         "from_button_id": "button.menu_clear",
         "to_button_id": "button.menu_clear",
         "mapping_type": "focused"
+      },
+      {
+        "from_button_id": "button.slot0",
+        "to_button_id": "button.slot_0",
+        "mapping_type": "global"
+      },
+      {
+        "from_button_id": "button.slot1",
+        "to_button_id": "button.slot_1",
+        "mapping_type": "global"
+      },
+      {
+        "from_button_id": "button.slot2",
+        "to_button_id": "button.slot_2",
+        "mapping_type": "global"
+      },
+      {
+        "from_button_id": "button.slot3",
+        "to_button_id": "button.slot_3",
+        "mapping_type": "global"
+      },
+      {
+        "from_button_id": "button.slot4",
+        "to_button_id": "button.slot_4",
+        "mapping_type": "global"
+      },
+      {
+        "from_button_id": "button.slot5",
+        "to_button_id": "button.slot_5",
+        "mapping_type": "global"
+      },
+      {
+        "from_button_id": "button.slot6",
+        "to_button_id": "button.slot_6",
+        "mapping_type": "global"
+      },
+      {
+        "from_button_id": "button.slot7",
+        "to_button_id": "button.slot_7",
+        "mapping_type": "global"
+      },
+      {
+        "from_button_id": "button.slot8",
+        "to_button_id": "button.slot_8",
+        "mapping_type": "global"
+      },
+      {
+        "from_button_id": "button.slot9",
+        "to_button_id": "button.slot_9",
+        "mapping_type": "global"
       }
     ]
   },
@@ -1561,7 +1613,20 @@
           ]
         }
       },
-      { "flying_item_renderer@common.flying_item_renderer": { "layer": 38 } }
+      { "flying_item_renderer@common.flying_item_renderer": { "layer": 38 } },
+
+      {
+        "partner_ball_fly_icon": {
+          "type": "image",
+          "texture": "textures/items/partner_ball",
+          "size": [ 16, 16 ],
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "offset": [ 0, 0 ],
+          "layer": 1000,
+          "visible": false
+        }
+      }
     ],
     "button_mappings": [
       {
