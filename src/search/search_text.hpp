@@ -1,6 +1,6 @@
 #pragma once
 
-#include <cppjieba/Jieba.hpp>
+#include <cppjieba/QuerySegment.hpp>
 
 #include <algorithm>
 #include <cctype>
@@ -13,13 +13,11 @@
 
 namespace mcdk::search_text {
 
-inline std::unique_ptr<cppjieba::Jieba> make_jieba(const std::filesystem::path& dicts_dir) {
-    return std::make_unique<cppjieba::Jieba>(
+inline std::unique_ptr<cppjieba::QuerySegment> make_query_segment(const std::filesystem::path& dicts_dir) {
+    return std::make_unique<cppjieba::QuerySegment>(
         (dicts_dir / "jieba.dict.utf8").string(),
         (dicts_dir / "hmm_model.utf8").string(),
-        (dicts_dir / "user.dict.utf8").string(),
-        (dicts_dir / "idf.utf8").string(),
-        (dicts_dir / "stop_words.utf8").string()
+        (dicts_dir / "user.dict.utf8").string()
     );
 }
 
@@ -34,12 +32,12 @@ inline std::unordered_set<std::string> load_stop_words(const std::filesystem::pa
     return stop_words;
 }
 
-inline void tokenize_zh(cppjieba::Jieba& jieba,
+inline void tokenize_zh(cppjieba::QuerySegment& segment,
                         const std::unordered_set<std::string>& stop_words,
                         const std::string& text,
                         std::vector<std::string>& tokens) {
     std::vector<std::string> raw;
-    jieba.CutForSearch(text, raw);
+    segment.Cut(text, raw);
     tokens.clear();
     for (auto& w : raw) {
         if (w.empty() || w == " " || w == "\t" || w == "\n") continue;

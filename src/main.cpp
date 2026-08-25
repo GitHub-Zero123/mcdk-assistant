@@ -64,14 +64,14 @@ int main(int argc, char* argv[]) {
     bool cache_only_mode = !has_knowledge && has_cache;
 
     if (cache_only_mode) {
-        MCDK_LOG << "[MCDK] 缓存解析：无外部资料，正在从索引文件解析..." << std::endl;
+        MCDK_LOG << "[MCDK] 缓存模式：正在读取索引目录，数据将按需加载..." << std::endl;
     } else if (!has_knowledge && !has_cache) {
 #ifndef MCDK_SERVER
         std::cerr << "[MCDK] 错误：缺少知识库目录和缓存文件，无法启动。" << std::endl;
         return 1;
 #endif
     } else {
-        MCDK_LOG << "[MCDK] 正在初始化知识库索引，请稍候..." << std::endl;
+        MCDK_LOG << "[MCDK] 正在读取知识库索引目录..." << std::endl;
     }
 
     // 提供仅缓存模式和完整模式两套构造函数，以便工程使用/分发版优化启动速度。
@@ -139,10 +139,10 @@ int main(int argc, char* argv[]) {
         // stdio 模式：不启动 HTTP 监听，直接在当前线程跑 stdio 循环。
         // 这里统一使用 std::endl，确保宿主按“逐行日志”处理 stderr。
         std::cerr << "[MCDK] stdio transport mode" << std::endl;
-        std::cerr << "[MCDK] docs indexed: " << search_svc->doc_count() << std::endl;
-        std::cerr << "[MCDK] game assets indexed: " << search_svc->game_assets_count() << std::endl;
+        std::cerr << "[MCDK] docs available: " << search_svc->doc_count() << std::endl;
+        std::cerr << "[MCDK] game assets available: " << search_svc->game_assets_count() << std::endl;
         if (cache_only_mode) {
-            std::cerr << "[MCDK] 已解析缓存索引库（缓存模式）" << std::endl;
+            std::cerr << "[MCDK] 缓存索引目录已就绪，数据按需加载" << std::endl;
         }
 
         mcp::stdio_server stdio_srv(srv);

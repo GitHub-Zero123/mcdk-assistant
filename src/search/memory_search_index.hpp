@@ -2,7 +2,7 @@
 
 #include "search/bm25.hpp"
 
-#include <cppjieba/Jieba.hpp>
+#include <cppjieba/QuerySegment.hpp>
 #include <filesystem>
 #include <memory>
 #include <mutex>
@@ -41,7 +41,7 @@ private:
 
     std::filesystem::path dicts_dir_;
     std::string mode_;
-    std::unique_ptr<cppjieba::Jieba> jieba_;
+    std::unique_ptr<cppjieba::QuerySegment> jieba_;
     std::unordered_set<std::string> stop_words_;
 
     mutable std::mutex mutex_;

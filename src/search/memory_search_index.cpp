@@ -77,7 +77,7 @@ size_t MemorySearchIndex::doc_count() const {
 
 void MemorySearchIndex::ensure_jieba() {
     if (jieba_) return;
-    jieba_ = search_text::make_jieba(dicts_dir_);
+    jieba_ = search_text::make_query_segment(dicts_dir_);
 }
 
 void MemorySearchIndex::build_locked() {

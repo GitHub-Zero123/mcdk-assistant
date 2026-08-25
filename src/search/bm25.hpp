@@ -69,9 +69,8 @@ public:
         }
     }
 
-    // 直接恢复已有的倒排索引，跳过重新计算（tokenized_docs 不再需要，传参仅为兼容旧调用）
+    // 直接恢复已有的倒排索引，跳过重新计算。
     void restore_index(const std::vector<DocFragment>& fragments,
-                       const std::vector<std::vector<std::string>>& /*tokenized_docs*/,
                        std::vector<int>&& doc_lengths,
                        double avg_dl,
                        std::unordered_map<std::string, double>&& idf,

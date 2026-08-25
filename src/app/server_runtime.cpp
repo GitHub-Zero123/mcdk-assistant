@@ -133,10 +133,10 @@ void log_startup_banner(const mcp::server::configuration& conf,
     std::cerr << "[MCDK] ";
 #endif
     std::cerr << "MCP server starting on " << conf.host << ":" << conf.port << std::endl;
-    std::cerr << "[MCDK] docs indexed: " << search_svc.doc_count() << std::endl;
-    std::cerr << "[MCDK] game assets indexed: " << search_svc.game_assets_count() << std::endl;
+    std::cerr << "[MCDK] docs available: " << search_svc.doc_count() << std::endl;
+    std::cerr << "[MCDK] game assets available: " << search_svc.game_assets_count() << std::endl;
     if (cache_only_mode) {
-        std::cerr << "[MCDK] 已解析缓存索引库（缓存模式）" << std::endl;
+        std::cerr << "[MCDK] 缓存索引目录已就绪，数据按需加载" << std::endl;
     }
 }
 

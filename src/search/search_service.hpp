@@ -4,7 +4,7 @@
 #include "search/bm25.hpp"
 #include "search/index_cache.hpp"
 #include "search/search_text.hpp"
-#include <cppjieba/Jieba.hpp>
+#include <cppjieba/QuerySegment.hpp>
 #include <string>
 #include <vector>
 #include <memory>
@@ -19,6 +19,9 @@
 #include <cctype>
 #include <climits>
 #include <mutex>
+#include <array>
+#include <atomic>
+#include <stdexcept>
 #include <thread>
 #include <future>
 
@@ -37,7 +40,7 @@ public:
                   const std::filesystem::path& knowledge_dir,
                   const std::filesystem::path& cache_path = {},
                   bool force_rebuild_cache = false)
-        : jieba_(search_text::make_jieba(dicts_dir))
+        : dicts_dir_(dicts_dir)
         , knowledge_dir_(knowledge_dir)
         , cache_path_(cache_path)
         , force_rebuild_cache_(force_rebuild_cache)
@@ -51,7 +54,7 @@ public:
     SearchService(const std::filesystem::path& dicts_dir,
                   const std::filesystem::path& cache_path,
                   bool cache_only)
-        : jieba_(search_text::make_jieba(dicts_dir))
+        : dicts_dir_(dicts_dir)
         , cache_path_(cache_path)
         , force_rebuild_cache_(false)
         , cache_only_mode_(cache_only)
@@ -63,9 +66,11 @@ public:
     bool is_cache_only_mode() const { return cache_only_mode_; }
 
     std::vector<SearchResult> search_api(const std::string& keyword, int top_k = -1) const {
+        ensure_category_loaded(IndexCache::SECTION_API);
         return search_category_flexible(api_index_, keyword, top_k, SearchMode::Auto);
     }
     std::vector<SearchResult> search_event(const std::string& keyword, int top_k = -1) const {
+        ensure_category_loaded(IndexCache::SECTION_EVENT);
         if (looks_english_query(keyword) && !is_precise_identifier_query(keyword)) {
             const int limited_top_k = top_k > 0 ? std::min(top_k, 8) : 8;
             return search_event_keyword_index(keyword, limited_top_k);
@@ -73,9 +78,11 @@ public:
         return search_category_flexible(event_index_, keyword, top_k, SearchMode::PreferEnglishFallback);
     }
     std::vector<SearchResult> search_enum(const std::string& keyword, int top_k = -1) const {
+        ensure_category_loaded(IndexCache::SECTION_ENUM);
         return search_category_flexible(enum_index_, keyword, top_k, SearchMode::Auto);
     }
     std::vector<SearchResult> search_netease_guide(const std::string& keyword, int top_k = -1) const {
+        ensure_category_loaded(IndexCache::SECTION_NETEASE_GUIDE);
         return search_category_flexible(netease_guide_index_, keyword, top_k, SearchMode::Auto);
     }
     std::vector<SearchResult> search_all(const std::string& keyword, int top_k = -1) const {
@@ -109,16 +116,28 @@ public:
         return merged;
     }
     std::vector<SearchResult> search_wiki(const std::string& keyword, int top_k = -1) const {
+        ensure_category_loaded(IndexCache::SECTION_WIKI);
         return search_category_en(wiki_index_, keyword, top_k);
     }
     std::vector<SearchResult> search_bedrock_dev(const std::string& keyword, int top_k = -1) const {
+        ensure_category_loaded(IndexCache::SECTION_BEDROCK_DEV);
         return search_category_en(bedrockdev_index_, keyword, top_k);
     }
     std::vector<SearchResult> search_qumod(const std::string& keyword, int top_k = -1) const {
+        ensure_category_loaded(IndexCache::SECTION_QUMOD);
         return search_category_flexible(qumod_index_, keyword, top_k, SearchMode::Auto);
     }
 
     size_t doc_count() const {
+        if (lazy_cache_mode_) {
+            size_t count = 0;
+            for (uint32_t kind = IndexCache::SECTION_API;
+                 kind <= IndexCache::SECTION_BEDROCK_DEV;
+                 ++kind) {
+                count += manifest_item_count(kind);
+            }
+            return count;
+        }
         return api_index_.engine.doc_count() + event_index_.engine.doc_count()
              + enum_index_.engine.doc_count() + wiki_index_.engine.doc_count()
              + bedrockdev_index_.engine.doc_count()
@@ -132,6 +151,7 @@ public:
     };
 
     FileReadResult read_cached_file(const std::string& rel_path, int line_start = 1, int line_end = INT_MAX) const {
+        ensure_sections_for_path(rel_path, true);
         FileReadResult result;
         std::string full_content;
         bool found = false;
@@ -145,13 +165,13 @@ public:
             }
         };
 
-        collect(api_index_);
-        collect(event_index_);
-        collect(enum_index_);
-        collect(wiki_index_);
-        collect(bedrockdev_index_);
-        collect(qumod_index_);
-        collect(netease_guide_index_);
+        if (category_section_loaded(IndexCache::SECTION_API)) collect(api_index_);
+        if (category_section_loaded(IndexCache::SECTION_EVENT)) collect(event_index_);
+        if (category_section_loaded(IndexCache::SECTION_ENUM)) collect(enum_index_);
+        if (category_section_loaded(IndexCache::SECTION_WIKI)) collect(wiki_index_);
+        if (category_section_loaded(IndexCache::SECTION_BEDROCK_DEV)) collect(bedrockdev_index_);
+        if (category_section_loaded(IndexCache::SECTION_QUMOD)) collect(qumod_index_);
+        if (category_section_loaded(IndexCache::SECTION_NETEASE_GUIDE)) collect(netease_guide_index_);
 
         auto collect_ga = [&](const GameAssetIndex& idx) {
             for (const auto& frag : idx.fragments) {
@@ -161,8 +181,8 @@ public:
                 }
             }
         };
-        collect_ga(game_assets_bp_);
-        collect_ga(game_assets_rp_);
+        if (game_asset_section_loaded(IndexCache::SECTION_GAME_ASSETS_BP)) collect_ga(game_assets_bp_);
+        if (game_asset_section_loaded(IndexCache::SECTION_GAME_ASSETS_RP)) collect_ga(game_assets_rp_);
 
         if (!found) return result;
 
@@ -192,6 +212,7 @@ public:
     };
 
     ListResult list_cached_files(const std::string& rel_path = "") const {
+        ensure_sections_for_path(rel_path, false);
         ListResult result;
         std::set<std::string> dir_set, file_set;
 
@@ -215,15 +236,15 @@ public:
             }
         };
 
-        collect(api_index_.fragments);
-        collect(event_index_.fragments);
-        collect(enum_index_.fragments);
-        collect(wiki_index_.fragments);
-        collect(bedrockdev_index_.fragments);
-        collect(qumod_index_.fragments);
-        collect(netease_guide_index_.fragments);
-        collect(game_assets_bp_.fragments);
-        collect(game_assets_rp_.fragments);
+        if (category_section_loaded(IndexCache::SECTION_API)) collect(api_index_.fragments);
+        if (category_section_loaded(IndexCache::SECTION_EVENT)) collect(event_index_.fragments);
+        if (category_section_loaded(IndexCache::SECTION_ENUM)) collect(enum_index_.fragments);
+        if (category_section_loaded(IndexCache::SECTION_WIKI)) collect(wiki_index_.fragments);
+        if (category_section_loaded(IndexCache::SECTION_BEDROCK_DEV)) collect(bedrockdev_index_.fragments);
+        if (category_section_loaded(IndexCache::SECTION_QUMOD)) collect(qumod_index_.fragments);
+        if (category_section_loaded(IndexCache::SECTION_NETEASE_GUIDE)) collect(netease_guide_index_.fragments);
+        if (game_asset_section_loaded(IndexCache::SECTION_GAME_ASSETS_BP)) collect(game_assets_bp_.fragments);
+        if (game_asset_section_loaded(IndexCache::SECTION_GAME_ASSETS_RP)) collect(game_assets_rp_.fragments);
 
         auto collect_ga_paths = [&](const GameAssetIndex& idx) {
             for (const auto& entry : idx.path_entries) {
@@ -238,8 +259,8 @@ public:
                 }
             }
         };
-        collect_ga_paths(game_assets_bp_);
-        collect_ga_paths(game_assets_rp_);
+        if (game_asset_section_loaded(IndexCache::SECTION_GAME_ASSETS_BP)) collect_ga_paths(game_assets_bp_);
+        if (game_asset_section_loaded(IndexCache::SECTION_GAME_ASSETS_RP)) collect_ga_paths(game_assets_rp_);
 
         result.dirs.assign(dir_set.begin(), dir_set.end());
         result.files.assign(file_set.begin(), file_set.end());
@@ -257,6 +278,8 @@ public:
     static constexpr size_t MAX_GAME_ASSET_QUERY_TOKENS = 32;
 
     std::vector<AssetResult> search_game_assets(const std::string& keyword, int scope, int top_k = -1) const {
+        if (scope == 0 || scope == 1) ensure_game_assets_loaded(IndexCache::SECTION_GAME_ASSETS_BP);
+        if (scope == 0 || scope == 2) ensure_game_assets_loaded(IndexCache::SECTION_GAME_ASSETS_RP);
         const int effective_top_k = (top_k > 0) ? top_k : DEFAULT_GAME_ASSET_TOP_K;
 
         std::vector<std::string> tokens;
@@ -419,6 +442,10 @@ public:
     }
 
     size_t game_assets_count() const {
+        if (lazy_cache_mode_) {
+            return manifest_item_count(IndexCache::SECTION_GAME_ASSETS_BP)
+                 + manifest_item_count(IndexCache::SECTION_GAME_ASSETS_RP);
+        }
         return game_assets_bp_.path_entries.size() + game_assets_rp_.path_entries.size();
     }
 
@@ -455,22 +482,30 @@ private:
         std::string identifier_lower;
     };
 
-    std::unique_ptr<cppjieba::Jieba> jieba_;
+    std::filesystem::path           dicts_dir_;
+    mutable std::unique_ptr<cppjieba::QuerySegment> jieba_;
+    mutable std::once_flag          jieba_load_once_;
     std::filesystem::path           knowledge_dir_;
     std::filesystem::path           cache_path_;
     bool                            force_rebuild_cache_ = false;
     bool                            cache_only_mode_ = false;
+    bool                            lazy_cache_mode_ = false;
+    IndexCache::Manifest            cache_manifest_;
     std::unordered_set<std::string> stop_words_;
-    CategoryIndex                   api_index_;
-    CategoryIndex                   event_index_;
-    CategoryIndex                   enum_index_;
-    CategoryIndex                   wiki_index_;
-    CategoryIndex                   bedrockdev_index_;
-    CategoryIndex                   qumod_index_;
-    CategoryIndex                   netease_guide_index_;
-    GameAssetIndex                  game_assets_bp_;
-    GameAssetIndex                  game_assets_rp_;
-    std::vector<EventKeywordEntry>  event_keyword_entries_;
+    mutable CategoryIndex           api_index_;
+    mutable CategoryIndex           event_index_;
+    mutable CategoryIndex           enum_index_;
+    mutable CategoryIndex           wiki_index_;
+    mutable CategoryIndex           bedrockdev_index_;
+    mutable CategoryIndex           qumod_index_;
+    mutable CategoryIndex           netease_guide_index_;
+    mutable GameAssetIndex          game_assets_bp_;
+    mutable GameAssetIndex          game_assets_rp_;
+    mutable std::vector<EventKeywordEntry> event_keyword_entries_;
+    mutable std::array<std::once_flag, IndexCache::CATEGORY_SECTION_COUNT> category_load_once_;
+    mutable std::array<std::once_flag, IndexCache::GAME_ASSET_SECTION_COUNT> asset_load_once_;
+    mutable std::array<std::atomic_bool, IndexCache::CATEGORY_SECTION_COUNT> category_loaded_{};
+    mutable std::array<std::atomic_bool, IndexCache::GAME_ASSET_SECTION_COUNT> asset_loaded_{};
 
     void init_indices() {
         if (cache_only_mode_) {
@@ -478,10 +513,10 @@ private:
                 std::cerr << "[MCDK] cache-only mode: no cache path provided" << std::endl;
                 return;
             }
-            IndexCache::CacheData cached;
-            if (IndexCache::load(cache_path_, "", cached, /*skip_fingerprint_check=*/true)) {
-                std::cerr << "[MCDK] 缓存模式：从缓存文件恢复索引..." << std::endl;
-                restore_from_cache(std::move(cached));
+            IndexCache::Manifest manifest;
+            if (IndexCache::load_manifest(cache_path_, "", manifest, /*skip_fingerprint_check=*/true)) {
+                configure_lazy_cache(std::move(manifest));
+                std::cerr << "[MCDK] 缓存模式：索引目录已加载，数据按需解析" << std::endl;
             } else {
                 std::cerr << "[MCDK] 缓存模式：缓存文件加载失败: " << mcdk::path::to_utf8(cache_path_) << std::endl;
             }
@@ -489,14 +524,14 @@ private:
         }
 
         if (!cache_path_.empty() && !force_rebuild_cache_) {
-            // 有缓存时优先走恢复路径，避免每次启动都重新构建 BM25。
+            // 缓存命中时只读取 section table，具体索引在首次查询时恢复。
             std::string fp = IndexCache::compute_fingerprint(knowledge_dir_);
             std::cerr << "[MCDK] knowledge fingerprint: " << fp << std::endl;
 
-            IndexCache::CacheData cached;
-            if (IndexCache::load(cache_path_, fp, cached)) {
-                std::cerr << "[MCDK] 命中缓存，恢复索引中..." << std::endl;
-                restore_from_cache(std::move(cached));
+            IndexCache::Manifest manifest;
+            if (IndexCache::load_manifest(cache_path_, fp, manifest)) {
+                configure_lazy_cache(std::move(manifest));
+                std::cerr << "[MCDK] 命中缓存，索引数据将在首次查询时解析" << std::endl;
                 return;
             }
         }
@@ -532,56 +567,160 @@ private:
         }
     }
 
-    void restore_from_cache(IndexCache::CacheData&& cached) {
-        auto restore_cat = [](CategoryIndex& idx, IndexCache::CatData& d) {
-            idx.fragments = std::move(d.fragments);
-            idx.engine.restore_index(
-                idx.fragments, d.tokenized_docs,
-                std::move(d.bm25.doc_lengths), d.bm25.avg_dl,
-                std::move(d.bm25.idf), std::move(d.bm25.inverted_index)
-            );
-            std::vector<std::vector<std::string>>().swap(d.tokenized_docs);
-        };
+    void configure_lazy_cache(IndexCache::Manifest&& manifest) {
+        cache_manifest_ = std::move(manifest);
+        lazy_cache_mode_ = true;
+    }
 
-        if (cached.categories.size() >= 7) {
-            restore_cat(api_index_,           cached.categories[0]);
-            restore_cat(event_index_,         cached.categories[1]);
-            restore_cat(enum_index_,          cached.categories[2]);
-            restore_cat(wiki_index_,          cached.categories[3]);
-            restore_cat(qumod_index_,         cached.categories[4]);
-            restore_cat(netease_guide_index_, cached.categories[5]);
-            restore_cat(bedrockdev_index_,       cached.categories[6]);
+    size_t manifest_item_count(uint32_t kind) const {
+        const auto* section = cache_manifest_.find(kind);
+        return section ? static_cast<size_t>(section->item_count) : 0;
+    }
+
+    static size_t category_slot(uint32_t kind) {
+        return static_cast<size_t>(kind - IndexCache::SECTION_API);
+    }
+
+    static size_t asset_slot(uint32_t kind) {
+        return static_cast<size_t>(kind - IndexCache::SECTION_GAME_ASSETS_BP);
+    }
+
+    bool category_section_loaded(uint32_t kind) const {
+        return !lazy_cache_mode_ ||
+               category_loaded_[category_slot(kind)].load(std::memory_order_acquire);
+    }
+
+    bool game_asset_section_loaded(uint32_t kind) const {
+        return !lazy_cache_mode_ ||
+               asset_loaded_[asset_slot(kind)].load(std::memory_order_acquire);
+    }
+
+    static uint32_t section_for_category(DocCategory category) {
+        switch (category) {
+        case DocCategory::API:          return IndexCache::SECTION_API;
+        case DocCategory::Event:        return IndexCache::SECTION_EVENT;
+        case DocCategory::Enum:         return IndexCache::SECTION_ENUM;
+        case DocCategory::Wiki:         return IndexCache::SECTION_WIKI;
+        case DocCategory::BedrockDev:   return IndexCache::SECTION_BEDROCK_DEV;
+        case DocCategory::QuMod:        return IndexCache::SECTION_QUMOD;
+        case DocCategory::NeteaseGuide: return IndexCache::SECTION_NETEASE_GUIDE;
+        default:                        return 0;
         }
+    }
 
-        if (cached.game_assets.size() >= 2) {
-            auto restore_ga = [](GameAssetIndex& idx, IndexCache::GameAssetData& d) {
-                idx.fragments = std::move(d.fragments);
-                idx.path_entries.resize(d.rel_paths.size());
-                for (size_t i = 0; i < d.rel_paths.size(); ++i) {
-                    std::string lower = d.rel_paths[i];
-                    for (auto& c : lower)
-                        c = static_cast<char>(std::tolower(static_cast<unsigned char>(c)));
-                    idx.path_entries[i].first  = std::move(d.rel_paths[i]);
-                    idx.path_entries[i].second = std::move(lower);
+    CategoryIndex& category_index_for_section(uint32_t kind) const {
+        switch (kind) {
+        case IndexCache::SECTION_API:           return api_index_;
+        case IndexCache::SECTION_EVENT:         return event_index_;
+        case IndexCache::SECTION_ENUM:          return enum_index_;
+        case IndexCache::SECTION_WIKI:          return wiki_index_;
+        case IndexCache::SECTION_QUMOD:         return qumod_index_;
+        case IndexCache::SECTION_NETEASE_GUIDE: return netease_guide_index_;
+        case IndexCache::SECTION_BEDROCK_DEV:   return bedrockdev_index_;
+        default: throw std::logic_error("invalid category section");
+        }
+    }
+
+    GameAssetIndex& game_asset_index_for_section(uint32_t kind) const {
+        switch (kind) {
+        case IndexCache::SECTION_GAME_ASSETS_BP: return game_assets_bp_;
+        case IndexCache::SECTION_GAME_ASSETS_RP: return game_assets_rp_;
+        default: throw std::logic_error("invalid game asset section");
+        }
+    }
+
+    void ensure_category_loaded(uint32_t kind) const {
+        if (!lazy_cache_mode_) return;
+        const size_t slot = category_slot(kind);
+        std::call_once(category_load_once_[slot], [this, kind, slot]() {
+            IndexCache::CatData data;
+            if (!IndexCache::load_category(cache_path_, cache_manifest_, kind, data)) {
+                throw std::runtime_error("failed to load index cache section " + std::to_string(kind));
+            }
+
+            auto& index = category_index_for_section(kind);
+            index.fragments = std::move(data.fragments);
+            index.engine.restore_index(
+                index.fragments,
+                std::move(data.bm25.doc_lengths), data.bm25.avg_dl,
+                std::move(data.bm25.idf), std::move(data.bm25.inverted_index));
+
+            if (kind != IndexCache::SECTION_WIKI && kind != IndexCache::SECTION_BEDROCK_DEV) {
+                rebuild_identifier_entries(index);
+            }
+            if (kind == IndexCache::SECTION_EVENT) rebuild_event_keyword_entries();
+            category_loaded_[slot].store(true, std::memory_order_release);
+            std::cerr << "[MCDK] lazy-loaded index section " << kind
+                      << ": " << index.fragments.size() << " items" << std::endl;
+        });
+    }
+
+    void ensure_game_assets_loaded(uint32_t kind) const {
+        if (!lazy_cache_mode_) return;
+        const size_t slot = asset_slot(kind);
+        std::call_once(asset_load_once_[slot], [this, kind, slot]() {
+            IndexCache::GameAssetData data;
+            if (!IndexCache::load_game_assets(cache_path_, cache_manifest_, kind, data)) {
+                throw std::runtime_error("failed to load game asset cache section " + std::to_string(kind));
+            }
+
+            auto& index = game_asset_index_for_section(kind);
+            index.fragments = std::move(data.fragments);
+            index.path_entries.resize(data.rel_paths.size());
+            for (size_t i = 0; i < data.rel_paths.size(); ++i) {
+                std::string lower = data.rel_paths[i];
+                for (auto& c : lower) {
+                    c = static_cast<char>(std::tolower(static_cast<unsigned char>(c)));
                 }
-                idx.engine.restore_index(
-                    idx.fragments, d.tokenized_docs,
-                    std::move(d.bm25.doc_lengths), d.bm25.avg_dl,
-                    std::move(d.bm25.idf), std::move(d.bm25.inverted_index)
-                );
-                // restore 完成后立即释放分词数据
-                std::vector<std::vector<std::string>>().swap(d.tokenized_docs);
-            };
-            restore_ga(game_assets_bp_, cached.game_assets[0]);
-            restore_ga(game_assets_rp_, cached.game_assets[1]);
+                index.path_entries[i].first = std::move(data.rel_paths[i]);
+                index.path_entries[i].second = std::move(lower);
+            }
+            index.engine.restore_index(
+                index.fragments,
+                std::move(data.bm25.doc_lengths), data.bm25.avg_dl,
+                std::move(data.bm25.idf), std::move(data.bm25.inverted_index));
+
+            asset_loaded_[slot].store(true, std::memory_order_release);
+            std::cerr << "[MCDK] lazy-loaded game asset section " << kind
+                      << ": " << index.fragments.size() << " items" << std::endl;
+        });
+    }
+
+    void ensure_sections_for_path(const std::string& rel_path, bool exact_file) const {
+        if (!lazy_cache_mode_) return;
+
+        std::string normalized = rel_path;
+        for (auto& c : normalized) if (c == '\\') c = '/';
+
+        if (normalized.rfind("GameAssets/behavior_packs/", 0) == 0) {
+            ensure_game_assets_loaded(IndexCache::SECTION_GAME_ASSETS_BP);
+            return;
+        }
+        if (normalized.rfind("GameAssets/resource_packs/", 0) == 0) {
+            ensure_game_assets_loaded(IndexCache::SECTION_GAME_ASSETS_RP);
+            return;
+        }
+        if (normalized == "GameAssets" || normalized.rfind("GameAssets/", 0) == 0) {
+            ensure_game_assets_loaded(IndexCache::SECTION_GAME_ASSETS_BP);
+            ensure_game_assets_loaded(IndexCache::SECTION_GAME_ASSETS_RP);
+            return;
         }
 
-        rebuild_event_keyword_entries();
-        rebuild_cn_identifier_entries();
+        const uint32_t category_section = section_for_category(classify_path(normalized));
+        if (category_section != 0) {
+            ensure_category_loaded(category_section);
+            return;
+        }
 
-        // CacheData 析构时 categories/game_assets 里剩余的临时内存自动释放
-        std::cerr << "[MCDK] 缓存恢复完成: " << doc_count() << " fragments, "
-                  << game_assets_count() << " game assets" << std::endl;
+        for (uint32_t kind = IndexCache::SECTION_API;
+             kind <= IndexCache::SECTION_BEDROCK_DEV;
+             ++kind) {
+            ensure_category_loaded(kind);
+        }
+        if (normalized.empty() || exact_file) {
+            ensure_game_assets_loaded(IndexCache::SECTION_GAME_ASSETS_BP);
+            ensure_game_assets_loaded(IndexCache::SECTION_GAME_ASSETS_RP);
+        }
     }
 
     // 保存缓存：GameAssets 只存 rel_path，content 通过 fragments 序列化（去掉重复）
@@ -596,18 +735,18 @@ private:
         for (const auto& e : game_assets_rp_.path_entries) rp_rel_paths.push_back(e.first);
 
         std::vector<IndexCache::CatIndexRef> cat_refs = {
-            {&api_index_.fragments,           &api_index_.tokenized_docs,           &api_index_.engine},
-            {&event_index_.fragments,         &event_index_.tokenized_docs,         &event_index_.engine},
-            {&enum_index_.fragments,          &enum_index_.tokenized_docs,          &enum_index_.engine},
-            {&wiki_index_.fragments,          &wiki_index_.tokenized_docs,          &wiki_index_.engine},
-            {&qumod_index_.fragments,         &qumod_index_.tokenized_docs,         &qumod_index_.engine},
-            {&netease_guide_index_.fragments, &netease_guide_index_.tokenized_docs, &netease_guide_index_.engine},
-            {&bedrockdev_index_.fragments,       &bedrockdev_index_.tokenized_docs,       &bedrockdev_index_.engine},
+            {&api_index_.fragments,           &api_index_.engine},
+            {&event_index_.fragments,         &event_index_.engine},
+            {&enum_index_.fragments,          &enum_index_.engine},
+            {&wiki_index_.fragments,          &wiki_index_.engine},
+            {&qumod_index_.fragments,         &qumod_index_.engine},
+            {&netease_guide_index_.fragments, &netease_guide_index_.engine},
+            {&bedrockdev_index_.fragments,    &bedrockdev_index_.engine},
         };
 
         std::vector<IndexCache::GameIndexRef> ga_refs = {
-            {&bp_rel_paths, &game_assets_bp_.fragments, &game_assets_bp_.tokenized_docs, &game_assets_bp_.engine},
-            {&rp_rel_paths, &game_assets_rp_.fragments, &game_assets_rp_.tokenized_docs, &game_assets_rp_.engine},
+            {&bp_rel_paths, &game_assets_bp_.fragments, &game_assets_bp_.engine},
+            {&rp_rel_paths, &game_assets_rp_.fragments, &game_assets_rp_.engine},
         };
 
         IndexCache::save(cache_path_, fp, cat_refs, ga_refs);
@@ -930,7 +1069,7 @@ private:
         return best;
     }
 
-    void rebuild_event_keyword_entries() {
+    void rebuild_event_keyword_entries() const {
         event_keyword_entries_.clear();
         event_keyword_entries_.reserve(event_index_.fragments.size());
         for (size_t i = 0; i < event_index_.fragments.size(); ++i) {
@@ -1012,6 +1151,10 @@ private:
     }
 
     void tokenize(const std::string& text, std::vector<std::string>& tokens) const {
+        std::call_once(jieba_load_once_, [this]() {
+            jieba_ = search_text::make_query_segment(dicts_dir_);
+            std::cerr << "[MCDK] lazy-loaded Jieba query segment" << std::endl;
+        });
         search_text::tokenize_zh(*jieba_, stop_words_, text, tokens);
     }
 
