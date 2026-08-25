@@ -278,8 +278,9 @@ inline std::string minecraft_docs_help_text(bool with_solutions = false) {
     if (with_solutions) {
         help += R"(
 【solution】 解决方案层（经维护、可运行的接口组合范式 + 踩坑，治"查到接口却盲猜用法"）
-  说明: 搜索命令【默认就会】在结果后追加"相关解决方案/踩坑"指针（仅在确有相关命中时），无需额外参数。
-  <搜索命令> ... --no-solution     本次不要解决方案指针（只看纯资料、想省 token 时用）
+  说明: 搜索命令默认启用解决方案匹配，会自动命中并追加相关"解决方案/踩坑"清单（仅在确有相关命中时）。
+        当任务目标、实现路径或技术选型尚未完全明确时，建议保持启用，再用 solution <id> 阅读命中方案正文。
+  <搜索命令> ... --no-solution     仅当已明确知道要做什么、只需核对原始资料时，关闭本次解决方案匹配
                                    例: api PushScreen --no-solution
   solution <id>                    读取某解决方案的完整正文（照着写可运行代码）
                                    例: solution ui-custom-screen
@@ -528,8 +529,9 @@ inline void register_minecraft_docs_tools(mcp::server& srv, SearchService& searc
         "初次接触网易 ModSDK 项目时，建议先调用 command=\"help\"，集中了解开发规范与可用命令。";
 #ifdef MCDK_WITH_SOLUTIONS
     if (solutions)
-        description += "解决方案层默认开启：检索会自动附带相关\"解决方案/踩坑\"（经维护、可运行的组合范式），"
-                      "再用 solution <id> 读完整正文；只看纯资料/想省 token 时加 --no-solution 关闭本次。";
+        description += "解决方案层默认开启：检索会自动命中并附带相关\"解决方案/踩坑\"清单（经维护、可运行的组合范式）。"
+                      "当任务目标、实现路径或技术选型尚未完全明确时应保持启用，再用 solution <id> 读命中方案正文；"
+                      "仅当已明确知道要做什么、只需核对原始资料时，才加 --no-solution 关闭本次匹配。";
 #endif
 
     auto tool = mcp::tool_builder(minecraft_docs_detail::kToolName)
