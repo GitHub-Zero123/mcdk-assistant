@@ -231,7 +231,6 @@ inline std::string minecraft_docs_help_text(bool with_solutions = false) {
   多个词会被空格拼成一个字符串再匹配，想搜精确短语用引号包裹。
 
 【资料搜索命令】
-  all <关键词...> [--top <n>]        全部文档（ModAPI / Wiki / QuMod / 网易教程 / BedrockDev），不搜索游戏资产
   api <关键词...> [--top <n>]        ModAPI 接口文档
   event <关键词...> [--top <n>]      ModAPI 事件文档
   enum <关键词...> [--top <n>]       ModAPI 枚举值文档
@@ -244,6 +243,9 @@ inline std::string minecraft_docs_help_text(bool with_solutions = false) {
                                      如确实想搜含 diff/jsonui 的文档，加其他词，如 netease 差异 兼容。
   assets <关键词...> [--top <n>] [--assets <0|1|2>] [--bp|--rp]
                                      原版游戏资产（文件名+内容模糊匹配）；0=全部，1/--bp=行为包，2/--rp=资源包
+  all <关键词...> [--top <n>]        全部文档（ModAPI / Wiki / QuMod / 网易教程 / BedrockDev），不搜索游戏资产。
+                                     跨库混合、噪音最多，故列在最后：已知资料属于哪一类时请直接用上面的具体分区，
+                                     只有在确实判断不出类别时才用 all。
   示例:
     wiki minecraft:food --top 8
     api ListenForEvent
@@ -526,6 +528,8 @@ inline void register_minecraft_docs_tools(mcp::server& srv, SearchService& searc
         "Minecraft 基岩版 Addon/Mod 资料和文档统一入口（网易版/国际版通用）："
         "文档检索（ModAPI/Wiki/QuMod/BedrockDev/网易教程）、原版资源搜索、"
         "原版 ModSDK 架构速查、网易版差异速查、知识库文件读取。采用命令式用法，"
+        "与其他命令式工具不同：命令的第一个词是「资料分区名」而不是动作词，"
+        "该工具没有 search/find/query 子命令，检索直接写 '<分区> <关键词>'，如 'api ListenForEvent'。"
         "初次接触网易 ModSDK 项目时，建议先调用 command=\"help\"，集中了解开发规范与可用命令。";
 #ifdef MCDK_WITH_SOLUTIONS
     if (solutions)
