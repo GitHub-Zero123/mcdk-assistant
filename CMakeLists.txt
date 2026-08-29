@@ -81,6 +81,8 @@ endif()
 file(GLOB_RECURSE MCDK_SOURCES
     src/*.cpp
 )
+# mcdk-web-server has its own entry point and dependency surface.
+list(FILTER MCDK_SOURCES EXCLUDE REGEX "web_server/")
 
 set(MCDK_LITE_SOURCES
     src/main.cpp
@@ -196,6 +198,7 @@ mcdk_add_target(mcdk-asst-lite
 
 if(NOT ANDROID)
     file(GLOB_RECURSE MCDK_SERVER_SOURCES src/*.cpp)
+    list(FILTER MCDK_SERVER_SOURCES EXCLUDE REGEX "web_server/")
     # 服务器默认LITE模式，避免暴露过多文件操作接口
     mcdk_add_target(mcdk-asst-server
         SOURCES ${MCDK_SERVER_SOURCES}
@@ -203,11 +206,68 @@ if(NOT ANDROID)
     )
 endif()
 
+option(MCDK_BUILD_WEB_SERVER "Build the browser-facing knowledge search server" ON)
+if(MCDK_BUILD_WEB_SERVER AND NOT ANDROID)
+    find_program(MCDK_NPM_EXECUTABLE NAMES npm npm.cmd REQUIRED)
+    if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/web/node_modules/.bin/vite"
+       AND NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/web/node_modules/.bin/vite.cmd")
+        message(FATAL_ERROR
+            "Web frontend dependencies are missing. Run `npm ci --prefix web` before configuring CMake, "
+            "or configure with -DMCDK_BUILD_WEB_SERVER=OFF.")
+    endif()
+
+    set(MCDK_WEB_ASSET_DIR "${CMAKE_CURRENT_BINARY_DIR}/web")
+    file(GLOB_RECURSE MCDK_WEB_FRONTEND_SOURCES CONFIGURE_DEPENDS
+        "${CMAKE_CURRENT_SOURCE_DIR}/web/src/*.ts"
+        "${CMAKE_CURRENT_SOURCE_DIR}/web/src/*.css"
+    )
+    list(APPEND MCDK_WEB_FRONTEND_SOURCES
+        "${CMAKE_CURRENT_SOURCE_DIR}/web/index.html"
+        "${CMAKE_CURRENT_SOURCE_DIR}/web/package.json"
+        "${CMAKE_CURRENT_SOURCE_DIR}/web/package-lock.json"
+        "${CMAKE_CURRENT_SOURCE_DIR}/web/tsconfig.json"
+    )
+
+    add_custom_command(
+        OUTPUT "${MCDK_WEB_ASSET_DIR}/index.html"
+        COMMAND "${MCDK_NPM_EXECUTABLE}" run build -- --outDir "${MCDK_WEB_ASSET_DIR}" --emptyOutDir
+        WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/web"
+        DEPENDS ${MCDK_WEB_FRONTEND_SOURCES}
+        COMMENT "Building mcdk-web-server frontend"
+        VERBATIM
+    )
+    add_custom_target(mcdk-web-frontend ALL
+        DEPENDS "${MCDK_WEB_ASSET_DIR}/index.html"
+    )
+
+    add_executable(mcdk-web-server
+        src/web_server/main.cpp
+        src/app/runtime_paths.cpp
+    )
+    add_dependencies(mcdk-web-server mcdk-web-frontend)
+    target_include_directories(mcdk-web-server PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/src
+        ${CMAKE_CURRENT_SOURCE_DIR}/libs/cpp-mcp/common
+    )
+    target_link_libraries(mcdk-web-server PRIVATE
+        cppjieba
+        nlohmann_json::nlohmann_json
+        Threads::Threads
+    )
+    mcdk_apply_platform_options(mcdk-web-server)
+endif()
+
 set(MCDK_INSTALL_RUNTIME_TARGETS mcdk-assistant mcdk-asst-lite)
 if(NOT ANDROID)
     list(APPEND MCDK_INSTALL_RUNTIME_TARGETS mcdk-asst-server)
 endif()
+if(TARGET mcdk-web-server)
+    list(APPEND MCDK_INSTALL_RUNTIME_TARGETS mcdk-web-server)
+endif()
 install(TARGETS ${MCDK_INSTALL_RUNTIME_TARGETS} RUNTIME DESTINATION .)
+if(TARGET mcdk-web-server)
+    install(DIRECTORY "${MCDK_WEB_ASSET_DIR}/" DESTINATION web)
+endif()
 install(DIRECTORY plugins/completion DESTINATION plugins-dev
     PATTERN "__pycache__" EXCLUDE
     PATTERN "*.pyc" EXCLUDE

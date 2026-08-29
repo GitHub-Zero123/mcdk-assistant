@@ -1,0 +1,20 @@
+{
+  "name": "mcdk-knowledge-web",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "dompurify": "3.4.14",
+    "lucide": "0.468.0",
+    "marked": "15.0.12"
+  },
+  "devDependencies": {
+    "typescript": "5.7.3",
+    "vite": "6.4.3"
+  }
+}

@@ -89,6 +89,9 @@ jobs:
         if: runner.os == 'macOS'
         run: brew install ninja
 
+      - name: Install web frontend dependencies
+        run: npm ci --prefix web
+
       - name: Configure
         run: >
           cmake -S . -B build/ci
@@ -110,15 +113,18 @@ jobs:
           test ! -d package/knowledge
           test -f package/mcdk_index_cache.bin
           test -f package/mcdk_sapi_index_cache.bin
+          test -f package/web/index.html
 
           if [ "${{ runner.os }}" = "Windows" ]; then
             test -f package/mcdk-assistant.exe
             test -f package/mcdk-asst-lite.exe
             test -f package/mcdk-asst-server.exe
+            test -f package/mcdk-web-server.exe
           else
             test -f package/mcdk-assistant
             test -f package/mcdk-asst-lite
             test -f package/mcdk-asst-server
+            test -f package/mcdk-web-server
           fi
 
           if [ -f solutions/cpp/solution_index.cpp ]; then
