@@ -8,25 +8,49 @@ import {
   collectHeadings,
   highlightInPlace,
   highlightTerms,
+  isMarkdownPath,
   renderMarkdown,
+  renderSourceFile,
   type Heading,
 } from "./markdown";
+import { initQuickFind } from "./quickfind";
 import {
   ApiError,
+  assetToHit,
   fetchDocument,
   fetchMeta,
   scopes,
+  searchAssets,
   searchDocuments,
+  toHit,
+  type AssetScope,
   type DocumentResponse,
-  type SearchItem,
+  type Hit,
   type SearchScope,
+  type Source,
 } from "./api";
 
 const PAGE_SIZE = 20;
+const ASSET_LIMIT = 200;
 const DEBOUNCE_MS = 260;
 const THEME_KEY = "mcdk-theme";
 
-const scopeLabels: Record<SearchScope | "other", string> = {
+/** Asset packs are a separate index, exposed as extra entries in the rail. */
+const assetRailScopes = ["asset", "asset-bp", "asset-rp"] as const;
+type AssetRailScope = (typeof assetRailScopes)[number];
+type RailScope = SearchScope | AssetRailScope;
+
+const assetPacks: Record<AssetRailScope, AssetScope> = {
+  asset: "all",
+  "asset-bp": "bp",
+  "asset-rp": "rp",
+};
+
+function isAssetScope(scope: RailScope): scope is AssetRailScope {
+  return scope in assetPacks;
+}
+
+const scopeLabels: Record<RailScope, string> = {
   all: "全部",
   api: "ModAPI",
   event: "事件",
@@ -35,6 +59,20 @@ const scopeLabels: Record<SearchScope | "other", string> = {
   dev: "Bedrock Dev",
   qumod: "QuMod",
   netease: "网易教程",
+  asset: "全部资产",
+  "asset-bp": "行为包",
+  "asset-rp": "资源包",
+};
+
+const sourceLabels: Record<Source, string> = {
+  api: "ModAPI",
+  event: "事件",
+  enum: "枚举",
+  wiki: "Bedrock Wiki",
+  dev: "Bedrock Dev",
+  qumod: "QuMod",
+  netease: "网易教程",
+  asset: "游戏资产",
   other: "其他",
 };
 
@@ -42,10 +80,10 @@ const samples = ["CreateExplosion", "molang", "loot_table", "自定义方块", "
 
 const state = {
   query: "",
-  scope: "all" as SearchScope,
+  scope: "all" as RailScope,
   page: 1,
   hasMore: false,
-  items: [] as SearchItem[],
+  items: [] as Hit[],
   active: -1,
   selectedPath: "",
   searchController: null as AbortController | null,
@@ -216,7 +254,8 @@ function readUrl(): void {
   const requestedScope = params.get("scope");
   const requestedPage = Number(params.get("page") ?? "1");
   state.query = (params.get("q")?.trim() ?? "").slice(0, 256);
-  state.scope = scopes.includes(requestedScope as SearchScope) ? (requestedScope as SearchScope) : "all";
+  const known: readonly RailScope[] = [...scopes, ...assetRailScopes];
+  state.scope = known.includes(requestedScope as RailScope) ? (requestedScope as RailScope) : "all";
   state.page = Number.isInteger(requestedPage) && requestedPage > 0 ? requestedPage : 1;
   state.selectedPath = params.get("doc") ?? "";
   ui.input.value = state.query;
@@ -235,17 +274,24 @@ function writeUrl(): void {
 
 /* ── scopes ────────────────────────────────────────────────────────────── */
 
+function scopeButton(scope: RailScope): HTMLButtonElement {
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "scope";
+  button.dataset["scope"] = scope;
+  button.textContent = scopeLabels[scope];
+  button.setAttribute("aria-pressed", String(scope === state.scope));
+  return button;
+}
+
 function renderScopes(): void {
+  const heading = document.createElement("p");
+  heading.className = "rail__label rail__label--split";
+  heading.textContent = "游戏资产";
   ui.scopes.replaceChildren(
-    ...scopes.map((scope) => {
-      const button = document.createElement("button");
-      button.type = "button";
-      button.className = "scope";
-      button.dataset["scope"] = scope;
-      button.textContent = scopeLabels[scope];
-      button.setAttribute("aria-pressed", String(scope === state.scope));
-      return button;
-    }),
+    ...scopes.map(scopeButton),
+    heading,
+    ...assetRailScopes.map(scopeButton),
   );
 }
 
@@ -253,7 +299,7 @@ ui.scopes.addEventListener("click", (event) => {
   const button = (event.target as HTMLElement).closest<HTMLButtonElement>("button[data-scope]");
   const scope = button?.dataset["scope"];
   if (!scope || scope === state.scope) return;
-  state.scope = scope as SearchScope;
+  state.scope = scope as RailScope;
   state.page = 1;
   renderScopes();
   writeUrl();
@@ -350,25 +396,34 @@ async function runSearch(): Promise<void> {
 
   const started = performance.now();
   try {
-    const result = await searchDocuments(state.query, state.scope, state.page, PAGE_SIZE, controller.signal);
+    const { items, hasMore } = isAssetScope(state.scope)
+      ? await runAssetSearch(state.scope, controller.signal)
+      : await runDocumentSearch(state.scope, controller.signal);
     const elapsed = Math.round(performance.now() - started);
-    state.items = result.items;
-    state.hasMore = result.has_more;
+    state.items = items;
+    state.hasMore = hasMore;
 
-    ui.count.textContent = result.items.length
-      ? `${result.items.length} 条结果 · ${scopeLabels[state.scope]}`
+    ui.count.textContent = items.length
+      ? `${items.length} 条结果 · ${scopeLabels[state.scope]}`
       : `无匹配结果 · ${scopeLabels[state.scope]}`;
     ui.timing.textContent = `${elapsed}ms`;
 
-    if (result.items.length) {
+    if (items.length) {
       const terms = highlightTerms(state.query);
-      ui.hits.replaceChildren(...result.items.map((item, index) => renderHit(item, index, terms)));
+      ui.hits.replaceChildren(
+        ...items.map((item, index) =>
+          renderHit(item, index, terms, () => {
+            state.active = index;
+            void openDocument(item);
+          }),
+        ),
+      );
       ui.hits.scrollTop = 0;
     } else {
       ui.hits.replaceChildren(notice("search", "没有找到相关资料", "换个关键词，或切换到其他分类再试一次。"));
     }
 
-    ui.pager.hidden = result.items.length === 0 || (state.page === 1 && !state.hasMore);
+    ui.pager.hidden = items.length === 0 || (state.page === 1 && !state.hasMore);
     ui.page.textContent = String(state.page);
     ui.prev.disabled = state.page <= 1;
     ui.next.disabled = !state.hasMore;
@@ -383,7 +438,33 @@ async function runSearch(): Promise<void> {
   }
 }
 
-function renderHit(item: SearchItem, index: number, terms: string[]): HTMLElement {
+async function runDocumentSearch(
+  scope: SearchScope,
+  signal: AbortSignal,
+): Promise<{ items: Hit[]; hasMore: boolean }> {
+  const result = await searchDocuments(state.query, scope, state.page, PAGE_SIZE, signal);
+  return { items: result.items.map(toHit), hasMore: result.has_more };
+}
+
+/**
+ * The asset endpoint returns a ranked top-k rather than pages, so paging is
+ * done here by asking for one page more than is being shown.
+ */
+async function runAssetSearch(
+  scope: AssetRailScope,
+  signal: AbortSignal,
+): Promise<{ items: Hit[]; hasMore: boolean }> {
+  const wanted = Math.min(state.page * PAGE_SIZE + 1, ASSET_LIMIT);
+  const result = await searchAssets(state.query, assetPacks[scope], wanted, signal);
+  const offset = (state.page - 1) * PAGE_SIZE;
+  return {
+    items: result.items.slice(offset, offset + PAGE_SIZE).map(assetToHit),
+    hasMore: result.items.length > offset + PAGE_SIZE,
+  };
+}
+
+/** Shared by the results column and the floating quick-find panel. */
+function renderHit(item: Hit, index: number, terms: string[], onOpen: () => void): HTMLElement {
   const hit = document.createElement("button");
   hit.type = "button";
   hit.className = "hit";
@@ -394,26 +475,28 @@ function renderHit(item: SearchItem, index: number, terms: string[]): HTMLElemen
   top.className = "hit__top";
   const tag = document.createElement("span");
   tag.className = "tag";
-  tag.textContent = scopeLabels[item.source];
+  tag.textContent = sourceLabels[item.source];
   const path = document.createElement("span");
   path.className = "hit__path";
-  path.textContent = `${item.path}:${item.line_start}`;
-  path.title = `${item.path}:${item.line_start}`;
+  const location = item.line === undefined ? item.path : `${item.path}:${item.line}`;
+  path.textContent = location;
+  path.title = location;
   top.append(tag, path);
 
   const title = document.createElement("span");
   title.className = "hit__title";
   appendHighlighted(title, item.title, terms);
 
-  const snippet = document.createElement("span");
-  snippet.className = "hit__snippet";
-  appendHighlighted(snippet, cleanSnippet(item.snippet), terms);
+  hit.append(top, title);
 
-  hit.append(top, title, snippet);
-  hit.addEventListener("click", () => {
-    state.active = index;
-    void openDocument(item);
-  });
+  if (item.snippet) {
+    const snippet = document.createElement("span");
+    snippet.className = "hit__snippet";
+    appendHighlighted(snippet, cleanSnippet(item.snippet), terms);
+    hit.append(snippet);
+  }
+
+  hit.addEventListener("click", onOpen);
   return hit;
 }
 
@@ -434,14 +517,16 @@ function moveActive(delta: number): void {
 
 /* ── document ──────────────────────────────────────────────────────────── */
 
-async function openDocument(item: { path: string; source?: SearchItem["source"]; title?: string }): Promise<void> {
+async function openDocument(item: { path: string; source?: Source; title?: string }): Promise<void> {
+  // The reader is about to be replaced; a chip anchored into it would strand.
+  quickFind.close();
   state.documentController?.abort();
   state.selectedPath = item.path;
   writeUrl();
   markSelection();
 
   ui.shell.classList.add("is-reading");
-  ui.docTag.textContent = scopeLabels[item.source ?? "other"];
+  ui.docTag.textContent = sourceLabels[item.source ?? "other"];
   ui.docPath.textContent = item.path;
   ui.docPath.title = item.path;
   ui.docLines.textContent = "";
@@ -464,15 +549,17 @@ async function openDocument(item: { path: string; source?: SearchItem["source"];
 }
 
 function renderDocument(data: DocumentResponse, anchorTitle?: string): void {
-  ui.docTag.textContent = scopeLabels[data.source];
+  ui.docTag.textContent = sourceLabels[data.source];
   ui.docPath.textContent = data.path;
   ui.docPath.title = data.path;
   ui.docLines.textContent = `${data.total_lines.toLocaleString("zh-CN")} 行`;
 
   const terms = highlightTerms(state.query);
-  const body = renderMarkdown(data.content);
+  // Game assets are data files; only real documents go through the parser.
+  const markdown = isMarkdownPath(data.path);
+  const body = markdown ? renderMarkdown(data.content) : renderSourceFile(data.content, data.path);
   highlightInPlace(body, terms);
-  state.headings = collectHeadings(body);
+  state.headings = markdown ? collectHeadings(body) : [];
   ui.docScroll.replaceChildren(body);
   ui.docScroll.scrollTop = 0;
   renderToc();
@@ -527,6 +614,7 @@ function renderToc(): void {
 }
 
 function closeDocument(): void {
+  quickFind.close();
   state.documentController?.abort();
   state.spy?.disconnect();
   state.spy = null;
@@ -618,6 +706,8 @@ ui.input.addEventListener("keydown", (event) => {
 });
 
 window.addEventListener("keydown", (event) => {
+  // The floating panel handles its own keys first and stops propagation.
+  if (quickFind.open) return;
   const typing = event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement;
 
   if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "k") {
@@ -654,6 +744,19 @@ window.addEventListener("popstate", () => {
   else closeDocument();
 });
 
+/* ── quick find ────────────────────────────────────────────────────────── */
+
+const quickFind = initQuickFind({
+  roots: [ui.docScroll, ui.hits],
+  terms: highlightTerms,
+  renderHit: (hit, index, terms, onOpen) => renderHit(hit, index, terms, onOpen),
+  onOpen: (hit) => void openDocument(hit),
+  search: async (query, signal) => {
+    const result = await searchDocuments(query, "all", 1, 8, signal);
+    return result.items.map(toHit);
+  },
+});
+
 /* ── boot ──────────────────────────────────────────────────────────────── */
 
 function dot(): HTMLElement {
@@ -677,7 +780,10 @@ async function initialize(): Promise<void> {
   try {
     const meta = await fetchMeta();
     ui.health.classList.add("is-online");
-    ui.health.replaceChildren(dot(), label(`${meta.documents.toLocaleString("zh-CN")} 篇`));
+    ui.health.replaceChildren(
+      dot(),
+      label(`${meta.documents.toLocaleString("zh-CN")} 篇 · ${meta.assets.toLocaleString("zh-CN")} 资产`),
+    );
   } catch {
     ui.health.classList.add("is-offline");
     ui.health.replaceChildren(dot(), label("服务不可用"));

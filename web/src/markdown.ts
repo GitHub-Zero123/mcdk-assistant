@@ -59,6 +59,46 @@ export function renderMarkdown(source: string): HTMLElement {
   return body;
 }
 
+/** Extensions that appear in the game asset index, mapped to a grammar. */
+const fileLanguages: Record<string, string> = {
+  json: "json",
+  material: "json",
+  mcmeta: "json",
+  geo: "json",
+  js: "javascript",
+  ts: "typescript",
+  py: "python",
+  yml: "yaml",
+  yaml: "yaml",
+  xml: "xml",
+  html: "xml",
+  sh: "bash",
+};
+
+export function isMarkdownPath(path: string): boolean {
+  return /\.mdx?$/iu.test(path);
+}
+
+/**
+ * Game assets are data files, not prose. Running them through the markdown
+ * parser would mangle them, so they go straight into a highlightable block.
+ */
+export function renderSourceFile(source: string, path: string): HTMLElement {
+  const extension = path.includes(".") ? (path.split(".").pop() ?? "").toLowerCase() : "";
+  const language = fileLanguages[extension];
+
+  const body = document.createElement("div");
+  body.className = "prose prose--file";
+  const block = document.createElement("pre");
+  block.tabIndex = 0;
+  const code = document.createElement("code");
+  if (language) code.className = `language-${language}`;
+  code.textContent = source;
+  block.append(code);
+  body.append(block);
+  return body;
+}
+
 /** A quiet one-line stand-in, instead of the browser's broken-image glyph. */
 function missingImage(image: HTMLImageElement): HTMLElement {
   const box = document.createElement("span");

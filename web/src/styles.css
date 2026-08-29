@@ -113,6 +113,13 @@
   box-sizing: border-box;
 }
 
+/* The UA rule for [hidden] is display:none at the lowest precedence, so any
+   author `display` on a component silently defeats it. Everything here that
+   toggles `hidden` also sets a display, so the attribute has to win. */
+[hidden] {
+  display: none !important;
+}
+
 html,
 body {
   height: 100%;
@@ -501,6 +508,11 @@ body.is-resizing {
   box-shadow: inset 2px 0 0 var(--fg);
 }
 
+.rail__label--split {
+  margin: 12px 0 4px;
+  padding: 0 8px;
+}
+
 .rail__keys {
   margin-top: auto;
   padding: 12px 6px 0;
@@ -865,6 +877,16 @@ body.is-resizing {
   margin-top: 0;
 }
 
+/* Whole-file view for game assets: one block, no prose measure. */
+.prose--file {
+  max-width: none;
+  padding: 14px 16px 60px;
+}
+
+.prose--file pre {
+  margin: 0;
+}
+
 .prose h1,
 .prose h2,
 .prose h3,
@@ -1050,6 +1072,96 @@ body.is-resizing {
   height: 9px;
   border: 1px solid currentColor;
   border-radius: 1px;
+}
+
+/* ── quick find ─────────────────────────────────────────────────────────
+   A selection anywhere in the reader offers a lookup without disturbing the
+   main search box, so both surfaces can be in use at once.                */
+
+.qf-chip {
+  position: fixed;
+  z-index: 40;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 260px;
+  padding: 4px 9px;
+  border: 1px solid var(--line-2);
+  border-radius: var(--radius);
+  background: var(--bg);
+  color: var(--fg-2);
+  box-shadow: 0 4px 14px rgb(0 0 0 / 18%);
+  font-size: 12px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.qf-chip:hover {
+  color: var(--fg);
+  border-color: var(--fg-3);
+}
+
+.qf-chip span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.qf-panel {
+  position: fixed;
+  z-index: 41;
+  display: flex;
+  flex-direction: column;
+  max-height: min(60vh, 440px);
+  border: 1px solid var(--line-2);
+  border-radius: var(--radius);
+  background: var(--bg);
+  box-shadow: 0 10px 34px rgb(0 0 0 / 26%);
+  overflow: hidden;
+}
+
+.qf-panel__bar {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 32px;
+  padding: 0 4px 0 11px;
+  border-bottom: 1px solid var(--line);
+  background: var(--sunk);
+}
+
+.qf-panel__query {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  color: var(--fg-2);
+  font-family: var(--mono);
+  font-size: 11px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.qf-panel__list {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.qf-panel__list .hit {
+  padding: 9px 11px 10px;
+}
+
+.qf-panel__list .hit:last-child {
+  border-bottom: 0;
+}
+
+.qf-panel__status {
+  margin: 0;
+  padding: 26px 14px;
+  color: var(--fg-3);
+  font-size: 12px;
+  text-align: center;
 }
 
 /* ── code highlighting ──────────────────────────────────────────────────

@@ -28,6 +28,8 @@ constexpr int kDefaultPort = 18767;
 constexpr int kDefaultPageSize = 20;
 constexpr int kMaxPageSize = 50;
 constexpr int kMaxResultWindow = 500;
+constexpr int kDefaultAssetLimit = 30;
+constexpr int kMaxAssetLimit = 200;
 constexpr size_t kMaxQueryBytes = 256;
 constexpr size_t kMaxPathBytes = 1024;
 constexpr size_t kMaxDocumentBytes = 2 * 1024 * 1024;
@@ -175,6 +177,7 @@ std::string extract_title(const mcdk::DocFragment& fragment) {
 }
 
 std::string source_from_path(const std::string& path) {
+    if (path.rfind("GameAssets/", 0) == 0 || path.find("/GameAssets/") != std::string::npos) return "asset";
     if (path.rfind("NeteaseGuide/", 0) == 0 || path.find("/NeteaseGuide/") != std::string::npos) return "netease";
     if (path.rfind("QuModDocs/", 0) == 0 || path.find("/QuModDocs/") != std::string::npos) return "qumod";
     if (path.rfind("BedrockDev/", 0) == 0 || path.find("/BedrockDev/") != std::string::npos) return "dev";
@@ -183,6 +186,15 @@ std::string source_from_path(const std::string& path) {
     if (path.rfind("事件/", 0) == 0 || path.find("/事件/") != std::string::npos) return "event";
     if (path.rfind("枚举值/", 0) == 0 || path.find("/枚举值/") != std::string::npos) return "enum";
     return "other";
+}
+
+// Game assets live in their own index sections and are matched by path as well
+// as content, so they use a dedicated entry point rather than the table below.
+std::optional<int> asset_scope(const std::string& scope) {
+    if (scope == "all") return 0;
+    if (scope == "bp") return 1;
+    if (scope == "rp") return 2;
+    return std::nullopt;
 }
 
 using SearchMethod = std::vector<mcdk::SearchResult> (mcdk::SearchService::*)(const std::string&, int) const;
@@ -225,7 +237,9 @@ void register_api(httplib::Server& server, mcdk::SearchService& search) {
             {"name", "MCDK 资料库"},
             {"version", 1},
             {"documents", search.doc_count()},
-            {"scopes", json::array({"all", "api", "event", "enum", "wiki", "dev", "qumod", "netease"})}
+            {"assets", search.game_assets_count()},
+            {"scopes", json::array({"all", "api", "event", "enum", "wiki", "dev", "qumod", "netease"})},
+            {"asset_scopes", json::array({"all", "bp", "rp"})}
         });
     });
 
@@ -283,6 +297,39 @@ void register_api(httplib::Server& server, mcdk::SearchService& search) {
             {"page", page},
             {"page_size", page_size},
             {"has_more", unique_results.size() > end},
+            {"items", std::move(items)}
+        });
+    });
+
+    server.Get("/api/v1/assets", [&search](const httplib::Request& request, httplib::Response& response) {
+        const std::string query = trim(request.has_param("q") ? request.get_param_value("q") : "");
+        const std::string scope = request.has_param("scope") ? request.get_param_value("scope") : "all";
+        const int limit = query_int(request, "limit", kDefaultAssetLimit);
+        const auto pack = asset_scope(scope);
+
+        if (query.empty()) return set_error(response, 400, "empty_query", "查询内容不能为空");
+        if (query.size() > kMaxQueryBytes) return set_error(response, 400, "query_too_long", "查询内容过长");
+        if (!pack) return set_error(response, 400, "invalid_scope", "未知的资产分类");
+        if (limit < 1 || limit > kMaxAssetLimit) {
+            return set_error(response, 400, "invalid_limit", "结果数量超出允许范围");
+        }
+
+        const auto results = search.search_game_assets(query, *pack, limit);
+        json items = json::array();
+        for (const auto& result : results) {
+            items.push_back({
+                {"source", "asset"},
+                {"path", result.rel_path},
+                {"title", filename_title(result.rel_path)},
+                {"snippet", normalize_snippet(result.snippet)},
+                {"score", std::round(result.score * 1000.0) / 1000.0}
+            });
+        }
+
+        set_json(response, {
+            {"query", query},
+            {"scope", scope},
+            {"limit", limit},
             {"items", std::move(items)}
         });
     });

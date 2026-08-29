@@ -1,9 +1,25 @@
 export const scopes = ["all", "api", "event", "enum", "wiki", "dev", "qumod", "netease"] as const;
+export const assetScopes = ["all", "bp", "rp"] as const;
 
 export type SearchScope = (typeof scopes)[number];
+export type AssetScope = (typeof assetScopes)[number];
+
+/** Every origin a result can come from, including the game asset index. */
+export type Source = Exclude<SearchScope, "all"> | "asset" | "other";
+
+/** The shape both result lists render, so one row component serves both. */
+export interface Hit {
+  source: Source;
+  path: string;
+  title: string;
+  snippet: string;
+  score: number;
+  /** Documents carry a line anchor; game assets are whole files. */
+  line?: number;
+}
 
 export interface SearchItem {
-  source: Exclude<SearchScope, "all"> | "other";
+  source: Source;
   path: string;
   line_start: number;
   line_end: number;
@@ -21,9 +37,24 @@ export interface SearchResponse {
   items: SearchItem[];
 }
 
+export interface AssetItem {
+  source: "asset";
+  path: string;
+  title: string;
+  snippet: string;
+  score: number;
+}
+
+export interface AssetResponse {
+  query: string;
+  scope: AssetScope;
+  limit: number;
+  items: AssetItem[];
+}
+
 export interface DocumentResponse {
   path: string;
-  source: SearchItem["source"];
+  source: Source;
   title: string;
   total_lines: number;
   content: string;
@@ -33,7 +64,9 @@ export interface MetaResponse {
   name: string;
   version: number;
   documents: number;
+  assets: number;
   scopes: SearchScope[];
+  asset_scopes: AssetScope[];
 }
 
 interface ApiErrorPayload {
@@ -91,7 +124,43 @@ export function searchDocuments(
   return requestJson<SearchResponse>(`/api/v1/search?${params}`, signal);
 }
 
+export function searchAssets(
+  query: string,
+  scope: AssetScope,
+  limit: number,
+  signal?: AbortSignal,
+): Promise<AssetResponse> {
+  const params = new URLSearchParams({ q: query, scope, limit: String(limit) });
+  return requestJson<AssetResponse>(`/api/v1/assets?${params}`, signal);
+}
+
 export function fetchDocument(path: string, signal?: AbortSignal): Promise<DocumentResponse> {
   const params = new URLSearchParams({ path });
   return requestJson<DocumentResponse>(`/api/v1/document?${params}`, signal);
+}
+
+export function toHit(item: SearchItem): Hit {
+  return {
+    source: item.source,
+    path: item.path,
+    title: item.title,
+    snippet: item.snippet,
+    score: item.score,
+    line: item.line_start,
+  };
+}
+
+/**
+ * Path-only asset matches come back as `[PATH MATCH] <path>`, which the row
+ * already shows on its own line.
+ */
+export function assetToHit(item: AssetItem): Hit {
+  const snippet = item.snippet.startsWith("[PATH MATCH]") ? "" : item.snippet;
+  return {
+    source: "asset",
+    path: item.path,
+    title: item.title,
+    snippet,
+    score: item.score,
+  };
 }
