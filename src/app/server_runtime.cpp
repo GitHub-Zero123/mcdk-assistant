@@ -31,26 +31,7 @@
 #include <memory>
 #include <thread>
 
-#ifdef _WIN32
-#ifndef WIN32_LEAN_AND_MEAN
-#define WIN32_LEAN_AND_MEAN
-#endif
-#ifndef NOMINMAX
-#define NOMINMAX
-#endif
-#include <windows.h>
-#endif
-
 namespace mcdk::app {
-
-bool init_console_encoding() {
-#ifdef _WIN32
-    // 这里只负责控制台 UTF-8，文件路径编码由 path_utils 统一处理。
-    return SetConsoleOutputCP(65001) != 0 && SetConsoleCP(65001) != 0;
-#else
-    return true;
-#endif
-}
 
 mcp::server::configuration make_server_config() {
     mcp::server::configuration conf;

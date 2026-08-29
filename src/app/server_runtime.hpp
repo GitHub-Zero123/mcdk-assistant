@@ -17,7 +17,6 @@ namespace mcdk::solutions { struct SolutionIndex; }
 
 namespace mcdk::app {
 
-bool init_console_encoding();
 mcp::server::configuration make_server_config();
 void register_tools(mcp::server& srv,
                     SearchService& search_svc,

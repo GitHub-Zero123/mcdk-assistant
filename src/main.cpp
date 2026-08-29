@@ -1,5 +1,6 @@
 #include "app/runtime_paths.hpp"
 #include "app/server_runtime.hpp"
+#include "common/console_encoding.hpp"
 #include "common/path_utils.hpp"
 #include "sapi/sapi_index.hpp"
 #include "search/search_service.hpp"

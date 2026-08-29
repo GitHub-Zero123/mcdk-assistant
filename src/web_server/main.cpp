@@ -1,4 +1,5 @@
 #include "app/runtime_paths.hpp"
+#include "common/console_encoding.hpp"
 #include "common/path_utils.hpp"
 #include "search/search_service.hpp"
 
@@ -359,6 +360,8 @@ void register_api(httplib::Server& server, mcdk::SearchService& search) {
 } // namespace
 
 int main(int argc, char* argv[]) {
+    mcdk::app::init_console_encoding();
+
     const auto options = parse_options(argc, argv);
     if (!options) return argc > 1 && (std::string(argv[1]) == "--help" || std::string(argv[1]) == "-h") ? 0 : 2;
 
