@@ -24,6 +24,11 @@ CACHE_FILENAMES = {
 }
 
 
+def is_directory_link(path: Path) -> bool:
+    is_junction = getattr(path, "is_junction", None)
+    return path.is_symlink() or (is_junction is not None and is_junction())
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
@@ -44,8 +49,8 @@ def validate_target() -> None:
         raise RuntimeError(f"repository root is invalid: {REPO_ROOT}")
     if TARGET.name != TARGET_NAME or TARGET.parent != BUILD_ROOT:
         raise RuntimeError(f"refusing unexpected target: {TARGET}")
-    if TARGET.is_symlink():
-        raise RuntimeError(f"refusing a symbolic-link build directory: {TARGET}")
+    if is_directory_link(TARGET):
+        raise RuntimeError(f"refusing a linked build directory: {TARGET}")
 
     expected = BUILD_ROOT.resolve(strict=False) / TARGET_NAME
     resolved = TARGET.resolve(strict=False)
@@ -59,7 +64,7 @@ def tree_size(root: Path) -> int:
     total_bytes = 0
     for dirpath, dirnames, filenames in os.walk(root, followlinks=False):
         dirnames[:] = [
-            name for name in dirnames if not (Path(dirpath) / name).is_symlink()
+            name for name in dirnames if not is_directory_link(Path(dirpath) / name)
         ]
         for filename in filenames:
             try:
@@ -82,7 +87,7 @@ def find_index_caches() -> list[Path]:
     caches: list[Path] = []
     for dirpath, dirnames, filenames in os.walk(TARGET, followlinks=False):
         dirnames[:] = [
-            name for name in dirnames if not (Path(dirpath) / name).is_symlink()
+            name for name in dirnames if not is_directory_link(Path(dirpath) / name)
         ]
         for filename in filenames:
             if filename in CACHE_FILENAMES:

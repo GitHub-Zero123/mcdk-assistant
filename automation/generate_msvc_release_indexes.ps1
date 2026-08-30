@@ -18,6 +18,38 @@ function Invoke-NativeCommand {
     }
 }
 
+function Ensure-DirectoryLink {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$LinkPath,
+
+        [Parameter(Mandatory = $true)]
+        [string]$TargetPath
+    )
+
+    $resolvedTarget = (Resolve-Path -LiteralPath $TargetPath -ErrorAction Stop).Path
+    $existing = Get-Item -Force -LiteralPath $LinkPath -ErrorAction SilentlyContinue
+    if ($null -ne $existing) {
+        if ($existing.LinkType -notin @("SymbolicLink", "Junction")) {
+            throw "Refusing to replace a non-link path: $LinkPath"
+        }
+
+        $existingTarget = @($existing.Target)[0]
+        if (-not [System.IO.Path]::IsPathRooted($existingTarget)) {
+            $existingTarget = Join-Path (Split-Path -Parent $LinkPath) $existingTarget
+        }
+        $existingTarget = [System.IO.Path]::GetFullPath($existingTarget)
+        if (-not $existingTarget.Equals($resolvedTarget, [System.StringComparison]::OrdinalIgnoreCase)) {
+            throw "Refusing to replace a directory link with a different target: $LinkPath -> $existingTarget"
+        }
+
+        return
+    }
+
+    New-Item -ItemType Junction -Path $LinkPath -Target $resolvedTarget -ErrorAction Stop | Out-Null
+    Write-Host "Created directory junction: $LinkPath -> $resolvedTarget"
+}
+
 $repoRoot = (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot "..")).Path
 $buildDir = Join-Path $repoRoot "build\x64-msvc-release"
 $dictsDir = Join-Path $repoRoot "dicts"
@@ -60,6 +92,14 @@ try {
     Invoke-NativeCommand -FilePath "cmake" -ArgumentList @(
         "--preset", "x64-msvc-release"
     )
+
+    Ensure-DirectoryLink `
+        -LinkPath (Join-Path $buildDir "dicts") `
+        -TargetPath $dictsDir
+    Ensure-DirectoryLink `
+        -LinkPath (Join-Path $buildDir "knowledge") `
+        -TargetPath $knowledgeDir
+
     Invoke-NativeCommand -FilePath "cmake" -ArgumentList @(
         "--build", "--preset", "x64-msvc-release",
         "--target", "mcdk-index-compiler"
