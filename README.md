@@ -270,6 +270,9 @@ tool_timeout_sec = 120
   Python脚本引擎使用的三方解释器，服务于轻量级插件系统
 - `tomlplusplus`
   Toml配置文件解析使用。
+- `zstd`
+  资料库索引缓存（`mcdk_index_cache.bin`）的分段压缩与解压。仓库内位于 `libs/zstd/`，
+  为上游 `lib/` 的裁剪副本，裁剪范围与升级方式见 `libs/zstd/VENDORING.md`
 ### 🛠️ 关于 `cpp-mcp`
 
 这里使用的不是纯上游原版，而是项目内维护的定制版本。

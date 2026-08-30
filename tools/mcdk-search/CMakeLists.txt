@@ -19,6 +19,7 @@ target_link_libraries(mcdk-search PRIVATE
     ftxui::dom
     ftxui::screen
     cppjieba
+    zstd
     Threads::Threads
 )
 

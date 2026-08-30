@@ -12,6 +12,7 @@ target_include_directories(mcdk-index-compiler PRIVATE
 target_link_libraries(mcdk-index-compiler PRIVATE
     mcp
     cppjieba
+    zstd
     tree-sitter
     tree-sitter-typescript
     nlohmann_json::nlohmann_json

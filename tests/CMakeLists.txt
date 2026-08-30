@@ -49,6 +49,7 @@ endif()
 
 target_link_libraries(search_test PRIVATE
     cppjieba
+    zstd
     nlohmann_json::nlohmann_json
 )
 

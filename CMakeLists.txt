@@ -36,6 +36,23 @@ target_include_directories(cppjieba INTERFACE
     ${CMAKE_CURRENT_SOURCE_DIR}/libs/cppjieba/deps/limonp/include
 )
 
+# zstd（vendored，见 libs/zstd/VENDORING.md）：资料库索引缓存的分段压缩。
+# 不定义 ZSTD_MULTITHREAD —— zstd 用 #ifdef 判定，定义成 0 一样会启用多线程压缩。
+file(GLOB MCDK_ZSTD_SOURCES
+    ${CMAKE_CURRENT_SOURCE_DIR}/libs/zstd/common/*.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/libs/zstd/compress/*.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/libs/zstd/decompress/*.c
+)
+add_library(zstd STATIC ${MCDK_ZSTD_SOURCES})
+target_include_directories(zstd PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/libs/zstd)
+# 未附带 huf_decompress_amd64.S，走 C 实现，避免为多平台交叉编译引入 ASM 语言支持。
+target_compile_definitions(zstd PRIVATE ZSTD_DISABLE_ASM=1)
+if(MSVC)
+    target_compile_options(zstd PRIVATE /w)
+else()
+    target_compile_options(zstd PRIVATE -w)
+endif()
+
 add_library(stb INTERFACE)
 target_include_directories(stb INTERFACE
     ${CMAKE_CURRENT_SOURCE_DIR}/libs/stb
@@ -135,6 +152,7 @@ function(mcdk_add_target target_name)
     target_link_libraries(${target_name} PRIVATE
         mcp
         cppjieba
+        zstd
         tree-sitter
         tree-sitter-python
         tree-sitter-typescript
@@ -252,6 +270,7 @@ if(MCDK_BUILD_WEB_SERVER AND NOT ANDROID)
     )
     target_link_libraries(mcdk-web-server PRIVATE
         cppjieba
+        zstd
         nlohmann_json::nlohmann_json
         Threads::Threads
     )
