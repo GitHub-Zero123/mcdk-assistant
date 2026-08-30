@@ -3,6 +3,7 @@ add_executable(mcdk-index-compiler
     ${CMAKE_SOURCE_DIR}/src/app/runtime_paths.cpp
     ${CMAKE_SOURCE_DIR}/src/app/server_runtime.cpp
     ${CMAKE_SOURCE_DIR}/src/sapi/sapi_index.cpp
+    ${CMAKE_SOURCE_DIR}/src/sapi/sapi_build.cpp
 )
 
 target_include_directories(mcdk-index-compiler PRIVATE

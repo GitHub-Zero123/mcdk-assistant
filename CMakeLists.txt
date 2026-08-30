@@ -100,6 +100,9 @@ file(GLOB_RECURSE MCDK_SOURCES
 )
 # mcdk-web-server has its own entry point and dependency surface.
 list(FILTER MCDK_SOURCES EXCLUDE REGEX "web_server/")
+# SAPI 构建侧只属于 mcdk-index-compiler：它是 tree-sitter-typescript 的唯一使用者，
+# 一旦被运行时目标引用，约 1.3MB 的 TypeScript 语法分析表就会被链入。详见 src/sapi/sapi_build.cpp。
+list(FILTER MCDK_SOURCES EXCLUDE REGEX "sapi/sapi_build\.cpp$")
 
 set(MCDK_LITE_SOURCES
     src/main.cpp
@@ -155,7 +158,6 @@ function(mcdk_add_target target_name)
         zstd
         tree-sitter
         tree-sitter-python
-        tree-sitter-typescript
         nlohmann_json::nlohmann_json
         tomlplusplus
         Threads::Threads
@@ -217,6 +219,7 @@ mcdk_add_target(mcdk-asst-lite
 if(NOT ANDROID)
     file(GLOB_RECURSE MCDK_SERVER_SOURCES src/*.cpp)
     list(FILTER MCDK_SERVER_SOURCES EXCLUDE REGEX "web_server/")
+    list(FILTER MCDK_SERVER_SOURCES EXCLUDE REGEX "sapi/sapi_build\.cpp$")
     # 服务器默认LITE模式，避免暴露过多文件操作接口
     mcdk_add_target(mcdk-asst-server
         SOURCES ${MCDK_SERVER_SOURCES}

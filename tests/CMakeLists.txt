@@ -17,6 +17,7 @@ add_executable(python_review_test
 add_executable(sapi_index_test
     sapi_index_test.cpp
     ../src/sapi/sapi_index.cpp
+    ../src/sapi/sapi_build.cpp
 )
 
 target_include_directories(search_test PRIVATE
