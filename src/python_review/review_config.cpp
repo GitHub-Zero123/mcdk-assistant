@@ -75,10 +75,21 @@ bool apply_toml(const std::string& content, ReviewConfig& cfg, std::string& err)
                                              cfg.rule_unicode_default_encoding);
     cfg.rule_restricted_module_import = getb("rules", "restricted_module_import",
                                              cfg.rule_restricted_module_import);
+    cfg.rule_internal_api_import = getb("rules", "internal_api_import",
+                                        cfg.rule_internal_api_import);
     cfg.rule_dynamic_code_execution = getb("rules", "dynamic_code_execution",
                                             cfg.rule_dynamic_code_execution);
     cfg.rule_reflective_security_bypass = getb("rules", "reflective_security_bypass",
                                                 cfg.rule_reflective_security_bypass);
+
+    if (const toml::table* policies = t["module_import_policies"].as_table()) {
+        cfg.module_import_policy_overrides.clear();
+        for (const auto& [key, value] : *policies) {
+            if (const auto enabled = value.value<bool>())
+                cfg.module_import_policy_overrides.emplace_back(
+                    std::string(key.str()), *enabled);
+        }
+    }
 
     cfg.max_findings_per_rule = geti("output", "max_findings_per_rule", cfg.max_findings_per_rule);
 
@@ -187,8 +198,15 @@ too_many_params    = true
 encoding_declaration = true
 unicode_default_encoding = true
 restricted_module_import = true
+internal_api_import = true
 dynamic_code_execution = true
 reflective_security_bypass = true
+
+# 可扩展模块策略开关。这里按 policy_id 覆盖 [rules] 中的兼容开关；
+# 未来新增的模块策略也只需在本表按 policy_id 配置。
+[module_import_policies]
+platform-security = true
+minecraft-internal-api = true
 
 [output]
 max_findings_per_rule = 20  # 每条规则最多展示 N 处定位，超出仅计数；0 = 不限（控制 MCP 召回体积、避免撑爆上下文）

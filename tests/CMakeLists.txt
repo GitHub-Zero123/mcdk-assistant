@@ -10,6 +10,7 @@ add_executable(python_analysis_test
 
 add_executable(python_review_test
     python_review_test.cpp
+    ../src/python_review/module_import_policy.cpp
     ../src/python_review/review_analyzer.cpp
     ../src/python_review/review_config.cpp
 )

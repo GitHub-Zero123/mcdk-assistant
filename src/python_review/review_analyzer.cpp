@@ -1,5 +1,6 @@
 #include "python_review/review_analyzer.hpp"
 #include "python_review/review_config.hpp"
+#include "python_review/module_import_policy.hpp"
 
 #include "common/path_utils.hpp"
 
@@ -9,13 +10,13 @@
 #include <nlohmann/json.hpp>
 
 #include <algorithm>
-#include <array>
 #include <atomic>
 #include <cctype>
 #include <chrono>
 #include <cstdint>
 #include <cstdlib>
 #include <fstream>
+#include <functional>
 #include <iostream>
 #include <thread>
 #include <iterator>
@@ -122,6 +123,44 @@ struct DiscoveredPackage {
     fs::path              entry_file; // modMain.py，可空（fallback）
     std::string           name;
     std::vector<fs::path> files;
+};
+
+struct TransparentStringHash {
+    using is_transparent = void;
+    size_t operator()(std::string_view value) const noexcept {
+        return std::hash<std::string_view>{}(value);
+    }
+    size_t operator()(const std::string& value) const noexcept {
+        return (*this)(std::string_view(value));
+    }
+};
+
+using LocalModuleNames =
+    std::unordered_set<std::string, TransparentStringHash, std::equal_to<>>;
+
+class ProjectModuleIndex {
+public:
+    explicit ProjectModuleIndex(const std::vector<fs::path>& files) {
+        modules_by_directory_.reserve(files.size());
+        for (const fs::path& file : files) {
+            if (file.filename() == "__init__.py") {
+                const fs::path package_dir = file.parent_path();
+                const std::string package_name = package_dir.filename().string();
+                if (!package_name.empty())
+                    modules_by_directory_[package_dir.parent_path()].insert(package_name);
+            } else {
+                modules_by_directory_[file.parent_path()].insert(file.stem().string());
+            }
+        }
+    }
+
+    const LocalModuleNames* modules_in(const fs::path& directory) const {
+        const auto found = modules_by_directory_.find(directory);
+        return found == modules_by_directory_.end() ? nullptr : &found->second;
+    }
+
+private:
+    std::unordered_map<fs::path, LocalModuleNames> modules_by_directory_;
 };
 
 std::vector<DiscoveredPackage> discover_packages(const fs::path& root, bool include_third_party,
@@ -233,6 +272,8 @@ struct FileContext {
     std::vector<Finding>* out;
     std::vector<FuncSig>* sigs = nullptr; // 跨文件累积（可空）
     const ReviewConfig* cfg = nullptr;    // 可调阈值/开关（analyze_file 注入）
+    const LocalModuleNames* sibling_modules = nullptr;
+    const LocalModuleNames* package_root_modules = nullptr;
     bool may_have_reflective_bypass = false; // 文件级字节预筛选，避免普通文件进入反射指纹匹配
 };
 
@@ -1035,85 +1076,93 @@ void check_sensitive_call(TSNode call, const FileContext& ctx,
     }
 }
 
-// ── 规则：平台受限模块导入（Tier 1）───────────────────────────────────────
-// 扩展受限模块只需在此表增加一项。匹配模块根名，因此 os.path 也归入 os；相对导入不查。
-struct RestrictedModule {
-    std::string_view name;
-    std::string_view risk;
+// ── 规则：模块导入策略（Tier 1）──────────────────────────────────────────────
+// 匹配模块根名，因此 os.path 也归入 os；相对导入不查。策略和模块数据位于
+// module_import_policy.cpp，扫描器只负责解析 import 与生成 finding。
+using detail::ModuleImportPolicyBinding;
+using detail::ModuleImportPolicyDefinition;
+
+struct MatchedModuleImportPolicy {
+    const ModuleImportPolicyBinding* binding;
 };
 
-constexpr RestrictedModule kRestrictedModules[] = {
-    {"os",          "访问操作系统与文件系统"},
-    {"sys",         "访问解释器运行时与导入状态"},
-    {"__builtin__", "访问 __import__、eval、execfile 等解释器内建能力"},
-    {"importlib",   "动态导入模块"},
-    {"imp",         "动态查找和加载模块（Py2 旧接口）"},
-    {"runpy",       "按模块名或路径执行 Python 代码"},
-    {"zipimport",   "从归档文件动态加载 Python 代码"},
-    {"subprocess",  "启动和控制外部进程"},
-    {"commands",    "执行系统命令（Py2 旧接口）"},
-    {"popen2",      "启动外部进程（Py2 旧接口）"},
-    {"ctypes",      "调用本机动态库和原生内存"},
-    {"socket",      "绕过 ModSDK 网络接口建立原始连接"},
-};
-
-const RestrictedModule* find_restricted_module(std::string_view module) {
-    const size_t dot = module.find('.');
-    const std::string_view root = module.substr(0, dot);
-    for (const auto& policy : kRestrictedModules)
-        if (root == policy.name) return &policy;
-    return nullptr;
+bool contains_local_module(const LocalModuleNames* modules, std::string_view name) {
+    return modules && modules->find(name) != modules->end();
 }
 
-void mark_restricted_module(TSNode module_node, const std::string& source,
-                            std::array<bool, std::size(kRestrictedModules)>& matched) {
+void mark_module_import_policy(TSNode module_node, const FileContext& ctx,
+                               std::vector<MatchedModuleImportPolicy>& matched) {
     if (ts_node_is_null(module_node)) return;
     if (nt(module_node) == "aliased_import")
         module_node = ts_node_child_by_field_name(module_node, "name", 4);
     if (ts_node_is_null(module_node) || nt(module_node) != "dotted_name") return;
 
-    const RestrictedModule* policy = find_restricted_module(node_text_view(module_node, source));
-    if (policy) matched[static_cast<size_t>(policy - kRestrictedModules)] = true;
+    const auto bindings = detail::module_import_policy_registry().find(
+        node_text_view(module_node, *ctx.source));
+    for (const ModuleImportPolicyBinding& binding : bindings) {
+        const ModuleImportPolicyDefinition& policy = *binding.policy;
+        if (!detail::module_import_policy_enabled(policy, *ctx.cfg)) continue;
+        if (policy.suppress_for_project_module &&
+            (contains_local_module(ctx.sibling_modules, binding.module) ||
+             contains_local_module(ctx.package_root_modules, binding.module))) {
+            continue;
+        }
+        matched.push_back({&binding});
+    }
 }
 
-void check_restricted_module_import(TSNode import_node, const FileContext& ctx,
-                                    const std::vector<std::string>& scope_stack) {
-    const std::string& source = *ctx.source;
-    std::array<bool, std::size(kRestrictedModules)> matched{};
+void check_module_import_policies(TSNode import_node, const FileContext& ctx,
+                                  const std::vector<std::string>& scope_stack) {
+    std::vector<MatchedModuleImportPolicy> matched;
 
     if (nt(import_node) == "import_from_statement") {
         TSNode module = ts_node_child_by_field_name(import_node, "module_name", 11);
-        // relative_import 表示包内相对路径，不是受限的顶级标准库模块。
         if (!ts_node_is_null(module) && nt(module) != "relative_import")
-            mark_restricted_module(module, source, matched);
+            mark_module_import_policy(module, ctx, matched);
     } else {
         const uint32_t count = ts_node_named_child_count(import_node);
         for (uint32_t i = 0; i < count; ++i)
-            mark_restricted_module(ts_node_named_child(import_node, i), source, matched);
+            mark_module_import_policy(ts_node_named_child(import_node, i), ctx, matched);
     }
 
-    std::string modules;
-    std::string risks;
-    for (size_t i = 0; i < matched.size(); ++i) {
-        if (!matched[i]) continue;
-        if (!modules.empty()) modules += ", ";
-        modules += kRestrictedModules[i].name;
-        if (!risks.empty()) risks += "；";
-        risks += kRestrictedModules[i].name;
-        risks += "：";
-        risks += kRestrictedModules[i].risk;
-    }
-    if (modules.empty()) return;
+    std::sort(matched.begin(), matched.end(), [](const auto& lhs, const auto& rhs) {
+        const auto lhs_policy = lhs.binding->policy->policy_id;
+        const auto rhs_policy = rhs.binding->policy->policy_id;
+        return lhs_policy != rhs_policy ? lhs_policy < rhs_policy
+                                        : lhs.binding->module < rhs.binding->module;
+    });
+    matched.erase(std::unique(matched.begin(), matched.end(), [](const auto& lhs, const auto& rhs) {
+        return lhs.binding->policy == rhs.binding->policy &&
+               lhs.binding->module == rhs.binding->module;
+    }), matched.end());
 
-    make_finding(ctx, "platform.restricted-module-import", Severity::Warning, 0.99,
-                 node_start_row(import_node), join_scope(scope_stack),
-                 "导入了违反平台安全规则的模块",
-                 {"导入受限模块: " + modules,
-                  "风险能力: " + risks,
-                  "这些模块在本机环境中存在，但不符合线上平台安全规则"},
-                 "仅可在本地自测代码中使用；线上产品应移除这些模块及其依赖，"
-                 "改用 ModSDK 提供的平台安全 API。",
-                 1, Actionability::ShouldFix);
+    for (size_t begin = 0; begin < matched.size();) {
+        const ModuleImportPolicyDefinition& policy = *matched[begin].binding->policy;
+        size_t end = begin + 1;
+        while (end < matched.size() && matched[end].binding->policy == &policy) ++end;
+
+        std::string modules;
+        std::string reasons;
+        Severity severity = matched[begin].binding->severity;
+        for (size_t i = begin; i < end; ++i) {
+            const MatchedModuleImportPolicy& match = matched[i];
+            if (!modules.empty()) modules += ", ";
+            modules += match.binding->module;
+            if (!reasons.empty()) reasons += "；";
+            reasons += match.binding->module;
+            reasons += "：";
+            reasons += match.binding->description;
+            if (static_cast<int>(match.binding->severity) > static_cast<int>(severity))
+                severity = match.binding->severity;
+        }
+
+        make_finding(ctx, std::string(policy.rule_id), severity, policy.confidence,
+                     node_start_row(import_node), join_scope(scope_stack),
+                     std::string(policy.title),
+                     {"导入模块: " + modules, "限制原因: " + reasons},
+                     std::string(policy.suggestion), policy.tier, policy.actionability);
+        begin = end;
+    }
 }
 
 enum class ReflectiveAction { None, Import, Eval, ExecFile, Reload };
@@ -1387,8 +1436,7 @@ void walk(TSNode node, const FileContext& ctx, std::vector<std::string>& scope_s
         if (ctx.cfg->rule_dynamic_code_execution)
             report_dynamic_code_execution(node, ctx, scope_stack, "exec statement");
     } else if (type == "import_statement" || type == "import_from_statement") {
-        if (ctx.cfg->rule_restricted_module_import)
-            check_restricted_module_import(node, ctx, scope_stack);
+        check_module_import_policies(node, ctx, scope_stack);
     } else if (type == "comment") {
         if (ctx.cfg->rule_unowned_todo) check_todo(node, ctx, join_scope(scope_stack));
     }
@@ -1460,7 +1508,9 @@ void check_encoding_declaration(const std::string& source, bool had_bom, const F
 // 单文件解析 + 运行规则，返回 parse health。parser 复用；无共享可变状态，可并行调用。
 ParseHealth analyze_file(const fs::path& file, const fs::path& bp_root,
                          std::vector<Finding>& out, std::vector<FuncSig>& sigs,
-                         TSParser* parser, const ReviewConfig& cfg) {
+                         TSParser* parser, const ReviewConfig& cfg,
+                         const LocalModuleNames* sibling_modules,
+                         const LocalModuleNames* package_root_modules) {
     bool had_bom = false;
     std::string source = read_text_file(file, &had_bom);
     if (source.empty()) {
@@ -1481,6 +1531,8 @@ ParseHealth analyze_file(const fs::path& file, const fs::path& bp_root,
     ctx.out = &out;
     ctx.sigs = &sigs;
     ctx.cfg = &cfg;
+    ctx.sibling_modules = sibling_modules;
+    ctx.package_root_modules = package_root_modules;
     ctx.may_have_reflective_bypass = cfg.rule_reflective_security_bypass &&
         source.find("__builtins__") != std::string::npos &&
         (source.find("__globals__") != std::string::npos ||
@@ -1574,9 +1626,20 @@ ReviewReport ReviewAnalyzer::review(const fs::path& behavior_pack_root,
                                   report.discovery_mode, report.ignored_dirs);
 
     // ① 顺序阶段（廉价）：建包报告 + 收集待扫描文件（in-scope），保留确定性顺序。
-    struct ScanItem { size_t pkg_idx; fs::path file; };
+    struct ScanItem {
+        size_t pkg_idx;
+        fs::path file;
+        const LocalModuleNames* sibling_modules;
+        const LocalModuleNames* package_root_modules;
+    };
     std::vector<ScanItem> items;
-    for (const auto& pkg : pkgs) {
+    std::vector<ProjectModuleIndex> module_indexes;
+    module_indexes.reserve(pkgs.size());
+    for (const DiscoveredPackage& pkg : pkgs)
+        module_indexes.emplace_back(pkg.files);
+
+    for (size_t source_pkg_idx = 0; source_pkg_idx < pkgs.size(); ++source_pkg_idx) {
+        const DiscoveredPackage& pkg = pkgs[source_pkg_idx];
         if (!package_in_scope(pkg.name, options.scope)) continue;
         PackageReport pr;
         pr.name = pkg.name;
@@ -1586,7 +1649,10 @@ ReviewReport ReviewAnalyzer::review(const fs::path& behavior_pack_root,
         report.packages.push_back(std::move(pr));
         for (const auto& file : pkg.files) {
             if (!file_in_scope(rel_utf8(file, pkg.root_dir), pkg.name, options.scope)) continue;
-            items.push_back({idx, file});
+            const ProjectModuleIndex& module_index = module_indexes[source_pkg_idx];
+            items.push_back({idx, file,
+                             module_index.modules_in(file.parent_path()),
+                             module_index.modules_in(pkg.root_dir)});
         }
     }
 
@@ -1608,7 +1674,9 @@ ReviewReport ReviewAnalyzer::review(const fs::path& behavior_pack_root,
         ts_parser_set_language(parser, tree_sitter_python());
         for (size_t i = next.fetch_add(1); i < items.size(); i = next.fetch_add(1)) {
             results[i].health = analyze_file(items[i].file, behavior_pack_root,
-                                             results[i].findings, results[i].sigs, parser, cfg);
+                                             results[i].findings, results[i].sigs, parser, cfg,
+                                             items[i].sibling_modules,
+                                             items[i].package_root_modules);
         }
         ts_parser_delete(parser);
     };

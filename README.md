@@ -66,7 +66,7 @@ MCP Tool 暴露面采用分层式设计：顶层只保留少量能力族入口�
 类别 | 覆盖规则 | 检查重点
 --- | --- | ---
 运行硬错误 | `encoding.missing-utf8-declaration`、`encoding.unicode-default-encoding` | 非 ASCII Python2 文件缺少 PEP263 编码声明；单参数 `unicode(value)` 依赖 ModSDK 魔改解释器与原生 Linux Py2 不一致的默认编码
-平台安全 | `platform.restricted-module-import`、`platform.dynamic-code-execution`、`platform.reflective-security-bypass` | 导入受限模块、动态执行代码，或出现通过函数全局命名空间反射取得敏感解释器能力的绕过特征；提示结合实际行为审查
+平台与 API 边界 | `platform.restricted-module-import`、`platform.internal-api-import`、`platform.dynamic-code-execution`、`platform.reflective-security-bypass` | 检查平台受限依赖、内部 API 依赖以及危险的动态或反射代码行为；具体策略数据不在公开文档中枚举
 异常与状态 | `try.masking.*`、`implicit-global.*` | 吞异常、可变默认参数累积修改、公开全局重绑定
 占位与假实现 | `stub.placeholder`、`stub.shallow-impl` | 未实现桩、多行逻辑却只返回固定值的疑似假实现
 复杂度与重复 | `signature.too-many-params`、`logic-blob.*`、`duplicate-function.cross-module` | 参数过多、函数/文件过大、跨模块重复函数

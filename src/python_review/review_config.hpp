@@ -10,6 +10,7 @@
 //   3) 内置默认值（下方字段初值）
 #include <filesystem>
 #include <string>
+#include <utility>
 #include <vector>
 
 namespace mcdk::python_review {
@@ -42,8 +43,13 @@ struct ReviewConfig {
     bool rule_encoding_declaration = true; // encoding.missing-utf8-declaration（Py2 PEP263）
     bool rule_unicode_default_encoding = true; // encoding.unicode-default-encoding（ModSDK 魔改 Py2）
     bool rule_restricted_module_import = true; // platform.restricted-module-import
+    bool rule_internal_api_import = true; // platform.internal-api-import
     bool rule_dynamic_code_execution = true; // platform.dynamic-code-execution
     bool rule_reflective_security_bypass = true; // platform.reflective-security-bypass
+
+    // 通用模块导入策略开关覆盖：(policy_id, enabled)。现有两个策略仍兼容上方
+    // [rules] 开关；新增策略无需继续给 ReviewConfig 增加 bool 成员。
+    std::vector<std::pair<std::string, bool>> module_import_policy_overrides;
 
     // ── 输出密度（[output]）：控 MCP 召回体积，避免撑爆上下文 ───────────────
     int max_findings_per_rule = 20; // 每条规则最多展示 N 处定位，超出仅计数；0 = 不限

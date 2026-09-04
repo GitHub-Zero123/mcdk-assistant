@@ -1,5 +1,6 @@
 add_executable(mcdk-python-review
     main.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../src/python_review/module_import_policy.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/../../src/python_review/review_analyzer.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/../../src/python_review/review_config.cpp
 )

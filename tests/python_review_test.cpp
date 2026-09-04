@@ -1,10 +1,15 @@
 #include "python_review/review_analyzer.hpp"
+#include "python_review/module_import_policy.hpp"
 
+#include <array>
 #include <filesystem>
 #include <fstream>
 #include <iostream>
+#include <stdexcept>
 #include <string>
 #include <system_error>
+#include <utility>
+#include <vector>
 
 namespace fs = std::filesystem;
 
@@ -16,28 +21,113 @@ bool write_file(const fs::path& path, const std::string& content) {
     return out.good();
 }
 
+bool module_policy_registry_is_valid() {
+    using namespace mcdk::python_review;
+    using namespace mcdk::python_review::detail;
+
+    const auto& production = module_import_policy_registry();
+    if (minecraft_internal_api_module_count() != 150 ||
+        production.binding_count() != 162 || production.module_count() != 162 ||
+        !production.find("common").empty() || !production.find("json").empty() ||
+        !production.find("definitely_project_specific").empty() ||
+        production.find("__builtin__").size() != 1) {
+        std::cerr << "production module policy inventory is incorrect\n";
+        return false;
+    }
+    constexpr std::string_view excluded_standard_library[] = {
+        "StringIO", "base64", "cStringIO", "collections", "gzip", "inspect",
+        "io", "json", "logging", "operator", "random", "re", "string",
+        "struct", "syslog", "time", "traceback",
+    };
+    for (const std::string_view module : excluded_standard_library) {
+        if (!production.find(module).empty()) {
+            std::cerr << "ordinary standard-library module entered policy registry: "
+                      << module << "\n";
+            return false;
+        }
+    }
+
+    const std::array<ModuleImportPolicyDefinition, 3> policies{{
+        {"policy-a", "test.policy-a", &ReviewConfig::rule_internal_api_import,
+         true, Severity::Risk, 0.8, 2, Actionability::AdvisoryVerify,
+         "A", "default A", "suggest A", true},
+        {"policy-b", "test.policy-b", &ReviewConfig::rule_restricted_module_import,
+         true, Severity::Warning, 0.9, 1, Actionability::ShouldFix,
+         "B", "default B", "suggest B", false},
+        {"policy-c", "test.policy-c", nullptr,
+         false, Severity::Hint, 0.7, 3, Actionability::AdvisoryVerify,
+         "C", "default C", "suggest C", true},
+    }};
+    ModuleImportPolicyRegistry custom{
+        policies,
+        {{"shared", &policies[0], Severity::Error, "module override"},
+         {"shared", &policies[1], Severity::Warning, {}}}};
+    const auto shared = custom.find("shared.child");
+    if (shared.size() != 2 || shared[0].severity != Severity::Error ||
+        shared[0].description != "module override" ||
+        shared[1].description != "default B") {
+        std::cerr << "multi-policy binding or module override is broken\n";
+        return false;
+    }
+    ReviewConfig config;
+    if (module_import_policy_enabled(policies[2], config)) {
+        std::cerr << "policy without legacy config ignored its default\n";
+        return false;
+    }
+    config.module_import_policy_overrides.emplace_back("policy-c", true);
+    if (!module_import_policy_enabled(policies[2], config)) {
+        std::cerr << "generic module policy override was ignored\n";
+        return false;
+    }
+
+    const auto rejects = [](std::span<const ModuleImportPolicyDefinition> definitions,
+                            std::vector<ModuleImportPolicyBinding> bindings) {
+        try {
+            ModuleImportPolicyRegistry invalid{definitions, std::move(bindings)};
+        } catch (const std::invalid_argument&) {
+            return true;
+        }
+        return false;
+    };
+    auto duplicate_id = policies;
+    duplicate_id[1].policy_id = duplicate_id[0].policy_id;
+    auto duplicate_rule = policies;
+    duplicate_rule[1].rule_id = duplicate_rule[0].rule_id;
+    if (!rejects(duplicate_id, {}) || !rejects(duplicate_rule, {}) ||
+        !rejects(policies,
+                 {{"same", &policies[0], Severity::Risk, {}},
+                  {"same", &policies[0], Severity::Warning, {}}})) {
+        std::cerr << "module policy registry accepted duplicate identifiers or bindings\n";
+        return false;
+    }
+    return true;
+}
+
 } // namespace
 
 int main() {
+    if (!module_policy_registry_is_valid()) return 1;
+
     const fs::path root = fs::temp_directory_path() / "mcdk_python_review_unicode_test";
     std::error_code ec;
     fs::remove_all(root, ec);
     fs::create_directories(root, ec);
+    fs::create_directories(root / "resource", ec);
     if (ec || !write_file(root / "sample.py",
                           "a = unicode(value)\n"
                           "b = unicode(value, 'utf-8')\n"
                           "c = unicode()\n"
                           "d = codec.unicode(value)\n"
-                          "import os, json\n"
+                          "import os, json, audio, _audio, common, minecraft, model, resource, protocol\n"
                           "import sys as runtime_sys\n"
                           "from os.path import join\n"
                           "from sys import version\n"
                           "import safe.os\n"
                           "from . import os\n"
-                          "import importlib\n"
+                          "import importlib, __builtin__\n"
                           "from imp import load_module\n"
                           "import subprocess\n"
-                          "import json\n"
+                          "import json, time, collections\n"
                           "loaded = __import__(module_name)\n"
                           "result = eval(expression)\n"
                           "execfile(path)\n"
@@ -86,6 +176,11 @@ int main() {
                           "    # unrelated formatting noise\n"
                           "    ['__import__']\n"
                           ")(module_name)\n") ||
+        !write_file(root / "model.py", "# project-local model module\n") ||
+        !write_file(root / "resource" / "__init__.py", "# project-local resource package\n") ||
+        !write_file(root / "os.py", "# must not shadow the platform security policy\n") ||
+        !write_file(root / "internal-off.toml",
+                    "[module_import_policies]\nminecraft-internal-api = false\n") ||
         !write_file(root / "legal.py",
                     "def QConstInit(funcObj):\n"
                     "    \"\"\"Constant initialization; automatically checks reload.\"\"\"\n"
@@ -117,6 +212,9 @@ int main() {
 
     int unicode_findings = 0;
     int restricted_import_findings = 0;
+    int internal_api_import_findings = 0;
+    bool sdk_internal_modules_verified = false;
+    bool builtin_restriction_verified = false;
     int dynamic_code_findings = 0;
     int reflective_bypass_findings = 0;
     for (const auto& finding : report.findings) {
@@ -136,6 +234,26 @@ int main() {
                 fs::remove_all(root, ec);
                 return 1;
             }
+            if (finding.line == 5 && !finding.evidence.empty() &&
+                finding.evidence.front() != "导入模块: os") {
+                std::cerr << "security policy was mixed with another module policy\n";
+                fs::remove_all(root, ec);
+                return 1;
+            }
+            if (finding.line == 11 && !finding.evidence.empty()) {
+                builtin_restriction_verified =
+                    finding.evidence.front() == "导入模块: __builtin__, importlib";
+            }
+        } else if (finding.rule_id == "platform.internal-api-import") {
+            ++internal_api_import_findings;
+            sdk_internal_modules_verified =
+                finding.line == 5 &&
+                finding.severity == mcdk::python_review::Severity::Warning &&
+                finding.title == "导入了 Minecraft 内部 API" &&
+                finding.evidence.size() >= 2 &&
+                finding.evidence.front() == "导入模块: _audio, audio, minecraft, protocol" &&
+                finding.evidence[1].find("内部 API，不承诺稳定性，不推荐使用") !=
+                    std::string::npos;
         } else if (finding.rule_id == "platform.dynamic-code-execution") {
             ++dynamic_code_findings;
             if (finding.line < 15 || finding.line > 18 ||
@@ -173,7 +291,6 @@ int main() {
         }
     }
 
-    fs::remove_all(root, ec);
     if (unicode_findings != 1) {
         std::cerr << "expected exactly one unicode default-encoding finding, got "
                   << unicode_findings << "\n";
@@ -182,6 +299,31 @@ int main() {
     if (restricted_import_findings != 7) {
         std::cerr << "expected seven restricted module findings, got "
                   << restricted_import_findings << "\n";
+        return 1;
+    }
+    if (internal_api_import_findings != 1 || !sdk_internal_modules_verified) {
+        std::cerr << "SDK internal modules or standard-library exclusion did not match policy\n";
+        return 1;
+    }
+    if (!builtin_restriction_verified) {
+        std::cerr << "__builtin__ must remain in the platform-security policy\n";
+        return 1;
+    }
+
+    mcdk::python_review::ReviewOptions internal_off_options;
+    internal_off_options.config_path = (root / "internal-off.toml").string();
+    const auto internal_off_report = analyzer.review(root, internal_off_options);
+    int restricted_when_internal_off = 0;
+    for (const auto& finding : internal_off_report.findings) {
+        if (finding.rule_id == "platform.internal-api-import") {
+            std::cerr << "internal API policy ignored its independent config switch\n";
+            return 1;
+        }
+        if (finding.rule_id == "platform.restricted-module-import")
+            ++restricted_when_internal_off;
+    }
+    if (restricted_when_internal_off != 7) {
+        std::cerr << "disabling internal API policy also affected security policy\n";
         return 1;
     }
     if (dynamic_code_findings != 4) {
@@ -194,5 +336,6 @@ int main() {
                   << reflective_bypass_findings << "\n";
         return 1;
     }
+    fs::remove_all(root, ec);
     return 0;
 }
