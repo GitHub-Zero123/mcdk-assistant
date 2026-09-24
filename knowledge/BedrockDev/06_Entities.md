@@ -1,4 +1,4 @@
-# ENTITIES DOCUMENTATION Version: 1.21.120.4
+# ENTITIES DOCUMENTATION Version: 1.21.130.3
 
 
 ## Index
@@ -1686,6 +1686,69 @@ Short (using Defaults)..
 
 ```json
 { "test": "has_equipment_tag", "value": "dirt" }
+```
+
+
+# has_item_with_component
+
+
+Returns true when the subject entity is holding a item with the specified component.
+
+
+| Name | Type | Default | Description |
+| --- | --- | --- | --- |
+| operator | String | equals | (Optional) The comparison to apply with 'value'. |
+| subject | String | self | (Optional) The subject of this filter test. |
+| value | String |  | (Required) The component name to look for |
+
+
+> **operator** 子参数
+
+
+| Options | Description |
+| --- | --- |
+| != | Test for inequality. |
+| < | Test for less-than the value. |
+| <= | Test for less-than or equal to the value. |
+| <> | Test for inequality. |
+| = | Test for equality. |
+| == | Test for equality. |
+| > | Test for greater-than the value. |
+| >= | Test for greater-than or equal to the value. |
+| equals | Test for equality. |
+| not | Test for inequality. |
+
+
+> **subject** 子参数
+
+
+| Options | Description |
+| --- | --- |
+| block | The block involved with the interaction. |
+| damager | The damaging actor involved with the interaction. |
+| other | The other member of an interaction, not the caller. |
+| parent | The caller's current parent. |
+| player | The player involved with the interaction. |
+| self | The entity or object calling the test |
+| target | The caller's current target. |
+
+
+## Examples
+
+
+Full..
+
+
+```json
+{ "test": "has_item_with_component", "subject": "self", "operator": "equals", "value": "minecraft:explode" }
+```
+
+
+Short (using Defaults)..
+
+
+```json
+{ "test": "has_item_with_component", "value": "minecraft:explode" }
 ```
 
 
@@ -3628,6 +3691,69 @@ Short (using Defaults)..
 ```
 
 
+# is_controlling_passenger_family
+
+
+Returns true when the subject entity's controlling passenger is a member of the named family.
+
+
+| Name | Type | Default | Description |
+| --- | --- | --- | --- |
+| operator | String | equals | (Optional) The comparison to apply with 'value'. |
+| subject | String | self | (Optional) The subject of this filter test. |
+| value | String |  | (Required) The Family name to look for |
+
+
+> **operator** 子参数
+
+
+| Options | Description |
+| --- | --- |
+| != | Test for inequality. |
+| < | Test for less-than the value. |
+| <= | Test for less-than or equal to the value. |
+| <> | Test for inequality. |
+| = | Test for equality. |
+| == | Test for equality. |
+| > | Test for greater-than the value. |
+| >= | Test for greater-than or equal to the value. |
+| equals | Test for equality. |
+| not | Test for inequality. |
+
+
+> **subject** 子参数
+
+
+| Options | Description |
+| --- | --- |
+| block | The block involved with the interaction. |
+| damager | The damaging actor involved with the interaction. |
+| other | The other member of an interaction, not the caller. |
+| parent | The caller's current parent. |
+| player | The player involved with the interaction. |
+| self | The entity or object calling the test |
+| target | The caller's current target. |
+
+
+## Examples
+
+
+Full..
+
+
+```json
+{ "test": "is_controlling_passenger_family", "subject": "self", "operator": "equals", "value": "player" }
+```
+
+
+Short (using Defaults)..
+
+
+```json
+{ "test": "is_controlling_passenger_family", "value": "player" }
+```
+
+
 # is_daytime
 
 
@@ -4015,6 +4141,69 @@ Short (using Defaults)..
 
 ```json
 { "test": "is_immobile" }
+```
+
+
+# is_in_same_vehicle
+
+
+Returns whether the subject entity is in the same vehicle as the calling entity.
+
+
+| Name | Type | Default | Description |
+| --- | --- | --- | --- |
+| operator | String | equals | (Optional) The comparison to apply with 'value'. |
+| subject | String | self | (Optional) The subject of this filter test. |
+| value | Boolean |  | (Required) true or false. |
+
+
+> **operator** 子参数
+
+
+| Options | Description |
+| --- | --- |
+| != | Test for inequality. |
+| < | Test for less-than the value. |
+| <= | Test for less-than or equal to the value. |
+| <> | Test for inequality. |
+| = | Test for equality. |
+| == | Test for equality. |
+| > | Test for greater-than the value. |
+| >= | Test for greater-than or equal to the value. |
+| equals | Test for equality. |
+| not | Test for inequality. |
+
+
+> **subject** 子参数
+
+
+| Options | Description |
+| --- | --- |
+| block | The block involved with the interaction. |
+| damager | The damaging actor involved with the interaction. |
+| other | The other member of an interaction, not the caller. |
+| parent | The caller's current parent. |
+| player | The player involved with the interaction. |
+| self | The entity or object calling the test |
+| target | The caller's current target. |
+
+
+## Examples
+
+
+Full..
+
+
+```json
+{ "test": "is_in_same_vehicle", "subject": "self", "operator": "equals", "value": "true" }
+```
+
+
+Short (using Defaults)..
+
+
+```json
+{ "test": "is_in_same_vehicle", "value": "true" }
 ```
 
 
@@ -7580,7 +7769,7 @@ Allows the enderman to take a block and carry it around. Can only be used by End
 The entity puts on the desired equipment.
 
 
-## minecraft:behavior.explore_outskirts
+## minecraft:behavior.explore_outskirts (See JSON Schema since 1.21.130)
 
 
 Allows the entity to first travel to a random point on the outskirts of the village, and then explore random points within a small distance. This goal requires "minecraft:dweller" and "minecraft:navigation" to execute.
@@ -7700,7 +7889,9 @@ Allows the mob to stay afloat while swimming. Passengers will be kicked out the 
 
 | Name | Type | Default Value | Description |
 | --- | --- | --- | --- |
+| chance_per_tick_to_float | Decimal | 0.8 | The chance per tick to cause an upward impulse. |
 | sink_with_passengers | Boolean | false | If true, the mob will keep sinking as long as it has passengers. |
+| time_under_water_to_dismount_passengers | Decimal | 0.0 | Time in seconds that a floating vehicles head can be underwater before it causes its passengers to dismount. |
 
 
 ## minecraft:behavior.float_tempt
@@ -7984,7 +8175,7 @@ Allows the mob to inspect bookshelves.
 | speed_multiplier | Decimal | 1.0 | Movement speed multiplier of the mob when using this AI Goal |
 
 
-## minecraft:behavior.investigate_suspicious_location
+## minecraft:behavior.investigate_suspicious_location (See JSON Schema since 1.21.130)
 
 
 Allows this entity to move towards a "suspicious" position based on data gathered in minecraft:suspect_tracking
@@ -8502,7 +8693,7 @@ Allows an entity to attack the closest target within a given subset of specific 
 
 | Name | Type | Default Value | Description |
 | --- | --- | --- | --- |
-| attack_interval\|attack_interval_min | Integer | 0 | Time range (in seconds) between searching for an attack target, range is in (0, "attack_interval"]. Only used if "attack_interval" is greater than 0, otherwise "scan_interval" is used. |
+| attack_interval | Range [a, b] | [0, 0] | Time range (in seconds) between searching for an attack target, range is in (0, "attack_interval"]. Only used if "attack_interval" is greater than 0, otherwise "scan_interval" is used. |
 | attack_owner | Boolean | false | If true, this entity can attack its owner. |
 | entity_types | Minecraft Filter |  | Filters which types of targets are valid for this entity. |
 | must_reach | Boolean | false | If true, this entity requires a path to the target. |
@@ -8512,6 +8703,7 @@ Allows an entity to attack the closest target within a given subset of specific 
 | reselect_targets | Boolean | false | Allows the attacking entity to update the nearest target, otherwise a target is only reselected after each "scan_interval" or "attack_interval". |
 | scan_interval | Integer | 10 | If "attack_interval" is 0 or isn't declared, then between attacks: scanning for a new target occurs every amount of ticks equal to "scan_interval", minimum value is 1. Values under 10 can affect performance. |
 | set_persistent | Boolean | false | Allows the actor to be set to persist upon targeting a player |
+| target_acquisition_probability | Decimal | 1.00 | Probability (0.0 to 1.0) that this entity will accept a found target. Checked each time a valid target is found during scanning. |
 | target_invisible_multiplier | Decimal | 0.70 | Multiplied with the target's armor coverage percentage to modify "max_dist" when detecting an invisible target. |
 | target_search_height | Decimal | -1.00 | Maximum vertical target-search distance, if it's greater than the target type's "max_dist". A negative value defaults to "entity_types" greatest "max_dist". |
 | target_sneak_visibility_multiplier | Decimal | 0.80 | Multiplied with the target type's "max_dist" when trying to detect a sneaking target. |
@@ -9884,10 +10076,9 @@ Adds a timer for the entity to grow up. It can be accelerated by giving the enti
 | --- | --- | --- | --- |
 | drop_items | List |  | List of items that the entity drops when it grows up. |
 | duration | Decimal | 1200.0 | Amount of time before the entity grows up, -1 for always a baby. |
-| feed_items | List |  | List of items that can be fed to the entity. Includes 'item' for the item name and 'growth' to define how much time it grows up by. |
+| feed_items | List |  | List of items that can be fed to the entity. Includes 'item' for the item name, 'growth' to define how much time it grows up by, and 'result_item' that defines what item the feed item will transform to upon successful interaction (Format: itemName:auxValue). |
 | grow_up | String |  | Event to run when this entity grows up. |
 | interact_filters | Minecraft Filter |  | List of conditions to meet so that the entity can be fed. |
-| transform_to_item | Item Description Properties |  | The feed item used will transform to this item upon successful interaction. Format: itemName:auxValue |
 
 
 ## minecraft:anger_level
@@ -10068,6 +10259,7 @@ Defines what blocks this entity can breathe in and gives them the ability to suf
 | breathes_lava | Boolean | true | If true, this entity can breathe in lava. |
 | breathes_solids | Boolean | false | If true, this entity can breathe in solid blocks. |
 | breathes_water | Boolean | false | If true, this entity can breathe in water. |
+| can_dehydrate | Boolean | false | If true, water-only breathers will take Dehydration damage when out of water. |
 | generates_bubbles | Boolean | true | If true, this entity will have visible bubbles while in water. |
 | inhale_time | Decimal | 0 | Time in seconds to recover breath to maximum. |
 | non_breathe_blocks | List |  | List of blocks this entity can't breathe in, in addition to the other "breathes" parameters. |
@@ -10086,7 +10278,7 @@ Defines the way an entity can get into the 'love' state.
 | allow_sitting | Boolean | false | If true, entities can breed while sitting |
 | blend_attributes | Boolean | true | If true, the entities will blend their attributes in the offspring after they breed. |
 | breed_cooldown | Decimal | 60 | Time in seconds before the Entity can breed again. |
-| breed_items | List |  | The list of items that can be used to get the entity into the 'love' state |
+| breed_items | List |  | The list of items that can be used to get the entity into the 'love' state. Includes 'item' for the item name, and 'result_item' that defines what item the breed item will transform to upon successful interaction (Format: itemName:auxValue). |
 | breeds_with | List |  | The list of entity definitions that this entity can breed with. |
 | causes_pregnancy | Boolean | false | If true, the entity will become pregnant instead of spawning a baby. |
 | deny_parents_variant | JSON Object |  | Determines how likely the baby of parents with the same variant will deny that variant and take a random variant within the given range instead. |
@@ -10102,7 +10294,6 @@ Defines the way an entity can get into the 'love' state.
 | random_variant_mutation_interval | Range [a, b] | 0 | Range used to determine random variant. |
 | require_full_health | Boolean | false | If true, the entity needs to be at full health before it can breed. |
 | require_tame | Boolean | true | If true, the entities need to be tamed first before they can breed. |
-| transform_to_item | String |  | The breed item used will transform to this item upon successful interaction. Format: itemName:auxValue |
 
 
 > **breeds_with** 子参数
@@ -10167,7 +10358,7 @@ Enables an entity to float on the specified liquid blocks.
 ## minecraft:burns_in_daylight
 
 
-Specifies if a mob burns in daylight.
+.
 
 
 ## minecraft:can_join_raid
@@ -10232,12 +10423,15 @@ Defines the Conditional Spatial Update Bandwidth Optimizations of this entity.
 ## minecraft:custom_hit_test
 
 
-List of hitboxes for melee and ranged hits against the entity.
+List of hitboxes for melee and ranged hits against the entity. It is worth noting that this doesnt scale with minecraft:scale or minecraft:age_scale
 
 
 | Name | Type | Default Value | Description |
 | --- | --- | --- | --- |
-| hitboxes | Array |  | Comma seperated list of hitboxes. |
+| hitboxes | List |  | Specifies hitboxes and their properties |
+| width | Float |  | Width of the hitbox in meters/blocks |
+| height | Float |  | Height of the hitbox in meters/blocks |
+| pivot | Vector [a,b,c] | [0,0,0] | Specifies the absolute center of the hitbox (including the height) relative to the world orientation |
 
 
 ## minecraft:damage_over_time
@@ -10284,6 +10478,7 @@ Ability for a rideable entity to dash.
 
 | Name | Type | Default Value | Description |
 | --- | --- | --- | --- |
+| can_dash_underwater | Boolean | false | Whether the entity can dash underwater. Default value is false. |
 | cooldown_time | Decimal | 1.00 | The dash cooldown in seconds. Default value is 1.000000. |
 | direction | String | entity | Should the momentum be applied in the direction of the 'entity' or 'passenger'. When 'entity' is used the momentum is applied horizontally according to the direction the entity is looking, using only the entity's yaw. When 'passenger' is used the momentum will be applied in the direction the controlling passenger is looking, using the passenger's pitch and yaw. |
 | horizontal_momentum | Decimal | 1.00 | Horizontal momentum of the dash. |
@@ -10457,6 +10652,7 @@ Defines how much exhaustion each player action should take.
 | damage | Decimal | 0.1 | Amount of exhaustion applied when taking damage. |
 | heal | Decimal | 6 | Amount of exhaustion applied when healed through food regeneration. |
 | jump | Decimal | 0.05 | Amount of exhaustion applied when jumping. |
+| lunge | Decimal | 4 | Amount of exhaustion applied when triggering the lunge enchantment, multiplied by the enchantment level. |
 | mine | Decimal | 0.005 | Amount of exhaustion applied when mining. |
 | sprint | Decimal | 0.01 | Amount of exhaustion applied when sprinting. |
 | sprint_jump | Decimal | 0.2 | Amount of exhaustion applied when sprint jumping. |
@@ -10896,6 +11092,7 @@ A component that applies a mob effect to entities that get within range.
 
 | Name | Type | Default Value | Description |
 | --- | --- | --- | --- |
+| ambient | Boolean | false | If the effect is considered an ambient effect (like the ones applied by Beacons or Conduits). |
 | cooldown_time | Integer | 0 | Time in seconds to wait between each application of the effect. |
 | effect_range | Decimal | 0.2 | How close a hostile entity must be to have the mob effect applied. |
 | effect_time | Integer | 10 | How long the applied mob effect lasts in seconds. Can also be set to "infinite" |
@@ -11717,6 +11914,12 @@ Defines the rules for a mob to trust players.
 | trust_items | List |  | The list of items that can be used to get the entity to trust players. |
 
 
+## minecraft:underwater_mount_breathing
+
+
+Pauses this entity's breathing under water.
+
+
 ## minecraft:variable_max_auto_step
 
 
@@ -11919,7 +12122,7 @@ Sets the mapping of internal animation controller references to actual animation
 | minecraft:behavior.enderman_leave_block | -717580550 |
 | minecraft:behavior.enderman_take_block | -537294220 |
 | minecraft:behavior.equip_item | 13771509599928214056 |
-| minecraft:behavior.explore_outskirts | 1573426610843290210 |
+| minecraft:behavior.explore_outskirts (See JSON Schema since 1.21.130) | 13285467020746982065 |
 | minecraft:behavior.fertilize_farm_block | 9206289212958280677 |
 | minecraft:behavior.find_cover | -1231227755 |
 | minecraft:behavior.find_mount | 731306871 |
@@ -11943,7 +12146,7 @@ Sets the mapping of internal animation controller references to actual animation
 | minecraft:behavior.hold_ground | 1804286487 |
 | minecraft:behavior.hurt_by_target | -1710404297 |
 | minecraft:behavior.inspect_bookshelf | 40191182 |
-| minecraft:behavior.investigate_suspicious_location | 17828766620487298865 |
+| minecraft:behavior.investigate_suspicious_location (See JSON Schema since 1.21.130) | 5707373970465808196 |
 | minecraft:behavior.jump_around_target | 11795366379540415834 |
 | minecraft:behavior.jump_to_block | 9920654059703051752 |
 | minecraft:behavior.knockback_roar | 10556128811593022910 |
@@ -12188,6 +12391,7 @@ Sets the mapping of internal animation controller references to actual animation
 | minecraft:transformation | -457894577 |
 | minecraft:transient | -413020544 |
 | minecraft:trusting | 936499892 |
+| minecraft:underwater_mount_breathing | -1401248464 |
 | minecraft:variable_max_auto_step | -368684982 |
 | minecraft:vertical_movement_action | 2076572763 |
 | minecraft:vibration_damper | 1836172792 |
@@ -12249,6 +12453,7 @@ Sets the mapping of internal animation controller references to actual animation
 | minecraft:push_through | -138030768 |
 | minecraft:renders_when_invisible | -1395968564 |
 | minecraft:rotation_axis_aligned | -882714065 |
+| minecraft:rotation_locked_to_vehicle | 1649167510 |
 | minecraft:scale | 77854436 |
 | minecraft:skin_id | 1838729593 |
 | minecraft:sound_volume | 937951776 |
@@ -12295,7 +12500,7 @@ Sets the entity's delay between playing its ambient sound.
 ## minecraft:body_rotation_always_follows_head
 
 
-Causes the entity's body to always be automatically rotated to align with the entity's head.
+Causes the entity's body rotation to match the one of their head.
 
 
 Does not override the "minecraft:body_rotation_blocked" component.
@@ -12610,6 +12815,12 @@ Causes the entity to automatically rotate to align with the nearest cardinal dir
 
 
 Combining this with the "minecraft:body_rotation_blocked" component will cause the entity's body to align with the nearest cardinal direction and remain fixed in that orientation, regardless of changes in its facing direction.
+
+
+## minecraft:rotation_locked_to_vehicle
+
+
+Causes the entity's rotation to match their vehicle's facing direction.
 
 
 ## minecraft:scale

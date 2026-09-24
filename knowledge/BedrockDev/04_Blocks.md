@@ -1,4 +1,4 @@
-# BLOCKS DOCUMENTATION Version: 1.21.120.4
+# BLOCKS DOCUMENTATION Version: 1.21.130.3
 
 
 ## Index
@@ -32,12 +32,13 @@
 | minecraft:material_instances | JSON Object |  | The material instances for a block. Maps face or material_instance names in a geometry file to an actual material instance. You can assign a material instance object to any of these faces: "up", "down", "north", "south", "east", "west", or "*". You can also give an instance the name of your choosing such as "my_instance", and then assign it to a face by doing "north":"my_instance".Material Instance A material instance definition to map to a material instance in a geometry file. The material instance "*" will be used for any materials that don't have a match. |
 | minecraft:movable | JSON Object |  | The description identifier of the movable componentExperimental toggles required: Upcoming Creator Features (in format versions before 1.21.100)movement_type [Required] How the block reacts to being pushed by another block like a piston. Must be one of the following options:"push_pull" - The default value for this field. The block will be pushed and pulled by a piston."push" - The block will only be pulled by a piston and will ignore a sticky piston."popped" - The block is destroyed when moved by a piston."immovable" - The block is unaffected by a piston. sticky [Optional] How the block should handle adjacent blocks around it when being pushed by another block like a piston. Must be one of the following options:"same" - Adjacent blocks to this block will be moved when moved. This excludes other blocks with the "same" property. This will only work with the movement_type: "push_pull"."none" - The default and will not move adjacent blocks. |
 | minecraft:placement_filter | JSON Object |  | Sets rules for under what conditions the block can be placed/surviveconditions List of conditions where the block can be placed/survive. Limited to 64 conditions. |
-| minecraft:precipitation_interactions | JSON Object |  | Component that determines how the block will interact with rain and snowprecipitation_behavior What behavior should the block have. Three possible values: obstruct_rain, obstruct_rain_accumulate_snow and none |
+| minecraft:precipitation_interactions | JSON Object |  | Component that determines how the block will interact with rain and snowExperimental toggles required: Upcoming Creator Features (in format versions before 1.21.120)precipitation_behavior What behavior should the block have. Three possible values: obstruct_rain, obstruct_rain_accumulate_snow and none |
 | minecraft:queued_ticking | JSON Object |  | Triggers the specified event, either once, or at a regular interval equal to a number of ticks randomly chosen from the interval_range provided. |
 | minecraft:random_ticking | JSON Object |  | Triggers the specified event randomly based on the random tick speed gamerule. The random tick speed determines how often blocks are updated. Some other examples of game mechanics that use random ticking are crop growth and fire spreading. |
 | minecraft:redstone_conductivity | JSON Object |  | The basic redstone properties of a block; if the component is not provided the default values are used. Requires 1.21.30 format version and above.Experimental toggles required: Upcoming Creator Features (in format versions before 1.21.30) |
 | minecraft:replaceable | JSON Object |  | A block with this component can be replaced when another block is placed in the same block position.Experimental toggles required: Upcoming Creator Features (in format versions before 1.21.60) |
 | minecraft:selection_box | Boolean / JSON Object |  | Defines the area of the block that is selected by the player's cursor. If set to true, default values are used. If set to false, this block is not selectable by the player's cursor. If this component is omitted, default values are used. |
+| minecraft:support | JSON Object |  | Defines the support shape of the block. Currently only allows for blocks to have the same shape as a Vanilla fence and Vanilla stair. To work with custom stairs, requires the use of `minecraft:vertical_half` and `minecraft:cardinal_direction` or `minecraft:facing_direction` which can be set through the `minecraft:placement_direction` block trait. Custom blocks without this component will default to unit cube support.Experimental toggles required: Upcoming Creator Features |
 | minecraft:transformation | JSON Object |  | The block's translation, rotation and scale with respect to the center of its world positionrotation The block's rotation in increments of 90 degrees rotation_pivot The point to apply rotation around scale The block's scale scale_pivot The point to apply scale around translation The block's translation |
 | minecraft:unit_cube | JSON Object |  | Specifies that a unit cube is to be used with tessellation. |
 
@@ -47,8 +48,8 @@
 
 | Name | Type | Default Value | Description |
 | --- | --- | --- | --- |
-| origin | Vector [a, b, c] | [-8.0, 0.0, -8.0] | Minimal position of the bounds of the collision box. "origin" is specified as [x, y, z] and must be in the range (-8, 0, -8) to (8, 16, 8), inclusive. |
-| size | Vector [a, b, c] | [16.0, 16.0, 16.0] | Size of each side of the collision box. Size is specified as [x, y, z]. "origin" + "size" must be in the range (-8, 0, -8) to (8, 16, 8), inclusive. |
+| origin | Vector [a, b, c] | [-8.0, 0.0, -8.0] | Minimal position of the bounds of the collision box. "origin" is specified as [x, y, z] and must be in the range (-8, 0, -8) to (8, 24, 8), inclusive. A max Y value above 16 requires 'format_version' >= 1.21.130 and the `Upcoming Creator Features` toggle |
+| size | Vector [a, b, c] | [16.0, 24.0, 16.0] | Size of each side of the collision box. Size is specified as [x, y, z]. "origin" + "size" must be in the range (-8, 0, -8) to (8, 24, 8), inclusive. A max Y value above 16 requires 'format_version' >= 1.21.130 and the `Upcoming Creator Features` toggle |
 
 
 > **minecraft:destructible_by_explosion** 子参数
@@ -107,7 +108,6 @@
 | --- | --- | --- | --- |
 | alpha_masked_tint | Boolean | false | Should the tint be multiplied by the alpha channel of texture (similar to grass_block's sides)? Requires 'format_version' >= 1.21.120, a "tint_method" other than "none" and a "render_method" set to "opaque" |
 | ambient_occlusion | Decimal | true | Should this material have ambient occlusion applied when lighting? If true, shadows will be created around and underneath the block. Optionally can be constructed with float to control exponent applied to ao value after lighting. |
-| emissive | Boolean | false | Should this material be rendered as emissive? Requires 'format_version' >= 1.21.120. |
 | face_dimming | Boolean | true | Should this material be dimmed by the direction it's facing? |
 | isotropic | Boolean | false | Should the faces that this material is applied to randomize their UVs? |
 | render_method | String | opaque | The render method to use. Must be one of these options and must be the same for each:"opaque" - Used for a regular block texture without an alpha layer. Does not allow for transparency or translucency."double_sided" - Used for completely disabling backface culling."blend" - Used for a block like stained glass. Allows for transparency and translucency (slightly transparent textures)."alpha_test" - Used for a block like the vanilla (unstained) glass. Does not allow for translucency, only fully opaque or fully transparent textures. Also disables backface culling. |
@@ -190,6 +190,14 @@
 | size | Vector [a, b, c] | [16.0, 16.0, 16.0] | Size of each side of the selection box. Size is specified as [x, y, z]. "origin" + "size" must be in the range (-8, 0, -8) to (8, 16, 8), inclusive. |
 
 
+> **minecraft:support** 子参数
+
+
+| Name | Type | Default Value | Description |
+| --- | --- | --- | --- |
+| shape | String |  | Required field. The type of support shape for this block. Currently, the options are: `fence` and `stair`. |
+
+
 # Block Definition Properties
 
 
@@ -209,7 +217,7 @@ Example
 
 ```json
 {
-  "format_version": "1.21.120",
+  "format_version": "1.21.130",
   "minecraft:block": {
     "description": {
       "identifier": "design:lavenderstone"

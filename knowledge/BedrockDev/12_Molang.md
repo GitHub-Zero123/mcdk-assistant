@@ -1,4 +1,4 @@
-# MOLANG DOCUMENTATION Version: 1.21.120.4
+# MOLANG DOCUMENTATION Version: 1.21.130.3
 
 
 ## Index
@@ -773,6 +773,9 @@ Query Functions are operators that access a wide variety of information. They ca
 | query.distance_from_camera | Returns the distance of the root of this actor or particle emitter from the camera. |
 | query.effect_emitter_count | Returns the total number of active emitters of the callee's particle effect type. |
 | query.effect_particle_count | Returns the total number of active particles of the callee's particle effect type. |
+| query.entity_biome_has_all_tags | Compares the biome the entity is standing in with one or more tag names, and returns either 0 or 1 based on if all of the tag names match. Only supported in resource packs (client-side). |
+| query.entity_biome_has_any_identifier | Compares the biome the entity is standing in with one or more identifier names, and returns either 0 or 1 based on if any of the identifier names match. Only supported in resource packs (client-side). |
+| query.entity_biome_has_any_tags | Compares the biome the entity is standing in with one or more tag names, and returns either 0 or 1 based on if any of the tag names match. Only supported in resource packs (client-side). |
 | query.equipment_count | Returns the number of equipped armor pieces for an actor from 0 to 5, not counting items held in hands. (To query for hand slots, use query.is_item_equipped or query.is_item_name_any). |
 | query.equipped_item_all_tags | Takes a slot name followed by any tag you want to check for in the form of 'tag_name' and returns 1 if all of the tags are on that equipped item, 0 otherwise. |
 | query.equipped_item_any_tag | Takes a slot name followed by any tag you want to check for in the form of 'tag_name' and returns 0 if none of the tags are on that equipped item or 1 if at least 1 tag exists. |
@@ -787,6 +790,7 @@ Query Functions are operators that access a wide variety of information. They ca
 | query.get_equipped_item_name | DEPRECATED (Use query.is_item_name_any instead if possible so names can be changed later without breaking content.) Takes one optional hand slot as a parameter (0 or 'main_hand' for main hand, 1 or 'off_hand' for off hand), and a second parameter (0=default) if you would like the equipped item or any non-zero number for the currently rendered item, and returns the name of the item in the requested slot (defaulting to the main hand if no parameter is supplied) if there is one, otherwise returns ''. |
 | query.get_locator_offset | Gets specified axis of the specified locator offset. |
 | query.get_name | DEPRECATED (Use query.is_name_any instead if possible so names can be changed later without breaking content.)Get the name of the mob if there is one, otherwise return ''. |
+| query.get_pack_setting | Returns value of Pack Setting slider, parameter is name of slider. Available on the Client (Resource Packs) only. |
 | query.get_root_locator_offset | Gets specified axis of the specified locator offset of the root model. |
 | query.graphics_mode_is_any | Takes in one or more arguments ('simple', 'fancy', 'deferred', 'raytraced'). If the graphics mode of the client matches any of the arguments, return 1.0. Available on the Client (Resource Packs) only. |
 | query.ground_speed | Returns the ground speed of the entity in meters/second. |
@@ -883,6 +887,8 @@ Query Functions are operators that access a wide variety of information. They ca
 | query.is_onfire | Returns 1.0 if the entity is on fire, else it returns 0.0. |
 | query.is_orphaned | Returns 1.0 if the entity is orphaned, else it returns 0.0. |
 | query.is_owner_identifier_any | Takes one or more arguments. Returns whether the root actor identifier is any of the specified strings. A preferred query to query.owner_identifier, as it can be adjusted by Mojang to avoid breaking content if names are changed. |
+| query.is_pack_setting_enabled | Returns 1.0 if the Pack Setting toggle is enabled, parameter is name of toggle. Available on the Client (Resource Packs) only. |
+| query.is_pack_setting_selected | Returns 1.0 if the Pack Setting dropdown (first parameter) matches the string value of the second parameter (selection). Available on the Client (Resource Packs) only. |
 | query.is_persona_or_premium_skin | Returns 1.0 if the player has a persona or premium skin, else it returns 0.0. |
 | query.is_playing_dead | Returns 1.0 if the entity is playing dead, else it returns 0.0. |
 | query.is_powered | Returns 1.0 if the entity is powered, else it returns 0.0. |
@@ -927,6 +933,10 @@ Query Functions are operators that access a wide variety of information. They ca
 | query.item_remaining_use_duration | Returns the amount of time an item has left to use, else 0.0 if it doesn't make sense. Item queried is specified by the slot name 'main_hand' or 'off_hand'. Time remaining is normalized using the normalization value, only if one is given, else it is returned in seconds. |
 | query.item_slot_to_bone_name | query.item_slot_to_bone_name requires one parameter: the name of the equipment slot. This function returns the name of the bone this entity has mapped to that slot. |
 | query.key_frame_lerp_time | Returns the ratio between the previous and next key frames. |
+| query.kinetic_weapon_damage_duration | Returns the "max_duration" value of "damage_conditions" from the main-hand item's "minecraft:kinetic_weapon" component, or 0 if the component is not present. |
+| query.kinetic_weapon_delay | Returns the "delay" value from the main-hand item's "minecraft:kinetic_weapon" component, or 0 if the component is not present. |
+| query.kinetic_weapon_dismount_duration | Returns the "max_duration" value of "dismount_conditions" from the main-hand item's "minecraft:kinetic_weapon" component, or 0 if the component is not present. |
+| query.kinetic_weapon_knockback_duration | Returns the "max_duration" value of "knockback_conditions" from the main-hand item's "minecraft:kinetic_weapon" component, or 0 if the component is not present. |
 | query.last_frame_time | Returns the time in *seconds* of the last frame. If an argument is passed, it is assumed to be the number of frames in the past that you wish to query. 'query.last_frame_time' (or the equivalent 'query.last_frame_time(0)') will return the frame time of the frame before the current one. 'query.last_frame_time(1)' will return the frame time of two frames ago. Currently we store the history of the last 30 frames, although note that this may change in the future. Passing an index more than the available data will return the oldest frame stored. |
 | query.last_hit_by_player | Returns 1.0 if the entity was last hit by the player, else it returns 0.0. If called by the client always returns 0.0. |
 | query.last_input_mode_is_any | Takes one or more arguments ('keyboard_and_mouse', 'touch', or 'gamepad'). If the last input used is any of the specified string values, returns 1.0. Otherwise returns 0.0. Available on the Client (Resource Packs) only. |
@@ -998,6 +1008,7 @@ Query Functions are operators that access a wide variety of information. They ca
 | query.target_x_rotation | Returns the x rotation required to aim at the entity's current target if it has one, else it returns 0.0. |
 | query.target_y_rotation | Returns the y rotation required to aim at the entity's current target if it has one, else it returns 0.0. |
 | query.texture_frame_index | Returns the icon index of the experience orb. |
+| query.ticks_since_last_kinetic_weapon_hit | Returns the number of ticks elapsed since the user last hit something while using a kinetic weapon. Returns -1.0 if no kinetic weapon is being used or if nothing has been hit yet. Hits that occur while the user is unloaded are not counted. |
 | query.time_of_day | Returns the time of day (midnight=0.0, sunrise=0.25, noon=0.5, sunset=0.75) of the dimension the entity is in. |
 | query.time_since_last_vibration_detection | Returns the time in seconds since the last vibration detected by the actor. On errors or if no vibration has been detected yet, returns -1. Available on the Client (Resource Packs) only. |
 | query.time_stamp | Returns the current time stamp of the level |
@@ -1018,16 +1029,6 @@ Query Functions are operators that access a wide variety of information. They ca
 
 
 # List of Experimental Entity Queries
-
-
-| Name | Description |
-| --- | --- |
-| query.entity_biome_has_all_tags | (EXPERIMENTAL. Enable 'Upcoming Creator Features' to use.) Compares the biome the entity is standing in with one or more tag names, and returns either 0 or 1 based on if all of the tag names match. Only supported in resource packs (client-side). |
-| query.entity_biome_has_any_identifier | (EXPERIMENTAL. Enable 'Upcoming Creator Features' to use.) Compares the biome the entity is standing in with one or more identifier names, and returns either 0 or 1 based on if any of the identifier names match. Only supported in resource packs (client-side). |
-| query.entity_biome_has_any_tags | (EXPERIMENTAL. Enable 'Upcoming Creator Features' to use.) Compares the biome the entity is standing in with one or more tag names, and returns either 0 or 1 based on if any of the tag names match. Only supported in resource packs (client-side). |
-| query.get_pack_setting | (EXPERIMENTAL. Enable 'Upcoming Creator Features' to use.) Returns value of Pack Setting slider, parameter is name of slider. Available on the Client (Resource Packs) only. |
-| query.is_pack_setting_enabled | (EXPERIMENTAL. Enable 'Upcoming Creator Features' to use.) Returns 1.0 if the Pack Setting toggle is enabled, parameter is name of toggle. Available on the Client (Resource Packs) only. |
-| query.is_pack_setting_selected | (EXPERIMENTAL. Enable 'Upcoming Creator Features' to use.) Returns 1.0 if the Pack Setting dropdown (first parameter) matches the string value of the second parameter (selection). Available on the Client (Resource Packs) only. |
 
 
 # Experimental Operators

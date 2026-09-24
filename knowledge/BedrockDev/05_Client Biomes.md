@@ -1,4 +1,4 @@
-# CLIENT BIOMES DOCUMENTATION Version: 1.21.120.4
+# CLIENT BIOMES DOCUMENTATION Version: 1.21.130.3
 
 
 ## Index
@@ -63,6 +63,7 @@ Any components that this Client Biome uses
 | minecraft:atmosphere_identifier | Object | Optional | Set the identifier used for atmospherics in Vibrant Visuals mode. Identifiers must resolve to identifiers in valid Atmospheric Scattering JSON schemas under the "atmospherics" directory. Biomes without this component will have default atmosphere settings. |
 | minecraft:biome_music | Object | Optional | Affect how music plays within the biome |
 | minecraft:color_grading_identifier | Object | Optional | Set the identifier used for color grading in Vibrant Visuals mode. Identifiers must resolve to identifiers in valid Color Grading JSON schemas under the "color_grading" directory. Biomes without this component will have default color_grading settings. |
+| minecraft:cubemap_identifier | Object | Optional | Set the identifier used for cubemap in Vibrant Visuals mode. Identifiers must resolve to identifiers in valid Cubemap JSON schemas under the "cubemaps" directory. Biomes without this component will have default cubemap settings. |
 | minecraft:dry_foliage_color | Object | Optional | Set the dry foliage color used during rendering. Biomes without this component will have default dry foliage color behavior. |
 | minecraft:fog_appearance | Object | Optional | Set the fog settings used during rendering. Biomes without this component will have default fog settings. |
 | minecraft:foliage_appearance | Object | Optional | Set the foliage color or color map used during rendering. Biomes without this component will have default foliage appearance. |
@@ -189,6 +190,17 @@ Set the identifier used for color grading in Vibrant Visuals mode. Identifiers m
 | Name | Type | Required? | Description |
 | --- | --- | --- | --- |
 | color_grading_identifier | Object of type Reference | Required | Identifier of color_grading definition to use |
+
+
+# minecraft:cubemap_identifier
+
+
+Set the identifier used for cubemap in Vibrant Visuals mode. Identifiers must resolve to identifiers in valid Cubemap JSON schemas under the "cubemaps" directory. Biomes without this component will have default cubemap settings.
+
+
+| Name | Type | Required? | Description |
+| --- | --- | --- | --- |
+| cubemap_identifier | Object of type Reference | Required | Identifier of cubemap definition to use |
 
 
 # minecraft:dry_foliage_color
