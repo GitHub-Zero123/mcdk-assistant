@@ -1948,6 +1948,51 @@
                 "sound": "armor.equip_copper",
                 "volume": 1.0,
                 "pitch": 1.0
+            },
+            "item.enchant.lunge1": {
+                "sound": "item.enchant.lunge1",
+                "volume": 1.0,
+                "pitch": 1.0
+            },
+            "item.enchant.lunge2": {
+                "sound": "item.enchant.lunge2",
+                "volume": 1.0,
+                "pitch": 1.0
+            },
+            "item.enchant.lunge3": {
+                "sound": "item.enchant.lunge3",
+                "volume": 1.0,
+                "pitch": 1.0
+            },
+            "item.spear.attack_hit": {
+                "sound": "item.spear.attack_hit",
+                "volume": 1.0,
+                "pitch": 1.0
+            },
+            "item.spear.attack_miss": {
+                "sound": "item.spear.attack_miss",
+                "volume": 1.0,
+                "pitch": 1.0
+            },
+            "item.wooden_spear.attack_hit": {
+                "sound": "item.wooden_spear.attack_hit",
+                "volume": 1.0,
+                "pitch": 1.0
+            },
+            "item.wooden_spear.attack_miss": {
+                "sound": "item.wooden_spear.attack_miss",
+                "volume": 1.0,
+                "pitch": 1.0
+            },
+            "item.spear.use": {
+                "sound": "item.spear.use",
+                "volume": 1.0,
+                "pitch": 1.0
+            },
+            "item.wooden_spear.use": {
+                "sound": "item.wooden_spear.use",
+                "volume": 1.0,
+                "pitch": 1.0
             }
         }
     },
@@ -7131,6 +7176,18 @@
                         "sound": "mob.horse.land",
                         "volume": 0.4,
                         "pitch": 1.0
+                    },
+                    "mad": "mob.horse.zombie.angry",
+                    "eat": {
+                        "sound": "mob.horse.eat",
+                        "volume": [
+                            0.5,
+                            1.5
+                        ],
+                        "pitch": [
+                            0.8,
+                            1.2
+                        ]
                     }
                 }
             },
@@ -7505,6 +7562,16 @@
                     "imitate.happy_ghast": {
                         "sound": "mob.imitate.happy_ghast",
                         "pitch": 1.7
+                    },
+                    "imitate.parched": {
+                        "sound": "mob.imitate.parched",
+                        "volume": 0.7,
+                        "pitch": 1.7
+                    },
+                    "imitate.camel_husk": {
+                        "sound": "mob.imitate.camel_husk",
+                        "volume": 0.7,
+                        "pitch": 1.7
                     }
                 }
             },
@@ -7619,6 +7686,7 @@
                     "death.in.water": "game.player.die",
                     "attack.nodamage": "game.player.attack.nodamage",
                     "attack.strong": "game.player.attack.strong",
+                    "attack.critical": "game.player.attack.critical",
                     "elderguardian.curse": {
                         "sound": "mob.elderguardian.curse",
                         "volume": 1.0,
@@ -8933,6 +9001,102 @@
                             }
                         }
                     }
+                }
+            },
+            "nautilus": {
+                "pitch": 1.0,
+                "volume": 3.0,
+                "events": {
+                    "ambient.in.water": "mob.nautilus.ambient",
+                    "hurt": "mob.nautilus.hurt",
+                    "hurt.in.water": "mob.nautilus.hurt",
+                    "death": "mob.nautilus.death",
+                    "death.in.water": "mob.nautilus.death",
+                    "dash_ready": "mob.nautilus.dash_ready",
+                    "eat": "mob.nautilus.eat",
+                    "saddle": "mob.nautilus.nautilus_saddle",
+                    "unsaddle": "mob.unsaddle",
+                    "armor.unequip_generic": "mob.nautilus.armor_unequip"
+                },
+                "variants": {
+                    "key": "query.is_baby ? 'baby' : 'adult'",
+                    "map": {
+                        "baby": {
+                            "pitch": 1.0,
+                            "volume": 3.0,
+                            "events": {
+                                "ambient.in.water": "mob.baby_nautilus.ambient",
+                                "hurt": "mob.baby_nautilus.hurt",
+                                "hurt.in.water": "mob.baby_nautilus.hurt",
+                                "death": "mob.baby_nautilus.death",
+                                "death.in.water": "mob.baby_nautilus.death",
+                                "eat": "mob.nautilus.eat"
+                            }
+                        },
+                        "adult": {
+                            "pitch": 1.0,
+                            "volume": 3.0,
+                            "events": {
+                                "ambient.in.water": "mob.nautilus.ambient",
+                                "hurt": "mob.nautilus.hurt",
+                                "hurt.in.water": "mob.nautilus.hurt",
+                                "death": "mob.nautilus.death",
+                                "death.in.water": "mob.nautilus.death",
+                                "dash_ready": "mob.nautilus.dash_ready",
+                                "eat": "mob.nautilus.eat"
+                            }
+                        }
+                    }
+                }
+            },
+            "zombie_nautilus": {
+                "pitch": 1.0,
+                "volume": 3.0,
+                "events": {
+                    "ambient.in.water": "mob.zombie_nautilus.ambient",
+                    "hurt": "mob.zombie_nautilus.hurt",
+                    "hurt.in.water": "mob.zombie_nautilus.hurt",
+                    "death": "mob.zombie_nautilus.death",
+                    "death.in.water": "mob.zombie_nautilus.death",
+                    "dash_ready": "mob.zombie_nautilus.dash_ready",
+                    "eat": "mob.zombie_nautilus.eat",
+                    "saddle": "mob.nautilus.nautilus_saddle",
+                    "unsaddle": "mob.unsaddle",
+                    "armor.unequip_generic": "mob.nautilus.armor_unequip"
+                }
+            },
+            "parched": {
+                "volume": 1.0,
+                "pitch": [
+                    0.8,
+                    1.2
+                ],
+                "events": {
+                    "ambient": "mob.parched.ambient",
+                    "hurt": "mob.parched.hurt",
+                    "death": "mob.parched.death",
+                    "step": {
+                        "sound": "mob.parched.step",
+                        "volume": 1.0,
+                        "pitch": 1.0
+                    }
+                }
+            },
+            "camel_husk": {
+                "volume": 1,
+                "pitch": [
+                    0.8,
+                    1.2
+                ],
+                "events": {
+                    "ambient": "mob.camel_husk.ambient",
+                    "death": "mob.camel_husk.death",
+                    "eat": "mob.camel_husk.eat",
+                    "hurt": "mob.camel_husk.hurt",
+                    "saddle": "mob.horse.leather",
+                    "step": "mob.camel_husk.step",
+                    "step_sand": "mob.camel_husk.step_sand",
+                    "dash_ready": "mob.camel_husk.dash_ready"
                 }
             }
         }

@@ -1,5 +1,5 @@
 {
-    "format_version": "1.13.0",
+    "format_version": "1.14.0",
     "minecraft:feature_rules": {
         "description": {
             "identifier": "minecraft:overworld_underground_diorite_feature",
@@ -25,10 +25,29 @@
             ]
         },
         "distribution": {
-            "iterations": 0,
-            "x": 0,
-            "y": 0,
-            "z": 0
+            "iterations": 10,
+            "coordinate_eval_order": "zyx",
+            "x": {
+                "distribution": "uniform",
+                "extent": [
+                    0,
+                    16
+                ]
+            },
+            "y": {
+                "distribution": "uniform",
+                "extent": [
+                    0,
+                    80
+                ]
+            },
+            "z": {
+                "distribution": "uniform",
+                "extent": [
+                    0,
+                    16
+                ]
+            }
         }
     }
 }

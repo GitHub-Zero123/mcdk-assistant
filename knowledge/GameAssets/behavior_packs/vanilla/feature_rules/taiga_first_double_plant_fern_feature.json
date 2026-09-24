@@ -1,5 +1,5 @@
 {
-    "format_version": "1.13.0",
+    "format_version": "1.14.0",
     "minecraft:feature_rules": {
         "description": {
             "identifier": "minecraft:taiga_first_double_plant_fern_feature",
@@ -10,16 +10,13 @@
             "minecraft:biome_filter": [
                 {
                     "test": "has_biome_tag",
+                    "operator": "==",
                     "value": "taiga"
                 }
             ]
         },
         "distribution": {
             "iterations": 1,
-            "scatter_chance": {
-                "numerator": 1,
-                "denominator": 5
-            },
             "x": {
                 "distribution": "uniform",
                 "extent": [

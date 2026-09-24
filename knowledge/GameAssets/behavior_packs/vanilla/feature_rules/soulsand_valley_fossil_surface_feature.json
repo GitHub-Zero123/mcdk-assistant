@@ -1,5 +1,5 @@
 {
-    "format_version": "1.13.0",
+    "format_version": "1.14.0",
     "minecraft:feature_rules": {
         "description": {
             "identifier": "minecraft:soulsand_valley_fossil_surface_feature",
@@ -18,8 +18,8 @@
         "distribution": {
             "iterations": 1,
             "scatter_chance": {
-                "numerator": 1,
-                "denominator": 2
+                "numerator": 2,
+                "denominator": 6
             },
             "x": {
                 "distribution": "uniform",
@@ -31,8 +31,8 @@
             "y": {
                 "distribution": "uniform",
                 "extent": [
-                    32,
-                    125
+                    0,
+                    124
                 ]
             },
             "z": {

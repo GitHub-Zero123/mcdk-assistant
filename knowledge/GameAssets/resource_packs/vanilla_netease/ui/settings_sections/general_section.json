@@ -3260,6 +3260,20 @@
         }
       },
       {
+        "damage_bob_option_slider@settings_common.option_slider": {
+            "$option_label": "#damage_bob_slider_label",
+            "$slider_name": "damage_bob",
+            "$slider_value_binding_name": "#damage_bob",
+            "$slider_tts_text_value": "#damage_bob_text_value",
+            "$option_enabled_binding_name": "#damage_bob_enabled",
+            "$label_bindings": [
+              {
+               "binding_name": "$option_label"
+              }
+            ]
+          }
+      },
+      {
         "super_fancy_panel": {
           "ignored": true,
           "type": "panel",
@@ -5654,33 +5668,7 @@
         }
       },
 
-      // Add some padding between the buttons/toggles to reduce the impression upon the eyes. (ADO:515619)
-      {
-        "paddingDividerAudioSettings": {
-          "type": "panel",
-          "size": "$spatialPatternsPadding"
-        }
-      },
-
-      {
-        "dividerAudioSettings": {
-          "type": "panel",
-          "size": [ "100%", "100%c + 14px" ],
-          "controls": [
-            {
-              "section_divider": {
-                "type": "image",
-                "size": [ "100% - 30px", 1 ],
-                "anchor_from": "center",
-                "anchor_to": "center",
-                "layer": 3,
-                "texture": "textures/ui/list_item_divider_line_light"
-              }
-            }
-          ]
-        }
-      },
-
+      // NETEASE: removed dividerAudioSettings + padding to tighten gap between main volume and other volume sliders
       // Add some padding between the buttons/toggles to reduce the impression upon the eyes. (ADO:515619)
       {
         "paddingMusic": {

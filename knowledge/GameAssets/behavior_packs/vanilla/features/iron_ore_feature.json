@@ -1,24 +1,16 @@
 {
-    "format_version": "1.13.0",
+    "format_version": "1.14.0",
     "minecraft:ore_feature": {
         "description": {
             "identifier": "minecraft:iron_ore_feature"
         },
-        "count": 10,
+        "count": 9,
         "replace_rules": [
             {
                 "places_block": "minecraft:iron_ore",
                 "may_replace": [
                     {
                         "name": "minecraft:stone"
-                    }
-                ]
-            },
-            {
-                "places_block": "minecraft:deepslate_iron_ore",
-                "may_replace": [
-                    {
-                        "name": "minecraft:deepslate"
                     }
                 ]
             }

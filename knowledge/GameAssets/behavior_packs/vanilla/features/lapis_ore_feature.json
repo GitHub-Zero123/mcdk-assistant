@@ -1,5 +1,5 @@
 {
-    "format_version": "1.13.0",
+    "format_version": "1.14.0",
     "minecraft:ore_feature": {
         "description": {
             "identifier": "minecraft:lapis_ore_feature"
@@ -11,14 +11,6 @@
                 "may_replace": [
                     {
                         "name": "minecraft:stone"
-                    }
-                ]
-            },
-            {
-                "places_block": "minecraft:deepslate_lapis_ore",
-                "may_replace": [
-                    {
-                        "name": "minecraft:deepslate"
                     }
                 ]
             }

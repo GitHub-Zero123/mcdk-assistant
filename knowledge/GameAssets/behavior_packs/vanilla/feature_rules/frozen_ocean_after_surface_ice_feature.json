@@ -1,5 +1,5 @@
 {
-  "format_version": "1.13.0",
+  "format_version": "1.14.0",
   "minecraft:feature_rules": {
     "description": {
       "identifier": "minecraft:frozen_ocean_after_surface_ice_feature",
@@ -29,7 +29,7 @@
     "distribution": {
       "iterations": 1,
       "x": 0,
-      "y": "query.heightmap(variable.worldx, variable.worldz)",
+      "y": 0,
       "z": 0
     }
   }

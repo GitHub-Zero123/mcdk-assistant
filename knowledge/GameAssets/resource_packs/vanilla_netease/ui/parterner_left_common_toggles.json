@@ -504,52 +504,6 @@
                 }
             },
             {
-                "empty_line_panel_1": {
-                    "layer": 1,
-                    "size": [
-                        "100.0%+0.0px",
-                        "3.0%x+0.0px"
-                    ],
-                    "type": "panel"
-                }
-            },
-            {
-                "fifth_line_panel": {
-                    "controls": [
-                        {
-                            "block_empty_panel": {
-                                "size": [
-                                    "2.28%+0.0px",
-                                    "100.0%+0.0px"
-                                ],
-                                "type": "panel"
-                            }
-                        },
-                        {
-                            "smart_avoid@parterner_left_common_toggles.func_and_desc_toggle_cell": {
-                                "$func_cell_desc": "伙伴阻挡玩家摆放、破坏方块时进行避让",
-                                "$func_cell_name": "智能避让",
-                                "$toggle_name": "#parterner_func_section.smart_avoid_control",
-                                "$toggle_state_binding_name": "#parterner_func_section.smart_avoid_state",
-                                "anchor_from": "top_left",
-                                "anchor_to": "top_left",
-                                "size": [
-                                    "33.85%+0.0px",
-                                    "100.0%+0.0px"
-                                ]
-                            }
-                        }
-                    ],
-                    "layer": 1,
-                    "orientation": "horizontal",
-                    "size": [
-                        "97.77%+0.0px",
-                        "14.12%x+0.0px"
-                    ],
-                    "type": "stack_panel"
-                }
-            },
-            {
                 "empty_line_panel_2": {
                     "layer": 1,
                     "size": [

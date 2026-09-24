@@ -1,5 +1,5 @@
 {
-    "format_version": "1.21.50",
+    "format_version": "1.21.120",
     "minecraft:aim_assist_preset": {
         "identifier": "minecraft:aim_assist_default",
         "item_settings": {
@@ -7,10 +7,14 @@
         },
         "default_item_settings": "minecraft:default",
         "hand_settings": "minecraft:empty_hand",
-        "exclusion_list": [
-            "minecraft:bedrock",
-            "minecraft:arrow"
-        ],
+        "exclusion_settings": {
+            "blocks": [
+                "minecraft:bedrock"
+            ],
+            "entities": [
+                "minecraft:arrow"
+            ]
+        },
         "liquid_targeting_list": [
             "minecraft:bucket",
             "minecraft:oak_boat",

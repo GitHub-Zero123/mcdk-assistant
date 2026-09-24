@@ -7,27 +7,6 @@
             "is_spawnable": false
         },
         "component_groups": {
-            "netease:free_play": {
-                "minecraft:behavior.follow_owner": {
-                    "speed_multiplier": 1.0,
-                    "start_distance": 12.0,
-                    "stop_distance": 4.0,
-                    "priority": 1
-                }
-            },
-            "netease:watch_owner": {
-                "minecraft:behavior.look_at_player": {
-                    "look_distance": 2.0,
-                    "probability": 1.0,
-                    "priority": 1
-                },
-                "minecraft:behavior.follow_owner": {
-                    "speed_multiplier": 1.0,
-                    "start_distance": 2.0,
-                    "stop_distance": 2.0,
-                    "priority": 3
-                }
-            },
             "netease:move_state": {
                 "minecraft:movement.basic": {},
                 "minecraft:navigation.walk": {
@@ -56,30 +35,17 @@
             },
             "minecraft:behavior.follow_owner": {
                 "speed_multiplier": 1.0,
-                "start_distance": 12.0,
-                "stop_distance": 4.0,
+                "start_distance": 10.0,
+                "stop_distance": 3.0,
                 "priority": 1
+            },
+            "minecraft:behavior.random_stroll": {
+                "priority": 2,
+                "speed_multiplier": 1.0,
+                "xz_dist": 5
             },
             "minecraft:behavior.float": {
                 "priority": 0
-            },
-            "netease:behavior.avoid_owner_fov": {
-                "stay_trigger_time": 2,
-                "angle": 45,
-                "min_distance": 6.0,
-                "max_distance": 10.0,
-                "back_min_distance": 1.0,
-                "back_max_distance": 10.0,
-                "priority": 0
-            },
-            "minecraft:behavior.python_custom:auto_change_state": {
-                "priority": 0,
-                "module_path": "mod.server.pet.petAutoChangeState",
-                "class_name": "AutoChangeState",
-                "arg_dict": {
-                    "free_play_time": 8,
-                    "watch_owner_time": 2
-                }
             },
             "minecraft:type_family": {
                 "family": [
@@ -89,32 +55,6 @@
             }
         },
         "events": {
-            "netease:entity_avoid_on": {},
-            "netease:entity_avoid_off": {},
-            "netease:watch_owner": {
-                "remove": {
-                    "component_groups": [
-                        "netease:free_play"
-                    ]
-                },
-                "add": {
-                    "component_groups": [
-                        "netease:watch_owner"
-                    ]
-                }
-            },
-            "netease:free_play": {
-                "remove": {
-                    "component_groups": [
-                        "netease:watch_owner"
-                    ]
-                },
-                "add": {
-                    "component_groups": [
-                        "netease:free_play"
-                    ]
-                }
-            },
             "netease:stop_move": {
                 "remove": {
                     "component_groups": [

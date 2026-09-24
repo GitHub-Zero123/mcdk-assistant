@@ -5,14 +5,11 @@
             "identifier": "minecraft:shield",
             "materials": {
                 "default": "entity_alphatest",
-                "enchanted": "entity_alphatest_glint",
-                "pattern": "pattern",
-                "pattern_enchanted": "pattern_glint"
+                "enchanted": "entity_alphatest_glint"
             },
             "textures": {
                 "default": "textures/entity/shield",
-                "enchanted": "textures/misc/enchanted_item_glint",
-                "pattern": "atlas.shield"
+                "enchanted": "textures/misc/enchanted_item_glint"
             },
             "geometry": {
                 "default": "geometry.shield"
@@ -52,7 +49,7 @@
                 ]
             },
             "render_controllers": [
-                "controller.render.shield"
+                "controller.render.item_default"
             ]
         }
     }

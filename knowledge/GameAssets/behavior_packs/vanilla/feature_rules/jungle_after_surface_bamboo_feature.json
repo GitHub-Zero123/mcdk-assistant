@@ -1,5 +1,5 @@
 {
-    "format_version": "1.13.0",
+    "format_version": "1.14.0",
     "minecraft:feature_rules": {
         "description": {
             "identifier": "minecraft:jungle_after_surface_bamboo_feature",
@@ -10,26 +10,18 @@
             "minecraft:biome_filter": [
                 {
                     "test": "has_biome_tag",
-                    "value": "jungle"
-                },
-                {
-                    "test": "has_biome_tag",
-                    "operator": "not",
-                    "value": "edge"
-                },
-                {
-                    "test": "has_biome_tag",
-                    "operator": "not",
+                    "operator": "!=",
                     "value": "bamboo"
+                },
+                {
+                    "test": "has_biome_tag",
+                    "operator": "==",
+                    "value": "jungle"
                 }
             ]
         },
         "distribution": {
-            "iterations": 1,
-            "scatter_chance": {
-                "numerator": 1,
-                "denominator": 4
-            },
+            "iterations": 16,
             "x": {
                 "distribution": "uniform",
                 "extent": [
@@ -37,7 +29,13 @@
                     16
                 ]
             },
-            "y": "query.heightmap(variable.worldx, variable.worldz)",
+            "y": {
+                "distribution": "uniform",
+                "extent": [
+                    0,
+                    "query.heightmap(variable.worldx, variable.worldz) * 2"
+                ]
+            },
             "z": {
                 "distribution": "uniform",
                 "extent": [

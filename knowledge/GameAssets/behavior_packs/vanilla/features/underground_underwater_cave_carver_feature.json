@@ -1,0 +1,29 @@
+{
+    "format_version": "1.16.100",
+    "minecraft:underwater_cave_carver_feature": {
+        "description": {
+            "identifier": "minecraft:underground_underwater_cave_carver_feature"
+        },
+        "fill_with": "minecraft:water",
+        "width_modifier": 0.0,
+        "replace_air_with": "minecraft:water",
+        "skip_carve_chance": 15,
+        "y_scale": [
+            0.5,
+            0.5
+        ],
+        "height_limit": 120,
+        "horizontal_radius_multiplier": [
+            1.0,
+            1.0
+        ],
+        "vertical_radius_multiplier": [
+            1.0,
+            1.0
+        ],
+        "floor_level": [
+            -0.7,
+            -0.7
+        ]
+    }
+}

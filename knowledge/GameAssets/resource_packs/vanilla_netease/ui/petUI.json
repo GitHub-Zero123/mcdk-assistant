@@ -4206,72 +4206,6 @@
         "type": "panel",
         "visible": true
     },
-    "avoidOwnerText": {
-        "anchor_from": "left_middle",
-        "anchor_to": "left_middle",
-        "color": [
-            1,
-            1,
-            1
-        ],
-        "font_scale_factor": 1.0,
-        "font_size": "normal",
-        "font_type": "smooth",
-        "layer": 1,
-        "offset": [
-            0,
-            0
-        ],
-        "shadow": false,
-        "size": [
-            "80.0%+0.0px",
-            "default"
-        ],
-        "text": "智能避让",
-        "text_alignment": "left",
-        "type": "label",
-        "visible": true
-    },
-    "avoidOwnerSwitch@common_toggles.switch_toggle_collection": {
-        "$default_texture": "textures/ui/toggle_off",
-        "$hover_texture": "textures/ui/toggle_on",
-        "$pressed_no_hover_texture": "textures/ui/toggle_on_hover",
-        "$pressed_texture": "textures/ui/toggle_off_hover",
-        "$toggle_name": "#petUI.OnTriggerAvoidOwnerToggleChange",
-        "$toggle_state_binding_name": "#petUI.ReturnTriggerAvoidOwnerToggleState",
-        "anchor_from": "right_middle",
-        "anchor_to": "right_middle",
-        "layer": 9,
-        "offset": [
-            0,
-            0
-        ],
-        "size": [
-            36,
-            18
-        ],
-        "type": "panel",
-        "visible": true
-    },
-    "smartAvoidOwnerPanel": {
-        "anchor_from": "top_left",
-        "anchor_to": "top_left",
-        "controls": [
-            {
-                "avoidOwnerText@petUI.avoidOwnerText": {}
-            },
-            {
-                "avoidOwnerSwitch@petUI.avoidOwnerSwitch": {}
-            }
-        ],
-        "layer": 1,
-        "size": [
-            "100.0%-10.0px",
-            18.0
-        ],
-        "type": "panel",
-        "visible": true
-    },
     "setting_panel": {
         "anchor_from": "top_left",
         "anchor_to": "top_left",
@@ -4366,73 +4300,6 @@
                         20
                     ],
                     "text": "控制伙伴是否触发压力板、红石矿、绊线钩",
-                    "text_alignment": "left",
-                    "type": "label"
-                }
-            },
-            {
-                "content_padding_1": {
-                    "size": [
-                        "100.0%+0.0px",
-                        1
-                    ],
-                    "type": "panel"
-                }
-            },
-            {
-                "splitLine": {
-                    "anchor_from": "top_left",
-                    "anchor_to": "top_left",
-                    "layer": 1,
-                    "nineslice_size": 0,
-                    "size": [
-                        "100.0%-10.0px",
-                        2
-                    ],
-                    "texture": "textures/ui/Black",
-                    "type": "image"
-                }
-            },
-            {
-                "content_padding_1": {
-                    "size": [
-                        "100.0%+0.0px",
-                        1
-                    ],
-                    "type": "panel"
-                }
-            },
-            {
-                "smartAvoidOwnerPanel@petUI.smartAvoidOwnerPanel": {}
-            },
-            {
-                "content_padding_1": {
-                    "size": [
-                        "100.0%+0.0px",
-                        2
-                    ],
-                    "type": "panel"
-                }
-            },
-            {
-                "avoidOwnerDesc": {
-                    "anchor_from": "top_left",
-                    "anchor_to": "top_left",
-                    "color": [
-                        0.6,
-                        0.6,
-                        0.6
-                    ],
-                    "font_scale_factor": 1.0,
-                    "font_size": "normal",
-                    "font_type": "smooth",
-                    "layer": 1,
-                    "shadow": false,
-                    "size": [
-                        "100.0%-8px",
-                        24
-                    ],
-                    "text": "伙伴阻挡玩家摆放、破坏方块时进行避让。",
                     "text_alignment": "left",
                     "type": "label"
                 }
@@ -6121,12 +5988,12 @@
                                 "anchor_from": "center",
                                 "anchor_to": "center",
                                 "size": [
-                                    10,
-                                    10
+                                    "45%",
+                                    "45%"
                                 ],
                                 "offset": [
-                                    17,
-                                    -3
+                                    "49.0%",
+                                    "-46.0%"
                                 ],
                                 "alpha": 1.0,
                                 "keep_ratio": false,

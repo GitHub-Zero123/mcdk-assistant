@@ -1,5 +1,5 @@
 {
-    "format_version": "1.13.0",
+    "format_version": "1.14.0",
     "minecraft:feature_rules": {
         "description": {
             "identifier": "minecraft:overworld_underground_dirt_feature",
@@ -25,7 +25,7 @@
             ]
         },
         "distribution": {
-            "iterations": 7,
+            "iterations": 10,
             "coordinate_eval_order": "zyx",
             "x": {
                 "distribution": "uniform",
@@ -38,7 +38,7 @@
                 "distribution": "uniform",
                 "extent": [
                     0,
-                    160
+                    128
                 ]
             },
             "z": {

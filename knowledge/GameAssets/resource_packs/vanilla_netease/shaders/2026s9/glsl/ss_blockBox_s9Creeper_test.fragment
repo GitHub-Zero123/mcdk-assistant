@@ -1,0 +1,27 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+#line 3
+precision highp float;
+#include "uniformPerFrameConstants.h"
+#include "neteaseModelFragmentUtil.h"
+
+LAYOUT_BINDING(0) uniform sampler2D TEXTURE_0; // basecolor
+LAYOUT_BINDING(1) uniform sampler2D TEXTURE_1; // base_mask01
+
+varying vec4 fogColor;
+
+void main() {
+	vec4 color = texture2D(TEXTURE_0, uv);
+
+	// 杂项的内置宏功能
+	neteaseModelCommonFrag(color);
+	// 加入受击变红等效果
+	applyOverlayColor(color);
+	// 附魔变色效果 使用TEXTURE_1
+	applyGlint(TEXTURE_1, color);
+
+	// 雾效果
+	applyFog(color, fogColor);
+
+	gl_FragColor = color;
+}

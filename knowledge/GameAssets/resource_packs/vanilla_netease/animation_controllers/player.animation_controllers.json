@@ -54,6 +54,90 @@
                 }
             }
         },
+        "controller.animation.player.melee_spear": {
+            "initial_state": "hold",
+            "states": {
+                "hold": {
+                    "animations": [
+                        "third_person_melee_spear_hold"
+                    ],
+                    "transitions": [
+                        {
+                            "use": "variable.item_use_normalized > 0.0"
+                        },
+                        {
+                            "attack": "variable.attack_time > 0.0"
+                        }
+                    ]
+                },
+                "use": {
+                    "animations": [
+                        "third_person_melee_spear_use"
+                    ],
+                    "transitions": [
+                        {
+                            "hold": "variable.item_use_normalized == 0.0"
+                        }
+                    ]
+                },
+                "attack": {
+                    "animations": [
+                        "third_person_melee_spear_attack"
+                    ],
+                    "transitions": [
+                        {
+                            "hold": "variable.attack_time == 0.0"
+                        },
+                        {
+                            "use": "variable.item_use_normalized > 0.0"
+                        }
+                    ]
+                }
+            }
+        },
+        "controller.animation.player.first_person_melee_spear": {
+            "initial_state": "hold",
+            "states": {
+                "hold": {
+                    "animations": [
+                        "first_person_melee_spear_hold"
+                    ],
+                    "transitions": [
+                        {
+                            "use": "variable.item_use_normalized > 0.0"
+                        },
+                        {
+                            "attack": "variable.attack_time > 0.0"
+                        }
+                    ]
+                },
+                "use": {
+                    "animations": [
+                        "first_person_melee_spear_use"
+                    ],
+                    "transitions": [
+                        {
+                            "hold": "variable.item_use_normalized == 0.0"
+                        }
+                    ]
+                },
+                "attack": {
+                    "animations": [
+                        "first_person_melee_spear_attack"
+                    ],
+                    "transitions": [
+                        {
+                            "hold": "variable.attack_time == 0.0"
+                        },
+                        {
+                            "use": "variable.item_use_normalized > 0.0"
+                        }
+                    ],
+                    "blend_transition": 0.2,
+                    "blend_via_shortest_path": true
+                }
+            }
+        },
         "controller.animation.player.first_person_attack": {
             "initial_state": "default",
             "states": {
@@ -133,7 +217,7 @@
                     "animations": [
                         "first_person_swap_item",
                         {
-                            "first_person_attack_controller": "variable.attack_time > 0.0f && query.get_equipped_item_name != 'filled_map' && !query.mod.vip_attack"
+                            "first_person_attack_controller": "variable.attack_time > 0.0f && query.get_equipped_item_name != 'filled_map' && !query.mod.vip_attack && !variable.melee_spear_equipped"
                         },
                         "first_person_base_pose",
                         {
@@ -147,6 +231,9 @@
                         },
                         {
                             "first_person_crossbow_equipped": "query.get_equipped_item_name == 'crossbow' && (variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0)"
+                        },
+                        {
+                            "first_person_melee_spear_controller": "variable.melee_spear_equipped"
                         },
                         {
                             "move.tiger_skinA_destroy_fp": "query.mod.vip_attack && query.mod.tiger_skina_destroy"
@@ -239,33 +326,6 @@
                         {
                             "move.legs": "!query.mod.vip_move && !query.mod.vip_walk && !query.mod.vip_run && !query.mod.vip_swim"
                         },
-                        {
-                            "move.cs_skin_s9idol_idle_anim_idle_junei": "!query.is_sleeping && query.mod.vip_idle && query.mod.cs_skin_s9idol_idle_anim_idle_junei"
-                        },
-                        {
-                            "move.cs_skin_s9idol_walk_anim_run": "!query.is_sleeping && query.mod.vip_walk && query.mod.cs_skin_s9idol_walk_anim_run"
-                        },
-                        {
-                            "move.cs_skin_s9idol_run_anim_run": "!query.is_sleeping && query.mod.vip_run && query.mod.cs_skin_s9idol_run_anim_run"
-                        },
-                        {
-                            "move.cs_skin_shuaitusunquan_idle_anim_idle_junei": "!query.is_sleeping && query.mod.vip_idle && query.mod.cs_skin_shuaitusunquan_idle_anim_idle_junei"
-                        },
-                        {
-                            "move.cs_skin_shuaitusunquan_run_anim_run": "!query.is_sleeping && query.mod.vip_run && query.mod.cs_skin_shuaitusunquan_run_anim_run"
-                        },
-                        {
-                            "move.cs_skin_shuaitusunquan_walk_anim_run": "!query.is_sleeping && query.mod.vip_walk && query.mod.cs_skin_shuaitusunquan_walk_anim_run"
-                        },
-                        {
-                            "move.cs_skin_s9crane_idle_anim_idle_junei": "!query.is_sleeping && query.mod.vip_idle && query.mod.cs_skin_s9crane_idle_anim_idle_junei"
-                        },
-                        {
-                            "move.cs_skin_s9crane_run_anim_run": "!query.is_sleeping && query.mod.vip_run && query.mod.cs_skin_s9crane_run_anim_run"
-                        },
-                        {
-                            "move.cs_skin_s9crane_walk_anim_run": "!query.is_sleeping && query.mod.vip_walk && query.mod.cs_skin_s9crane_walk_anim_run"
-                        },
                         "vip_inject_controller",
                         "cape",
                         {
@@ -276,6 +336,21 @@
                         },
                         {
                             "riding.ss_horse_s9idol_ride": "query.mod.ss_horse_s9idol_ride"
+                        },
+                        {
+                            "riding.ss_horse_s9nvtuan_ride": "query.mod.ss_horse_s9nvtuan_ride"
+                        },
+                        {
+                            "riding.ss_horse_s9nvtuana_ride": "query.mod.ss_horse_s9nvtuana_ride"
+                        },
+                        {
+                            "riding.ss_horse_s9nvtuanb_ride": "query.mod.ss_horse_s9nvtuanb_ride"
+                        },
+                        {
+                            "riding.ss_horse_s9nvtuanc_ride": "query.mod.ss_horse_s9nvtuanc_ride"
+                        },
+                        {
+                            "riding.cs_horse_s9war_ride": "query.mod.cs_horse_s9war_ride"
                         },
                         "holding",
                         {
@@ -318,10 +393,10 @@
                             "sleeping": "query.is_sleeping && query.is_alive"
                         },
                         {
-                            "attack.positions": "variable.attack_time >= 0.0 && query.mod.vip_attack < 1.0"
+                            "attack.positions": "variable.attack_time >= 0.0 && query.mod.vip_attack < 1.0 && !variable.melee_spear_equipped"
                         },
                         {
-                            "attack.rotations": "variable.attack_time >= 0.0 && query.mod.vip_attack < 1.0"
+                            "attack.rotations": "variable.attack_time >= 0.0 && query.mod.vip_attack < 1.0 && !query.is_item_name_any('slot.weapon.mainhand', 'minecraft:wooden_spear', 'minecraft:stone_spear', 'minecraft:copper_spear', 'minecraft:iron_spear', 'minecraft:golden_spear', 'minecraft:diamond_spear', 'minecraft:netherite_spear')"
                         },
                         {
                             "shield_block_main_hand": "query.blocking && !query.get_equipped_item_is_netease_shield('off_hand')&& query.get_equipped_item_name('off_hand') != 'shield' && query.get_equipped_item_name == 'shield'"
@@ -343,6 +418,9 @@
                         },
                         {
                             "brushing": "variable.is_using_brush"
+                        },
+                        {
+                            "third_person_melee_spear_controller": "variable.melee_spear_equipped"
                         }
                     ],
                     "transitions": [

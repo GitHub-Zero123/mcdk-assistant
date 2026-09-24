@@ -1,0 +1,30 @@
+{
+    "format_version": "1.16.0",
+    "minecraft:weighted_random_feature": {
+        "description": {
+            "identifier": "minecraft:random_roofed_forest_feature"
+        },
+        "features": [
+            [
+                "minecraft:huge_mushroom_feature",
+                75
+            ],
+            [
+                "minecraft:select_roofed_tree_feature",
+                630
+            ],
+            [
+                "minecraft:select_birch_tree_feature",
+                70
+            ],
+            [
+                "minecraft:fancy_oak_tree_feature",
+                30
+            ],
+            [
+                "minecraft:select_oak_tree_feature",
+                195
+            ]
+        ]
+    }
+}

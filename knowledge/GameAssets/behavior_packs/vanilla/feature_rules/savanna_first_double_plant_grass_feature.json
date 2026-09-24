@@ -1,5 +1,5 @@
 {
-    "format_version": "1.13.0",
+    "format_version": "1.14.0",
     "minecraft:feature_rules": {
         "description": {
             "identifier": "minecraft:savanna_first_double_plant_grass_feature",
@@ -10,21 +10,14 @@
             "minecraft:biome_filter": [
                 {
                     "test": "has_biome_tag",
+                    "operator": "==",
                     "value": "savanna"
-                },
-                {
-                    "test": "has_biome_tag",
-                    "operator": "not",
-                    "value": "mutated"
                 }
             ]
         },
         "distribution": {
-            "iterations": "variable.is_legacy ? 0 : 1",
-            "scatter_chance": {
-                "numerator": 1,
-                "denominator": 5
-            },
+            "iterations": 1,
+            "scatter_chance": "variable.is_legacy ? 0.0 : 100.0",
             "x": {
                 "distribution": "uniform",
                 "extent": [

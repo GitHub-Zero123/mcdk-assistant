@@ -1,16 +1,25 @@
 {
-  "format_version": "1.13.0",
-  "minecraft:feature_rules": {
-    "description": {
-      "identifier": "minecraft:mushroom_island_surface_mushrooms_feature",
-      "places_feature": "minecraft:legacy:small_mushrooms_feature"
-    },
-    "conditions": {
-      "placement_pass": "surface_pass",
-      "minecraft:biome_filter": [
-        // This feature has been deprecated in favor of "minecraft:mushroom_island_after_surface_brown_mushroom_feature_rules" and "minecraft:mushroom_island_after_surface_red_mushroom_feature_rules".
-        { "test": "has_biome_tag", "value": "deprecated" }
-      ]
+    "format_version": "1.14.0",
+    "minecraft:feature_rules": {
+        "description": {
+            "identifier": "minecraft:mushroom_island_surface_mushrooms_feature",
+            "places_feature": "minecraft:legacy:small_mushrooms_feature"
+        },
+        "conditions": {
+            "placement_pass": "surface_pass",
+            "minecraft:biome_filter": [
+                {
+                    "test": "has_biome_tag",
+                    "operator": "==",
+                    "value": "mooshroom_island"
+                }
+            ]
+        },
+        "distribution": {
+            "iterations": 1,
+            "x": 0,
+            "y": 0,
+            "z": 0
+        }
     }
-  }
 }

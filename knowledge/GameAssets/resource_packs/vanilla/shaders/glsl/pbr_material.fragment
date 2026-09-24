@@ -17,7 +17,22 @@ LAYOUT_BINDING(1) uniform sampler2D TEXTURE_1; // ARM: R=AO, G=Roughness, B=Meta
 LAYOUT_BINDING(2) uniform sampler2D TEXTURE_2; // Normal map (OpenGL tangent-space)
 LAYOUT_BINDING(3) uniform sampler2D TEXTURE_3; // IBL prefiltered octahedral map (from DynamicCubemap)
 LAYOUT_BINDING(4) uniform sampler2D TEXTURE_4; // Visible SH map (runtime-compatible RGBA encoding)
-LAYOUT_BINDING(5) uniform sampler2D TEXTURE_5; // Emissive map
+LAYOUT_BINDING(5) uniform sampler2D TEXTURE_5; // Emissive, SSS mask, or packed UV0 donor transport + mask
+#if (defined(USE_PBR_DONAR_SSS) || defined(USE_PBR_SSS)) && defined(USE_EMISSIVE_MAP)
+// Profile SSS uses slot 5 for its UV0 data, so emissive keeps priority.
+#undef USE_PBR_DONAR_SSS
+#undef USE_PBR_SSS
+#endif
+#if defined(USE_PBR_DONAR_SSS) && defined(USE_PBR_SSS)
+// The two complete profile implementations are alternatives. Keep the newer
+// donor-transport path if a material accidentally enables both public macros.
+#undef USE_PBR_SSS
+#endif
+#if defined(USE_PBR_DONAR_SSS) || defined(USE_PBR_SSS)
+#define PBR_SSS_PROFILE_ACTIVE
+#define PBR_SSS_MASK_TEXTURE TEXTURE_5
+#include "pbr_sss_approx.glsl"
+#endif
 #if defined(NTES_ANIMATED_MODEL_BATCH_TEXTURE)
 #define PBR_EXTRA_TEXTURE TEXTURE_5
 #elif defined(EYE_CUBEMAP_SAMPLE) || defined(USE_DETAIL_MAP)
@@ -42,6 +57,12 @@ varying highp vec3 normalWS;
 varying highp vec4 tangentWS;
 varying highp vec3 lightDirWS;
 varying highp float lightIntensity;
+#ifdef USE_PBR_DONAR_SSS
+varying mediump vec3 sssLightTS;
+#endif
+#ifdef USE_PBR_SSS
+varying mediump vec4 sssDirectionalCurvature;
+#endif
 #ifdef USE_VISIBLE_SH_MAP
 varying highp vec2 uvSH;
 varying highp float shTangentW;
@@ -63,6 +84,22 @@ uniform float metallic_multiplier;
 uniform float emissive_strength;
 uniform float sh_visibility_strength;
 uniform vec4 base_color;
+#ifdef USE_PBR_FILAMENT_SSS
+uniform vec3 sss_color;
+uniform float sss_strength;
+uniform float sss_power;
+#endif
+#ifdef PBR_SSS_PROFILE_ACTIVE
+// Direct and shadow SSS controls shared by the donor and curvature paths.
+// These are material-local
+// uniforms, resolved by name through enableMaterialUniformReflection, so they
+// are live-tunable in the editor rather than baked into the shader variant.
+uniform float sss_direct_strength;
+uniform float sss_shadow_strength;
+#endif
+#ifdef USE_PBR_SSS
+uniform float sss_curvature_scale;
+#endif
 #ifdef USE_PBR_UV_TRANSFORM
 uniform vec4 pbr_base_uv_transform;
 uniform float pbr_base_uv_rotator;
@@ -180,15 +217,19 @@ highp float computeMSMHamburger(highp vec4 b, highp float fragmentDepth, highp f
     return clamp(switchVal[2] + switchVal[3] * quotient, 0.0, 1.0);
 }
 
-highp float hamburger4MSMLitVisibility(highp vec4 encodedMoments, highp float fragmentDepth) {
+highp float hamburger4MSMLitVisibility(highp vec4 encodedMoments, highp float fragmentDepth,
+                                       out highp float profileVisibility) {
     highp float depthBias = NTES_PBR_ENTITY_SHADOW_PARAMS.y;
     highp float momentBias = NTES_PBR_ENTITY_SHADOW_PARAMS.z;
     highp float leakReduction = NTES_PBR_ENTITY_SHADOW_PARAMS.w;
     highp vec4 moments = decodeMoments4(encodedMoments);
     highp float shadowIntensity = computeMSMHamburger(moments, fragmentDepth, depthBias, momentBias);
-    highp float litVisibility = 1.0 - shadowIntensity;
+    // Keep the unclipped MSM probability for SSS. Leak reduction is useful for
+    // the opaque shadow, but feeding its low-end plateau into an RGB diffusion
+    // profile turns the soft chromatic tail into visible bands.
+    profileVisibility = clamp(1.0 - shadowIntensity, 0.0, 1.0);
     // Light-bleeding reduction: remap [leakReduction, 1] -> [0, 1].
-    return linstep(leakReduction, 1.0, litVisibility);
+    return linstep(leakReduction, 1.0, profileVisibility);
 }
 
 highp float getNtesPBREntityShadowPCFBias(highp vec3 normalWSForBias, highp vec3 lightDirWSForBias) {
@@ -207,28 +248,32 @@ highp float sampleNtesPBREntityShadowPCFDepth(highp vec2 texelCoord) {
 
 highp float sampleNtesPBREntityShadowPCF(highp vec3 shadowCoord, highp vec3 normalWSForBias, highp vec3 lightDirWSForBias) {
     highp float shadowMapSize = getNtesPBREntityShadowMapSize();
-    highp vec2 centerTexel = floor(shadowCoord.xy * shadowMapSize);
+    highp vec2 texelPosition = shadowCoord.xy * shadowMapSize - vec2(0.5);
+    highp vec2 baseTexel = floor(texelPosition);
+    highp vec2 texelFraction = fract(texelPosition);
     // Bias subtracts from receiver depth so it does NOT shadow itself across a
     // quantised SM. timurson uses + here:
     //   shadowCoef = projCoords.z - bias > shadowDepth ? 0 : 1
     // i.e. fragment is in shadow if (z - bias) > caster_z, equivalent to
     //      step(z - bias, caster_z) lit. Same sign convention here.
     highp float receiverDepth = shadowCoord.z - getNtesPBREntityShadowPCFBias(normalWSForBias, lightDirWSForBias);
-    highp float visibility = 0.0;
-    visibility += step(receiverDepth, sampleNtesPBREntityShadowPCFDepth(centerTexel + vec2(-1.0, -1.0)));
-    visibility += step(receiverDepth, sampleNtesPBREntityShadowPCFDepth(centerTexel + vec2( 0.0, -1.0)));
-    visibility += step(receiverDepth, sampleNtesPBREntityShadowPCFDepth(centerTexel + vec2( 1.0, -1.0)));
-    visibility += step(receiverDepth, sampleNtesPBREntityShadowPCFDepth(centerTexel + vec2(-1.0,  0.0)));
-    visibility += step(receiverDepth, sampleNtesPBREntityShadowPCFDepth(centerTexel));
-    visibility += step(receiverDepth, sampleNtesPBREntityShadowPCFDepth(centerTexel + vec2( 1.0,  0.0)));
-    visibility += step(receiverDepth, sampleNtesPBREntityShadowPCFDepth(centerTexel + vec2(-1.0,  1.0)));
-    visibility += step(receiverDepth, sampleNtesPBREntityShadowPCFDepth(centerTexel + vec2( 0.0,  1.0)));
-    visibility += step(receiverDepth, sampleNtesPBREntityShadowPCFDepth(centerTexel + vec2( 1.0,  1.0)));
-    return visibility * 0.1111111111;
+    // Interpolate four binary depth comparisons with the true sub-texel
+    // position. The old 3x3 average could only return ten values (n / 9),
+    // which became visible colour bands after the RGB SSS profile.
+    highp float visibility00 = step(receiverDepth, sampleNtesPBREntityShadowPCFDepth(baseTexel));
+    highp float visibility10 = step(receiverDepth, sampleNtesPBREntityShadowPCFDepth(baseTexel + vec2(1.0, 0.0)));
+    highp float visibility01 = step(receiverDepth, sampleNtesPBREntityShadowPCFDepth(baseTexel + vec2(0.0, 1.0)));
+    highp float visibility11 = step(receiverDepth, sampleNtesPBREntityShadowPCFDepth(baseTexel + vec2(1.0, 1.0)));
+    return mix(mix(visibility00, visibility10, texelFraction.x),
+               mix(visibility01, visibility11, texelFraction.x),
+               texelFraction.y);
 }
 
-highp float sampleNtesPBREntityShadowVisibility(highp vec3 worldPos, highp vec3 normalWSForBias, highp vec3 lightDirWSForBias) {
+highp float sampleNtesPBREntityShadowVisibility(highp vec3 worldPos, highp vec3 normalWSForBias,
+                                                highp vec3 lightDirWSForBias,
+                                                out highp float profileVisibility) {
     if (NTES_PBR_ENTITY_SHADOW_PARAMS.x < 0.5) {
+        profileVisibility = 1.0;
         return 1.0;
     }
     highp vec4 shadowClip = getNtesPBREntityShadowMatrix() * vec4(worldPos, 1.0);
@@ -237,20 +282,25 @@ highp float sampleNtesPBREntityShadowVisibility(highp vec3 worldPos, highp vec3 
     // Outside the light frustum: treat as fully lit so the world outside the SM
     // doesn't get painted black.
     if (shadowCoord.z <= 0.0 || shadowCoord.z >= 1.0) {
+        profileVisibility = 1.0;
         return 1.0;
     }
     if (shadowCoord.x <= 0.0 || shadowCoord.x >= 1.0 || shadowCoord.y <= 0.0 || shadowCoord.y >= 1.0) {
+        profileVisibility = 1.0;
         return 1.0;
     }
     highp float texel = 1.0 / getNtesPBREntityShadowMapSize();
     shadowCoord.xy = clamp(shadowCoord.xy, vec2(texel), vec2(1.0 - texel));
     if (NTES_PBR_ENTITY_SHADOW_PARAMS.x > 1.5) {
-        return sampleNtesPBREntityShadowPCF(shadowCoord, normalWSForBias, lightDirWSForBias);
+        profileVisibility = sampleNtesPBREntityShadowPCF(
+            shadowCoord, normalWSForBias, lightDirWSForBias);
+        return profileVisibility;
     }
     // MSM: the moment texture is linearly filterable; reconstruct visibility
     // from that filtered moment distribution once. Using the alternate branch
     // here produced visible multi-edge ghost shadows in wide penumbrae.
-    return hamburger4MSMLitVisibility(texture2D(TEXTURE_7, shadowCoord.xy), shadowCoord.z);
+    return hamburger4MSMLitVisibility(
+        texture2D(TEXTURE_7, shadowCoord.xy), shadowCoord.z, profileVisibility);
 }
 #endif
 
@@ -618,6 +668,8 @@ mediump float convolveVisibilitySH_Irradiance(mediump vec4 visSH_WS, mediump vec
 
 #endif // USE_VISIBLE_SH_MAP
 
+#include "pbr_local_light.glsl"
+
 // Reconstruct diffuse irradiance color from 6-axis RGB uniforms along normal direction.
 // Ambient cube interpolation (Valve HL2): weight = N_component^2, selects +/- by sign.
 // For normalized N: weights sum to 1 (N.x^2+N.y^2+N.z^2=1), no renormalization needed.
@@ -629,14 +681,28 @@ mediump vec3 reconstructDiffuseIrradiance(mediump vec3 N) {
     return result;
 }
 
-vec4 shadeMinimalPbrDiffuse(vec4 albedoSample) {
-    vec4 baseColorParam = getPbrBaseColorParam();
+#include "pbr_sss_runtime.glsl"
+
+vec4 shadeMinimalPbrDiffuse(vec4 albedoSample) {    vec4 baseColorParam = getPbrBaseColorParam();
     albedoSample.rgb *= baseColorParam.rgb;
     albedoSample.a *= baseColorParam.a;
 
     mediump vec3 N = normalize(normalWS);
     mediump vec3 diffuseEnv = reconstructDiffuseIrradiance(N);
-    highp vec3 hdrColor = diffuseEnv * sRGBToLinear(albedoSample.rgb) * IBL_DIFFUSE_INTENSITY;
+    mediump vec3 linearAlbedo = sRGBToLinear(albedoSample.rgb);
+    highp vec3 hdrColor = diffuseEnv * linearAlbedo * IBL_DIFFUSE_INTENSITY;
+    // Keep directional diffuse at the farthest LOD using the geometric normal.
+    mediump float NoL = max(dot(N, normalize(lightDirWS)), 0.0);
+    float directLightIntensity = max(lightIntensity, 0.0);
+    float directLightTemperature = clamp(lightIntensity, 0.0, 1.0);
+    vec3 lightColor = mix(vec3(0.4, 0.5, 0.7), vec3(1.0, 0.95, 0.9), directLightTemperature) * (directLightIntensity * 2.0 * RNGL_DIRECT_LIGHT_MULTIPLIER);
+    hdrColor += linearAlbedo * lightColor * (NoL * INV_PI);
+#if defined(NETEASE_PBR_LOCAL_LIGHT) && defined(USE_PBR_LOCAL_LIGHT_DIFFUSE_ONLY)
+    mediump vec3 pbrLocalDiffuseColor;
+    accumulatePbrLocalLights(positionWS, N, vec3(0.0, 0.0, 1.0), linearAlbedo,
+        0.0, 1.0, DIELECTRIC_F0, pbrLocalDiffuseColor);
+    hdrColor += pbrLocalDiffuseColor;
+#endif
     vec3 finalColor = tonemapACES(min(max(hdrColor, vec3(0.0)), vec3(64.0)));
     finalColor = pow(max(finalColor, vec3(0.0)), vec3(1.0 / 2.2));
     return vec4(finalColor, albedoSample.a);
@@ -722,7 +788,9 @@ void main() {
     detailSample = sampleDetailMap(materialUV);
 #endif
 #if defined(USE_NORMAL_ALPHA_DETAIL_MASK) && defined(USE_NORMAL_ALPHA_ANISOTROPY) && defined(USE_DETAIL_NORMAL_ONLY)
+#ifndef USE_ANISOTROPIC_SILK
     detailSample.rg = mix(vec2(0.5), detailSample.rg, normalAlphaSilkMask);
+#endif
 #endif
     perceptualRoughness = applyDetailSmoothness(perceptualRoughness, detailSample);
 #endif
@@ -763,12 +831,15 @@ void main() {
     vec3 L = normalize(lightDirWS);
     float NoV = max(dot(N, V), MIN_NOV);
     vec3 H = normalize(V + L);
-    float NoL = max(dot(N, L), 0.0);
+    float signedNoL = dot(N, L);
+    float NoL = max(signedNoL, 0.0);
     float NoH = max(dot(N, H), 0.0);
     float VoH = max(dot(V, H), 0.0);
 
     // ---- Direct Lighting (Cook-Torrance) ----
-    vec3 lightColor = mix(vec3(0.4, 0.5, 0.7), vec3(1.0, 0.95, 0.9), lightIntensity) * (lightIntensity * 2.0 * RNGL_DIRECT_LIGHT_MULTIPLIER);
+    float directLightIntensity = max(lightIntensity, 0.0);
+    float directLightTemperature = clamp(lightIntensity, 0.0, 1.0);
+    vec3 lightColor = mix(vec3(0.4, 0.5, 0.7), vec3(1.0, 0.95, 0.9), directLightTemperature) * (directLightIntensity * 2.0 * RNGL_DIRECT_LIGHT_MULTIPLIER);
     mediump vec3 directDiffuseColor;
     highp vec3 directSpecularColor;
     highp vec3 directColor;
@@ -840,7 +911,100 @@ void main() {
 #else
     evaluateDirectPBRComponents(N, V, L, lightColor, albedo, metalness, perceptualRoughness, directDiffuseColor, directSpecularColor);
 #endif
+#ifdef PBR_SSS_PROFILE_ACTIVE
+    mediump vec4 sssData = texture2D(PBR_SSS_MASK_TEXTURE, uv);
+    // Every generated profile map uses RG=octahedral tangent-space donor,
+    // B=edge-transport distance and A=semantic skin mask. Directional-tensor
+    // materials need the same A mask; R is not a legacy mask in these maps.
+    mediump float sssMask = sssData.a;
+    mediump float sssShadowReceiverGate = smoothstep(0.0, 0.12, signedNoL);
+    mediump vec3 unscatteredDirectDiffuseColor = directDiffuseColor;
+#ifdef USE_PBR_DONAR_SSS
+    mediump vec3 sssDonorDirection = pbrSssDecodeDonorOct(sssData.rg);
+    mediump vec2 sssDonorXY = sssDonorDirection.xy;
+    mediump float sssReceiverNoL = max(sssLightTS.z, 0.0);
+    // RG stores a rank-1 blend of the two directed edge lobes at a box
+    // corner. Applying max() after one dot lets the unlit lobe's negative
+    // component cancel the illuminated lobe and creates a hard diagonal.
+    // Box donor normals lie on the receiver's tangent plane, so accumulate
+    // the two oriented tangent-axis lobes independently before subtraction.
+    mediump float sssDonorNoL =
+          max(sssDonorXY.x * sssLightTS.x, 0.0)
+        + max(sssDonorXY.y * sssLightTS.y, 0.0);
+    // Treat incoming transmission and outgoing lit-face diffusion separately.
+    // Their shared B profile still comes from one texture lookup, but the old
+    // in-game boost is applied only to weak positive tails.  The negative lobe
+    // stays at the unit ground-truth scale for the default direct strength.
+    mediump float sssIrradianceStep = sssDonorNoL - sssReceiverNoL;
+    mediump float sssReceivedNoL = max(sssIrradianceStep, 0.0);
+    mediump float sssOutgoingNoL = min(sssIrradianceStep, 0.0);
+    mediump float sssEdgePresence = 1.0 - step(0.998, sssData.b);
+    mediump vec3 sssEdgeProfile =
+        evaluatePbrSssEdgeTransmission(sssData.b);
+    // The bake removes the common adjacent-half-plane factor, so the runtime
+    // restores exactly 0.5 here. Visibility is controlled only by the material
+    // strength; applying another nonlinear tail boost double-counts transport
+    // once the head is baked as a closed six-face cuboid.
+    mediump vec3 sssReceivedProfile = 0.5 * sssEdgeProfile;
+    mediump vec3 sssEdgeDelta = sssReceivedProfile * sssReceivedNoL
+                              + (0.25 * sssEdgeProfile) * sssOutgoingNoL;
+    directDiffuseColor += albedo * (1.0 - metalness) * INV_PI
+                        * lightColor * sssEdgeDelta
+                        * (pbrSssDirectStrength() * sssMask
+                           * sssEdgePresence);
+#else
+    // Vertex COLOR stores the tangent-space directional-curvature tensor as
+    // (Sxx, Sxy * 0.5 + 0.5, Syy, magnitude / 0.125 mm^-1).
+    // Projecting it onto the tangent-space light direction produces the same
+    // scalar curvature used by the original pre-integrated 2D LUT.
+    mediump mat3 sssTangentToWorld = tangentFrame(N, tangentWS);
+    mediump vec2 sssLightTangent = vec2(
+        dot(L, sssTangentToWorld[0]),
+        dot(L, sssTangentToWorld[1]));
+    mediump vec3 sssTensor = vec3(
+        sssDirectionalCurvature.x,
+        sssDirectionalCurvature.y * 2.0 - 1.0,
+        sssDirectionalCurvature.z);
+    sssTensor *= sssDirectionalCurvature.w * 0.125;
+    mediump float sssCurvature =
+          sssTensor.x * sssLightTangent.x * sssLightTangent.x
+        + 2.0 * sssTensor.y * sssLightTangent.x * sssLightTangent.y
+        + sssTensor.z * sssLightTangent.y * sssLightTangent.y;
+    sssCurvature *= pbrSssCurvatureScale();
+    mediump float sssCurvatureV = clamp(
+        log(clamp(sssCurvature, 0.0025, 0.125) / 0.0025)
+        * 0.2556222186, 0.0, 1.0);
+    mediump vec3 sssCurvatureResponse = evaluatePbrSssDirect(
+        signedNoL, sssCurvatureV);
+    mediump float sssCurvatureWeight = pbrSssDirectStrength() * sssMask
+                                     * smoothstep(-0.35, -0.05, signedNoL);
+    mediump vec3 sssCurvatureDiffuseColor = albedo * (1.0 - metalness)
+                                          * INV_PI * lightColor
+                                          * sssCurvatureResponse;
+    directDiffuseColor = mix(directDiffuseColor,
+                             sssCurvatureDiffuseColor,
+                             sssCurvatureWeight);
+#endif
+    // Preserve the positive diffusion lobe against baked SH occlusion, while
+    // keeping entity-shadow visibility available to project onto the lift.
+    mediump vec3 sssDirectVisibilityLift = max(
+        directDiffuseColor - unscatteredDirectDiffuseColor, vec3(0.0));
+#endif
     directColor = directDiffuseColor * diffuseStrength + directSpecularColor * specularStrength;
+
+#ifdef USE_PBR_FILAMENT_SSS
+    {
+        // Filament-style local forward-scattering BTDF. ARM.a is thickness:
+        // 0.0 is thin/strong scattering and 1.0 is thick/no scattering.
+        mediump float thickness = clamp(armSample.a, 0.0, 1.0);
+        mediump float scatterVoH = max(dot(V, -L), 0.0);
+        mediump float sssPower = pbrFilamentSssPower();
+        mediump float forwardScatter = exp2(scatterVoH * sssPower - sssPower);
+        mediump float backScatter = 0.5 * clamp(NoL * thickness + (1.0 - thickness), 0.0, 1.0);
+        mediump float subsurface = mix(backScatter, 1.0, forwardScatter) * (1.0 - thickness);
+        directColor += pbrFilamentSssColor() * (subsurface * pbrFilamentSssStrength() * diffuseStrength * INV_PI) * lightColor;
+    }
+#endif
 
 #ifdef USE_AO_MAP
     mediump float aoRaw = clamp(armSample.r, 0.0, 1.0);
@@ -849,9 +1013,26 @@ void main() {
 #endif
 
 #ifdef USE_NTES_PBR_ENTITY_SHADOWMAP
-    highp float entityShadowVisibility = sampleNtesPBREntityShadowVisibility(positionWS, N, L);
+    highp float entityShadowVisibility = 1.0;
+    highp float entityShadowProfileVisibility = 1.0;
+    if (signedNoL > 0.0) {
+        entityShadowVisibility = sampleNtesPBREntityShadowVisibility(
+            positionWS, N, L, entityShadowProfileVisibility);
+    }
 #else
     highp float entityShadowVisibility = 1.0;
+    highp float entityShadowProfileVisibility = 1.0;
+#endif
+#ifdef PBR_SSS_PROFILE_ACTIVE
+    // PCF coverage and filtered MSM visibility are continuous projected-shadow
+    // coordinates. SH only scales available direct-light energy below.
+    mediump float sssShadowProfileVisibility = entityShadowProfileVisibility;
+    // Fade the profile correction continuously into the fully shadowed and
+    // fully lit solutions. A binary 0.001/0.999 gate produced a ~0.21 jump on
+    // the dark edge and a ~0.10 jump on the lit edge at strength 2.
+    mediump float sssShadowEdgeConfidence =
+        smoothstep(0.0, 0.12, sssShadowProfileVisibility)
+        * (1.0 - smoothstep(0.88, 1.0, sssShadowProfileVisibility));
 #endif
 
     // ---- Pre-compute SH visibility (before IBL sampling) ----
@@ -862,7 +1043,10 @@ void main() {
     mat3 visibleSHTBN = tangentFrame(normalize(normalWS), vec4(tangentWS.xyz, shTangentW));
     mediump vec4 visSH_WS = decodeVisibilitySH_WS(visibleSHTBN);
     highp vec3 shDirectLightDirWS = lightDirWS;
-    mediump float localVisibilityDirectRaw = evalVisibilitySH(visSH_WS, shDirectLightDirWS);
+    highp float localVisibilityDirectLinear = evalVisibilitySHRaw(
+        visSH_WS, shDirectLightDirWS);
+    mediump float localVisibilityDirectRaw = evalVisibilityCurve(
+        localVisibilityDirectLinear);
     mediump float localVisibilityIBLSpecRaw = evalVisibilitySH(visSH_WS, R);
     mediump float localVisibilityIBLDiffRaw = convolveVisibilitySH_Irradiance(visSH_WS, normalize(normalWS));
 
@@ -971,12 +1155,125 @@ void main() {
     localVisibilityDirect = mix(1.0, localVisibilityDirect, shVisibilityStrength);
     localVisibilityIBLSpec = mix(1.0, localVisibilityIBLSpec, shVisibilityStrength);
     localVisibilityIBLDiff = mix(1.0, localVisibilityIBLDiff, shVisibilityStrength);
+#ifdef PBR_SSS_PROFILE_ACTIVE
+    // The projected-shadow profile coordinate must remain independent from
+    // the spatial SH visibility. min(MSM, SH) pins most of the MSM penumbra to
+    // one SH value (for example SH=0.2 flattens MSM 1.0..0.2), collapsing the
+    // visible soft transition. SH instead attenuates the available direct-light
+    // energy separately below.
+    sssShadowProfileVisibility = entityShadowProfileVisibility;
+    // Receiver lighting uses the thresholded SH curve, while donor transport
+    // uses continuous raw SH. The donor can remain visible when the receiver's
+    // opaque direct term is zero, but entity shadow visibility still limits it.
+    mediump float sssShTransferVisibility = mix(
+        1.0, clamp(localVisibilityDirectLinear, 0.0, 1.0), shVisibilityStrength);
+    mediump float sssSurfaceVisibility = min(
+        localVisibilityDirect, entityShadowVisibility);
+    mediump float sssLiftVisibility = min(
+        sssShTransferVisibility, entityShadowVisibility);
+    mediump float sssLiftVisibilityRestore = max(
+        sssLiftVisibility - sssSurfaceVisibility, 0.0);
+#endif
     localVisibilityDirect = min(localVisibilityDirect, entityShadowVisibility);
     directColor = min(max(directColor, vec3(0.0)), vec3(65504.0));
     directColor *= localVisibilityDirect;
+#ifdef PBR_SSS_PROFILE_ACTIVE
+    directColor += sssDirectVisibilityLift * diffuseStrength
+                 * sssLiftVisibilityRestore;
+    mediump float sssShadowStrength = pbrSssShadowStrength();
+    // Projected-shadow visibility selects the fitted diffusion response. SH
+    // visibility scales its available direct-light energy separately.
+    mediump float sssShadowFalloff = sssShadowProfileVisibility;
+    mediump float sssShadowReceiverWeight = sssMask * sssShadowEdgeConfidence
+                                          * sssShadowReceiverGate;
+    if (sssShadowStrength > 0.0 && sssShadowReceiverWeight > 0.0 &&
+        sssShadowFalloff > 0.001 && sssShadowFalloff < 0.999) {
+        mediump vec3 sssShadowResponse = evaluatePbrSssShadow(sssShadowFalloff);
+        // Filter both the unscattered diffuse and positive SSS lift with the
+        // fitted penumbra response so the projected shadow remains visible.
+        mediump vec3 sssShadowProfileSource =
+              unscatteredDirectDiffuseColor * localVisibilityDirect
+            + sssDirectVisibilityLift * sssShTransferVisibility;
+        mediump vec3 sssShadowProfileDelta =
+            (sssShadowProfileSource * sssShadowResponse
+             - directDiffuseColor * sssSurfaceVisibility
+             - sssDirectVisibilityLift * sssLiftVisibilityRestore)
+            * diffuseStrength;
+        mediump float sssShadowBaseWeight = min(sssShadowStrength, 1.0)
+                                            * sssShadowReceiverWeight;
+        mediump float sssShadowBoostWeight = max(sssShadowStrength - 1.0, 0.0)
+                                             * sssShadowReceiverWeight;
+        // Strength above one boosts one smooth luminance lobe. The previous
+        // component-wise max(delta, 0) switched R/G/B at three different
+        // thresholds and produced distinct colour bands.
+        const mediump vec3 sssShadowLuma = vec3(0.2126, 0.7152, 0.0722);
+        mediump float sssShadowPositiveLuma = max(
+            dot(sssShadowProfileDelta, sssShadowLuma), 0.0);
+        mediump float sssShadowResponseLuma = max(
+            dot(sssShadowResponse, sssShadowLuma), 0.05);
+        mediump vec3 sssShadowBoostColor = sssShadowResponse
+                                         * (sssShadowPositiveLuma
+                                            / sssShadowResponseLuma);
+        directColor += sssShadowProfileDelta * sssShadowBaseWeight
+                     + sssShadowBoostColor * sssShadowBoostWeight;
+    }
+#endif
 #else
     directColor = min(max(directColor, vec3(0.0)), vec3(65504.0));
     directColor *= entityShadowVisibility;
+#ifdef PBR_SSS_PROFILE_ACTIVE
+    directColor += sssDirectVisibilityLift * diffuseStrength
+                 * (1.0 - entityShadowVisibility)
+                 * (1.0 - sssShadowReceiverGate);
+    mediump float sssShadowStrength = pbrSssShadowStrength();
+    mediump float sssShadowReceiverWeight = sssMask * sssShadowEdgeConfidence
+                                          * sssShadowReceiverGate;
+    if (sssShadowStrength > 0.0 && sssShadowReceiverWeight > 0.0 &&
+        sssShadowProfileVisibility > 0.001 && sssShadowProfileVisibility < 0.999) {
+        mediump vec3 sssShadowResponse = evaluatePbrSssShadow(sssShadowProfileVisibility);
+        mediump vec3 sssShadowProfileDelta =
+            ((unscatteredDirectDiffuseColor + sssDirectVisibilityLift)
+             * sssShadowResponse
+             - directDiffuseColor * entityShadowVisibility)
+            * diffuseStrength;
+        mediump float sssShadowBaseWeight = min(sssShadowStrength, 1.0)
+                                            * sssShadowReceiverWeight;
+        mediump float sssShadowBoostWeight = max(sssShadowStrength - 1.0, 0.0)
+                                             * sssShadowReceiverWeight;
+        const mediump vec3 sssShadowLuma = vec3(0.2126, 0.7152, 0.0722);
+        mediump float sssShadowPositiveLuma = max(
+            dot(sssShadowProfileDelta, sssShadowLuma), 0.0);
+        mediump float sssShadowResponseLuma = max(
+            dot(sssShadowResponse, sssShadowLuma), 0.05);
+        mediump vec3 sssShadowBoostColor = sssShadowResponse
+                                         * (sssShadowPositiveLuma
+                                            / sssShadowResponseLuma);
+        directColor += sssShadowProfileDelta * sssShadowBaseWeight
+                     + sssShadowBoostColor * sssShadowBoostWeight;
+    }
+#endif
+#endif
+#ifdef NETEASE_PBR_LOCAL_LIGHT
+    mediump vec3 pbrLocalDiffuseColor;
+#ifndef USE_PBR_LOCAL_LIGHT_DIFFUSE_ONLY
+    highp vec3 pbrLocalSpecularColor;
+#endif
+#if defined(USE_VISIBLE_SH_MAP) && !defined(USE_PBR_LOCAL_LIGHT_DIFFUSE_ONLY)
+    accumulatePbrLocalLights(positionWS, N, V, albedo, metalness, perceptualRoughness,
+        dielectricF0, visSH_WS, shVisibilityStrength, pbrLocalDiffuseColor, pbrLocalSpecularColor);
+#else
+    accumulatePbrLocalLights(positionWS, N, V, albedo, metalness, perceptualRoughness,
+        dielectricF0, pbrLocalDiffuseColor
+#ifndef USE_PBR_LOCAL_LIGHT_DIFFUSE_ONLY
+        , pbrLocalSpecularColor
+#endif
+    );
+#endif
+    // Local lights use their own SH visibility direction, but not the directional-light shadow map.
+    directColor += pbrLocalDiffuseColor * diffuseStrength;
+#ifndef USE_PBR_LOCAL_LIGHT_DIFFUSE_ONLY
+    directColor += pbrLocalSpecularColor * specularStrength;
+#endif
 #endif
 
     // ---- Diffuse IBL (first: uniform-based, cheap, free registers before atlas sample) ----
@@ -991,6 +1288,22 @@ void main() {
     }
 #endif
     mediump vec3 diffuseIBL = diffuseEnv * albedo * (1.0 - metalness) * IBL_DIFFUSE_INTENSITY * diffuseFGD;
+#ifdef USE_PBR_FILAMENT_SSS
+    {
+        // Filament-style ambient SSS: diffuse irradiance plus a blurred
+        // environment lookup opposite the view direction. This intentionally
+        // uses the same color, strength, and ARM.a thickness as direct SSS.
+        mediump float thickness = clamp(armSample.a, 0.0, 1.0);
+        mediump float sssIblRoughness = min(perceptualRoughness + (1.0 + thickness) / float(OCT_MAX_MIP), 1.0);
+#ifdef EYE_CUBEMAP_SAMPLE
+        mediump vec3 sssViewDependent = sampleEyeHandPaintedEnv(-V, V, sssIblRoughness);
+#else
+        mediump vec3 sssViewDependent = sampleIBL(-V, sssIblRoughness);
+#endif
+        mediump float sssIblAttenuation = (1.0 - thickness) * pbrFilamentSssStrength() * (0.5 * INV_PI);
+        diffuseIBL += pbrFilamentSssColor() * (diffuseEnv + sssViewDependent) * sssIblAttenuation;
+    }
+#endif
 #ifdef USE_AO_MAP
     diffuseIBL *= ao;
 #endif
@@ -1049,6 +1362,12 @@ void main() {
     // Recompose for premul: specular at full intensity, diffuse premultiplied by alpha
     highp vec3 hdrSpec = directSpecularColor * specularStrength + specularIBL * specularStrength;
     mediump vec3 hdrBase = directDiffuseColor * diffuseStrength + diffuseIBL * diffuseStrength;
+#ifdef NETEASE_PBR_LOCAL_LIGHT
+#ifndef USE_PBR_LOCAL_LIGHT_DIFFUSE_ONLY
+    hdrSpec += pbrLocalSpecularColor * specularStrength;
+#endif
+    hdrBase += pbrLocalDiffuseColor * diffuseStrength;
+#endif
     hdrColor = hdrSpec + hdrBase * alpha + emissiveColor * alpha;
 
     vec3 finalColor = tonemapACES(min(max(hdrColor, vec3(0.0)), vec3(64.0)));

@@ -1,5 +1,5 @@
 {
-    "format_version": "1.21.0",
+    "format_version": "1.21.130",
     "minecraft:entity": {
         "description": {
             "identifier": "minecraft:skeleton",
@@ -23,7 +23,7 @@
                             "filters": {
                                 "test": "in_block",
                                 "subject": "self",
-                                "operator": "!=",
+                                "operator": "not",
                                 "value": "minecraft:powder_snow"
                             },
                             "event": "got_out_of_powder_snow"
@@ -36,18 +36,13 @@
                     "triggers": [
                         {
                             "filters": {
-                                "test": "is_underwater",
-                                "subject": "self",
-                                "operator": "==",
-                                "value": true
+                                "test": "is_underwater"
                             },
                             "event": "minecraft:melee_mode"
                         },
                         {
                             "filters": {
                                 "test": "has_ranged_weapon",
-                                "subject": "self",
-                                "operator": "==",
                                 "value": false
                             },
                             "event": "minecraft:melee_mode"
@@ -57,15 +52,10 @@
                                 "all_of": [
                                     {
                                         "test": "in_water",
-                                        "subject": "self",
-                                        "operator": "==",
                                         "value": false
                                     },
                                     {
-                                        "test": "has_ranged_weapon",
-                                        "subject": "self",
-                                        "operator": "==",
-                                        "value": true
+                                        "test": "has_ranged_weapon"
                                     }
                                 ]
                             },
@@ -82,7 +72,7 @@
                                 "other_with_families": "lightning"
                             }
                         },
-                        "deals_damage": false
+                        "deals_damage": "no"
                     }
                 }
             },
@@ -110,18 +100,13 @@
                     "triggers": [
                         {
                             "filters": {
-                                "test": "is_underwater",
-                                "subject": "self",
-                                "operator": "==",
-                                "value": true
+                                "test": "is_underwater"
                             },
                             "event": "minecraft:melee_mode"
                         },
                         {
                             "filters": {
                                 "test": "has_ranged_weapon",
-                                "subject": "self",
-                                "operator": "==",
                                 "value": false
                             },
                             "event": "minecraft:melee_mode"
@@ -130,7 +115,6 @@
                             "filters": {
                                 "test": "in_block",
                                 "subject": "self",
-                                "operator": "==",
                                 "value": "minecraft:powder_snow"
                             },
                             "event": "got_in_powder_snow"
@@ -154,15 +138,10 @@
                                 "all_of": [
                                     {
                                         "test": "in_water",
-                                        "subject": "self",
-                                        "operator": "==",
                                         "value": false
                                     },
                                     {
-                                        "test": "has_ranged_weapon",
-                                        "subject": "self",
-                                        "operator": "==",
-                                        "value": true
+                                        "test": "has_ranged_weapon"
                                     }
                                 ]
                             },
@@ -171,8 +150,6 @@
                         {
                             "filters": {
                                 "test": "in_block",
-                                "subject": "self",
-                                "operator": "==",
                                 "value": "minecraft:powder_snow"
                             },
                             "event": "got_in_powder_snow"
@@ -219,10 +196,7 @@
                 "damage_conditions": [
                     {
                         "filters": {
-                            "test": "in_lava",
-                            "subject": "self",
-                            "operator": "==",
-                            "value": true
+                            "test": "in_lava"
                         },
                         "cause": "lava",
                         "damage_per_tick": 4
@@ -250,22 +224,18 @@
             "minecraft:shooter": {
                 "def": "minecraft:arrow"
             },
+            "minecraft:rotation_locked_to_vehicle": {},
             "minecraft:environment_sensor": {
                 "triggers": [
                     {
                         "filters": {
-                            "test": "is_underwater",
-                            "subject": "self",
-                            "operator": "==",
-                            "value": true
+                            "test": "is_underwater"
                         },
                         "event": "minecraft:melee_mode"
                     },
                     {
                         "filters": {
                             "test": "has_ranged_weapon",
-                            "subject": "self",
-                            "operator": "==",
                             "value": false
                         },
                         "event": "minecraft:melee_mode"
@@ -274,7 +244,6 @@
                         "filters": {
                             "test": "in_block",
                             "subject": "self",
-                            "operator": "==",
                             "value": "minecraft:powder_snow"
                         },
                         "event": "got_in_powder_snow"
@@ -542,7 +511,7 @@
                         "filters": {
                             "test": "is_family",
                             "subject": "other",
-                            "operator": "!=",
+                            "operator": "not",
                             "value": "breeze"
                         }
                     }
@@ -580,8 +549,7 @@
                                 {
                                     "test": "in_water",
                                     "subject": "other",
-                                    "operator": "!=",
-                                    "value": true
+                                    "value": false
                                 }
                             ]
                         },

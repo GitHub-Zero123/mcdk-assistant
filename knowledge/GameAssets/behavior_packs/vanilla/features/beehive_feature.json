@@ -1,5 +1,5 @@
 {
-    "format_version": "1.13.0",
+    "format_version": "1.14.0",
     "minecraft:single_block_feature": {
         "description": {
             "identifier": "minecraft:beehive_feature"
@@ -17,58 +17,58 @@
             "min_sides_must_attach": 2,
             "top": [
                 {
-                    "name": "minecraft:oak_leaves"
+                    "name": "minecraft:leaves",
+                    "states": {
+                        "old_leaf_type": "oak"
+                    }
                 },
                 {
-                    "name": "minecraft:birch_leaves"
-                },
-                {
-                    "name": "minecraft:mangrove_leaves"
-                },
-                {
-                    "name": "minecraft:cherry_leaves"
+                    "name": "minecraft:leaves",
+                    "states": {
+                        "old_leaf_type": "birch"
+                    }
                 }
             ],
             "west": [
                 {
-                    "name": "minecraft:oak_log"
+                    "name": "minecraft:log",
+                    "states": {
+                        "old_log_type": "oak"
+                    }
                 },
                 {
-                    "name": "minecraft:birch_log"
-                },
-                {
-                    "name": "minecraft:mangrove_roots"
-                },
-                {
-                    "name": "minecraft:cherry_log"
+                    "name": "minecraft:log",
+                    "states": {
+                        "old_log_type": "birch"
+                    }
                 }
             ],
             "north": [
                 {
-                    "name": "minecraft:oak_log"
+                    "name": "minecraft:log",
+                    "states": {
+                        "old_log_type": "oak"
+                    }
                 },
                 {
-                    "name": "minecraft:birch_log"
-                },
-                {
-                    "name": "minecraft:mangrove_roots"
-                },
-                {
-                    "name": "minecraft:cherry_log"
+                    "name": "minecraft:log",
+                    "states": {
+                        "old_log_type": "birch"
+                    }
                 }
             ],
             "east": [
                 {
-                    "name": "minecraft:oak_log"
+                    "name": "minecraft:log",
+                    "states": {
+                        "old_log_type": "oak"
+                    }
                 },
                 {
-                    "name": "minecraft:birch_log"
-                },
-                {
-                    "name": "minecraft:mangrove_roots"
-                },
-                {
-                    "name": "minecraft:cherry_log"
+                    "name": "minecraft:log",
+                    "states": {
+                        "old_log_type": "birch"
+                    }
                 }
             ],
             "south": "minecraft:air"

@@ -245,6 +245,18 @@
                 "DisableCulling"
             ]
         },
+        "ui_item_model_blend:ui_item": {
+            "vertexShader": "shaders/color_uv.vertex",
+            "vrGeometryShader": "shaders/color_uv.geometry",
+            "fragmentShader": "shaders/color_texture.fragment",
+            "-states": [
+                "DisableDepthTest"
+            ],
+            "+states": [
+                "DisableCulling"
+            ],
+            "depthFunc": "LessEqual"
+        },
         "ui_item_multicolor_tint:ui_item": {
             "vertexShader": "shaders/color_uv.vertex",
             "vrGeometryShader": "shaders/color_uv.geometry",

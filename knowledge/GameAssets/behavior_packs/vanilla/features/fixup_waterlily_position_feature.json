@@ -1,0 +1,32 @@
+{
+    "format_version": "1.14.0",
+    "minecraft:scatter_feature": {
+        "description": {
+            "identifier": "minecraft:fixup_waterlily_position_feature"
+        },
+        "iterations": 10,
+        "x": {
+            "distribution": "gaussian",
+            "extent": [
+                -8,
+                8
+            ]
+        },
+        "y": {
+            "distribution": "gaussian",
+            "extent": [
+                -4,
+                4
+            ]
+        },
+        "z": {
+            "distribution": "gaussian",
+            "extent": [
+                -8,
+                8
+            ]
+        },
+        "project_input_to_floor": true,
+        "places_feature": "minecraft:waterlily_feature"
+    }
+}

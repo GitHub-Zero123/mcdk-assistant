@@ -1,0 +1,28 @@
+{
+    "format_version": "1.16.100",
+    "minecraft:nether_cave_carver_feature": {
+        "description": {
+            "identifier": "minecraft:nether_cave_carver_feature"
+        },
+        "fill_with": "minecraft:air",
+        "width_modifier": 0.0,
+        "skip_carve_chance": 5,
+        "y_scale": [
+            0.5,
+            0.5
+        ],
+        "height_limit": 120,
+        "horizontal_radius_multiplier": [
+            1.0,
+            1.0
+        ],
+        "vertical_radius_multiplier": [
+            1.0,
+            1.0
+        ],
+        "floor_level": [
+            -0.7,
+            -0.7
+        ]
+    }
+}

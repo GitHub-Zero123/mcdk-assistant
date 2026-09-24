@@ -1,9 +1,9 @@
 {
-    "format_version": "1.13.0",
+    "format_version": "1.14.0",
     "minecraft:feature_rules": {
         "description": {
             "identifier": "minecraft:overworld_underground_lapis_ore_feature",
-            "places_feature": "minecraft:lapis_ore_feature"
+            "places_feature": "minecraft:fixup_lapis_position_feature"
         },
         "conditions": {
             "placement_pass": "underground_pass",
@@ -25,20 +25,14 @@
             ]
         },
         "distribution": {
-            "iterations": 2,
+            "iterations": 1,
             "coordinate_eval_order": "zyx",
-            "x": {
+            "x": 0,
+            "y": {
                 "distribution": "uniform",
                 "extent": [
                     0,
                     16
-                ]
-            },
-            "y": {
-                "distribution": "triangle",
-                "extent": [
-                    -32,
-                    32
                 ]
             },
             "z": {

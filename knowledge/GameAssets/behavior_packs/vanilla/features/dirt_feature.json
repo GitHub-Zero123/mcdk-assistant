@@ -1,0 +1,19 @@
+{
+    "format_version": "1.14.0",
+    "minecraft:ore_feature": {
+        "description": {
+            "identifier": "minecraft:dirt_feature"
+        },
+        "count": 33,
+        "replace_rules": [
+            {
+                "places_block": "minecraft:dirt",
+                "may_replace": [
+                    {
+                        "name": "minecraft:stone"
+                    }
+                ]
+            }
+        ]
+    }
+}

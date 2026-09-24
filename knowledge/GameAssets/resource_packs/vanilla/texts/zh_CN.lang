@@ -107,7 +107,6 @@ accessibility.play.multipleNewPosts=%s 个新帖子		### %s will be a number
 accessibility.play.tabLeft=按下选项卡左边的 %s	#
 accessibility.play.tabRight=按下选项卡右边的 %s	#
 accessibility.play.legacyWorldsDelete=删除旧的世界	#
-accessibility.play.uploadWorld=上传世界	#
 
 accessibility.pause.permissions=许可	#
 accessibility.pause.profile=选择个人资料	#
@@ -360,6 +359,7 @@ action.hint.exit.mule=轻按潜行可以下马	#
 action.hint.exit.llama=轻按潜行可以下马	#
 action.hint.exit.trader_llama=轻触潜行可以下马	#
 action.hint.exit.skeleton_horse=轻按潜行可以下马	#
+action.hint.exit.zombie_horse=按 :_input_key.sneak: 跃下		#### This tooltip will be displayed when starting to ride the Zombie Horse and indicates which input to use for dismounting. {MaxLength=100}
 
 
 action.hint.exit.scheme.minecart=轻触跃下离开矿车	#
@@ -438,6 +438,8 @@ action.interact.scrape=刮		#### Interaction prompt for scraping copper oxidatio
 action.interact.wax_on=涂蜡		#### Interaction prompt for applying wax to an entity. {MaxLength=50}
 action.interact.wax_off=脱蜡		#### Interaction prompt for removing wax from an entity. {MaxLength=50}
 action.interact.drop_item=掉落物品		#### Interaction prompt for making an entity drop its held item. {MaxLength=50}
+action.interact.equipnautilusarmor=装备鹦鹉螺盔甲		#### Interaction prompt for equipping nautilus armor to an entity. {MaxLength=50}
+action.interact.removenautilusarmor=移除鹦鹉螺盔甲		#### Interaction prompt for removing nautilus armor from an entity. {MaxLength=50}
 
 advMode.allEntities=@e = 全部实体	#
 advMode.allPlayers=@a = 全部玩家	#
@@ -2046,7 +2048,6 @@ createWorldScreen.clearPlayerData.all=所有玩家数据	#
 createWorldScreen.clearPlayerData.allExceptLocal=保持拥有玩家数据	#
 createWorldScreen.clearPlayerData.cancel=取消	#
 createWorldScreen.clearPlayerData.progress=正在清除玩家数据	#
-createWorldScreen.upload=上传世界	#
 createWorldScreen.editor.deleteProject=删除项目	#
 createWorldScreen.editor.projectOptionsLabel=项目选项	#
 createWorldScreen.editor.delete.confirm=永久删除项目？	#
@@ -2153,7 +2154,9 @@ realmsSharingScreen.invalidPermissionTitle=无效权限	#
 realmsSharingScreen.unexpectedServerResponseTitle=Realms 错误		#### {StrContains=Realms} {MaxLength=36}
 realmsSharingScreen.unexpectedServerResponseMessage=很抱歉，连接到 Realm 时出现了问题。请稍后重试。	#
 realmsSharingScreen.inviteLinkNotFoundTitle=Realms 错误		#### {StrContains=Realms} {MaxLength=36}
-realmsSharingScreen.inviteLinkNotFoundMessage=此邀请链接无效。	#
+realmsSharingScreen.inviteLinkNotFoundMessage=链接无效。		#### Link not found message {MaxLength=30}
+realmsSharingScreen.inviteLinkDisabledMessage=链接已禁用。		#### Link disabled message {MaxLength=30}
+realmsSharingScreen.inviteLinkExpiredMessage=链接已过期。		#### Link expired message{MaxLength=30}
 
 realmsCreateScreen.title.create=创建一个 Realm 服务器	#
 realmsCreateScreen.title.extend=延长你的 Realm	#
@@ -2662,6 +2665,8 @@ realmsSettingsScreen.tab.active.tts=启用。		#### TTS for when a tab is select
 realmsSettingsScreen.manualTab.inactive.tts=未启用。点击以查看手动存档。		#### TTS for when the manual tab is not selected. {MaxLength=100}realmsSettingsScreen.automaticTab.inactive.tts=Inactive. Click to view automatic saves.    ### TTS for when the automatic tab is not selected. {MaxLength=100}realmsSettingsScreen.automaticTab.inactive.tts=Inactive. Click to view automatic saves.    ### TTS for when the automatic tab is not selected. {MaxLength=100}
 realmsSettingsScreen.automaticTab.inactive.tts=未启用。点击以查看自动存档。		#### TTS for when the automatic tab is not selected. {MaxLength=100}realmsSettingsScreen.automaticTab.inactive.tts=Inactive. Click to view automatic saves.    ### TTS for when the automatic tab is not selected. {MaxLength=100}realmsSettingsScreen.automaticTab.inactive.tts=Inactive. Click to view automatic saves.    ### TTS for when the automatic tab is not selected. {MaxLength=100}
 
+realmsSettingsScreen.manageMembers.title=管理成员		#### Title text for the Manage Members screen {MaxLength="30"}
+
 xblLogin.LoginMessageTitle=Microsoft 账户	#
 xblLogin.LoginMessage=正在查找服务器...	#
 
@@ -2782,6 +2787,7 @@ death.attack.arrow.item=%1$s 被 %2$s 用 %3$s 射杀	#
 death.attack.bullet=%1$s 被 %2$s 狙击了	#
 death.attack.cactus=%1$s 被戳死了	#
 death.attack.cactus.player=%1$s 在试图逃离 %2$s 时撞入了仙人掌中	#
+death.attack.dehydration=%1$s 因脱水而死亡		#### Death message shown when a tamed entity died from dehydration. {MaxLength=60}
 death.attack.drown=%1$s 淹死了	#
 death.attack.drown.player=%1$s 在试图逃离 %2$s 时淹死了	#
 death.attack.explosion=%1$s 爆炸了	#
@@ -3038,6 +3044,7 @@ disconnectionScreen.body.checkConnectionAndTry=请检查网络连接并重试。
 disconnectionScreen.body.checkDeviceStorage=检查设备上的存储空间，删除项目以释放更多空间。		#### Troubleshooting advice shown when a player can't connect to a game because they ran out of storage. {MaxLength=210}
 disconnectionScreen.body.discoveryMismatch=你的探索环境与主机的环境不匹配。		#### Shown when the client fails to connect due to the client and server using different versions of our services. Will be seen by devs and people poking around our security. {MaxLength=210}
 disconnectionScreen.body.gameOutOfDate=你正在使用的游戏版本已过期。请将你的游戏更新到最新版本，然后重试。		#### Shown when a player can't connect to a game because their game version is too old. {MaxLength=210}
+disconnectionScreen.body.hostSignedOut=主机已注销。		#### Shown when a player has been disconnected from a game because the host signed out of their account. {MaxLength=210}
 disconnectionScreen.body.hostVersionOlder=你要加入的主机使用的是旧版本的《Minecraft》。请在主机更新版本后再试一次。		#### Shown when a player can't connect to a host because the host's game version is too old. {MaxLength=210}
 disconnectionScreen.body.hostWithoutKeys=你尝试加入的主机尚未准备好接受已认证的连接。请几分钟后重试。		#### Shown when the player can't connect due to the host being unprepared to accept authenticated connections. {MaxLength=210}
 disconnectionScreen.body.idleTooLong=你已闲置太久了。		#### Shown when a player was kicked from a game because they were idle for a long period of time. {MaxLength=210}
@@ -5531,6 +5538,7 @@ item.stone_hoe.name=石锄	#
 item.wooden_hoe.name=木锄	#
 item.honey_bottle.name=蜂蜜瓶	#
 item.honeycomb.name=蜜脾	#
+item.netherite_horse_armor.name=下界合金马铠		#### Armor for a Horse made out of Netherite {MaxLength=50}
 item.horsearmordiamond.name=钻石马铠	#
 item.horsearmorgold.name=黄金马铠	#
 item.horsearmoriron.name=铁马铠	#
@@ -6117,12 +6125,12 @@ keyboard.keyName.return=返回	#
 keyboard.keyName.pause=暂停	#
 keyboard.keyName.lshift=SHIFT	#
 keyboard.keyName.control=控制	#
-keyboard.keyName.alt=替代	#
+keyboard.keyName.alt=Alt	#
 keyboard.keyName.capsLock=大写	#
 keyboard.keyName.escape=ESC	#
 keyboard.keyName.space=空格	#
-keyboard.keyName.pgDown=PAGE DOWN 键	#
-keyboard.keyName.pgUp=PAGE UP 键	#
+keyboard.keyName.pgDown=PAGE DOWN	#
+keyboard.keyName.pgUp=PAGE UP	#
 keyboard.keyName.end=结束	#
 keyboard.keyName.home=首页	#
 keyboard.keyName.left=左	#
@@ -6309,6 +6317,40 @@ menu.accessibility.tab.gameplay.title=游戏		####  {MaxLength=80}
 menu.accessibility.tab.gameplay.description=调整游戏中视觉效果和摄像头移动的辅助功能选项		####  Describes the Gameplay section of the Accessibility tab {MaxLength=180}
 menu.accessibility.tab.ui.title=用户界面		####  {MaxLength=80}
 menu.accessibility.tab.ui.description=自定义游戏用户界面，以减少干扰并最大限度提高清晰度		####  Describes the User Interface section of the Accessibility tab {MaxLength=180}
+menu.account.generalMessage=账号设置。		####  {MaxLength=80}
+menu.account.access=按 :_gamepad_face_button_down: 打开”账号设置“。		####  {MaxLength=120}
+menu.account.access.noicon=选择 [A] 打开”账号设置“。		####  {MaxLength=80}
+menu.account.access.nogamepad=选择”账号“选项卡以打开”账号设置“。		####  {MaxLength=80}
+menu.account.tab.title=账号		####  {MaxLength=80}
+menu.account.tab.description=访问你的账号信息		####  {MaxLength=180}
+menu.account.gamertag.title=玩家代号		####  {MaxLength=80}
+menu.account.changeName.title=名称		####  {MaxLength=80}
+menu.account.changeGamertag.title=更改玩家代号		####  {MaxLength=80}
+menu.account.changeGamertag.buttonLabel=更改		####  {MaxLength=80}
+menu.account.manageAccount.title=管理账号		####  {MaxLength=80}
+menu.account.manageAccount.buttonLabel=管理		####  {MaxLength=80}
+menu.account.privacyAndSafety.title=隐私和在线安全		####  {MaxLength=80}
+menu.account.privacyAndSafety.buttonLabel=查看		####  {MaxLength=80}
+menu.account.realmMembershipInvites.title=管理 Realms 成员邀请		####  {MaxLength=80}
+menu.account.realmMembershipInvites.buttonLabel=管理		####  {MaxLength=80}
+menu.account.clearSignInData.title=清除账号登录数据		####  {MaxLength=80}
+menu.account.clearSignInData.buttonLabel=清除数据		####  {MaxLength=80}
+menu.account.clearSignInData.popup.title=清除账号登录数据		####  {MaxLength=80}
+menu.account.clearSignInData.popup.description=是否确定要执行此操作？		####  {MaxLength=80}
+menu.account.clearSignInData.popup.acceptLabel=清除数据		####  {MaxLength=80}
+menu.account.clearSignInData.popup.cancelLabel=返回		####  {MaxLength=80}
+menu.account.signOutOfMicrosoft.title=登出你的 Microsoft 账号		####  {MaxLength=80}
+menu.account.signOutOfMicrosoft.buttonLabel=注销		####  {MaxLength=80}
+menu.account.signOutOfMicrosoft.popup.title=Microsoft 账号购买！		####  {MaxLength=80}
+menu.account.signOutOfMicrosoft.popup.description=从你的 Microsoft 账号注销后，你将无法访问已在商店中购买的 Minecoins 和物品。确定要这样做吗？		####  {MaxLength=300}
+menu.account.signOutOfMicrosoft.popup.acceptLabel=注销		####  {MaxLength=80}
+menu.account.signOutOfMicrosoft.popup.cancelLabel=返回		####  {MaxLength=80}
+menu.account.deleteMicrosoftAccount.title=删除 Microsoft 账号		####  {MaxLength=80}
+menu.account.deleteMicrosoftAccount.buttonLabel=删除		####  {MaxLength=80}
+menu.account.managePlaystationAuthorization.title=管理 PlayStation™Network 授权		####  {MaxLength=80}
+menu.account.managePlaystationAuthorization.buttonLabel=管理		####  {MaxLength=80}
+menu.account.unlinkMicrosoftAccount.title=取消关联 Microsoft 账户		####  {MaxLength=80}
+menu.account.unlinkMicrosoftAccount.buttonLabel=取消链接		####  {MaxLength=80}
 menu.audio.generalMessage=音频设置。		####  {MaxLength=80}
 menu.audio.access=按 :_gamepad_face_button_down: 打开”音频设置“。		####  {MaxLength=80}
 menu.audio.access.noicon=选择 [A] 以打开”音频设置“。		####  {MaxLength=80}
@@ -6327,13 +6369,36 @@ menu.general.tab.miscellaneous.description=我们不知道可放置这些设置�
 menu.general.tab.network.title=网络设置		####  {MaxLength=80}
 menu.general.tab.network.description=这些选项在技术和社会层面触及了在线体验		####  {MaxLength=180}
 menu.general.tab.nintendoConsoleCopyright.title=Nintendo Properties: © Nintendo		#### {Locked}{MaxLength=80}
+menu.keyboardAndMouse.generalMessage=我们已调整“键盘和鼠标设置”的位置。		####  {MaxLength=120}
+menu.keyboardAndMouse.access=按 :_gamepad_face_button_down: 打开“键盘和鼠标设置”。		####  {MaxLength=120}
+menu.keyboardAndMouse.access.button=打开“键盘和鼠标设置”		####  {MaxLength=120}
+menu.keyboardAndMouse.access.noicon=选择[A]以打开“键盘和鼠标设置”。		####  {MaxLength=80}
+menu.keyboardAndMouse.access.nogamepad=选择“键盘和鼠标”选项卡以打开“键盘和鼠标设置”。		####  {MaxLength=120}
+menu.keyboardAndMouse.tab.title=键盘和鼠标		####  {MaxLength=80}
+menu.keyboardAndMouse.tab.description=键盘和鼠标的输入选项、灵敏度设置和按钮映射		####  {MaxLength=180}
+menu.keyboardAndMouse.tab.mappings.title=键盘和鼠标映射		####  {MaxLength=80}
+menu.keyboardAndMouse.tab.mappings.description=随心定制键盘和鼠标按键，打造个性化游戏操控体验		####  {MaxLength=180}
 menu.video.generalMessage=视频设置。		####  {MaxLength=80}
 menu.video.access=按 :_gamepad_face_button_down: 打开”视频设置“。		####  {MaxLength=80}
 menu.video.access.noicon=选择 [A] 打开”视频设置“。		####  {MaxLength=80}
 menu.video.access.nogamepad=选择“视频”选项卡以打开“视频设置”。		####  {MaxLength=80}
-menu.video.tab.title=图形、性能和布局		#### The video tab title {MaxLength=80}
-menu.video.tab.description=控制 Minecraft 的外观和运行		#### Describes the video tab, copied from hbui.SettingsHeader.video.description, {MaxLength=180}
+menu.video.tab.title=视频		#### {MaxLength=80}
+menu.video.tab.description=“图形选项和视觉质量”设置可以让游戏呈现最佳画面效果。		#### {MaxLength=180}
+menu.video.group.performance=图形、性能和布局		#### The video tab title	{MaxLength=80}
+menu.video.group.performance.description=控制 Minecraft 的外观和运行		#### Describes the video tab, copied from hbui.SettingsHeader.video.description, {MaxLength=180}
+menu.video.group.customization=视图自定义		#### {MaxLength=80}
+menu.video.group.customization.description=不受干扰地构建、传输或截取屏幕截图		#### {MaxLength=180}
+menu.video.group.accessibility=无障碍：视频		#### {MaxLength=80}
+menu.video.group.accessibility.description=让《Minecraft》玩起来更舒适的控制工具		#### {MaxLength=180}
+menu.video.mode_switch=游戏内图形模式切换。		#### {MaxLength=80}
+menu.video.mode_switch.description=在游戏过程中切换图形模式可能会影响性能。如果帧率下降，请在主菜单设置中关闭此功能。		#### {MaxLength=180}
+menu.video.mode=模式：		#### Graphics mode option where the user chooses between simple, fancy, vibrant, raytrace {MaxLength=80}
+menu.video.mode.description=调整游戏视觉效果的质量		#### Graphics mode option where the user chooses between simple, fancy, vibrant, raytrace {MaxLength=80}
+menu.video.gamma=显示亮度		#### {MaxLength=80}
+menu.video.gamma.description=校准亮度和伽马，让《我的世界》更清晰可见		#### {MaxLength=180}
+menu.video.gamma.action=调整		#### {MaxLength=20}
 menu.language.generalMessage=语言设置。		####  {MaxLength=80}
+menu.language.access=按 :_gamepad_face_button_down: 打开”语言设置“。		####  {MaxLength=120}
 menu.language.access.noicon=选择 [A] 以打开”语言设置“。		####  {MaxLength=80}
 menu.language.access.nogamepad=选择“语言”选项卡以打开“语言设置”。		####  {MaxLength=80}
 menu.language.tab.title=语言		#### The language tab title {MaxLength=80}
@@ -6500,8 +6565,10 @@ options.ao.max=最大	#
 options.ao.min=最小	#
 options.ao.off=关	#
 options.autojump=自动跳跃	#
+options.autojump.name=自动跳跃		#### {MaxLength=80}
+options.autojump.description=向前移动时自动向上跳跃单个方块		#### {MaxLength=180}
 options.sprintOnMovement=使用摇杆冲刺		#### {MaxLength=50}
-options.sprintOnMovement.description=当摇杆倾斜到最大时自动奔跑。		#### {MaxLength=200}
+options.sprintOnMovement.description=当摇杆倾斜到最大时自动奔跑		#### {MaxLength=200}
 options.clearhotbar=清除热键	#
 options.blockAlternatives=替选方块	#
 options.buildid.format=版本：%1$s	#
@@ -6632,6 +6699,7 @@ options.dev_serverInstanceThread=服务器实例线程	#
 options.dev_newCuller=使用新的害兽驱除业者	#
 options.dev_showBuildInfo=显示版本信息	#
 options.dev_showDevConsoleButton=显示开发控制台按钮	#
+options.dev_advancedInGameDebugShortcuts=启用高级游戏内调试快捷键	#
 options.dev_realmsPermissionsEnabledButton=显示 Realms 许可		#### {StrContains=Realms} {MaxLength=69}
 options.dev_enableProfiler=启用分析器	#
 options.dev_newParticleSystem=启用新粒子系统	#
@@ -6834,18 +6902,24 @@ options.enableAutoPlatformTextToSpeech.description=使用设备的而不是 Mine
 options.enableUITextToSpeech=UI 文本转语音输出		####  Option title {MaxLength=80}
 options.enableUITextToSpeech.description=使用文字转语音输出功能，听取菜单选项和其他非游戏玩家界面元素		####  Describes the "Text to Speech for UI" option {MaxLength=180}
 options.guiAccessibilityScaling=超大用户界面		####  Option title {MaxLength=80}
-options.guiAccessibilityScaling.description=打开超大版用户界面以提高清晰度。此设置可能导致部分菜单屏幕显示异常		####  Describes the "Accessibility Scaling" option {MaxLength=180}
-options.enableOpenChatMessage=启用开放聊天消息	#
+options.guiAccessibilityScaling.name=超大的新 UI		####  Option title {MaxLength=80}
+options.guiAccessibilityScaling.description=把更新的菜单放大。有些部件可能看起来有点故障		####  Describes the "Accessibility Scaling" option {MaxLength=180}
+options.enableOpenChatMessage=加入聊天说明		####  Option title {MaxLength=80}
+options.enableOpenChatMessage.description=加入世界时获取如何开启聊天的提醒		####  Describes the "Chat Instructions on Join" option {MaxLength=180}
 options.entityShadows=生物的影子	#
 options.editSettings=编辑设置	#
 options.fancyskies=美丽的天空	#
+options.fancyskies.description=显示太阳、月亮、星星和大气效果		#### {MaxLength=180}
 options.farWarning1=推荐安装64位的Java以使用能见度	#
 options.farWarning2=选项“高” ( 你目前使用的是32位的JAVA )	#
 options.fboEnable=启用帧缓冲器	#
 options.forceUnicodeFont=强制使用Unicode字体	#
 options.fov=视野	#
-options.fov.description=调整游戏内摄像机的视角。这将会影响你的周边视野范围		#### {MaxLength=200}
+options.fov.name=视野范围		#### {MaxLength=80}
+options.fov.description=调整游戏内摄像机的视角		#### {MaxLength=180}
 options.fov.toggle=FOV 可以通过游戏指南更改	#
+options.fov.toggle.name=视野可通过游戏修改		#### {MaxLength=80}
+options.fov.toggle.description=允许游戏效果（如冲刺或使用药水）暂时改变视野范围		#### {MaxLength=180}
 options.licenses=许可	#
 options.licensed_content=授权内容	#
 options.licensed_content.buttonLabel=打开		####  {MaxLength=20}
@@ -6876,12 +6950,17 @@ options.failRealmsPurchaseFulfillment=Realms 购买履行失败		#### {StrContai
 options.framerateLimit=最大帧率	#
 options.framerateLimit.max=无限制	#
 options.fullKeyboardGameplay=全键盘玩法	#
+options.fullKeyboardGameplay.name=全键盘模式		#### {MaxLength=80}
+options.fullKeyboardGameplay.description=将鼠标输入映射到键盘上，实现游戏时仅使用键盘进行操作		#### {MaxLength=180}
 options.fullKeyboardLayout=全键盘布局	#
 options.improvedInputResponsePlaceholder=改进的输入响应	#
+options.improvedInputResponsePlaceholder.name=改进的输入响应		#### {MaxLength=80}
 options.improvedInputResponsePlaceholder.tooltip=缩短输入和屏幕显示内容之间的延迟。该设置可能会耗费较多的电池电量。	#
+options.improvedInputResponsePlaceholder.description=在按下按钮或移动时使游戏反应更快。可能会增加能源消耗		#### {MaxLength=180}
 options.framePacing=帧同步 	#### Label for the frame pacing toggle (new toggle in video settings). NOTE: this has been copy writed already. {MaxLength=50}
 options.framePacing.tooltip=启用此选项可以获得更流畅、更稳定的体验。但可能会将游戏帧率限制在较低水平。 	#### Frame pacing limits frame presentation to intervals of the display's refresh rate ensuring that the time between frames is consistent (smoother gameplay but lower framerate). NOTE: this has been copy writed already. {MaxLength=200}
 options.fullscreen=全屏	#
+options.fullscreen.description=全屏显示《Minecraft》		#### {MaxLength=180}
 options.gamepadcursorsensitivity=控制器光标灵敏度		#### CertRequirement:{GDK-PC}[controller] CertRequirement:{GDK-Xbox}[controller]{MaxLength=300}
 options.gamertag=玩家代号：		#### CertRequirement:{GDK-PC}[gamertag] CertRequirement:{GDK-Xbox}[gamertag]{MaxLength=300}
 options.gamma=亮度	#
@@ -6892,9 +6971,11 @@ options.worldLightBrightness=世界光亮度	#
 options.goToFeedbackWebsite=前往反馈网站	#
 options.graphics=精美图像	#
 options.transparentleaves=花俏的树叶	#
+options.transparentleaves.description=更好的树叶		#### {MaxLength=180}
 options.bubbleparticles=华丽气泡	#
-options.bubbleparticles.description=打开水下泡泡的高级效果		#### {MaxLength=200}
+options.bubbleparticles.description=打开水下泡泡的高级效果		#### {MaxLength=180}
 options.smooth_lighting=平滑光照	#
+options.smooth_lighting.description=启用更流畅的光线过渡，以实现更自然的阴影和亮度效果		#### {MaxLength=180}
 options.gui.accessibility.scaling=超大的新 UI	#
 options.gui.accessibility.scaling.tooltip=启用新 UI 菜单的超大版本作为附加的辅助功能选项。此设置可能会导致某些菜单屏幕出现视觉故障。	#
 options.upscaling=画质提升	#
@@ -6927,11 +7008,12 @@ options.guiScale.medium=中	#
 options.guiScale.minimum=最小	#
 options.guiScale.normal=普通	#
 options.guiScale.optionName=GUI 标度修正	#
-options.guiScale.optionName.description=选择 HUD 和其他用户界面元素的大小，使它们在不同的屏幕和设备上更清晰、更易于使用		####  Describes the "GUI Scale Modifier" option {MaxLength=180}
+options.guiScale.optionName.name=UI 标度修正		#### {MaxLength=80}
+options.guiScale.optionName.description=调整 HUD 和其他用户界面元素的大小		####  Describes the "GUI Scale Modifier" option {MaxLength=180}
 options.guiScale.small=小	#
 options.hidden=隐藏	#
 options.hidehud=隐藏 HUD	#
-options.hidehud.description=隐藏整个平视显示器		#### {MaxLength=200}
+options.hidehud.description=隐藏你的平视显示器 - 健康、饥饿和物品栏		#### {MaxLength=200}
 options.hidehand=隐藏手	#
 options.hidehand.description=在第一人称视角隐藏你的双手，以及可能拿着的任何物品		#### {MaxLength=200}
 options.chatBackgroundOpacity=聊天背景透明度		#### Option slider to control chat text background {MaxLength="80"}
@@ -6985,10 +7067,13 @@ options.showLearningPrompts=显示学习提示	#
 options.hidetooltips=隐藏控制器提示		#### CertRequirement:{GDK-PC}[controller] CertRequirement:{GDK-Xbox}[controller]{MaxLength=300}
 options.splitscreenHUDsize=分屏 HUD 大小	#
 options.ingamePlayerNames=游戏内玩家昵称	#
-options.ingamePlayerNames.description=显示世界中其他玩家的用户名，悬浮于其头顶可见		#### {MaxLength=200}
+options.ingamePlayerNames.name=显示玩家名称		#### {MaxLength=80}
+options.ingamePlayerNames.description=在分屏游戏时，显示世界中玩家的简介名称，这些名称可见于玩家头顶上方		#### {MaxLength=200}
 options.splitscreenIngamePlayerNames=分屏游戏内玩家昵称	#
+options.splitscreenIngamePlayerNames.name=在分屏中显示玩家名称		#### {MaxLength=80}
+options.splitscreenIngamePlayerNames.description=在分屏游戏时，显示世界中玩家的简介名称，这些名称可见于玩家头顶上方		##### {MaxLength=180}
 options.interfaceOpacity=HUD 不透明度	#
-options.interfaceOpacity.description=调整平视显示器可以看到的范围		#### {MaxLength=200}
+options.interfaceOpacity.description=调整平视显示器可以看到的范围		#### {MaxLength=180}
 options.interactionmodel=交互模型	#
 options.interactionmodel.touch=触摸	#
 options.interactionmodel.crosshair=十字准星	#
@@ -7001,6 +7086,11 @@ options.sneakOption=潜行	#
 options.sneakOption.toggle=点击按钮一下即可潜行	#
 options.sneakOption.hold=长按按钮即可潜行	#
 options.splitscreenInterfaceOpacity=分屏 HUD 不透明度	#
+options.splitscreenInterfaceOpacity.description=在分屏中调整平视显示器可以看到的范围		#### {MaxLength=180}
+options.topButtonScale=顶部按钮尺寸		#### Option title for changing size of the buttons at the top of the screen {MaxLength="60"}
+options.topButtonScale.big=大		#### Option alternative for showing big buttons {MaxLength="40"}
+options.topButtonScale.medium=中		#### Option alternative for showing medium sized buttons {MaxLength="40"}
+options.topButtonScale.small=小		#### Option alternative for showing small buttons {MaxLength="40"}
 options.hudTextBackgroundOpacity=文本背景透明度		#### Header for option slider {MaxLength="80"}
 options.hudTextBackgroundOpacity.description=控制工具提示 /title 指令聊天的背景		#### Details for option slider {MaxLength="120"}
 options.actionBarTextBackgroundOpacity=操作栏背景不透明度	#
@@ -7008,17 +7098,27 @@ options.actionBarTextBackgroundOpacity.description=控制操作栏提示的背�
 options.hidepaperdoll=隐藏纸娃娃	#
 options.hidepaperdoll.description=在平视显示器 (HUD) 中隐藏角色预览		#### {MaxLength=200}
 options.showautosaveicon=显示自动保存图标	#
-options.showautosaveicon.description=打开屏幕上的保存指示器，每当游戏自动保存时它就会显示		#### {MaxLength=200}
+options.showautosaveicon.name=显示自动保存图标		#### {MaxLength=80}
+options.showautosaveicon.description=游戏自动保存时显示图标		#### {MaxLength=200}
 options.hold=保留	#
 options.hotbarScale=快捷栏大小	#
 options.invertMouse=鼠标反转	#
 options.invertYAxis=反转Y轴	#
+options.invertYAxis.name=反转摄像机 Y 轴		#### {MaxLength=80}
+options.invertYAxis.description=环顾四周时上下反转。对于键盘和鼠标用户来说，这是一个不太常见的选择，但随你喜好。		#### {MaxLength=180}
 options.joystickMoveVisible=摇杆始终可见	#
 options.thumbstickOpacity=摇杆不透明度	#
 options.defaultJoystickMoveVisible=未使用时摇杆可见	#
 options.creativeDelayedBlockBreaking=延迟打破方块（仅限创造模式）	#
+options.key.reset.buttonLabel=重置		#### {MaxLength=20}
 options.keyboardLayout=键盘布局	#
 options.keyboardAndMouse=键盘和鼠标	#
+options.keyboardAndMouse.resetSettings=将设置重置为默认		#### {MaxLength=80}
+options.keyboardAndMouse.resetSettings.buttonLabel=重置		#### {MaxLength=20}
+options.keyboardAndMouse.resetSettings.description=恢复上述所有键盘和鼠标选项为原始值		#### {MaxLength=180}
+options.keyboardAndMouse.resetMappings=将映射重置为默认		#### {MaxLength=80}
+options.keyboardAndMouse.resetMappings.description=恢复所有键盘和鼠标按钮映射为原始值		#### {MaxLength=180}
+options.keyboardAndMouse.resetMappings.buttonLabel=重置		#### {MaxLength=20}
 options.keyboardAndMouseSettings=键盘和鼠标设置	#
 options.language=语言	#
 options.languageGuiScaleCompatibility.title=语言和 GUI 比例不兼容	#
@@ -7082,10 +7182,12 @@ options.qualityVideoTitle=视频质量设置	#
 options.reducedDebugInfo=简化调试信息	#
 options.renderClouds=渲染云	#
 options.renderDistance=能见度	#
-options.renderDistance.description=调整渲染细节的距离。高渲染距离可能会影响性能。		#### {MaxLength=200}
+options.renderDistance.description=调整渲染细节的距离。高渲染距离可能会影响性能		#### {MaxLength=200}
 options.raytracing.renderDistance=光线追踪能见度	#
 options.raytracing.renderDistanceFormat=%s 个区块	#
 options.deferred.renderDistance=延迟能见度	#
+options.deferred.renderDistance.name=能见度		#### {MaxLength=80}
+options.deferred.renderDistance.description=调整渲染细节的距离。高渲染距离可能会影响性能。		#### {MaxLength=200}
 options.deferred.renderDistanceFormat=%s 个区块	#
 options.renderDistanceFormat=%s 个区块	#
 options.renderDistanceRecommendedFormat=%s 个区块（建议）	#
@@ -7096,13 +7198,17 @@ options.resetSettings.description=将设置重置为默认值		#### {MaxLength=8
 options.resetSettings.popUp=是否确实要重置设置？	#
 options.feedback=提供反馈 	#### {MaxLength=20}
 options.feedback.title=欢迎观看设计预览！ 	#### {MaxLength=40}
-options.feedback.description=我们想听听你对这个新设计的意见。请注意新设计还未完工，一些功能可能缺失。 	#### {MaxLength=200}
+options.feedback.description=我们想听听您对这个新设计的意见。请注意新设计还未完工，一些功能可能缺失		#### {MaxLength=200}
 options.maxFramerate=帧率限制	#
+options.maxFramerate.description=限制游戏每秒的最大帧数，以保持稳定的帧速率或防止设备过热		#### {MaxLength=180}
 options.maxFramerate.tooltip=降低游戏的最大帧率以延长电池寿命和改善设备健康。实际帧率可能会低于设定限值。	#
 options.maxFramerateFormat=%s FPS	#
 options.perf_turtle=性能图表	#
 options.msaa=抗锯齿	#
+options.msaa.description=你喜欢方块有多平滑？高平滑值可能会影响性能		#### {MaxLength=180}
 options.texelAA=纹素抗锯齿	#
+options.texelAA.name=纹素抗锯齿		#### {MaxLength=80}
+options.texelAA.description=你喜欢方块有多平滑？高平滑值可能会影响性能		#### {MaxLength=180}
 options.renderDistance.far=高	#
 options.renderDistance.normal=普通	#
 options.renderDistance.short=低	#
@@ -7119,10 +7225,14 @@ options.screenAnimations.description=打开 HUD 动画，这可能会影响游�
 options.screenPositionX=水平屏幕位置	#
 options.screenPositionY=垂直屏幕位置	#
 options.sensitivity=相机灵敏度	#
+options.sensitivity.name=摄像机灵敏度（鼠标）		#### {MaxLength=80}
+options.sensitivity.description=调整使用鼠标环视时摄像机的移动速度		#### {MaxLength=180}
 options.sensitivity.max=超高速！！！	#
 options.sensitivity.min=*哈欠*	#
 options.social=社交 	#### The header for multiplayer related settings on the left hand panel of the settings screen {MaxLength=25}
 options.spyglassdampen=望远镜移动速度	#
+options.spyglassdampen.name=望远镜移动速度		#### {MaxLength=80}
+options.spyglassdampen.description=使用望远镜时调整摄像机的速度		#### {MaxLength=180}
 options.staticjoystick=锁定摇杆	#
 options.dwellbeforedragtime=拖动前的停留时间 (ms)	#
 options.stacksplittingtriggertime=堆栈拆分时间 (ms)	#
@@ -7131,6 +7241,8 @@ options.servervisible=对局域网内玩家可见	#
 options.ShowComfortSelectScreen=显示舒适度选择屏幕	#
 options.sliderLabelFormat=%s：%s	#
 options.smoothRotationSpeed=平滑旋转速度	#
+options.smoothRotationSpeed.name=摄像机灵敏度（键盘）		#### {MaxLength=80}
+options.smoothRotationSpeed.description=调整使用键盘环视时摄像机的移动速度		#### {MaxLength=180}
 options.xboxliveBroadcast.inviteOnly=仅邀请	#
 options.xboxliveBroadcast.friendsOnly=仅好友	#
 options.xboxliveBroadcast.friendsOfFriends=好友的好友	#
@@ -7163,10 +7275,13 @@ options.accessibility.resetSettings.description=将所有辅助功能设置和�
 options.accessibility.resetSettings.buttonLabel=重置		#### {MaxLength=20}
 options.accessibility=可访问性	#
 options.accessibility.title=可访问性设置	#
-options.enableDitheringMobs=启用生物抖动处理		#### Enables dithering effect for Mobs {MaxLength=40}
-options.enableDitheringMobs.description=启用一种效果，使玩家视角附近的生物逐渐淡出		####  Describes the "Enable Dithering for Mobs" option; "camera" refers to the in-game view of the player, which can be either first-person or third-person {MaxLength=200}
-options.enableDitheringBlocks=启用方块抖动处理		#### Enables dithering effect for blocks {MaxLength=40}
-options.enableDitheringBlocks.description=启用一种效果，使玩家视角附近的某些方块（如甘蔗）逐渐淡出		####  Describes the "Enable Dithering for Blocks" option; "camera" refers to the in-game view of the player, which can be either first-person or third-person {MaxLength=200}
+options.video.resetSettings=重置为默认设置		#### {MaxLength=40}
+options.video.resetSettings.description=恢复所有视频设置到原始值		#### {MaxLength=180}
+options.video.resetSettings.buttonLabel=重置		#### {MaxLength=20}
+options.enableDitheringMobs=玩家和生物抖动		#### Enables dithering effect for Mobs and players {MaxLength=40}
+options.enableDitheringMobs.description=启用一种效果，使玩家视角附近的玩家和生物逐渐淡出		####  Describes the "Player and mob dithering" option; "camera" refers to the in-game view of the player, which can be either first-person or third-person {MaxLength=200}
+options.enableDitheringBlocks=方块抖动		#### Enables dithering effect for blocks {MaxLength=40}
+options.enableDitheringBlocks.description=启用一种效果，使玩家视角附近的某些方块（如甘蔗）逐渐淡出		####  Describes the "Block dithering" option; "camera" refers to the in-game view of the player, which can be either first-person or third-person {MaxLength=200}
 options.hideEndFlash=隐藏天空闪光		#### Hide refers to not displaying the flashing effects while in game; sky refers to the skies in both the End and Overworld dimensions; flash refers to the light that temporarily appears in the End dimension when in Vibrant Visuals mode, and could also be meant to refer to the light that temporarily appears in the Overworld when a lightning bolt hits {MaxLength=30}
 options.hideEndFlash.description=防止末地的环境效果制造天空闪光。		####  Describes the "Hide Sky Flashes" option {MaxLength=200}
 options.screenShake=摄像机摇晃	#
@@ -7194,6 +7309,7 @@ options.notificationDuration.toast.ThreeSec=3 秒（默认）	#
 options.notificationDuration.toast.TenSec=10 秒	#
 options.notificationDuration.toast.ThirtySec=30 秒	#
 options.splitscreen=拆分屏幕	#
+options.splitscreen.description=在使用分屏功能时，选择垂直或水平分屏方式		#### {MaxLength=180}
 options.splitscreen.horizontal=水平拆分屏幕	#
 options.splitscreen.vertical=垂直拆分屏幕	#
 options.stickyMining=粘性开采	#
@@ -7239,6 +7355,7 @@ options.touch=轻触	#
 options.touchSettings=触摸设置	#
 options.touchscreen=触屏模式	#
 options.uiprofile=UI 档案	#
+options.uiprofile.description=在经典和袖珍（手机）界面布局之间选择		#### {MaxLength=180}
 options.uiprofile.classic=经典	#
 options.uiprofile.pocket=携带版	#
 options.usetouchpad=分离控制	#
@@ -7278,6 +7395,8 @@ options.vbo=启用缓冲区顶点对象	#
 options.video=视频	#
 options.videoTitle=视频设置	#
 options.viewBobbing=视角摇晃	#
+options.damageBobbing=伤害倾斜		#### {MaxLength=60}
+options.damageBobbing.description=受伤造成的摄像机摇晃次数		#### {MaxLength=200}
 options.viewBobbing.description=在第一人称模式下行走时，打开柔和的摆动动画		#### {MaxLength=200}
 options.visible=显示	#
 options.vsync=使用垂直同步	#
@@ -7299,7 +7418,8 @@ options.filelocation.external.warning.body=外部存储已更改位置，在某�
 options.filelocation.external.warning.button=详情（启动浏览器）	#
 options.atmosphericsEnable=氛围	#
 options.edgeHighlightEnable=边缘高光	#
-options.bloomStrengthSlider=光晕	#
+options.bloomStrengthSlider=全屏泛光强度		#### {MaxLength=32}
+options.bloomStrengthSlider.description=控制灯光发光的生动程度		#### {MaxLength=180}
 options.deferred.upscaling=画质提升	#
 options.terrainShadowsEnable=地形阴影	#
 options.superFancyWaterEnable=超级花式水	#
@@ -7392,6 +7512,8 @@ options.makeBackup=制作我的世界的备份副本	#
 options.managePrivacy=若要管理隐私设置，请在任意网络浏览器中访问 https://account.xbox.com/Settings。	###disable_3rd_party_console_resource_pack_check
 options.unlink_msa.button=取消链接 Microsoft 账号	#
 options.useRemoteConnect=使用 Microsoft 账号远程连接登录（需要重新启动）	#
+options.useXBLRemoteConnect=远程连接		####  {MaxLength=80}
+options.useXBLRemoteConnect.description=使用 Microsoft 账号远程连接登录（需要重新启动）		####  {MaxLength=200}
 options.newUiEditWorld.title=是否想要尝试我们的新设计？	#
 options.newUiEditWorld.info=§7请试试此页面即将推出的改版。您可以随时切换回原来的旧版。	#
 options.newUiEditWorld.initiate=尝试新设计	#
@@ -7408,59 +7530,81 @@ options.newUiPlayScreen.initiate=切换到新 UI	#
 options.openPage.continue=更多信息	#
 options.graphicsMode=图形模式	#
 options.graphicsMode.simple=简约	#
+options.graphicsMode.simple.description=最适合低端或老旧设备		#### {MaxLength="80"}
 options.graphicsMode.fancy=花式	#
+options.graphicsMode.fancy.description=经典幻想，适用于多数设备		#### {MaxLength="80"}
 options.graphicsMode.deferred=灵动视效   	#### Vibrant as in full of energy and life, bright and colorful, strong or resonant. Visuals as in what players can see, alternative word View. Avoid words like Graphics Mode {MaxLength="36"}
+options.graphicsMode.deferred.name=灵动		#### A shorter form of vibrant visuals used on the new Ore UI settings tab. {MaxLength="20"}
+options.graphicsMode.deferred.description=灵动视效可带来更丰富、更沉浸的观感体验。需使用受支持的设备及兼容的市场内容		#### {MaxLength="180"}
 options.graphicsMode.rayTraced=光线追踪	#
-options.graphicsMode.tooltip=灵动视效需要受支持的设备，且与市场材质包或世界不兼容。    	#### Vibrant should be full of energy and life, bright and colorful, strong or resonant. Visuals can be synonymous with views. Avoid Graphics Mode as translation for these words. {MaxLength="120"}
+options.graphicsMode.rayTraced.description=高级实时照明和反射		#### {MaxLength="80"}
+options.graphicsMode.tooltip=灵动视效需使用受支持的设备及兼容的市场内容。		#### Vibrant should be full of energy and life, bright and colorful, strong or resonant. Visuals can be synonymous with views. Avoid Graphics Mode as translation for these words. {MaxLength="120"}
 options.graphicsMode.tooltip.splitscreen=分屏模式下不支持动态视效。		#### Vibrant Visuals not supported while in split-screen, it will auto switch to simple/fancy graphics mode and back to vv. {MaxLength="150"}
 options.graphicsModeSwitch=允许游戏内图形模式切换		#### Allow  In-game Graphics Mode switching {MaxLength="150"}
 options.graphicsMode.performanceWarning.title=是否确实要启用灵动视效？		#### pop-up title, really enable vibrant visuals ? {MaxLength="45"}
 options.graphicsMode.performanceWarning.message=此功能对图形处理要求非常高，这可能会对你设备上的游戏性能产生负面影响。		#### Enabling vibrant visuals on gen 4 android devies might cause performance issues. {MaxLength="150"}
 options.graphicsMode.performanceWarning.leftButton=启用		#### pop-up confirmation, enable {MaxLength="25"}
 options.graphicsQualityPresetMode=质量预设模式	#
+options.graphicsQualityPresetMode.name=首选项		#### {MaxLength="40"}
+options.graphicsQualityPresetMode.description=在优化性能与增强视觉效果之间做出选择		#### {MaxLength="180"}
 options.graphicsQualityPresetMode.performance=性能优先	#
+options.graphicsQualityPresetMode.performance.name=性能		#### {MaxLength="20"}
+options.graphicsQualityPresetMode.performance.description=优先考虑帧率与响应速度		#### {MaxLength="80"}
 options.graphicsQualityPresetMode.visuals=视觉优先	#
+options.graphicsQualityPresetMode.visuals.name=视觉		#### {MaxLength="20"}
+options.graphicsQualityPresetMode.visuals.description=优先考虑视觉效果质量和沉浸感		#### {MaxLength="80"}
 options.graphicsQualityPresetMode.custom=自定义	#
+options.graphicsQualityPresetMode.custom.description=随心设置你的偏好		#### {MaxLength="80"}
 options.graphicsModeOptions.simple=简单图形选项	#
 options.graphicsModeOptions.fancy=精美图形选项	#
 options.graphicsModeOptions.deferred=灵动视效选项    	#### Vibrant as in full of energy and life, bright and colorful, strong or resonant. Visuals as in what players can see, alternative word View. Avoid words like Graphics Mode, first phrase should be the same value as options.graphicsMode.deferred {MaxLength="35"}
 options.graphicsModeOptions.rayTraced=光线追踪图形选项	#
 options.shadowQuality=阴影质量	#
+options.shadowQuality.description=控制阴影的分辨率和渲染距离		#### {MaxLength=180}
 options.shadowQuality.low=低	#
 options.shadowQuality.medium=中	#
 options.shadowQuality.high=高	#
 options.shadowQuality.ultra=超级	#
 options.pointLightShadowQuality=点光源阴影质量	#
+options.pointLightShadowQuality.description=调整点光源阴影的细节层级		#### {MaxLength=180}
 options.pointLightShadowQuality.off=关	#
 options.pointLightShadowQuality.low=低	#
 options.pointLightShadowQuality.medium=中	#
 options.pointLightShadowQuality.high=高	#
 options.pointLightShadowQuality.ultra=超级	#
 options.pointLightLODingQuality=点光源质量	#
+options.pointLightLODingQuality.description=调整点光影的细节层级		#### {MaxLength=180}
 options.pointLightLODingQuality.off=关闭		#### {MaxLength=32}
 options.pointLightLODingQuality.low=低	#
 options.pointLightLODingQuality.medium=中	#
 options.pointLightLODingQuality.high=高	#
 options.pointLightLODingQuality.ultra=超级	#
 options.volumetricFogQuality=体积雾质量	#
+options.volumetricFogQuality.description=调整细节层级，以增强雾效沉浸感		#### {MaxLength=180}
 options.volumetricFogQuality.off=关	#
 options.volumetricFogQuality.low=低	#
 options.volumetricFogQuality.medium=中	#
 options.volumetricFogQuality.high=高	#
 options.volumetricFogQuality.ultra=超级	#
 options.upscalingPercentage=分辨率	#
+options.upscalingPercentage.description=微调你的放大分辨率		#### {MaxLength=180}
 options.upscalingPercentage.hundred=原始	#
 options.upscalingPercentage.zero=自动	#
-options.upscalingMode=上采样模式	#
+options.upscalingMode=放大模式		#### {MaxLength=32}
+options.upscalingMode.description=选择用于放大的技术		#### {MaxLength=180}
 options.upscalingModeOptions.taau=TAAU	#
+options.upscalingModeOptions.taau.description=使用多个框架创建一个更清晰的放大框架		#### {MaxLength=180}
 options.upscalingModeOptions.bilinear=双线性	#
+options.upscalingModeOptions.bilinear.description=拉伸框架以适应屏幕，更适合低端设备		#### {MaxLength=180}
 options.reflectionsQuality=反射	#
+options.reflectionsQuality.description=反射的控制分辨率与样本质量		#### {MaxLength=180}
 options.reflectionsQuality.off=关	#
 options.reflectionsQuality.low=低	#
 options.reflectionsQuality.medium=中	#
 options.reflectionsQuality.high=高	#
 options.reflectionsQuality.ultra=超级	#
-options.cloudQuality=云		#### Cloud quality slider name {MaxLength=32}
+options.cloudQuality=云范围		#### Cloud render distance slider name {MaxLength=32}
+options.cloudQuality.description=控制云的渲染距离		#### {MaxLength=180}
 options.cloudQuality.low=低		#### {MaxLength=32}
 options.cloudQuality.medium=中		#### {MaxLength=32}
 options.cloudQuality.high=高		#### {MaxLength=32}
@@ -8293,6 +8437,8 @@ howtoplay.smithing_table.text.9=只有特定的水晶和金属锭可用于纹饰
 howtoplay.smithing_table.title=锻造台		#### How To Play title. Note: no space before the colon {MaxLength=80}
 howtoplay.smithing_table=锻造台	#
 hudScreen.tooltip.brush=画笔	#
+hudScreen.tooltip.charge=冲锋		#### Interaction prompt for lowering and charging with a spear. {MaxLength=50}
+hudScreen.tooltip.jab=刺戳		#### Interaction prompt for jabbing with a spear. {MaxLength=50}
 item.acacia_hanging_sign.name=金合欢悬挂告示牌	#
 item.angler_pottery_sherd.name=垂钓纹样陶片	#
 item.archer_pottery_sherd.name=弓箭纹样陶片	#
@@ -8482,6 +8628,7 @@ storageManager.shareTitle=导出资源	#
 storageManager.mcpack=《我的世界》包	#
 storageManager.mcaddon=Minecraft 附加内容		#### CertRequirement:{GDK-PC}[add-ons] CertRequirement:{GDK-Xbox}[add-ons]{MaxLength=300}
 storageManager.mcworld=《我的世界》的世界	#
+storageManager.world.unlisted=未列出的世界		#### {MaxLength=100}
 
 raycasting.purchase.error=我们检测到您的设备不符合运行此包的系统要求，因此您无法下载此包。您可以在下方查看最低系统要求：%s+ GPU：硬件支持光线追踪的 GPU，如 NVIDIA GeForce RTX 2060 或以上。有关详细信息，请前往 minecraft.net 参阅我们的常见问题解答。%s+ RAM：8GB 或以上 %s+ CPU：Intel Core i5 或类似性能的 CPU	###the %s will be turned into linebreaks. Don't reorder.
 raycasting.purchase.error.title=系统要求警告	#
@@ -8876,22 +9023,13 @@ store.realmsPlus.buyNow.viewTerms=条款和条件	#
 store.realmsPlus.buyNow.viewPrivacyPolicy=隐私政策	#
 
 store.realmsPlus.buyNow.title=开始你的 Realms Plus 定期服务		#### {StrContains=Realms} {MaxLength=105}
-store.realmsPlus.startTrial.description=你的 Realm 和优质内容目录将立即可用。多达 10 名玩家可以同时游玩，并且他们可以免费访问你的 Realm 内的世界！首月定期服务为免费，之后将按 %s/月的价格收费，你可以随时取消。		#### Realms Plus description {MaxLength=1000}
-store.realmsPlus.startTrial.description.contentSub=你的 Realm 以及 Marketplace Pass 中包含的优质内容目录将立即可用。多达 10 名玩家可以同时游玩，并且他们可以免费访问你的 Realm 内的世界！首月定期服务为免费，之后将按 %s/月的价格收费，你可以随时取消。		#### Realms Plus description {StrContains="Marketplace Pass"} {MaxLength=1000}
-store.realmsPlus.noTrial.description=你的 Realm 以及 Marketplace Pass 中包含的优质内容目录将立即可用。多达 10 名玩家可以同时游玩，并且他们可以免费访问你的 Realm 内的世界！定期服务期为 30 天，价格为 :minecoin:%s。		#### Realms Plus description {StrContains="Marketplace Pass"} {MaxLength=1000}
-store.realmsPlus.noTrial.description.contentSub=你的 Realm 以及 Marketplace Pass 中包含的优质内容目录将立即可用。多达 10 名玩家可以同时游玩，并且他们可以免费访问你的 Realm 内的世界！定期服务期为 30 天，价格为 %s:minecoin:。		#### Realms Plus description {StrContains="Marketplace Pass"} {MaxLength=1000}
-store.realmsPlus.noTrial.description.iap=你的 Realm 以及 Marketplace Pass 中包含的优质内容目录将立即可用。多达 10 名玩家可以同时游玩，并且他们可以免费访问你的 Realm 内的世界！定期服务费用为 %s/月，你可以访问定期服务设置来取消定期服务，避免未来出现收费的情况。		#### Realms Plus description {StrContains="Marketplace Pass"} {MaxLength=1000}
-store.realmsPlus.noTrial.description.iap.contentSub=你的 Realm 以及 Marketplace Pass 中包含的优质内容目录将立即可用。多达 10 名玩家可以同时游玩，并且他们可以免费访问你的 Realm 内的世界！定期服务费用为 %s/月，你可以访问定期服务设置来取消定期服务，避免未来出现收费的情况。		#### Realms Plus description {StrContains="Marketplace Pass"} {MaxLength=1000}
 store.realmsPlus.realmName.placeholder=%s的 Realm		#The string passed in here is the gamertag of the player to indicate the name of the player's world.	#
-
 store.realmsPlus.recurring.offerTrial=Realms Plus 是一项持续性的订阅服务，每月会自动收取续订费，直到订阅取消为止。%s你的 Realm 以及 Marketplace Pass 中包含的优质内容目录将立即可用。多达 10 名玩家可以同时游玩，并且他们可以免费访问你的 Realm 内的世界！前 30 天是免费的，之后将按 %s/月的价格收费。你可以访问定期服务设置来取消定期服务，避免未来出现收费的情况。		#### Realms Plus description {StrContains="Realms Plus"} {StrContains="Marketplace Pass"} {MaxLength=1300}
 store.realmsPlus.recurring.offerTrial.contentSub=Realms Plus 是一项持续性的订阅服务，每月会自动收取续订费，直到订阅取消为止。%s你的 Realm 以及 Marketplace Pass 中包含的优质内容目录将立即可用。多达 10 名玩家可以同时游玩，并且他们可以免费访问你的 Realm 内的世界！前 30 天是免费的，之后将按 %s/月的价格收费。你可以访问定期服务设置来取消定期服务，避免未来出现收费的情况。		#### Realms Plus description {StrContains="Realms Plus"} {StrContains="Marketplace Pass"} {MaxLength=1400}
 store.realmsPlus.recurring.withoutTrial=Realms Plus 是一项持续性的订阅服务，每月会自动收取续订费，直到订阅取消为止。%s你的 Realm 以及 Marketplace Pass 中包含的优质内容目录将立即可用。多达 10 名玩家可以同时游玩，并且他们可以免费访问你的 Realm 内的世界！定期服务费用为 %s/月，你可以访问定期服务设置来取消定期服务，避免未来出现收费的情况。		#### Realms Plus description {StrContains="Realms Plus"} {StrContains="Marketplace Pass"} {MaxLength=1200}
-store.realmsPlus.recurring.withoutTrial.contentSub=Realms Plus 是一项持续性的订阅服务，每月会自动收取续订费，直到订阅取消为止。%s你的 Realm 以及 Marketplace Pass 中包含的优质内容目录将立即可用。多达 10 名玩家可以同时游玩，并且他们可以免费访问你的 Realm 内的世界！定期服务费用为 %s/月，你可以访问定期服务设置来取消定期服务，避免未来出现收费的情况。		#### Realms Plus description {StrContains="Realms Plus"} {StrContains="Marketplace Pass"} {MaxLength=1300}
-store.realmsPlus.consumable.offerTrial=你的 Realm 以及 Marketplace Pass 中包含的优质内容目录将立即可用。多达 10 名玩家可以同时游玩，并且他们可以免费访问你的 Realm 内的世界！前 30 天是免费的，之后你可以按 %s 的价格续订 30 天。		#### Realms Plus description {StrContains="Marketplace Pass"} {MaxLength=1000}
+store.realmsPlus.recurring.withoutTrial.contentSub=Realms Plus 是一项持续性的订阅服务，每月会自动收取续订费，直到订阅取消为止。%s你的 Realm 以及 Marketplace Pass 中包含的优质内容目录将立即可用。多达 10 名玩家可以同时游玩，并且他们可以免费访问你的 Realm 内的世界！订阅服务费用为 %s/月，你可以访问订阅服务设置来取消订阅服务，避免未来出现收费的情况。		#### Realms Plus description {StrContains="Realms Plus"} {StrContains="Marketplace Pass"} {MaxLength=1300}
 store.realmsPlus.consumable.offerTrial.contentSub=你的 Realm 以及 Marketplace Pass 中包含的优质内容目录将立即可用。多达 10 名玩家可以同时游玩，并且他们可以免费访问你的 Realm 内的世界！前 30 天是免费的，之后你可以按 %s 的价格续订 30 天。		#### Realms Plus description {StrContains="Marketplace Pass"} {MaxLength=1000}
-store.realmsPlus.consumable.withoutTrial=你的 Realm 以及 Marketplace Pass 中包含的优质内容目录将立即可用。多达 10 名玩家可以同时游玩，并且他们可以免费访问你的 Realm 内的世界！定期服务期为 30 天，价格为 %s。		#### Realms Plus description {StrContains="Marketplace Pass"} {MaxLength=1000}
-store.realmsPlus.consumable.withoutTrial.contentSub=你的 Realm 以及 Marketplace Pass 中包含的优质内容目录将立即可用。多达 10 名玩家可以同时游玩，并且他们可以免费访问你的 Realm 内的世界！定期服务期为 30 天，价格为 %s。		#### Realms Plus description {StrContains="Marketplace Pass"} {MaxLength=1000}
+store.realmsPlus.consumable.withoutTrial.contentSub=你的 Realm 以及 Marketplace Pass 中包含的优质内容目录将立即可用。多达 10 名玩家可以同时游玩，并且他们可以免费访问你的 Realm 内的世界！订阅服务期限为 30 天，价格为 %s。		#### Realms Plus description {StrContains="Marketplace Pass"} {MaxLength=1000}
 
 store.realmsPlus.landing.header=订阅包含：	#
 store.realmsPlus.landing.headerTrial=免费试用 30 天，之后按 %s/月价格收费	#
@@ -8900,7 +9038,6 @@ store.realmsPlus.landing.info1.line1=你的个人 Realm 服务器：一个永远
 store.realmsPlus.landing.info1.line2=好友可在你的 Realm 中免费游玩	#
 store.realmsPlus.landing.info1.line3=无论是主机、手机还是电脑，任何设备都可以访问 Minecraft 市场，让你玩转 Realm		#### CertRequirement:{GDK-PC}[console] CertRequirement:{GDK-Xbox}[console]{MaxLength=300}
 
-store.realmsPlus.landing.info2.catalog=免费访问一个包含精选优质市场包的目录		#### Realms Plus description {MaxLength=100}
 store.realmsPlus.landing.info2.contentSub=包含 Marketplace Pass	#
 store.realmsPlus.landing.info2.backups=你的 Realm 上的世界包括免费的安全备份	#
 store.realmsPlus.landing.info2.renews=每月自动续订，直至取消	#
@@ -8928,7 +9065,6 @@ store.realmsPlus.faq.answer3=你的好友无需购买 Realms Plus 定期服务�
 store.realmsPlus.faq.question4=那些设备支持 Minecraft 的 Realms Plus？		#### {StrContains=Realms} {MaxLength=144}
 store.realmsPlus.faq.answer4=Realms Plus 目前适用于任何可安装 Minecraft 基岩版的平台。如果你已登录至 Microsoft 账号，则可以在任何这些设备上玩 Realms 并使用 Realms Plus 中的任何内容。	###disable_3rd_party_console_resource_pack_check	### {StrContains=Realms} {MaxLength=819}
 store.realmsPlus.faq.question5=Realms Plus 定期服务的费用是多少？		#### {StrContains=Realms} {MaxLength=138}
-store.realmsPlus.faq.answer5=一个可容纳 10 名玩家的服务器，且可访问一个包含精选优质内容的目录，每月仅需 %s。		#### Realms Plus description {MaxLength=150}
 store.realmsPlus.faq.answer5.contentSub=每月仅需 %s。添加成员数无限制，可同时与 10 名其他玩家进行在线游戏。此外，还能免费享受一个包含优质市场内容的目录。		#### Realms Plus description {MaxLength=250}
 store.realmsPlus.faq.question6=Realms Plus 多久添加一次新的包？		#### {StrContains=Realms} {MaxLength=135}
 store.realmsPlus.faq.answer6=每月都会有新的包添加到 Realms Plus。		#### {StrContains=Realms} {MaxLength=129}
@@ -9091,8 +9227,8 @@ store.csb.alreadySubscribed.toolTip=您已经订阅了 Marketplace Pass。		####
 store.csb.banner.offer=立即开始免费试用 30 天！		#### Marketplace Pass offer {MaxLength="70"}
 store.csb.banner.learnMore=了解更多	#
 
-store.inventory.button=我的内容	#
-store.inventory.title=我的内容	#
+store.inventory.button=我的库		#### My Library text {MaxLength=30}
+store.inventory.title=我的库		#### My Library text {MaxLength=30}
 store.inventory.dropdown.owned=已拥有	#
 store.inventory.dropdown.current=当前	#
 store.inventory.dropdown.removed=已移除	#
@@ -10667,6 +10803,7 @@ structure_block.importFileTitle=导入结构	#
 structure_block.importFailedTitle=导入失败	#
 structure_block.importFailedDescription=我们未能导出该结构。	#
 structure_block.importProgressTitle=正在导入结构	#
+structure_block.exportFailedUnsupportedPlatform.message=此平台上不支持导出操作。		#### Error message when player tries to export a structure in platforms that don't support this operation {MaxLength=75}
 
 3d_export.title=3D 导出	#
 3d_export.include_players=包含玩家：	#
@@ -11455,30 +11592,6 @@ client.version.1.4=水生更新 (%s)	#
 client.version.1.5=水生更新 (%s)	#
 client.version.1.11=村庄和劫掠者村庄更新 (%s)	#
 
-cloud_upload.title=Mojang 玩家支持	#
-cloud_upload.prompt.description=根据您最近的支持凭证，Mojang 玩家支持已经批准您上传自己的世界。您可以在世界选择屏幕或世界设置下上传受影响的世界。	#
-cloud_upload.prompt.do_not_show_toggle=不再显示此窗口	#
-cloud_upload.prompt.button.worlds=前往世界	#
-cloud_upload.prompt.button.learn_more=了解更多	#
-cloud_upload.toggle.accept_terms=接受微软服务协议	#
-cloud_upload.button.upload=上传世界（%s）	#
-cloud_upload.button.service_agreement=使用条款	#
-cloud_upload.button.privacy_statement=隐私声明	#
-cloud_upload.terms.title=条款和条件	#
-cloud_upload.terms.description=要上传您的世界，请接受 Microsoft 服务协议。上传的世界受 Microsof 服务协议的约束，该协议可在使用条款中找到。上传后，您仍然可以玩您的世界。	#
-cloud_upload.uploading.title=世界文件上传中 [%d/%d]	#
-cloud_upload.uploading.description_1=上传您的世界文件可能需要几分钟的时间。在上传过程中，不要关闭游戏或离开此屏幕。	#
-cloud_upload.uploading.description_2=世界的规模可能会很大。请使用 Wi-Fi，不要使用移动数据。	#
-cloud_upload.succeeded.description=您的世界上传已成功。谢谢！	#
-cloud_upload.failed.retryable.description=无法上传您的世界，因为 %s	#
-cloud_upload.failed.description=无法上传您的世界，因为 %s	#
-cloud_upload.tts.message=世界文件上传中	#
-cloud_upload.input_error_number_of_files=您的世界文件过多。如果想重试，请与 LiveOps 联系。	#
-cloud_upload.input_error_maximum_size=某个文件过大。如果想重试，请与 LiveOps 联系。	#
-cloud_upload.input_error_record_already_completed=世界成功上传。请与 LiveOps 联系以获取更多信息。	#
-cloud_upload.operation_error_missing_files_on_complete_upload=网络错误。请重试或与 LiveOps 联系。	#
-cloud_upload.unknown_error=未知错误。请重试或与 LiveOps 联系。(错误代码：%s)	#
-
 dr.banner.sale=特惠！	#
 dr.banner.limitedTimeOffer=限时优惠！	#
 dressingRoom.skin_color_picker_title=皮肤颜色	#
@@ -11922,6 +12035,7 @@ gathering.button.updateRequired=需要更新		####An updated version of Minecraf
 gathering.caption.startsIn=距离开始还有 %s		####This is a countdown where %s will return a long format date. A final string may say "Starts in 34d 12h 54m 22s" for 34 days, 12 hours, 54 minutes, and 22 seconds.{MaxLength=20}
 gathering.caption.endsIn=距离结束还有 %s		####This is a countdown where %s will return a long format date. A final string may say "Ends in 34d 12h 54m 22s" for 34 days, 12 hours, 54 minutes, and 22 seconds.{MaxLength=20}
 gathering.caption.liveEventFallback=来看看吧！		####Prompt to the user to interact and engage with the Live Event that is active{MaxLength=30}
+gathering.caption.alternateFallback=立即开玩！		####Prompt to the user to interact and engage with the Live Event that is active{MaxLength="50"}
 gathering.info.button.readMore=阅读更多…		####Button that will link the user to a location that contains more information about the current Live Event{MaxLength=25}
 gathering.info.title.liveEventFallback=直播活动		####An in-game event that is currently active or will soon become active {MaxLength=16}
 gathering.info.header.liveEventFallback=直播活动		####An in-game event that is currently active or will soon become active {MaxLength=16}
@@ -11935,7 +12049,7 @@ gathering.info.qr.title.childAccount=禁止在线游玩		####User is not allowed
 gathering.info.qr.body.childAccount=当前在线游玩功能受到父母监控的限制。		####User is not allowed to join the Live Event due to child account restrictions on their account{MaxLength=300}
 gathering.info.qr.title.console=现场活动直播	#
 gathering.info.qr.body.console=扫描以加入我们的现场活动直播	#
-gathering.info.signIn.title=登录以参加此项活动。		####The user must be signed-in to their MSA or other account to join the Live Event{MaxLength=50}
+gathering.info.signIn.title=登录以参加此体验。		####The user must be signed-in to their Microsoft Account (MSA) or other account to join the Experience{MaxLength="300"}
 gathering.info.signIn.body=请登录至 Microsoft 账号以参加此项活动。		####The user must be signed-in to their MSA or other account to join the Live Event{MaxLength=300}
 gathering.activation.warning=无法找到收集内容		####Error when the client is unable to find the specified gathering during deeplink activation{MaxLength=300}
 gathering.activation.warning.signIn=无法找到收集内容。请登录后重试。		####Error when the client is unable to find the specified gathering during deeplink activation. User may be able to resolve this error by signing in before trying again{MaxLength=300}
@@ -12056,7 +12170,7 @@ account.toast.copied.body=账户数据已复制到你的剪贴板。		#### Toast
 build_info.toast.copied.title=已复制数据到剪贴板		#### Toast title shown when copying copying game build information to the user's clipboard {MaxLength=100}
 build_info.toast.copied.body=建造信息已复制到你的剪贴板。		#### Toast subtitle shown when copying game build information to the user's clipboard {MaxLength=100}
 
-parties.toast.travelToWorld=派对加载中 - 玩家世界		#### Toast shown when the party is moving to a new world{MaxLength=100}
+parties.toast.travelToWorld=队伍加载 - %s		#### Toast shown when the party is moving to a new world{MaxLength=100}
 parties.toast.travelToMenu=派对加载中 - 主菜单		#### Toast shown when the party is leaving world and returning to the menus{MaxLength=100}
 parties.toast.memberJoined=%s 加入了派对		#### Toast shown when a new member joins the party{MaxLength=52}
 parties.toast.memberLeft=%s 退出了派对		#### Toast shown when a member leaves the party{MaxLength=52}
@@ -12071,3 +12185,39 @@ parties.toast.removeMemberFailed=移除派对成员失败		#### Toast shown when
 parties.toast.setLeaderFailed=设置派对首领失败		#### Toast shown when you failed to set a the party leader because of an error{MaxLength=52}
 parties.toast.sendInviteFailed=发送邀请失败		#### Toast shown when failed to send an invite because of an error{MaxLength=52}
 parties.toast.partyInvite=派对邀请		#### Title of the toast shown when you receive an invite to a party{MaxLength=52}
+parties.toast.partyInviteExpired=队伍邀请已过期		#### Title of the toast shown when you try to accept an invite to a party that no longer exists{MaxLength=52}
+parties.toast.joinablePartyExpired=可加入的队伍已过期		#### Title of the toast shown when you try to join a party that no longer exists{MaxLength=52}
+
+itemGroup.name.spear=长矛		#### Name of the inventory group containing all spears {MaxLength=100}
+itemGroup.name.nautilus_armor=鹦鹉螺盔甲		#### Armor that can be equipped by Nautilus (marine creature) {MaxLength=100}
+item.wooden_spear.name=木长矛		#### A spear (weapon) which tip is made of wood {MaxLength=100}
+item.stone_spear.name=石长矛		#### A spear (weapon) which tip is made of stone {MaxLength=100}
+item.copper_spear.name=铜长矛		#### A spear (weapon) which tip is made of copper {MaxLength=100}
+item.iron_spear.name=铁长矛		#### A spear (weapon) which tip is made of iron {MaxLength=100}
+item.golden_spear.name=金长矛		#### A spear (weapon) which tip is made of gold {MaxLength=100}
+item.diamond_spear.name=钻石长矛		#### A spear (weapon) which tip is made of diamond {MaxLength=100}
+item.netherite_spear.name=下界合金长矛		#### A spear (weapon) which tip is made of netherite {MaxLength=100}
+entity.nautilus.name=鹦鹉螺		#### A shelled, aquatic sea creature{MaxLength=50}
+entity.zombie_nautilus.name=僵尸鹦鹉螺		#### A shelled, undead aquatic sea creature{MaxLength=50}
+item.spawn_egg.entity.nautilus.name=鹦鹉螺生成蛋		#### A Spawn Egg to spawn a Nautilus {MaxLength=100}
+item.spawn_egg.entity.zombie_nautilus.name=僵尸鹦鹉螺生成蛋		#### A Spawn Egg to spawn a Zombie Nautilus {MaxLength=100}
+item.copper_nautilus_armor.name=铜鹦鹉螺盔甲		#### Armor for a Nautilus made out of Copper {MaxLength=100}
+item.iron_nautilus_armor.name=铁鹦鹉螺盔甲		#### Armor for a Nautilus made out of Iron {MaxLength=100}
+item.golden_nautilus_armor.name=金鹦鹉螺盔甲		#### Armor for a Nautilus made out of Gold {MaxLength=100}
+item.diamond_nautilus_armor.name=钻石鹦鹉螺盔甲		#### Armor for a Nautilus made out of Diamond {MaxLength=100}
+item.netherite_nautilus_armor.name=下界合金鹦鹉螺盔甲		#### Armor for a Nautilus made out of Netherite {MaxLength=100}
+action.hint.exit.nautilus=轻触潜行以跃下		#### This tooltip will be displayed when starting to ride the Nautilus and indicates which input to use for dismounting. {MaxLength=100}
+action.hint.exit.scheme.nautilus=轻触潜行以跃下		#### This tooltip will be displayed when starting to ride the Nautilus and indicates which input to use for dismounting. {MaxLength=100}
+action.hint.exit.console.nautilus=按 :_input_key.sneak: 跃下		#### This tooltip will be displayed when starting to ride the Nautilus and indicates which input to use for dismounting. {MaxLength=100}
+action.hint.exit.zombie_nautilus=轻触潜行以跃下		#### This tooltip will be displayed when starting to ride the Zombie Nautilus and indicates which input to use for dismounting. {MaxLength=100}
+action.hint.exit.scheme.zombie_nautilus=轻触潜行以跃下		#### This tooltip will be displayed when starting to ride the Zombie Nautilus and indicates which input to use for dismounting. {MaxLength=100}
+action.hint.exit.console.zombie_nautilus=按 :_input_key.sneak: 跃下		#### This tooltip will be displayed when starting to ride the Zombie Nautilus and indicates which input to use for dismounting. {MaxLength=100}
+action.hint.exit.camel_husk=按 :_input_key.sneak: 跃下		#### This toolstip will be displayed when starting to ride the Camel Husk and indicates which input to use for dismounting. {MaxLength=100}
+action.hint.exit.console.camel_husk=按 :_input_key.sneak: 跃下		#### This toolstip will be displayed when starting to ride the Camel Husk and indicates which input to use for dismounting. {MaxLength=100}
+action.hint.exit.scheme.camel_husk=轻触跃下可以下马		#### This toolstip will be displayed when starting to ride the Camel Husk and indicates which input to use for dismounting. {MaxLength=100}
+enchantment.lunge=戳刺		#### Noun, name of an enchantment. Refers to the fencing move where one lunges forward toward an opponent. {MaxLength="30"}
+effect.customNautilus= 鹦鹉螺呼吸		#### Effect applied to the player when riding a Nautilus, the buff pauses oxygen consumption while riding the nautilus. {MaxLength="50"}
+entity.parched.name=焦骷髅		#### A dried out, undead skeleton variant {MaxLength=50}
+item.spawn_egg.entity.parched.name=焦骷髅生成蛋		#### Spawn Egg for the Parched entity {MaxLength=50}
+entity.camel_husk.name=骆驼尸傀		#### A dried out, hollow, undead variant of a Camel {MaxLength=50}
+item.spawn_egg.entity.camel_husk.name=骆驼尸傀生成蛋		#### Spawn Egg for the Camel Husk entity {MaxLength=50}

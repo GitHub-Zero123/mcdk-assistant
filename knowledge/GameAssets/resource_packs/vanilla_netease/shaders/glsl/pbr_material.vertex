@@ -19,6 +19,13 @@ varying highp vec3 normalWS;
 varying highp vec4 tangentWS;
 varying highp vec3 lightDirWS;
 varying highp float lightIntensity;
+#ifdef USE_PBR_DONAR_SSS
+varying mediump vec3 sssLightTS;
+#endif
+#ifdef USE_PBR_SSS
+attribute vec4 COLOR;
+varying mediump vec4 sssDirectionalCurvature;
+#endif
 #ifdef USE_VISIBLE_SH_MAP
 varying highp vec2 uvSH;
 varying highp float shTangentW;
@@ -102,7 +109,7 @@ void main() {
 	getEntitySpacePositionAndNormal(entitySpacePosition, entitySpaceNormal);
 	entitySpaceNormal = getPbrEntitySpaceNormal();
 	vec4 entitySpaceTangent = getEntitySpaceTangent();
-#ifdef USE_VISIBLE_SH_MAP
+#if defined(USE_VISIBLE_SH_MAP) || defined(USE_PBR_DONAR_SSS)
 	highp float transformHandedness = getPbrTransformHandedness();
 #endif
 
@@ -144,11 +151,26 @@ void main() {
 
 #ifdef RNGL_LIGHT
 	lightDirWS = normalize(HIDE_COLOR.xyz);
-	lightIntensity = SUN_DIR.w;
+	lightIntensity = max(HIDE_COLOR.w, 0.0);
 #else
 	// SUN_DIR.xyz = sun/moon direction, SUN_DIR.w = 1.0(sun) / 0.0(moon)
 	lightDirWS = normalize(SUN_DIR.xyz);
 	lightIntensity = mix(0.25, 1.0, SUN_DIR.w);
+#endif
+#ifdef USE_PBR_DONAR_SSS
+	mediump vec3 sssN = normalWS;
+	mediump vec3 sssT = normalize(tangentWS.xyz - sssN * dot(sssN, tangentWS.xyz));
+	// Reflections in skinning/world flip cross(N, T), so the baked donor
+	// direction must use the transformed TBN handedness as well.
+	// Keep tangentWS.w unchanged for the existing normal-map path.
+	mediump vec3 sssB = normalize(cross(sssN, sssT))
+	                    * (tangentWS.w * transformHandedness);
+	sssLightTS = vec3(dot(lightDirWS, sssT),
+	                  dot(lightDirWS, sssB),
+	                  dot(lightDirWS, sssN));
+#endif
+#ifdef USE_PBR_SSS
+	sssDirectionalCurvature = COLOR;
 #endif
 
 	fogColor = getFogColor(projSpacePos);

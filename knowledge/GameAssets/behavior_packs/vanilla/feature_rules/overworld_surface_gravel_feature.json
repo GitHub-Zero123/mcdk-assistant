@@ -1,5 +1,5 @@
 {
-    "format_version": "1.13.0",
+    "format_version": "1.14.0",
     "minecraft:feature_rules": {
         "description": {
             "identifier": "minecraft:overworld_surface_gravel_feature",
@@ -26,11 +26,6 @@
                     "test": "has_biome_tag",
                     "operator": "!=",
                     "value": "swamp"
-                },
-                {
-                    "test": "has_biome_tag",
-                    "operator": "!=",
-                    "value": "mangrove_swamp"
                 }
             ]
         },

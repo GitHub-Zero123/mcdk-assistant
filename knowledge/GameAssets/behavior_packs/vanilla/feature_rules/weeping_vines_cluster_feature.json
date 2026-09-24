@@ -1,0 +1,43 @@
+{
+    "format_version": "1.14.0",
+    "minecraft:feature_rules": {
+        "description": {
+            "identifier": "minecraft:weeping_vines_cluster_feature",
+            "places_feature": "minecraft:_weeping_vines_cluster_feature"
+        },
+        "conditions": {
+            "placement_pass": "surface_pass",
+            "minecraft:biome_filter": [
+                {
+                    "test": "has_biome_tag",
+                    "operator": "==",
+                    "value": "crimson_forest"
+                }
+            ]
+        },
+        "distribution": {
+            "iterations": 10,
+            "x": {
+                "distribution": "uniform",
+                "extent": [
+                    0,
+                    16
+                ]
+            },
+            "y": {
+                "distribution": "uniform",
+                "extent": [
+                    0,
+                    124
+                ]
+            },
+            "z": {
+                "distribution": "uniform",
+                "extent": [
+                    0,
+                    16
+                ]
+            }
+        }
+    }
+}

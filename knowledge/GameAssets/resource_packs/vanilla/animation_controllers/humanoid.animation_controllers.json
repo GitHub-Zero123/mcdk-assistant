@@ -329,6 +329,32 @@
                     ]
                 }
             }
+        },
+        "controller.animation.humanoid.melee_spear": {
+            "initial_state": "hold",
+            "states": {
+                "hold": {
+                    "animations": [
+                        "melee_spear_hold"
+                    ],
+                    "transitions": [
+                        {
+                            "use": "variable.item_use_normalized > 0.0"
+                        }
+                    ]
+                },
+                "use": {
+                    "animations": [
+                        "melee_spear_use"
+                    ],
+                    "transitions": [
+                        {
+                            "hold": "variable.item_use_normalized == 0.0"
+                        }
+                    ],
+                    "blend_transition": 1.0
+                }
+            }
         }
     }
 }

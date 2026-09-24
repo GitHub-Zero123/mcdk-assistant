@@ -1,5 +1,5 @@
 {
-    "format_version": "1.13.0",
+    "format_version": "1.14.0",
     "minecraft:feature_rules": {
         "description": {
             "identifier": "minecraft:warm_ocean_after_surface_coral_hang_feature",
@@ -29,7 +29,7 @@
                     16
                 ]
             },
-            "y": "query.above_top_solid(variable.worldx, variable.worldz)",
+            "y": 62,
             "z": {
                 "distribution": "uniform",
                 "extent": [

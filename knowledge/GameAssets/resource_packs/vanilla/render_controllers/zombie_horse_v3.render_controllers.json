@@ -28,11 +28,30 @@
                     "*": "Material.default"
                 }
             ],
+            "arrays": {
+                "textures": {
+                    "Array.armor": [
+                        "Texture.armor_none",
+                        "Texture.armor_leather",
+                        "Texture.armor_iron",
+                        "Texture.armor_gold",
+                        "Texture.armor_diamond",
+                        "Texture.armor_copper",
+                        "Texture.armor_netherite"
+                    ]
+                }
+            },
             "textures": [
                 "Texture.zombie",
                 "Texture.markings_none",
-                "Texture.armor_none"
-            ]
+                "Array.armor[variable.armor_texture_slot]"
+            ],
+            "color": {
+                "r": "variable.armor_texture_slot ? query.armor_color_slot(4, 0) : this",
+                "g": "variable.armor_texture_slot ? query.armor_color_slot(4, 1) : this",
+                "b": "variable.armor_texture_slot ? query.armor_color_slot(4, 2) : this",
+                "a": "variable.armor_texture_slot ? query.armor_color_slot(4, 3) : this"
+            }
         }
     }
 }

@@ -1,5 +1,5 @@
 {
-    "format_version": "1.13.0",
+    "format_version": "1.14.0",
     "minecraft:feature_rules": {
         "description": {
             "identifier": "minecraft:desert_after_surface_desert_well_feature",
@@ -29,7 +29,7 @@
                     16
                 ]
             },
-            "y": "query.heightmap(variable.worldx, variable.worldz)",
+            "y": 128,
             "z": {
                 "distribution": "uniform",
                 "extent": [

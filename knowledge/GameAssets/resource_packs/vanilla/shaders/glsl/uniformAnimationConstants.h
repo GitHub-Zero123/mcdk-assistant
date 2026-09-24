@@ -14,7 +14,10 @@ UNIFORM MAT4 BONE;
 #endif
 END_UNIFORM_BLOCK
 
-#if defined(USE_INSTANCE) && defined(NTES_ANIMATED_MODEL_BATCH)
+#if defined(USE_INSTANCE) && defined(NTES_ANIMATED_MODEL_BATCH_TEXTURE)
+LAYOUT_BINDING(6) uniform highp sampler2D TEXTURE_6;
+UNIFORM highp vec4 INSTANCE_TEXTURE_INFO_50;
+#elif defined(USE_INSTANCE) && defined(NTES_ANIMATED_MODEL_BATCH)
 #ifndef NTES_BATCH_BONES
 #ifdef NTES_BATCH_LOW
 #define NTES_BATCH_BONES 96
@@ -37,11 +40,6 @@ UNIFORM mat4x3 INSTANCE_WORLDMAT_50[50];
 #endif
 #endif
 
-#if defined(USE_INSTANCE) && defined(NTES_ANIMATED_MODEL_BATCH_TEXTURE)
-LAYOUT_BINDING(6) uniform sampler2D TEXTURE_6;
-UNIFORM vec4 INSTANCE_TEXTURE_INFO_50;
-#endif
-
 mat4 mat3x4ToMat4(mat3x4 boneMat3x4){
 		mat4 boneMat4x4;
 
@@ -54,23 +52,27 @@ mat4 mat3x4ToMat4(mat3x4 boneMat3x4){
 }
 
 #if defined(USE_INSTANCE) && defined(NTES_ANIMATED_MODEL_BATCH_TEXTURE)
-vec4 NtesFetchAnimationBatchTexel(float texelIndex) {
-	float y = floor(texelIndex * INSTANCE_TEXTURE_INFO_50.z);
-	float x = texelIndex - y * INSTANCE_TEXTURE_INFO_50.x;
-	return texelFetch(TEXTURE_6, ivec2(int(x), int(y)), 0);
+highp vec4 NtesFetchAnimationBatchTexel(highp int texelIndex) {
+	highp int textureWidth = int(INSTANCE_TEXTURE_INFO_50.x + 0.5);
+	highp int y = texelIndex / textureWidth;
+	highp int x = texelIndex - y * textureWidth;
+	return texelFetch(TEXTURE_6, ivec2(x, y), 0);
 }
 #endif
 
 mat4 GetBoneMatForNetease(int boneId){
 #if defined(USE_INSTANCE) && defined(NTES_ANIMATED_MODEL_BATCH_TEXTURE)
-	vec4 instanceBase = NtesFetchAnimationBatchTexel(INSTANCE_TEXTURE_INFO_50.y + float(gl_InstanceID * 4));
-	float boneTexelBase = INSTANCE_TEXTURE_INFO_50.y + instanceBase.w + float(boneId * 3);
+	highp int atlasBaseTexel = int(INSTANCE_TEXTURE_INFO_50.y + 0.5);
+	highp int instanceTexelBase = atlasBaseTexel + gl_InstanceID * 4;
+	highp vec4 instanceBase = NtesFetchAnimationBatchTexel(instanceTexelBase);
+	highp int boneTexelBase = atlasBaseTexel + int(instanceBase.w + 0.5) + boneId * 3;
 	mat3x4 boneMat = mat3x4(
 		NtesFetchAnimationBatchTexel(boneTexelBase),
-		NtesFetchAnimationBatchTexel(boneTexelBase + 1.0),
-		NtesFetchAnimationBatchTexel(boneTexelBase + 2.0));
+		NtesFetchAnimationBatchTexel(boneTexelBase + 1),
+		NtesFetchAnimationBatchTexel(boneTexelBase + 2));
 	return transpose(mat3x4ToMat4(boneMat));
-#elif defined(USE_INSTANCE) && defined(NTES_ANIMATED_MODEL_BATCH)
+#else
+#if defined(USE_INSTANCE) && defined(NTES_ANIMATED_MODEL_BATCH)
 	int boneBaseVecIndex = gl_InstanceID / 4;
 	int boneBaseComponent = gl_InstanceID - boneBaseVecIndex * 4;
 	vec4 boneBasePacked = INSTANCE_BONE_BASE_50[boneBaseVecIndex];
@@ -78,6 +80,7 @@ mat4 GetBoneMatForNetease(int boneId){
 	boneId += int(boneBase + 0.5);
 #endif
     return transpose(mat3x4ToMat4(BONES_70[boneId]));
+#endif
 }
 
 #ifdef USE_INSTANCE
@@ -92,11 +95,11 @@ mat4 mat4x3ToMat4(mat4x3 worldMat4x3){
 
 mat4 GetInstanceWorldMatForNetease(){
 #if defined(NTES_ANIMATED_MODEL_BATCH_TEXTURE)
-	float instanceTexelBase = INSTANCE_TEXTURE_INFO_50.y + float(gl_InstanceID * 4);
+	highp int instanceTexelBase = int(INSTANCE_TEXTURE_INFO_50.y + 0.5) + gl_InstanceID * 4;
 	vec4 c0 = NtesFetchAnimationBatchTexel(instanceTexelBase);
-	vec4 c1 = NtesFetchAnimationBatchTexel(instanceTexelBase + 1.0);
-	vec4 c2 = NtesFetchAnimationBatchTexel(instanceTexelBase + 2.0);
-	vec4 c3 = NtesFetchAnimationBatchTexel(instanceTexelBase + 3.0);
+	vec4 c1 = NtesFetchAnimationBatchTexel(instanceTexelBase + 1);
+	vec4 c2 = NtesFetchAnimationBatchTexel(instanceTexelBase + 2);
+	vec4 c3 = NtesFetchAnimationBatchTexel(instanceTexelBase + 3);
 	c0.w = 0.0;
 	c3.w = 1.0;
 	return mat4(c0, c1, c2, c3);

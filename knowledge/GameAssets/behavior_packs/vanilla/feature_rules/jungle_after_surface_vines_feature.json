@@ -1,5 +1,5 @@
 {
-    "format_version": "1.13.0",
+    "format_version": "1.14.0",
     "minecraft:feature_rules": {
         "description": {
             "identifier": "minecraft:jungle_after_surface_vines_feature",
@@ -17,7 +17,7 @@
         },
         "distribution": {
             "iterations": 50,
-            "coordinate_eval_order": "xzy",
+            "coordinate_eval_order": "xyz",
             "x": {
                 "distribution": "uniform",
                 "extent": [
@@ -25,7 +25,7 @@
                     16
                 ]
             },
-            "y": "query.heightmap(variable.worldx, variable.worldz)",
+            "y": 64,
             "z": {
                 "distribution": "uniform",
                 "extent": [

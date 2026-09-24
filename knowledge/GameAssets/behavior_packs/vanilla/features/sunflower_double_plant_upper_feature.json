@@ -1,0 +1,19 @@
+{
+    "format_version": "1.14.0",
+    "minecraft:single_block_feature": {
+        "description": {
+            "identifier": "minecraft:sunflower_double_plant_upper_feature"
+        },
+        "places_block": {
+            "name": "minecraft:sunflower",
+            "states": {
+                "upper_block_bit": true
+            }
+        },
+        "enforce_survivability_rules": false,
+        "enforce_placement_rules": false,
+        "may_replace": [
+            "minecraft:air"
+        ]
+    }
+}

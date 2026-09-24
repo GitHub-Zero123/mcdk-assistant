@@ -1,0 +1,54 @@
+// __multiversion__
+// HAL/OGL AnimatedModel outline shell.
+#include "vertexVersionCentroidUV.h"
+#include "uniformWorldConstants.h"
+uniform float outline_width;
+#ifdef USE_SKINNING
+#include "uniformAnimationConstants.h"
+#endif
+
+#line 10
+
+attribute mediump vec4 POSITION;
+attribute mediump vec2 TEXCOORD_0;
+attribute mediump vec4 TEXCOORD_6;
+
+#ifdef USE_SKINNING
+attribute float BONEID_0;
+#endif
+
+varying highp vec2 outlineUV;
+varying highp float outlineStrength;
+
+void main() {
+	vec3 authoredDirection = TEXCOORD_6.xyz * 2.0 - 1.0;
+	float directionLength2 = dot(authoredDirection, authoredDirection);
+	vec3 direction = directionLength2 > 0.000001
+		? authoredDirection * inversesqrt(directionLength2)
+		: vec3(0.0);
+
+	POS4 position = POSITION;
+	POS4 extrusionDirection = vec4(direction, 0.0);
+
+#ifdef USE_SKINNING
+	MAT4 boneMat = GetBoneMatForNetease(int(BONEID_0));
+	position = boneMat * position;
+	extrusionDirection = boneMat * extrusionDirection;
+#ifdef USE_INSTANCE
+	MAT4 instanceMat = GetInstanceWorldMatForNetease();
+	position = instanceMat * position;
+	extrusionDirection = instanceMat * extrusionDirection;
+#endif
+#endif
+
+	vec3 skinnedDirection = extrusionDirection.xyz;
+	float skinnedLength2 = dot(skinnedDirection, skinnedDirection);
+	if (skinnedLength2 > 0.000001) {
+		skinnedDirection *= inversesqrt(skinnedLength2);
+	}
+	position.xyz += skinnedDirection * (outline_width * TEXCOORD_6.a);
+
+	gl_Position = WORLDVIEWPROJ * position;
+	outlineUV = TEXCOORD_0;
+	outlineStrength = TEXCOORD_6.a;
+}

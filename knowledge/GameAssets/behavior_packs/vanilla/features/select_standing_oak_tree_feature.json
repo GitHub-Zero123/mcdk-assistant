@@ -1,5 +1,5 @@
 {
-    "format_version": "1.13.0",
+    "format_version": "1.14.0",
     "minecraft:aggregate_feature": {
         "description": {
             "identifier": "minecraft:select_standing_oak_tree_feature"
@@ -7,7 +7,7 @@
         "early_out": "first_success",
         "features": [
             "minecraft:optional_oak_tree_with_vines_feature",
-            "minecraft:oak_tree_with_optional_beehive_feature"
+            "minecraft:oak_tree_feature"
         ]
     }
 }

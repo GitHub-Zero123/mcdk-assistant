@@ -9,7 +9,18 @@
             "placement_pass": "pregeneration_pass",
             "minecraft:biome_filter": [
                 {
-                    "any_of": []
+                    "any_of": [
+                        {
+                            "test": "has_biome_tag",
+                            "operator": "==",
+                            "value": "overworld"
+                        },
+                        {
+                            "test": "has_biome_tag",
+                            "operator": "==",
+                            "value": "overworld_generation"
+                        }
+                    ]
                 }
             ]
         }

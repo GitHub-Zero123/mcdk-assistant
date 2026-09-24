@@ -1,0 +1,40 @@
+{
+    "format_version": "1.13.0",
+    "minecraft:feature_rules": {
+        "description": {
+            "identifier": "minecraft:roofed_forest_surface_roofed_tree_feature_rules",
+            "places_feature": "minecraft:random_roofed_forest_feature_with_decoration_feature"
+        },
+        "conditions": {
+            "placement_pass": "surface_pass",
+            "minecraft:biome_filter": [
+                {
+                    "test": "has_biome_tag",
+                    "value": "roofed"
+                },
+                {
+                    "test": "has_biome_tag",
+                    "value": "forest"
+                }
+            ]
+        },
+        "distribution": {
+            "iterations": 16,
+            "x": {
+                "distribution": "uniform",
+                "extent": [
+                    0,
+                    16
+                ]
+            },
+            "y": "query.heightmap(variable.worldx, variable.worldz)",
+            "z": {
+                "distribution": "uniform",
+                "extent": [
+                    0,
+                    16
+                ]
+            }
+        }
+    }
+}

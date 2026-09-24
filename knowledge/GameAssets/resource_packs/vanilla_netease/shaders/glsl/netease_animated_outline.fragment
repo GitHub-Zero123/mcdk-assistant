@@ -1,0 +1,34 @@
+// __multiversion__
+// HAL/OGL AnimatedModel outline material; noise uses the model's tex9 slot.
+#include "fragmentVersionCentroidUV.h"
+#include "uniformPerFrameConstants.h"
+uniform float outline_noise_scale;
+uniform float outline_noise_strength;
+uniform float outline_alpha_cutoff;
+uniform vec4 outline_color;
+uniform vec2 outline_uv_scroll;
+uniform float outline_time_scale;
+
+#line 8
+
+LAYOUT_BINDING(9) uniform sampler2D TEXTURE_9;
+
+varying highp vec2 outlineUV;
+varying highp float outlineStrength;
+
+void main() {
+	if (outlineStrength <= 0.0001) {
+		discard;
+	}
+
+	vec2 noiseUV = outlineUV * outline_noise_scale;
+	noiseUV += outline_uv_scroll * (TIME * outline_time_scale);
+	float noiseValue = texture2D(TEXTURE_9, noiseUV).r;
+	float noiseCoverage = clamp(1.0 + (noiseValue * 2.0 - 1.0) * outline_noise_strength, 0.0, 1.0);
+	float alpha = outline_color.a * noiseCoverage;
+	if (alpha <= outline_alpha_cutoff) {
+		discard;
+	}
+
+	gl_FragColor = vec4(outline_color.rgb, alpha);
+}

@@ -4,21 +4,13 @@
         "description": {
             "identifier": "minecraft:copper_ore_feature"
         },
-        "count": 10,
+        "count": 9,
         "replace_rules": [
             {
                 "places_block": "minecraft:copper_ore",
                 "may_replace": [
                     {
                         "name": "minecraft:stone"
-                    }
-                ]
-            },
-            {
-                "places_block": "minecraft:deepslate_copper_ore",
-                "may_replace": [
-                    {
-                        "name": "minecraft:deepslate"
                     }
                 ]
             }

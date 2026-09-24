@@ -1,32 +1,33 @@
 {
-    "format_version": "1.13.0",
+    "format_version": "1.14.0",
     "minecraft:scatter_feature": {
         "description": {
             "identifier": "minecraft:sunflower_double_plant_patch_feature"
         },
-        "iterations": 96,
+        "iterations": 64,
+        "coordinate_eval_order": "zyx",
         "x": {
             "extent": [
-                -7,
-                7
+                -8,
+                8
             ],
-            "distribution": "triangle"
-        },
-        "y": {
-            "extent": [
-                -3,
-                3
-            ],
-            "distribution": "triangle"
+            "distribution": "gaussian"
         },
         "z": {
             "extent": [
-                -7,
-                7
+                -8,
+                8
             ],
-            "distribution": "triangle"
+            "distribution": "gaussian"
         },
-        "coordinate_eval_order": "zyx",
+        "y": {
+            "extent": [
+                -4,
+                4
+            ],
+            "distribution": "gaussian"
+        },
+        "project_input_to_floor": false,
         "places_feature": "minecraft:sunflower_double_plant_feature"
     }
 }
