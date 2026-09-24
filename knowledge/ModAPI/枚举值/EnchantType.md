@@ -49,8 +49,9 @@ class EnchantType(object):
 	WindBurst = 38				# 风爆
 	Density = 39				# 致密
 	Breach = 40					# 破甲
-	NumEnchantments = 41		# 附魔种数
-	InvalidEnchantment = 42		# 无效附魔
+	Lunge = 41					# 戳刺
+	NumEnchantments = 42		# 附魔种数
+	InvalidEnchantment = 43		# 无效附魔
 
 	ModEnchant = 255			# 自定义附魔
 

@@ -4,7 +4,10 @@ ______________________________________________________________________
 
 ## 物理
 
-- [物理](#%E7%89%A9%E7%90%86)
+- [关节](#%E5%85%B3%E8%8A%82)
+- [场景](#%E5%9C%BA%E6%99%AF)
+- [刚体](#%E5%88%9A%E4%BD%93)
+- [碰撞体](#%E7%A2%B0%E6%92%9E%E4%BD%93)
 
 ## 通用
 
@@ -40,12 +43,12 @@ ______________________________________________________________________
 - [实体类型](#%E5%AE%9E%E4%BD%93%E7%B1%BB%E5%9E%8B)
 - [附加值](#%E9%99%84%E5%8A%A0%E5%80%BC)
 - [属性](#%E5%B1%9E%E6%80%A7)
-- [行为](#%E8%A1%8C%E4%B8%BA)
+- [行为](#%E8%A1%8C%E4%B8%BA1)
 - [状态效果](#%E7%8A%B6%E6%80%81%E6%95%88%E6%9E%9C)
-- [渲染](#%E6%B8%B2%E6%9F%93)
+- [渲染](#%E6%B8%B2%E6%9F%931)
 - [背包](#%E8%83%8C%E5%8C%85)
 - [自定义属性](#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%B1%9E%E6%80%A7)
-- [自定义数据](#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE)
+- [自定义数据](#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE1)
 - [molang](#molang)
 - [标签](#%E6%A0%87%E7%AD%BE)
 - [抛射物](#%E6%8A%9B%E5%B0%84%E7%89%A9)
@@ -56,10 +59,10 @@ ______________________________________________________________________
 
 ## 玩家
 
-- [属性](#%E5%B1%9E%E6%80%A7)
-- [行为](#%E8%A1%8C%E4%B8%BA)
-- [渲染](#%E6%B8%B2%E6%9F%93)
-- [背包](#%E8%83%8C%E5%8C%85)
+- [属性](#%E5%B1%9E%E6%80%A71)
+- [行为](#%E8%A1%8C%E4%B8%BA2)
+- [渲染](#%E6%B8%B2%E6%9F%932)
+- [背包](#%E8%83%8C%E5%8C%851)
 - [摄像机](#%E6%91%84%E5%83%8F%E6%9C%BA)
 - [动画](#%E5%8A%A8%E7%94%BB)
 - [游戏模式](#%E6%B8%B8%E6%88%8F%E6%A8%A1%E5%BC%8F)
@@ -69,11 +72,11 @@ ______________________________________________________________________
 ## 方块
 
 - [方块状态与附加值](#%E6%96%B9%E5%9D%97%E7%8A%B6%E6%80%81%E4%B8%8E%E9%99%84%E5%8A%A0%E5%80%BC)
-- [属性](#%E5%B1%9E%E6%80%A7)
+- [属性](#%E5%B1%9E%E6%80%A72)
 - [方块实体](#%E6%96%B9%E5%9D%97%E5%AE%9E%E4%BD%93)
 - [方块几何体模型](#%E6%96%B9%E5%9D%97%E5%87%A0%E4%BD%95%E4%BD%93%E6%A8%A1%E5%9E%8B)
 - [方块调色板](#%E6%96%B9%E5%9D%97%E8%B0%83%E8%89%B2%E6%9D%BF)
-- [渲染](#%E6%B8%B2%E6%9F%93)
+- [渲染](#%E6%B8%B2%E6%9F%933)
 - [容器](#%E5%AE%B9%E5%99%A8)
 - [红石](#%E7%BA%A2%E7%9F%B3)
 - [告示牌](#%E5%91%8A%E7%A4%BA%E7%89%8C)
@@ -81,11 +84,11 @@ ______________________________________________________________________
 
 ## 物品
 
-- [物品](#%E7%89%A9%E5%93%81)
+- [物品](#%E7%89%A9%E5%93%81-2)
 
 ## 特效
 
-- [通用](#%E9%80%9A%E7%94%A8)
+- [通用](#%E9%80%9A%E7%94%A81)
 - [文字面板](#%E6%96%87%E5%AD%97%E9%9D%A2%E6%9D%BF)
 - [序列帧](#%E5%BA%8F%E5%88%97%E5%B8%A7)
 - [粒子](#%E7%B2%92%E5%AD%90)
@@ -94,15 +97,15 @@ ______________________________________________________________________
 
 ## 模型
 
-- [模型](#%E6%A8%A1%E5%9E%8B)
+- [模型](#%E6%A8%A1%E5%9E%8B-2)
 
 ## 原生UI
 
-- [原生UI](#%E5%8E%9F%E7%94%9Fui)
+- [原生UI](#%E5%8E%9F%E7%94%9Fui-2)
 
 ## 自定义UI
 
-- [通用](#%E9%80%9A%E7%94%A8)
+- [通用](#%E9%80%9A%E7%94%A82)
 - [自定义书本](#%E8%87%AA%E5%AE%9A%E4%B9%89%E4%B9%A6%E6%9C%AC)
 - [自定义成就系统](#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%88%90%E5%B0%B1%E7%B3%BB%E7%BB%9F)
 - [UI界面](#ui%E7%95%8C%E9%9D%A2)
@@ -111,21 +114,21 @@ ______________________________________________________________________
 
 ## 音效
 
-- [音效](#%E9%9F%B3%E6%95%88)
+- [音效](#%E9%9F%B3%E6%95%88-2)
 
 ## 控制
 
-- [控制](#%E6%8E%A7%E5%88%B6)
+- [控制](#%E6%8E%A7%E5%88%B6-2)
 
 ## 游戏设置
 
-- [游戏设置](#%E6%B8%B8%E6%88%8F%E8%AE%BE%E7%BD%AE)
+- [游戏设置](#%E6%B8%B8%E6%88%8F%E8%AE%BE%E7%BD%AE-2)
 
 ## 虚拟世界
 
-- [世界](#%E4%B8%96%E7%95%8C)
+- [世界](#%E4%B8%96%E7%95%8C1)
 - [相机](#%E7%9B%B8%E6%9C%BA)
-- [模型](#%E6%A8%A1%E5%9E%8B)
+- [模型](#%E6%A8%A1%E5%9E%8B1)
 - [其它对象](#%E5%85%B6%E5%AE%83%E5%AF%B9%E8%B1%A1)
 
 ## 后处理
@@ -138,45 +141,120 @@ ______________________________________________________________________
 
 ## 联机大厅
 
-- [联机大厅](#%E8%81%94%E6%9C%BA%E5%A4%A7%E5%8E%85)
+- [联机大厅](#%E8%81%94%E6%9C%BA%E5%A4%A7%E5%8E%85-2)
 
 ## 成就
 
-- [成就](#%E6%88%90%E5%B0%B1)
+- [成就](#%E6%88%90%E5%B0%B1-2)
 
 ## 商城
 
-- [商城](#%E5%95%86%E5%9F%8E)
+- [商城](#%E5%95%86%E5%9F%8E-2)
 
 ## 山头服务器
 
-- [山头服务器](#%E5%B1%B1%E5%A4%B4%E6%9C%8D%E5%8A%A1%E5%99%A8)
+- [山头服务器](#%E5%B1%B1%E5%A4%B4%E6%9C%8D%E5%8A%A1%E5%99%A8-2)
 
 ## 渲染
 
-- [渲染](#%E6%B8%B2%E6%9F%93)
+- [渲染](#%E6%B8%B2%E6%9F%93-2)
 
-#### 物理
+#### 关节
+
+| 接口 | | 描述 |
+| --- | --- | --- |
+| CreateDistanceJoint | 服务端 | 创建距离关节，限制两个锚点之间的距离范围，可配弹簧 |
+| CreateFixedJoint | 服务端 | 创建固定关节，两个刚体刚性连接，无自由度 |
+| CreatePrismaticJoint | 服务端 | 创建滑动关节；两个刚体仅能沿指定轴相对平移，旋转被锁定，可加行程限制 |
+| CreateRevoluteJoint | 服务端 | 创建铰链关节，绕指定轴单轴旋转，可加角度限制和电机 |
+| CreateSphericalJoint | 服务端 | 创建球窝关节，允许三轴旋转，可加锥形角度限制 |
+| DestroyAllJoints | 服务端 | 销毁所有关节 |
+| DestroyJoint | 服务端 | 销毁关节 |
+| DestroyJointsForEntity | 服务端 | 销毁指定实体上所有关联的关节，应在实体销毁前调用 |
+| GetJointBreakForce | 服务端 | 获取关节的断裂力和断裂扭矩 |
+| GetJointFrames | 服务端 | 获取关节两端当前的本地frame和世界frame |
+| GetJointType | 服务端 | 查询关节类型 |
+| GetRevoluteJointAngle | 服务端 | 获取铰链关节当前相对于创建零位的旋转角度。仅对RevoluteJoint有效 |
+| GetRevoluteJointVelocity | 服务端 | 获取铰链关节当前角速度。仅对RevoluteJoint有效 |
+| IsJointBroken | 服务端 | 查询关节是否已断裂 |
+| SetDistanceJointParams | 服务端 | 设置距离关节参数 |
+| SetJointBreakForce | 服务端 | 设置关节可承受的约束力/约束扭矩阈值；PhysX求解出的实际约束载荷超过任一阈值时自动断裂。冲量(eIMPULSE，单位N·s)不能直接与力阈值(N)比较 |
+| SetJointCollisionEnabled | 服务端 | 设置关节关联的两个刚体之间是否发生碰撞，适用于所有关节类型 |
+| SetPrismaticJointLimit | 服务端 | 设置滑动关节的行程限制并启用 |
+| SetRevoluteJointDrive | 服务端 | 设置铰链关节的电机并启用 |
+| SetRevoluteJointLimit | 服务端 | 设置铰链关节的角度限制并启用 |
+| SetSphericalJointLimitCone | 服务端 | 设置球窝关节的锥形角度限制并启用 |
+
+#### 场景
+
+| 接口 | | 描述 |
+| --- | --- | --- |
+| ClearRemoteVisualSync | 服务端 | 清除该自定义 PhysX 刚体的运行时远端同步配置，恢复实体定义的默认带宽优化行为，仅服务端可调用。 |
+| ConnectPvd | 服务端 | 连接本机 PhysX Visual Debugger（PVD）以调试当前 PhysX 场景 |
+| DisconnectPvd | 服务端 | 断开当前 PhysX 场景与本机 PhysX Visual Debugger（PVD）的连接 |
+| Raycast | 服务端 | 射线检测，获取与射线相交的碰撞体。目前仅支持获取自定义刚体 |
+| Raycast | 客户端 | 射线检测，获取与射线相交的碰撞体。目前仅支持获取自定义刚体 |
+| SampleBuoyancy | 服务端 | 使用C++批量采样自定义刚体的浸没体积、浮力合力和浮心；本接口只计算，不施力，仅服务端可调用。 |
+| SetRemoteVisualSync | 服务端 | 设置该自定义 PhysX 刚体的远端位置与四元数同步降频参数，整个刚体的所有 shape/mesh 一并生效，仅服务端可调用。 |
+| SetSceneGravity | 服务端 | 设置指定维度 PhysX 场景的全局重力，仅服务端可调用；立即影响该维度内全部受重力的动态 PhysX 刚体。 |
+
+#### 刚体
+
+| 接口 | | 描述 |
+| --- | --- | --- |
+| AddForce | 服务端 | 对自定义刚体的质心施加全局坐标力；数值单位由mode决定，对运动学刚体无效 |
+| AddForceAtPos | 服务端 | 对自定义刚体的指定位置添加力，对运动学刚体无效 |
+| AddForceAtPosLocal | 服务端 | 对自定义刚体的指定位置添加力，对运动学刚体无效 |
+| AddTorque | 服务端 | 对自定义刚体添加扭矩，对运动学刚体无效 |
+| AddTorqueLocal | 服务端 | 在自定义刚体本地坐标系中添加扭矩，对运动学刚体无效。X轴为Roll（滚转），Y轴为Yaw（偏航），Z轴为Pitch（俯仰） |
+| CreatePxActor | 服务端 | 给实体创建自定义刚体 |
+| GetActorFlags | 服务端 | 获取 actor 当前 ActorFlags(诊断接口,bit1=eDISABLE_SIMULATION,bit3=eDISABLE_GRAVITY) |
+| GetAngularVelocity | 服务端 | 获取自定义刚体的角速度 |
+| GetAngularVelocity | 客户端 | 获取自定义刚体在世界坐标系下的角速度 |
+| GetLinearVelocity | 服务端 | 获取自定义刚体的线速度(world space) |
+| GetLinearVelocity | 客户端 | 获取自定义刚体在世界坐标系下的线速度 |
+| GetMass | 服务端 | 获取自定义刚体的质量(PhysX 内部 mass,由 density+体积合成) |
+| GetMassSpaceInertiaTensor | 服务端 | 获取刚体的惯性张量对角线分量 |
+| GetQuaternion | 服务端 | 获取自定义刚体的四元数旋转 |
+| GetQuaternion | 客户端 | 获取自定义刚体的四元数旋转 |
+| GetRigidBodyFlags | 服务端 | 获取刚体当前 RigidBodyFlags(诊断接口,bit0=eKINEMATIC) |
+| GetRigidDynamicLockFlags | 服务端 | 获取动态刚体当前 RigidDynamicLockFlags(诊断接口,bit0-2=Linear XYZ lock,bit3-5=Angular XYZ lock) |
+| IsDefaultPxActor | 服务端 | 是否为引擎默认创建的 PxActor(诊断接口,True 表示 mod CreatePxActor 实际是 no-op) |
+| IsSleeping | 服务端 | 查询自定义刚体是否处于休眠状态 |
+| PutToSleep | 服务端 | 强制刚体进入休眠 |
+| SetActorFlag | 服务端 | 设置物理实体的行为开关 |
+| SetAngularDamping | 服务端 | 设置动态刚体的角阻尼，值越大角速度衰减越快 |
+| SetAngularVelocity | 服务端 | 设置自定义刚体的角速度，对运动学刚体无效 |
+| SetCMassLocalPose | 服务端 | 设置质心相对于actor原点的偏移，用于手动调整重心 |
+| SetGlobalPose | 服务端 | 设置自定义刚体的变换（直接瞬移） |
+| SetGlobalPose | 客户端 | 设置客户端本地自定义刚体的变换（直接瞬移） |
+| SetKinematicTarget | 服务端 | 设置运动学刚体的目标变换，仅对开启了PxRigidBodyFlag.eKINEMATIC的自定义刚体生效 |
+| SetLinearDamping | 服务端 | 设置动态刚体的线性阻尼，值越大线速度衰减越快 |
+| SetLinearVelocity | 服务端 | 设置自定义刚体的线速度(world space),仅对PxRigidDynamic生效 |
+| SetMass | 服务端 | 设置动态刚体质量 |
+| SetMaxAngularVelocity | 服务端 | 设置自定义刚体的最大角速度，防止碰撞后疯转 |
+| SetMaxLinearVelocity | 服务端 | 设置自定义刚体的最大线速度，防止物体飞出天际 |
+| SetRigidBodyFlag | 服务端 | 设置自定义刚体的行为开关 |
+| SetRigidDynamicLockFlags | 服务端 | 设置自定义刚体的约束 |
+| WakeUp | 服务端 | 唤醒休眠中的刚体 |
+
+#### 碰撞体
 
 | 接口 | | 描述 |
 | --- | --- | --- |
 | AddBoxGeometry | 服务端 | 给自定义刚体创建盒形碰撞体 |
+| AddBoxGeometry | 客户端 | 给客户端本地自定义刚体创建盒形碰撞体 |
 | AddBoxTrigger | 服务端 | 给自定义刚体创建盒子形触发器 |
 | AddCapsuleGeometry | 服务端 | 给自定义刚体创建胶囊形碰撞体 |
-| AddForce | 服务端 | 对自定义刚体的质心添加力，对运动学刚体无效 |
-| AddForceAtPos | 服务端 | 对自定义刚体的指定位置添加力，对运动学刚体无效 |
-| AddForceAtPosLocal | 服务端 | 对自定义刚体的指定位置添加力，对运动学刚体无效 |
 | AddSphereGeometry | 服务端 | 给自定义刚体创建球形碰撞体 |
-| CreatePxActor | 服务端 | 给实体创建自定义刚体 |
-| GetQuaternion | 服务端 | 获取自定义刚体的四元数旋转 |
-| GetQuaternion | 客户端 | 获取自定义刚体的四元数旋转 |
-| Raycast | 服务端 | 射线检测，获取与射线相交的碰撞体。目前仅支持获取自定义刚体 |
-| Raycast | 客户端 | 射线检测，获取与射线相交的碰撞体。目前仅支持获取自定义刚体 |
-| SetActorFlag | 服务端 | 设置物理实体的行为开关 |
-| SetGlobalPose | 服务端 | 设置自定义刚体的变换（直接瞬移） |
-| SetKinematicTarget | 服务端 | 设置运动学刚体的目标变换，仅对开启了PxRigidBodyFlag.eKINEMATIC的自定义刚体生效 |
-| SetRigidBodyFlag | 服务端 | 设置自定义刚体的行为开关 |
-| SetRigidDynamicLockFlags | 服务端 | 设置自定义刚体的约束 |
+| GetShapeCount | 服务端 | 获取自定义刚体当前的碰撞 shape 数量 |
+| GetShapeCount | 客户端 | 获取客户端本地自定义刚体当前的碰撞 shape 数量 |
+| GetShapeInfo | 服务端 | 获取指定碰撞 shape 的信息 |
+| GetShapeInfo | 客户端 | 获取客户端本地指定碰撞 shape 的信息 |
+| RemoveShape | 服务端 | 删除自定义刚体上指定索引的碰撞 shape，适用于盒形、胶囊形、球形碰撞体和触发器 |
+| RemoveShape | 客户端 | 删除客户端本地自定义刚体上指定索引的碰撞 shape |
+| RemoveShapeByUserData | 服务端 | 删除所有 userData 与指定值相同的碰撞 shape |
+| RemoveShapeByUserData | 客户端 | 删除客户端本地所有 userData 与指定值相同的碰撞 shape |
 
 #### Component
 
@@ -374,7 +452,7 @@ ______________________________________________________________________
 | LocateStructureFeature | 服务端 | 与[/locate指令 (opens new window)](https://zh.minecraft.wiki/w/%E5%91%BD%E4%BB%A4/locate)相似，用于定位原版的部分结构，如海底神殿、末地城等。 |
 | MayPlace | 服务端 | 判断方块是否可以放置 |
 | MayPlaceOn | 服务端 | 判断物品是否可以放到指定的位置上 |
-| MirrorDimension | 服务端 | 不同dimension的地形 |
+| MirrorDimension | 服务端 | 复制不同dimension的地形 |
 | OpenClientChunkGeneration | 服务端 | 开启/关闭客户端区块生成功能，需要在LoadServerAddonScriptsAfter事件触发时调用。开启客户端区块生成功能时，如果使用了netease:structure_feature或修改了大部分地图，会导致客户端和服务端地图不一致的问题。此时可以通过关闭客户端区块生成功能解决该问题。 |
 | PlaceFeature | 服务端 | 放置特征，与[/placefeature指令 (opens new window)](https://zh.minecraft.wiki/w/%E5%91%BD%E4%BB%A4/placefeature)相似 |
 | PlaceNeteaseLargeFeature | 服务端 | 放置网易版大型结构特征 |
@@ -453,7 +531,7 @@ ______________________________________________________________________
 | 接口 | | 描述 |
 | --- | --- | --- |
 | AddBrewingRecipes | 服务端 | 添加酿造台配方的接口 |
-| AddRecipe | 服务端 | 动态注册配方，支持配方类型详见[[配方类型说明]](https://mc.163.com/dev/mcmanual/mc-dev/mcdocs/../../mcguide/20-%E7%8E%A9%E6%B3%95%E5%BC%80%E5%8F%91/15-%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B8%B8%E6%88%8F%E5%86%85%E5%AE%B9/5-%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E6%96%B9.html#%E9%85%8D%E6%96%B9%E7%B1%BB%E5%9E%8B%E8%AF%B4%E6%98%8E) |
+| AddRecipe | 服务端 | 动态注册配方，支持配方类型详见[配方类型说明] |
 | GetRecipeByRecipeId | 服务端 | 根据配方id查询配方内容。 |
 | GetRecipeByRecipeId | 客户端 | 根据配方id查询配方内容。 |
 | GetRecipeResult | 服务端 | 根据配方id获取配方结果。仅支持合成配方 |
@@ -474,6 +552,8 @@ ______________________________________________________________________
 | GetBlockPaletteBetweenPos | 客户端 | 根据输入的两个位置创建并获取一个方块调色板，该接口会搜索这两个位置之间的所有方块创建方块调色板，方块调色板用于描述和记录世界中的多个方块的组合。这个方块调色板包含了这两个位置之间的所有方块及其相对位置。 |
 | GetBlockPaletteFromPosList | 服务端 | 根据输入的方块位置列表创建并获取一个方块调色板，方块调色板用于描述和记录世界中的多个方块的组合。创建的方块调色板包含了这个位置列表中的所有方块及其相对位置。 |
 | GetBlockPaletteFromPosList | 客户端 | 根据输入的方块位置列表创建并获取一个方块调色板，方块调色板用于描述和记录世界中的多个方块的组合。创建的方块调色板包含了这个位置列表中的所有方块及其相对位置。 |
+| LookupBlocksByBlockTag | 服务端 | 根据netease_tags中注册的方块tag名，查找该tag下所有方块，支持#引用的标签自动展开；同一tag名被多个模组注册时自动合并去重；未注册的原版tag可直接查询 |
+| LookupBlocksByBlockTag | 客户端 | 根据netease_tags中注册的方块tag名，查找该tag下所有方块，支持#引用的标签自动展开；同一tag名被多个模组注册时自动合并去重；未注册的原版tag可直接查询 |
 | RegisterBlockPatterns | 服务端 | 注册特殊方块组合 |
 | SetBlockByBlockPalette | 服务端 | 根据输入的方块调色板内容，将调色板内记录的所有方块设置为实际的方块。 |
 
@@ -519,6 +599,7 @@ ______________________________________________________________________
 | SetStarBrightness | 客户端 | 设置星星亮度，白天也可以显示星星 |
 | SetSunRot | 客户端 | 设置太阳所在角度 |
 | SkyTextures | 客户端 | 修改太阳、月亮、云层分布、天空盒的贴图。使用addon配置，非python接口。 |
+| SpawnDestroyParticleEffect | 客户端 | 在指定位置播放指定方块的破坏爆发粒子效果（一次性，强度与原版一致）。 |
 
 #### 时间
 
@@ -1184,6 +1265,7 @@ ______________________________________________________________________
 | AddCameraTrackMotion | 客户端 | 给相机添加轨迹运动器 |
 | AddCameraVelocityMotion | 客户端 | 给相机添加速度运动器 |
 | DepartCamera | 客户端 | 分离玩家与摄像机 |
+| GetAspectRatio | 客户端 | 获取画面宽高比 |
 | GetCameraAnchor | 客户端 | 获取相机锚点 |
 | GetCameraMotions | 客户端 | 获取相机上的所有运动器 |
 | GetCameraOffset | 客户端 | 获取摄像机偏移量 |
@@ -1192,8 +1274,12 @@ ______________________________________________________________________
 | GetForward | 客户端 | 返回相机向前的方向 |
 | GetFov | 客户端 | 获取视野大小 |
 | GetFpHeight | 客户端 | 获取本地玩家当前状态下，第一人称视角时的摄像机高度偏移量。游泳时，滑翔时以及普通状态下会有所不同 |
+| GetNearFarPlane | 客户端 | 获取近远裁剪面距离 |
 | GetPerspective | 客户端 | 获取当前的视角模式 |
 | GetPosition | 客户端 | 返回相机中心 |
+| GetProjectionMatrix | 客户端 | 获取当前帧的相机投影矩阵，为标准透视投影矩阵，开发者可自行计算 |
+| GetViewMatrix | 客户端 | 获取视图矩阵，为以相机位置为原点的相对空间视图矩阵（右手系），即仅描述相机朝向的旋转矩阵，不含相机位置平移，开发者可自行计算 |
+| GetWorldRayFromScreenPoint | 客户端 | 将屏幕坐标转换为一条世界射线，可用于自定义拾取、瞄准辅助等玩法 |
 | IsModCameraLockPitch | 客户端 | 是否锁定摄像机上下角度 |
 | IsModCameraLockYaw | 客户端 | 是否锁定摄像机左右角度 |
 | LockCamera | 客户端 | 锁定摄像机 |
@@ -1218,6 +1304,7 @@ ______________________________________________________________________
 | StopCameraMotion | 客户端 | 停止相机上的某个运动器 |
 | UnDepartCamera | 客户端 | 绑定玩家与摄像机 |
 | UnLockCamera | 客户端 | 解除摄像机锁定 |
+| WorldToScreenPoint | 客户端 | 将世界坐标转换为屏幕坐标，可用于UI指示箭头、血条跟随等玩法 |
 
 #### 动画
 
@@ -1322,6 +1409,7 @@ ______________________________________________________________________
 | GetActorBlockGeometryScale | 客户端 | 获取实体的方块几何体模型的缩放倍率。 |
 | SetActorBlockGeometryOffset | 客户端 | 设置实体的方块几何体模型的位置偏移。 |
 | SetActorBlockGeometryRotation | 客户端 | 设置实体的方块几何体模型的旋转角度。 |
+| SetActorBlockGeometryRotationQuat | 客户端 | 使用四元数设置实体的方块几何体模型的旋转，避免欧拉角万向锁问题。 |
 | SetActorBlockGeometryScale | 客户端 | 设置实体的方块几何体模型的缩放倍率。 |
 | SetActorBlockGeometryTransparency | 客户端 | 设置实体的方块几何体模型的透明度。注意，只有调用接口EnableActorBlockGeometryTransparent开启了方块几何体模型的透明度后该接口才会生效。 |
 
@@ -1350,6 +1438,7 @@ ______________________________________________________________________
 | GetBlockRenderDistance | 客户端 | 获取玩家周围的可渲染距离 |
 | GetBlockTextures | 客户端 | 获取方块的初始贴图信息 |
 | GetClientDropItemEntityIdList | 客户端 | 获得所有通过AddDropItemToWorld创建的entityId的list |
+| GetTextureAtlasUV | 客户端 | 获取指定纹理在atlas.terrain图集中的UV坐标位置与尺寸信息 |
 | SetBlockEntityExtraUniforms | 客户端 | 设置可在自定义方块实体的shader当中使用的自定义变量的值，该自定义变量总共可设置EXTRA_ACTOR_UNIFORM1,EXTRA_ACTOR_UNIFORM2,EXTRA_ACTOR_UNIFORM3,EXTRA_ACTOR_UNIFORM4，总共4组，每组为一个vec4(float, float, float ,float)类型的向量，向量的默认值为(1.0,1.0,1.0,1.0)。 |
 | SetBlockEntityFramePosOffset | 客户端 | 设置自定义方块实体中序列帧特效位置偏移值，用于调整序列帧特效相对于方块位置的偏移。与特效/序列帧/SetPos接口不同，该接口调整的是相对于方块位置的位置偏移值，而不是世界坐标。 |
 | SetBlockEntityModelPosOffset | 客户端 | 设置自定义方块实体的实体模型位置偏移值，用于调整实体模型相对于方块位置的偏移。可通过该接口来调整自定义方块实体的实体模型的位置。只有自定义方块实体定义实体模型才生效，实体模型在resource_pack/entity/下定义，详细可参考自定义方块实体动画的教学文档。 |
@@ -1422,6 +1511,11 @@ ______________________________________________________________________
 | GetBindItemRotation | 客户端 | 查询获取实体上的物品附着物相对骨骼的旋转角度。 |
 | GetBindItemScale | 客户端 | 查询获取实体上的物品附着物的缩放比例。 |
 | GetCustomName | 服务端 | 获取物品的自定义名称，与铁砧修改的名称一致 |
+| GetFishingLineColor | 服务端 | 获取服务端当前设置的钓鱼线颜色 |
+| GetFishingLineColor | 客户端 | 获取钓鱼线的颜色 |
+| GetFishingLineMax | 服务端 | 获取服务端当前设置的钓鱼线最大长度 |
+| GetFishingLineMax | 客户端 | 获取钓鱼线的最大长度 |
+| GetIconInfo | 客户端 | 获取物品图标纹理在图集中的UV坐标位置与尺寸信息 |
 | GetItemBasicInfo | 服务端 | 获取物品的基础信息 |
 | GetItemBasicInfo | 客户端 | 获取物品的基础信息 |
 | GetItemDefenceAngle | 服务端 | 获取盾牌物品的抵挡角度范围 |
@@ -1432,13 +1526,15 @@ ______________________________________________________________________
 | GetItemInfoByBlockName | 服务端 | 通过方块名称及aux值获取物品信息 |
 | GetItemLayer | 服务端 | 获取物品的叠加贴图。物品叠加贴图详见SetItemLayer |
 | GetItemMaxDurability | 服务端 | 获取指定槽位的物品耐最大耐久 |
-| GetItemTags | 服务端 | 获取物品在minecraft:tags中定义的tags列表 |
-| GetItemTags | 客户端 | 获取物品在minecraft:tags中定义的tags列表 |
+| GetItemTags | 服务端 | 获取物品的tags列表，包含原版minecraft:tags中定义的tags，以及netease_tags中注册并挂载到物品上的自定义标签 |
+| GetItemTags | 客户端 | 获取物品的tags列表，包含原版minecraft:tags中定义的tags，以及netease_tags中注册并挂载到物品上的自定义标签 |
 | GetItemTexture | 客户端 | 获取item_texture.json中物品的贴图路径。 |
 | GetLoadItems | 服务端 | 获取已经加载的物品id |
 | GetUserDataInEvent | 服务端 | 使物品相关服务端事件的物品信息字典参数带有userData。在mod初始化时调用即可 |
 | GetUserDataInEvent | 客户端 | 使物品相关客户端事件的物品信息字典参数带有userData。在mod初始化时调用即可 |
 | LookupItemByName | 服务端 | 判定指定identifier的物品是否存在 |
+| LookupItemsByItemTag | 服务端 | 根据netease_tags中注册的物品tag名，查找该tag下所有物品，支持#引用的标签自动展开；同一tag名被多个模组注册时自动合并去重；未注册的原版tag可直接查询 |
+| LookupItemsByItemTag | 客户端 | 根据netease_tags中注册的物品tag名，查找该tag下所有物品，支持#引用的标签自动展开；同一tag名被多个模组注册时自动合并去重；未注册的原版tag可直接查询 |
 | RemoveItemLayer | 服务端 | 移除物品的叠加贴图。物品叠加贴图详见SetItemLayer |
 | SetAttackDamage | 服务端 | 设置物品的攻击伤害值 |
 | SetBindBoneForBindItem | 客户端 | 改变实体上已绑定的物品附着物所绑定的骨骼，又或者移除该物品附着物。 |
@@ -1448,6 +1544,8 @@ ______________________________________________________________________
 | SetCompassEntity | 客户端 | 设置指南针朝向的实体 |
 | SetCompassTarget | 客户端 | 设置指南针的朝向位置 |
 | SetCustomName | 服务端 | 设置物品的自定义名称，与使用铁砧重命名一致 |
+| SetFishingLineColor | 服务端 | 设置钓鱼线的颜色，设置后会自动同步到所有客户端。 |
+| SetFishingLineMax | 服务端 | 设置钓鱼线的最大长度（超过此长度会断线），设置后会自动同步到所有客户端。 |
 | SetItemDefenceAngle | 服务端 | 设置盾牌物品的抵挡角度范围 |
 | SetItemDurability | 服务端 | 设置物品的耐久值 |
 | SetItemLayer | 服务端 | 设置物品的叠加贴图，可以在物品的上层与下层叠加自定义贴图。具体使用可参考CustomItemsMod示例。 |
@@ -1628,6 +1726,7 @@ ______________________________________________________________________
 | SetExtraUniformValue | 客户端 | 设置shader中特定Uniform的值 |
 | SetFreeModelAniSpeed | 客户端 | 设置自由模型动画的播放速度 |
 | SetFreeModelBoundingBox | 客户端 | 设置自由模型的包围盒 |
+| SetFreeModelDimensionId | 客户端 | 设置自由模型的维度归属 |
 | SetFreeModelPos | 客户端 | 设置自由模型的位置 |
 | SetFreeModelRot | 客户端 | 设置自由模型的方向 |
 | SetFreeModelScale | 客户端 | 设置自由模型的大小 |
@@ -1748,7 +1847,7 @@ ______________________________________________________________________
 | ChangeBindAutoScale | 客户端 | 设置已绑定实体的UI是否根据绑定实体与本地玩家间的距离动态缩放，**只对已绑定实体的UI界面生效，如何将UI与实体绑定详见CreateUI接口** |
 | ChangeBindEntityId | 客户端 | 修改绑定的实体id，**只对已绑定实体的UI界面生效，如何将UI与实体绑定详见CreateUI接口** |
 | ChangeBindOffset | 客户端 | 修改与绑定实体之间的偏移量，**只对已绑定实体的UI界面生效，如何将UI与实体绑定详见CreateUI接口** |
-| Clone | 客户端 | 克隆一个已有的控件，修改它的名称，并将它挂接到指定的父节点上，目前文本、图片、按钮控件的克隆控件表现正常，其他复杂控件的克隆控件可能存在运行问题，建议在json编写的过程中，手动一份对应控件使用。 |
+| Clone | 客户端 | 克隆一个已有的控件，修改它的名称，并将它挂接到指定的父节点上，目前文本、图片、按钮控件的克隆控件表现正常，其他复杂控件的克隆控件可能存在运行问题，建议在json编写的过程中，手动复制一份对应控件使用。 |
 | Create | 客户端 | UI生命周期函数，当UI创建成功时调用。 |
 | CreateChildControl | 客户端 | 在当前画布中创建子控件，如果该子控件已经存在则返回已存在的子控件 |
 | Destroy | 客户端 | UI生命周期函数，当UI销毁时调用。 |
@@ -2168,11 +2267,20 @@ ______________________________________________________________________
 
 | 接口 | | 描述 |
 | --- | --- | --- |
+| GetHostPlayerUid | 服务端 | 获取当前联机大厅房主的uid，非联机大厅时返回空字符串 |
+| GetPlayerRoomId | 服务端 | 异步获取uid对应的玩家所在的房间id，非联机大厅时回调返回None |
 | GetPlayerUid | 服务端 | 获取玩家的uid。只有在线玩家才可获取 |
+| GetRoomInfo | 服务端 | 获取当前所在联机大厅的房间信息，非联机大厅时返回None |
+| GetRoomMeta | 服务端 | 异步获取指定房间的所有元数据。非联机大厅时返回False |
+| KickPlayer | 服务端 | 踢出玩家，可传入自定义提示信息在客户端断线提示中展示，非联机大厅时返回False |
+| KickPlayerByUid | 服务端 | 通过uid踢出玩家，可传入自定义提示信息。 |
 | LobbyGetStorage | 服务端 | 获取存储的数据。仅联机大厅可用 |
 | LobbyGetStorageBySort | 服务端 | 排序获取存储的数据。仅联机大厅可用 |
 | LobbySetStorageAndUserItem | 服务端 | 设置订单已发货或者存数据。仅联机大厅可用 |
 | QueryLobbyUserItem | 服务端 | 查询还没发货的订单。仅联机大厅可用 |
+| SetRoomMeta | 服务端 | 设置当前联机大厅房间的元数据，房间关闭时清除数据。非联机大厅返回False |
+| TransferRoomHost | 服务端 | 将联机大厅房主转移给指定在线玩家。仅联机大厅可用，且目标玩家必须在线。 |
+| TransferRoomHostByUid | 服务端 | 通过uid将联机大厅房主转移给指定在线玩家。仅联机大厅可用，且目标玩家必须在线。 |
 
 #### 成就
 

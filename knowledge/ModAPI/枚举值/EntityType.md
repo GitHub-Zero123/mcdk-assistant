@@ -168,6 +168,10 @@ class EntityType(object):
 	Creaking = 146 | Monster						# 嘎枝
 	HappyGhast = 147 | Animal						# 快乐恶魂
 	CopperGolem = 148 | PathfinderMob				# 铜傀儡
+	Nautilus = 149 | WaterAnimal					# 鹦鹉螺
+	ZombieNautilus = 150 | WaterAnimal | UndeadMob	# 僵尸鹦鹉螺
+	Parched = 151 | SkeletonMonster				# 焦骷髅
+	CamelHusk = 152 | UndeadMob					# 骆驼尸傀
 	CustomProjectile = 254 | Projectile				# 自定义抛射物
 	EntityExtension = 255							# 实体扩展
 	MAX_ENTITY_ID = 256								# 最大实体ID

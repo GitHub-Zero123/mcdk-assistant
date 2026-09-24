@@ -3374,7 +3374,7 @@ method in mod.client.ui.controls.selectionWheelUIControl.SelectionWheelUIControl
 
 | 参数名 | 数据类型 | 说明 |
 | --- | --- | --- |
-| index | int | 轮盘选择的切片的index，取值范围为 [-1, GetSliceCount() - 1]，-1表示轮盘无选择 |
+| index | int | 轮盘选择的切片的index，取值范围为 `[-1, GetSliceCount() - 1]`，-1表示轮盘无选择 |
 
 - 返回值
 

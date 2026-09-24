@@ -22,6 +22,7 @@ class EnchantSlotType(object):
 	SPEAR = 32768				# 三叉戟
 	CROSSBOW = 65536			# 弩
 	HEAVY_WEAPON = 4194304		# 重锤
+	MELEE_SPEAR = 8388608		# 近战长矛
 
 	# tool group
 	G_TOOL = 131520				# 剪刀、打火石、盾

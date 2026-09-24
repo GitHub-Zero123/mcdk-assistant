@@ -60,7 +60,6 @@ method in mod.client.component.queryVariableCompClient.QueryVariableComponentCli
 - 备注
 
   - ```
-
     本接口执行时没有渲染上下文，某些molang无法通过该种方式获取到正确的值，如query.actor_count【获取最近一帧渲染实体数量】 会永远返回0。
     ```
 
