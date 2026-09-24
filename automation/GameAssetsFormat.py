@@ -31,6 +31,7 @@ KEEP_FILENAMES = {
 # 要无条件删除的生成型清单文件（大小写敏感）；优先级高于保留规则
 DELETE_FILENAMES = {
     "contents.json",
+    "test.txt"
 }
 
 # 视为 JSON 内容、需要格式化的后缀（小写）
