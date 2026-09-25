@@ -4151,7 +4151,7 @@ List of all Block Traits and the BlockStates they include.
 | Name | Type | Default Value | Description |
 | --- | --- | --- | --- |
 | minecraft:cardinal_direction | String | north, south, east, west | Defines the cardinal placement direction of a block. |
-| minecraft:corner_and_cardinal_direction | String | Enables the states "minecraft:corner" (none, inner_left, inner_right, outer_left, outer_right) and "minecraft:cardinal_direction" (north, south, east, west | Defines the cardinal placement direction of a block and enables corner connection behavior. Requires the Beta APIs experimental toggle to be enabled. |
+| minecraft:corner_and_cardinal_direction | String | Enables the states "minecraft:corner" (none, inner_left, inner_right, outer_left, outer_right) and "minecraft:cardinal_direction" (north, south, east, west) | Defines the cardinal placement direction of a block and enables corner connection behavior. Requires the Beta APIs experimental toggle to be enabled. |
 | minecraft:facing_direction | String | down, up, north, south, east, west | Defines all placement directions of a block. |
 
 
