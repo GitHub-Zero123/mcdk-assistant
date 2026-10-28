@@ -1,4 +1,4 @@
-export const scopes = ["all", "api", "event", "enum", "wiki", "dev", "qumod", "netease"] as const;
+export const scopes = ["all", "api", "event", "enum", "wiki", "dev", "qumod", "netease", "shader"] as const;
 export const assetScopes = ["all", "bp", "rp"] as const;
 
 export type SearchScope = (typeof scopes)[number];

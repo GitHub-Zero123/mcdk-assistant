@@ -102,10 +102,10 @@ stdio 模式必须保持 `stdout` 只承载 JSON-RPC。`main.cpp` 在任何普�
 
 ### 5.1 资料切片与分词
 
-`SearchService` 将资料分为 7 个文档分类和 2 个 GameAssets 分类：
+`SearchService` 将资料分为 8 个文档分类和 2 个 GameAssets 分类：
 
 ```text
-API, Event, Enum, Wiki, QuMod, NeteaseGuide, BedrockDev
+API, Event, Enum, Wiki, QuMod, NeteaseGuide, BedrockDev, ShaderSDK
 GameAssets/BP, GameAssets/RP
 ```
 
@@ -124,7 +124,9 @@ Markdown 在二至四级标题处切片，每个 `DocFragment` 保存正文、�
 
 参数固定为 `K1 = 1.5`、`B = 0.75`。查询只为倒排表命中的文档稀疏累积分数，返回数量受限时使用 `partial_sort`。对极高频、低信息量词会限制 posting 扫描量和候选累计量；这是明确的性能换召回率策略，调整阈值时必须做搜索准确率回归，而不能只测耗时。
 
-## 6. v7 通用缓存：section seek、分块解析与压缩
+## 6. v8 通用缓存：section seek、分块解析与压缩
+
+v8 新增 ShaderSDK 分类段，GameAssets 段编号顺延。v7 缓存需要用新版 `mcdk-index-compiler` 重建；发布时应同步更新程序和缓存文件。
 
 实现位于 `search/index_cache.hpp`。这里的“随机读取”是 **section 级 seek**：读取器能直接跳到某个资料分类，但单个 section 内没有块偏移表，仍按块顺序解码。因此当前格式不支持 section 内任意块的随机访问。
 
@@ -133,11 +135,11 @@ Markdown 在二至四级标题处切片，每个 `DocFragment` 保存正文、�
 ```text
 +----------------------+-----------------------------------------------+
 | Header               | magic[8] = "MCDKIDX\0"                       |
-|                      | version u32 = 7                               |
+|                      | version u32 = 8                               |
 |                      | fingerprint = length u32 + bytes              |
-|                      | section_count u32 = 9                         |
+|                      | section_count u32 = 10                         |
 +----------------------+-----------------------------------------------+
-| Section table        | 9 x SectionInfo                               |
+| Section table        | 10 x SectionInfo                               |
 |                      | kind u32                                      |
 |                      | offset u64       encoded data start           |
 |                      | length u64       encoded byte length          |

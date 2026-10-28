@@ -3,6 +3,15 @@ project(mcdk-tests LANGUAGES CXX)
 
 add_executable(search_test search_test.cpp)
 
+add_executable(shadersdk_search_test shadersdk_search_test.cpp)
+target_include_directories(shadersdk_search_test PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../src)
+target_compile_features(shadersdk_search_test PRIVATE cxx_std_20)
+target_link_libraries(shadersdk_search_test PRIVATE cppjieba zstd nlohmann_json::nlohmann_json)
+target_compile_definitions(shadersdk_search_test PRIVATE MCDK_DICTS_DIR="${CMAKE_CURRENT_SOURCE_DIR}/../dicts")
+if(MSVC)
+    target_compile_options(shadersdk_search_test PRIVATE /utf-8 /EHsc)
+endif()
+
 add_executable(python_analysis_test
     python_analysis_test.cpp
     ../src/project_analysis/project_analyzer.cpp

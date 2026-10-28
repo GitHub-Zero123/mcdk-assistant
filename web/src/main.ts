@@ -59,6 +59,7 @@ const scopeLabels: Record<RailScope, string> = {
   dev: "Bedrock Dev",
   qumod: "QuMod",
   netease: "网易教程",
+  shader: "ShaderSDK",
   asset: "全部资产",
   "asset-bp": "行为包",
   "asset-rp": "资源包",
@@ -72,6 +73,7 @@ const sourceLabels: Record<Source, string> = {
   dev: "Bedrock Dev",
   qumod: "QuMod",
   netease: "网易教程",
+  shader: "ShaderSDK",
   asset: "游戏资产",
   other: "其他",
 };

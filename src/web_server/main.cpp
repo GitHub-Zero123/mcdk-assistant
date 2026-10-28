@@ -179,6 +179,7 @@ std::string extract_title(const mcdk::DocFragment& fragment) {
 
 std::string source_from_path(const std::string& path) {
     if (path.rfind("GameAssets/", 0) == 0 || path.find("/GameAssets/") != std::string::npos) return "asset";
+    if (path.rfind("ShaderSDK/", 0) == 0 || path.find("/ShaderSDK/") != std::string::npos) return "shader";
     if (path.rfind("NeteaseGuide/", 0) == 0 || path.find("/NeteaseGuide/") != std::string::npos) return "netease";
     if (path.rfind("QuModDocs/", 0) == 0 || path.find("/QuModDocs/") != std::string::npos) return "qumod";
     if (path.rfind("BedrockDev/", 0) == 0 || path.find("/BedrockDev/") != std::string::npos) return "dev";
@@ -209,6 +210,7 @@ std::optional<SearchMethod> search_method(const std::string& scope) {
     if (scope == "dev") return &mcdk::SearchService::search_bedrock_dev;
     if (scope == "qumod") return &mcdk::SearchService::search_qumod;
     if (scope == "netease") return &mcdk::SearchService::search_netease_guide;
+    if (scope == "shader") return &mcdk::SearchService::search_shader_sdk;
     return std::nullopt;
 }
 
@@ -239,7 +241,7 @@ void register_api(httplib::Server& server, mcdk::SearchService& search) {
             {"version", 1},
             {"documents", search.doc_count()},
             {"assets", search.game_assets_count()},
-            {"scopes", json::array({"all", "api", "event", "enum", "wiki", "dev", "qumod", "netease"})},
+            {"scopes", json::array({"all", "api", "event", "enum", "wiki", "dev", "qumod", "netease", "shader"})},
             {"asset_scopes", json::array({"all", "bp", "rp"})}
         });
     });

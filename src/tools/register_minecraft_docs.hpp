@@ -40,6 +40,7 @@ inline SearchFn search_fn_for_scope(const std::string& scope) {
         {"dev",     &SearchService::search_bedrock_dev},
         {"qumod",   &SearchService::search_qumod},
         {"netease", &SearchService::search_netease_guide},
+        {"shader",  &SearchService::search_shader_sdk},
     };
     auto it = kMap.find(scope);
     return it != kMap.end() ? it->second : nullptr;
@@ -51,6 +52,8 @@ inline std::string canonical_scope(std::string scope) {
         return "dev";
     if (scope == "netease-guide" || scope == "netease_guide" || scope == "guide")
         return "netease";
+    if (scope == "shadersdk" || scope == "shader-sdk" || scope == "renderdragon")
+        return "shader";
     return scope;
 }
 
@@ -218,6 +221,12 @@ inline std::string minecraft_docs_help_text(bool with_solutions = false) {
   MC Addon 的资源与定义（identifier / 贴图·音效等资源路径 / JSON UI namespace / 动画·控制器名等）是全局路由、无天然隔离；不同项目撞名会互相覆盖冲突。开发时统一按项目加命名空间前缀，并把资源放进项目独立子目录/路径，避免与原版或其他 Mod 冲突。
   架构与可维护性优先：用封装的数据类/结构体承载数据，别滥用 dict 到处传散字段；函数参数变多就聚成 class/配置对象，别让签名越拉越长；按职责拆分模块与类。单文件别堆几千行——超过约 1000 行就该警惕、1500 行以上通常已是需要拆分的信号。写"能长期维护"的代码，而非一次性堆砌。
 
+【ShaderSDK / 渲染龙开发引导】
+  渲染龙在网易 3.10 正式版中加入 Addon 解析，材质 bin 加载路径为 RP/materials/bins/Actor.material.bin。
+  开发工程时建议在工程配置中编译全平台兼容的 bin 文件，避免只编译当前平台导致其他平台无法使用。
+  遇到 ShaderSDK、RenderDragon、CSS 或渲染龙材质开发时，先用 shader <关键词> 检索，再用 read 读取文档。
+  入门可用 read ShaderSDK/README.md；官方 API 以 ShaderSDK/0-概述.md 和 API参考/ 下文档为准。
+
 【类型注解建议】
  网易Python版本较低不支持高版本的a: T显性写法，推荐使用 # type: T 或者函数下的 # type: (T1, T2) -> R 注解写法。
  此类写法由编辑器/IDE静态分析推理因此直接写 # type: list[str | int] 这种高版本标准也是可以的并且推荐这么做无额外import依赖
@@ -236,6 +245,7 @@ inline std::string minecraft_docs_help_text(bool with_solutions = false) {
   enum <关键词...> [--top <n>]       ModAPI 枚举值文档
   wiki <关键词...> [--top <n>]       Bedrock Wiki（英文关键词）
   dev <关键词...> [--top <n>]        bedrock.dev 官方格式文档 1.21.90（schema/组件属性）
+  shader <关键词...> [--top <n>]     ShaderSDK 渲染龙系列（别名 shadersdk / shader-sdk / renderdragon）
   qumod <关键词...> [--top <n>]      QuModLibs 框架库文档
   netease <关键词...> [--top <n>]    网易MC独占教学资料。
                                      注意: diff 和 jsonui 是保留词 —— 当关键词仅为 "diff" 或 "jsonui"
@@ -243,12 +253,13 @@ inline std::string minecraft_docs_help_text(bool with_solutions = false) {
                                      如确实想搜含 diff/jsonui 的文档，加其他词，如 netease 差异 兼容。
   assets <关键词...> [--top <n>] [--assets <0|1|2>] [--bp|--rp]
                                      原版游戏资产（文件名+内容模糊匹配）；0=全部，1/--bp=行为包，2/--rp=资源包
-  all <关键词...> [--top <n>]        全部文档（ModAPI / Wiki / QuMod / 网易教程 / BedrockDev），不搜索游戏资产。
+  all <关键词...> [--top <n>]        全部文档（ModAPI / Wiki / QuMod / 网易教程 / BedrockDev / ShaderSDK），不搜索游戏资产。
                                      跨库混合、噪音最多，故列在最后：已知资料属于哪一类时请直接用上面的具体分区，
                                      只有在确实判断不出类别时才用 all。
   示例:
     wiki minecraft:food --top 8
     api ListenForEvent
+    shader StandardSurfaceOutput
     dev minecraft:entity
     netease json ui          （多词，走搜索，匹配含"json ui"的网易文档）
     netease diff             （单词保留词，走速查）
@@ -526,7 +537,7 @@ inline void register_minecraft_docs_tools(mcp::server& srv, SearchService& searc
 
     std::string description =
         "Minecraft 基岩版 Addon/Mod 资料和文档统一入口（网易版/国际版通用）："
-        "文档检索（ModAPI/Wiki/QuMod/BedrockDev/网易教程）、原版资源搜索、"
+        "文档检索（ModAPI/Wiki/QuMod/BedrockDev/网易教程/ShaderSDK 渲染龙）、原版资源搜索、"
         "原版 ModSDK 架构速查、网易版差异速查、知识库文件读取。采用命令式用法，"
         "与其他命令式工具不同：命令的第一个词是「资料分区名」而不是动作词，"
         "该工具没有 search/find/query 子命令，检索直接写 '<分区> <关键词>'，如 'api ListenForEvent'。"

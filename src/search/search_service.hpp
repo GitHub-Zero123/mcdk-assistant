@@ -31,7 +31,7 @@ inline std::string fs_to_ansi(const std::filesystem::path& path) {
     return path.string();
 }
 
-enum class DocCategory { Unknown, API, Event, Enum, Beta, Wiki, BedrockDev, QuMod, NeteaseGuide };
+enum class DocCategory { Unknown, API, Event, Enum, Beta, Wiki, BedrockDev, QuMod, NeteaseGuide, ShaderSDK };
 
 class SearchService {
 public:
@@ -85,6 +85,10 @@ public:
         ensure_category_loaded(IndexCache::SECTION_NETEASE_GUIDE);
         return search_category_flexible(netease_guide_index_, keyword, top_k, SearchMode::Auto);
     }
+    std::vector<SearchResult> search_shader_sdk(const std::string& keyword, int top_k = -1) const {
+        ensure_category_loaded(IndexCache::SECTION_SHADER_SDK);
+        return search_category_flexible(shader_sdk_index_, keyword, top_k, SearchMode::Auto);
+    }
     std::vector<SearchResult> search_all(const std::string& keyword, int top_k = -1) const {
         // 聚合搜索必须限制每个分区的候选数，否则高频词会把所有分区全量结果拼接，
         // 导致响应体过大甚至表现为无响应。
@@ -97,9 +101,10 @@ public:
         auto e = search_qumod(keyword, per_bucket_k);
         auto f = search_netease_guide(keyword, per_bucket_k);
         auto g = search_bedrock_dev(keyword, per_bucket_k);
+        auto h = search_shader_sdk(keyword, per_bucket_k);
 
         std::vector<SearchResult> merged;
-        merged.reserve(a.size() + b.size() + c.size() + d.size() + e.size() + f.size() + g.size());
+        merged.reserve(a.size() + b.size() + c.size() + d.size() + e.size() + f.size() + g.size() + h.size());
         merged.insert(merged.end(), a.begin(), a.end());
         merged.insert(merged.end(), b.begin(), b.end());
         merged.insert(merged.end(), c.begin(), c.end());
@@ -107,6 +112,7 @@ public:
         merged.insert(merged.end(), e.begin(), e.end());
         merged.insert(merged.end(), f.begin(), f.end());
         merged.insert(merged.end(), g.begin(), g.end());
+        merged.insert(merged.end(), h.begin(), h.end());
 
         std::sort(merged.begin(), merged.end(), [](const SearchResult& x, const SearchResult& y) {
             return x.score != y.score ? x.score > y.score : x.fragment->file < y.fragment->file;
@@ -132,7 +138,7 @@ public:
         if (lazy_cache_mode_) {
             size_t count = 0;
             for (uint32_t kind = IndexCache::SECTION_API;
-                 kind <= IndexCache::SECTION_BEDROCK_DEV;
+                 kind <= IndexCache::SECTION_SHADER_SDK;
                  ++kind) {
                 count += manifest_item_count(kind);
             }
@@ -141,7 +147,7 @@ public:
         return api_index_.engine.doc_count() + event_index_.engine.doc_count()
              + enum_index_.engine.doc_count() + wiki_index_.engine.doc_count()
              + bedrockdev_index_.engine.doc_count()
-             + qumod_index_.engine.doc_count() + netease_guide_index_.engine.doc_count();
+             + qumod_index_.engine.doc_count() + netease_guide_index_.engine.doc_count() + shader_sdk_index_.engine.doc_count();
     }
 
     struct FileReadResult {
@@ -172,6 +178,7 @@ public:
         if (category_section_loaded(IndexCache::SECTION_BEDROCK_DEV)) collect(bedrockdev_index_);
         if (category_section_loaded(IndexCache::SECTION_QUMOD)) collect(qumod_index_);
         if (category_section_loaded(IndexCache::SECTION_NETEASE_GUIDE)) collect(netease_guide_index_);
+        if (category_section_loaded(IndexCache::SECTION_SHADER_SDK)) collect(shader_sdk_index_);
 
         auto collect_ga = [&](const GameAssetIndex& idx) {
             for (const auto& frag : idx.fragments) {
@@ -243,6 +250,7 @@ public:
         if (category_section_loaded(IndexCache::SECTION_BEDROCK_DEV)) collect(bedrockdev_index_.fragments);
         if (category_section_loaded(IndexCache::SECTION_QUMOD)) collect(qumod_index_.fragments);
         if (category_section_loaded(IndexCache::SECTION_NETEASE_GUIDE)) collect(netease_guide_index_.fragments);
+        if (category_section_loaded(IndexCache::SECTION_SHADER_SDK)) collect(shader_sdk_index_.fragments);
         if (game_asset_section_loaded(IndexCache::SECTION_GAME_ASSETS_BP)) collect(game_assets_bp_.fragments);
         if (game_asset_section_loaded(IndexCache::SECTION_GAME_ASSETS_RP)) collect(game_assets_rp_.fragments);
 
@@ -499,6 +507,7 @@ private:
     mutable CategoryIndex           bedrockdev_index_;
     mutable CategoryIndex           qumod_index_;
     mutable CategoryIndex           netease_guide_index_;
+    mutable CategoryIndex           shader_sdk_index_;
     mutable GameAssetIndex          game_assets_bp_;
     mutable GameAssetIndex          game_assets_rp_;
     mutable std::vector<EventKeywordEntry> event_keyword_entries_;
@@ -557,6 +566,7 @@ private:
             free_td(wiki_index_);
             free_td(qumod_index_);
             free_td(netease_guide_index_);
+            free_td(shader_sdk_index_);
             free_td(bedrockdev_index_);
             auto free_td_ga = [](GameAssetIndex& idx) {
                 std::vector<std::vector<std::string>>().swap(idx.tokenized_docs);
@@ -604,6 +614,7 @@ private:
         case DocCategory::BedrockDev:   return IndexCache::SECTION_BEDROCK_DEV;
         case DocCategory::QuMod:        return IndexCache::SECTION_QUMOD;
         case DocCategory::NeteaseGuide: return IndexCache::SECTION_NETEASE_GUIDE;
+        case DocCategory::ShaderSDK:    return IndexCache::SECTION_SHADER_SDK;
         default:                        return 0;
         }
     }
@@ -616,6 +627,7 @@ private:
         case IndexCache::SECTION_WIKI:          return wiki_index_;
         case IndexCache::SECTION_QUMOD:         return qumod_index_;
         case IndexCache::SECTION_NETEASE_GUIDE: return netease_guide_index_;
+        case IndexCache::SECTION_SHADER_SDK:    return shader_sdk_index_;
         case IndexCache::SECTION_BEDROCK_DEV:   return bedrockdev_index_;
         default: throw std::logic_error("invalid category section");
         }
@@ -713,7 +725,7 @@ private:
         }
 
         for (uint32_t kind = IndexCache::SECTION_API;
-             kind <= IndexCache::SECTION_BEDROCK_DEV;
+             kind <= IndexCache::SECTION_SHADER_SDK;
              ++kind) {
             ensure_category_loaded(kind);
         }
@@ -742,6 +754,7 @@ private:
             {&qumod_index_.fragments,         &qumod_index_.engine},
             {&netease_guide_index_.fragments, &netease_guide_index_.engine},
             {&bedrockdev_index_.fragments,    &bedrockdev_index_.engine},
+            {&shader_sdk_index_.fragments,    &shader_sdk_index_.engine},
         };
 
         std::vector<IndexCache::GameIndexRef> ga_refs = {
@@ -763,6 +776,7 @@ private:
         free_tokenized(wiki_index_);
         free_tokenized(qumod_index_);
         free_tokenized(netease_guide_index_);
+        free_tokenized(shader_sdk_index_);
         free_tokenized(bedrockdev_index_);
 
         auto free_tokenized_ga = [](GameAssetIndex& idx) {
@@ -1101,6 +1115,7 @@ private:
         rebuild_identifier_entries(enum_index_);
         rebuild_identifier_entries(qumod_index_);
         rebuild_identifier_entries(netease_guide_index_);
+        rebuild_identifier_entries(shader_sdk_index_);
     }
 
     static void normalize_tokens(std::vector<std::string>& tokens) {
@@ -1113,6 +1128,8 @@ private:
 
     // ── 文件分类 ──
     static DocCategory classify_path(const std::string& rel_path) {
+        if (rel_path == "ShaderSDK" || rel_path.find("ShaderSDK/") == 0 || rel_path.find("/ShaderSDK/") != std::string::npos)
+            return DocCategory::ShaderSDK;
         if (rel_path.find("NeteaseGuide/") == 0 || rel_path.find("/NeteaseGuide/") != std::string::npos)
             return DocCategory::NeteaseGuide;
         if (rel_path.find("QuModDocs/") == 0 || rel_path.find("/QuModDocs/") != std::string::npos)
@@ -1141,6 +1158,7 @@ private:
         case DocCategory::BedrockDev:      return &bedrockdev_index_;
         case DocCategory::QuMod:        return &qumod_index_;
         case DocCategory::NeteaseGuide: return &netease_guide_index_;
+        case DocCategory::ShaderSDK:    return &shader_sdk_index_;
         default:                        return nullptr;
         }
     }
@@ -1316,6 +1334,7 @@ private:
         build_en_parallel(bedrockdev_index_, "BedrockDev");
         build_cn(qumod_index_,            "QuMod");
         build_cn(netease_guide_index_,  "NeteaseGuide");
+        build_cn(shader_sdk_index_,    "ShaderSDK");
         rebuild_cn_identifier_entries();
 
         auto build_ga_parallel = [](GameAssetIndex& idx, const char* name) {

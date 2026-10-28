@@ -23,11 +23,12 @@ inline std::string fs_native_narrow(const std::filesystem::path& path) {
     return path.string();
 }
 
-// 索引缓存文件格式 (v7):
+// 索引缓存文件格式 (v8):
 // [magic: 8B] [version: 4B] [fingerprint] [section count: 4B] [section table] [section data...]
 // 每个分类都是独立 section，运行时先读目录，再按需 seek 并恢复对应索引。
 // tokenized_docs 只在构建期使用，不写入运行时缓存。
 //
+// v8 新增 ShaderSDK 分类段，后续 GameAssets 段编号顺延，旧缓存需要重建。
 // v7 相比 v6：section 表增加 codec / level / raw_length 三个字段，段数据按
 // COMPRESS_BLOCK 切块，每块压成一个独立 zstd 帧。因为 zstd 帧是自描述的，解码侧
 // 并不需要知道 level —— 它只作为诊断信息记录，所以后续调整压缩等级不必提升
@@ -36,7 +37,7 @@ inline std::string fs_native_narrow(const std::filesystem::path& path) {
 class IndexCache {
 public:
     static constexpr char     MAGIC[8] = {'M','C','D','K','I','D','X','\0'};
-    static constexpr uint32_t VERSION  = 7;
+    static constexpr uint32_t VERSION  = 8;
 
     enum SectionCodec : uint32_t {
         CODEC_RAW  = 0,  // 段数据原样存储
@@ -60,11 +61,12 @@ public:
         SECTION_QUMOD,
         SECTION_NETEASE_GUIDE,
         SECTION_BEDROCK_DEV,
+        SECTION_SHADER_SDK,
         SECTION_GAME_ASSETS_BP,
         SECTION_GAME_ASSETS_RP,
     };
 
-    static constexpr uint32_t CATEGORY_SECTION_COUNT = 7;
+    static constexpr uint32_t CATEGORY_SECTION_COUNT = 8;
     static constexpr uint32_t GAME_ASSET_SECTION_COUNT = 2;
 
     struct SectionInfo {
@@ -94,7 +96,7 @@ public:
     static std::string compute_fingerprint(const std::filesystem::path& knowledge_dir) {
         namespace fs = std::filesystem;
         static const char* WATCH[] = {
-            "ModAPI", "BedrockWiki", "BedrockDev", "NeteaseGuide", "QuModDocs",
+            "ModAPI", "BedrockWiki", "BedrockDev", "NeteaseGuide", "QuModDocs", "ShaderSDK",
             "GameAssets/behavior_packs", "GameAssets/resource_packs"
         };
         uint64_t hash = 14695981039346656037ULL;
@@ -533,7 +535,7 @@ public:
                               uint32_t kind,
                               CatData& out) {
         const SectionInfo* section = manifest.find(kind);
-        if (!section || kind < SECTION_API || kind > SECTION_BEDROCK_DEV) return false;
+        if (!section || kind < SECTION_API || kind > SECTION_SHADER_SDK) return false;
 
         FILE* fp = open_section(cache_path, manifest, *section);
         if (!fp) return false;
